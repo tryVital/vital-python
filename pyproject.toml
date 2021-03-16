@@ -2,10 +2,13 @@
 name = "vital-python"
 version = "0.1.0"
 description = ""
-authors = ["maitham <maithamdib@gmail.com>"]
+authors = ["maitham <maitham@tryvital.io>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+auth0-python = "^3.14.0"
+PyJWT = "^2.0.1"
+arrow = "^1.0.3"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
