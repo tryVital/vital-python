@@ -19,6 +19,7 @@ class Client:
         environment=None,
         timeout=DEFAULT_TIMEOUT,
         api_version="v1",
+        **kwargs,
     ):
         """
         Initialize a client with credentials.
@@ -32,8 +33,14 @@ class Client:
         self.environment = environment
         self.timeout = timeout
         self.api_version = api_version
+        # self.base_url = "https://api." + self.environment + f".tryvital.io"
+        self.base_url = "http://localhost:8000"
         self.token_handler = TokenHandler(
-            self.client_id, self.client_secret, self.environment
+            self.client_id,
+            self.client_secret,
+            self.environment,
+            audience=kwargs.get("audience"),
+            domain=kwargs.get("domain"),
         )
         # Mirror the HTTP API hierarchy
         self.LinkToken = LinkToken(self)
@@ -58,8 +65,8 @@ class Client:
         headers = {"Authorization": f"Bearer {self.token_handler.access_token}"}
         return post_request(
             urljoin(
-                "https://api." + self.environment + f".tryvital.io/{self.api_version}",
-                path,
+                self.base_url,
+                f"{self.api_version}{path}",
             ),
             data=data,
             timeout=self.timeout,
@@ -71,8 +78,8 @@ class Client:
         headers = {"Authorization": f"Bearer {self.token_handler.access_token}"}
         return get_request(
             urljoin(
-                "https://api." + self.environment + f".tryvital.io/{self.api_version}",
-                path,
+               self.base_url,
+                f"{self.api_version}{path}",
             ),
             timeout=self.timeout,
             headers=headers,

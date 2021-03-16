@@ -4,7 +4,7 @@ from functools import partial
 import requests
 
 from vital.errors import VitalError
-from vital import __version__
+from vital.version import __version__
 
 
 ALLOWED_METHODS = {"post", "get"}
@@ -22,7 +22,10 @@ def _requests_http_request(url, method, data, headers, timeout=DEFAULT_TIMEOUT):
     headers.update({"User-Agent": "Vital Python v{}".format(__version__)})
     if normalized_method in ALLOWED_METHODS:
         return getattr(requests, normalized_method)(
-            url, json=data, headers=headers, timeout=timeout,
+            url,
+            json=data,
+            headers=headers,
+            timeout=timeout,
         )
     else:
         raise Exception("Invalid request method {}".format(method))

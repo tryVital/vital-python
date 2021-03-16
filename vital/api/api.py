@@ -1,8 +1,5 @@
-from vital.client import Client
-
-
-class API(object):
+class API:
     """Base class for classes containing groups of API endpoints."""
 
-    def __init__(self, client: Client):
+    def __init__(self, client):
         self.client = client

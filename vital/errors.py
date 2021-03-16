@@ -1,6 +1,10 @@
 class BaseError(Exception):
     def __init__(
-        self, message, type, code, display_message,
+        self,
+        message,
+        type,
+        code,
+        display_message,
     ):
         super(BaseError, self).__init__(message)
 
@@ -16,10 +20,19 @@ class BaseError(Exception):
 
 class VitalError(BaseError):
     def __init__(
-        self, message, type, code, display_message, request_id="", causes=None,
+        self,
+        message,
+        type,
+        code,
+        display_message,
+        request_id="",
+        causes=None,
     ):
         super(VitalError, self).__init__(
-            message, type, code, display_message,
+            message,
+            type,
+            code,
+            display_message,
         )
         self.request_id = request_id
         self.causes = [
@@ -52,10 +65,18 @@ class VitalError(BaseError):
 
 class VitalCause(BaseError):
     def __init__(
-        self, message, type, code, display_message, item_id,
+        self,
+        message,
+        type,
+        code,
+        display_message,
+        item_id,
     ):
         super(VitalCause, self).__init__(
-            message, type, code, display_message,
+            message,
+            type,
+            code,
+            display_message,
         )
         self.item_id = item_id
 

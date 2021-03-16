@@ -1,14 +1,28 @@
 [tool.poetry]
-name = "vital-python"
-version = "0.1.0"
+name = "vital"
+version = "0.2.0"
 description = ""
 authors = ["maitham <maitham@tryvital.io>"]
+license = "GNU"
+readme = "README.rst"
+homepage = "https://github.com/adeptlabs/vital-python"
+repository = "https://github.com/adeptlabs/vital-python"
+keywords = ["vital", "tryvital", "python"]
+classifiers = [
+    "Environment :: Console",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Documentation",
+]
+include = [
+    "LICENSE",
+]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-auth0-python = "^3.14.0"
 PyJWT = "^2.0.1"
-arrow = "^1.0.3"
+arrow = "*"
+auth0-python = "*"
+requests = "*"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
