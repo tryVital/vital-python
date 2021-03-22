@@ -1,12 +1,14 @@
-from typing import Any
+from typing import List, Mapping
+
 from vital.api.api import API
-from typing import Mapping
 
 
 class Activity(API):
     """Endpoints for getting activity data."""
 
-    def get(self, user_id: str, start_date: str, end_date: str):
+    def get(
+        self, user_id: str, start_date: str, end_date: str
+    ) -> Mapping[str, List[Mapping]]:
         """
         Create a Link token.
         :param dict configs: A required dictionary to configure the Link token.
