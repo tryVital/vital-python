@@ -20,11 +20,11 @@ client = Client(client_id='***', secret='***', environment='sandbox')
 # Supported Endpoints
 
 ```
-client.LinkToken.create(client_user_id="test_id")
-client.Body.get(user_id=**,start_date="2020-01-01", end_date="2020-10-10")
-client.Activity.get(user_id=**,start_date="2020-01-01", end_date="2020-10-10")
-client.Sleep.get(user_id=**,start_date="2020-01-01", end_date="2020-10-10")
-client.SourceSpecific.get(user_id=**,start_date="2020-01-01", end_date="2020-10-10")
+client.LinkToken.create(user_key="user_key")
+client.Body.get(user_key=**,start_date="2020-01-01", end_date="2020-10-10")
+client.Activity.get(user_key=**,start_date="2020-01-01", end_date="2020-10-10")
+client.Sleep.get(user_key=**,start_date="2020-01-01", end_date="2020-10-10")
+client.SourceSpecific.get(user_key=**,start_date="2020-01-01", end_date="2020-10-10")
 client.User.create(client_user_id=**)
 client.User.providers(user_key=**)
 ```

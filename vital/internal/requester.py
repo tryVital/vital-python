@@ -51,13 +51,13 @@ def _http_request(
                     "error_message": response.text,
                     "error_type": "API_ERROR",
                     "error_code": "INTERNAL_SERVER_ERROR",
-                    "display_message": None,
-                    "request_id": "",
                     "causes": [],
                 }
             )
-        if response_body.get("error_type"):
-            raise VitalError.from_response(response_body)
+        if not response.ok:
+            raise VitalError.from_response(
+                response_body.get("detail"), response.status_code
+            )
         else:
             return response_body
     else:

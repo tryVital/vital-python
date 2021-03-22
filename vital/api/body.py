@@ -7,11 +7,11 @@ class Body(API):
     """Endpoints for geetting body data."""
 
     def get(
-        self, user_id: str, start_date: str, end_date: str
+        self, user_key: str, start_date: str, end_date: str
     ) -> Mapping[str, List[Mapping]]:
         """
         GET Body data.
         """
         return self.client.get(
-            f"/body/{user_id}?start_date={start_date}&end_date={end_date}"
+            f"/body/{user_key}?start_date={start_date}&end_date={end_date}"
         )

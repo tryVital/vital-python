@@ -3,7 +3,7 @@ from typing import Any, Mapping
 from vital.api.api import API
 
 link_token_field_names = [
-    "client_user_id",
+    "user_key",
 ]
 
 

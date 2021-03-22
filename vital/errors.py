@@ -1,10 +1,12 @@
+from typing import Any
+
+
 class BaseError(Exception):
     def __init__(
         self,
         message,
         type,
         code,
-        display_message,
     ):
         super(BaseError, self).__init__(message)
 
@@ -15,7 +17,6 @@ class BaseError(Exception):
 
         self.type = type
         self.code = code
-        self.display_message = display_message
 
 
 class VitalError(BaseError):
@@ -24,30 +25,24 @@ class VitalError(BaseError):
         message,
         type,
         code,
-        display_message,
-        request_id="",
         causes=None,
     ):
         super(VitalError, self).__init__(
             message,
             type,
             code,
-            display_message,
         )
-        self.request_id = request_id
         self.causes = [
             VitalCause(
                 cause["error_message"],
                 cause["error_type"],
                 cause["error_code"],
-                cause.get("display_message", ""),
-                cause["item_id"],
             )
             for cause in causes or []
         ]
 
     @staticmethod
-    def from_response(response):
+    def from_response(response: Any, status_code: int):
         """
         Create an error of the right class from an API response.
         :param   response    dict        Response JSON
@@ -56,9 +51,7 @@ class VitalError(BaseError):
         return cls(
             response["error_message"],
             response["error_type"],
-            response["error_code"],
-            response["display_message"],
-            response["request_id"],
+            status_code,
             response.get("causes"),
         )
 
@@ -69,16 +62,12 @@ class VitalCause(BaseError):
         message,
         type,
         code,
-        display_message,
-        item_id,
     ):
         super(VitalCause, self).__init__(
             message,
             type,
             code,
-            display_message,
         )
-        self.item_id = item_id
 
 
 class InvalidRequestError(VitalError):
