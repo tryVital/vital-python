@@ -7,7 +7,7 @@ link_token_field_names = [
 ]
 
 
-class UserKey(API):
+class User(API):
     """Endpoints for managing link tokens."""
 
     def create(self, configs: Mapping[str, Any]) -> Mapping[str, str]:

@@ -1,5 +1,5 @@
 from vital.api import Activity, Body, LinkToken, ProviderSpecific, Sleep
-from vital.api.user_key import UserKey
+from vital.api.user import User
 from vital.internal.requester import DEFAULT_TIMEOUT, get_request, post_request
 from vital.internal.token_handler import TokenHandler
 from vital.internal.utils import urljoin
@@ -48,7 +48,7 @@ class Client:
         self.Activity = Activity(self)
         self.ProviderSpecific = ProviderSpecific(self)
         self.Sleep = Sleep(self)
-        self.UserKey = UserKey(self)
+        self.User = User(self)
 
     def post(self, path, data, is_json=True):
         """Make a post request with client_id and secret key."""
