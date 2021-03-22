@@ -1,8 +1,8 @@
-from auth0.v3.authentication import GetToken
-import jwt
-import arrow
-from typing import Mapping
+from typing import Any, Mapping
 
+import arrow
+import jwt
+from auth0.v3.authentication import GetToken
 
 audiences = {
     "prod": "https://api.tryvital.io",
@@ -26,7 +26,7 @@ class TokenHandler:
         self.domain = f"vital-{env}.us.auth0.com" if not domain else domain
         self._access_token = self.generate_access_token()
 
-    def generate_access_token(self) -> Mapping[str, str]:
+    def generate_access_token(self) -> Mapping[str, Any]:
         get_token = GetToken(self.domain)
         token = get_token.client_credentials(
             self.client_id, self.client_secret, self.audience

@@ -1,7 +1,8 @@
-from vital.api.link_token import LinkToken
-from vital.api.body import Body
 from vital.api.activity import Activity
+from vital.api.body import Body
+from vital.api.link_token import LinkToken
+from vital.api.provider_specific import ProviderSpecific
 from vital.api.sleep import Sleep
-from vital.api.source_specific import SourceSpecific
+from vital.api.user_key import UserKey
 
-__all__ = ["LinkToken", "Body", "Activity", "Sleep", "SourceSpecific"]
+__all__ = ["LinkToken", "Body", "Activity", "Sleep", "ProviderSpecific", "UserKey"]

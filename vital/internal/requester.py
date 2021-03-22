@@ -1,23 +1,24 @@
 import json
 from functools import partial
+from json.decoder import JSONDecodeError
+from typing import Any, Dict, Mapping, Optional
 
 import requests
 
 from vital.errors import VitalError
 from vital.version import __version__
 
-
 ALLOWED_METHODS = {"post", "get"}
 DEFAULT_TIMEOUT = 600  # 10 minutes
 
-try:
-    from json.decoder import JSONDecodeError
-except ImportError:
-    # json parsing throws a ValueError in python2
-    JSONDecodeError = ValueError
 
-
-def _requests_http_request(url, method, data, headers, timeout=DEFAULT_TIMEOUT):
+def _requests_http_request(
+    url: str,
+    method: str,
+    data: Optional[Mapping],
+    headers: Dict,
+    timeout: int = DEFAULT_TIMEOUT,
+) -> Any:
     normalized_method = method.lower()
     headers.update({"User-Agent": "Vital Python v{}".format(__version__)})
     if normalized_method in ALLOWED_METHODS:
@@ -32,8 +33,13 @@ def _requests_http_request(url, method, data, headers, timeout=DEFAULT_TIMEOUT):
 
 
 def _http_request(
-    url, method=None, data=None, headers=None, timeout=DEFAULT_TIMEOUT, is_json=True
-):
+    url: str,
+    method: str,
+    data: Optional[Mapping] = None,
+    headers: Dict = {},
+    timeout: int = DEFAULT_TIMEOUT,
+    is_json: bool = True,
+) -> Any:
     response = _requests_http_request(url, method, data or {}, headers or {}, timeout)
 
     if is_json or response.headers["Content-Type"] == "application/json":

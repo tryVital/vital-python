@@ -1,12 +1,14 @@
-from typing import Any
+from typing import List, Mapping
+
 from vital.api.api import API
-from typing import Mapping
 
 
 class Sleep(API):
     """Endpoints for getting sleep data."""
 
-    def get(self, user_id: str, start_date: str, end_date: str):
+    def get(
+        self, user_id: str, start_date: str, end_date: str
+    ) -> Mapping[str, List[Mapping]]:
         """
         GET Sleep data.
         """
