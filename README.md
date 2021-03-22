@@ -1,6 +1,6 @@
 # vital-python
 
-The official Python Library for [Vital API](docs.tryvital.io)
+The official Python Library for [Vital API](https://docs.tryvital.io)
 
 
 # Install
