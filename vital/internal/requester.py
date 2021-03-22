@@ -52,7 +52,8 @@ def _http_request(
                     "error_type": "API_ERROR",
                     "error_code": "INTERNAL_SERVER_ERROR",
                     "causes": [],
-                }
+                },
+                400,
             )
         if not response.ok:
             raise VitalError.from_response(

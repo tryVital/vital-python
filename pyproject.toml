@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "vital"
-version = "0.2.0"
+version = "0.2.1"
 description = ""
 authors = ["maitham <maitham@tryvital.io>"]
 license = "GNU"
@@ -23,6 +23,7 @@ PyJWT = "^2.0.1"
 arrow = "*"
 auth0-python = "*"
 requests = "*"
+importlib-metadata = "^3.7.3"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

@@ -42,7 +42,7 @@ class VitalError(BaseError):
         ]
 
     @staticmethod
-    def from_response(response: Any, status_code: int):
+    def from_response(response: Any, status_code: int) -> "VitalError":
         """
         Create an error of the right class from an API response.
         :param   response    dict        Response JSON
