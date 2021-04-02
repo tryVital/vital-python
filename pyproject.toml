@@ -1,0 +1,47 @@
+[tool.poetry]
+name = "vital"
+version = "0.2.7"
+description = ""
+authors = ["maitham <maitham@tryvital.io>"]
+license = "GNU"
+readme = "README.md"
+homepage = "https://github.com/adeptlabs/vital-python"
+repository = "https://github.com/adeptlabs/vital-python"
+keywords = ["vital", "tryvital", "python"]
+classifiers = [
+    "Environment :: Console",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Documentation",
+]
+include = [
+    "LICENSE",
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+PyJWT = "^2.0.1"
+arrow = "*"
+auth0-python = "*"
+requests = "*"
+importlib-metadata = "^3.7.3"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+isort = "^5.8.0"
+flake8 = "^3.9.0"
+mypy = "^0.812"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88
+
+[tool.isort]
+multi_line_output=3
+include_trailing_comma=true
+force_grid_wrap=0
+use_parentheses=true
+line_length=88
+ensure_newline_before_comments=true
