@@ -20,11 +20,16 @@ client = Client(client_id='***', secret='***', environment='sandbox')
 # Supported Endpoints
 
 ```
+<!-- Dates have to be url encoded -->
+start_date =  urllib.parse.quote((datetime.now()-timedelta(days=1)).isoformat())
+end_date =  urllib.parse.quote(datetime.now().isoformat())
+
 client.LinkToken.create(user_key="user_key")
-client.Body.get(user_key=**,start_date="2020-01-01", end_date="2020-10-10")
-client.Activity.get(user_key=**,start_date="2020-01-01", end_date="2020-10-10")
-client.Sleep.get(user_key=**,start_date="2020-01-01", end_date="2020-10-10")
-client.SourceSpecific.get(user_key=**,start_date="2020-01-01", end_date="2020-10-10")
+client.Body.get(user_key=**,start_date, end_date)
+client.Activity.get(user_key=**,start_date, end_date)
+client.Sleep.get(user_key=**,start_date, end_date)
+client.SourceSpecific.get(user_key=**,start_date, end_date)
 client.User.create(client_user_id=**)
 client.User.providers(user_key=**)
+client.User.get(client_user_id=**)
 ```
