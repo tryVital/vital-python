@@ -5,6 +5,14 @@ from vital.internal.token_handler import TokenHandler
 from vital.internal.utils import urljoin
 
 
+def get_base_url(environment: str) -> str:
+    if environment == "sandbox":
+        return "https://api." + environment + ".tryvital.io"
+    elif environment == "production" or environment == "prod":
+        return "https://api.tryvital.io"
+    raise Exception("Environment not supported")
+
+
 class Client:
     """
     Python Vital API client.
@@ -33,8 +41,7 @@ class Client:
         self.environment = environment
         self.timeout = timeout
         self.api_version = api_version
-        # self.base_url = "https://api." + self.environment + f".tryvital.io"
-        self.base_url = "http://localhost:8000"
+        self.base_url = get_base_url(environment)
         self.token_handler = TokenHandler(
             self.client_id,
             self.client_secret,
