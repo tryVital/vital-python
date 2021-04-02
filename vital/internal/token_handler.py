@@ -5,8 +5,15 @@ import jwt
 from auth0.v3.authentication import GetToken
 
 audiences = {
+    "production": "https://api.tryvital.io",
     "prod": "https://api.tryvital.io",
     "sandbox": "https://api.sandbox.tryvital.io",
+}
+
+domains = {
+    "production": "auth.tryvital.io",
+    "prod": "auth.tryvital.io",
+    "sandbox": "auth.sandbox.tryvital.io",
 }
 
 
@@ -23,7 +30,7 @@ class TokenHandler:
         self.client_secret = client_secret
         self.env = env
         self.audience = audiences[env] if not audience else audience
-        self.domain = f"vital-{env}.us.auth0.com" if not domain else domain
+        self.domain = domains[env] if not domain else domain
         self._access_token = self.generate_access_token()
 
     def generate_access_token(self) -> Mapping[str, Any]:

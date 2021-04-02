@@ -47,6 +47,8 @@ class VitalError(BaseError):
         Create an error of the right class from an API response.
         :param   response    dict        Response JSON
         """
+        if not type(response) == dict:
+            raise InvalidRequestError("Invalid request", "INVALID_REQUEST", 400)
         if not response.get("error_type"):
             return InvalidRequestError("Invalid request", "INVALID_REQUEST", 400)
         cls = VITAL_ERROR_TYPE_MAP.get(response["error_type"], VitalError)

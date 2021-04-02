@@ -3,4 +3,7 @@ try:
 except ModuleNotFoundError:
     import importlib_metadata  # type: ignore
 
-__version__ = importlib_metadata.version("vital")
+try:
+    __version__ = importlib_metadata.version("vital")
+except Exception:
+    __version__ = "Undefined"

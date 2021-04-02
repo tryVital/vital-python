@@ -23,6 +23,13 @@ class User(API):
 
         return self.client.post("/user/key", body)
 
+    def get(self, client_user_id: str) -> Mapping[str, str]:
+        """
+        Get user id.
+        :param dict configs: A required dictionary to configure the Link token.
+        """
+        return self.client.get(f"/user/key/{client_user_id}")
+
     def providers(self, user_key: str) -> List[Mapping[str, str]]:
         """
         Create a Link token.

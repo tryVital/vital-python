@@ -40,7 +40,7 @@ def _http_request(
     timeout: int = DEFAULT_TIMEOUT,
     is_json: bool = True,
 ) -> Any:
-    response = _requests_http_request(url, method, data or {}, headers or {}, timeout)
+    response = _requests_http_request(url, method, data, headers or {}, timeout)
 
     if is_json or response.headers["Content-Type"] == "application/json":
         try:
@@ -67,4 +67,4 @@ def _http_request(
 
 # helpers to simplify partial function application
 post_request = partial(_http_request, method="POST")
-get_request = partial(_http_request, method="GET", is_json=True)
+get_request = partial(_http_request, method="GET", data=None)
