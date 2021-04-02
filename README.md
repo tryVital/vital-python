@@ -5,7 +5,7 @@ The official Python Library for [Vital API](https://docs.tryvital.io)
 
 # Install
 ```
-pip install vital-python
+pip install vital
 ```
 
 # Calling Endpoints
