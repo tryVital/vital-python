@@ -1,12 +1,25 @@
-from vital.api import Activity, Body, LinkToken, ProviderSpecific, Sleep
+from vital.api import (
+    Activity,
+    Body,
+    LinkToken,
+    ProviderSpecific,
+    Sleep,
+    Webhooks,
+    Workouts,
+)
 from vital.api.user import User
-from vital.internal.requester import DEFAULT_TIMEOUT, get_request, post_request
+from vital.internal.requester import (
+    DEFAULT_TIMEOUT,
+    delete_request,
+    get_request,
+    post_request,
+)
 from vital.internal.token_handler import TokenHandler
 from vital.internal.utils import urljoin
 
 
 def get_base_url(environment: str) -> str:
-    if environment == "sandbox":
+    if environment == "sandbox" or environment == "dev":
         return "https://api." + environment + ".tryvital.io"
     elif environment == "production" or environment == "prod":
         return "https://api.tryvital.io"
@@ -56,14 +69,20 @@ class Client:
         self.ProviderSpecific = ProviderSpecific(self)
         self.Sleep = Sleep(self)
         self.User = User(self)
+        self.Workouts = Workouts(self)
+        self.Webhooks = Webhooks(self)
 
     def post(self, path, data, is_json=True):
-        """Make a post request with client_id and secret key."""
+        """Make a post request."""
         return self._post(path, data, is_json)
 
     def get(self, path):
-        """Make a post request with client_id and secret key."""
+        """Make a get request."""
         return self._get(path)
+
+    def delete(self, path):
+        """Make a delete request."""
+        return self._delete(path)
 
     def post_public(self, path, data, is_json=True):
         """Make a post request requiring no auth."""
@@ -85,6 +104,17 @@ class Client:
     def _get(self, path):
         headers = {"Authorization": f"Bearer {self.token_handler.access_token}"}
         return get_request(
+            urljoin(
+                self.base_url,
+                f"{self.api_version}{path}",
+            ),
+            timeout=self.timeout,
+            headers=headers,
+        )
+
+    def _delete(self, path):
+        headers = {"Authorization": f"Bearer {self.token_handler.access_token}"}
+        return delete_request(
             urljoin(
                 self.base_url,
                 f"{self.api_version}{path}",

@@ -33,3 +33,10 @@ client.User.create(client_user_id=**)
 client.User.providers(user_key=**)
 client.User.get(client_user_id=**)
 ```
+
+
+# Installing locally 
+```
+poetry build --format sdist
+tar -xvf dist/*-`poetry version -s`.tar.gz -O '*/setup.py' > setup.py
+```
