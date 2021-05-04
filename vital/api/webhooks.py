@@ -36,8 +36,9 @@ class Webhooks(API):
             f"/webhooks/{webhook_id}",
         )
 
+    @staticmethod
     def construct_webhook_event(
-        self, payload: str, received_sig: str, webhook_secret: str
+        payload: str, received_sig: str, webhook_secret: str
     ) -> Dict:
         """
         Parses Webhook events & validates request signature.

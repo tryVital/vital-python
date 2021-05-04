@@ -6,7 +6,7 @@ from collections import OrderedDict
 from hashlib import sha256
 from typing import Dict, List, Optional, Tuple, Type, TypeVar
 
-from errors import SignatureVerificationError
+from vital.errors import SignatureVerificationError
 
 T = TypeVar("T", bound="WebhookSignature")
 
@@ -66,14 +66,12 @@ class WebhookSignature(object):
             raise SignatureVerificationError(
                 "Unable to extract timestamp and signatures from header",
                 header,
-                payload,
             )
 
         if not signatures:
             raise SignatureVerificationError(
                 "No signatures found with expected scheme " "%s" % cls.EXPECTED_SCHEME,
                 header,
-                payload,
             )
 
         signed_payload = "%d.%s" % (timestamp, payload)
@@ -82,14 +80,12 @@ class WebhookSignature(object):
             raise SignatureVerificationError(
                 "No signatures found matching the expected signature for " "payload",
                 header,
-                payload,
             )
 
         if tolerance and timestamp < time.time() - tolerance:
             raise SignatureVerificationError(
                 "Timestamp outside the tolerance zone (%d)" % timestamp,
                 header,
-                payload,
             )
 
         return True
