@@ -98,6 +98,14 @@ class APIError(VitalError):
     pass
 
 
+class SignatureVerificationError(VitalError):
+    def __init__(self, message: str, sig_header: str):
+        super(SignatureVerificationError, self).__init__(
+            message, "INVALID_REQUEST", None
+        )
+        self.sig_header = sig_header
+
+
 VITAL_ERROR_TYPE_MAP = {
     "INVALID_REQUEST": InvalidRequestError,
     "INVALID_INPUT": InvalidInputError,
