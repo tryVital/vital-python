@@ -18,15 +18,13 @@ def _requests_http_request(
     data: Optional[Mapping],
     headers: Dict,
     timeout: int = DEFAULT_TIMEOUT,
+    params: Optional[Mapping] = {},
 ) -> Any:
     normalized_method = method.lower()
     headers.update({"User-Agent": "Vital Python v{}".format(__version__)})
     if normalized_method in ALLOWED_METHODS:
         return getattr(requests, normalized_method)(
-            url,
-            json=data,
-            headers=headers,
-            timeout=timeout,
+            url, json=data, headers=headers, timeout=timeout, params=params
         )
     else:
         raise Exception("Invalid request method {}".format(method))
@@ -37,10 +35,13 @@ def _http_request(
     method: str,
     data: Optional[Mapping] = None,
     headers: Dict = {},
+    params: Dict = {},
     timeout: int = DEFAULT_TIMEOUT,
     is_json: bool = True,
 ) -> Any:
-    response = _requests_http_request(url, method, data, headers or {}, timeout)
+    response = _requests_http_request(
+        url, method, data, headers or {}, timeout, params=params
+    )
 
     if is_json or response.headers["Content-Type"] == "application/json":
         try:

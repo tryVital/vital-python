@@ -15,7 +15,7 @@ lint:
 	flake8 --exclude=.venv,./scripts/*
 
 check-format:
-	black --check --diff .
+	black --check --diff vital/*
 	isort --check-only --diff .
 
 format:

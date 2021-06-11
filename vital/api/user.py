@@ -1,4 +1,4 @@
-from typing import Any, List, Mapping
+from typing import List, Mapping
 
 from vital.api.api import API
 
@@ -10,18 +10,21 @@ link_token_field_names = [
 class User(API):
     """Endpoints for managing link tokens."""
 
-    def create(self, configs: Mapping[str, Any]) -> Mapping[str, str]:
+    def create(self, client_user_id: str) -> Mapping[str, str]:
         """
         Create a Link token.
-        :param dict configs: A required dictionary to configure the Link token.
+        :param str client_user_id: A non phi user_id.
         """
 
-        body = {}
+        return self.client.post("/user/key", {"client_user_id": client_user_id})
 
-        for field in link_token_field_names:
-            body[field] = configs.get(field)
+    def delete(self, user_key: str) -> Mapping[str, str]:
+        """
+        Delete user and associated data this is irreversible.
+        :param str user_key: Provided user_key
+        """
 
-        return self.client.post("/user/key", body)
+        return self.client.delete(f"/user/{user_key}")
 
     def get(self, client_user_id: str) -> Mapping[str, str]:
         """
@@ -32,8 +35,16 @@ class User(API):
 
     def providers(self, user_key: str) -> List[Mapping[str, str]]:
         """
+        Get list of providers.
+        :param str user_key: User key provided by organisation.
+        """
+
+        return self.client.get(f"/user/providers/{user_key}")
+
+    def unlink_device(self, user_key: str, provider: str) -> List[Mapping[str, str]]:
+        """
         Create a Link token.
         :param dict configs: A required dictionary to configure the Link token.
         """
 
-        return self.client.get(f"/user/providers/{user_key}")
+        return self.client.delete(f"/user/{user_key}/{provider}")

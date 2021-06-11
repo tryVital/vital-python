@@ -44,7 +44,7 @@ class TokenHandler:
 
     @property
     def access_token(self) -> str:
-        current_time = arrow.get().timestamp
+        current_time = arrow.get().int_timestamp
         if current_time > self._access_token["exp"]:
             self._access_token = self.generate_access_token()
             return self._access_token["token"]
