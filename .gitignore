@@ -17,3 +17,5 @@ dist/
 .vscode
 vital.egg*
 setup.py*
+
+env.sh

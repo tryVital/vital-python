@@ -19,6 +19,8 @@ from vital.internal.utils import urljoin
 
 
 def get_base_url(environment: str) -> str:
+    if environment == "local":
+        return "http://localhost:8000"
     if environment == "sandbox" or environment == "dev":
         return "https://api." + environment + ".tryvital.io"
     elif environment == "production" or environment == "prod":
@@ -72,23 +74,23 @@ class Client:
         self.Workouts = Workouts(self)
         self.Webhooks = Webhooks(self)
 
-    def post(self, path, data, is_json=True):
+    def post(self, path, data, is_json=True, params={}):
         """Make a post request."""
-        return self._post(path, data, is_json)
+        return self._post(path, data, is_json, params)
 
-    def get(self, path):
+    def get(self, path, params={}):
         """Make a get request."""
-        return self._get(path)
+        return self._get(path, params)
 
-    def delete(self, path):
+    def delete(self, path, params={}):
         """Make a delete request."""
-        return self._delete(path)
+        return self._delete(path, params)
 
     def post_public(self, path, data, is_json=True):
         """Make a post request requiring no auth."""
         return self._post(path, data, is_json)
 
-    def _post(self, path, data, is_json):
+    def _post(self, path, data, is_json, params={}):
         headers = {"Authorization": f"Bearer {self.token_handler.access_token}"}
         return post_request(
             urljoin(
@@ -99,9 +101,10 @@ class Client:
             timeout=self.timeout,
             is_json=is_json,
             headers=headers,
+            params=params,
         )
 
-    def _get(self, path):
+    def _get(self, path, params={}):
         headers = {"Authorization": f"Bearer {self.token_handler.access_token}"}
         return get_request(
             urljoin(
@@ -110,9 +113,10 @@ class Client:
             ),
             timeout=self.timeout,
             headers=headers,
+            params=params,
         )
 
-    def _delete(self, path):
+    def _delete(self, path, params={}):
         headers = {"Authorization": f"Bearer {self.token_handler.access_token}"}
         return delete_request(
             urljoin(
@@ -121,4 +125,5 @@ class Client:
             ),
             timeout=self.timeout,
             headers=headers,
+            params=params,
         )

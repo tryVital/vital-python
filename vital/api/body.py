@@ -1,4 +1,4 @@
-from typing import List, Mapping
+from typing import List, Mapping, Optional
 
 from vital.api.api import API
 
@@ -7,11 +7,24 @@ class Body(API):
     """Endpoints for geetting body data."""
 
     def get(
-        self, user_key: str, start_date: str, end_date: str
+        self,
+        user_key: str,
+        start_date: str,
+        end_date: str,
+        provider: Optional[str] = "",
     ) -> Mapping[str, List[Mapping]]:
         """
-        GET Body data.
+        Get Body data
+        :param str user_key: users key
+        :param str start_date: date in ISO format
+        :param str end_date: date in ISO format
+        :param Optional[str] provider: Provider of data whoop, strava etc.
         """
         return self.client.get(
-            f"/body/{user_key}?start_date={start_date}&end_date={end_date}"
+            f"/body/{user_key}",
+            params={
+                "start_date": start_date,
+                "end_date": end_date,
+                "provider": provider,
+            },
         )

@@ -21,8 +21,8 @@ client = Client(client_id='***', secret='***', environment='sandbox')
 
 ```
 <!-- Dates have to be url encoded -->
-start_date =  urllib.parse.quote((datetime.now()-timedelta(days=1)).isoformat())
-end_date =  urllib.parse.quote(datetime.now().isoformat())
+start_date =  (datetime.now()-timedelta(days=1)).isoformat())
+end_date = datetime.now().isoformat()
 
 client.LinkToken.create(user_key="user_key")
 client.Body.get(user_key=**,start_date, end_date)
