@@ -45,6 +45,12 @@ jobs:
       #              run test suite   
       #----------------------------------------------
       - name: Run tests
+        env:
+          TEST_CLIENT_ID: ${{ secrets.TEST_CLIENT_ID }}
+          TEST_CLIENT_SECRET: ${{ secrets.TEST_CLIENT_SECRET }}
+          TEST_ENVIRONMENT: ${{ secrets.TEST_ENVIRONMENT }}
+          TEST_AUDIENCE: ${{ secrets.TEST_AUDIENCE }}
+          TEST_DOMAIN: ${{ secrets.TEST_DOMAIN }}
         run: |
           source .venv/bin/activate
           make format
