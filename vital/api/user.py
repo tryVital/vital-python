@@ -29,7 +29,7 @@ class User(API):
     def get(self, client_user_id: str) -> Mapping[str, str]:
         """
         Get user id.
-        :param dict configs: A required dictionary to configure the Link token.
+        :param str client_user_id: The client user id.
         """
         return self.client.get(f"/user/key/{client_user_id}")
 
@@ -41,10 +41,11 @@ class User(API):
 
         return self.client.get(f"/user/providers/{user_key}")
 
-    def unlink_device(self, user_key: str, provider: str) -> List[Mapping[str, str]]:
+    def deregister_provider(self, user_key: str, provider: str) -> List[Mapping[str, str]]:
         """
-        Create a Link token.
-        :param dict configs: A required dictionary to configure the Link token.
+        Deregister provider.
+        :param str user_key: The generated user_key
+        :param str provider: Provider to deregister
         """
 
         return self.client.delete(f"/user/{user_key}/{provider}")
