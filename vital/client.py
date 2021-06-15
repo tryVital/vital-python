@@ -19,15 +19,21 @@ from vital.internal.requester import (
 from vital.internal.token_handler import TokenHandler
 from vital.internal.utils import urljoin
 
+base_urls = {
+    "prod": "https://api-tryvital-io.relay.evervault.com",
+    "production": "https://api-tryvital-io.relay.evervault.com",
+    "dev": "https://api-dev-tryvital-io.relay.evervault.com",
+    "sandbox": "https://api-sandbox-tryvital-io.relay.evervault.com",
+}
+
 
 def get_base_url(environment: str) -> str:
     if environment == "local":
         return "http://localhost:8000"
-    if environment == "sandbox" or environment == "dev":
-        return "https://api." + environment + ".tryvital.io"
-    elif environment == "production" or environment == "prod":
-        return "https://api.tryvital.io"
-    raise Exception("Environment not supported")
+    try:
+        return base_urls[environment]
+    except KeyError:
+        raise Exception("Environment not supported")
 
 
 class Client:
