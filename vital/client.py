@@ -1,3 +1,5 @@
+import requests
+
 from vital.api import (
     Activity,
     Body,
@@ -64,6 +66,7 @@ class Client:
             audience=kwargs.get("audience"),
             domain=kwargs.get("domain"),
         )
+        self.session = requests.Session()
         # Mirror the HTTP API hierarchy
         self.LinkToken = LinkToken(self)
         self.Body = Body(self)
@@ -76,22 +79,25 @@ class Client:
 
     def post(self, path, data, is_json=True, params={}):
         """Make a post request."""
-        return self._post(path, data, is_json, params)
+        return self._post(path, data, is_json, params, self.session)
 
     def get(self, path, params={}):
         """Make a get request."""
-        return self._get(path, params)
+        return self._get(path, params, self.session)
 
     def delete(self, path, params={}):
         """Make a delete request."""
-        return self._delete(path, params)
+        return self._delete(path, params, self.session)
 
     def post_public(self, path, data, is_json=True):
         """Make a post request requiring no auth."""
-        return self._post(path, data, is_json)
+        return self._post(path, data, is_json, self.session)
 
-    def _post(self, path, data, is_json, params={}):
-        headers = {"Authorization": f"Bearer {self.token_handler.access_token}"}
+    def _post(self, path, data, is_json, params={}, session=None):
+        headers = {
+            "Authorization": f"Bearer {self.token_handler.access_token}",
+            "Accept-Encoding": "deflate",
+        }
         return post_request(
             urljoin(
                 self.base_url,
@@ -102,10 +108,14 @@ class Client:
             is_json=is_json,
             headers=headers,
             params=params,
+            session=session,
         )
 
-    def _get(self, path, params={}):
-        headers = {"Authorization": f"Bearer {self.token_handler.access_token}"}
+    def _get(self, path, params={}, session=None):
+        headers = {
+            "Authorization": f"Bearer {self.token_handler.access_token}",
+            "Accept-Encoding": "deflate",
+        }
         return get_request(
             urljoin(
                 self.base_url,
@@ -114,10 +124,14 @@ class Client:
             timeout=self.timeout,
             headers=headers,
             params=params,
+            session=session,
         )
 
-    def _delete(self, path, params={}):
-        headers = {"Authorization": f"Bearer {self.token_handler.access_token}"}
+    def _delete(self, path, params={}, session=None):
+        headers = {
+            "Authorization": f"Bearer {self.token_handler.access_token}",
+            "Accept-Encoding": "deflate",
+        }
         return delete_request(
             urljoin(
                 self.base_url,
@@ -126,4 +140,5 @@ class Client:
             timeout=self.timeout,
             headers=headers,
             params=params,
+            session=session,
         )

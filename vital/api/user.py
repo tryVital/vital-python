@@ -41,7 +41,9 @@ class User(API):
 
         return self.client.get(f"/user/providers/{user_key}")
 
-    def deregister_provider(self, user_key: str, provider: str) -> List[Mapping[str, str]]:
+    def deregister_provider(
+        self, user_key: str, provider: str
+    ) -> List[Mapping[str, str]]:
         """
         Deregister provider.
         :param str user_key: The generated user_key

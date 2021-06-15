@@ -19,11 +19,12 @@ def _requests_http_request(
     headers: Dict,
     timeout: int = DEFAULT_TIMEOUT,
     params: Optional[Mapping] = {},
+    session: Optional[requests.Session] = None,
 ) -> Any:
     normalized_method = method.lower()
     headers.update({"User-Agent": "Vital Python v{}".format(__version__)})
     if normalized_method in ALLOWED_METHODS:
-        return getattr(requests, normalized_method)(
+        return getattr(session if session else requests, normalized_method)(
             url, json=data, headers=headers, timeout=timeout, params=params
         )
     else:
@@ -38,9 +39,10 @@ def _http_request(
     params: Dict = {},
     timeout: int = DEFAULT_TIMEOUT,
     is_json: bool = True,
+    session: Optional[requests.Session] = None,
 ) -> Any:
     response = _requests_http_request(
-        url, method, data, headers or {}, timeout, params=params
+        url, method, data, headers or {}, timeout, params=params, session=session
     )
 
     if is_json or response.headers["Content-Type"] == "application/json":
