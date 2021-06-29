@@ -26,6 +26,7 @@ def test_resolve_client_user_id(test_client: Client, client_user_id: str):
     data = test_client.User.resolve(client_user_id)
     assert data["client_user_id"] == client_user_id
 
+
 def test_create_and_delete_user(test_client: Client, client_user_id: str):
     client_user_id = random_string()
     data = test_client.User.create(client_user_id)

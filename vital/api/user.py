@@ -26,6 +26,12 @@ class User(API):
 
         return self.client.delete(f"/user/{user_key}")
 
+    def get_all(self) -> Mapping[str, str]:
+        """
+        Get all users.
+        """
+        return self.client.get("/user/")
+
     def get(self, user_key: str) -> Mapping[str, str]:
         """
         Get user id.
