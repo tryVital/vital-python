@@ -17,10 +17,14 @@ def test_get_list_of_providers(test_client: Client, user_key: str):
     assert len(data["providers"]) > 0
 
 
-def test_get_user(test_client: Client, client_user_id: str):
-    data = test_client.User.get(client_user_id)
-    assert data["client_user_id"] == client_user_id
+def test_get_user(test_client: Client, user_key: str):
+    data = test_client.User.get(user_key)
+    assert data["user_key"] == user_key
 
+
+def test_resolve_client_user_id(test_client: Client, client_user_id: str):
+    data = test_client.User.resolve(client_user_id)
+    assert data["client_user_id"] == client_user_id
 
 def test_create_and_delete_user(test_client: Client, client_user_id: str):
     client_user_id = random_string()

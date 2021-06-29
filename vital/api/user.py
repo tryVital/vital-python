@@ -26,9 +26,16 @@ class User(API):
 
         return self.client.delete(f"/user/{user_key}")
 
-    def get(self, client_user_id: str) -> Mapping[str, str]:
+    def get(self, user_key: str) -> Mapping[str, str]:
         """
         Get user id.
+        :param str user_key: The client user id.
+        """
+        return self.client.get(f"/user/{user_key}")
+
+    def resolve(self, client_user_id: str) -> Mapping[str, str]:
+        """
+        Get user details from key.
         :param str client_user_id: The client user id.
         """
         return self.client.get(f"/user/key/{client_user_id}")
