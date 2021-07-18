@@ -24,3 +24,14 @@ class Workouts(API):
                 "provider": provider,
             },
         )
+
+    def get_stream(
+        self,
+        workout_id: str,
+    ) -> Mapping:
+        """
+        GET Workout Stream data.
+        """
+        return self.client.get(
+            f"/workouts/{workout_id}/stream/data",
+        )
