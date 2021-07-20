@@ -24,3 +24,14 @@ class Sleep(API):
                 "provider": provider,
             },
         )
+
+    def get_streak(
+        self,
+        sleep_id: str,
+    ) -> Mapping[str, List[Mapping]]:
+        """
+        GET Sleep stream data.
+        """
+        return self.client.get(
+            f"/sleep/{sleep_id}/stream/data",
+        )
