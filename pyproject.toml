@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "vital"
-version = "0.2.32"
+version = "0.2.33"
 description = ""
 authors = ["maitham <maitham@tryvital.io>"]
 license = "GNU"
