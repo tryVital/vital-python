@@ -25,10 +25,7 @@ class Sleep(API):
             },
         )
 
-    def get_streak(
-        self,
-        sleep_id: str,
-    ) -> Mapping[str, List[Mapping]]:
+    def get_stream(self, sleep_id: str) -> Mapping[str, List[Mapping]]:
         """
         GET Sleep stream data.
         """
