@@ -1,14 +1,6 @@
 import requests
 
-from vital.api import (
-    Activity,
-    Body,
-    LinkToken,
-    ProviderSpecific,
-    Sleep,
-    Webhooks,
-    Workouts,
-)
+from vital.api import Activity, Body, Link, ProviderSpecific, Sleep, Webhooks, Workouts
 from vital.api.user import User
 from vital.internal.requester import (
     DEFAULT_TIMEOUT,
@@ -74,7 +66,7 @@ class Client:
         )
         self.session = requests.Session()
         # Mirror the HTTP API hierarchy
-        self.LinkToken = LinkToken(self)
+        self.Link = Link(self)
         self.Body = Body(self)
         self.Activity = Activity(self)
         self.ProviderSpecific = ProviderSpecific(self)
@@ -83,9 +75,9 @@ class Client:
         self.Workouts = Workouts(self)
         self.Webhooks = Webhooks(self)
 
-    def post(self, path, data, is_json=True, params={}):
+    def post(self, path, data, is_json=True, params={}, headers={}):
         """Make a post request."""
-        return self._post(path, data, is_json, params, self.session)
+        return self._post(path, data, is_json, params, self.session, headers)
 
     def get(self, path, params={}):
         """Make a get request."""
@@ -99,10 +91,11 @@ class Client:
         """Make a post request requiring no auth."""
         return self._post(path, data, is_json, self.session)
 
-    def _post(self, path, data, is_json, params={}, session=None):
+    def _post(self, path, data, is_json, params={}, session=None, headers={}):
         headers = {
             "Authorization": f"Bearer {self.token_handler.access_token}",
             "Accept-Encoding": "deflate",
+            **headers,
         }
         return post_request(
             urljoin(
