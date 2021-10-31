@@ -2,6 +2,7 @@ from typing import Dict, List, Mapping
 
 from vital.api.api import API
 from vital.internal.webhook import Webhook
+from vital.types import WebhookEventCodes, WebhookType
 
 
 class Webhooks(API):
@@ -38,6 +39,19 @@ class Webhooks(API):
         """
         return self.client.delete(
             f"/webhooks/{webhook_id}",
+        )
+
+    def test(
+        self, event_code: WebhookEventCodes, webhook_type: WebhookType
+    ) -> Mapping[str, str]:
+        """
+        Test a webhook event
+        :param str event_code: Webhook event_code HISTORICAL_DATA_UPDATE or CREATED
+        :param str verify_token: Webhook type ACTIVITY, SLEEP, BODY, WORKOUTS
+        """
+        return self.client.post(
+            "/webhooks/test",
+            {"event_code": event_code.value, "webhook_type": webhook_type.value},
         )
 
     @staticmethod

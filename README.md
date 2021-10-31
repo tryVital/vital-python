@@ -32,6 +32,12 @@ client.SourceSpecific.get(user_key=**,start_date, end_date)
 client.User.create(client_user_id=**)
 client.User.providers(user_key=**)
 client.User.get(client_user_id=**)
+
+
+from vital.types import WebhookEventCodes, WebhookType
+
+client.Webhooks.test(WebhookEventCodes.HISTORICAL_DATA_UPDATE, 
+                     WebhookType.ACTIVITY)
 ```
 
 
