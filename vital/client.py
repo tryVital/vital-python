@@ -2,6 +2,7 @@ import requests
 
 from vital.api import Activity, Body, Link, ProviderSpecific, Sleep, Webhooks, Workouts
 from vital.api.user import User
+from vital.api.vitals import Vitals
 from vital.internal.requester import (
     DEFAULT_TIMEOUT,
     delete_request,
@@ -74,6 +75,7 @@ class Client:
         self.User = User(self)
         self.Workouts = Workouts(self)
         self.Webhooks = Webhooks(self)
+        self.Vitals = Vitals(self)
 
     def post(self, path, data, is_json=True, params={}, headers={}):
         """Make a post request."""
