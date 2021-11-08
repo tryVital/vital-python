@@ -81,9 +81,9 @@ class Client:
         """Make a post request."""
         return self._post(path, data, is_json, params, self.session, headers)
 
-    def get(self, path, params={}):
+    def get(self, path, params={}, headers={}):
         """Make a get request."""
-        return self._get(path, params, self.session)
+        return self._get(path, params, self.session, headers)
 
     def delete(self, path, params={}):
         """Make a delete request."""
@@ -112,10 +112,11 @@ class Client:
             session=session,
         )
 
-    def _get(self, path, params={}, session=None):
+    def _get(self, path, params={}, session=None, headers={}):
         headers = {
             "Authorization": f"Bearer {self.token_handler.access_token}",
             "Accept-Encoding": "deflate",
+            **headers,
         }
         return get_request(
             urljoin(
