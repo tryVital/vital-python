@@ -6,6 +6,7 @@ class WebhookType(Enum):
     SLEEP = "sleep"
     BODY = "body"
     WORKOUTS = "workouts"
+    VITALS_GLUCOSE = "vitals_glucose"
 
 
 class WebhookEventCodes(Enum):
