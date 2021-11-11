@@ -18,7 +18,7 @@ class Activity(API):
         :param str user_key: users key
         :param str start_date: date in ISO format
         :param str end_date: date in ISO format
-        :param Optional[str] provider: Provider of data whoop, strava etc.
+        :param Optional[str] provider: Provider of data strava etc.
         """
         return self.client.get(
             f"/activity/{user_key}",

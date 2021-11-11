@@ -11,7 +11,7 @@ def test_workouts_returns_data(
 def test_workouts_returns_data_for_provider(
     test_client: Client, user_key: str, start_date, end_date
 ):
-    provider = "whoop"
+    provider = "oura"
     data = test_client.Workouts.get(user_key, start_date, end_date, provider)
     for datapoint in data["workouts"]:
         assert datapoint["source"]["slug"] == provider
