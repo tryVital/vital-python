@@ -1,6 +1,7 @@
 import requests
 
 from vital.api import Activity, Body, Link, ProviderSpecific, Sleep, Webhooks, Workouts
+from vital.api.testkits import Testkits
 from vital.api.user import User
 from vital.api.vitals import Vitals
 from vital.internal.requester import (
@@ -76,6 +77,7 @@ class Client:
         self.Workouts = Workouts(self)
         self.Webhooks = Webhooks(self)
         self.Vitals = Vitals(self)
+        self.Testkits = Testkits(self)
 
     def post(self, path, data, is_json=True, params={}, headers={}):
         """Make a post request."""
