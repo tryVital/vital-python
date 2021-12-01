@@ -7,7 +7,11 @@ class Testkits(API):
     """Endpoints for managing testkits."""
 
     def order(
-        self, user_key: str, testkit_id: str, patient_address: Dict
+        self,
+        user_key: str,
+        testkit_id: str,
+        patient_address: Dict,
+        patient_details: Dict,
     ) -> Mapping[str, str]:
         """
         Create a Link token.
@@ -20,6 +24,7 @@ class Testkits(API):
                 "user_key": user_key,
                 "teskit_id": testkit_id,
                 "patient_address": patient_address,
+                "patient_details": patient_details,
             },
         )
 
