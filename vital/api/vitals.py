@@ -6,13 +6,31 @@ from vital.api.api import API
 class Vitals(API):
     """Endpoints for getting activity data."""
 
+    def _timeseries_request(
+        self,
+        user_key: str,
+        start_date: str,
+        end_date: str,
+        resource: str,
+        provider: Optional[str] = "",
+    ) -> List[Mapping]:
+        return self.client.get(
+            f"/timeseries/{user_key}/{resource}",
+            params={
+                "start_date": start_date,
+                "end_date": end_date,
+                "provider": provider,
+            },
+            api_version="v2",
+        )
+
     def glucose(
         self,
         user_key: str,
         start_date: str,
         end_date: str,
         provider: Optional[str] = "",
-    ) -> Mapping[str, List[Mapping]]:
+    ) -> List[Mapping]:
         """
         Get glucose value API
         :param str user_key: users key
@@ -20,36 +38,8 @@ class Vitals(API):
         :param str end_date: date in ISO format
         :param Optional[str] provider: Provider of data
         """
-        return self.client.get(
-            f"/vitals/glucose/{user_key}",
-            params={
-                "start_date": start_date,
-                "end_date": end_date,
-                "provider": provider,
-            },
-        )
-
-    def hba1c(
-        self,
-        user_key: str,
-        start_date: str,
-        end_date: str,
-        provider: Optional[str] = "",
-    ) -> Mapping[str, List[Mapping]]:
-        """
-        Get hba1c value API
-        :param str user_key: users key
-        :param str start_date: date in ISO format
-        :param str end_date: date in ISO format
-        :param Optional[str] provider: Provider of data
-        """
-        return self.client.get(
-            f"/vitals/hba1c/{user_key}",
-            params={
-                "start_date": start_date,
-                "end_date": end_date,
-                "provider": provider,
-            },
+        return self._timeseries_request(
+            user_key, start_date, end_date, "glucose", provider
         )
 
     def cholesterol(
@@ -59,7 +49,7 @@ class Vitals(API):
         start_date: str,
         end_date: str,
         provider: Optional[str] = "",
-    ) -> Mapping[str, List[Mapping]]:
+    ) -> List[Mapping]:
         """
         Get glucose value API
         :param str user_key: users key
@@ -67,13 +57,8 @@ class Vitals(API):
         :param str end_date: date in ISO format
         :param Optional[str] provider: Provider of data
         """
-        return self.client.get(
-            f"/vitals/cholesterol/{type}/{user_key}",
-            params={
-                "start_date": start_date,
-                "end_date": end_date,
-                "provider": provider,
-            },
+        return self._timeseries_request(
+            user_key, start_date, end_date, f"cholesterol/{type}", provider
         )
 
     def ige(
@@ -82,34 +67,43 @@ class Vitals(API):
         start_date: str,
         end_date: str,
         provider: Optional[str] = "",
-    ) -> Mapping[str, List[Mapping]]:
+    ) -> List[Mapping]:
         """
         Get glucose value API
         :param str user_key: users key
         :param str start_date: date in ISO format
         :param str end_date: date in ISO format
         """
-        return self.client.get(
-            f"/vitals/ige/{user_key}",
-            params={"start_date": start_date, "end_date": end_date},
-        )
+        return self._timeseries_request(user_key, start_date, end_date, "ige", provider)
 
     def igg(
         self,
         user_key: str,
         start_date: str,
         end_date: str,
-    ) -> Mapping[str, List[Mapping]]:
+        provider: Optional[str] = "",
+    ) -> List[Mapping]:
         """
         Get glucose value API
         :param str user_key: users key
         :param str start_date: date in ISO format
         :param str end_date: date in ISO format
         """
-        return self.client.get(
-            f"/vitals/igg/{user_key}",
-            params={
-                "start_date": start_date,
-                "end_date": end_date,
-            },
+        return self._timeseries_request(user_key, start_date, end_date, "igg", provider)
+
+    def heartrate(
+        self,
+        user_key: str,
+        start_date: str,
+        end_date: str,
+        provider: Optional[str] = "",
+    ) -> List[Mapping]:
+        """
+        Get glucose value API
+        :param str user_key: users key
+        :param str start_date: date in ISO format
+        :param str end_date: date in ISO format
+        """
+        return self._timeseries_request(
+            user_key, start_date, end_date, "heartrate", provider
         )
