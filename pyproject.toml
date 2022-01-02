@@ -24,6 +24,7 @@ arrow = "*"
 auth0-python = "*"
 requests = "*"
 importlib-metadata = "^3.7.3"
+svix = "^0.41.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.2"
