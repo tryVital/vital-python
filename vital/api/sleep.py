@@ -17,18 +17,17 @@ class Sleep(API):
         GET Sleep data.
         """
         return self.client.get(
-            f"/sleep/{user_key}",
+            f"/summary/sleep/{user_key}",
             params={
                 "start_date": start_date,
                 "end_date": end_date,
                 "provider": provider,
             },
+            api_version="v2",
         )
 
     def get_stream(self, sleep_id: str) -> Mapping[str, List[Mapping]]:
         """
         GET Sleep stream data.
         """
-        return self.client.get(
-            f"/sleep/{sleep_id}/stream/data",
-        )
+        return self.client.get(f"/timeseries/sleep/{sleep_id}/stream", api_version="v2")

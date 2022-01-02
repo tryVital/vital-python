@@ -17,12 +17,13 @@ class Workouts(API):
         GET Workout data.
         """
         return self.client.get(
-            f"/workouts/{user_key}",
+            f"/summary/workouts/{user_key}",
             params={
                 "start_date": start_date,
                 "end_date": end_date,
                 "provider": provider,
             },
+            api_version="v2",
         )
 
     def get_stream(
@@ -33,5 +34,5 @@ class Workouts(API):
         GET Workout Stream data.
         """
         return self.client.get(
-            f"/workouts/{workout_id}/stream/data",
+            f"/timeseries/workouts/{workout_id}/stream", api_version="v2"
         )

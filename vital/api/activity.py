@@ -21,10 +21,11 @@ class Activity(API):
         :param Optional[str] provider: Provider of data strava etc.
         """
         return self.client.get(
-            f"/activity/{user_key}",
+            f"/summary/activity/{user_key}",
             params={
                 "start_date": start_date,
                 "end_date": end_date,
                 "provider": provider,
             },
+            api_version="v2",
         )
