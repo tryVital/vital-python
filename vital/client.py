@@ -1,6 +1,6 @@
 import requests
 
-from vital.api import Activity, Body, Link, ProviderSpecific, Sleep, Webhooks, Workouts
+from vital.api import Activity, Body, Link, Sleep, Webhooks, Workouts
 from vital.api.profile import Profile
 from vital.api.testkits import Testkits
 from vital.api.user import User
