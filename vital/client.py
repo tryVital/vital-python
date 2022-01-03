@@ -73,7 +73,6 @@ class Client:
         self.Link = Link(self)
         self.Body = Body(self)
         self.Activity = Activity(self)
-        self.ProviderSpecific = ProviderSpecific(self)
         self.Sleep = Sleep(self)
         self.User = User(self)
         self.Workouts = Workouts(self)

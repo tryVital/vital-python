@@ -1,7 +1,6 @@
 from vital.api.activity import Activity
 from vital.api.body import Body
 from vital.api.link import Link
-from vital.api.provider_specific import ProviderSpecific
 from vital.api.sleep import Sleep
 from vital.api.testkits import Testkits
 from vital.api.user import User
@@ -14,7 +13,6 @@ __all__ = [
     "Body",
     "Activity",
     "Sleep",
-    "ProviderSpecific",
     "User",
     "Workouts",
     "Webhooks",
