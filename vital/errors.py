@@ -52,6 +52,7 @@ class VitalError(BaseError):
                 f"{status_code} - {response}", "INVALID_REQUEST", status_code
             )
         if not type(response) == dict:
+            print(response)
             raise InvalidRequestError("Invalid request", "INVALID_REQUEST", 400)
         if not response.get("error_type"):
             return InvalidRequestError("Invalid request", "INVALID_REQUEST", 400)

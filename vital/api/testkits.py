@@ -22,18 +22,11 @@ class Testkits(API):
             "/testkit/orders",
             {
                 "user_key": user_key,
-                "teskit_id": testkit_id,
+                "testkit_id": testkit_id,
                 "patient_address": patient_address,
                 "patient_details": patient_details,
             },
         )
-
-    def all_orders(self) -> Mapping[str, str]:
-        """
-        Get all orders.
-        """
-
-        return self.client.get("/teskit/orders")
 
     def get(self) -> Mapping[str, str]:
         """
@@ -47,3 +40,11 @@ class Testkits(API):
         :param str user_key: The client user id.
         """
         return self.client.get(f"/testkit/orders/{order_id}")
+
+    def get_orders(self, start_date: str, end_date: str) -> Mapping[str, str]:
+        """
+        Get all orders.
+        """
+        return self.client.get(
+            "/testkit/orders", {"start_date": start_date, "end_date": end_date}
+        )
