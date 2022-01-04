@@ -22,14 +22,13 @@ jobs:
           virtualenvs-in-project: true
       - name: Export requirements
         run: poetry version patch
+      - name: Commit vital-core
+        uses: EndBug/add-and-commit@v7
+        with:
+          default_author: github_actions
       - name: Add token onfig
         run: poetry config pypi-token.pypi ${{ secrets.PROD_PYPI_TOKEN }}
       - name: Build
         run: poetry build 
       - name: Publish
         run: poetry publish
-
-      - name: Commit & Push changes
-        uses: actions-js/push@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
