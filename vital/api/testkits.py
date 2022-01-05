@@ -34,10 +34,18 @@ class Testkits(API):
         """
         return self.client.get("/testkit/")
 
+    # For backwards compatibility
     def order_status(self, order_id: str) -> Mapping[str, str]:
         """
-        Get user id.
-        :param str user_key: The client user id.
+        Get order status.
+        :param str user_key: The order_id.
+        """
+        return self.client.get(f"/testkit/orders/{order_id}")
+
+    def get_order(self, order_id: str) -> Mapping[str, str]:
+        """
+        Get order status.
+        :param str user_key: The order_id.
         """
         return self.client.get(f"/testkit/orders/{order_id}")
 
