@@ -21,7 +21,6 @@ class Vitals(API):
                 "end_date": end_date,
                 "provider": provider,
             },
-            api_version="v2",
         )
 
     def glucose(

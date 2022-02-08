@@ -19,5 +19,19 @@ class Profile(API):
             params={
                 "provider": provider,
             },
-            api_version="v2",
+        )
+
+    def get_raw(
+        self,
+        user_key: str,
+        provider: Optional[str] = "",
+    ) -> Mapping[str, List[Mapping]]:
+        """
+        GET Profile data.
+        """
+        return self.client.get(
+            f"/summary/profile/{user_key}/raw",
+            params={
+                "provider": provider,
+            },
         )

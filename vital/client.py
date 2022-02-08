@@ -44,7 +44,7 @@ class Client:
         secret=None,
         environment=None,
         timeout=DEFAULT_TIMEOUT,
-        api_version="v1",
+        api_version="v2",
         **kwargs,
     ):
         """
