@@ -1,4 +1,5 @@
 import pytest
+
 from vital import Client
 
 
