@@ -14,7 +14,7 @@ class Testkits(API):
         patient_details: Dict,
     ) -> Mapping[str, str]:
         """
-        Create a Link token.
+        Create an order.
         :param str client_user_id: A non phi user_id.
         """
 
