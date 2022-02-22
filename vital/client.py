@@ -6,7 +6,6 @@ from vital.api import (
     Devices,
     Link,
     Profile,
-    Refresh,
     Sleep,
     Testkits,
     User,
@@ -89,7 +88,6 @@ class Client:
         self.Vitals = Vitals(self)
         self.Testkits = Testkits(self)
         self.Devices = Devices(self)
-        self.Refresh = Refresh(self)
 
     def post(
         self, path, data=None, is_json=True, params={}, headers={}, api_version=None
