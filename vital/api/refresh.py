@@ -1,4 +1,4 @@
-from typing import List, Mapping, Optional
+from typing import List, Mapping
 
 from vital.api.api import API
 
