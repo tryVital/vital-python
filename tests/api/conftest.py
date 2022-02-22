@@ -30,6 +30,7 @@ def user_key(client_user_id, test_client: Client):
         resp = test_client.User.resolve(client_user_id)
         return resp["user_key"]
 
+
 @pytest.fixture(scope="session")
 def user_id(client_user_id, test_client: Client):
     try:
