@@ -19,6 +19,6 @@ class Refresh(API):
         Refresh a user's data
         :param str user_id: users id
         """
-        return self.client.get(
+        return self.client.post(
             f"/refresh/{user_id}",
         )

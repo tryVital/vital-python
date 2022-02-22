@@ -91,7 +91,9 @@ class Client:
         self.Devices = Devices(self)
         self.Refresh = Refresh(self)
 
-    def post(self, path, data, is_json=True, params={}, headers={}, api_version=None):
+    def post(
+        self, path, data=None, is_json=True, params={}, headers={}, api_version=None
+    ):
         """Make a post request."""
         return self._post(
             path, data, is_json, params, self.session, headers, api_version
