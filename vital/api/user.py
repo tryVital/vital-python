@@ -64,3 +64,18 @@ class User(API):
         """
 
         return self.client.delete(f"/user/{user_id}/{provider}")
+
+    def refresh(
+        self,
+        user_id: str,
+    ) -> Mapping[str, List[Mapping]]:
+        """
+        Endpoint for refreshing a user. This endpoint is used
+        to kick-off an earlier refresh for a user's providers.
+        E.g. Refresh a user's Strava data now, instead of waiting
+        for Vital's refresh cycle.
+        :param str user_id: users id
+        """
+        return self.client.post(
+            f"/refresh/{user_id}",
+        )

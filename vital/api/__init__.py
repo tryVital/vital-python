@@ -3,7 +3,6 @@ from vital.api.body import Body
 from vital.api.devices import Devices
 from vital.api.link import Link
 from vital.api.profile import Profile
-from vital.api.refresh import Refresh
 from vital.api.sleep import Sleep
 from vital.api.testkits import Testkits
 from vital.api.user import User
@@ -22,6 +21,5 @@ __all__ = [
     "Vitals",
     "Testkits",
     "Devices",
-    "Refresh",
     "Profile",
 ]
