@@ -77,5 +77,5 @@ class User(API):
         :param str user_id: users id
         """
         return self.client.post(
-            f"/refresh/{user_id}",
+            f"/user/refresh/{user_id}",
         )
