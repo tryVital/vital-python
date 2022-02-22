@@ -8,14 +8,14 @@ class Profile(API):
 
     def get(
         self,
-        user_key: str,
+        user_id: str,
         provider: Optional[str] = "",
     ) -> Mapping[str, List[Mapping]]:
         """
         GET Profile data.
         """
         return self.client.get(
-            f"/summary/profile/{user_key}",
+            f"/summary/profile/{user_id}",
             params={
                 "provider": provider,
             },
@@ -23,14 +23,14 @@ class Profile(API):
 
     def get_raw(
         self,
-        user_key: str,
+        user_id: str,
         provider: Optional[str] = "",
     ) -> Mapping[str, List[Mapping]]:
         """
         GET Profile data.
         """
         return self.client.get(
-            f"/summary/profile/{user_key}/raw",
+            f"/summary/profile/{user_id}/raw",
             params={
                 "provider": provider,
             },

@@ -8,20 +8,20 @@ class Activity(API):
 
     def get(
         self,
-        user_key: str,
+        user_id: str,
         start_date: str,
         end_date: str,
         provider: Optional[str] = "",
     ) -> Mapping[str, List[Mapping]]:
         """
         Get Activity API
-        :param str user_key: users key
+        :param str user_id: user's id
         :param str start_date: date in ISO format
         :param str end_date: date in ISO format
         :param Optional[str] provider: Provider of data strava etc.
         """
         return self.client.get(
-            f"/summary/activity/{user_key}",
+            f"/summary/activity/{user_id}",
             params={
                 "start_date": start_date,
                 "end_date": end_date,
@@ -31,20 +31,20 @@ class Activity(API):
 
     def get_raw(
         self,
-        user_key: str,
+        user_id: str,
         start_date: str,
         end_date: str,
         provider: Optional[str] = "",
     ) -> Mapping[str, List[Mapping]]:
         """
         Get Activity API
-        :param str user_key: users key
+        :param str user_id: user's id
         :param str start_date: date in ISO format
         :param str end_date: date in ISO format
         :param Optional[str] provider: Provider of data strava etc.
         """
         return self.client.get(
-            f"/summary/activity/{user_key}/raw",
+            f"/summary/activity/{user_id}/raw",
             params={
                 "start_date": start_date,
                 "end_date": end_date,
