@@ -7,7 +7,9 @@ from vital.api.user import User
 from vital.api.vitals import Vitals
 from vital.api.webhooks import Webhooks
 from vital.api.workouts import Workouts
+from vital.api.devices import Devices
 from vital.api.refresh import Refresh
+from vital.api.profile import Profile
 
 __all__ = [
     "Link",
@@ -19,5 +21,7 @@ __all__ = [
     "Webhooks",
     "Vitals",
     "Testkits",
+    "Devices",
     "Refresh",
+    "Profile",
 ]

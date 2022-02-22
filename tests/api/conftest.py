@@ -29,3 +29,12 @@ def user_key(client_user_id, test_client: Client):
     except Exception:
         resp = test_client.User.resolve(client_user_id)
         return resp["user_key"]
+
+@pytest.fixture(scope="session")
+def user_id(client_user_id, test_client: Client):
+    try:
+        resp = test_client.User.create(client_user_id)
+        return resp["user_id"]
+    except Exception:
+        resp = test_client.User.resolve(client_user_id)
+        return resp["user_id"]
