@@ -5,11 +5,12 @@ from vital.api.api import API
 
 class Refresh(API):
     """
-    Endpoint for refreshing a user. This endpoint is used 
+    Endpoint for refreshing a user. This endpoint is used
     to kick-off an earlier refresh for a user's providers.
     E.g. Refresh a user's Strava data now, instead of waiting
-    for Vital's refresh cycle. 
+    for Vital's refresh cycle.
     """
+
     def post(
         self,
         user_id: str,
