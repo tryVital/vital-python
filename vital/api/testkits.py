@@ -8,7 +8,7 @@ class Testkits(API):
 
     def order(
         self,
-        user_key: str,
+        user_id: str,
         testkit_id: str,
         patient_address: Dict,
         patient_details: Dict,
@@ -21,7 +21,7 @@ class Testkits(API):
         return self.client.post(
             "/testkit/orders",
             {
-                "user_key": user_key,
+                "user_id": user_id,
                 "testkit_id": testkit_id,
                 "patient_address": patient_address,
                 "patient_details": patient_details,
@@ -38,14 +38,14 @@ class Testkits(API):
     def order_status(self, order_id: str) -> Mapping[str, str]:
         """
         Get order status.
-        :param str user_key: The order_id.
+        :param str user_id: The order_id.
         """
         return self.client.get(f"/testkit/orders/{order_id}")
 
     def get_order(self, order_id: str) -> Mapping[str, str]:
         """
         Get order status.
-        :param str user_key: The order_id.
+        :param str user_id: The order_id.
         """
         return self.client.get(f"/testkit/orders/{order_id}")
 
