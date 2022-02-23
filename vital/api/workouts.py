@@ -8,7 +8,7 @@ class Workouts(API):
 
     def get(
         self,
-        user_key: str,
+        user_id: str,
         start_date: str,
         end_date: str,
         provider: Optional[str] = "",
@@ -17,7 +17,7 @@ class Workouts(API):
         GET Workout data.
         """
         return self.client.get(
-            f"/summary/workouts/{user_key}",
+            f"/summary/workouts/{user_id}",
             params={
                 "start_date": start_date,
                 "end_date": end_date,
@@ -27,7 +27,7 @@ class Workouts(API):
 
     def get_raw(
         self,
-        user_key: str,
+        user_id: str,
         start_date: str,
         end_date: str,
         provider: Optional[str] = "",
@@ -36,7 +36,7 @@ class Workouts(API):
         GET Workout data.
         """
         return self.client.get(
-            f"/summary/workouts/{user_key}/raw",
+            f"/summary/workouts/{user_id}/raw",
             params={
                 "start_date": start_date,
                 "end_date": end_date,

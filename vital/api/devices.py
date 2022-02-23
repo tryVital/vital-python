@@ -4,20 +4,20 @@ from vital.api.api import API
 
 
 class Devices(API):
-    """Endpoints for geetting device data."""
+    """Endpoints for getting devices data."""
 
     def get_raw(
         self,
-        user_key: str,
+        user_id: str,
         provider: Optional[str] = "",
     ) -> Mapping[str, List[Mapping]]:
         """
-        Get Device data
-        :param str user_key: users key
-        :param Optional[str] provider: Provider of data strava etc.
+        Get Devices data
+        :param str user_id: Vital user's id
+        :param Optional[str] provider: Provider of data (e.g. strava)
         """
         return self.client.get(
-            f"/summary/devices/{user_key}/raw",
+            f"/summary/devices/{user_id}/raw",
             params={
                 "provider": provider,
             },
