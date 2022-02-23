@@ -15,7 +15,9 @@ def test_get_glucose(
 def test_get_cholesterol(
     provider, test_client: Client, user_id: str, start_date: str, end_date: str
 ):
-    data = test_client.Vitals.cholesterol(user_id, start_date, end_date, provider)
+    data = test_client.Vitals.cholesterol(
+        "total", user_id, start_date, end_date, provider
+    )
     assert data is not None
 
 

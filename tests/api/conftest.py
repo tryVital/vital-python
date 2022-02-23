@@ -12,13 +12,15 @@ def client_user_id() -> str:
 
 @pytest.fixture(scope="session")
 def test_client() -> Client:
-    return Client(
+    client = Client(
         client_id=os.environ["TEST_CLIENT_ID"],
         secret=os.environ["TEST_CLIENT_SECRET"],
         environment=os.environ["TEST_ENVIRONMENT"],
         audience=os.environ["TEST_AUDIENCE"],
         domain=os.environ["TEST_DOMAIN"],
     )
+    client.base_url = "http://localhost:8000"
+    return client
 
 
 @pytest.fixture(scope="session")
