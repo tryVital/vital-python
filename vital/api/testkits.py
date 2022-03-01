@@ -50,7 +50,7 @@ class Testkits(API):
         return self.client.get(f"/testkit/orders/{order_id}")
 
     def get_orders(
-        self, start_date: str, end_date: str, status: Optional[List[str]]
+        self, start_date: str, end_date: str, status: Optional[List[str]] = None
     ) -> Mapping[str, str]:
         """
         Get all orders.
