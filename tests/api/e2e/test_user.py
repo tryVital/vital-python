@@ -12,33 +12,43 @@ def random_string():
     return "".join(random.choice(letters) for _ in range(6))
 
 
-def test_get_list_of_providers(test_client: Client, user_id: str):
-    data = test_client.User.providers(user_id)
+@pytest.mark.parametrize("client", ["test_client", "test_client_eu"])
+def test_get_list_of_providers(client: Client, user_id: str, request):
+    client = request.getfixturevalue(client)
+    data = client.User.providers(user_id)
     assert len(data["providers"]) > 0
 
 
-def test_get_user(test_client: Client, user_id: str):
-    data = test_client.User.get(user_id)
+@pytest.mark.parametrize("client", ["test_client", "test_client_eu"])
+def test_get_user(client: Client, user_id: str, request):
+    client = request.getfixturevalue(client)
+    data = client.User.get(user_id)
     assert data["user_id"] == user_id
 
 
-def test_resolve_client_user_id(test_client: Client, client_user_id: str):
-    data = test_client.User.resolve(client_user_id)
+@pytest.mark.parametrize("client", ["test_client", "test_client_eu"])
+def test_resolve_client_user_id(client: Client, client_user_id: str, request):
+    client = request.getfixturevalue(client)
+    data = client.User.resolve(client_user_id)
     assert data["client_user_id"] == client_user_id
 
 
-def test_create_and_delete_user(test_client: Client, client_user_id: str):
+@pytest.mark.parametrize("client", ["test_client", "test_client_eu"])
+def test_create_and_delete_user(client: Client, client_user_id: str, request):
+    client = request.getfixturevalue(client)
     client_user_id = random_string()
-    data = test_client.User.create(client_user_id)
+    data = client.User.create(client_user_id)
     # Create than delete
-    test_client.User.delete(data["user_id"])
+    client.User.delete(data["user_id"])
 
     with pytest.raises(Exception):
-        test_client.User.get(client_user_id)
+        client.User.get(client_user_id)
 
 
-def test_refresh(test_client: Client, user_id: str):
-    data = test_client.User.refresh(user_id)
+@pytest.mark.parametrize("client", ["test_client", "test_client_eu"])
+def test_refresh(client: Client, user_id: str, request):
+    client = request.getfixturevalue(client)
+    data = client.User.refresh(user_id)
 
     assert data.get("status") == "success"
     assert data.get("user_id") == user_id

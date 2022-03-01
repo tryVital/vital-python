@@ -22,6 +22,18 @@ def test_client() -> Client:
 
 
 @pytest.fixture(scope="session")
+def test_client_eu() -> Client:
+    return Client(
+        client_id=os.environ["TEST_CLIENT_ID"],
+        secret=os.environ["TEST_CLIENT_SECRET"],
+        environment=os.environ["TEST_ENVIRONMENT"],
+        audience=os.environ["TEST_AUDIENCE"],
+        domain=os.environ["TEST_DOMAIN"],
+        region="eu",
+    )
+
+
+@pytest.fixture(scope="session")
 def user_id(client_user_id, test_client: Client):
     try:
         resp = test_client.User.create(client_user_id)
