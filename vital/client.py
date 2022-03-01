@@ -26,6 +26,7 @@ base_urls = {
     "prod": "https://api.tryvital.io",
     "production": "https://api.tryvital.io",
     "dev": "https://api.dev.tryvital.io",
+    "development": "https://api.dev.tryvital.io",
     "sandbox": "https://api.sandbox.tryvital.io",
 }
 
