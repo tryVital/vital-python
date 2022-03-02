@@ -21,16 +21,13 @@ def test_testkits_orders(
     assert order["id"] == client_order_id
     assert order["user_id"] == user_id
 
-    try:
-        response = test_client.Testkits.cancel_order(order_id=client_order_id)
-        assert response == {"success": True}
+    response = test_client.Testkits.cancel_order(order_id=client_order_id)
+    assert response == {"success": True}
 
-        orders = test_client.Testkits.get_orders(start_date, end_date, status=["ordered"])
-        assert len(orders["orders"]) == 0
+    orders = test_client.Testkits.get_orders(start_date, end_date, status=["ordered"])
+    assert len(orders["orders"]) == 0
 
-        orders = test_client.Testkits.get_orders(
-            start_date, end_date, status=["ordered", "cancelled"]
-        )
-        assert len(orders["orders"]) == 1
-    except Exception as e:
-        pass
+    orders = test_client.Testkits.get_orders(
+        start_date, end_date, status=["ordered", "cancelled"]
+    )
+    assert len(orders["orders"]) == 1
