@@ -34,8 +34,9 @@ def test_client_eu() -> Client:
 
 
 @pytest.fixture(scope="session")
-def user_id(client_user_id, test_client: Client):
+def user_id(client_user_id, test_client: Client, test_client_eu: Client) -> str:
     try:
+        test_client_eu.User.create(client_user_id)
         resp = test_client.User.create(client_user_id)
         return resp["user_id"]
     except Exception:
