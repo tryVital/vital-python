@@ -22,7 +22,9 @@ def test_testkits_orders(
     assert order["user_id"] == user_id
 
     response = test_client.Testkits.cancel_order(order_id=client_order_id)
-    assert response == {"success": True}
+    assert response["status"] == "success"
+    assert response["order"]["id"] == client_order_id
+    assert response["order"]["user_id"] == user_id
 
     orders = test_client.Testkits.get_orders(start_date, end_date, status=["ordered"])
     assert len(orders["orders"]) == 0

@@ -60,9 +60,9 @@ class Testkits(API):
             {"start_date": start_date, "end_date": end_date, "status": status},
         )
 
-    def cancel_order(self, order_id: str) -> Mapping[str, bool]:
+    def cancel_order(self, order_id: str) -> Mapping[str, str]:
         """
         Cancel order.
         :param str user_id: The order_id.
         """
-        return self.client.delete(f"/testkit/orders/{order_id}")
+        return self.client.post(f"/testkit/orders/{order_id}/cancel")
