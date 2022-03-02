@@ -3,7 +3,7 @@ from vital import Client
 
 
 @pytest.mark.parametrize("client", ["test_client", "test_client_eu"])
-def test_body_returns_data(client, user_id: str, start_date, end_date, request):
+def test_body_returns_data(client: Client, user_id: str, start_date, end_date, request):
     client = request.getfixturevalue(client)
     data = client.Body.get(user_id, start_date, end_date)
     assert len(data.get("body")) > 0
@@ -11,7 +11,7 @@ def test_body_returns_data(client, user_id: str, start_date, end_date, request):
 
 @pytest.mark.parametrize("client", ["test_client", "test_client_eu"])
 def test_body_returns_data_for_provider(
-    client, user_id: str, start_date, end_date, request
+    client: Client, user_id: str, start_date, end_date, request
 ):
     client = request.getfixturevalue(client)
     provider = "oura"
