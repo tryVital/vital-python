@@ -1,17 +1,23 @@
+from typing import Dict, Tuple
 import pytest
 from vital import Client
 
 
-@pytest.mark.parametrize("client", ["test_client", "test_client_eu"])
-def test_device_returns_data(client: Client, user_id: str, request):
-    client = request.getfixturevalue(client)
+@pytest.mark.parametrize("region", ["us", "eu"])
+def test_device_returns_data(
+    region, get_client: Dict[Tuple[str, Client], Tuple[str, Client]]
+):
+    user_id, client = get_client[region]
     data = client.Devices.get_raw(user_id)
     assert len(data.get("devices")) == 0
 
 
-@pytest.mark.parametrize("client", ["test_client", "test_client_eu"])
-def test_device_returns_data_for_provider(client: Client, user_id: str, request):
-    client = request.getfixturevalue(client)
+@pytest.mark.parametrize("region", ["us", "eu"])
+def test_device_returns_data_for_provider(
+    region,
+    get_client: Dict[Tuple[str, Client], Tuple[str, Client]],
+):
+    user_id, client = get_client[region]
     provider = "oura"
     data = client.Devices.get_raw(user_id, provider)
     for datapoint in data["devices"]:
