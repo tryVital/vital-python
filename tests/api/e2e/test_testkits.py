@@ -1,6 +1,7 @@
 import pytest
 from vital import Client
 from typing import Dict, Tuple
+from vital import Client
 
 
 @pytest.mark.parametrize("region", ["us", "eu"])
@@ -57,3 +58,39 @@ def test_get_orders(
     _, client = get_client[region]
     data = client.Testkits.get_orders(start_date, end_date)
     assert data is not None
+
+
+@pytest.mark.parametrize("region", ["us", "eu"])
+def test_testkits_orders(
+    region,
+    get_client: Dict[Tuple[str, Client], Tuple[str, Client]],
+    client_order_id: str,
+    start_date: str,
+    end_date: str,
+) -> None:
+    user_id, client = get_client[region]
+    if client_order_id == "test_client_order_id":
+        # Can only test this if the client_order_id is set to a real value
+        return
+
+    orders = client.Testkits.get_orders(start_date, end_date)
+    assert len(orders["orders"]) > 0
+    assert orders["orders"][0]["id"] == client_order_id
+    assert orders["orders"][0]["user_id"] == user_id
+
+    order = client.Testkits.get_order(order_id=client_order_id)
+    assert order["id"] == client_order_id
+    assert order["user_id"] == user_id
+
+    response = client.Testkits.cancel_order(order_id=client_order_id)
+    assert response["status"] == "success"
+    assert response["order"]["id"] == client_order_id
+    assert response["order"]["user_id"] == user_id
+
+    orders = client.Testkits.get_orders(start_date, end_date, status=["ordered"])
+    assert len(orders["orders"]) == 0
+
+    orders = client.Testkits.get_orders(
+        start_date, end_date, status=["ordered", "cancelled"]
+    )
+    assert len(orders["orders"]) == 1

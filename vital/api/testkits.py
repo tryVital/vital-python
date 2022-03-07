@@ -1,4 +1,4 @@
-from typing import Dict, Mapping
+from typing import Dict, List, Mapping, Optional
 
 from vital.api.api import API
 
@@ -49,10 +49,20 @@ class Testkits(API):
         """
         return self.client.get(f"/testkit/orders/{order_id}")
 
-    def get_orders(self, start_date: str, end_date: str) -> Mapping[str, str]:
+    def get_orders(
+        self, start_date: str, end_date: str, status: Optional[List[str]] = None
+    ) -> Mapping[str, str]:
         """
         Get all orders.
         """
         return self.client.get(
-            "/testkit/orders", {"start_date": start_date, "end_date": end_date}
+            "/testkit/orders",
+            {"start_date": start_date, "end_date": end_date, "status": status},
         )
+
+    def cancel_order(self, order_id: str) -> Mapping[str, str]:
+        """
+        Cancel order.
+        :param str user_id: The order_id.
+        """
+        return self.client.post(f"/testkit/orders/{order_id}/cancel")

@@ -70,5 +70,5 @@ def test_refresh(
     user_id, client = get_client[region]
     data = client.User.refresh(user_id)
 
-    assert data.get("status") == "success"
+    assert data.get("success") is True
     assert data.get("user_id") == user_id
