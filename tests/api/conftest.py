@@ -11,6 +11,11 @@ def client_user_id() -> str:
 
 
 @pytest.fixture(scope="session")
+def client_order_id() -> str:
+    return "test_client_order_id"
+
+
+@pytest.fixture(scope="session")
 def test_client() -> Client:
     return Client(
         client_id=os.environ["TEST_CLIENT_ID"],
