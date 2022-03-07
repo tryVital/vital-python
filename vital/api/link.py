@@ -12,7 +12,7 @@ class Link(API):
         :param str user_id: user's id returned by service.
         """
         return self.client.post(
-            "/link/token/", {"user_id": user_id, "provider": provider}
+            "/link/token", {"user_id": user_id, "provider": provider}
         )
 
     def password_provider(
