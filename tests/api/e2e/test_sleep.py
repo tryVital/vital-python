@@ -3,7 +3,13 @@ from vital import Client
 from typing import Dict, Tuple
 
 
-@pytest.mark.parametrize("region", ["us", "eu"])
+@pytest.mark.parametrize(
+    "region",
+    [
+        "us",
+        # "eu"
+    ],
+)
 def test_sleep_returns_data(
     region,
     get_client: Dict[Tuple[str, Client], Tuple[str, Client]],

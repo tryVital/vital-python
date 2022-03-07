@@ -3,7 +3,13 @@ import pytest
 from vital import Client
 
 
-@pytest.mark.parametrize("region", ["us", "eu"])
+@pytest.mark.parametrize(
+    "region",
+    [
+        "us",
+        # "eu" - skipping for now
+    ],
+)
 def test_activity_returns_data(
     region,
     get_client: Dict[Tuple[str, Client], Tuple[str, Client]],
