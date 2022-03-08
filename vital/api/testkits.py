@@ -12,6 +12,7 @@ class Testkits(API):
         testkit_id: str,
         patient_address: Dict,
         patient_details: Dict,
+        skip_address_validation: bool = False,
     ) -> Mapping[str, str]:
         """
         Create a Link token.
@@ -26,6 +27,7 @@ class Testkits(API):
                 "patient_address": patient_address,
                 "patient_details": patient_details,
             },
+            headers={"skip-address-validation": skip_address_validation},
         )
 
     def get(self) -> Mapping[str, str]:

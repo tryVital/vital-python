@@ -1,5 +1,7 @@
 from typing import Dict, Tuple
+
 import pytest
+
 from vital import Client
 
 

@@ -1,6 +1,8 @@
-import pytest
-from vital import Client
 from typing import Dict, Tuple
+
+import pytest
+
+from vital import Client
 
 
 @pytest.mark.parametrize("region", ["us", "eu"])
