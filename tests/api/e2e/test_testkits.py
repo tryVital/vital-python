@@ -1,8 +1,8 @@
-import pytest
-from vital import Client
 from typing import Dict, Tuple
-from vital import Client
 
+import pytest
+
+from vital import Client
 
 # @pytest.mark.parametrize("region", ["us", "eu"])
 # def test_create_order(
