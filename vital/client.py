@@ -23,19 +23,26 @@ from vital.internal.token_handler import TokenHandler
 from vital.internal.utils import urljoin
 
 base_urls = {
-    "prod": "https://api.tryvital.io",
-    "production": "https://api.tryvital.io",
-    "dev": "https://api.dev.tryvital.io",
-    "development": "https://api.dev.tryvital.io",
-    "sandbox": "https://api.sandbox.tryvital.io",
+    "eu": {
+        "prod": "https://api.eu.tryvital.io",
+        "production": "https://api.eu.tryvital.io",
+        "dev": "https://api.dev.eu.tryvital.io",
+        "sandbox": "https://api.sandbox.eu.tryvital.io",
+    },
+    "us": {
+        "prod": "https://api.tryvital.io",
+        "production": "https://api.tryvital.io",
+        "dev": "https://api.dev.tryvital.io",
+        "sandbox": "https://api.sandbox.tryvital.io",
+    },
 }
 
 
-def get_base_url(environment: str) -> str:
+def get_base_url(environment: str, region: str) -> str:
     if environment == "local":
         return "http://localhost:8000"
     try:
-        return base_urls[environment]
+        return base_urls[region][environment]
     except KeyError:
         raise Exception("Environment not supported")
 
@@ -54,6 +61,7 @@ class Client:
         environment=None,
         timeout=DEFAULT_TIMEOUT,
         api_version="v2",
+        region="us",
         **kwargs,
     ):
         """
@@ -68,7 +76,7 @@ class Client:
         self.environment = environment
         self.timeout = timeout
         self.api_version = api_version
-        self.base_url = get_base_url(environment)
+        self.base_url = get_base_url(environment, region)
         self.token_handler = TokenHandler(
             self.client_id,
             self.client_secret,

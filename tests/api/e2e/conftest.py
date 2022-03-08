@@ -4,7 +4,7 @@ import pytest
 
 @pytest.fixture
 def start_date():
-    return arrow.get().shift(days=-90).isoformat()
+    return arrow.get().shift(days=-460).isoformat()
 
 
 @pytest.fixture

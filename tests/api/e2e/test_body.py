@@ -1,15 +1,35 @@
+from typing import Dict, Tuple
+import pytest
 from vital import Client
 
 
-def test_body_returns_data(test_client: Client, user_id: str, start_date, end_date):
-    data = test_client.Body.get(user_id, start_date, end_date)
+@pytest.mark.parametrize(
+    "region",
+    [
+        "us",
+        # "eu"
+    ],
+)
+def test_body_returns_data(
+    region,
+    get_client: Dict[Tuple[str, Client], Tuple[str, Client]],
+    start_date,
+    end_date,
+):
+    user_id, client = get_client[region]
+    data = client.Body.get(user_id, start_date, end_date)
     assert len(data.get("body")) > 0
 
 
+@pytest.mark.parametrize("region", ["us", "eu"])
 def test_body_returns_data_for_provider(
-    test_client: Client, user_id: str, start_date, end_date
+    region,
+    get_client: Dict[Tuple[str, Client], Tuple[str, Client]],
+    start_date,
+    end_date,
 ):
+    user_id, client = get_client[region]
     provider = "oura"
-    data = test_client.Body.get(user_id, start_date, end_date, provider)
+    data = client.Body.get(user_id, start_date, end_date, provider)
     for datapoint in data["body"]:
         assert datapoint["source"]["slug"] == provider
