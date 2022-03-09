@@ -16,6 +16,10 @@ def test_workouts_returns_data(
     data = client.Workouts.get(user_id, start_date, end_date)
     assert len(data.get("workouts")) > 0
 
+    # Test no end_date
+    data = client.Workouts.get(user_id, start_date)
+    assert len(data.get("workouts")) > 0
+
 
 @pytest.mark.parametrize("region", ["us", "eu"])
 def test_workouts_returns_data_for_provider(
@@ -27,5 +31,10 @@ def test_workouts_returns_data_for_provider(
     user_id, client = get_client[region]
     provider = "oura"
     data = client.Workouts.get(user_id, start_date, end_date, provider)
+    for datapoint in data["workouts"]:
+        assert datapoint["source"]["slug"] == provider
+
+    # Test no end_date
+    data = client.Workouts.get(user_id, start_date, provider=provider)
     for datapoint in data["workouts"]:
         assert datapoint["source"]["slug"] == provider
