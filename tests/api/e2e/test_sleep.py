@@ -21,7 +21,7 @@ def test_sleep_returns_data(
     user_id, client = get_client[region]
     data = client.Sleep.get(user_id, start_date, end_date)
     assert len(data.get("sleep")) > 0
-    data = test_client.Sleep.get(user_id, start_date)
+    data = client.Sleep.get(user_id, start_date)
     assert len(data.get("sleep")) > 0
 
 
