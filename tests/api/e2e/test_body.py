@@ -21,6 +21,8 @@ def test_body_returns_data(
     user_id, client = get_client[region]
     data = client.Body.get(user_id, start_date, end_date)
     assert len(data.get("body")) > 0
+
+    # Test no end_date
     data = client.Body.get(user_id, start_date)
     assert len(data.get("body")) > 0
 
@@ -35,5 +37,10 @@ def test_body_returns_data_for_provider(
     user_id, client = get_client[region]
     provider = "oura"
     data = client.Body.get(user_id, start_date, end_date, provider)
+    for datapoint in data["body"]:
+        assert datapoint["source"]["slug"] == provider
+
+    # Test no end_date
+    data = client.Body.get(user_id, start_date, provider=provider)
     for datapoint in data["body"]:
         assert datapoint["source"]["slug"] == provider
