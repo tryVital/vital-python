@@ -21,6 +21,8 @@ def test_body_returns_data(
     user_id, client = get_client[region]
     data = client.Body.get(user_id, start_date, end_date)
     assert len(data.get("body")) > 0
+    data = test_client.Body.get(user_id, start_date)
+    assert len(data.get("body")) > 0
 
 
 @pytest.mark.parametrize("region", ["us", "eu"])
