@@ -12,6 +12,7 @@ class Sleep(API):
         start_date: str,
         end_date: Optional[str] = "",
         provider: Optional[str] = "",
+        with_stream: Optional[bool] = False,
     ) -> Mapping[str, List[Mapping]]:
         """
         GET Sleep data.
@@ -22,6 +23,7 @@ class Sleep(API):
                 "start_date": start_date,
                 "end_date": end_date,
                 "provider": provider,
+                "with_stream": with_stream,
             },
         )
 
