@@ -1,7 +1,18 @@
 import requests
 
-from vital.api import Activity, Body, Link, ProviderSpecific, Sleep, Webhooks, Workouts
-from vital.api.user import User
+from vital.api import (
+    Activity,
+    Body,
+    Devices,
+    Link,
+    Profile,
+    Sleep,
+    Testkits,
+    User,
+    Vitals,
+    Webhooks,
+    Workouts,
+)
 from vital.internal.requester import (
     DEFAULT_TIMEOUT,
     delete_request,
@@ -12,18 +23,26 @@ from vital.internal.token_handler import TokenHandler
 from vital.internal.utils import urljoin
 
 base_urls = {
-    "prod": "https://api-tryvital-io.relay.evervault.com",
-    "production": "https://api-tryvital-io.relay.evervault.com",
-    "dev": "https://api-dev-tryvital-io.relay.evervault.com",
-    "sandbox": "https://api-sandbox-tryvital-io.relay.evervault.com",
+    "eu": {
+        "prod": "https://api.eu.tryvital.io",
+        "production": "https://api.eu.tryvital.io",
+        "dev": "https://api.dev.eu.tryvital.io",
+        "sandbox": "https://api.sandbox.eu.tryvital.io",
+    },
+    "us": {
+        "prod": "https://api.tryvital.io",
+        "production": "https://api.tryvital.io",
+        "dev": "https://api.dev.tryvital.io",
+        "sandbox": "https://api.sandbox.tryvital.io",
+    },
 }
 
 
-def get_base_url(environment: str) -> str:
+def get_base_url(environment: str, region: str) -> str:
     if environment == "local":
         return "http://localhost:8000"
     try:
-        return base_urls[environment]
+        return base_urls[region][environment]
     except KeyError:
         raise Exception("Environment not supported")
 
@@ -41,7 +60,8 @@ class Client:
         secret=None,
         environment=None,
         timeout=DEFAULT_TIMEOUT,
-        api_version="v1",
+        api_version="v2",
+        region="us",
         **kwargs,
     ):
         """
@@ -56,7 +76,7 @@ class Client:
         self.environment = environment
         self.timeout = timeout
         self.api_version = api_version
-        self.base_url = get_base_url(environment)
+        self.base_url = get_base_url(environment, region)
         self.token_handler = TokenHandler(
             self.client_id,
             self.client_secret,
@@ -66,32 +86,41 @@ class Client:
         )
         self.session = requests.Session()
         # Mirror the HTTP API hierarchy
+        self.Profile = Profile(self)
         self.Link = Link(self)
         self.Body = Body(self)
         self.Activity = Activity(self)
-        self.ProviderSpecific = ProviderSpecific(self)
         self.Sleep = Sleep(self)
         self.User = User(self)
         self.Workouts = Workouts(self)
         self.Webhooks = Webhooks(self)
+        self.Vitals = Vitals(self)
+        self.Testkits = Testkits(self)
+        self.Devices = Devices(self)
 
-    def post(self, path, data, is_json=True, params={}, headers={}):
+    def post(
+        self, path, data=None, is_json=True, params={}, headers={}, api_version=None
+    ):
         """Make a post request."""
-        return self._post(path, data, is_json, params, self.session, headers)
+        return self._post(
+            path, data, is_json, params, self.session, headers, api_version
+        )
 
-    def get(self, path, params={}):
+    def get(self, path, params={}, headers={}, api_version=None):
         """Make a get request."""
-        return self._get(path, params, self.session)
+        return self._get(path, params, self.session, headers, api_version)
 
-    def delete(self, path, params={}):
+    def delete(self, path, params={}, api_version=None):
         """Make a delete request."""
-        return self._delete(path, params, self.session)
+        return self._delete(path, params, self.session, api_version)
 
-    def post_public(self, path, data, is_json=True):
+    def post_public(self, path, data, is_json=True, api_version=None):
         """Make a post request requiring no auth."""
-        return self._post(path, data, is_json, self.session)
+        return self._post(path, data, is_json, self.session, api_version)
 
-    def _post(self, path, data, is_json, params={}, session=None, headers={}):
+    def _post(
+        self, path, data, is_json, params={}, session=None, headers={}, api_version=None
+    ):
         headers = {
             "Authorization": f"Bearer {self.token_handler.access_token}",
             "Accept-Encoding": "deflate",
@@ -100,7 +129,7 @@ class Client:
         return post_request(
             urljoin(
                 self.base_url,
-                f"{self.api_version}{path}",
+                f"{self.api_version if not api_version else api_version}{path}",
             ),
             data=data,
             timeout=self.timeout,
@@ -110,15 +139,16 @@ class Client:
             session=session,
         )
 
-    def _get(self, path, params={}, session=None):
+    def _get(self, path, params={}, session=None, headers={}, api_version=None):
         headers = {
             "Authorization": f"Bearer {self.token_handler.access_token}",
             "Accept-Encoding": "deflate",
+            **headers,
         }
         return get_request(
             urljoin(
                 self.base_url,
-                f"{self.api_version}{path}",
+                f"{self.api_version if not api_version else api_version}{path}",
             ),
             timeout=self.timeout,
             headers=headers,
@@ -126,7 +156,7 @@ class Client:
             session=session,
         )
 
-    def _delete(self, path, params={}, session=None):
+    def _delete(self, path, params={}, session=None, api_version=None):
         headers = {
             "Authorization": f"Bearer {self.token_handler.access_token}",
             "Accept-Encoding": "deflate",
@@ -134,7 +164,7 @@ class Client:
         return delete_request(
             urljoin(
                 self.base_url,
-                f"{self.api_version}{path}",
+                f"{self.api_version if not api_version else api_version}{path}",
             ),
             timeout=self.timeout,
             headers=headers,

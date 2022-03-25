@@ -2,7 +2,6 @@ import hmac
 import json
 import secrets
 import time
-from collections import OrderedDict
 from hashlib import sha256
 from typing import Dict, List, Optional, Tuple, Type, TypeVar
 
@@ -25,7 +24,7 @@ class Webhook(object):
 
         WebhookSignature.verify_header(payload, sig_header, secret, tolerance)
 
-        data = json.loads(payload, object_pairs_hook=OrderedDict)
+        data = json.loads(payload, object_pairs_hook=dict)
         return data
 
 

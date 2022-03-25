@@ -60,7 +60,7 @@ def _http_request(
             )
         if not response.ok:
             raise VitalError.from_response(
-                response_body.get("detail"), response.status_code
+                response_body.get("detail", response_body), response.status_code
             )
         else:
             return response_body

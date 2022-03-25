@@ -1,6 +1,15 @@
+from typing import Dict, Tuple
+
+import pytest
+
 from vital import Client
 
 
-def test_link_token_create(test_client: Client, user_key: str):
-    data = test_client.Link.create(user_key)
+@pytest.mark.parametrize("region", ["us", "eu"])
+def test_link_token_create(
+    region,
+    get_client: Dict[Tuple[str, Client], Tuple[str, Client]],
+):
+    user_id, client = get_client[region]
+    data = client.Link.create(user_id)
     assert data["link_token"]
