@@ -31,7 +31,7 @@ class Sleep(API):
         self,
         user_id: str,
         start_date: str,
-        end_date: str,
+        end_date: Optional[str] = "",
         provider: Optional[str] = "",
     ) -> Mapping[str, List[Mapping]]:
         """
