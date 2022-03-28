@@ -29,7 +29,7 @@ class Sleep(API):
 
     def get_sleep_with_stream(
         self,
-        user_key: str,
+        user_id: str,
         start_date: str,
         end_date: str,
         provider: Optional[str] = "",
@@ -38,7 +38,7 @@ class Sleep(API):
         GET Sleep data with stream data.
         """
         return self.client.get(
-            f"/sleep/{user_key}/stream",
+            f"/sleep/{user_id}/stream",
             params={
                 "start_date": start_date,
                 "end_date": end_date,
