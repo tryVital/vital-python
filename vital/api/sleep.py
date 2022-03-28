@@ -27,6 +27,25 @@ class Sleep(API):
             },
         )
 
+    def get_sleep_with_stream(
+        self,
+        user_id: str,
+        start_date: str,
+        end_date: Optional[str] = "",
+        provider: Optional[str] = "",
+    ) -> Mapping[str, List[Mapping]]:
+        """
+        GET Sleep data with stream data.
+        """
+        return self.client.get(
+            f"/sleep/{user_id}/stream",
+            params={
+                "start_date": start_date,
+                "end_date": end_date,
+                "provider": provider,
+            },
+        )
+
     def get_raw(
         self,
         user_id: str,
