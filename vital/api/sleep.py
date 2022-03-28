@@ -38,7 +38,7 @@ class Sleep(API):
         GET Sleep data with stream data.
         """
         return self.client.get(
-            f"/sleep/{user_id}/stream",
+            f"/summary/sleep/{user_id}/stream",
             params={
                 "start_date": start_date,
                 "end_date": end_date,
