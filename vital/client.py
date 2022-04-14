@@ -168,7 +168,6 @@ class Client:
     def _delete(self, path, params={}, session=None, api_version=None):
         headers = {
             **self.headers,
-            **headers,
         }
         return delete_request(
             urljoin(

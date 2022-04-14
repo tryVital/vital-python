@@ -27,7 +27,7 @@ class Testkits(API):
                 "patient_address": patient_address,
                 "patient_details": patient_details,
             },
-            headers={"skip-address-validation": skip_address_validation},
+            headers={"skip-address-validation": str(skip_address_validation)},
         )
 
     def get(self) -> Mapping[str, str]:
