@@ -9,6 +9,7 @@ from vital import Client
     "region",
     [
         "us",
+        "us_api_key"
         # "eu"
     ],
 )
@@ -27,7 +28,7 @@ def test_body_returns_data(
     assert len(data.get("body")) > 0
 
 
-@pytest.mark.parametrize("region", ["us", "eu"])
+@pytest.mark.parametrize("region", ["us", "eu", "us_api_key"])
 def test_body_returns_data_for_provider(
     region,
     get_client: Dict[Tuple[str, Client], Tuple[str, Client]],

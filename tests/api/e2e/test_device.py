@@ -5,7 +5,7 @@ import pytest
 from vital import Client
 
 
-@pytest.mark.parametrize("region", ["us", "eu"])
+@pytest.mark.parametrize("region", ["us", "eu", "us_api_key"])
 def test_device_returns_data(
     region, get_client: Dict[Tuple[str, Client], Tuple[str, Client]]
 ):
@@ -14,7 +14,7 @@ def test_device_returns_data(
     assert len(data.get("devices")) == 0
 
 
-@pytest.mark.parametrize("region", ["us", "eu"])
+@pytest.mark.parametrize("region", ["us", "eu", "us_api_key"])
 def test_device_returns_data_for_provider(
     region,
     get_client: Dict[Tuple[str, Client], Tuple[str, Client]],

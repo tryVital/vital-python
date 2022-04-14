@@ -13,7 +13,7 @@ def random_string():
     return "".join(random.choice(letters) for _ in range(6))
 
 
-@pytest.mark.parametrize("region", ["us", "eu"])
+@pytest.mark.parametrize("region", ["us", "eu", "us_api_key"])
 def test_get_list_of_providers(
     region,
     get_client: Dict[Tuple[str, Client], Tuple[str, Client]],
@@ -23,7 +23,7 @@ def test_get_list_of_providers(
     assert len(data["providers"]) > 0
 
 
-@pytest.mark.parametrize("region", ["us", "eu"])
+@pytest.mark.parametrize("region", ["us", "eu", "us_api_key"])
 def test_get_user(
     region,
     get_client: Dict[Tuple[str, Client], Tuple[str, Client]],
@@ -33,7 +33,7 @@ def test_get_user(
     assert data["user_id"] == user_id
 
 
-@pytest.mark.parametrize("region", ["us", "eu"])
+@pytest.mark.parametrize("region", ["us", "eu", "us_api_key"])
 def test_resolve_client_user_id(
     region,
     get_client: Dict[Tuple[str, Client], Tuple[str, Client]],
@@ -45,7 +45,7 @@ def test_resolve_client_user_id(
     assert data["client_user_id"] == client_user_id
 
 
-@pytest.mark.parametrize("region", ["us", "eu"])
+@pytest.mark.parametrize("region", ["us", "eu", "us_api_key"])
 def test_create_and_delete_user(
     region,
     get_client: Dict[Tuple[str, Client], Tuple[str, Client]],
@@ -62,7 +62,7 @@ def test_create_and_delete_user(
         client.User.get(client_user_id)
 
 
-@pytest.mark.parametrize("region", ["us", "eu"])
+@pytest.mark.parametrize("region", ["us", "eu", "us_api_key"])
 def test_refresh(
     region,
     get_client: Dict[Tuple[str, Client], Tuple[str, Client]],
