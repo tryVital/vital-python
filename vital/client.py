@@ -63,6 +63,7 @@ class Client:
         api_version="v2",
         region="us",
         api_key=None,
+        api_secret_key=None,
         **kwargs,
     ):
         """
@@ -81,11 +82,13 @@ class Client:
         self.api_version = api_version
         self.base_url = get_base_url(environment, region)
         self.api_key = api_key
+        self.api_secret_key = api_secret_key
         self.headers = {
             "Accept-Encoding": "deflate",
         }
-        if self.api_key:
+        if self.api_key and self.api_secret_key:
             self.headers["x-vital-api-key"] = self.api_key
+            self.headers["x-vital-api-secret-key"] = self.api_secret_key
         else:
             self.token_handler = TokenHandler(
                 self.client_id,
