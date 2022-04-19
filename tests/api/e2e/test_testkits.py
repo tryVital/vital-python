@@ -22,7 +22,7 @@ from vital import Client
 #     assert data is not None
 
 
-@pytest.mark.parametrize("region", ["us", "eu"])
+@pytest.mark.parametrize("region", ["us", "eu", "us_api_key"])
 def test_get_testkits(
     region,
     get_client: Dict[Tuple[str, Client], Tuple[str, Client]],
@@ -48,7 +48,7 @@ def test_get_testkits(
 #     assert data is not None
 
 
-@pytest.mark.parametrize("region", ["us", "eu"])
+@pytest.mark.parametrize("region", ["us", "eu", "us_api_key"])
 def test_get_orders(
     region,
     get_client: Dict[Tuple[str, Client], Tuple[str, Client]],
@@ -60,7 +60,7 @@ def test_get_orders(
     assert data is not None
 
 
-@pytest.mark.parametrize("region", ["us", "eu"])
+@pytest.mark.parametrize("region", ["us", "eu", "us_api_key"])
 def test_testkits_orders(
     region,
     get_client: Dict[Tuple[str, Client], Tuple[str, Client]],

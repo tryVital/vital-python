@@ -7,7 +7,7 @@ from vital import Client
 
 @pytest.mark.parametrize(
     "region",
-    ["us", "eu"],
+    ["us", "eu", "us_api_key"],
 )
 def test_sleep_returns_data(
     region,
@@ -24,7 +24,7 @@ def test_sleep_returns_data(
     assert len(data.get("sleep")) > 0
 
 
-@pytest.mark.parametrize("region", ["us", "eu"])
+@pytest.mark.parametrize("region", ["us", "eu", "us_api_key"])
 def test_sleep_returns_data_for_provider(
     region,
     get_client: Dict[Tuple[str, Client], Tuple[str, Client]],
@@ -45,7 +45,7 @@ def test_sleep_returns_data_for_provider(
 
 @pytest.mark.parametrize(
     "region",
-    ["us"],
+    ["us", "us_api_key"],
 )
 def test_sleep_stream_returns_data(
     region,

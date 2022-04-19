@@ -62,6 +62,7 @@ class Client:
         timeout=DEFAULT_TIMEOUT,
         api_version="v2",
         region="us",
+        api_key=None,
         **kwargs,
     ):
         """
@@ -70,6 +71,8 @@ class Client:
         :arg    str     secret:             Your Vital secret
         :arg    str     environment:        One of ``sandbox`` or ``production``.
         :arg    int     timeout:            Timeout for API requests.
+        :arg    str     api_key:            Your Vital api key - can be used to
+            replace client ID and secret.
         """
         self.client_id = client_id
         self.client_secret = secret
@@ -77,13 +80,21 @@ class Client:
         self.timeout = timeout
         self.api_version = api_version
         self.base_url = get_base_url(environment, region)
-        self.token_handler = TokenHandler(
-            self.client_id,
-            self.client_secret,
-            self.environment,
-            audience=kwargs.get("audience"),
-            domain=kwargs.get("domain"),
-        )
+        self.api_key = api_key
+        self.headers = {
+            "Accept-Encoding": "deflate",
+        }
+        if self.api_key:
+            self.headers["x-vital-api-key"] = self.api_key
+        else:
+            self.token_handler = TokenHandler(
+                self.client_id,
+                self.client_secret,
+                self.environment,
+                audience=kwargs.get("audience"),
+                domain=kwargs.get("domain"),
+            )
+            self.headers["Authorization"] = f"Bearer {self.token_handler.access_token}"
         self.session = requests.Session()
         # Mirror the HTTP API hierarchy
         self.Profile = Profile(self)
@@ -122,8 +133,7 @@ class Client:
         self, path, data, is_json, params={}, session=None, headers={}, api_version=None
     ):
         headers = {
-            "Authorization": f"Bearer {self.token_handler.access_token}",
-            "Accept-Encoding": "deflate",
+            **self.headers,
             **headers,
         }
         return post_request(
@@ -141,8 +151,7 @@ class Client:
 
     def _get(self, path, params={}, session=None, headers={}, api_version=None):
         headers = {
-            "Authorization": f"Bearer {self.token_handler.access_token}",
-            "Accept-Encoding": "deflate",
+            **self.headers,
             **headers,
         }
         return get_request(
@@ -158,8 +167,7 @@ class Client:
 
     def _delete(self, path, params={}, session=None, api_version=None):
         headers = {
-            "Authorization": f"Bearer {self.token_handler.access_token}",
-            "Accept-Encoding": "deflate",
+            **self.headers,
         }
         return delete_request(
             urljoin(
