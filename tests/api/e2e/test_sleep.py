@@ -54,11 +54,11 @@ def test_sleep_stream_returns_data(
     start_date = "2021-09-10"
     end_date = "2021-09-21"
     user_id, client = user_id
-    data = client.Sleep.get_sleep_with_stream(user_id, start_date, end_date)
+    data = client.Sleep.get_stream_for_date_range(user_id, start_date, end_date)
     assert len(data.get("sleep")) > 0
     assert data.get("sleep")[0].get("sleep_stream") is not None
 
     # Test no end_date
-    data = client.Sleep.get_sleep_with_stream(user_id, start_date)
+    data = client.Sleep.get_stream_for_date_range(user_id, start_date)
     assert len(data.get("sleep")) > 0
     assert data.get("sleep")[0].get("sleep_stream") is not None

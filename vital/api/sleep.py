@@ -12,7 +12,6 @@ class Sleep(API):
         start_date: str,
         end_date: Optional[str] = "",
         provider: Optional[str] = "",
-        with_stream: Optional[bool] = False,
     ) -> Mapping[str, List[Mapping]]:
         """
         GET Sleep data.
@@ -23,11 +22,10 @@ class Sleep(API):
                 "start_date": start_date,
                 "end_date": end_date,
                 "provider": provider,
-                "with_stream": with_stream,
             },
         )
 
-    def get_sleep_with_stream(
+    def get_stream_for_date_range(
         self,
         user_id: str,
         start_date: str,
@@ -35,7 +33,7 @@ class Sleep(API):
         provider: Optional[str] = "",
     ) -> Mapping[str, List[Mapping]]:
         """
-        GET Sleep data with stream data.
+        GET Sleep stream data for a single sleep event's within date range.
         """
         return self.client.get(
             f"/summary/sleep/{user_id}/stream",
@@ -67,6 +65,6 @@ class Sleep(API):
 
     def get_stream(self, sleep_id: str) -> Mapping[str, List[Mapping]]:
         """
-        GET Sleep stream data.
+        GET Sleep stream data for a single sleep event.
         """
         return self.client.get(f"/timeseries/sleep/{sleep_id}/stream")
