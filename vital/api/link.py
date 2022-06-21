@@ -32,7 +32,7 @@ class Link(API):
         )
 
     def email_provider(
-        self, link_token: str, provider: str, email: str
+        self, link_token: str, provider: str, email: str, region: Optional[str] = None
     ) -> Mapping[str, str]:
         """
         Connect a password auth provider.
@@ -43,7 +43,7 @@ class Link(API):
         """
         return self.client.post(
             f"/link/provider/email/{provider}",
-            {"email": email},
+            {"email": email, "region": region},
             headers={"LinkToken": link_token},
         )
 
