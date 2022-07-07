@@ -6,13 +6,19 @@ from vital.api.api import API
 class Link(API):
     """Endpoints for managing link tokens."""
 
-    def create(self, user_id: str, provider: Optional[str] = None) -> Mapping[str, str]:
+    def create(
+        self,
+        user_id: str,
+        provider: Optional[str] = None,
+        redirect_url: Optional[str] = None,
+    ) -> Mapping[str, str]:
         """
         Create a Link token.
         :param str user_id: user's id returned by service.
         """
         return self.client.post(
-            "/link/token", {"user_id": user_id, "provider": provider}
+            "/link/token",
+            {"user_id": user_id, "provider": provider, "redirect_url": redirect_url},
         )
 
     def password_provider(
