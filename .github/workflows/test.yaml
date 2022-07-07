@@ -14,7 +14,7 @@ jobs:
         with:
           python-version: "3.8"
       #----------------------------------------------
-      #  -----  install & configure poetry  -----      
+      #  -----  install & configure poetry  -----
       #----------------------------------------------
       - name: Install Poetry
         uses: snok/install-poetry@v1.1.1
@@ -22,7 +22,7 @@ jobs:
           virtualenvs-create: true
           virtualenvs-in-project: true
       #----------------------------------------------
-      #       load cached venv if cache exists      
+      #       load cached venv if cache exists
       #----------------------------------------------
       - name: Load cached venv
         id: cached-poetry-dependencies
@@ -31,25 +31,23 @@ jobs:
           path: .venv
           key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
       #----------------------------------------------
-      # install dependencies if cache does not exist 
+      # install dependencies if cache does not exist
       #----------------------------------------------
       - name: Install dependencies
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: poetry install --no-interaction --no-root
       #----------------------------------------------
-      # install your root project, if required 
-      #----------------------------------------------      
+      # install your root project, if required
+      #----------------------------------------------
       - name: Install library
         run: poetry install --no-interaction
       #----------------------------------------------
-      #              run test suite   
+      #              run test suite
       #----------------------------------------------
       - name: Run tests
         env:
-          TEST_CLIENT_ID: ${{ secrets.TEST_CLIENT_ID }}
-          TEST_CLIENT_SECRET: ${{ secrets.TEST_CLIENT_SECRET }}
-          TEST_EU_CLIENT_ID: ${{ secrets.TEST_EU_CLIENT_ID }}
-          TEST_EU_CLIENT_SECRET: ${{ secrets.TEST_EU_CLIENT_SECRET }}
+          TEST_API_KEY: ${{ secrets.TEST_API_KEY }}
+          TEST_EU_API_KEY: ${{ secrets.TEST_EU_API_KEY }}
           TEST_ENVIRONMENT: ${{ secrets.TEST_ENVIRONMENT }}
           TEST_AUDIENCE: ${{ secrets.TEST_AUDIENCE }}
           TEST_EU_AUDIENCE: ${{ secrets.TEST_EU_AUDIENCE }}
