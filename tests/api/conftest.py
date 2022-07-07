@@ -19,8 +19,7 @@ def client_order_id() -> str:
 @pytest.fixture(scope="session")
 def test_client() -> Client:
     return Client(
-        client_id=os.environ["TEST_CLIENT_ID"],
-        secret=os.environ["TEST_CLIENT_SECRET"],
+        api_key=os.environ["TEST_API_KEY"],
         environment=os.environ["TEST_ENVIRONMENT"],
         audience=os.environ["TEST_AUDIENCE"],
         domain=os.environ["TEST_DOMAIN"],
@@ -30,8 +29,7 @@ def test_client() -> Client:
 @pytest.fixture(scope="session")
 def test_client_eu() -> Client:
     return Client(
-        client_id=os.environ["TEST_EU_CLIENT_ID"],
-        secret=os.environ["TEST_EU_CLIENT_SECRET"],
+        api_key=os.environ["TEST_EU_API_KEY"],
         environment=os.environ["TEST_ENVIRONMENT"],
         audience=os.environ["TEST_EU_AUDIENCE"],
         domain=os.environ["TEST_DOMAIN"],
