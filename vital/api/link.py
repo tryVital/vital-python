@@ -47,10 +47,13 @@ class Link(API):
         :param str username: username.
         :param str password: password.
         """
+        body = {"email": email}
+        if region:
+            body["region"] = region
         return self.client.post(
             f"/link/provider/email/{provider}",
-            {"email": email, "region": region},
-            headers={"LinkToken": link_token},
+            body,
+            headers={"x-vital-link-token": link_token},
         )
 
     def oauth_provider(
