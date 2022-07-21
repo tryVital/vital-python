@@ -1,4 +1,4 @@
-from typing import Mapping, Optional
+from typing import Mapping, Optional, List
 
 from vital.api.api import API
 
@@ -11,15 +11,21 @@ class Link(API):
         user_id: str,
         provider: Optional[str] = None,
         redirect_url: Optional[str] = None,
+        providers: Optional[List[str]] = None,
     ) -> Mapping[str, str]:
         """
         Create a Link token.
         :param str user_id: user's id returned by service.
         """
-        return self.client.post(
-            "/link/token",
-            {"user_id": user_id, "provider": provider, "redirect_url": redirect_url},
-        )
+        params = {
+            "user_id": user_id,
+            "provider": provider,
+            "redirect_url": redirect_url,
+        }
+        if providers:
+            params["filter_on_providers"] = providers
+
+        return self.client.post("/link/token", params)
 
     def password_provider(
         self, link_token: str, provider: str, username: str, password: str
