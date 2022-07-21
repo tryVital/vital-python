@@ -11,7 +11,7 @@ class Link(API):
         user_id: str,
         provider: Optional[str] = None,
         redirect_url: Optional[str] = None,
-        providers: Optional[List[str]] = None,
+        filter_on_providers: Optional[List[str]] = None,
     ) -> Mapping[str, str]:
         """
         Create a Link token.
@@ -22,8 +22,8 @@ class Link(API):
             "provider": provider,
             "redirect_url": redirect_url,
         }
-        if providers:
-            params["filter_on_providers"] = providers
+        if filter_on_providers:
+            params["filter_on_providers"] = filter_on_providers
 
         return self.client.post("/link/token", params)
 
