@@ -1,4 +1,4 @@
-from typing import Mapping, Optional, List
+from typing import List, Mapping, Optional
 
 from vital.api.api import API
 
@@ -75,4 +75,26 @@ class Link(API):
         return self.client.get(
             f"/link/provider/oauth/{provider}",
             headers={"LinkToken": link_token},
+        )
+
+    def demo_provider(
+        self,
+        user_id: str,
+        provider: str,
+    ) -> Mapping[str, str]:
+        """
+        Connect a demo provider for an existing user.
+        :param str user_id: the user to connect.
+        :param str provider: the provider to connect.
+        """
+        supported_providers = {"apple_health_kit", "fitbit", "oura", "whoop"}
+        if provider not in supported_providers:
+            raise ValueError(
+                f"Provider {provider} is not supported. "
+                f"Supported providers: {supported_providers}"
+            )
+
+        return self.client.post(
+            "/link/connect/demo",
+            data={"user_id": user_id, "provider": provider}
         )
