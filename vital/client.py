@@ -13,7 +13,6 @@ from vital.api import (
     Webhooks,
     Workouts,
 )
-from vital.api.testkits import TestkitsV3
 from vital.internal.requester import (
     DEFAULT_TIMEOUT,
     delete_request,
