@@ -12,6 +12,7 @@ from vital.api import (
     Vitals,
     Webhooks,
     Workouts,
+    Meals
 )
 from vital.internal.requester import (
     DEFAULT_TIMEOUT,
@@ -108,6 +109,7 @@ class Client:
         self.Vitals = Vitals(self)
         self.Testkits = Testkits(self)
         self.Devices = Devices(self)
+        self.Meals = Meals(self)
 
     def post(
         self, path, data=None, is_json=True, params={}, headers={}, api_version=None

@@ -9,6 +9,7 @@ from vital.api.user import User
 from vital.api.vitals import Vitals
 from vital.api.webhooks import Webhooks
 from vital.api.workouts import Workouts
+from vital.api.meals import Meals
 
 __all__ = [
     "Link",
@@ -22,4 +23,5 @@ __all__ = [
     "Testkits",
     "Devices",
     "Profile",
+    "Meals",
 ]
