@@ -7,7 +7,7 @@ from vital.api import (
     Link,
     Profile,
     Sleep,
-    Testkits,
+    LabTests,
     User,
     Vitals,
     Webhooks,

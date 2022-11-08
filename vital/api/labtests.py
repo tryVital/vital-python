@@ -3,7 +3,7 @@ from typing import Dict, Mapping, Optional
 from vital.api.api import API
 
 
-class Testkits(API):
+class LabTests(API):
     """V3 endpoints for managing testkit orders."""
 
     def create_order(
