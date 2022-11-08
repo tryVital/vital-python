@@ -31,7 +31,7 @@ class Vitals(API):
         provider: Optional[str] = "",
     ) -> List[Mapping]:
         """
-        Get glucose value API
+        Get glucose values from the API
         :param str user_id: user's id
         :param str start_date: date in ISO format
         :param Optional[str] end_date: date in ISO format
@@ -50,7 +50,7 @@ class Vitals(API):
         provider: Optional[str] = "",
     ) -> List[Mapping]:
         """
-        Get glucose value API
+        Get cholesterol values from the API
         :param str user_id: user's id
         :param str start_date: date in ISO format
         :param Optional[str] end_date: date in ISO format
@@ -68,7 +68,7 @@ class Vitals(API):
         provider: Optional[str] = "",
     ) -> List[Mapping]:
         """
-        Get glucose value API
+        Get IGE values from the API
         :param str user_id: user's id
         :param str start_date: date in ISO format
         :param Optional[str] end_date: date in ISO format
@@ -84,7 +84,7 @@ class Vitals(API):
         provider: Optional[str] = "",
     ) -> List[Mapping]:
         """
-        Get glucose value API
+        Get IGG values from the API
         :param str user_id: user's id
         :param str start_date: date in ISO format
         :param Optional[str] end_date: date in ISO format
@@ -100,7 +100,7 @@ class Vitals(API):
         provider: Optional[str] = "",
     ) -> List[Mapping]:
         """
-        Get glucose value API
+        Get heartrate values from the API
         :param str user_id: user's id
         :param str start_date: date in ISO format
         :param Optional[str] end_date: date in ISO format
@@ -108,4 +108,21 @@ class Vitals(API):
         """
         return self._timeseries_request(
             user_id, start_date, "heartrate", end_date, provider
+        )
+
+    def blood_oxygen(
+        self,
+        user_id: str,
+        start_date: str,
+        end_date: str,
+        provider: Optional[str] = "",
+    ) -> List[Mapping]:
+        """
+        Get blood oxygen values from the API
+        :param str user_id: user's id
+        :param str start_date: date in ISO format
+        :param str end_date: date in ISO format
+        """
+        return self._timeseries_request(
+            user_id, start_date, end_date, "blood_oxygen", provider
         )
