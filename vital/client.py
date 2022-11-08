@@ -6,13 +6,13 @@ from vital.api import (
     Devices,
     LabTests,
     Link,
+    Meals,
     Profile,
     Sleep,
     User,
     Vitals,
     Webhooks,
     Workouts,
-    Meals
 )
 from vital.internal.requester import (
     DEFAULT_TIMEOUT,
