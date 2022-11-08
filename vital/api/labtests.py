@@ -14,7 +14,7 @@ class LabTests(API):
         lab_test_id: str,
         physician: Optional[Dict],
     ) -> Mapping[str, str]:
-        """ Create new order """
+        """Create new order"""
 
         return self.client.post(
             "/v3/order",
@@ -23,10 +23,9 @@ class LabTests(API):
                 "patient_details": patient_details,
                 "patient_address": patient_address,
                 "lab_test_id": lab_test_id,
-                "physician": physician
+                "physician": physician,
             },
         )
-
 
     def get_order(self, order_id: str) -> Mapping[str, str]:
         """
@@ -35,7 +34,6 @@ class LabTests(API):
         """
         return self.client.get(f"/v3/order/{order_id}")
 
-
     def cancel_order(self, order_id: str) -> Mapping[str, str]:
         """
         Cancel order.
@@ -43,13 +41,11 @@ class LabTests(API):
         """
         return self.client.post(f"/v3/order/{order_id}/cancel")
 
-
-    def get_tests(self ) -> Mapping[str, str]:
+    def get_tests(self) -> Mapping[str, str]:
         """
         GET all lab tests the team has access to.
         """
-        return self.client.get(f"/v3/lab_tests")
-
+        return self.client.get("/v3/lab_tests")
 
     def get_results(self, order_id: str) -> Mapping[str, str]:
         """
@@ -57,17 +53,15 @@ class LabTests(API):
         """
         return self.client.get(f"/v3/order/{order_id}/result")
 
-
     def get_results_pdf(self, order_id: str) -> Mapping[str, str]:
         """
-        GET gets the lab result for the order in PDF format. 
+        GET gets the lab result for the order in PDF format.
         """
         return self.client.get(f"/v3/order/{order_id}/result/pdf")
 
-
     def get_results_metadata(self, order_id: str) -> Mapping[str, str]:
         """
-        GET metadata related to order results, such as 
+        GET metadata related to order results, such as
         lab metadata, provider and sample dates.
         """
         return self.client.get(f"/v3/order/{order_id}/result/metadata")
