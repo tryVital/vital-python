@@ -4,10 +4,10 @@ from vital.api import (
     Activity,
     Body,
     Devices,
+    LabTests,
     Link,
     Profile,
     Sleep,
-    Testkits,
     User,
     Vitals,
     Webhooks,
@@ -20,7 +20,6 @@ from vital.internal.requester import (
     get_request,
     post_request,
 )
-from vital.internal.token_handler import TokenHandler
 from vital.internal.utils import urljoin
 
 base_urls = {
@@ -57,8 +56,6 @@ class Client:
 
     def __init__(
         self,
-        client_id=None,
-        secret=None,
         environment=None,
         timeout=DEFAULT_TIMEOUT,
         api_version="v2",
@@ -75,8 +72,6 @@ class Client:
         :arg    str     api_key:            Your Vital api key - can be used to
             replace client ID and secret.
         """
-        self.client_id = client_id
-        self.client_secret = secret
         self.environment = environment
         self.timeout = timeout
         self.api_version = api_version
@@ -85,17 +80,8 @@ class Client:
         self.headers = {
             "Accept-Encoding": "deflate",
         }
-        if self.api_key:
-            self.headers["x-vital-api-key"] = self.api_key
-        else:
-            self.token_handler = TokenHandler(
-                self.client_id,
-                self.client_secret,
-                self.environment,
-                audience=kwargs.get("audience"),
-                domain=kwargs.get("domain"),
-            )
-            self.headers["Authorization"] = f"Bearer {self.token_handler.access_token}"
+
+        self.headers["x-vital-api-key"] = self.api_key
         self.session = requests.Session()
         # Mirror the HTTP API hierarchy
         self.Profile = Profile(self)
@@ -107,7 +93,7 @@ class Client:
         self.Workouts = Workouts(self)
         self.Webhooks = Webhooks(self)
         self.Vitals = Vitals(self)
-        self.Testkits = Testkits(self)
+        self.LabTests = LabTests(self)
         self.Devices = Devices(self)
         self.Meals = Meals(self)
 
