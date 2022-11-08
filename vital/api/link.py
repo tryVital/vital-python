@@ -23,7 +23,7 @@ class Link(API):
             "redirect_url": redirect_url,
         }
         if filter_on_providers:
-            params["filter_on_providers"] = filter_on_providers
+            params["filter_on_providers"] = filter_on_providers  # type: ignore
 
         return self.client.post("/link/token", params)
 
@@ -95,6 +95,5 @@ class Link(API):
             )
 
         return self.client.post(
-            "/link/connect/demo",
-            data={"user_id": user_id, "provider": provider}
+            "/link/connect/demo", data={"user_id": user_id, "provider": provider}
         )
