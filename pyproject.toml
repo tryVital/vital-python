@@ -25,7 +25,6 @@ requests = "*"
 importlib-metadata = "^3.7.3"
 svix = "^0.41.2"
 typed-ast="^1.5.4"
-black = "^22.10.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.2"

@@ -30,7 +30,7 @@ class User(API):
         """
         Get all users.
         """
-        return self.client.get("/user/")
+        return self.client.get("/user")
 
     def get(self, user_id: str) -> Mapping[str, str]:
         """
