@@ -45,7 +45,9 @@ class Sleep(API):
             end = arrow.get()
 
         if (end - arrow.get(start_date)).days > 7:
-            logger.warning("WARNING: calling get_stream_for_date_range for more than 7 days can significantly increase the latency of the request. Please consider reducing the number of days requested.")
+            logger.warning("WARNING: calling get_stream_for_date_range for "
+            "more than 7 days can significantly increase the latency of the request. "
+            "Please consider reducing the number of days requested.")
 
         summaries = self.get(user_id, start_date, end_date, provider)
         for sleep in summaries["sleep"]:
