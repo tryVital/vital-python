@@ -1,12 +1,9 @@
-import logging
+import warnings
 from typing import List, Mapping, Optional
 
 import arrow
 
 from vital.api.api import API
-
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.WARNING)
 
 
 class Sleep(API):
@@ -45,7 +42,7 @@ class Sleep(API):
             end = arrow.get()
 
         if (end - arrow.get(start_date)).days > 7:
-            logger.warning("WARNING: calling get_stream_for_date_range for "
+            warnings.warn("WARNING: calling get_stream_for_date_range for "
             "more than 7 days can significantly increase the latency of the request. "
             "Please consider reducing the number of days requested.")
 
