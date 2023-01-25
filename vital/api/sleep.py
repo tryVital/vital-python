@@ -1,4 +1,7 @@
+import warnings
 from typing import List, Mapping, Optional
+
+import arrow
 
 from vital.api.api import API
 
@@ -35,14 +38,22 @@ class Sleep(API):
         """
         GET Sleep stream data for a single sleep event's within date range.
         """
-        return self.client.get(
-            f"/summary/sleep/{user_id}/stream",
-            params={
-                "start_date": start_date,
-                "end_date": end_date,
-                "provider": provider,
-            },
-        )
+        if not end_date:
+            end = arrow.get()
+
+        if (end - arrow.get(start_date)).days > 7:
+            warnings.warn(
+                "WARNING: calling get_stream_for_date_range for "
+                "more than 7 days can significantly increase "
+                "the latency of the request. "
+                "Please consider reducing the number of days requested."
+            )
+
+        summaries = self.get(user_id, start_date, end_date, provider)
+        for sleep in summaries["sleep"]:
+            sleep["sleep_stream"] = self.get_stream(sleep["id"])
+
+        return summaries
 
     def get_raw(
         self,
