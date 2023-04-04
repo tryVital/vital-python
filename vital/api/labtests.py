@@ -13,20 +13,20 @@ class LabTests(API):
         patient_address: Dict,
         lab_test_id: str,
         physician: Optional[Dict],
+        health_insurance: Optional[Dict] = None,
     ) -> Mapping[str, str]:
         """Create new order"""
+        params = {
+            "user_id": user_id,
+            "patient_details": patient_details,
+            "patient_address": patient_address,
+            "lab_test_id": lab_test_id,
+            "physician": physician,
+        }
+        if health_insurance:
+            params["health_insurance"] = health_insurance
 
-        return self.client.post(
-            "/order",
-            {
-                "user_id": user_id,
-                "patient_details": patient_details,
-                "patient_address": patient_address,
-                "lab_test_id": lab_test_id,
-                "physician": physician,
-            },
-            api_version="v3",
-        )
+        return self.client.post("/order", params, api_version="v3")
 
     def get_order(self, order_id: str) -> Mapping[str, str]:
         """
