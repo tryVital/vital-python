@@ -66,3 +66,9 @@ class LabTests(API):
         lab metadata, provider and sample dates.
         """
         return self.client.get(f"/order/{order_id}/result/metadata", api_version="v3")
+
+    def get_area_info(self, zip_code: str) -> Mapping[str, str]:
+        """
+        GET area info for a given zip code.
+        """
+        return self.client.get("/area/info", {"zip_code": zip_code}, api_version="v3")
