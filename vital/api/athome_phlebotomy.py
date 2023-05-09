@@ -17,11 +17,11 @@ class AtHomePhlebotomy(API):
         order_id: uuid.UUID,
         *,
         first_line: str,
-        second_line: str,
+        second_line: t.Optional[str] = None,
         city: str,
         state: str,
         zip_code: str,
-        unit: str,
+        unit: t.Optional[str] = None,
     ) -> t.Mapping[str, t.Any]:
         params = {
             "first_line": first_line,
