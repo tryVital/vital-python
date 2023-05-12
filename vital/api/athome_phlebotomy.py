@@ -4,11 +4,6 @@ import uuid
 from vital.api.api import API
 
 
-class Location(t.TypedDict):
-    lng: float
-    lat: float
-
-
 class AtHomePhlebotomy(API):
     """Endpoints for managing at-home phlebotomy appointments."""
 
@@ -41,15 +36,12 @@ class AtHomePhlebotomy(API):
         self,
         order_id: uuid.UUID,
         booking_key: str,
-        location: Location,
     ) -> t.Mapping[str, t.Any]:
-        params = {
-            "booking_key": booking_key,
-            "location": location,
-        }
         return self.client.post(
             f"/order/{order_id}/phlebotomy/appointment/book",
-            params,
+            {
+                "booking_key": booking_key,
+            },
             api_version="v3",
         )
 
@@ -57,19 +49,18 @@ class AtHomePhlebotomy(API):
         self,
         order_id: uuid.UUID,
         booking_key: str,
-        location: Location,
     ) -> t.Mapping[str, t.Any]:
-        params = {
-            "booking_key": booking_key,
-            "location": location,
-        }
         return self.client.patch(
             f"/order/{order_id}/phlebotomy/appointment/reschedule",
-            params,
+            {
+                "booking_key": booking_key,
+            },
             api_version="v3",
         )
 
-    def cancel_appointment(self, order_id: uuid.UUID, cancellation_reason_id: uuid.UUID) -> t.Mapping[str, t.Any]:
+    def cancel_appointment(
+        self, order_id: uuid.UUID, cancellation_reason_id: uuid.UUID
+    ) -> t.Mapping[str, t.Any]:
         params = {
             "cancellation_reason_id": cancellation_reason_id,
         }
