@@ -78,6 +78,6 @@ class AtHomePhlebotomy(API):
 
     def get_appointment(self, order_id: uuid.UUID) -> t.Mapping[str, t.Any]:
         return self.client.get(
-            f"/order/{order_id}/phlebotomy/appointment/cancellation-reasons",
+            f"/order/{order_id}/phlebotomy/appointment",
             api_version="v3",
         )
