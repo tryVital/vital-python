@@ -2,6 +2,7 @@ import requests
 
 from vital.api import (
     Activity,
+    AtHomePhlebotomy,
     Body,
     Devices,
     LabTests,
@@ -94,6 +95,7 @@ class Client:
         self.Webhooks = Webhooks(self)
         self.Vitals = Vitals(self)
         self.LabTests = LabTests(self)
+        self.AtHomePhlebotomy = AtHomePhlebotomy(self)
         self.Devices = Devices(self)
         self.Meals = Meals(self)
 
