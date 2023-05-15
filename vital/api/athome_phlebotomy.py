@@ -18,18 +18,27 @@ class AtHomePhlebotomy(API):
     def appointment_availability(
         self,
         order_id: uuid.UUID,
-        address: t.Optional[USAddress],
+        address: t.Optional[dict | USAddress],
     ) -> AppointmentAvailability:
         params = None
         if address is not None:
-            params = {
-                "first_line": address.first_line,
-                "second_line": address.second_line,
-                "city": address.city,
-                "state": address.state,
-                "zip_code": address.zip_code,
-                "unit": address.unit,
-            }
+            if isinstance(address, dict):
+                params = address
+
+            elif isinstance(address, USAddress):
+                params = {
+                    "first_line": address.first_line,
+                    "second_line": address.second_line,
+                    "city": address.city,
+                    "state": address.state,
+                    "zip_code": address.zip_code,
+                    "unit": address.unit,
+                }
+
+            else:
+                raise TypeError(
+                    f"address must be a dict or USAddress, not {type(address)}"
+                )
 
         response = self.client.post(
             f"/order/{order_id}/phlebotomy/appointment/availability",
