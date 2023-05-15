@@ -74,12 +74,12 @@ class AppointmentSlot(pyd.BaseModel):
 
 class DaySlot(pyd.BaseModel):
     date: date
-    slots: list[AppointmentSlot]
+    slots: t.List[AppointmentSlot]
 
 
 class AppointmentAvailability(pyd.BaseModel):
     timezone: str
-    slots: list[DaySlot]
+    slots: t.List[DaySlot]
 
 
 class CancellationReason(pyd.BaseModel):

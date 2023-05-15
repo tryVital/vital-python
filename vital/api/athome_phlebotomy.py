@@ -85,14 +85,14 @@ class AtHomePhlebotomy(API):
 
         return Appointment.parse_obj(response_body)
 
-    def cancellation_reasons(self) -> list[CancellationReason]:
+    def cancellation_reasons(self) -> t.List[CancellationReason]:
         response_body = self.client.get(
             "/order/phlebotomy/appointment/cancellation-reasons",
             api_version="v3",
         )
 
         return pyd.parse_obj_as(
-            list[CancellationReason],
+            t.List[CancellationReason],
             response_body,
         )
 
