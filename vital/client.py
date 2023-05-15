@@ -2,6 +2,7 @@ import requests
 
 from vital.api import (
     Activity,
+    AtHomePhlebotomy,
     Body,
     Devices,
     LabTests,
@@ -19,6 +20,7 @@ from vital.internal.requester import (
     delete_request,
     get_request,
     post_request,
+    patch_request,
 )
 from vital.internal.utils import urljoin
 
@@ -94,6 +96,7 @@ class Client:
         self.Webhooks = Webhooks(self)
         self.Vitals = Vitals(self)
         self.LabTests = LabTests(self)
+        self.AtHomePhlebotomy = AtHomePhlebotomy(self)
         self.Devices = Devices(self)
         self.Meals = Meals(self)
 
@@ -102,6 +105,14 @@ class Client:
     ):
         """Make a post request."""
         return self._post(
+            path, data, is_json, params, self.session, headers, api_version
+        )
+
+    def patch(
+        self, path, data=None, is_json=True, params={}, headers={}, api_version=None
+    ):
+        """Make a PATCH request."""
+        return self._patch(
             path, data, is_json, params, self.session, headers, api_version
         )
 
@@ -125,6 +136,26 @@ class Client:
             **headers,
         }
         return post_request(
+            urljoin(
+                self.base_url,
+                f"{self.api_version if not api_version else api_version}{path}",
+            ),
+            data=data,
+            timeout=self.timeout,
+            is_json=is_json,
+            headers=headers,
+            params=params,
+            session=session,
+        )
+
+    def _patch(
+        self, path, data, is_json, params={}, session=None, headers={}, api_version=None
+    ):
+        headers = {
+            **self.headers,
+            **headers,
+        }
+        return patch_request(
             urljoin(
                 self.base_url,
                 f"{self.api_version if not api_version else api_version}{path}",

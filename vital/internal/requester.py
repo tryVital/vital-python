@@ -8,7 +8,7 @@ import requests
 from vital.errors import VitalError
 from vital.version import __version__
 
-ALLOWED_METHODS = {"post", "get", "delete"}
+ALLOWED_METHODS = {"post", "patch", "get", "delete"}
 DEFAULT_TIMEOUT = 600  # 10 minutes
 
 
@@ -70,5 +70,6 @@ def _http_request(
 
 # helpers to simplify partial function application
 post_request = partial(_http_request, method="POST")
+patch_request = partial(_http_request, method="PATCH")
 get_request = partial(_http_request, method="GET", data=None)
 delete_request = partial(_http_request, method="DELETE", data=None)
