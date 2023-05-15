@@ -26,14 +26,7 @@ class AtHomePhlebotomy(API):
                 params = address
 
             elif isinstance(address, USAddress):
-                params = {
-                    "first_line": address.first_line,
-                    "second_line": address.second_line,
-                    "city": address.city,
-                    "state": address.state,
-                    "zip_code": address.zip_code,
-                    "unit": address.unit,
-                }
+                params = address.dict()
 
             else:
                 raise TypeError(
