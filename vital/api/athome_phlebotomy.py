@@ -8,6 +8,7 @@ from vital.api.schema.athome_phlebotomy import (
     Appointment,
     AppointmentAvailability,
     CancellationReason,
+    USAddress,
 )
 
 
@@ -17,22 +18,19 @@ class AtHomePhlebotomy(API):
     def appointment_availability(
         self,
         order_id: uuid.UUID,
-        *,
-        first_line: str,
-        second_line: t.Optional[str] = None,
-        city: str,
-        state: str,
-        zip_code: str,
-        unit: t.Optional[str] = None,
+        address: t.Optional[USAddress],
     ) -> AppointmentAvailability:
-        params = {
-            "first_line": first_line,
-            "second_line": second_line,
-            "city": city,
-            "state": state,
-            "zip_code": zip_code,
-            "unit": unit,
-        }
+        params = None
+        if address is not None:
+            params = {
+                "first_line": address.first_line,
+                "second_line": address.second_line,
+                "city": address.city,
+                "state": address.state,
+                "zip_code": address.zip_code,
+                "unit": address.unit,
+            }
+
         response = self.client.post(
             f"/order/{order_id}/phlebotomy/appointment/availability",
             params,
