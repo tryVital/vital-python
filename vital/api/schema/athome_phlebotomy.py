@@ -1,6 +1,6 @@
 import enum
 import typing as t
-from datetime import datetime
+from datetime import date, datetime
 
 import pydantic as pyd
 
@@ -72,9 +72,14 @@ class AppointmentSlot(pyd.BaseModel):
     num_appointments_available: float
 
 
+class DaySlot(pyd.BaseModel):
+    date: date
+    slots: list[AppointmentSlot]
+
+
 class AppointmentAvailability(pyd.BaseModel):
     timezone: str
-    slots: list[AppointmentSlot]
+    slots: list[DaySlot]
 
 
 class CancellationReason(pyd.BaseModel):

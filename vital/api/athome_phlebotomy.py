@@ -18,7 +18,7 @@ class AtHomePhlebotomy(API):
     def appointment_availability(
         self,
         order_id: uuid.UUID,
-        address: t.Optional[dict | USAddress],
+        address: t.Optional[dict | USAddress] = None,
     ) -> AppointmentAvailability:
         params = None
         if address is not None:
@@ -33,46 +33,43 @@ class AtHomePhlebotomy(API):
                     f"address must be a dict or USAddress, not {type(address)}"
                 )
 
-        response = self.client.post(
+        response_body = self.client.post(
             f"/order/{order_id}/phlebotomy/appointment/availability",
             params,
             api_version="v3",
         )
-        response.raise_for_status()
 
-        return AppointmentAvailability.parse_obj(response.json())
+        return AppointmentAvailability.parse_obj(response_body)
 
     def book_appointment(
         self,
         order_id: uuid.UUID,
         booking_key: str,
     ) -> Appointment:
-        response = self.client.post(
+        response_body = self.client.post(
             f"/order/{order_id}/phlebotomy/appointment/book",
             {
                 "booking_key": booking_key,
             },
             api_version="v3",
         )
-        response.raise_for_status()
 
-        return Appointment.parse_obj(response.json())
+        return Appointment.parse_obj(response_body)
 
     def reschedule_appointment(
         self,
         order_id: uuid.UUID,
         booking_key: str,
     ) -> Appointment:
-        response = self.client.patch(
+        response_body = self.client.patch(
             f"/order/{order_id}/phlebotomy/appointment/reschedule",
             {
                 "booking_key": booking_key,
             },
             api_version="v3",
         )
-        response.raise_for_status()
 
-        return Appointment.parse_obj(response.json())
+        return Appointment.parse_obj(response_body)
 
     def cancel_appointment(
         self, order_id: uuid.UUID, cancellation_reason_id: uuid.UUID
@@ -80,32 +77,29 @@ class AtHomePhlebotomy(API):
         params = {
             "cancellation_reason_id": cancellation_reason_id,
         }
-        response = self.client.patch(
+        response_body = self.client.patch(
             f"/order/{order_id}/phlebotomy/appointment/cancel",
             params,
             api_version="v3",
         )
-        response.raise_for_status()
 
-        return Appointment.parse_obj(response.json())
+        return Appointment.parse_obj(response_body)
 
     def cancellation_reasons(self) -> list[CancellationReason]:
-        response = self.client.get(
+        response_body = self.client.get(
             "/order/phlebotomy/appointment/cancellation-reasons",
             api_version="v3",
         )
-        response.raise_for_status()
 
         return pyd.parse_obj_as(
             list[CancellationReason],
-            response.json(),
+            response_body,
         )
 
     def get_appointment(self, order_id: uuid.UUID) -> Appointment:
-        response = self.client.get(
+        response_body = self.client.get(
             f"/order/{order_id}/phlebotomy/appointment",
             api_version="v3",
         )
-        response.raise_for_status()
 
-        return Appointment.parse_obj(response.json())
+        return Appointment.parse_obj(response_body)
