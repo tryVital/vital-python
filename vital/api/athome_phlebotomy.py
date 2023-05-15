@@ -18,7 +18,7 @@ class AtHomePhlebotomy(API):
     def appointment_availability(
         self,
         order_id: uuid.UUID,
-        address: t.Optional[dict | USAddress] = None,
+        address: t.Optional[t.Union[dict, USAddress]] = None,
     ) -> AppointmentAvailability:
         params = None
         if address is not None:
