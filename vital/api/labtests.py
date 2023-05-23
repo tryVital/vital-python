@@ -28,6 +28,14 @@ class LabTests(API):
 
         return self.client.post("/order", params, api_version="v3")
 
+    def get_orders(self, page: int = 1, size: int = 50) -> Mapping[str, str]:
+        """Get all orders"""
+        return self.client.get(
+            "/orders",
+            {"page": page, "size": size},
+            api_version="v3",
+        )
+
     def get_order(self, order_id: str) -> Mapping[str, str]:
         """
         Get order status.
