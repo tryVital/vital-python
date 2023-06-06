@@ -124,5 +124,5 @@ class Vitals(API):
         :param str end_date: date in ISO format
         """
         return self._timeseries_request(
-            user_id, start_date, end_date, "blood_oxygen", provider
+            user_id, start_date, "blood_oxygen", end_date, provider
         )
