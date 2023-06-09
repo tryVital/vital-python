@@ -14,6 +14,7 @@ class LabTests(API):
         lab_test_id: str,
         physician: Optional[Dict],
         health_insurance: Optional[Dict] = None,
+        priority: Optional[bool] = None,
     ) -> Mapping[str, str]:
         """Create new order"""
         params = {
@@ -25,6 +26,8 @@ class LabTests(API):
         }
         if health_insurance:
             params["health_insurance"] = health_insurance
+        if priority:
+            params["priority"] = priority
 
         return self.client.post("/order", params, api_version="v3")
 
