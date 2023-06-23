@@ -30,6 +30,27 @@ class LabTests(API):
             params["priority"] = priority
 
         return self.client.post("/order", params, api_version="v3")
+    
+    def create_test(
+        self,
+        name: str,
+        description: str,
+        markers: list[str],
+        lab_id: int,
+        method: str,
+        sample_type: str,
+    ) -> Mapping[str, str]:
+        """Create new lab test"""
+        params = {
+            "name": name,
+            "description": description,
+            "lab_id": lab_id,
+            "method": method,
+            "sample_type": sample_type,
+            "marker_ids": markers,
+        }
+
+        return self.client.post("/lab_tests", params, api_version="v3")
 
     def get_orders(self, page: int = 1, size: int = 50) -> Mapping[str, str]:
         """Get all orders"""
