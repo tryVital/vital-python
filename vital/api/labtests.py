@@ -47,7 +47,7 @@ class LabTests(API):
             "lab_id": lab_id,
             "method": method,
             "sample_type": sample_type,
-            "markers": markers,
+            "marker_ids": markers,
         }
 
         return self.client.post("/lab_tests", params, api_version="v3")
