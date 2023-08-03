@@ -74,11 +74,24 @@ class LabTests(API):
         """
         return self.client.post(f"/order/{order_id}/cancel", api_version="v3")
 
+    def search_payor(self, insurance_name: str, insurance_state: Optional[str] = None) -> Mapping[str, str]:
+        params = {
+            "insurance_name": insurance_name
+        }
+
+        if insurance_state:
+            params["insurance_state"] = insurance_state
+
+        return self.client.post("/insurance/search/payor", params, api_version="v3")
+
+    def search_diagnosis(self, diagnosis_query: str) -> Mapping[str, str]:
+        return self.client.get(f"/insurance/search/diagnosis?diagnosis_query={diagnosis_query}", api_version="v3")
+
     def get_tests(self) -> Mapping[str, str]:
         """
         GET all lab tests the team has access to.
         """
-        return self.client.get("/lab_tests")
+        return self.client.get("/lab_tests", api_version="v3")
 
     def get_results(self, order_id: str) -> Mapping[str, str]:
         """
