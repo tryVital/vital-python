@@ -29,7 +29,7 @@ class LabTests(API):
 
         return self.client.post("/order/testkit/register", params, api_version="v3")
 
-    def create_unregistered_order(
+    def create_unregistered_testkit_order(
         self,
         user_id: str,
         lab_test_id: str,
@@ -42,7 +42,7 @@ class LabTests(API):
             "shipping_details": shipping_details,
         }
 
-        return self.client.post("/order/testkit/unregistered", params, api_version="v3")
+        return self.client.post("/order/testkit", params, api_version="v3")
 
     def create_order(
         self,
