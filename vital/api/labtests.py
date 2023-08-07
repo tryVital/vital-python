@@ -1,4 +1,4 @@
-from typing import Dict, Mapping, Optional
+from typing import Dict, List, Mapping, Optional
 
 from vital.api.api import API
 
@@ -6,15 +6,54 @@ from vital.api.api import API
 class LabTests(API):
     """V3 endpoints for managing testkit orders."""
 
+    def register_testkit(
+        self,
+        user_id: str,
+        sample_id: str,
+        patient_details: dict,
+        patient_address: dict,
+        physician: Optional[dict] = None,
+        consents: Optional[List[dict]] = None,
+    ) -> Mapping[str, str]:
+        """ Register a testkit """
+        params = {
+            "user_id": user_id,
+            "sample_id": sample_id,
+            "patient_details": patient_details,
+            "patient_address": patient_address,
+        }
+        if physician:
+            params["physician"] = physician
+        if consents:
+            params["consents"] = consents
+
+        return self.client.post("/order/testkit/register", params, api_version="v3")
+
+    def create_unregistered_order(
+        self,
+        user_id: str,
+        lab_test_id: str,
+        shipping_details: dict,
+    ) -> Mapping[str, str]:
+        """ Order an unregistered testkit """
+        params = {
+            "user_id": user_id,
+            "lab_test_id": lab_test_id,
+            "shipping_details": shipping_details,
+        }
+
+        return self.client.post("/order/testkit/unregistered", params, api_version="v3")
+
     def create_order(
         self,
         user_id: str,
         patient_details: Dict,
         patient_address: Dict,
         lab_test_id: str,
-        physician: Optional[Dict],
+        physician: Optional[Dict] = None,
         health_insurance: Optional[Dict] = None,
         priority: Optional[bool] = None,
+        consents: Optional[List[dict]] = None,
     ) -> Mapping[str, str]:
         """Create new order"""
         params = {
@@ -28,6 +67,8 @@ class LabTests(API):
             params["health_insurance"] = health_insurance
         if priority:
             params["priority"] = priority
+        if consents:
+            params["consents"] = consents
 
         return self.client.post("/order", params, api_version="v3")
     
