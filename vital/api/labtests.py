@@ -6,7 +6,7 @@ from vital.api.api import API
 class LabTests(API):
     """V3 endpoints for managing testkit orders."""
 
-    def register_testkit(
+    def register_testkit_order(
         self,
         user_id: str,
         sample_id: str,
