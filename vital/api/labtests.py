@@ -76,7 +76,7 @@ class LabTests(API):
         self,
         name: str,
         description: str,
-        markers: list[str],
+        markers: List[str],
         lab_id: int,
         method: str,
         sample_type: str,
