@@ -1,10 +1,19 @@
-from typing import Dict, List, Mapping, Optional
+from typing import Any, Dict, List, Mapping, Optional
 
 from vital.api.api import API
 
 
 class LabTests(API):
     """V3 endpoints for managing testkit orders."""
+
+    def get_requisition_pdf(self, order_id: str) -> Any:
+        """
+        Gets the order requisition form in PDF format.
+        """
+        headers = {"Accept": "application/pdf"}
+        return self.client.get(
+            f"/order/{order_id}/requisition/pdf", api_version="v3", headers=headers
+        )
 
     def register_testkit_order(
         self,
@@ -15,7 +24,7 @@ class LabTests(API):
         physician: Optional[dict] = None,
         consents: Optional[List[dict]] = None,
     ) -> Mapping[str, str]:
-        """ Register a testkit """
+        """Register a testkit"""
         params = {
             "user_id": user_id,
             "sample_id": sample_id,
@@ -35,7 +44,7 @@ class LabTests(API):
         lab_test_id: str,
         shipping_details: dict,
     ) -> Mapping[str, str]:
-        """ Order an unregistered testkit """
+        """Order an unregistered testkit"""
         params = {
             "user_id": user_id,
             "lab_test_id": lab_test_id,
@@ -71,7 +80,7 @@ class LabTests(API):
             params["consents"] = consents
 
         return self.client.post("/order", params, api_version="v3")
-    
+
     def create_test(
         self,
         name: str,
@@ -115,10 +124,10 @@ class LabTests(API):
         """
         return self.client.post(f"/order/{order_id}/cancel", api_version="v3")
 
-    def search_payor(self, insurance_name: str, insurance_state: Optional[str] = None) -> Mapping[str, str]:
-        params = {
-            "insurance_name": insurance_name
-        }
+    def search_payor(
+        self, insurance_name: str, insurance_state: Optional[str] = None
+    ) -> Mapping[str, str]:
+        params = {"insurance_name": insurance_name}
 
         if insurance_state:
             params["insurance_state"] = insurance_state
@@ -126,7 +135,10 @@ class LabTests(API):
         return self.client.post("/insurance/search/payor", params, api_version="v3")
 
     def search_diagnosis(self, diagnosis_query: str) -> Mapping[str, str]:
-        return self.client.get(f"/insurance/search/diagnosis?diagnosis_query={diagnosis_query}", api_version="v3")
+        return self.client.get(
+            f"/insurance/search/diagnosis?diagnosis_query={diagnosis_query}",
+            api_version="v3",
+        )
 
     def get_tests(self) -> Mapping[str, str]:
         """
