@@ -19,8 +19,8 @@ from vital.internal.requester import (
     DEFAULT_TIMEOUT,
     delete_request,
     get_request,
-    post_request,
     patch_request,
+    post_request,
 )
 from vital.internal.utils import urljoin
 

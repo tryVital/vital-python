@@ -4,7 +4,6 @@ from datetime import date, datetime
 
 import pydantic as pyd
 
-
 Longitude = pyd.confloat(ge=-180, le=180)
 Latitude = pyd.confloat(ge=-90, le=90)
 
