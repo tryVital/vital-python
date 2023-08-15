@@ -25,16 +25,17 @@ class LabTests(API):
         consents: Optional[List[dict]] = None,
     ) -> Mapping[str, str]:
         """Register a testkit"""
+        if not consents:
+            consents = []
         params = {
             "user_id": user_id,
             "sample_id": sample_id,
             "patient_details": patient_details,
             "patient_address": patient_address,
+            "consents": consents,
         }
         if physician:
             params["physician"] = physician
-        if consents:
-            params["consents"] = consents
 
         return self.client.post("/order/testkit/register", params, api_version="v3")
 
@@ -61,23 +62,23 @@ class LabTests(API):
         lab_test_id: str,
         physician: Optional[Dict] = None,
         health_insurance: Optional[Dict] = None,
-        priority: Optional[bool] = None,
+        priority: bool = False,
         consents: Optional[List[dict]] = None,
     ) -> Mapping[str, str]:
         """Create new order"""
+        if not consents:
+            consents = []
         params = {
             "user_id": user_id,
             "patient_details": patient_details,
             "patient_address": patient_address,
             "lab_test_id": lab_test_id,
             "physician": physician,
+            "priority": priority,
+            "consents": consents,
         }
         if health_insurance:
             params["health_insurance"] = health_insurance
-        if priority:
-            params["priority"] = priority
-        if consents:
-            params["consents"] = consents
 
         return self.client.post("/order", params, api_version="v3")
 
