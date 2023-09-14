@@ -170,4 +170,6 @@ class LabTests(API):
         """
         GET area info for a given zip code.
         """
-        return self.client.get("/order/area/info", {"zip_code": zip_code}, api_version="v3")
+        return self.client.get(
+            "/order/area/info", {"zip_code": zip_code}, api_version="v3"
+        )
