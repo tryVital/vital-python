@@ -21,7 +21,6 @@ class Webhook(object):
     def construct_event(
         payload: str, sig_header: str, secret: str, tolerance: int = DEFAULT_TOLERANCE
     ) -> Dict:
-
         WebhookSignature.verify_header(payload, sig_header, secret, tolerance)
 
         data = json.loads(payload, object_pairs_hook=dict)
