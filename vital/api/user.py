@@ -46,6 +46,14 @@ class User(API):
         """
         return self.client.get(f"/user/key/{client_user_id}")
 
+    def create_sign_in_token(self, user_id: str) -> Mapping[str, str]:
+        """
+        Create a Vital Sign-In Token for a given user.
+
+        :param str user_id: The Vital user ID.
+        """
+        return self.client.post(f"/user/{user_id}/sign_in_token")
+
     def providers(self, user_id: str) -> List[Mapping[str, str]]:
         """
         Get list of providers.
