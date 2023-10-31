@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "fern-vital"
-version = "2.0.0-beta1"
+name = "vital"
+version = "2.0.0-beta2"
 description = ""
 readme = "README.md"
 authors = []
