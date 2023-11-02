@@ -63,7 +63,7 @@ class ClientFacingSleep(pydantic.BaseModel):
     )
     skin_temperature: typing.Optional[float] = pydantic.Field(description="The skin temperature::celcius")
     hr_dip: typing.Optional[float] = pydantic.Field(
-        description='Sleeping Heart Rate Dip is the percentage difference between your average waking heart rate and your average sleeping heart rate. In health studies, a greater "dip" is typically seen as a positive indicator of overall health::perc'
+        description='Sleeping Heart Rate Dip is the percentage difference between your average waking heart rate and your average sleeping heart rate. In health studies, a greater "dip" is typically seen as a positive indicator of overall health. Currently only available for Garmin::perc'
     )
     average_hrv: typing.Optional[float] = pydantic.Field(
         description="The average heart rate variability registered during the sleep period::rmssd"

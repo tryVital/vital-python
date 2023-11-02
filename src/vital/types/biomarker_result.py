@@ -30,6 +30,8 @@ class BiomarkerResult(pydantic.BaseModel):
     is_above_max_range: typing.Optional[bool]
     is_below_min_range: typing.Optional[bool]
     interpretation: typing.Optional[str]
+    loinc: typing.Optional[str]
+    loinc_slug: typing.Optional[str]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

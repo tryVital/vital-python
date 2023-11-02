@@ -15,6 +15,7 @@ from ...types.client_facing_calories_active_timeseries import ClientFacingCalori
 from ...types.client_facing_calories_basal_timeseries import ClientFacingCaloriesBasalTimeseries
 from ...types.client_facing_cholesterol_timeseries import ClientFacingCholesterolTimeseries
 from ...types.client_facing_distance_timeseries import ClientFacingDistanceTimeseries
+from ...types.client_facing_electrocardiogram_voltage_timeseries import ClientFacingElectrocardiogramVoltageTimeseries
 from ...types.client_facing_floors_climbed_timeseries import ClientFacingFloorsClimbedTimeseries
 from ...types.client_facing_glucose_timeseries import ClientFacingGlucoseTimeseries
 from ...types.client_facing_heart_rate_timeseries import ClientFacingHeartRateTimeseries
@@ -1025,6 +1026,55 @@ class VitalsClient:
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingBloodOxygenTimeseries], _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def electrocardiogram_voltage(
+        self,
+        user_id: str,
+        *,
+        provider: typing.Optional[str] = None,
+        start_date: str,
+        end_date: typing.Optional[str] = None,
+    ) -> typing.List[ClientFacingElectrocardiogramVoltageTimeseries]:
+        """
+        Get timeseries data for user
+
+        Parameters:
+            - user_id: str.
+
+            - provider: typing.Optional[str]. Provider oura/strava etc
+
+            - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+            - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.electrocardiogram_voltage(
+            user_id="user-id",
+            start_date="start-date",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/electrocardiogram_voltage"
+            ),
+            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(typing.List[ClientFacingElectrocardiogramVoltageTimeseries], _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -2072,6 +2122,55 @@ class AsyncVitalsClient:
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingBloodOxygenTimeseries], _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def electrocardiogram_voltage(
+        self,
+        user_id: str,
+        *,
+        provider: typing.Optional[str] = None,
+        start_date: str,
+        end_date: typing.Optional[str] = None,
+    ) -> typing.List[ClientFacingElectrocardiogramVoltageTimeseries]:
+        """
+        Get timeseries data for user
+
+        Parameters:
+            - user_id: str.
+
+            - provider: typing.Optional[str]. Provider oura/strava etc
+
+            - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+            - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.electrocardiogram_voltage(
+            user_id="user-id",
+            start_date="start-date",
+        )
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/electrocardiogram_voltage"
+            ),
+            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(typing.List[ClientFacingElectrocardiogramVoltageTimeseries], _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:

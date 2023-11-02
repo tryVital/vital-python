@@ -19,6 +19,7 @@ class Region(str, enum.Enum):
     BR = "br"
     NL = "nl"
     FR = "fr"
+    CA = "ca"
 
     def visit(
         self,
@@ -30,6 +31,7 @@ class Region(str, enum.Enum):
         br: typing.Callable[[], T_Result],
         nl: typing.Callable[[], T_Result],
         fr: typing.Callable[[], T_Result],
+        ca: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is Region.US:
             return us()
@@ -47,3 +49,5 @@ class Region(str, enum.Enum):
             return nl()
         if self is Region.FR:
             return fr()
+        if self is Region.CA:
+            return ca()

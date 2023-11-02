@@ -18,7 +18,6 @@ from .resources.providers.client import AsyncProvidersClient, ProvidersClient
 from .resources.sleep.client import AsyncSleepClient, SleepClient
 from .resources.team.client import AsyncTeamClient, TeamClient
 from .resources.testkit.client import AsyncTestkitClient, TestkitClient
-from .resources.timeseries.client import AsyncTimeseriesClient, TimeseriesClient
 from .resources.user.client import AsyncUserClient, UserClient
 from .resources.vitals.client import AsyncVitalsClient, VitalsClient
 from .resources.workouts.client import AsyncWorkoutsClient, WorkoutsClient
@@ -46,7 +45,6 @@ class Vital:
         self.sleep = SleepClient(client_wrapper=self._client_wrapper)
         self.body = BodyClient(client_wrapper=self._client_wrapper)
         self.meal = MealClient(client_wrapper=self._client_wrapper)
-        self.timeseries = TimeseriesClient(client_wrapper=self._client_wrapper)
         self.vitals = VitalsClient(client_wrapper=self._client_wrapper)
         self.user = UserClient(client_wrapper=self._client_wrapper)
         self.team = TeamClient(client_wrapper=self._client_wrapper)
@@ -78,7 +76,6 @@ class AsyncVital:
         self.sleep = AsyncSleepClient(client_wrapper=self._client_wrapper)
         self.body = AsyncBodyClient(client_wrapper=self._client_wrapper)
         self.meal = AsyncMealClient(client_wrapper=self._client_wrapper)
-        self.timeseries = AsyncTimeseriesClient(client_wrapper=self._client_wrapper)
         self.vitals = AsyncVitalsClient(client_wrapper=self._client_wrapper)
         self.user = AsyncUserClient(client_wrapper=self._client_wrapper)
         self.team = AsyncTeamClient(client_wrapper=self._client_wrapper)

@@ -4,7 +4,6 @@ import datetime as dt
 import typing
 
 from ..core.datetime_utils import serialize_datetime
-from .client_facing_marker_complete import ClientFacingMarkerComplete
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -12,11 +11,15 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class GetMarkersResponse(pydantic.BaseModel):
-    markers: typing.List[ClientFacingMarkerComplete]
-    total: int
-    page: int
-    size: int
+class ClientFacingElectrocardiogramVoltageTimeseries(pydantic.BaseModel):
+    id: typing.Optional[int] = pydantic.Field(description="Deprecated")
+    timezone_offset: typing.Optional[int] = pydantic.Field(
+        description="Time zone UTC offset in seconds. Positive offset indicates east of UTC; negative offset indicates west of UTC; and null indicates the time zone information is unavailable at source."
+    )
+    type: str = pydantic.Field(description="The lead of the measurement.")
+    unit: str = pydantic.Field(description="Measured in mV.")
+    timestamp: dt.datetime = pydantic.Field(description="The timestamp of the measurement.")
+    value: float = pydantic.Field(description="The value of the measurement.")
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

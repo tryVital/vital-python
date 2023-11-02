@@ -22,7 +22,7 @@ class TeamClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def get_team_config(self) -> typing.Dict[str, typing.Any]:
+    def get_link_config(self) -> typing.Dict[str, typing.Any]:
         """
         Post teams.
 
@@ -32,7 +32,7 @@ class TeamClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.get_team_config()
+        client.get_link_config()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -48,7 +48,7 @@ class TeamClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_team(self, team_id: str) -> ClientFacingTeam:
+    def get(self, team_id: str) -> ClientFacingTeam:
         """
         Get team.
 
@@ -71,9 +71,7 @@ class TeamClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def search_team_users_by_uuid_or_client_user_id(
-        self, *, query_id: typing.Optional[str] = None
-    ) -> typing.List[ClientFacingUser]:
+    def get_user_by_id(self, *, query_id: typing.Optional[str] = None) -> typing.List[ClientFacingUser]:
         """
         Search team users by user_id
 
@@ -85,7 +83,7 @@ class TeamClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.search_team_users_by_uuid_or_client_user_id()
+        client.get_user_by_id()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -104,14 +102,14 @@ class TeamClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_svix_webhook_url(self) -> typing.Dict[str, typing.Any]:
+    def get_svix_url(self) -> typing.Dict[str, typing.Any]:
         """
         from vital.client import Vital
 
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.get_svix_webhook_url()
+        client.get_svix_url()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -198,7 +196,7 @@ class AsyncTeamClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def get_team_config(self) -> typing.Dict[str, typing.Any]:
+    async def get_link_config(self) -> typing.Dict[str, typing.Any]:
         """
         Post teams.
 
@@ -208,7 +206,7 @@ class AsyncTeamClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.get_team_config()
+        await client.get_link_config()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -224,7 +222,7 @@ class AsyncTeamClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_team(self, team_id: str) -> ClientFacingTeam:
+    async def get(self, team_id: str) -> ClientFacingTeam:
         """
         Get team.
 
@@ -247,9 +245,7 @@ class AsyncTeamClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def search_team_users_by_uuid_or_client_user_id(
-        self, *, query_id: typing.Optional[str] = None
-    ) -> typing.List[ClientFacingUser]:
+    async def get_user_by_id(self, *, query_id: typing.Optional[str] = None) -> typing.List[ClientFacingUser]:
         """
         Search team users by user_id
 
@@ -261,7 +257,7 @@ class AsyncTeamClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.search_team_users_by_uuid_or_client_user_id()
+        await client.get_user_by_id()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -280,14 +276,14 @@ class AsyncTeamClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_svix_webhook_url(self) -> typing.Dict[str, typing.Any]:
+    async def get_svix_url(self) -> typing.Dict[str, typing.Any]:
         """
         from vital.client import AsyncVital
 
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.get_svix_webhook_url()
+        await client.get_svix_url()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

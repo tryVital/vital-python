@@ -438,7 +438,7 @@ class LinkClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_providers(self) -> typing.List[SourceLink]:
+    def get_all_providers(self) -> typing.List[SourceLink]:
         """
         GET List of all available providers given the generated link token.
 
@@ -448,7 +448,7 @@ class LinkClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.get_providers()
+        client.get_all_providers()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -927,7 +927,7 @@ class AsyncLinkClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_providers(self) -> typing.List[SourceLink]:
+    async def get_all_providers(self) -> typing.List[SourceLink]:
         """
         GET List of all available providers given the generated link token.
 
@@ -937,7 +937,7 @@ class AsyncLinkClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.get_providers()
+        await client.get_all_providers()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

@@ -8,6 +8,7 @@ from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.remove_none_from_dict import remove_none_from_dict
 from ...errors.unprocessable_entity_error import UnprocessableEntityError
+from ...types.client_facing_sleep_stream import ClientFacingSleepStream
 from ...types.client_sleep_response import ClientSleepResponse
 from ...types.http_validation_error import HttpValidationError
 from ...types.raw_sleep import RawSleep
@@ -163,6 +164,38 @@ class SleepClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    def get_stream_by_sleep_id(self, sleep_id: str) -> ClientFacingSleepStream:
+        """
+        Get Sleep stream for a user_id
+
+        Parameters:
+            - sleep_id: str. The Vital Sleep ID
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.get_stream_by_sleep_id(
+            sleep_id="sleep-id",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/sleep/{sleep_id}/stream"),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(ClientFacingSleepStream, _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
 
 class AsyncSleepClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -301,6 +334,38 @@ class AsyncSleepClient:
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(RawSleep, _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def get_stream_by_sleep_id(self, sleep_id: str) -> ClientFacingSleepStream:
+        """
+        Get Sleep stream for a user_id
+
+        Parameters:
+            - sleep_id: str. The Vital Sleep ID
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.get_stream_by_sleep_id(
+            sleep_id="sleep-id",
+        )
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/sleep/{sleep_id}/stream"),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(ClientFacingSleepStream, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:

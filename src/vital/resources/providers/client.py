@@ -18,7 +18,7 @@ class ProvidersClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def get_list_of_providers(self) -> typing.List[ClientFacingProviderDetailed]:
+    def get_all(self) -> typing.List[ClientFacingProviderDetailed]:
         """
         Get Provider list
 
@@ -28,7 +28,7 @@ class ProvidersClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.get_list_of_providers()
+        client.get_all()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -49,7 +49,7 @@ class AsyncProvidersClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def get_list_of_providers(self) -> typing.List[ClientFacingProviderDetailed]:
+    async def get_all(self) -> typing.List[ClientFacingProviderDetailed]:
         """
         Get Provider list
 
@@ -59,7 +59,7 @@ class AsyncProvidersClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.get_list_of_providers()
+        await client.get_all()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

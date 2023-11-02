@@ -4,7 +4,7 @@ import datetime as dt
 import typing
 
 from ..core.datetime_utils import serialize_datetime
-from .client_facing_marker_complete import ClientFacingMarkerComplete
+from .client_facing_loinc import ClientFacingLoinc
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -12,11 +12,13 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class GetMarkersResponse(pydantic.BaseModel):
-    markers: typing.List[ClientFacingMarkerComplete]
-    total: int
-    page: int
-    size: int
+class ClientFacingResult(pydantic.BaseModel):
+    id: int
+    name: str
+    slug: str
+    lab_id: typing.Optional[int]
+    provider_id: typing.Optional[str]
+    loinc: typing.Optional[ClientFacingLoinc]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

@@ -29,6 +29,7 @@ from .client_facing_calories_basal_timeseries import ClientFacingCaloriesBasalTi
 from .client_facing_cholesterol_timeseries import ClientFacingCholesterolTimeseries
 from .client_facing_diagnosis_information import ClientFacingDiagnosisInformation
 from .client_facing_distance_timeseries import ClientFacingDistanceTimeseries
+from .client_facing_electrocardiogram_voltage_timeseries import ClientFacingElectrocardiogramVoltageTimeseries
 from .client_facing_floors_climbed_timeseries import ClientFacingFloorsClimbedTimeseries
 from .client_facing_food import ClientFacingFood
 from .client_facing_glucose_timeseries import ClientFacingGlucoseTimeseries
@@ -40,7 +41,9 @@ from .client_facing_ige_timeseries import ClientFacingIgeTimeseries
 from .client_facing_igg_timeseries import ClientFacingIggTimeseries
 from .client_facing_lab import ClientFacingLab
 from .client_facing_lab_test import ClientFacingLabTest
+from .client_facing_loinc import ClientFacingLoinc
 from .client_facing_marker import ClientFacingMarker
+from .client_facing_marker_complete import ClientFacingMarkerComplete
 from .client_facing_meal_response import ClientFacingMealResponse
 from .client_facing_mindfulness_minutes_timeseries import ClientFacingMindfulnessMinutesTimeseries
 from .client_facing_order import ClientFacingOrder
@@ -59,6 +62,7 @@ from .client_facing_provider_detailed import ClientFacingProviderDetailed
 from .client_facing_provider_with_status import ClientFacingProviderWithStatus
 from .client_facing_resource import ClientFacingResource
 from .client_facing_respiratory_rate_timeseries import ClientFacingRespiratoryRateTimeseries
+from .client_facing_result import ClientFacingResult
 from .client_facing_shipment import ClientFacingShipment
 from .client_facing_sleep import ClientFacingSleep
 from .client_facing_sleep_stream import ClientFacingSleepStream
@@ -207,6 +211,7 @@ __all__ = [
     "ClientFacingCholesterolTimeseries",
     "ClientFacingDiagnosisInformation",
     "ClientFacingDistanceTimeseries",
+    "ClientFacingElectrocardiogramVoltageTimeseries",
     "ClientFacingFloorsClimbedTimeseries",
     "ClientFacingFood",
     "ClientFacingGlucoseTimeseries",
@@ -218,7 +223,9 @@ __all__ = [
     "ClientFacingIggTimeseries",
     "ClientFacingLab",
     "ClientFacingLabTest",
+    "ClientFacingLoinc",
     "ClientFacingMarker",
+    "ClientFacingMarkerComplete",
     "ClientFacingMealResponse",
     "ClientFacingMindfulnessMinutesTimeseries",
     "ClientFacingOrder",
@@ -235,6 +242,7 @@ __all__ = [
     "ClientFacingProviderWithStatus",
     "ClientFacingResource",
     "ClientFacingRespiratoryRateTimeseries",
+    "ClientFacingResult",
     "ClientFacingShipment",
     "ClientFacingSleep",
     "ClientFacingSleepStream",
