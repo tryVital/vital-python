@@ -18,7 +18,6 @@ from ...types.client_facing_appointment_cancellation_reason import ClientFacingA
 from ...types.client_facing_lab import ClientFacingLab
 from ...types.client_facing_lab_test import ClientFacingLabTest
 from ...types.client_facing_marker import ClientFacingMarker
-from ...types.client_facing_marker_complete import ClientFacingMarkerComplete
 from ...types.client_facing_order import ClientFacingOrder
 from ...types.consent import Consent
 from ...types.get_markers_response import GetMarkersResponse
@@ -165,28 +164,26 @@ class LabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_markers_for_lab_test(self, lab_test_id: str) -> typing.List[ClientFacingMarkerComplete]:
+    def get_markers_for_lab_test(
+        self, lab_test_id: str, *, page: typing.Optional[int] = None, size: typing.Optional[int] = None
+    ) -> GetMarkersResponse:
         """
         Parameters:
             - lab_test_id: str.
-        ---
-        from vital.client import Vital
 
-        client = Vital(
-            api_key="YOUR_API_KEY",
-        )
-        client.get_markers_for_lab_test(
-            lab_test_id="lab-test-id",
-        )
+            - page: typing.Optional[int].
+
+            - size: typing.Optional[int].
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/lab_tests/{lab_test_id}/markers"),
+            params=remove_none_from_dict({"page": page, "size": size}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(typing.List[ClientFacingMarkerComplete], _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GetMarkersResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -849,28 +846,26 @@ class AsyncLabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_markers_for_lab_test(self, lab_test_id: str) -> typing.List[ClientFacingMarkerComplete]:
+    async def get_markers_for_lab_test(
+        self, lab_test_id: str, *, page: typing.Optional[int] = None, size: typing.Optional[int] = None
+    ) -> GetMarkersResponse:
         """
         Parameters:
             - lab_test_id: str.
-        ---
-        from vital.client import AsyncVital
 
-        client = AsyncVital(
-            api_key="YOUR_API_KEY",
-        )
-        await client.get_markers_for_lab_test(
-            lab_test_id="lab-test-id",
-        )
+            - page: typing.Optional[int].
+
+            - size: typing.Optional[int].
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/lab_tests/{lab_test_id}/markers"),
+            params=remove_none_from_dict({"page": page, "size": size}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(typing.List[ClientFacingMarkerComplete], _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GetMarkersResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
