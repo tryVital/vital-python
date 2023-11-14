@@ -64,7 +64,7 @@ class VitalsClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.mindfulness_minutes(
+        client.vitals.mindfulness_minutes(
             user_id="user-id",
             start_date="start-date",
         )
@@ -113,7 +113,7 @@ class VitalsClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.caffeine(
+        client.vitals.caffeine(
             user_id="user-id",
             start_date="start-date",
         )
@@ -160,7 +160,7 @@ class VitalsClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.water(
+        client.vitals.water(
             user_id="user-id",
             start_date="start-date",
         )
@@ -207,7 +207,7 @@ class VitalsClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.steps(
+        client.vitals.steps(
             user_id="user-id",
             start_date="start-date",
         )
@@ -254,7 +254,7 @@ class VitalsClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.floors_climbed(
+        client.vitals.floors_climbed(
             user_id="user-id",
             start_date="start-date",
         )
@@ -301,7 +301,7 @@ class VitalsClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.distance(
+        client.vitals.distance(
             user_id="user-id",
             start_date="start-date",
         )
@@ -348,7 +348,7 @@ class VitalsClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.calories_basal(
+        client.vitals.calories_basal(
             user_id="user-id",
             start_date="start-date",
         )
@@ -395,7 +395,7 @@ class VitalsClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.calories_active(
+        client.vitals.calories_active(
             user_id="user-id",
             start_date="start-date",
         )
@@ -442,7 +442,7 @@ class VitalsClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.respiratory_rate(
+        client.vitals.respiratory_rate(
             user_id="user-id",
             start_date="start-date",
         )
@@ -491,7 +491,7 @@ class VitalsClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.ige(
+        client.vitals.ige(
             user_id="user-id",
             start_date="start-date",
         )
@@ -538,7 +538,7 @@ class VitalsClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.igg(
+        client.vitals.igg(
             user_id="user-id",
             start_date="start-date",
         )
@@ -585,7 +585,7 @@ class VitalsClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.hypnogram(
+        client.vitals.hypnogram(
             user_id="user-id",
             start_date="start-date",
         )
@@ -632,7 +632,7 @@ class VitalsClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.hrv(
+        client.vitals.hrv(
             user_id="user-id",
             start_date="start-date",
         )
@@ -679,7 +679,7 @@ class VitalsClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.heartrate(
+        client.vitals.heartrate(
             user_id="user-id",
             start_date="start-date",
         )
@@ -726,7 +726,7 @@ class VitalsClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.glucose(
+        client.vitals.glucose(
             user_id="user-id",
             start_date="start-date",
         )
@@ -773,7 +773,7 @@ class VitalsClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.triglycerides(
+        client.vitals.triglycerides(
             user_id="user-id",
             start_date="start-date",
         )
@@ -822,7 +822,7 @@ class VitalsClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.cholesterol_total(
+        client.vitals.cholesterol_total(
             user_id="user-id",
             start_date="start-date",
         )
@@ -871,7 +871,7 @@ class VitalsClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.cholesterol_hdl(
+        client.vitals.cholesterol_hdl(
             user_id="user-id",
             start_date="start-date",
         )
@@ -918,7 +918,7 @@ class VitalsClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.cholesterol_ldl(
+        client.vitals.cholesterol_ldl(
             user_id="user-id",
             start_date="start-date",
         )
@@ -965,7 +965,7 @@ class VitalsClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.cholesterol(
+        client.vitals.cholesterol(
             user_id="user-id",
             start_date="start-date",
         )
@@ -1012,7 +1012,7 @@ class VitalsClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.blood_oxygen(
+        client.vitals.blood_oxygen(
             user_id="user-id",
             start_date="start-date",
         )
@@ -1059,7 +1059,7 @@ class VitalsClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.electrocardiogram_voltage(
+        client.vitals.electrocardiogram_voltage(
             user_id="user-id",
             start_date="start-date",
         )
@@ -1108,7 +1108,7 @@ class VitalsClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.blood_pressure(
+        client.vitals.blood_pressure(
             user_id="user-id",
             start_date="start-date",
         )
@@ -1160,7 +1160,7 @@ class AsyncVitalsClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.mindfulness_minutes(
+        await client.vitals.mindfulness_minutes(
             user_id="user-id",
             start_date="start-date",
         )
@@ -1209,7 +1209,7 @@ class AsyncVitalsClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.caffeine(
+        await client.vitals.caffeine(
             user_id="user-id",
             start_date="start-date",
         )
@@ -1256,7 +1256,7 @@ class AsyncVitalsClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.water(
+        await client.vitals.water(
             user_id="user-id",
             start_date="start-date",
         )
@@ -1303,7 +1303,7 @@ class AsyncVitalsClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.steps(
+        await client.vitals.steps(
             user_id="user-id",
             start_date="start-date",
         )
@@ -1350,7 +1350,7 @@ class AsyncVitalsClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.floors_climbed(
+        await client.vitals.floors_climbed(
             user_id="user-id",
             start_date="start-date",
         )
@@ -1397,7 +1397,7 @@ class AsyncVitalsClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.distance(
+        await client.vitals.distance(
             user_id="user-id",
             start_date="start-date",
         )
@@ -1444,7 +1444,7 @@ class AsyncVitalsClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.calories_basal(
+        await client.vitals.calories_basal(
             user_id="user-id",
             start_date="start-date",
         )
@@ -1491,7 +1491,7 @@ class AsyncVitalsClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.calories_active(
+        await client.vitals.calories_active(
             user_id="user-id",
             start_date="start-date",
         )
@@ -1538,7 +1538,7 @@ class AsyncVitalsClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.respiratory_rate(
+        await client.vitals.respiratory_rate(
             user_id="user-id",
             start_date="start-date",
         )
@@ -1587,7 +1587,7 @@ class AsyncVitalsClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.ige(
+        await client.vitals.ige(
             user_id="user-id",
             start_date="start-date",
         )
@@ -1634,7 +1634,7 @@ class AsyncVitalsClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.igg(
+        await client.vitals.igg(
             user_id="user-id",
             start_date="start-date",
         )
@@ -1681,7 +1681,7 @@ class AsyncVitalsClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.hypnogram(
+        await client.vitals.hypnogram(
             user_id="user-id",
             start_date="start-date",
         )
@@ -1728,7 +1728,7 @@ class AsyncVitalsClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.hrv(
+        await client.vitals.hrv(
             user_id="user-id",
             start_date="start-date",
         )
@@ -1775,7 +1775,7 @@ class AsyncVitalsClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.heartrate(
+        await client.vitals.heartrate(
             user_id="user-id",
             start_date="start-date",
         )
@@ -1822,7 +1822,7 @@ class AsyncVitalsClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.glucose(
+        await client.vitals.glucose(
             user_id="user-id",
             start_date="start-date",
         )
@@ -1869,7 +1869,7 @@ class AsyncVitalsClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.triglycerides(
+        await client.vitals.triglycerides(
             user_id="user-id",
             start_date="start-date",
         )
@@ -1918,7 +1918,7 @@ class AsyncVitalsClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.cholesterol_total(
+        await client.vitals.cholesterol_total(
             user_id="user-id",
             start_date="start-date",
         )
@@ -1967,7 +1967,7 @@ class AsyncVitalsClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.cholesterol_hdl(
+        await client.vitals.cholesterol_hdl(
             user_id="user-id",
             start_date="start-date",
         )
@@ -2014,7 +2014,7 @@ class AsyncVitalsClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.cholesterol_ldl(
+        await client.vitals.cholesterol_ldl(
             user_id="user-id",
             start_date="start-date",
         )
@@ -2061,7 +2061,7 @@ class AsyncVitalsClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.cholesterol(
+        await client.vitals.cholesterol(
             user_id="user-id",
             start_date="start-date",
         )
@@ -2108,7 +2108,7 @@ class AsyncVitalsClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.blood_oxygen(
+        await client.vitals.blood_oxygen(
             user_id="user-id",
             start_date="start-date",
         )
@@ -2155,7 +2155,7 @@ class AsyncVitalsClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.electrocardiogram_voltage(
+        await client.vitals.electrocardiogram_voltage(
             user_id="user-id",
             start_date="start-date",
         )
@@ -2204,7 +2204,7 @@ class AsyncVitalsClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.blood_pressure(
+        await client.vitals.blood_pressure(
             user_id="user-id",
             start_date="start-date",
         )

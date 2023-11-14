@@ -57,7 +57,7 @@ class LabTestsClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.get()
+        client.lab_tests.get()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -229,7 +229,7 @@ class LabTestsClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.get_labs()
+        client.lab_tests.get_labs()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -396,7 +396,7 @@ class LabTestsClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.get_phlebotomy_appointment_cancellation_reason()
+        client.lab_tests.get_phlebotomy_appointment_cancellation_reason()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -739,7 +739,7 @@ class AsyncLabTestsClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.get()
+        await client.lab_tests.get()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -911,7 +911,7 @@ class AsyncLabTestsClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.get_labs()
+        await client.lab_tests.get_labs()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -1080,7 +1080,7 @@ class AsyncLabTestsClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.get_phlebotomy_appointment_cancellation_reason()
+        await client.lab_tests.get_phlebotomy_appointment_cancellation_reason()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

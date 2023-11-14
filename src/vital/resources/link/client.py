@@ -175,7 +175,7 @@ class LinkClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.connect_oauth_provider(
+        client.link.connect_oauth_provider(
             provider="provider",
         )
         """
@@ -235,7 +235,7 @@ class LinkClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.token_state()
+        client.link.token_state()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -448,7 +448,7 @@ class LinkClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.get_all_providers()
+        client.link.get_all_providers()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -664,7 +664,7 @@ class AsyncLinkClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.connect_oauth_provider(
+        await client.link.connect_oauth_provider(
             provider="provider",
         )
         """
@@ -724,7 +724,7 @@ class AsyncLinkClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.token_state()
+        await client.link.token_state()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -937,7 +937,7 @@ class AsyncLinkClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.get_all_providers()
+        await client.link.get_all_providers()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

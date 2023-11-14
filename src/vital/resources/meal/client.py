@@ -46,7 +46,7 @@ class MealClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.get(
+        client.meal.get(
             user_id="user-id",
             start_date="start-date",
         )
@@ -98,7 +98,7 @@ class AsyncMealClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.get(
+        await client.meal.get(
             user_id="user-id",
             start_date="start-date",
         )

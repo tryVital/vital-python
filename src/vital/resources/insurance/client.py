@@ -65,7 +65,7 @@ class InsuranceClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.search_diagnosis(
+        client.insurance.search_diagnosis(
             diagnosis_query="diagnosis-query",
         )
         """
@@ -130,7 +130,7 @@ class AsyncInsuranceClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.search_diagnosis(
+        await client.insurance.search_diagnosis(
             diagnosis_query="diagnosis-query",
         )
         """

@@ -28,7 +28,7 @@ class ProvidersClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.get_all()
+        client.providers.get_all()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -59,7 +59,7 @@ class AsyncProvidersClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.get_all()
+        await client.providers.get_all()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

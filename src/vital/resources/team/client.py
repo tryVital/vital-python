@@ -32,7 +32,7 @@ class TeamClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.get_link_config()
+        client.team.get_link_config()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -83,7 +83,7 @@ class TeamClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.get_user_by_id()
+        client.team.get_user_by_id()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -109,7 +109,7 @@ class TeamClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.get_svix_url()
+        client.team.get_svix_url()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -139,7 +139,7 @@ class TeamClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.get_source_priorities()
+        client.team.get_source_priorities()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -170,7 +170,7 @@ class TeamClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.update_source_priorities(
+        client.team.update_source_priorities(
             team_id="team-id",
         )
         """
@@ -206,7 +206,7 @@ class AsyncTeamClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.get_link_config()
+        await client.team.get_link_config()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -257,7 +257,7 @@ class AsyncTeamClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.get_user_by_id()
+        await client.team.get_user_by_id()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -283,7 +283,7 @@ class AsyncTeamClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.get_svix_url()
+        await client.team.get_svix_url()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -313,7 +313,7 @@ class AsyncTeamClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.get_source_priorities()
+        await client.team.get_source_priorities()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -344,7 +344,7 @@ class AsyncTeamClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.update_source_priorities(
+        await client.team.update_source_priorities(
             team_id="team-id",
         )
         """

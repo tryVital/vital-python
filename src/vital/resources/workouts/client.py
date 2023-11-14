@@ -48,7 +48,7 @@ class WorkoutsClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.get(
+        client.workouts.get(
             user_id="user-id",
             start_date="start-date",
         )
@@ -95,7 +95,7 @@ class WorkoutsClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.get_raw(
+        client.workouts.get_raw(
             user_id="user-id",
             start_date="start-date",
         )
@@ -127,7 +127,7 @@ class WorkoutsClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.get_by_workout_id(
+        client.workouts.get_by_workout_id(
             workout_id="workout-id",
         )
         """
@@ -179,7 +179,7 @@ class AsyncWorkoutsClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.get(
+        await client.workouts.get(
             user_id="user-id",
             start_date="start-date",
         )
@@ -226,7 +226,7 @@ class AsyncWorkoutsClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.get_raw(
+        await client.workouts.get_raw(
             user_id="user-id",
             start_date="start-date",
         )
@@ -258,7 +258,7 @@ class AsyncWorkoutsClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.get_by_workout_id(
+        await client.workouts.get_by_workout_id(
             workout_id="workout-id",
         )
         """

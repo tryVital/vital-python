@@ -146,7 +146,7 @@ class UserClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.get_connected_providers(
+        client.user.get_connected_providers(
             user_id="user-id",
         )
         """
@@ -203,7 +203,7 @@ class UserClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.patch(
+        client.user.patch(
             user_id="user-id",
         )
         """
@@ -439,7 +439,7 @@ class AsyncUserClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.get_connected_providers(
+        await client.user.get_connected_providers(
             user_id="user-id",
         )
         """
@@ -496,7 +496,7 @@ class AsyncUserClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.patch(
+        await client.user.patch(
             user_id="user-id",
         )
         """

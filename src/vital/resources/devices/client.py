@@ -35,7 +35,7 @@ class DevicesClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.get_raw(
+        client.devices.get_raw(
             user_id="user-id",
         )
         """
@@ -75,7 +75,7 @@ class AsyncDevicesClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.get_raw(
+        await client.devices.get_raw(
             user_id="user-id",
         )
         """

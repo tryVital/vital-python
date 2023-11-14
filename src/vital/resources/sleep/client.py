@@ -48,7 +48,7 @@ class SleepClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.get(
+        client.sleep.get(
             user_id="user-id",
             start_date="start-date",
         )
@@ -95,7 +95,7 @@ class SleepClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.get_stream(
+        client.sleep.get_stream(
             user_id="user-id",
             start_date="start-date",
         )
@@ -142,7 +142,7 @@ class SleepClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.get_raw(
+        client.sleep.get_raw(
             user_id="user-id",
             start_date="start-date",
         )
@@ -176,7 +176,7 @@ class SleepClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.get_stream_by_sleep_id(
+        client.sleep.get_stream_by_sleep_id(
             sleep_id="sleep-id",
         )
         """
@@ -226,7 +226,7 @@ class AsyncSleepClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.get(
+        await client.sleep.get(
             user_id="user-id",
             start_date="start-date",
         )
@@ -273,7 +273,7 @@ class AsyncSleepClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.get_stream(
+        await client.sleep.get_stream(
             user_id="user-id",
             start_date="start-date",
         )
@@ -320,7 +320,7 @@ class AsyncSleepClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.get_raw(
+        await client.sleep.get_raw(
             user_id="user-id",
             start_date="start-date",
         )
@@ -354,7 +354,7 @@ class AsyncSleepClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.get_stream_by_sleep_id(
+        await client.sleep.get_stream_by_sleep_id(
             sleep_id="sleep-id",
         )
         """

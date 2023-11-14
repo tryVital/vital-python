@@ -47,7 +47,7 @@ class ActivityClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.get(
+        client.activity.get(
             user_id="user-id",
             start_date="start-date",
         )
@@ -94,7 +94,7 @@ class ActivityClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.get_raw(
+        client.activity.get_raw(
             user_id="user-id",
             start_date="start-date",
         )
@@ -146,7 +146,7 @@ class AsyncActivityClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.get(
+        await client.activity.get(
             user_id="user-id",
             start_date="start-date",
         )
@@ -193,7 +193,7 @@ class AsyncActivityClient:
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.get_raw(
+        await client.activity.get_raw(
             user_id="user-id",
             start_date="start-date",
         )
