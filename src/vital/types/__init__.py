@@ -8,6 +8,7 @@ from .appointment_provider import AppointmentProvider
 from .appointment_status import AppointmentStatus
 from .appointment_type import AppointmentType
 from .area_info import AreaInfo
+from .attempt_status import AttemptStatus
 from .auth_type import AuthType
 from .biomarker_result import BiomarkerResult
 from .body_v_2_in_db import BodyV2InDb
@@ -56,6 +57,7 @@ from .client_facing_order_details import (
 from .client_facing_order_event import ClientFacingOrderEvent
 from .client_facing_patient_details_compatible import ClientFacingPatientDetailsCompatible
 from .client_facing_payor_search_response import ClientFacingPayorSearchResponse
+from .client_facing_physician import ClientFacingPhysician
 from .client_facing_profile import ClientFacingProfile
 from .client_facing_provider import ClientFacingProvider
 from .client_facing_provider_detailed import ClientFacingProviderDetailed
@@ -86,6 +88,7 @@ from .connection_status import ConnectionStatus
 from .consent import Consent
 from .consent_type import ConsentType
 from .day_slots import DaySlots
+from .delegated_flow_type import DelegatedFlowType
 from .demo_connection_status import DemoConnectionStatus
 from .demo_providers import DemoProviders
 from .device_v_2_in_db import DeviceV2InDb
@@ -119,6 +122,8 @@ from .lab_results_raw import LabResultsRaw
 from .lab_results_raw_results import LabResultsRawResults
 from .lab_test_collection_method import LabTestCollectionMethod
 from .lab_test_sample_type import LabTestSampleType
+from .lab_test_status import LabTestStatus
+from .last_attempt import LastAttempt
 from .libre_config import LibreConfig
 from .link_token_exchange_response import LinkTokenExchangeResponse
 from .lng_lat import LngLat
@@ -137,7 +142,6 @@ from .patient_address_compatible import PatientAddressCompatible
 from .patient_details import PatientDetails
 from .person_details import PersonDetails
 from .phlebotomy_area_info import PhlebotomyAreaInfo
-from .physician_client_facing import PhysicianClientFacing
 from .physician_create_request import PhysicianCreateRequest
 from .physician_create_request_base import PhysicianCreateRequestBase
 from .physician_create_request_signature_image import (
@@ -160,6 +164,8 @@ from .region import Region
 from .responsible_relationship import ResponsibleRelationship
 from .result_type import ResultType
 from .shipping_address import ShippingAddress
+from .single_resource_statistics import SingleResourceStatistics
+from .single_user_resource_response import SingleUserResourceResponse
 from .sleep_v_2_in_db import SleepV2InDb
 from .source import Source
 from .source_auth_type import SourceAuthType
@@ -172,6 +178,7 @@ from .timeseries_resource import TimeseriesResource
 from .us_address import UsAddress
 from .user_refresh_error_response import UserRefreshErrorResponse
 from .user_refresh_success_response import UserRefreshSuccessResponse
+from .user_resources_response import UserResourcesResponse
 from .user_sign_in_token import UserSignInToken
 from .user_sign_in_token_response import UserSignInTokenResponse
 from .user_sign_in_token_response_sign_in_token import UserSignInTokenResponseSignInToken
@@ -190,6 +197,7 @@ __all__ = [
     "AppointmentStatus",
     "AppointmentType",
     "AreaInfo",
+    "AttemptStatus",
     "AuthType",
     "BiomarkerResult",
     "BodyV2InDb",
@@ -236,6 +244,7 @@ __all__ = [
     "ClientFacingOrderEvent",
     "ClientFacingPatientDetailsCompatible",
     "ClientFacingPayorSearchResponse",
+    "ClientFacingPhysician",
     "ClientFacingProfile",
     "ClientFacingProvider",
     "ClientFacingProviderDetailed",
@@ -266,6 +275,7 @@ __all__ = [
     "Consent",
     "ConsentType",
     "DaySlots",
+    "DelegatedFlowType",
     "DemoConnectionStatus",
     "DemoProviders",
     "DeviceV2InDb",
@@ -293,6 +303,8 @@ __all__ = [
     "LabResultsRawResults",
     "LabTestCollectionMethod",
     "LabTestSampleType",
+    "LabTestStatus",
+    "LastAttempt",
     "LibreConfig",
     "LinkTokenExchangeResponse",
     "LngLat",
@@ -311,7 +323,6 @@ __all__ = [
     "PatientDetails",
     "PersonDetails",
     "PhlebotomyAreaInfo",
-    "PhysicianClientFacing",
     "PhysicianCreateRequest",
     "PhysicianCreateRequestBase",
     "PhysicianCreateRequestSignatureImage",
@@ -332,6 +343,8 @@ __all__ = [
     "ResponsibleRelationship",
     "ResultType",
     "ShippingAddress",
+    "SingleResourceStatistics",
+    "SingleUserResourceResponse",
     "SleepV2InDb",
     "Source",
     "SourceAuthType",
@@ -344,6 +357,7 @@ __all__ = [
     "UsAddress",
     "UserRefreshErrorResponse",
     "UserRefreshSuccessResponse",
+    "UserResourcesResponse",
     "UserSignInToken",
     "UserSignInTokenResponse",
     "UserSignInTokenResponseSignInToken",

@@ -28,6 +28,7 @@ from ...types.lab_results_metadata import LabResultsMetadata
 from ...types.lab_results_raw import LabResultsRaw
 from ...types.lab_test_collection_method import LabTestCollectionMethod
 from ...types.lab_test_sample_type import LabTestSampleType
+from ...types.order_status import OrderStatus
 from ...types.patient_address_compatible import PatientAddressCompatible
 from ...types.patient_details import PatientDetails
 from ...types.physician_create_request import PhysicianCreateRequest
@@ -146,6 +147,13 @@ class LabTestsClient:
             - page: typing.Optional[int].
 
             - size: typing.Optional[int].
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_markers()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -174,6 +182,15 @@ class LabTestsClient:
             - page: typing.Optional[int].
 
             - size: typing.Optional[int].
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_markers_for_lab_test(
+            lab_test_id="lab-test-id",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -351,7 +368,7 @@ class LabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def cancel_phlabotomy_appointment(
+    def cancel_phlebotomy_appointment(
         self, order_id: str, *, cancellation_reason_id: str, notes: typing.Optional[str] = OMIT
     ) -> ClientFacingAppointment:
         """
@@ -668,6 +685,36 @@ class LabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    def simulate_order_process(
+        self, order_id: str, *, final_status: typing.Optional[OrderStatus] = None, delay: typing.Optional[int] = None
+    ) -> typing.Any:
+        """
+        Get available test kits.
+
+        Parameters:
+            - order_id: str.
+
+            - final_status: typing.Optional[OrderStatus].
+
+            - delay: typing.Optional[int].
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "POST",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/test"),
+            params=remove_none_from_dict({"final_status": final_status, "delay": delay}),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(typing.Any, _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     def get_orders(
         self,
         *,
@@ -696,6 +743,13 @@ class LabTestsClient:
             - page: typing.Optional[int].
 
             - size: typing.Optional[int].
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_orders()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -828,6 +882,13 @@ class AsyncLabTestsClient:
             - page: typing.Optional[int].
 
             - size: typing.Optional[int].
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.lab_tests.get_markers()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -856,6 +917,15 @@ class AsyncLabTestsClient:
             - page: typing.Optional[int].
 
             - size: typing.Optional[int].
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.lab_tests.get_markers_for_lab_test(
+            lab_test_id="lab-test-id",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -1033,7 +1103,7 @@ class AsyncLabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def cancel_phlabotomy_appointment(
+    async def cancel_phlebotomy_appointment(
         self, order_id: str, *, cancellation_reason_id: str, notes: typing.Optional[str] = OMIT
     ) -> ClientFacingAppointment:
         """
@@ -1352,6 +1422,36 @@ class AsyncLabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    async def simulate_order_process(
+        self, order_id: str, *, final_status: typing.Optional[OrderStatus] = None, delay: typing.Optional[int] = None
+    ) -> typing.Any:
+        """
+        Get available test kits.
+
+        Parameters:
+            - order_id: str.
+
+            - final_status: typing.Optional[OrderStatus].
+
+            - delay: typing.Optional[int].
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "POST",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/test"),
+            params=remove_none_from_dict({"final_status": final_status, "delay": delay}),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(typing.Any, _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     async def get_orders(
         self,
         *,
@@ -1380,6 +1480,13 @@ class AsyncLabTestsClient:
             - page: typing.Optional[int].
 
             - size: typing.Optional[int].
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.lab_tests.get_orders()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

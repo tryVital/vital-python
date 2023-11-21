@@ -5,6 +5,7 @@ import typing
 
 from ..core.datetime_utils import serialize_datetime
 from .client_facing_api_key import ClientFacingApiKey
+from .delegated_flow_type import DelegatedFlowType
 from .team_config import TeamConfig
 
 try:
@@ -30,6 +31,7 @@ class ClientFacingTeam(pydantic.BaseModel):
     lab_tests_patient_sms_communication_enabled: bool
     lab_tests_patient_email_communication_enabled: bool
     logo_url: typing.Optional[str]
+    delegated_flow: DelegatedFlowType
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

@@ -8,9 +8,9 @@ from .client_facing_lab_test import ClientFacingLabTest
 from .client_facing_order_details import ClientFacingOrderDetails
 from .client_facing_order_event import ClientFacingOrderEvent
 from .client_facing_patient_details_compatible import ClientFacingPatientDetailsCompatible
+from .client_facing_physician import ClientFacingPhysician
 from .order_top_level_status import OrderTopLevelStatus
 from .patient_address_compatible import PatientAddressCompatible
-from .physician_client_facing import PhysicianClientFacing
 from .shipping_address import ShippingAddress
 
 try:
@@ -37,7 +37,7 @@ class ClientFacingOrder(pydantic.BaseModel):
     updated_at: dt.datetime = pydantic.Field(description="When your order was last updated.")
     events: typing.List[ClientFacingOrderEvent]
     status: typing.Optional[OrderTopLevelStatus]
-    physician: typing.Optional[PhysicianClientFacing]
+    physician: typing.Optional[ClientFacingPhysician]
     health_insurance_id: typing.Optional[str] = pydantic.Field(description="Vital ID of the health insurance.")
     requisition_form_url: typing.Optional[str] = pydantic.Field(description="DEPRECATED. Requistion form url.")
     priority: typing.Optional[bool] = pydantic.Field(

@@ -8,6 +8,7 @@ from .client_facing_lab import ClientFacingLab
 from .client_facing_marker import ClientFacingMarker
 from .lab_test_collection_method import LabTestCollectionMethod
 from .lab_test_sample_type import LabTestSampleType
+from .lab_test_status import LabTestStatus
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -22,7 +23,8 @@ class ClientFacingLabTest(pydantic.BaseModel):
     sample_type: LabTestSampleType
     method: LabTestCollectionMethod
     price: float
-    is_active: bool
+    is_active: bool = pydantic.Field(description="Deprecated. Use status instead.")
+    status: LabTestStatus
     fasting: typing.Optional[bool] = pydantic.Field(
         description="Defines whether a lab test requires fasting. Only available for Labcorp."
     )

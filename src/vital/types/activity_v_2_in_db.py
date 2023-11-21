@@ -14,7 +14,7 @@ except ImportError:
 
 class ActivityV2InDb(pydantic.BaseModel):
     timestamp: dt.datetime
-    data: typing.Optional[str]
+    data: typing.Dict[str, typing.Any]
     provider_id: str
     user_id: str
     source_id: int

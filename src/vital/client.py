@@ -10,6 +10,7 @@ from .resources.activity.client import ActivityClient, AsyncActivityClient
 from .resources.body.client import AsyncBodyClient, BodyClient
 from .resources.devices.client import AsyncDevicesClient, DevicesClient
 from .resources.insurance.client import AsyncInsuranceClient, InsuranceClient
+from .resources.introspect.client import AsyncIntrospectClient, IntrospectClient
 from .resources.lab_tests.client import AsyncLabTestsClient, LabTestsClient
 from .resources.link.client import AsyncLinkClient, LinkClient
 from .resources.meal.client import AsyncMealClient, MealClient
@@ -49,6 +50,7 @@ class Vital:
         self.user = UserClient(client_wrapper=self._client_wrapper)
         self.team = TeamClient(client_wrapper=self._client_wrapper)
         self.providers = ProvidersClient(client_wrapper=self._client_wrapper)
+        self.introspect = IntrospectClient(client_wrapper=self._client_wrapper)
         self.lab_tests = LabTestsClient(client_wrapper=self._client_wrapper)
         self.testkit = TestkitClient(client_wrapper=self._client_wrapper)
         self.insurance = InsuranceClient(client_wrapper=self._client_wrapper)
@@ -80,6 +82,7 @@ class AsyncVital:
         self.user = AsyncUserClient(client_wrapper=self._client_wrapper)
         self.team = AsyncTeamClient(client_wrapper=self._client_wrapper)
         self.providers = AsyncProvidersClient(client_wrapper=self._client_wrapper)
+        self.introspect = AsyncIntrospectClient(client_wrapper=self._client_wrapper)
         self.lab_tests = AsyncLabTestsClient(client_wrapper=self._client_wrapper)
         self.testkit = AsyncTestkitClient(client_wrapper=self._client_wrapper)
         self.insurance = AsyncInsuranceClient(client_wrapper=self._client_wrapper)

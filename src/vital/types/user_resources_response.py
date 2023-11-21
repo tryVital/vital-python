@@ -4,7 +4,7 @@ import datetime as dt
 import typing
 
 from ..core.datetime_utils import serialize_datetime
-from .client_facing_provider import ClientFacingProvider
+from .single_user_resource_response import SingleUserResourceResponse
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -12,16 +12,9 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class BodyV2InDb(pydantic.BaseModel):
-    timestamp: dt.datetime
-    data: typing.Dict[str, typing.Any]
-    provider_id: str
-    user_id: str
-    source_id: int
-    priority_id: typing.Optional[int]
-    id: str
-    source: typing.Optional[ClientFacingProvider]
-    priority: typing.Optional[int]
+class UserResourcesResponse(pydantic.BaseModel):
+    data: typing.List[SingleUserResourceResponse]
+    next: typing.Optional[str]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

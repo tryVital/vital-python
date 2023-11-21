@@ -11,7 +11,7 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class PhysicianClientFacing(pydantic.BaseModel):
+class ClientFacingPhysician(pydantic.BaseModel):
     first_name: str
     last_name: str
     npi: str
