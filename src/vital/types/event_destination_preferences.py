@@ -4,8 +4,8 @@ import datetime as dt
 import typing
 
 from ..core.datetime_utils import serialize_datetime
-from .event_destination_preferences import EventDestinationPreferences
-from .libre_config import LibreConfig
+from .event_destination_preferences_enabled_item import EventDestinationPreferencesEnabledItem
+from .event_destination_preferences_preferred import EventDestinationPreferencesPreferred
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -13,12 +13,9 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class TeamConfig(pydantic.BaseModel):
-    libreview: LibreConfig
-    texts_enabled: typing.Optional[bool]
-    push_historical_data: typing.Optional[bool]
-    eds_preferences: typing.Optional[EventDestinationPreferences]
-    event_type_prefixes: typing.Optional[typing.List[str]]
+class EventDestinationPreferences(pydantic.BaseModel):
+    preferred: EventDestinationPreferencesPreferred
+    enabled: typing.List[EventDestinationPreferencesEnabledItem]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

@@ -131,7 +131,7 @@ class LabTestsClient:
     def get_markers(
         self,
         *,
-        lab_id: typing.Optional[int] = None,
+        lab_id: typing.Optional[typing.Union[int, typing.List[int]]] = None,
         name: typing.Optional[str] = None,
         page: typing.Optional[int] = None,
         size: typing.Optional[int] = None,
@@ -140,7 +140,7 @@ class LabTestsClient:
         GET all the markers for the given lab.
 
         Parameters:
-            - lab_id: typing.Optional[int]. The identifier Vital assigned to a lab partner.
+            - lab_id: typing.Optional[typing.Union[int, typing.List[int]]]. The identifier Vital assigned to a lab partner.
 
             - name: typing.Optional[str]. The name of an individual biomarker or a panel. Used as a fuzzy filter when searching markers.
 
@@ -866,7 +866,7 @@ class AsyncLabTestsClient:
     async def get_markers(
         self,
         *,
-        lab_id: typing.Optional[int] = None,
+        lab_id: typing.Optional[typing.Union[int, typing.List[int]]] = None,
         name: typing.Optional[str] = None,
         page: typing.Optional[int] = None,
         size: typing.Optional[int] = None,
@@ -875,7 +875,7 @@ class AsyncLabTestsClient:
         GET all the markers for the given lab.
 
         Parameters:
-            - lab_id: typing.Optional[int]. The identifier Vital assigned to a lab partner.
+            - lab_id: typing.Optional[typing.Union[int, typing.List[int]]]. The identifier Vital assigned to a lab partner.
 
             - name: typing.Optional[str]. The name of an individual biomarker or a panel. Used as a fuzzy filter when searching markers.
 

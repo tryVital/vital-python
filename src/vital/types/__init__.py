@@ -94,6 +94,9 @@ from .demo_providers import DemoProviders
 from .device_v_2_in_db import DeviceV2InDb
 from .email_providers import EmailProviders
 from .energy import Energy
+from .event_destination_preferences import EventDestinationPreferences
+from .event_destination_preferences_enabled_item import EventDestinationPreferencesEnabledItem
+from .event_destination_preferences_preferred import EventDestinationPreferencesPreferred
 from .fallback_time_zone import FallbackTimeZone
 from .fats import Fats
 from .gender import Gender
@@ -281,6 +284,9 @@ __all__ = [
     "DeviceV2InDb",
     "EmailProviders",
     "Energy",
+    "EventDestinationPreferences",
+    "EventDestinationPreferencesEnabledItem",
+    "EventDestinationPreferencesPreferred",
     "FallbackTimeZone",
     "Fats",
     "Gender",

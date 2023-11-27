@@ -13,8 +13,8 @@ except ImportError:
 
 class PatientAddressCompatible(pydantic.BaseModel):
     receiver_name: typing.Optional[str]
-    street: str
-    street_number: typing.Optional[str]
+    first_line: str
+    second_line: typing.Optional[str]
     city: str
     state: str
     zip: str
