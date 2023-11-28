@@ -157,46 +157,6 @@ class LinkClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def connect_oauth_provider(
-        self, provider: str, *, vital_sdk_no_redirect: typing.Optional[str] = None
-    ) -> typing.Dict[str, typing.Any]:
-        """
-        REQUEST_SOURCE: VITAL-LINK
-        PROVIDER_TYPE: OAUTH
-        Connect oauth providers
-
-        Parameters:
-            - provider: str. Provider slug. e.g., `oura`, `fitbit`, `garmin`.
-
-            - vital_sdk_no_redirect: typing.Optional[str].
-        ---
-        from vital.client import Vital
-
-        client = Vital(
-            api_key="YOUR_API_KEY",
-        )
-        client.link.connect_oauth_provider(
-            provider="provider",
-        )
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/link/connect/{provider}"),
-            headers=remove_none_from_dict(
-                {**self._client_wrapper.get_headers(), "x-vital-sdk-no-redirect": vital_sdk_no_redirect}
-            ),
-            timeout=60,
-        )
-        if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(typing.Dict[str, typing.Any], _response.json())  # type: ignore
-        if _response.status_code == 422:
-            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
-        try:
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
     def start_connect(self, *, link_token: str, provider: Providers) -> typing.Dict[str, typing.Any]:
         """
         REQUEST_SOURCE: VITAL-LINK
@@ -224,27 +184,26 @@ class LinkClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def token_state(self) -> typing.Dict[str, typing.Any]:
+    def token_state(self, *, vital_link_token: typing.Any) -> typing.Dict[str, typing.Any]:
         """
         REQUEST_SOURCE: VITAL-LINK
         Check link token state - can be hit continuously used as heartbeat
 
-        ---
-        from vital.client import Vital
-
-        client = Vital(
-            api_key="YOUR_API_KEY",
-        )
-        client.link.token_state()
+        Parameters:
+            - vital_link_token: typing.Any.
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/link/state"),
-            headers=self._client_wrapper.get_headers(),
+            headers=remove_none_from_dict(
+                {**self._client_wrapper.get_headers(), "x-vital-link-token": vital_link_token}
+            ),
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.Dict[str, typing.Any], _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -252,7 +211,13 @@ class LinkClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def email_auth(
-        self, *, email: str, provider: Providers, auth_type: AuthType, region: typing.Optional[Region] = OMIT
+        self,
+        *,
+        email: str,
+        provider: Providers,
+        auth_type: AuthType,
+        region: typing.Optional[Region] = OMIT,
+        vital_link_token: typing.Any,
     ) -> ConnectionStatus:
         """
         REQUEST_SOURCE: VITAL-LINK
@@ -267,6 +232,8 @@ class LinkClient:
             - auth_type: AuthType.
 
             - region: typing.Optional[Region].
+
+            - vital_link_token: typing.Any.
         """
         _request: typing.Dict[str, typing.Any] = {"email": email, "provider": provider, "auth_type": auth_type}
         if region is not OMIT:
@@ -275,7 +242,9 @@ class LinkClient:
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/link/auth/email"),
             json=jsonable_encoder(_request),
-            headers=self._client_wrapper.get_headers(),
+            headers=remove_none_from_dict(
+                {**self._client_wrapper.get_headers(), "x-vital-link-token": vital_link_token}
+            ),
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
@@ -296,6 +265,7 @@ class LinkClient:
         provider: Providers,
         auth_type: AuthType,
         vital_link_client_region: typing.Optional[str] = None,
+        vital_link_token: typing.Any,
     ) -> ConnectionStatus:
         """
         REQUEST_SOURCE: VITAL-LINK
@@ -312,6 +282,8 @@ class LinkClient:
             - auth_type: AuthType.
 
             - vital_link_client_region: typing.Optional[str].
+
+            - vital_link_token: typing.Any.
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -320,7 +292,11 @@ class LinkClient:
                 {"username": username, "password": password, "provider": provider, "auth_type": auth_type}
             ),
             headers=remove_none_from_dict(
-                {**self._client_wrapper.get_headers(), "x-vital-link-client-region": vital_link_client_region}
+                {
+                    **self._client_wrapper.get_headers(),
+                    "x-vital-link-client-region": vital_link_client_region,
+                    "x-vital-link-token": vital_link_token,
+                }
             ),
             timeout=60,
         )
@@ -334,17 +310,21 @@ class LinkClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def generate_oauth_link(self, oauth_provider: OAuthProviders) -> Source:
+    def generate_oauth_link(self, oauth_provider: OAuthProviders, *, vital_link_token: typing.Any) -> Source:
         """
         This endpoint generates an OAuth link for oauth provider
 
         Parameters:
             - oauth_provider: OAuthProviders.
+
+            - vital_link_token: typing.Any.
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/link/provider/oauth/{oauth_provider}"),
-            headers=self._client_wrapper.get_headers(),
+            headers=remove_none_from_dict(
+                {**self._client_wrapper.get_headers(), "x-vital-link-token": vital_link_token}
+            ),
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
@@ -364,6 +344,7 @@ class LinkClient:
         username: str,
         password: str,
         vital_link_client_region: typing.Optional[str] = None,
+        vital_link_token: typing.Any,
     ) -> ProviderLinkResponse:
         """
         This connects auth providers that are password based.
@@ -376,13 +357,19 @@ class LinkClient:
             - password: str. Password for provider
 
             - vital_link_client_region: typing.Optional[str].
+
+            - vital_link_token: typing.Any.
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/link/provider/password/{provider}"),
             json=jsonable_encoder({"username": username, "password": password}),
             headers=remove_none_from_dict(
-                {**self._client_wrapper.get_headers(), "x-vital-link-client-region": vital_link_client_region}
+                {
+                    **self._client_wrapper.get_headers(),
+                    "x-vital-link-client-region": vital_link_client_region,
+                    "x-vital-link-token": vital_link_token,
+                }
             ),
             timeout=60,
         )
@@ -403,6 +390,7 @@ class LinkClient:
         email: str,
         email_provider_auth_link_provider: typing.Optional[Providers] = OMIT,
         region: typing.Optional[Region] = OMIT,
+        vital_link_token: typing.Any,
     ) -> ConnectionStatus:
         """
         This connects auth providers that are email based.
@@ -415,6 +403,8 @@ class LinkClient:
             - email_provider_auth_link_provider: typing.Optional[Providers].
 
             - region: typing.Optional[Region].
+
+            - vital_link_token: typing.Any.
         """
         _request: typing.Dict[str, typing.Any] = {"email": email}
         if email_provider_auth_link_provider is not OMIT:
@@ -425,7 +415,9 @@ class LinkClient:
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/link/provider/email/{provider}"),
             json=jsonable_encoder(_request),
-            headers=self._client_wrapper.get_headers(),
+            headers=remove_none_from_dict(
+                {**self._client_wrapper.get_headers(), "x-vital-link-token": vital_link_token}
+            ),
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
@@ -438,26 +430,25 @@ class LinkClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_all_providers(self) -> typing.List[SourceLink]:
+    def get_all_providers(self, *, vital_link_token: typing.Any) -> typing.List[SourceLink]:
         """
         GET List of all available providers given the generated link token.
 
-        ---
-        from vital.client import Vital
-
-        client = Vital(
-            api_key="YOUR_API_KEY",
-        )
-        client.link.get_all_providers()
+        Parameters:
+            - vital_link_token: typing.Any.
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/link/providers"),
-            headers=self._client_wrapper.get_headers(),
+            headers=remove_none_from_dict(
+                {**self._client_wrapper.get_headers(), "x-vital-link-token": vital_link_token}
+            ),
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[SourceLink], _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -646,46 +637,6 @@ class AsyncLinkClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def connect_oauth_provider(
-        self, provider: str, *, vital_sdk_no_redirect: typing.Optional[str] = None
-    ) -> typing.Dict[str, typing.Any]:
-        """
-        REQUEST_SOURCE: VITAL-LINK
-        PROVIDER_TYPE: OAUTH
-        Connect oauth providers
-
-        Parameters:
-            - provider: str. Provider slug. e.g., `oura`, `fitbit`, `garmin`.
-
-            - vital_sdk_no_redirect: typing.Optional[str].
-        ---
-        from vital.client import AsyncVital
-
-        client = AsyncVital(
-            api_key="YOUR_API_KEY",
-        )
-        await client.link.connect_oauth_provider(
-            provider="provider",
-        )
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/link/connect/{provider}"),
-            headers=remove_none_from_dict(
-                {**self._client_wrapper.get_headers(), "x-vital-sdk-no-redirect": vital_sdk_no_redirect}
-            ),
-            timeout=60,
-        )
-        if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(typing.Dict[str, typing.Any], _response.json())  # type: ignore
-        if _response.status_code == 422:
-            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
-        try:
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
     async def start_connect(self, *, link_token: str, provider: Providers) -> typing.Dict[str, typing.Any]:
         """
         REQUEST_SOURCE: VITAL-LINK
@@ -713,27 +664,26 @@ class AsyncLinkClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def token_state(self) -> typing.Dict[str, typing.Any]:
+    async def token_state(self, *, vital_link_token: typing.Any) -> typing.Dict[str, typing.Any]:
         """
         REQUEST_SOURCE: VITAL-LINK
         Check link token state - can be hit continuously used as heartbeat
 
-        ---
-        from vital.client import AsyncVital
-
-        client = AsyncVital(
-            api_key="YOUR_API_KEY",
-        )
-        await client.link.token_state()
+        Parameters:
+            - vital_link_token: typing.Any.
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/link/state"),
-            headers=self._client_wrapper.get_headers(),
+            headers=remove_none_from_dict(
+                {**self._client_wrapper.get_headers(), "x-vital-link-token": vital_link_token}
+            ),
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.Dict[str, typing.Any], _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -741,7 +691,13 @@ class AsyncLinkClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def email_auth(
-        self, *, email: str, provider: Providers, auth_type: AuthType, region: typing.Optional[Region] = OMIT
+        self,
+        *,
+        email: str,
+        provider: Providers,
+        auth_type: AuthType,
+        region: typing.Optional[Region] = OMIT,
+        vital_link_token: typing.Any,
     ) -> ConnectionStatus:
         """
         REQUEST_SOURCE: VITAL-LINK
@@ -756,6 +712,8 @@ class AsyncLinkClient:
             - auth_type: AuthType.
 
             - region: typing.Optional[Region].
+
+            - vital_link_token: typing.Any.
         """
         _request: typing.Dict[str, typing.Any] = {"email": email, "provider": provider, "auth_type": auth_type}
         if region is not OMIT:
@@ -764,7 +722,9 @@ class AsyncLinkClient:
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/link/auth/email"),
             json=jsonable_encoder(_request),
-            headers=self._client_wrapper.get_headers(),
+            headers=remove_none_from_dict(
+                {**self._client_wrapper.get_headers(), "x-vital-link-token": vital_link_token}
+            ),
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
@@ -785,6 +745,7 @@ class AsyncLinkClient:
         provider: Providers,
         auth_type: AuthType,
         vital_link_client_region: typing.Optional[str] = None,
+        vital_link_token: typing.Any,
     ) -> ConnectionStatus:
         """
         REQUEST_SOURCE: VITAL-LINK
@@ -801,6 +762,8 @@ class AsyncLinkClient:
             - auth_type: AuthType.
 
             - vital_link_client_region: typing.Optional[str].
+
+            - vital_link_token: typing.Any.
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
@@ -809,7 +772,11 @@ class AsyncLinkClient:
                 {"username": username, "password": password, "provider": provider, "auth_type": auth_type}
             ),
             headers=remove_none_from_dict(
-                {**self._client_wrapper.get_headers(), "x-vital-link-client-region": vital_link_client_region}
+                {
+                    **self._client_wrapper.get_headers(),
+                    "x-vital-link-client-region": vital_link_client_region,
+                    "x-vital-link-token": vital_link_token,
+                }
             ),
             timeout=60,
         )
@@ -823,17 +790,21 @@ class AsyncLinkClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def generate_oauth_link(self, oauth_provider: OAuthProviders) -> Source:
+    async def generate_oauth_link(self, oauth_provider: OAuthProviders, *, vital_link_token: typing.Any) -> Source:
         """
         This endpoint generates an OAuth link for oauth provider
 
         Parameters:
             - oauth_provider: OAuthProviders.
+
+            - vital_link_token: typing.Any.
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/link/provider/oauth/{oauth_provider}"),
-            headers=self._client_wrapper.get_headers(),
+            headers=remove_none_from_dict(
+                {**self._client_wrapper.get_headers(), "x-vital-link-token": vital_link_token}
+            ),
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
@@ -853,6 +824,7 @@ class AsyncLinkClient:
         username: str,
         password: str,
         vital_link_client_region: typing.Optional[str] = None,
+        vital_link_token: typing.Any,
     ) -> ProviderLinkResponse:
         """
         This connects auth providers that are password based.
@@ -865,13 +837,19 @@ class AsyncLinkClient:
             - password: str. Password for provider
 
             - vital_link_client_region: typing.Optional[str].
+
+            - vital_link_token: typing.Any.
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/link/provider/password/{provider}"),
             json=jsonable_encoder({"username": username, "password": password}),
             headers=remove_none_from_dict(
-                {**self._client_wrapper.get_headers(), "x-vital-link-client-region": vital_link_client_region}
+                {
+                    **self._client_wrapper.get_headers(),
+                    "x-vital-link-client-region": vital_link_client_region,
+                    "x-vital-link-token": vital_link_token,
+                }
             ),
             timeout=60,
         )
@@ -892,6 +870,7 @@ class AsyncLinkClient:
         email: str,
         email_provider_auth_link_provider: typing.Optional[Providers] = OMIT,
         region: typing.Optional[Region] = OMIT,
+        vital_link_token: typing.Any,
     ) -> ConnectionStatus:
         """
         This connects auth providers that are email based.
@@ -904,6 +883,8 @@ class AsyncLinkClient:
             - email_provider_auth_link_provider: typing.Optional[Providers].
 
             - region: typing.Optional[Region].
+
+            - vital_link_token: typing.Any.
         """
         _request: typing.Dict[str, typing.Any] = {"email": email}
         if email_provider_auth_link_provider is not OMIT:
@@ -914,7 +895,9 @@ class AsyncLinkClient:
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/link/provider/email/{provider}"),
             json=jsonable_encoder(_request),
-            headers=self._client_wrapper.get_headers(),
+            headers=remove_none_from_dict(
+                {**self._client_wrapper.get_headers(), "x-vital-link-token": vital_link_token}
+            ),
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
@@ -927,26 +910,25 @@ class AsyncLinkClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_all_providers(self) -> typing.List[SourceLink]:
+    async def get_all_providers(self, *, vital_link_token: typing.Any) -> typing.List[SourceLink]:
         """
         GET List of all available providers given the generated link token.
 
-        ---
-        from vital.client import AsyncVital
-
-        client = AsyncVital(
-            api_key="YOUR_API_KEY",
-        )
-        await client.link.get_all_providers()
+        Parameters:
+            - vital_link_token: typing.Any.
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/link/providers"),
-            headers=self._client_wrapper.get_headers(),
+            headers=remove_none_from_dict(
+                {**self._client_wrapper.get_headers(), "x-vital-link-token": vital_link_token}
+            ),
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[SourceLink], _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:

@@ -23,26 +23,25 @@ class TeamClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def get_link_config(self) -> typing.Dict[str, typing.Any]:
+    def get_link_config(self, *, vital_link_token: typing.Any) -> typing.Dict[str, typing.Any]:
         """
         Post teams.
 
-        ---
-        from vital.client import Vital
-
-        client = Vital(
-            api_key="YOUR_API_KEY",
-        )
-        client.team.get_link_config()
+        Parameters:
+            - vital_link_token: typing.Any.
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/team/link/config"),
-            headers=self._client_wrapper.get_headers(),
+            headers=remove_none_from_dict(
+                {**self._client_wrapper.get_headers(), "x-vital-link-token": vital_link_token}
+            ),
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.Dict[str, typing.Any], _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -227,26 +226,25 @@ class AsyncTeamClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def get_link_config(self) -> typing.Dict[str, typing.Any]:
+    async def get_link_config(self, *, vital_link_token: typing.Any) -> typing.Dict[str, typing.Any]:
         """
         Post teams.
 
-        ---
-        from vital.client import AsyncVital
-
-        client = AsyncVital(
-            api_key="YOUR_API_KEY",
-        )
-        await client.team.get_link_config()
+        Parameters:
+            - vital_link_token: typing.Any.
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/team/link/config"),
-            headers=self._client_wrapper.get_headers(),
+            headers=remove_none_from_dict(
+                {**self._client_wrapper.get_headers(), "x-vital-link-token": vital_link_token}
+            ),
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.Dict[str, typing.Any], _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
