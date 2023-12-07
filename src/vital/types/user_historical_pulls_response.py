@@ -4,7 +4,7 @@ import datetime as dt
 import typing
 
 from ..core.datetime_utils import serialize_datetime
-from .single_resource_statistics import SingleResourceStatistics
+from .single_user_historical_pull_response import SingleUserHistoricalPullResponse
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -12,9 +12,9 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class SingleUserResourceResponse(pydantic.BaseModel):
-    user_id: str
-    provider: typing.Dict[str, typing.Dict[str, SingleResourceStatistics]]
+class UserHistoricalPullsResponse(pydantic.BaseModel):
+    data: typing.List[SingleUserHistoricalPullResponse]
+    next: typing.Optional[str]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

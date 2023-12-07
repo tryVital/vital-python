@@ -184,13 +184,20 @@ class LinkClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def token_state(self, *, vital_link_token: typing.Any) -> typing.Dict[str, typing.Any]:
+    def token_state(self, *, vital_link_token: typing.Optional[str] = None) -> typing.Dict[str, typing.Any]:
         """
         REQUEST_SOURCE: VITAL-LINK
         Check link token state - can be hit continuously used as heartbeat
 
         Parameters:
-            - vital_link_token: typing.Any.
+            - vital_link_token: typing.Optional[str].
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.link.token_state()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -217,7 +224,7 @@ class LinkClient:
         provider: Providers,
         auth_type: AuthType,
         region: typing.Optional[Region] = OMIT,
-        vital_link_token: typing.Any,
+        vital_link_token: typing.Optional[str] = None,
     ) -> ConnectionStatus:
         """
         REQUEST_SOURCE: VITAL-LINK
@@ -233,7 +240,7 @@ class LinkClient:
 
             - region: typing.Optional[Region].
 
-            - vital_link_token: typing.Any.
+            - vital_link_token: typing.Optional[str].
         """
         _request: typing.Dict[str, typing.Any] = {"email": email, "provider": provider, "auth_type": auth_type}
         if region is not OMIT:
@@ -265,7 +272,7 @@ class LinkClient:
         provider: Providers,
         auth_type: AuthType,
         vital_link_client_region: typing.Optional[str] = None,
-        vital_link_token: typing.Any,
+        vital_link_token: typing.Optional[str] = None,
     ) -> ConnectionStatus:
         """
         REQUEST_SOURCE: VITAL-LINK
@@ -283,7 +290,7 @@ class LinkClient:
 
             - vital_link_client_region: typing.Optional[str].
 
-            - vital_link_token: typing.Any.
+            - vital_link_token: typing.Optional[str].
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -310,14 +317,16 @@ class LinkClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def generate_oauth_link(self, oauth_provider: OAuthProviders, *, vital_link_token: typing.Any) -> Source:
+    def generate_oauth_link(
+        self, oauth_provider: OAuthProviders, *, vital_link_token: typing.Optional[str] = None
+    ) -> Source:
         """
         This endpoint generates an OAuth link for oauth provider
 
         Parameters:
             - oauth_provider: OAuthProviders.
 
-            - vital_link_token: typing.Any.
+            - vital_link_token: typing.Optional[str].
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -344,7 +353,7 @@ class LinkClient:
         username: str,
         password: str,
         vital_link_client_region: typing.Optional[str] = None,
-        vital_link_token: typing.Any,
+        vital_link_token: typing.Optional[str] = None,
     ) -> ProviderLinkResponse:
         """
         This connects auth providers that are password based.
@@ -358,7 +367,7 @@ class LinkClient:
 
             - vital_link_client_region: typing.Optional[str].
 
-            - vital_link_token: typing.Any.
+            - vital_link_token: typing.Optional[str].
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -390,7 +399,7 @@ class LinkClient:
         email: str,
         email_provider_auth_link_provider: typing.Optional[Providers] = OMIT,
         region: typing.Optional[Region] = OMIT,
-        vital_link_token: typing.Any,
+        vital_link_token: typing.Optional[str] = None,
     ) -> ConnectionStatus:
         """
         This connects auth providers that are email based.
@@ -404,7 +413,7 @@ class LinkClient:
 
             - region: typing.Optional[Region].
 
-            - vital_link_token: typing.Any.
+            - vital_link_token: typing.Optional[str].
         """
         _request: typing.Dict[str, typing.Any] = {"email": email}
         if email_provider_auth_link_provider is not OMIT:
@@ -430,12 +439,19 @@ class LinkClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_all_providers(self, *, vital_link_token: typing.Any) -> typing.List[SourceLink]:
+    def get_all_providers(self, *, vital_link_token: typing.Optional[str] = None) -> typing.List[SourceLink]:
         """
         GET List of all available providers given the generated link token.
 
         Parameters:
-            - vital_link_token: typing.Any.
+            - vital_link_token: typing.Optional[str].
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.link.get_all_providers()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -664,13 +680,20 @@ class AsyncLinkClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def token_state(self, *, vital_link_token: typing.Any) -> typing.Dict[str, typing.Any]:
+    async def token_state(self, *, vital_link_token: typing.Optional[str] = None) -> typing.Dict[str, typing.Any]:
         """
         REQUEST_SOURCE: VITAL-LINK
         Check link token state - can be hit continuously used as heartbeat
 
         Parameters:
-            - vital_link_token: typing.Any.
+            - vital_link_token: typing.Optional[str].
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.link.token_state()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -697,7 +720,7 @@ class AsyncLinkClient:
         provider: Providers,
         auth_type: AuthType,
         region: typing.Optional[Region] = OMIT,
-        vital_link_token: typing.Any,
+        vital_link_token: typing.Optional[str] = None,
     ) -> ConnectionStatus:
         """
         REQUEST_SOURCE: VITAL-LINK
@@ -713,7 +736,7 @@ class AsyncLinkClient:
 
             - region: typing.Optional[Region].
 
-            - vital_link_token: typing.Any.
+            - vital_link_token: typing.Optional[str].
         """
         _request: typing.Dict[str, typing.Any] = {"email": email, "provider": provider, "auth_type": auth_type}
         if region is not OMIT:
@@ -745,7 +768,7 @@ class AsyncLinkClient:
         provider: Providers,
         auth_type: AuthType,
         vital_link_client_region: typing.Optional[str] = None,
-        vital_link_token: typing.Any,
+        vital_link_token: typing.Optional[str] = None,
     ) -> ConnectionStatus:
         """
         REQUEST_SOURCE: VITAL-LINK
@@ -763,7 +786,7 @@ class AsyncLinkClient:
 
             - vital_link_client_region: typing.Optional[str].
 
-            - vital_link_token: typing.Any.
+            - vital_link_token: typing.Optional[str].
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
@@ -790,14 +813,16 @@ class AsyncLinkClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def generate_oauth_link(self, oauth_provider: OAuthProviders, *, vital_link_token: typing.Any) -> Source:
+    async def generate_oauth_link(
+        self, oauth_provider: OAuthProviders, *, vital_link_token: typing.Optional[str] = None
+    ) -> Source:
         """
         This endpoint generates an OAuth link for oauth provider
 
         Parameters:
             - oauth_provider: OAuthProviders.
 
-            - vital_link_token: typing.Any.
+            - vital_link_token: typing.Optional[str].
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -824,7 +849,7 @@ class AsyncLinkClient:
         username: str,
         password: str,
         vital_link_client_region: typing.Optional[str] = None,
-        vital_link_token: typing.Any,
+        vital_link_token: typing.Optional[str] = None,
     ) -> ProviderLinkResponse:
         """
         This connects auth providers that are password based.
@@ -838,7 +863,7 @@ class AsyncLinkClient:
 
             - vital_link_client_region: typing.Optional[str].
 
-            - vital_link_token: typing.Any.
+            - vital_link_token: typing.Optional[str].
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
@@ -870,7 +895,7 @@ class AsyncLinkClient:
         email: str,
         email_provider_auth_link_provider: typing.Optional[Providers] = OMIT,
         region: typing.Optional[Region] = OMIT,
-        vital_link_token: typing.Any,
+        vital_link_token: typing.Optional[str] = None,
     ) -> ConnectionStatus:
         """
         This connects auth providers that are email based.
@@ -884,7 +909,7 @@ class AsyncLinkClient:
 
             - region: typing.Optional[Region].
 
-            - vital_link_token: typing.Any.
+            - vital_link_token: typing.Optional[str].
         """
         _request: typing.Dict[str, typing.Any] = {"email": email}
         if email_provider_auth_link_provider is not OMIT:
@@ -910,12 +935,19 @@ class AsyncLinkClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_all_providers(self, *, vital_link_token: typing.Any) -> typing.List[SourceLink]:
+    async def get_all_providers(self, *, vital_link_token: typing.Optional[str] = None) -> typing.List[SourceLink]:
         """
         GET List of all available providers given the generated link token.
 
         Parameters:
-            - vital_link_token: typing.Any.
+            - vital_link_token: typing.Optional[str].
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.link.get_all_providers()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

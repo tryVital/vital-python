@@ -118,6 +118,7 @@ from .health_insurance_create_request_patient_signature_image import (
     HealthInsuranceCreateRequestPatientSignatureImage_ImageJpeg,
     HealthInsuranceCreateRequestPatientSignatureImage_ImagePng,
 )
+from .historical_pull_status import HistoricalPullStatus
 from .http_validation_error import HttpValidationError
 from .jpeg import Jpeg
 from .lab_results_metadata import LabResultsMetadata
@@ -167,7 +168,10 @@ from .region import Region
 from .responsible_relationship import ResponsibleRelationship
 from .result_type import ResultType
 from .shipping_address import ShippingAddress
+from .single_historical_pull_statistics import SingleHistoricalPullStatistics
+from .single_provider_historical_pull_response import SingleProviderHistoricalPullResponse
 from .single_resource_statistics import SingleResourceStatistics
+from .single_user_historical_pull_response import SingleUserHistoricalPullResponse
 from .single_user_resource_response import SingleUserResourceResponse
 from .sleep_v_2_in_db import SleepV2InDb
 from .source import Source
@@ -179,6 +183,7 @@ from .time_slot import TimeSlot
 from .timeseries_metric_point import TimeseriesMetricPoint
 from .timeseries_resource import TimeseriesResource
 from .us_address import UsAddress
+from .user_historical_pulls_response import UserHistoricalPullsResponse
 from .user_refresh_error_response import UserRefreshErrorResponse
 from .user_refresh_success_response import UserRefreshSuccessResponse
 from .user_resources_response import UserResourcesResponse
@@ -302,6 +307,7 @@ __all__ = [
     "HealthInsuranceCreateRequestPatientSignatureImage",
     "HealthInsuranceCreateRequestPatientSignatureImage_ImageJpeg",
     "HealthInsuranceCreateRequestPatientSignatureImage_ImagePng",
+    "HistoricalPullStatus",
     "HttpValidationError",
     "Jpeg",
     "LabResultsMetadata",
@@ -349,7 +355,10 @@ __all__ = [
     "ResponsibleRelationship",
     "ResultType",
     "ShippingAddress",
+    "SingleHistoricalPullStatistics",
+    "SingleProviderHistoricalPullResponse",
     "SingleResourceStatistics",
+    "SingleUserHistoricalPullResponse",
     "SingleUserResourceResponse",
     "SleepV2InDb",
     "Source",
@@ -361,6 +370,7 @@ __all__ = [
     "TimeseriesMetricPoint",
     "TimeseriesResource",
     "UsAddress",
+    "UserHistoricalPullsResponse",
     "UserRefreshErrorResponse",
     "UserRefreshSuccessResponse",
     "UserResourcesResponse",
