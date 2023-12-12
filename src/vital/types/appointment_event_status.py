@@ -11,6 +11,7 @@ class AppointmentEventStatus(str, enum.Enum):
     An enumeration.
     """
 
+    PENDING = "pending"
     SCHEDULED = "scheduled"
     COMPLETED = "completed"
     CANCELLED = "cancelled"
@@ -18,11 +19,14 @@ class AppointmentEventStatus(str, enum.Enum):
 
     def visit(
         self,
+        pending: typing.Callable[[], T_Result],
         scheduled: typing.Callable[[], T_Result],
         completed: typing.Callable[[], T_Result],
         cancelled: typing.Callable[[], T_Result],
         in_progress: typing.Callable[[], T_Result],
     ) -> T_Result:
+        if self is AppointmentEventStatus.PENDING:
+            return pending()
         if self is AppointmentEventStatus.SCHEDULED:
             return scheduled()
         if self is AppointmentEventStatus.COMPLETED:

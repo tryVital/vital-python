@@ -294,16 +294,19 @@ class UserClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def refresh(self, user_id: str) -> UserRefreshSuccessResponse:
+    def refresh(self, user_id: str, *, timeout: typing.Optional[float] = None) -> UserRefreshSuccessResponse:
         """
         Trigger a manual refresh for a specific user
 
         Parameters:
             - user_id: str.
+
+            - timeout: typing.Optional[float].
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/refresh/{user_id}"),
+            params=remove_none_from_dict({"timeout": timeout}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -587,16 +590,19 @@ class AsyncUserClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def refresh(self, user_id: str) -> UserRefreshSuccessResponse:
+    async def refresh(self, user_id: str, *, timeout: typing.Optional[float] = None) -> UserRefreshSuccessResponse:
         """
         Trigger a manual refresh for a specific user
 
         Parameters:
             - user_id: str.
+
+            - timeout: typing.Optional[float].
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/refresh/{user_id}"),
+            params=remove_none_from_dict({"timeout": timeout}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )

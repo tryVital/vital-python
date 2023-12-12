@@ -19,6 +19,9 @@ class OrderStatus(str, enum.Enum):
     CANCELLED_WALK_IN_TEST_CANCELLED = "cancelled.walk_in_test.cancelled"
     RECEIVED_AT_HOME_PHLEBOTOMY_ORDERED = "received.at_home_phlebotomy.ordered"
     RECEIVED_AT_HOME_PHLEBOTOMY_REQUISITION_CREATED = "received.at_home_phlebotomy.requisition_created"
+    COLLECTING_SAMPLE_AT_HOME_PHLEBOTOMY_APPOINTMENT_PENDING = (
+        "collecting_sample.at_home_phlebotomy.appointment_pending"
+    )
     COLLECTING_SAMPLE_AT_HOME_PHLEBOTOMY_APPOINTMENT_SCHEDULED = (
         "collecting_sample.at_home_phlebotomy.appointment_scheduled"
     )
@@ -56,6 +59,7 @@ class OrderStatus(str, enum.Enum):
         cancelled_walk_in_test_cancelled: typing.Callable[[], T_Result],
         received_at_home_phlebotomy_ordered: typing.Callable[[], T_Result],
         received_at_home_phlebotomy_requisition_created: typing.Callable[[], T_Result],
+        collecting_sample_at_home_phlebotomy_appointment_pending: typing.Callable[[], T_Result],
         collecting_sample_at_home_phlebotomy_appointment_scheduled: typing.Callable[[], T_Result],
         collecting_sample_at_home_phlebotomy_draw_completed: typing.Callable[[], T_Result],
         collecting_sample_at_home_phlebotomy_appointment_cancelled: typing.Callable[[], T_Result],
@@ -95,6 +99,8 @@ class OrderStatus(str, enum.Enum):
             return received_at_home_phlebotomy_ordered()
         if self is OrderStatus.RECEIVED_AT_HOME_PHLEBOTOMY_REQUISITION_CREATED:
             return received_at_home_phlebotomy_requisition_created()
+        if self is OrderStatus.COLLECTING_SAMPLE_AT_HOME_PHLEBOTOMY_APPOINTMENT_PENDING:
+            return collecting_sample_at_home_phlebotomy_appointment_pending()
         if self is OrderStatus.COLLECTING_SAMPLE_AT_HOME_PHLEBOTOMY_APPOINTMENT_SCHEDULED:
             return collecting_sample_at_home_phlebotomy_appointment_scheduled()
         if self is OrderStatus.COLLECTING_SAMPLE_AT_HOME_PHLEBOTOMY_DRAW_COMPLETED:

@@ -5,6 +5,7 @@ from .address import Address
 from .appointment_availability_slots import AppointmentAvailabilitySlots
 from .appointment_event_status import AppointmentEventStatus
 from .appointment_provider import AppointmentProvider
+from .appointment_service_type import AppointmentServiceType
 from .appointment_status import AppointmentStatus
 from .appointment_type import AppointmentType
 from .area_info import AreaInfo
@@ -146,6 +147,7 @@ from .patient_address_compatible import PatientAddressCompatible
 from .patient_details import PatientDetails
 from .person_details import PersonDetails
 from .phlebotomy_area_info import PhlebotomyAreaInfo
+from .phlebotomy_provider_info import PhlebotomyProviderInfo
 from .physician_create_request import PhysicianCreateRequest
 from .physician_create_request_base import PhysicianCreateRequestBase
 from .physician_create_request_signature_image import (
@@ -187,9 +189,7 @@ from .user_historical_pulls_response import UserHistoricalPullsResponse
 from .user_refresh_error_response import UserRefreshErrorResponse
 from .user_refresh_success_response import UserRefreshSuccessResponse
 from .user_resources_response import UserResourcesResponse
-from .user_sign_in_token import UserSignInToken
 from .user_sign_in_token_response import UserSignInTokenResponse
-from .user_sign_in_token_response_sign_in_token import UserSignInTokenResponseSignInToken
 from .user_success_response import UserSuccessResponse
 from .validation_error import ValidationError
 from .validation_error_loc_item import ValidationErrorLocItem
@@ -202,6 +202,7 @@ __all__ = [
     "AppointmentAvailabilitySlots",
     "AppointmentEventStatus",
     "AppointmentProvider",
+    "AppointmentServiceType",
     "AppointmentStatus",
     "AppointmentType",
     "AreaInfo",
@@ -335,6 +336,7 @@ __all__ = [
     "PatientDetails",
     "PersonDetails",
     "PhlebotomyAreaInfo",
+    "PhlebotomyProviderInfo",
     "PhysicianCreateRequest",
     "PhysicianCreateRequestBase",
     "PhysicianCreateRequestSignatureImage",
@@ -374,9 +376,7 @@ __all__ = [
     "UserRefreshErrorResponse",
     "UserRefreshSuccessResponse",
     "UserResourcesResponse",
-    "UserSignInToken",
     "UserSignInTokenResponse",
-    "UserSignInTokenResponseSignInToken",
     "UserSuccessResponse",
     "ValidationError",
     "ValidationErrorLocItem",

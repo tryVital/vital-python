@@ -12,6 +12,7 @@ from ...core.jsonable_encoder import jsonable_encoder
 from ...core.remove_none_from_dict import remove_none_from_dict
 from ...errors.unprocessable_entity_error import UnprocessableEntityError
 from ...types.appointment_availability_slots import AppointmentAvailabilitySlots
+from ...types.appointment_provider import AppointmentProvider
 from ...types.area_info import AreaInfo
 from ...types.client_facing_appointment import ClientFacingAppointment
 from ...types.client_facing_appointment_cancellation_reason import ClientFacingAppointmentCancellationReason
@@ -327,6 +328,38 @@ class LabTestsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/phlebotomy/appointment/book"
             ),
             json=jsonable_encoder({"booking_key": booking_key}),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(ClientFacingAppointment, _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def request_phlebotomy_appointment(
+        self, order_id: str, *, address: UsAddress, provider: AppointmentProvider
+    ) -> ClientFacingAppointment:
+        """
+        Request an at-home phlebotomy appointment.
+
+        Parameters:
+            - order_id: str. Your Order ID.
+
+            - address: UsAddress. At-home phlebotomy appointment address.
+
+            - provider: AppointmentProvider.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "POST",
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/phlebotomy/appointment/request"
+            ),
+            json=jsonable_encoder({"address": address, "provider": provider}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -1063,6 +1096,38 @@ class AsyncLabTestsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/phlebotomy/appointment/book"
             ),
             json=jsonable_encoder({"booking_key": booking_key}),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(ClientFacingAppointment, _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def request_phlebotomy_appointment(
+        self, order_id: str, *, address: UsAddress, provider: AppointmentProvider
+    ) -> ClientFacingAppointment:
+        """
+        Request an at-home phlebotomy appointment.
+
+        Parameters:
+            - order_id: str. Your Order ID.
+
+            - address: UsAddress. At-home phlebotomy appointment address.
+
+            - provider: AppointmentProvider.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "POST",
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/phlebotomy/appointment/request"
+            ),
+            json=jsonable_encoder({"address": address, "provider": provider}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )

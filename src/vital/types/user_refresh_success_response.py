@@ -17,6 +17,7 @@ class UserRefreshSuccessResponse(pydantic.BaseModel):
         description="A unique ID representing the end user. Typically this will be a user ID from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id."
     )
     refreshed_sources: typing.List[str]
+    in_progress_sources: typing.List[str]
     failed_sources: typing.List[str]
 
     def json(self, **kwargs: typing.Any) -> str:

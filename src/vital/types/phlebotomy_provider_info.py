@@ -4,6 +4,8 @@ import datetime as dt
 import typing
 
 from ..core.datetime_utils import serialize_datetime
+from .appointment_provider import AppointmentProvider
+from .appointment_service_type import AppointmentServiceType
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -11,9 +13,9 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class UserSignInToken(pydantic.BaseModel):
-    public_key: str
-    user_token: str
+class PhlebotomyProviderInfo(pydantic.BaseModel):
+    name: AppointmentProvider
+    service_types: typing.List[AppointmentServiceType]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
