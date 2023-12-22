@@ -25,9 +25,7 @@ class ClientFacingLabTest(pydantic.BaseModel):
     price: float
     is_active: bool = pydantic.Field(description="Deprecated. Use status instead.")
     status: LabTestStatus
-    fasting: typing.Optional[bool] = pydantic.Field(
-        description="Defines whether a lab test requires fasting. Only available for Labcorp."
-    )
+    fasting: typing.Optional[bool] = pydantic.Field(description="Defines whether a lab test requires fasting.")
     lab: typing.Optional[ClientFacingLab]
     markers: typing.Optional[typing.List[ClientFacingMarker]]
     is_delegated: typing.Optional[bool] = pydantic.Field(

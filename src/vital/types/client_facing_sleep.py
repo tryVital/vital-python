@@ -53,7 +53,7 @@ class ClientFacingSleep(pydantic.BaseModel):
         description="The average heart rate registered during the sleep period::beats per minute"
     )
     efficiency: typing.Optional[float] = pydantic.Field(
-        description="Sleep efficiency is the percentage of the sleep period spent asleep (100% * sleep.total / sleep.duration)::perc"
+        description="Sleep efficiency is the percentage of the sleep period spent asleep (100% \* sleep.total / sleep.duration)::perc"
     )
     latency: typing.Optional[int] = pydantic.Field(
         description="Detected latency from bedtime_start to the beginning of the first five minutes of persistent sleep::seconds"

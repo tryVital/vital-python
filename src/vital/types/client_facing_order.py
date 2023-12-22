@@ -41,7 +41,7 @@ class ClientFacingOrder(pydantic.BaseModel):
     health_insurance_id: typing.Optional[str] = pydantic.Field(description="Vital ID of the health insurance.")
     requisition_form_url: typing.Optional[str] = pydantic.Field(description="DEPRECATED. Requistion form url.")
     priority: typing.Optional[bool] = pydantic.Field(
-        description="Defines whether order is priority or not. Only available for Labcorp. For Labcorp, this corresponds to a STAT order."
+        description="Defines whether order is priority or not. For some labs, this refers to a STAT order."
     )
     shipping_details: typing.Optional[ShippingAddress] = pydantic.Field(
         description="Shipping Details. For unregistered testkit orders."

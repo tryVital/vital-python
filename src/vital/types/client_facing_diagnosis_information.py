@@ -12,8 +12,8 @@ except ImportError:
 
 
 class ClientFacingDiagnosisInformation(pydantic.BaseModel):
-    diagnosis_code: str = pydantic.Field(description="Diagnosis code for insurance information required by Labcorp.")
-    description: str = pydantic.Field(description="Diagnosis description insurance information required by Labcorp.")
+    diagnosis_code: str = pydantic.Field(description="Diagnosis code for insurance information.")
+    description: str = pydantic.Field(description="Diagnosis description insurance information.")
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

@@ -494,7 +494,8 @@ class LabTestsClient:
         GET information about an area with respect to lab-testing.
 
         Information returned:
-        * Whether a given zip code is served by our Phlebotomy network.
+
+        - Whether a given zip code is served by our Phlebotomy network.
 
         Parameters:
             - zip_code: str. Zip code of the area to check
@@ -657,7 +658,7 @@ class LabTestsClient:
 
             - health_insurance: typing.Optional[HealthInsuranceCreateRequest].
 
-            - priority: typing.Optional[bool]. Defines whether order is priority or not. Only available for Labcorp. For Labcorp, this corresponds to a STAT order.
+            - priority: typing.Optional[bool]. Defines whether order is priority or not. For some labs, this refers to a STAT order.
 
             - consents: typing.Optional[typing.List[Consent]].
 
@@ -1264,7 +1265,8 @@ class AsyncLabTestsClient:
         GET information about an area with respect to lab-testing.
 
         Information returned:
-        * Whether a given zip code is served by our Phlebotomy network.
+
+        - Whether a given zip code is served by our Phlebotomy network.
 
         Parameters:
             - zip_code: str. Zip code of the area to check
@@ -1427,7 +1429,7 @@ class AsyncLabTestsClient:
 
             - health_insurance: typing.Optional[HealthInsuranceCreateRequest].
 
-            - priority: typing.Optional[bool]. Defines whether order is priority or not. Only available for Labcorp. For Labcorp, this corresponds to a STAT order.
+            - priority: typing.Optional[bool]. Defines whether order is priority or not. For some labs, this refers to a STAT order.
 
             - consents: typing.Optional[typing.List[Consent]].
 

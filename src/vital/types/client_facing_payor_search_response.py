@@ -13,10 +13,10 @@ except ImportError:
 
 
 class ClientFacingPayorSearchResponse(pydantic.BaseModel):
-    code: str = pydantic.Field(description="Payor code returned for the insurance information required by Labcorp.")
-    name: str = pydantic.Field(description="Insurance name returned for the insurance information required by Labcorp.")
+    code: str = pydantic.Field(description="Payor code returned for the insurance information.")
+    name: str = pydantic.Field(description="Insurance name returned for the insurance information.")
     org_address: Address = pydantic.Field(
-        description="Insurance business address returned for the insurance information required by Labcorp."
+        description="Insurance business address returned for the insurance information."
     )
 
     def json(self, **kwargs: typing.Any) -> str:
