@@ -106,8 +106,8 @@ class LabTestsClient:
             "marker_ids": marker_ids,
             "lab_id": lab_id,
             "name": name,
-            "method": method,
-            "sample_type": sample_type,
+            "method": method.value,
+            "sample_type": sample_type.value,
             "description": description,
         }
         if fasting is not OMIT:
@@ -875,8 +875,8 @@ class AsyncLabTestsClient:
             "marker_ids": marker_ids,
             "lab_id": lab_id,
             "name": name,
-            "method": method,
-            "sample_type": sample_type,
+            "method": method.value,
+            "sample_type": sample_type.value,
             "description": description,
         }
         if fasting is not OMIT:

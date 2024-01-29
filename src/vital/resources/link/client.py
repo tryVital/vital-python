@@ -68,7 +68,7 @@ class LinkClient:
         """
         _request: typing.Dict[str, typing.Any] = {"user_id": user_id}
         if provider is not OMIT:
-            _request["provider"] = provider
+            _request["provider"] = provider.value
         if redirect_url is not OMIT:
             _request["redirect_url"] = redirect_url
         if filter_on_providers is not OMIT:
@@ -242,9 +242,13 @@ class LinkClient:
 
             - vital_link_token: typing.Optional[str].
         """
-        _request: typing.Dict[str, typing.Any] = {"email": email, "provider": provider, "auth_type": auth_type}
+        _request: typing.Dict[str, typing.Any] = {
+            "email": email,
+            "provider": provider.value,
+            "auth_type": auth_type.value,
+        }
         if region is not OMIT:
-            _request["region"] = region
+            _request["region"] = region.value
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/link/auth/email"),
@@ -417,9 +421,9 @@ class LinkClient:
         """
         _request: typing.Dict[str, typing.Any] = {"email": email}
         if email_provider_auth_link_provider is not OMIT:
-            _request["provider"] = email_provider_auth_link_provider
+            _request["provider"] = email_provider_auth_link_provider.value
         if region is not OMIT:
-            _request["region"] = region
+            _request["region"] = region.value
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/link/provider/email/{provider}"),
@@ -564,7 +568,7 @@ class AsyncLinkClient:
         """
         _request: typing.Dict[str, typing.Any] = {"user_id": user_id}
         if provider is not OMIT:
-            _request["provider"] = provider
+            _request["provider"] = provider.value
         if redirect_url is not OMIT:
             _request["redirect_url"] = redirect_url
         if filter_on_providers is not OMIT:
@@ -738,9 +742,13 @@ class AsyncLinkClient:
 
             - vital_link_token: typing.Optional[str].
         """
-        _request: typing.Dict[str, typing.Any] = {"email": email, "provider": provider, "auth_type": auth_type}
+        _request: typing.Dict[str, typing.Any] = {
+            "email": email,
+            "provider": provider.value,
+            "auth_type": auth_type.value,
+        }
         if region is not OMIT:
-            _request["region"] = region
+            _request["region"] = region.value
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/link/auth/email"),
@@ -913,9 +921,9 @@ class AsyncLinkClient:
         """
         _request: typing.Dict[str, typing.Any] = {"email": email}
         if email_provider_auth_link_provider is not OMIT:
-            _request["provider"] = email_provider_auth_link_provider
+            _request["provider"] = email_provider_auth_link_provider.value
         if region is not OMIT:
-            _request["region"] = region
+            _request["region"] = region.value
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/link/provider/email/{provider}"),
