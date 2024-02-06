@@ -13,7 +13,7 @@ except ImportError:
 
 
 class DeviceV2InDb(pydantic.BaseModel):
-    data: typing.Optional[str]
+    data: typing.Dict[str, typing.Any]
     provider_id: str
     user_id: str
     source_id: int

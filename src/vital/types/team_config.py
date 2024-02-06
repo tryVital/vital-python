@@ -17,6 +17,7 @@ class TeamConfig(pydantic.BaseModel):
     libreview: LibreConfig
     texts_enabled: typing.Optional[bool]
     push_historical_data: typing.Optional[bool]
+    provider_raw_data: typing.Optional[bool]
     eds_preferences: typing.Optional[EventDestinationPreferences]
     event_type_prefixes: typing.Optional[typing.List[str]]
 

@@ -16,6 +16,7 @@ except ImportError:
 
 class ClientFacingTeam(pydantic.BaseModel):
     id: str
+    org_id: typing.Optional[str]
     name: str
     svix_app_id: typing.Optional[str]
     client_id: typing.Optional[str]
