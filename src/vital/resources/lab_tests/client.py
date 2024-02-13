@@ -143,7 +143,7 @@ class LabTestsClient:
         Parameters:
             - lab_id: typing.Optional[typing.Union[int, typing.List[int]]]. The identifier Vital assigned to a lab partner.
 
-            - name: typing.Optional[str]. The name of an individual biomarker or a panel. Used as a fuzzy filter when searching markers.
+            - name: typing.Optional[str]. The name or test code of an individual biomarker or a panel.
 
             - page: typing.Optional[int].
 
@@ -643,6 +643,7 @@ class LabTestsClient:
         health_insurance: typing.Optional[HealthInsuranceCreateRequest] = OMIT,
         priority: typing.Optional[bool] = OMIT,
         consents: typing.Optional[typing.List[Consent]] = OMIT,
+        activate_by: typing.Optional[dt.datetime] = OMIT,
         patient_details: PatientDetails,
         patient_address: PatientAddressCompatible,
     ) -> PostOrderResponse:
@@ -662,6 +663,8 @@ class LabTestsClient:
 
             - consents: typing.Optional[typing.List[Consent]].
 
+            - activate_by: typing.Optional[dt.datetime]. Defines when an Order should be activated, making it a Delayed Order.
+
             - patient_details: PatientDetails.
 
             - patient_address: PatientAddressCompatible.
@@ -680,6 +683,8 @@ class LabTestsClient:
             _request["priority"] = priority
         if consents is not OMIT:
             _request["consents"] = consents
+        if activate_by is not OMIT:
+            _request["activate_by"] = activate_by
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/order"),
@@ -912,7 +917,7 @@ class AsyncLabTestsClient:
         Parameters:
             - lab_id: typing.Optional[typing.Union[int, typing.List[int]]]. The identifier Vital assigned to a lab partner.
 
-            - name: typing.Optional[str]. The name of an individual biomarker or a panel. Used as a fuzzy filter when searching markers.
+            - name: typing.Optional[str]. The name or test code of an individual biomarker or a panel.
 
             - page: typing.Optional[int].
 
@@ -1414,6 +1419,7 @@ class AsyncLabTestsClient:
         health_insurance: typing.Optional[HealthInsuranceCreateRequest] = OMIT,
         priority: typing.Optional[bool] = OMIT,
         consents: typing.Optional[typing.List[Consent]] = OMIT,
+        activate_by: typing.Optional[dt.datetime] = OMIT,
         patient_details: PatientDetails,
         patient_address: PatientAddressCompatible,
     ) -> PostOrderResponse:
@@ -1433,6 +1439,8 @@ class AsyncLabTestsClient:
 
             - consents: typing.Optional[typing.List[Consent]].
 
+            - activate_by: typing.Optional[dt.datetime]. Defines when an Order should be activated, making it a Delayed Order.
+
             - patient_details: PatientDetails.
 
             - patient_address: PatientAddressCompatible.
@@ -1451,6 +1459,8 @@ class AsyncLabTestsClient:
             _request["priority"] = priority
         if consents is not OMIT:
             _request["consents"] = consents
+        if activate_by is not OMIT:
+            _request["activate_by"] = activate_by
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/order"),
