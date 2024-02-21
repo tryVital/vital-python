@@ -46,7 +46,7 @@ class ClientFacingOrder(pydantic.BaseModel):
     shipping_details: typing.Optional[ShippingAddress] = pydantic.Field(
         description="Shipping Details. For unregistered testkit orders."
     )
-    activate_by: typing.Optional[dt.datetime] = pydantic.Field(
+    activate_by: typing.Optional[str] = pydantic.Field(
         description="Defines when an Order should be activated, making it a Delayed Order."
     )
 

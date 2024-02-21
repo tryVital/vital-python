@@ -16,8 +16,6 @@ class TimeseriesResource(str, enum.Enum):
     DISTANCE = "distance"
     BLOOD_OXYGEN = "blood_oxygen"
     BLOOD_PRESSURE = "blood_pressure"
-    BODY_FAT = "body/fat"
-    BODY_WEIGHT = "body/weight"
     BODY_FAT = "body_fat"
     BODY_WEIGHT = "body_weight"
     CHOLESTEROL = "cholesterol"
@@ -30,7 +28,6 @@ class TimeseriesResource(str, enum.Enum):
     GLUCOSE = "glucose"
     HEARTRATE = "heartrate"
     HRV = "hrv"
-    HEARTRATE_VARIABILITY = "heartrate_variability"
     HYPNOGRAM = "hypnogram"
     IGE = "ige"
     IGG = "igg"
@@ -51,8 +48,6 @@ class TimeseriesResource(str, enum.Enum):
         blood_pressure: typing.Callable[[], T_Result],
         body_fat: typing.Callable[[], T_Result],
         body_weight: typing.Callable[[], T_Result],
-        body_fat: typing.Callable[[], T_Result],
-        body_weight: typing.Callable[[], T_Result],
         cholesterol: typing.Callable[[], T_Result],
         cholesterol_ldl: typing.Callable[[], T_Result],
         cholesterol_hdl: typing.Callable[[], T_Result],
@@ -63,7 +58,6 @@ class TimeseriesResource(str, enum.Enum):
         glucose: typing.Callable[[], T_Result],
         heartrate: typing.Callable[[], T_Result],
         hrv: typing.Callable[[], T_Result],
-        heartrate_variability: typing.Callable[[], T_Result],
         hypnogram: typing.Callable[[], T_Result],
         ige: typing.Callable[[], T_Result],
         igg: typing.Callable[[], T_Result],
@@ -89,10 +83,6 @@ class TimeseriesResource(str, enum.Enum):
             return body_fat()
         if self is TimeseriesResource.BODY_WEIGHT:
             return body_weight()
-        if self is TimeseriesResource.BODY_FAT:
-            return body_fat()
-        if self is TimeseriesResource.BODY_WEIGHT:
-            return body_weight()
         if self is TimeseriesResource.CHOLESTEROL:
             return cholesterol()
         if self is TimeseriesResource.CHOLESTEROL_LDL:
@@ -113,8 +103,6 @@ class TimeseriesResource(str, enum.Enum):
             return heartrate()
         if self is TimeseriesResource.HRV:
             return hrv()
-        if self is TimeseriesResource.HEARTRATE_VARIABILITY:
-            return heartrate_variability()
         if self is TimeseriesResource.HYPNOGRAM:
             return hypnogram()
         if self is TimeseriesResource.IGE:

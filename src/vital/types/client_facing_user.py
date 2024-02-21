@@ -5,6 +5,7 @@ import typing
 
 from ..core.datetime_utils import serialize_datetime
 from .connected_source_client_facing import ConnectedSourceClientFacing
+from .fallback_birth_date import FallbackBirthDate
 from .fallback_time_zone import FallbackTimeZone
 
 try:
@@ -30,6 +31,9 @@ class ClientFacingUser(pydantic.BaseModel):
             "    Fallback time zone of the user, in the form of a valid IANA tzdatabase identifier (e.g., `Europe/London` or `America/Los_Angeles`).\n"
             "    Used when pulling data from sources that are completely time zone agnostic (e.g., all time is relative to UTC clock, without any time zone attributions on data points).\n"
         )
+    )
+    fallback_birth_date: typing.Optional[FallbackBirthDate] = pydantic.Field(
+        description="Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age."
     )
 
     def json(self, **kwargs: typing.Any) -> str:

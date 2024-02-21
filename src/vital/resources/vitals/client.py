@@ -20,75 +20,6 @@ from ...types.client_facing_distance_timeseries import ClientFacingDistanceTimes
 from ...types.client_facing_electrocardiogram_voltage_timeseries import ClientFacingElectrocardiogramVoltageTimeseries
 from ...types.client_facing_floors_climbed_timeseries import ClientFacingFloorsClimbedTimeseries
 from ...types.client_facing_glucose_timeseries import ClientFacingGlucoseTimeseries
-from ...types.client_facing_grouped_timeseries_response_client_facing_blood_oxygen_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingBloodOxygenTimeseries,
-)
-from ...types.client_facing_grouped_timeseries_response_client_facing_blood_pressure_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingBloodPressureTimeseries,
-)
-from ...types.client_facing_grouped_timeseries_response_client_facing_body_fat_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingBodyFatTimeseries,
-)
-from ...types.client_facing_grouped_timeseries_response_client_facing_body_weight_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingBodyWeightTimeseries,
-)
-from ...types.client_facing_grouped_timeseries_response_client_facing_caffeine_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingCaffeineTimeseries,
-)
-from ...types.client_facing_grouped_timeseries_response_client_facing_calories_active_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingCaloriesActiveTimeseries,
-)
-from ...types.client_facing_grouped_timeseries_response_client_facing_calories_basal_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingCaloriesBasalTimeseries,
-)
-from ...types.client_facing_grouped_timeseries_response_client_facing_cholesterol_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingCholesterolTimeseries,
-)
-from ...types.client_facing_grouped_timeseries_response_client_facing_distance_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingDistanceTimeseries,
-)
-from ...types.client_facing_grouped_timeseries_response_client_facing_electrocardiogram_voltage_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingElectrocardiogramVoltageTimeseries,
-)
-from ...types.client_facing_grouped_timeseries_response_client_facing_floors_climbed_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingFloorsClimbedTimeseries,
-)
-from ...types.client_facing_grouped_timeseries_response_client_facing_glucose_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingGlucoseTimeseries,
-)
-from ...types.client_facing_grouped_timeseries_response_client_facing_heart_rate_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingHeartRateTimeseries,
-)
-from ...types.client_facing_grouped_timeseries_response_client_facing_hrv_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingHrvTimeseries,
-)
-from ...types.client_facing_grouped_timeseries_response_client_facing_hypnogram_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingHypnogramTimeseries,
-)
-from ...types.client_facing_grouped_timeseries_response_client_facing_ige_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingIgeTimeseries,
-)
-from ...types.client_facing_grouped_timeseries_response_client_facing_igg_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingIggTimeseries,
-)
-from ...types.client_facing_grouped_timeseries_response_client_facing_mindfulness_minutes_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingMindfulnessMinutesTimeseries,
-)
-from ...types.client_facing_grouped_timeseries_response_client_facing_respiratory_rate_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingRespiratoryRateTimeseries,
-)
-from ...types.client_facing_grouped_timeseries_response_client_facing_steps_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingStepsTimeseries,
-)
-from ...types.client_facing_grouped_timeseries_response_client_facing_stress_level_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingStressLevelTimeseries,
-)
-from ...types.client_facing_grouped_timeseries_response_client_facing_vo_2_max_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingVo2MaxTimeseries,
-)
-from ...types.client_facing_grouped_timeseries_response_client_facing_water_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingWaterTimeseries,
-)
 from ...types.client_facing_heart_rate_timeseries import ClientFacingHeartRateTimeseries
 from ...types.client_facing_hrv_timeseries import ClientFacingHrvTimeseries
 from ...types.client_facing_hypnogram_timeseries import ClientFacingHypnogramTimeseries
@@ -100,6 +31,29 @@ from ...types.client_facing_steps_timeseries import ClientFacingStepsTimeseries
 from ...types.client_facing_stress_level_timeseries import ClientFacingStressLevelTimeseries
 from ...types.client_facing_vo_2_max_timeseries import ClientFacingVo2MaxTimeseries
 from ...types.client_facing_water_timeseries import ClientFacingWaterTimeseries
+from ...types.grouped_blood_oxygen_response import GroupedBloodOxygenResponse
+from ...types.grouped_blood_pressure_response import GroupedBloodPressureResponse
+from ...types.grouped_body_fat_response import GroupedBodyFatResponse
+from ...types.grouped_body_weight_response import GroupedBodyWeightResponse
+from ...types.grouped_caffeine_response import GroupedCaffeineResponse
+from ...types.grouped_calories_active_response import GroupedCaloriesActiveResponse
+from ...types.grouped_calories_basal_response import GroupedCaloriesBasalResponse
+from ...types.grouped_cholesterol_response import GroupedCholesterolResponse
+from ...types.grouped_distance_response import GroupedDistanceResponse
+from ...types.grouped_electrocardiogram_voltage_response import GroupedElectrocardiogramVoltageResponse
+from ...types.grouped_floors_climbed_response import GroupedFloorsClimbedResponse
+from ...types.grouped_glucose_response import GroupedGlucoseResponse
+from ...types.grouped_heart_rate_response import GroupedHeartRateResponse
+from ...types.grouped_hrv_response import GroupedHrvResponse
+from ...types.grouped_hypnogram_response import GroupedHypnogramResponse
+from ...types.grouped_ige_response import GroupedIgeResponse
+from ...types.grouped_igg_response import GroupedIggResponse
+from ...types.grouped_mindfulness_minutes_response import GroupedMindfulnessMinutesResponse
+from ...types.grouped_respiratory_rate_response import GroupedRespiratoryRateResponse
+from ...types.grouped_steps_response import GroupedStepsResponse
+from ...types.grouped_stress_level_response import GroupedStressLevelResponse
+from ...types.grouped_vo_2_max_response import GroupedVo2MaxResponse
+from ...types.grouped_water_response import GroupedWaterResponse
 from ...types.http_validation_error import HttpValidationError
 
 try:
@@ -120,7 +74,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingVo2MaxTimeseries:
+    ) -> GroupedVo2MaxResponse:
         """
         Parameters:
             - user_id: str.
@@ -153,7 +107,7 @@ class VitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingVo2MaxTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedVo2MaxResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -170,7 +124,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingStressLevelTimeseries:
+    ) -> GroupedStressLevelResponse:
         """
         Parameters:
             - user_id: str.
@@ -205,7 +159,7 @@ class VitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingStressLevelTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedStressLevelResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -222,7 +176,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingMindfulnessMinutesTimeseries:
+    ) -> GroupedMindfulnessMinutesResponse:
         """
         Parameters:
             - user_id: str.
@@ -257,7 +211,7 @@ class VitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingMindfulnessMinutesTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedMindfulnessMinutesResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -274,7 +228,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingCaffeineTimeseries:
+    ) -> GroupedCaffeineResponse:
         """
         Parameters:
             - user_id: str.
@@ -309,7 +263,7 @@ class VitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingCaffeineTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedCaffeineResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -326,7 +280,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingWaterTimeseries:
+    ) -> GroupedWaterResponse:
         """
         Parameters:
             - user_id: str.
@@ -359,7 +313,7 @@ class VitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingWaterTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedWaterResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -376,7 +330,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingStepsTimeseries:
+    ) -> GroupedStepsResponse:
         """
         Parameters:
             - user_id: str.
@@ -409,7 +363,7 @@ class VitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingStepsTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedStepsResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -426,7 +380,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingFloorsClimbedTimeseries:
+    ) -> GroupedFloorsClimbedResponse:
         """
         Parameters:
             - user_id: str.
@@ -461,7 +415,7 @@ class VitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingFloorsClimbedTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedFloorsClimbedResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -478,7 +432,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingDistanceTimeseries:
+    ) -> GroupedDistanceResponse:
         """
         Parameters:
             - user_id: str.
@@ -513,7 +467,7 @@ class VitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingDistanceTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedDistanceResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -530,7 +484,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingCaloriesBasalTimeseries:
+    ) -> GroupedCaloriesBasalResponse:
         """
         Parameters:
             - user_id: str.
@@ -565,7 +519,7 @@ class VitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingCaloriesBasalTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedCaloriesBasalResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -582,7 +536,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingCaloriesActiveTimeseries:
+    ) -> GroupedCaloriesActiveResponse:
         """
         Parameters:
             - user_id: str.
@@ -617,7 +571,7 @@ class VitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingCaloriesActiveTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedCaloriesActiveResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -634,7 +588,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingRespiratoryRateTimeseries:
+    ) -> GroupedRespiratoryRateResponse:
         """
         Parameters:
             - user_id: str.
@@ -669,7 +623,7 @@ class VitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingRespiratoryRateTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedRespiratoryRateResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -686,7 +640,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingIgeTimeseries:
+    ) -> GroupedIgeResponse:
         """
         Parameters:
             - user_id: str.
@@ -719,7 +673,7 @@ class VitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingIgeTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedIgeResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -736,7 +690,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingIggTimeseries:
+    ) -> GroupedIggResponse:
         """
         Parameters:
             - user_id: str.
@@ -769,7 +723,7 @@ class VitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingIggTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedIggResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -786,7 +740,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingHypnogramTimeseries:
+    ) -> GroupedHypnogramResponse:
         """
         Parameters:
             - user_id: str.
@@ -821,7 +775,7 @@ class VitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingHypnogramTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedHypnogramResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -838,7 +792,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingHrvTimeseries:
+    ) -> GroupedHrvResponse:
         """
         Parameters:
             - user_id: str.
@@ -871,7 +825,7 @@ class VitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingHrvTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedHrvResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -888,7 +842,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingHeartRateTimeseries:
+    ) -> GroupedHeartRateResponse:
         """
         Parameters:
             - user_id: str.
@@ -923,7 +877,7 @@ class VitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingHeartRateTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedHeartRateResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -940,7 +894,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingGlucoseTimeseries:
+    ) -> GroupedGlucoseResponse:
         """
         Parameters:
             - user_id: str.
@@ -973,7 +927,7 @@ class VitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingGlucoseTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedGlucoseResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -990,7 +944,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingCholesterolTimeseries:
+    ) -> GroupedCholesterolResponse:
         """
         Parameters:
             - user_id: str.
@@ -1025,7 +979,7 @@ class VitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingCholesterolTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedCholesterolResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -1042,7 +996,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingBodyWeightTimeseries:
+    ) -> GroupedBodyWeightResponse:
         """
         Parameters:
             - user_id: str.
@@ -1077,7 +1031,7 @@ class VitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingBodyWeightTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedBodyWeightResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -1094,7 +1048,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingBodyFatTimeseries:
+    ) -> GroupedBodyFatResponse:
         """
         Parameters:
             - user_id: str.
@@ -1129,7 +1083,7 @@ class VitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingBodyFatTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedBodyFatResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -1146,7 +1100,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingBloodOxygenTimeseries:
+    ) -> GroupedBloodOxygenResponse:
         """
         Parameters:
             - user_id: str.
@@ -1181,7 +1135,7 @@ class VitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingBloodOxygenTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedBloodOxygenResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -1198,7 +1152,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingElectrocardiogramVoltageTimeseries:
+    ) -> GroupedElectrocardiogramVoltageResponse:
         """
         Parameters:
             - user_id: str.
@@ -1233,7 +1187,7 @@ class VitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingElectrocardiogramVoltageTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedElectrocardiogramVoltageResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -1250,7 +1204,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingBloodPressureTimeseries:
+    ) -> GroupedBloodPressureResponse:
         """
         Parameters:
             - user_id: str.
@@ -1285,7 +1239,7 @@ class VitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingBloodPressureTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedBloodPressureResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -2532,7 +2486,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingVo2MaxTimeseries:
+    ) -> GroupedVo2MaxResponse:
         """
         Parameters:
             - user_id: str.
@@ -2565,7 +2519,7 @@ class AsyncVitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingVo2MaxTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedVo2MaxResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -2582,7 +2536,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingStressLevelTimeseries:
+    ) -> GroupedStressLevelResponse:
         """
         Parameters:
             - user_id: str.
@@ -2617,7 +2571,7 @@ class AsyncVitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingStressLevelTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedStressLevelResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -2634,7 +2588,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingMindfulnessMinutesTimeseries:
+    ) -> GroupedMindfulnessMinutesResponse:
         """
         Parameters:
             - user_id: str.
@@ -2669,7 +2623,7 @@ class AsyncVitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingMindfulnessMinutesTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedMindfulnessMinutesResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -2686,7 +2640,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingCaffeineTimeseries:
+    ) -> GroupedCaffeineResponse:
         """
         Parameters:
             - user_id: str.
@@ -2721,7 +2675,7 @@ class AsyncVitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingCaffeineTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedCaffeineResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -2738,7 +2692,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingWaterTimeseries:
+    ) -> GroupedWaterResponse:
         """
         Parameters:
             - user_id: str.
@@ -2771,7 +2725,7 @@ class AsyncVitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingWaterTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedWaterResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -2788,7 +2742,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingStepsTimeseries:
+    ) -> GroupedStepsResponse:
         """
         Parameters:
             - user_id: str.
@@ -2821,7 +2775,7 @@ class AsyncVitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingStepsTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedStepsResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -2838,7 +2792,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingFloorsClimbedTimeseries:
+    ) -> GroupedFloorsClimbedResponse:
         """
         Parameters:
             - user_id: str.
@@ -2873,7 +2827,7 @@ class AsyncVitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingFloorsClimbedTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedFloorsClimbedResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -2890,7 +2844,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingDistanceTimeseries:
+    ) -> GroupedDistanceResponse:
         """
         Parameters:
             - user_id: str.
@@ -2925,7 +2879,7 @@ class AsyncVitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingDistanceTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedDistanceResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -2942,7 +2896,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingCaloriesBasalTimeseries:
+    ) -> GroupedCaloriesBasalResponse:
         """
         Parameters:
             - user_id: str.
@@ -2977,7 +2931,7 @@ class AsyncVitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingCaloriesBasalTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedCaloriesBasalResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -2994,7 +2948,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingCaloriesActiveTimeseries:
+    ) -> GroupedCaloriesActiveResponse:
         """
         Parameters:
             - user_id: str.
@@ -3029,7 +2983,7 @@ class AsyncVitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingCaloriesActiveTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedCaloriesActiveResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -3046,7 +3000,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingRespiratoryRateTimeseries:
+    ) -> GroupedRespiratoryRateResponse:
         """
         Parameters:
             - user_id: str.
@@ -3081,7 +3035,7 @@ class AsyncVitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingRespiratoryRateTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedRespiratoryRateResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -3098,7 +3052,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingIgeTimeseries:
+    ) -> GroupedIgeResponse:
         """
         Parameters:
             - user_id: str.
@@ -3131,7 +3085,7 @@ class AsyncVitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingIgeTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedIgeResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -3148,7 +3102,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingIggTimeseries:
+    ) -> GroupedIggResponse:
         """
         Parameters:
             - user_id: str.
@@ -3181,7 +3135,7 @@ class AsyncVitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingIggTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedIggResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -3198,7 +3152,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingHypnogramTimeseries:
+    ) -> GroupedHypnogramResponse:
         """
         Parameters:
             - user_id: str.
@@ -3233,7 +3187,7 @@ class AsyncVitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingHypnogramTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedHypnogramResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -3250,7 +3204,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingHrvTimeseries:
+    ) -> GroupedHrvResponse:
         """
         Parameters:
             - user_id: str.
@@ -3283,7 +3237,7 @@ class AsyncVitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingHrvTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedHrvResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -3300,7 +3254,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingHeartRateTimeseries:
+    ) -> GroupedHeartRateResponse:
         """
         Parameters:
             - user_id: str.
@@ -3335,7 +3289,7 @@ class AsyncVitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingHeartRateTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedHeartRateResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -3352,7 +3306,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingGlucoseTimeseries:
+    ) -> GroupedGlucoseResponse:
         """
         Parameters:
             - user_id: str.
@@ -3385,7 +3339,7 @@ class AsyncVitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingGlucoseTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedGlucoseResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -3402,7 +3356,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingCholesterolTimeseries:
+    ) -> GroupedCholesterolResponse:
         """
         Parameters:
             - user_id: str.
@@ -3437,7 +3391,7 @@ class AsyncVitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingCholesterolTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedCholesterolResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -3454,7 +3408,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingBodyWeightTimeseries:
+    ) -> GroupedBodyWeightResponse:
         """
         Parameters:
             - user_id: str.
@@ -3489,7 +3443,7 @@ class AsyncVitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingBodyWeightTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedBodyWeightResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -3506,7 +3460,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingBodyFatTimeseries:
+    ) -> GroupedBodyFatResponse:
         """
         Parameters:
             - user_id: str.
@@ -3541,7 +3495,7 @@ class AsyncVitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingBodyFatTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedBodyFatResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -3558,7 +3512,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingBloodOxygenTimeseries:
+    ) -> GroupedBloodOxygenResponse:
         """
         Parameters:
             - user_id: str.
@@ -3593,7 +3547,7 @@ class AsyncVitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingBloodOxygenTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedBloodOxygenResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -3610,7 +3564,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingElectrocardiogramVoltageTimeseries:
+    ) -> GroupedElectrocardiogramVoltageResponse:
         """
         Parameters:
             - user_id: str.
@@ -3645,7 +3599,7 @@ class AsyncVitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingElectrocardiogramVoltageTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedElectrocardiogramVoltageResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -3662,7 +3616,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingBloodPressureTimeseries:
+    ) -> GroupedBloodPressureResponse:
         """
         Parameters:
             - user_id: str.
@@ -3697,7 +3651,7 @@ class AsyncVitalsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingBloodPressureTimeseries, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GroupedBloodPressureResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:

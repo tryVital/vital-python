@@ -643,7 +643,7 @@ class LabTestsClient:
         health_insurance: typing.Optional[HealthInsuranceCreateRequest] = OMIT,
         priority: typing.Optional[bool] = OMIT,
         consents: typing.Optional[typing.List[Consent]] = OMIT,
-        activate_by: typing.Optional[dt.datetime] = OMIT,
+        activate_by: typing.Optional[str] = OMIT,
         patient_details: PatientDetails,
         patient_address: PatientAddressCompatible,
     ) -> PostOrderResponse:
@@ -663,7 +663,7 @@ class LabTestsClient:
 
             - consents: typing.Optional[typing.List[Consent]].
 
-            - activate_by: typing.Optional[dt.datetime]. Defines when an Order should be activated, making it a Delayed Order.
+            - activate_by: typing.Optional[str]. Defines when an Order should be activated, making it a Delayed Order.
 
             - patient_details: PatientDetails.
 
@@ -1419,7 +1419,7 @@ class AsyncLabTestsClient:
         health_insurance: typing.Optional[HealthInsuranceCreateRequest] = OMIT,
         priority: typing.Optional[bool] = OMIT,
         consents: typing.Optional[typing.List[Consent]] = OMIT,
-        activate_by: typing.Optional[dt.datetime] = OMIT,
+        activate_by: typing.Optional[str] = OMIT,
         patient_details: PatientDetails,
         patient_address: PatientAddressCompatible,
     ) -> PostOrderResponse:
@@ -1439,7 +1439,7 @@ class AsyncLabTestsClient:
 
             - consents: typing.Optional[typing.List[Consent]].
 
-            - activate_by: typing.Optional[dt.datetime]. Defines when an Order should be activated, making it a Delayed Order.
+            - activate_by: typing.Optional[str]. Defines when an Order should be activated, making it a Delayed Order.
 
             - patient_details: PatientDetails.
 

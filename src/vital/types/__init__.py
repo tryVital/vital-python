@@ -37,75 +37,6 @@ from .client_facing_electrocardiogram_voltage_timeseries import ClientFacingElec
 from .client_facing_floors_climbed_timeseries import ClientFacingFloorsClimbedTimeseries
 from .client_facing_food import ClientFacingFood
 from .client_facing_glucose_timeseries import ClientFacingGlucoseTimeseries
-from .client_facing_grouped_timeseries_response_client_facing_blood_oxygen_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingBloodOxygenTimeseries,
-)
-from .client_facing_grouped_timeseries_response_client_facing_blood_pressure_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingBloodPressureTimeseries,
-)
-from .client_facing_grouped_timeseries_response_client_facing_body_fat_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingBodyFatTimeseries,
-)
-from .client_facing_grouped_timeseries_response_client_facing_body_weight_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingBodyWeightTimeseries,
-)
-from .client_facing_grouped_timeseries_response_client_facing_caffeine_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingCaffeineTimeseries,
-)
-from .client_facing_grouped_timeseries_response_client_facing_calories_active_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingCaloriesActiveTimeseries,
-)
-from .client_facing_grouped_timeseries_response_client_facing_calories_basal_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingCaloriesBasalTimeseries,
-)
-from .client_facing_grouped_timeseries_response_client_facing_cholesterol_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingCholesterolTimeseries,
-)
-from .client_facing_grouped_timeseries_response_client_facing_distance_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingDistanceTimeseries,
-)
-from .client_facing_grouped_timeseries_response_client_facing_electrocardiogram_voltage_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingElectrocardiogramVoltageTimeseries,
-)
-from .client_facing_grouped_timeseries_response_client_facing_floors_climbed_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingFloorsClimbedTimeseries,
-)
-from .client_facing_grouped_timeseries_response_client_facing_glucose_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingGlucoseTimeseries,
-)
-from .client_facing_grouped_timeseries_response_client_facing_heart_rate_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingHeartRateTimeseries,
-)
-from .client_facing_grouped_timeseries_response_client_facing_hrv_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingHrvTimeseries,
-)
-from .client_facing_grouped_timeseries_response_client_facing_hypnogram_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingHypnogramTimeseries,
-)
-from .client_facing_grouped_timeseries_response_client_facing_ige_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingIgeTimeseries,
-)
-from .client_facing_grouped_timeseries_response_client_facing_igg_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingIggTimeseries,
-)
-from .client_facing_grouped_timeseries_response_client_facing_mindfulness_minutes_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingMindfulnessMinutesTimeseries,
-)
-from .client_facing_grouped_timeseries_response_client_facing_respiratory_rate_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingRespiratoryRateTimeseries,
-)
-from .client_facing_grouped_timeseries_response_client_facing_steps_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingStepsTimeseries,
-)
-from .client_facing_grouped_timeseries_response_client_facing_stress_level_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingStressLevelTimeseries,
-)
-from .client_facing_grouped_timeseries_response_client_facing_vo_2_max_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingVo2MaxTimeseries,
-)
-from .client_facing_grouped_timeseries_response_client_facing_water_timeseries import (
-    ClientFacingGroupedTimeseriesResponseClientFacingWaterTimeseries,
-)
 from .client_facing_heart_rate import ClientFacingHeartRate
 from .client_facing_heart_rate_timeseries import ClientFacingHeartRateTimeseries
 from .client_facing_hrv_timeseries import ClientFacingHrvTimeseries
@@ -148,75 +79,6 @@ from .client_facing_stress_level_timeseries import ClientFacingStressLevelTimese
 from .client_facing_team import ClientFacingTeam
 from .client_facing_test_kit_order_details import ClientFacingTestKitOrderDetails
 from .client_facing_testkit_order import ClientFacingTestkitOrder
-from .client_facing_timeseries_group_client_facing_blood_oxygen_timeseries import (
-    ClientFacingTimeseriesGroupClientFacingBloodOxygenTimeseries,
-)
-from .client_facing_timeseries_group_client_facing_blood_pressure_timeseries import (
-    ClientFacingTimeseriesGroupClientFacingBloodPressureTimeseries,
-)
-from .client_facing_timeseries_group_client_facing_body_fat_timeseries import (
-    ClientFacingTimeseriesGroupClientFacingBodyFatTimeseries,
-)
-from .client_facing_timeseries_group_client_facing_body_weight_timeseries import (
-    ClientFacingTimeseriesGroupClientFacingBodyWeightTimeseries,
-)
-from .client_facing_timeseries_group_client_facing_caffeine_timeseries import (
-    ClientFacingTimeseriesGroupClientFacingCaffeineTimeseries,
-)
-from .client_facing_timeseries_group_client_facing_calories_active_timeseries import (
-    ClientFacingTimeseriesGroupClientFacingCaloriesActiveTimeseries,
-)
-from .client_facing_timeseries_group_client_facing_calories_basal_timeseries import (
-    ClientFacingTimeseriesGroupClientFacingCaloriesBasalTimeseries,
-)
-from .client_facing_timeseries_group_client_facing_cholesterol_timeseries import (
-    ClientFacingTimeseriesGroupClientFacingCholesterolTimeseries,
-)
-from .client_facing_timeseries_group_client_facing_distance_timeseries import (
-    ClientFacingTimeseriesGroupClientFacingDistanceTimeseries,
-)
-from .client_facing_timeseries_group_client_facing_electrocardiogram_voltage_timeseries import (
-    ClientFacingTimeseriesGroupClientFacingElectrocardiogramVoltageTimeseries,
-)
-from .client_facing_timeseries_group_client_facing_floors_climbed_timeseries import (
-    ClientFacingTimeseriesGroupClientFacingFloorsClimbedTimeseries,
-)
-from .client_facing_timeseries_group_client_facing_glucose_timeseries import (
-    ClientFacingTimeseriesGroupClientFacingGlucoseTimeseries,
-)
-from .client_facing_timeseries_group_client_facing_heart_rate_timeseries import (
-    ClientFacingTimeseriesGroupClientFacingHeartRateTimeseries,
-)
-from .client_facing_timeseries_group_client_facing_hrv_timeseries import (
-    ClientFacingTimeseriesGroupClientFacingHrvTimeseries,
-)
-from .client_facing_timeseries_group_client_facing_hypnogram_timeseries import (
-    ClientFacingTimeseriesGroupClientFacingHypnogramTimeseries,
-)
-from .client_facing_timeseries_group_client_facing_ige_timeseries import (
-    ClientFacingTimeseriesGroupClientFacingIgeTimeseries,
-)
-from .client_facing_timeseries_group_client_facing_igg_timeseries import (
-    ClientFacingTimeseriesGroupClientFacingIggTimeseries,
-)
-from .client_facing_timeseries_group_client_facing_mindfulness_minutes_timeseries import (
-    ClientFacingTimeseriesGroupClientFacingMindfulnessMinutesTimeseries,
-)
-from .client_facing_timeseries_group_client_facing_respiratory_rate_timeseries import (
-    ClientFacingTimeseriesGroupClientFacingRespiratoryRateTimeseries,
-)
-from .client_facing_timeseries_group_client_facing_steps_timeseries import (
-    ClientFacingTimeseriesGroupClientFacingStepsTimeseries,
-)
-from .client_facing_timeseries_group_client_facing_stress_level_timeseries import (
-    ClientFacingTimeseriesGroupClientFacingStressLevelTimeseries,
-)
-from .client_facing_timeseries_group_client_facing_vo_2_max_timeseries import (
-    ClientFacingTimeseriesGroupClientFacingVo2MaxTimeseries,
-)
-from .client_facing_timeseries_group_client_facing_water_timeseries import (
-    ClientFacingTimeseriesGroupClientFacingWaterTimeseries,
-)
 from .client_facing_user import ClientFacingUser
 from .client_facing_user_key import ClientFacingUserKey
 from .client_facing_vo_2_max_timeseries import ClientFacingVo2MaxTimeseries
@@ -240,11 +102,58 @@ from .energy import Energy
 from .event_destination_preferences import EventDestinationPreferences
 from .event_destination_preferences_enabled_item import EventDestinationPreferencesEnabledItem
 from .event_destination_preferences_preferred import EventDestinationPreferencesPreferred
+from .fallback_birth_date import FallbackBirthDate
 from .fallback_time_zone import FallbackTimeZone
 from .fats import Fats
 from .gender import Gender
 from .get_markers_response import GetMarkersResponse
 from .get_orders_response import GetOrdersResponse
+from .grouped_blood_oxygen import GroupedBloodOxygen
+from .grouped_blood_oxygen_response import GroupedBloodOxygenResponse
+from .grouped_blood_pressure import GroupedBloodPressure
+from .grouped_blood_pressure_response import GroupedBloodPressureResponse
+from .grouped_body_fat import GroupedBodyFat
+from .grouped_body_fat_response import GroupedBodyFatResponse
+from .grouped_body_weight import GroupedBodyWeight
+from .grouped_body_weight_response import GroupedBodyWeightResponse
+from .grouped_caffeine import GroupedCaffeine
+from .grouped_caffeine_response import GroupedCaffeineResponse
+from .grouped_calories_active import GroupedCaloriesActive
+from .grouped_calories_active_response import GroupedCaloriesActiveResponse
+from .grouped_calories_basal import GroupedCaloriesBasal
+from .grouped_calories_basal_response import GroupedCaloriesBasalResponse
+from .grouped_cholesterol import GroupedCholesterol
+from .grouped_cholesterol_response import GroupedCholesterolResponse
+from .grouped_distance import GroupedDistance
+from .grouped_distance_response import GroupedDistanceResponse
+from .grouped_electrocardiogram_voltage import GroupedElectrocardiogramVoltage
+from .grouped_electrocardiogram_voltage_response import GroupedElectrocardiogramVoltageResponse
+from .grouped_floors_climbed import GroupedFloorsClimbed
+from .grouped_floors_climbed_response import GroupedFloorsClimbedResponse
+from .grouped_glucose import GroupedGlucose
+from .grouped_glucose_response import GroupedGlucoseResponse
+from .grouped_heart_rate import GroupedHeartRate
+from .grouped_heart_rate_response import GroupedHeartRateResponse
+from .grouped_hrv import GroupedHrv
+from .grouped_hrv_response import GroupedHrvResponse
+from .grouped_hypnogram import GroupedHypnogram
+from .grouped_hypnogram_response import GroupedHypnogramResponse
+from .grouped_ige import GroupedIge
+from .grouped_ige_response import GroupedIgeResponse
+from .grouped_igg import GroupedIgg
+from .grouped_igg_response import GroupedIggResponse
+from .grouped_mindfulness_minutes import GroupedMindfulnessMinutes
+from .grouped_mindfulness_minutes_response import GroupedMindfulnessMinutesResponse
+from .grouped_respiratory_rate import GroupedRespiratoryRate
+from .grouped_respiratory_rate_response import GroupedRespiratoryRateResponse
+from .grouped_steps import GroupedSteps
+from .grouped_steps_response import GroupedStepsResponse
+from .grouped_stress_level import GroupedStressLevel
+from .grouped_stress_level_response import GroupedStressLevelResponse
+from .grouped_vo_2_max import GroupedVo2Max
+from .grouped_vo_2_max_response import GroupedVo2MaxResponse
+from .grouped_water import GroupedWater
+from .grouped_water_response import GroupedWaterResponse
 from .health_insurance_create_request import HealthInsuranceCreateRequest
 from .health_insurance_create_request_back_image import (
     HealthInsuranceCreateRequestBackImage,
@@ -376,29 +285,6 @@ __all__ = [
     "ClientFacingFloorsClimbedTimeseries",
     "ClientFacingFood",
     "ClientFacingGlucoseTimeseries",
-    "ClientFacingGroupedTimeseriesResponseClientFacingBloodOxygenTimeseries",
-    "ClientFacingGroupedTimeseriesResponseClientFacingBloodPressureTimeseries",
-    "ClientFacingGroupedTimeseriesResponseClientFacingBodyFatTimeseries",
-    "ClientFacingGroupedTimeseriesResponseClientFacingBodyWeightTimeseries",
-    "ClientFacingGroupedTimeseriesResponseClientFacingCaffeineTimeseries",
-    "ClientFacingGroupedTimeseriesResponseClientFacingCaloriesActiveTimeseries",
-    "ClientFacingGroupedTimeseriesResponseClientFacingCaloriesBasalTimeseries",
-    "ClientFacingGroupedTimeseriesResponseClientFacingCholesterolTimeseries",
-    "ClientFacingGroupedTimeseriesResponseClientFacingDistanceTimeseries",
-    "ClientFacingGroupedTimeseriesResponseClientFacingElectrocardiogramVoltageTimeseries",
-    "ClientFacingGroupedTimeseriesResponseClientFacingFloorsClimbedTimeseries",
-    "ClientFacingGroupedTimeseriesResponseClientFacingGlucoseTimeseries",
-    "ClientFacingGroupedTimeseriesResponseClientFacingHeartRateTimeseries",
-    "ClientFacingGroupedTimeseriesResponseClientFacingHrvTimeseries",
-    "ClientFacingGroupedTimeseriesResponseClientFacingHypnogramTimeseries",
-    "ClientFacingGroupedTimeseriesResponseClientFacingIgeTimeseries",
-    "ClientFacingGroupedTimeseriesResponseClientFacingIggTimeseries",
-    "ClientFacingGroupedTimeseriesResponseClientFacingMindfulnessMinutesTimeseries",
-    "ClientFacingGroupedTimeseriesResponseClientFacingRespiratoryRateTimeseries",
-    "ClientFacingGroupedTimeseriesResponseClientFacingStepsTimeseries",
-    "ClientFacingGroupedTimeseriesResponseClientFacingStressLevelTimeseries",
-    "ClientFacingGroupedTimeseriesResponseClientFacingVo2MaxTimeseries",
-    "ClientFacingGroupedTimeseriesResponseClientFacingWaterTimeseries",
     "ClientFacingHeartRate",
     "ClientFacingHeartRateTimeseries",
     "ClientFacingHrvTimeseries",
@@ -439,29 +325,6 @@ __all__ = [
     "ClientFacingTeam",
     "ClientFacingTestKitOrderDetails",
     "ClientFacingTestkitOrder",
-    "ClientFacingTimeseriesGroupClientFacingBloodOxygenTimeseries",
-    "ClientFacingTimeseriesGroupClientFacingBloodPressureTimeseries",
-    "ClientFacingTimeseriesGroupClientFacingBodyFatTimeseries",
-    "ClientFacingTimeseriesGroupClientFacingBodyWeightTimeseries",
-    "ClientFacingTimeseriesGroupClientFacingCaffeineTimeseries",
-    "ClientFacingTimeseriesGroupClientFacingCaloriesActiveTimeseries",
-    "ClientFacingTimeseriesGroupClientFacingCaloriesBasalTimeseries",
-    "ClientFacingTimeseriesGroupClientFacingCholesterolTimeseries",
-    "ClientFacingTimeseriesGroupClientFacingDistanceTimeseries",
-    "ClientFacingTimeseriesGroupClientFacingElectrocardiogramVoltageTimeseries",
-    "ClientFacingTimeseriesGroupClientFacingFloorsClimbedTimeseries",
-    "ClientFacingTimeseriesGroupClientFacingGlucoseTimeseries",
-    "ClientFacingTimeseriesGroupClientFacingHeartRateTimeseries",
-    "ClientFacingTimeseriesGroupClientFacingHrvTimeseries",
-    "ClientFacingTimeseriesGroupClientFacingHypnogramTimeseries",
-    "ClientFacingTimeseriesGroupClientFacingIgeTimeseries",
-    "ClientFacingTimeseriesGroupClientFacingIggTimeseries",
-    "ClientFacingTimeseriesGroupClientFacingMindfulnessMinutesTimeseries",
-    "ClientFacingTimeseriesGroupClientFacingRespiratoryRateTimeseries",
-    "ClientFacingTimeseriesGroupClientFacingStepsTimeseries",
-    "ClientFacingTimeseriesGroupClientFacingStressLevelTimeseries",
-    "ClientFacingTimeseriesGroupClientFacingVo2MaxTimeseries",
-    "ClientFacingTimeseriesGroupClientFacingWaterTimeseries",
     "ClientFacingUser",
     "ClientFacingUserKey",
     "ClientFacingVo2MaxTimeseries",
@@ -485,11 +348,58 @@ __all__ = [
     "EventDestinationPreferences",
     "EventDestinationPreferencesEnabledItem",
     "EventDestinationPreferencesPreferred",
+    "FallbackBirthDate",
     "FallbackTimeZone",
     "Fats",
     "Gender",
     "GetMarkersResponse",
     "GetOrdersResponse",
+    "GroupedBloodOxygen",
+    "GroupedBloodOxygenResponse",
+    "GroupedBloodPressure",
+    "GroupedBloodPressureResponse",
+    "GroupedBodyFat",
+    "GroupedBodyFatResponse",
+    "GroupedBodyWeight",
+    "GroupedBodyWeightResponse",
+    "GroupedCaffeine",
+    "GroupedCaffeineResponse",
+    "GroupedCaloriesActive",
+    "GroupedCaloriesActiveResponse",
+    "GroupedCaloriesBasal",
+    "GroupedCaloriesBasalResponse",
+    "GroupedCholesterol",
+    "GroupedCholesterolResponse",
+    "GroupedDistance",
+    "GroupedDistanceResponse",
+    "GroupedElectrocardiogramVoltage",
+    "GroupedElectrocardiogramVoltageResponse",
+    "GroupedFloorsClimbed",
+    "GroupedFloorsClimbedResponse",
+    "GroupedGlucose",
+    "GroupedGlucoseResponse",
+    "GroupedHeartRate",
+    "GroupedHeartRateResponse",
+    "GroupedHrv",
+    "GroupedHrvResponse",
+    "GroupedHypnogram",
+    "GroupedHypnogramResponse",
+    "GroupedIge",
+    "GroupedIgeResponse",
+    "GroupedIgg",
+    "GroupedIggResponse",
+    "GroupedMindfulnessMinutes",
+    "GroupedMindfulnessMinutesResponse",
+    "GroupedRespiratoryRate",
+    "GroupedRespiratoryRateResponse",
+    "GroupedSteps",
+    "GroupedStepsResponse",
+    "GroupedStressLevel",
+    "GroupedStressLevelResponse",
+    "GroupedVo2Max",
+    "GroupedVo2MaxResponse",
+    "GroupedWater",
+    "GroupedWaterResponse",
     "HealthInsuranceCreateRequest",
     "HealthInsuranceCreateRequestBackImage",
     "HealthInsuranceCreateRequestBackImage_ImageJpeg",

@@ -63,7 +63,13 @@ class UserClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def create(self, *, client_user_id: str, fallback_time_zone: typing.Optional[str] = OMIT) -> ClientFacingUserKey:
+    def create(
+        self,
+        *,
+        client_user_id: str,
+        fallback_time_zone: typing.Optional[str] = OMIT,
+        fallback_birth_date: typing.Optional[str] = OMIT,
+    ) -> ClientFacingUserKey:
         """
         POST Create a Vital user given a client_user_id and returns the user_id.
 
@@ -74,10 +80,13 @@ class UserClient:
                                                             Fallback time zone of the user, in the form of a valid IANA tzdatabase identifier (e.g., `Europe/London` or `America/Los_Angeles`).
                                                             Used when pulling data from sources that are completely time zone agnostic (e.g., all time is relative to UTC clock, without any time zone attributions on data points).
 
+            - fallback_birth_date: typing.Optional[str]. Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
         """
         _request: typing.Dict[str, typing.Any] = {"client_user_id": client_user_id}
         if fallback_time_zone is not OMIT:
             _request["fallback_time_zone"] = fallback_time_zone
+        if fallback_birth_date is not OMIT:
+            _request["fallback_birth_date"] = fallback_birth_date
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/user"),
@@ -210,7 +219,13 @@ class UserClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def patch(self, user_id: str, *, fallback_time_zone: typing.Optional[str] = OMIT) -> None:
+    def patch(
+        self,
+        user_id: str,
+        *,
+        fallback_time_zone: typing.Optional[str] = OMIT,
+        fallback_birth_date: typing.Optional[str] = OMIT,
+    ) -> None:
         """
         Parameters:
             - user_id: str.
@@ -218,7 +233,9 @@ class UserClient:
             - fallback_time_zone: typing.Optional[str].
                                                             Fallback time zone of the user, in the form of a valid IANA tzdatabase identifier (e.g., `Europe/London` or `America/Los_Angeles`).
                                                             Used when pulling data from sources that are completely time zone agnostic (e.g., all time is relative to UTC clock, without any time zone attributions on data points).
-                                                            ---
+
+            - fallback_birth_date: typing.Optional[str]. Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
+        ---
         from vital.client import Vital
 
         client = Vital(
@@ -231,6 +248,8 @@ class UserClient:
         _request: typing.Dict[str, typing.Any] = {}
         if fallback_time_zone is not OMIT:
             _request["fallback_time_zone"] = fallback_time_zone
+        if fallback_birth_date is not OMIT:
+            _request["fallback_birth_date"] = fallback_birth_date
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/{user_id}"),
@@ -356,7 +375,11 @@ class AsyncUserClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def create(
-        self, *, client_user_id: str, fallback_time_zone: typing.Optional[str] = OMIT
+        self,
+        *,
+        client_user_id: str,
+        fallback_time_zone: typing.Optional[str] = OMIT,
+        fallback_birth_date: typing.Optional[str] = OMIT,
     ) -> ClientFacingUserKey:
         """
         POST Create a Vital user given a client_user_id and returns the user_id.
@@ -368,10 +391,13 @@ class AsyncUserClient:
                                                             Fallback time zone of the user, in the form of a valid IANA tzdatabase identifier (e.g., `Europe/London` or `America/Los_Angeles`).
                                                             Used when pulling data from sources that are completely time zone agnostic (e.g., all time is relative to UTC clock, without any time zone attributions on data points).
 
+            - fallback_birth_date: typing.Optional[str]. Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
         """
         _request: typing.Dict[str, typing.Any] = {"client_user_id": client_user_id}
         if fallback_time_zone is not OMIT:
             _request["fallback_time_zone"] = fallback_time_zone
+        if fallback_birth_date is not OMIT:
+            _request["fallback_birth_date"] = fallback_birth_date
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/user"),
@@ -506,7 +532,13 @@ class AsyncUserClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def patch(self, user_id: str, *, fallback_time_zone: typing.Optional[str] = OMIT) -> None:
+    async def patch(
+        self,
+        user_id: str,
+        *,
+        fallback_time_zone: typing.Optional[str] = OMIT,
+        fallback_birth_date: typing.Optional[str] = OMIT,
+    ) -> None:
         """
         Parameters:
             - user_id: str.
@@ -514,7 +546,9 @@ class AsyncUserClient:
             - fallback_time_zone: typing.Optional[str].
                                                             Fallback time zone of the user, in the form of a valid IANA tzdatabase identifier (e.g., `Europe/London` or `America/Los_Angeles`).
                                                             Used when pulling data from sources that are completely time zone agnostic (e.g., all time is relative to UTC clock, without any time zone attributions on data points).
-                                                            ---
+
+            - fallback_birth_date: typing.Optional[str]. Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
+        ---
         from vital.client import AsyncVital
 
         client = AsyncVital(
@@ -527,6 +561,8 @@ class AsyncUserClient:
         _request: typing.Dict[str, typing.Any] = {}
         if fallback_time_zone is not OMIT:
             _request["fallback_time_zone"] = fallback_time_zone
+        if fallback_birth_date is not OMIT:
+            _request["fallback_birth_date"] = fallback_birth_date
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/{user_id}"),
