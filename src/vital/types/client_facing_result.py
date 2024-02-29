@@ -18,6 +18,7 @@ class ClientFacingResult(pydantic.BaseModel):
     slug: str
     lab_id: typing.Optional[int]
     provider_id: typing.Optional[str]
+    required: bool
     loinc: typing.Optional[ClientFacingLoinc]
 
     def json(self, **kwargs: typing.Any) -> str:

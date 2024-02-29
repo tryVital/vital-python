@@ -313,6 +313,32 @@ class UserClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    def undo_delete(
+        self, *, user_id: typing.Optional[str] = None, client_user_id: typing.Optional[str] = None
+    ) -> UserSuccessResponse:
+        """
+        Parameters:
+            - user_id: typing.Optional[str]. User ID to undo deletion. Mutually exclusive with `client_user_id`.
+
+            - client_user_id: typing.Optional[str]. Client User ID to undo deletion. Mutually exclusive with `user_id`.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "POST",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/user/undo_delete"),
+            params=remove_none_from_dict({"user_id": user_id, "client_user_id": client_user_id}),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(UserSuccessResponse, _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     def refresh(self, user_id: str, *, timeout: typing.Optional[float] = None) -> UserRefreshSuccessResponse:
         """
         Trigger a manual refresh for a specific user
@@ -613,6 +639,32 @@ class AsyncUserClient:
         _response = await self._client_wrapper.httpx_client.request(
             "DELETE",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/{user_id}/{provider}"),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(UserSuccessResponse, _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def undo_delete(
+        self, *, user_id: typing.Optional[str] = None, client_user_id: typing.Optional[str] = None
+    ) -> UserSuccessResponse:
+        """
+        Parameters:
+            - user_id: typing.Optional[str]. User ID to undo deletion. Mutually exclusive with `client_user_id`.
+
+            - client_user_id: typing.Optional[str]. Client User ID to undo deletion. Mutually exclusive with `user_id`.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "POST",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/user/undo_delete"),
+            params=remove_none_from_dict({"user_id": user_id, "client_user_id": client_user_id}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )

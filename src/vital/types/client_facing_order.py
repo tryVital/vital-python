@@ -47,7 +47,7 @@ class ClientFacingOrder(pydantic.BaseModel):
         description="Shipping Details. For unregistered testkit orders."
     )
     activate_by: typing.Optional[str] = pydantic.Field(
-        description="Defines when an Order should be activated, making it a Delayed Order."
+        description="Schedule an Order to be processed in a future date."
     )
 
     def json(self, **kwargs: typing.Any) -> str:

@@ -663,7 +663,7 @@ class LabTestsClient:
 
             - consents: typing.Optional[typing.List[Consent]].
 
-            - activate_by: typing.Optional[str]. Defines when an Order should be activated, making it a Delayed Order.
+            - activate_by: typing.Optional[str]. Schedule an Order to be processed in a future date.
 
             - patient_details: PatientDetails.
 
@@ -1439,7 +1439,7 @@ class AsyncLabTestsClient:
 
             - consents: typing.Optional[typing.List[Consent]].
 
-            - activate_by: typing.Optional[str]. Defines when an Order should be activated, making it a Delayed Order.
+            - activate_by: typing.Optional[str]. Schedule an Order to be processed in a future date.
 
             - patient_details: PatientDetails.
 
