@@ -588,28 +588,29 @@ class LabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_order_requistion_pdf(self, order_id: str) -> typing.Any:
+    def get_order_requistion_pdf(self, order_id: str) -> typing.Iterator[bytes]:
         """
         GET requisition pdf for an order
 
         Parameters:
             - order_id: str. Your Order ID.
         """
-        _response = self._client_wrapper.httpx_client.request(
+        with self._client_wrapper.httpx_client.stream(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/requisition/pdf"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
-        )
-        if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(typing.Any, _response.json())  # type: ignore
-        if _response.status_code == 422:
-            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
-        try:
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        ) as _response:
+            if 200 <= _response.status_code < 300:
+                for _chunk in _response.iter_bytes():
+                    yield _chunk
+                return
+            _response.read()
+            try:
+                _response_json = _response.json()
+            except JSONDecodeError:
+                raise ApiError(status_code=_response.status_code, body=_response.text)
+            raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def get_order(self, order_id: str) -> ClientFacingOrder:
         """
@@ -1364,28 +1365,29 @@ class AsyncLabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_order_requistion_pdf(self, order_id: str) -> typing.Any:
+    async def get_order_requistion_pdf(self, order_id: str) -> typing.AsyncIterator[bytes]:
         """
         GET requisition pdf for an order
 
         Parameters:
             - order_id: str. Your Order ID.
         """
-        _response = await self._client_wrapper.httpx_client.request(
+        async with self._client_wrapper.httpx_client.stream(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/requisition/pdf"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
-        )
-        if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(typing.Any, _response.json())  # type: ignore
-        if _response.status_code == 422:
-            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
-        try:
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        ) as _response:
+            if 200 <= _response.status_code < 300:
+                async for _chunk in _response.aiter_bytes():
+                    yield _chunk
+                return
+            await _response.aread()
+            try:
+                _response_json = _response.json()
+            except JSONDecodeError:
+                raise ApiError(status_code=_response.status_code, body=_response.text)
+            raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def get_order(self, order_id: str) -> ClientFacingOrder:
         """
