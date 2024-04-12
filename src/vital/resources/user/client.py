@@ -17,7 +17,6 @@ from ...types.http_validation_error import HttpValidationError
 from ...types.metrics_result import MetricsResult
 from ...types.paginated_users_response import PaginatedUsersResponse
 from ...types.providers import Providers
-from ...types.user_refresh_error_response import UserRefreshErrorResponse
 from ...types.user_refresh_success_response import UserRefreshSuccessResponse
 from ...types.user_sign_in_token_response import UserSignInTokenResponse
 from ...types.user_success_response import UserSuccessResponse
@@ -69,6 +68,8 @@ class UserClient:
         client_user_id: str,
         fallback_time_zone: typing.Optional[str] = OMIT,
         fallback_birth_date: typing.Optional[str] = OMIT,
+        ingestion_start: typing.Optional[str] = OMIT,
+        ingestion_end: typing.Optional[str] = OMIT,
     ) -> ClientFacingUserKey:
         """
         POST Create a Vital user given a client_user_id and returns the user_id.
@@ -81,12 +82,20 @@ class UserClient:
                                                             Used when pulling data from sources that are completely time zone agnostic (e.g., all time is relative to UTC clock, without any time zone attributions on data points).
 
             - fallback_birth_date: typing.Optional[str]. Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
+
+            - ingestion_start: typing.Optional[str]. Starting bound for user data ingestion. Data older than this date will not be ingested.
+
+            - ingestion_end: typing.Optional[str]. Ending bound for user data ingestion. Data newer than this date will not be ingested and the connection deregistered.
         """
         _request: typing.Dict[str, typing.Any] = {"client_user_id": client_user_id}
         if fallback_time_zone is not OMIT:
             _request["fallback_time_zone"] = fallback_time_zone
         if fallback_birth_date is not OMIT:
             _request["fallback_birth_date"] = fallback_birth_date
+        if ingestion_start is not OMIT:
+            _request["ingestion_start"] = ingestion_start
+        if ingestion_end is not OMIT:
+            _request["ingestion_end"] = ingestion_end
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/user"),
@@ -96,6 +105,8 @@ class UserClient:
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingUserKey, _response.json())  # type: ignore
+        if _response.status_code == 400:
+            raise BadRequestError(pydantic.parse_obj_as(typing.Any, _response.json()))  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -225,6 +236,8 @@ class UserClient:
         *,
         fallback_time_zone: typing.Optional[str] = OMIT,
         fallback_birth_date: typing.Optional[str] = OMIT,
+        ingestion_start: typing.Optional[str] = OMIT,
+        ingestion_end: typing.Optional[str] = OMIT,
     ) -> None:
         """
         Parameters:
@@ -235,6 +248,10 @@ class UserClient:
                                                             Used when pulling data from sources that are completely time zone agnostic (e.g., all time is relative to UTC clock, without any time zone attributions on data points).
 
             - fallback_birth_date: typing.Optional[str]. Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
+
+            - ingestion_start: typing.Optional[str]. Starting bound for user data ingestion. Data older than this date will not be ingested.
+
+            - ingestion_end: typing.Optional[str]. Ending bound for user data ingestion. Data newer than this date will not be ingested and the connection deregistered.
         ---
         from vital.client import Vital
 
@@ -250,6 +267,10 @@ class UserClient:
             _request["fallback_time_zone"] = fallback_time_zone
         if fallback_birth_date is not OMIT:
             _request["fallback_birth_date"] = fallback_birth_date
+        if ingestion_start is not OMIT:
+            _request["ingestion_start"] = ingestion_start
+        if ingestion_end is not OMIT:
+            _request["ingestion_end"] = ingestion_end
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/{user_id}"),
@@ -358,7 +379,7 @@ class UserClient:
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(UserRefreshSuccessResponse, _response.json())  # type: ignore
         if _response.status_code == 400:
-            raise BadRequestError(pydantic.parse_obj_as(UserRefreshErrorResponse, _response.json()))  # type: ignore
+            raise BadRequestError(pydantic.parse_obj_as(typing.Any, _response.json()))  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -406,6 +427,8 @@ class AsyncUserClient:
         client_user_id: str,
         fallback_time_zone: typing.Optional[str] = OMIT,
         fallback_birth_date: typing.Optional[str] = OMIT,
+        ingestion_start: typing.Optional[str] = OMIT,
+        ingestion_end: typing.Optional[str] = OMIT,
     ) -> ClientFacingUserKey:
         """
         POST Create a Vital user given a client_user_id and returns the user_id.
@@ -418,12 +441,20 @@ class AsyncUserClient:
                                                             Used when pulling data from sources that are completely time zone agnostic (e.g., all time is relative to UTC clock, without any time zone attributions on data points).
 
             - fallback_birth_date: typing.Optional[str]. Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
+
+            - ingestion_start: typing.Optional[str]. Starting bound for user data ingestion. Data older than this date will not be ingested.
+
+            - ingestion_end: typing.Optional[str]. Ending bound for user data ingestion. Data newer than this date will not be ingested and the connection deregistered.
         """
         _request: typing.Dict[str, typing.Any] = {"client_user_id": client_user_id}
         if fallback_time_zone is not OMIT:
             _request["fallback_time_zone"] = fallback_time_zone
         if fallback_birth_date is not OMIT:
             _request["fallback_birth_date"] = fallback_birth_date
+        if ingestion_start is not OMIT:
+            _request["ingestion_start"] = ingestion_start
+        if ingestion_end is not OMIT:
+            _request["ingestion_end"] = ingestion_end
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/user"),
@@ -433,6 +464,8 @@ class AsyncUserClient:
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingUserKey, _response.json())  # type: ignore
+        if _response.status_code == 400:
+            raise BadRequestError(pydantic.parse_obj_as(typing.Any, _response.json()))  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -564,6 +597,8 @@ class AsyncUserClient:
         *,
         fallback_time_zone: typing.Optional[str] = OMIT,
         fallback_birth_date: typing.Optional[str] = OMIT,
+        ingestion_start: typing.Optional[str] = OMIT,
+        ingestion_end: typing.Optional[str] = OMIT,
     ) -> None:
         """
         Parameters:
@@ -574,6 +609,10 @@ class AsyncUserClient:
                                                             Used when pulling data from sources that are completely time zone agnostic (e.g., all time is relative to UTC clock, without any time zone attributions on data points).
 
             - fallback_birth_date: typing.Optional[str]. Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
+
+            - ingestion_start: typing.Optional[str]. Starting bound for user data ingestion. Data older than this date will not be ingested.
+
+            - ingestion_end: typing.Optional[str]. Ending bound for user data ingestion. Data newer than this date will not be ingested and the connection deregistered.
         ---
         from vital.client import AsyncVital
 
@@ -589,6 +628,10 @@ class AsyncUserClient:
             _request["fallback_time_zone"] = fallback_time_zone
         if fallback_birth_date is not OMIT:
             _request["fallback_birth_date"] = fallback_birth_date
+        if ingestion_start is not OMIT:
+            _request["ingestion_start"] = ingestion_start
+        if ingestion_end is not OMIT:
+            _request["ingestion_end"] = ingestion_end
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/{user_id}"),
@@ -697,7 +740,7 @@ class AsyncUserClient:
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(UserRefreshSuccessResponse, _response.json())  # type: ignore
         if _response.status_code == 400:
-            raise BadRequestError(pydantic.parse_obj_as(UserRefreshErrorResponse, _response.json()))  # type: ignore
+            raise BadRequestError(pydantic.parse_obj_as(typing.Any, _response.json()))  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:

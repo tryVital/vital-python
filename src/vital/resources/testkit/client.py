@@ -9,6 +9,7 @@ from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.jsonable_encoder import jsonable_encoder
 from ...errors.unprocessable_entity_error import UnprocessableEntityError
 from ...types.consent import Consent
+from ...types.health_insurance_create_request import HealthInsuranceCreateRequest
 from ...types.http_validation_error import HttpValidationError
 from ...types.patient_address_compatible import PatientAddressCompatible
 from ...types.patient_details import PatientDetails
@@ -37,6 +38,7 @@ class TestkitClient:
         patient_details: PatientDetails,
         patient_address: PatientAddressCompatible,
         physician: typing.Optional[PhysicianCreateRequestBase] = OMIT,
+        health_insurance: typing.Optional[HealthInsuranceCreateRequest] = OMIT,
         consents: typing.Optional[typing.List[Consent]] = OMIT,
     ) -> PostOrderResponse:
         """
@@ -51,6 +53,8 @@ class TestkitClient:
 
             - physician: typing.Optional[PhysicianCreateRequestBase].
 
+            - health_insurance: typing.Optional[HealthInsuranceCreateRequest].
+
             - consents: typing.Optional[typing.List[Consent]].
         """
         _request: typing.Dict[str, typing.Any] = {
@@ -61,6 +65,8 @@ class TestkitClient:
         }
         if physician is not OMIT:
             _request["physician"] = physician
+        if health_insurance is not OMIT:
+            _request["health_insurance"] = health_insurance
         if consents is not OMIT:
             _request["consents"] = consents
         _response = self._client_wrapper.httpx_client.request(
@@ -123,6 +129,7 @@ class AsyncTestkitClient:
         patient_details: PatientDetails,
         patient_address: PatientAddressCompatible,
         physician: typing.Optional[PhysicianCreateRequestBase] = OMIT,
+        health_insurance: typing.Optional[HealthInsuranceCreateRequest] = OMIT,
         consents: typing.Optional[typing.List[Consent]] = OMIT,
     ) -> PostOrderResponse:
         """
@@ -137,6 +144,8 @@ class AsyncTestkitClient:
 
             - physician: typing.Optional[PhysicianCreateRequestBase].
 
+            - health_insurance: typing.Optional[HealthInsuranceCreateRequest].
+
             - consents: typing.Optional[typing.List[Consent]].
         """
         _request: typing.Dict[str, typing.Any] = {
@@ -147,6 +156,8 @@ class AsyncTestkitClient:
         }
         if physician is not OMIT:
             _request["physician"] = physician
+        if health_insurance is not OMIT:
+            _request["health_insurance"] = health_insurance
         if consents is not OMIT:
             _request["consents"] = consents
         _response = await self._client_wrapper.httpx_client.request(

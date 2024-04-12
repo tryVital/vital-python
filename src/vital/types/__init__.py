@@ -87,6 +87,7 @@ from .client_facing_walk_in_test_order import ClientFacingWalkInTestOrder
 from .client_facing_water_timeseries import ClientFacingWaterTimeseries
 from .client_facing_workout import ClientFacingWorkout
 from .client_sleep_response import ClientSleepResponse
+from .client_user_id_conflict import ClientUserIdConflict
 from .client_workout_response import ClientWorkoutResponse
 from .connected_source_client_facing import ConnectedSourceClientFacing
 from .connection_status import ConnectionStatus
@@ -333,6 +334,7 @@ __all__ = [
     "ClientFacingWaterTimeseries",
     "ClientFacingWorkout",
     "ClientSleepResponse",
+    "ClientUserIdConflict",
     "ClientWorkoutResponse",
     "ConnectedSourceClientFacing",
     "ConnectionStatus",

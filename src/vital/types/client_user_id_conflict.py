@@ -11,9 +11,11 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class LibreConfig(pydantic.BaseModel):
-    practice_id: typing.Dict[str, typing.Any]
-    strip_tz: typing.Optional[bool]
+class ClientUserIdConflict(pydantic.BaseModel):
+    error_type: str
+    error_message: str
+    user_id: str
+    created_on: dt.datetime
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

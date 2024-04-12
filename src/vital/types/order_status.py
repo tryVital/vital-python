@@ -32,6 +32,7 @@ class OrderStatus(str, enum.Enum):
     COMPLETED_AT_HOME_PHLEBOTOMY_COMPLETED = "completed.at_home_phlebotomy.completed"
     SAMPLE_WITH_LAB_AT_HOME_PHLEBOTOMY_PARTIAL_RESULTS = "sample_with_lab.at_home_phlebotomy.partial_results"
     CANCELLED_AT_HOME_PHLEBOTOMY_CANCELLED = "cancelled.at_home_phlebotomy.cancelled"
+    FAILED_AT_HOME_PHLEBOTOMY_SAMPLE_ERROR = "failed.at_home_phlebotomy.sample_error"
     RECEIVED_TESTKIT_ORDERED = "received.testkit.ordered"
     RECEIVED_TESTKIT_AWAITING_REGISTRATION = "received.testkit.awaiting_registration"
     RECEIVED_TESTKIT_REQUISITION_CREATED = "received.testkit.requisition_created"
@@ -66,6 +67,7 @@ class OrderStatus(str, enum.Enum):
         completed_at_home_phlebotomy_completed: typing.Callable[[], T_Result],
         sample_with_lab_at_home_phlebotomy_partial_results: typing.Callable[[], T_Result],
         cancelled_at_home_phlebotomy_cancelled: typing.Callable[[], T_Result],
+        failed_at_home_phlebotomy_sample_error: typing.Callable[[], T_Result],
         received_testkit_ordered: typing.Callable[[], T_Result],
         received_testkit_awaiting_registration: typing.Callable[[], T_Result],
         received_testkit_requisition_created: typing.Callable[[], T_Result],
@@ -113,6 +115,8 @@ class OrderStatus(str, enum.Enum):
             return sample_with_lab_at_home_phlebotomy_partial_results()
         if self is OrderStatus.CANCELLED_AT_HOME_PHLEBOTOMY_CANCELLED:
             return cancelled_at_home_phlebotomy_cancelled()
+        if self is OrderStatus.FAILED_AT_HOME_PHLEBOTOMY_SAMPLE_ERROR:
+            return failed_at_home_phlebotomy_sample_error()
         if self is OrderStatus.RECEIVED_TESTKIT_ORDERED:
             return received_testkit_ordered()
         if self is OrderStatus.RECEIVED_TESTKIT_AWAITING_REGISTRATION:

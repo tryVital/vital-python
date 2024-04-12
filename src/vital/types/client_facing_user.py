@@ -35,6 +35,12 @@ class ClientFacingUser(pydantic.BaseModel):
     fallback_birth_date: typing.Optional[FallbackBirthDate] = pydantic.Field(
         description="Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age."
     )
+    ingestion_start: typing.Optional[str] = pydantic.Field(
+        description="Starting bound for user data ingestion. Data older than this date will not be ingested."
+    )
+    ingestion_end: typing.Optional[str] = pydantic.Field(
+        description="Ending bound for user data ingestion. Data newer than this date will not be ingested and the connection deregistered."
+    )
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
