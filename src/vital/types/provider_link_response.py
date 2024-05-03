@@ -5,6 +5,7 @@ import typing
 
 from ..core.datetime_utils import serialize_datetime
 from .password_providers import PasswordProviders
+from .provider_link_response_state import ProviderLinkResponseState
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -16,6 +17,9 @@ class ProviderLinkResponse(pydantic.BaseModel):
     provider: PasswordProviders
     connected: bool
     provider_id: typing.Optional[str]
+    state: ProviderLinkResponseState
+    error_type: typing.Optional[str]
+    error: typing.Optional[str]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

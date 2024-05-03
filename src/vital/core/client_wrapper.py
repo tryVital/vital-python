@@ -6,7 +6,8 @@ import httpx
 
 
 class BaseClientWrapper:
-    def __init__(self, *, api_key: str, base_url: str):
+    def __init__(self, *, vital_link_token: str, api_key: str, base_url: str):
+        self._vital_link_token = vital_link_token
         self.api_key = api_key
         self._base_url = base_url
 
@@ -14,8 +15,9 @@ class BaseClientWrapper:
         headers: typing.Dict[str, str] = {
             "X-Fern-Language": "Python",
             "X-Fern-SDK-Name": "vital",
-            "X-Fern-SDK-Version": "2.1.3",
+            "X-Fern-SDK-Version": "2.1.4",
         }
+        headers["x-vital-link-token"] = self._vital_link_token
         headers["x-vital-api-key"] = self.api_key
         return headers
 
@@ -24,12 +26,12 @@ class BaseClientWrapper:
 
 
 class SyncClientWrapper(BaseClientWrapper):
-    def __init__(self, *, api_key: str, base_url: str, httpx_client: httpx.Client):
-        super().__init__(api_key=api_key, base_url=base_url)
+    def __init__(self, *, vital_link_token: str, api_key: str, base_url: str, httpx_client: httpx.Client):
+        super().__init__(vital_link_token=vital_link_token, api_key=api_key, base_url=base_url)
         self.httpx_client = httpx_client
 
 
 class AsyncClientWrapper(BaseClientWrapper):
-    def __init__(self, *, api_key: str, base_url: str, httpx_client: httpx.AsyncClient):
-        super().__init__(api_key=api_key, base_url=base_url)
+    def __init__(self, *, vital_link_token: str, api_key: str, base_url: str, httpx_client: httpx.AsyncClient):
+        super().__init__(vital_link_token=vital_link_token, api_key=api_key, base_url=base_url)
         self.httpx_client = httpx_client

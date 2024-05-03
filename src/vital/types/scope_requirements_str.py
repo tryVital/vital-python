@@ -4,7 +4,6 @@ import datetime as dt
 import typing
 
 from ..core.datetime_utils import serialize_datetime
-from .resource_availability import ResourceAvailability
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -12,12 +11,9 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class ClientFacingProviderWithStatus(pydantic.BaseModel):
-    name: str = pydantic.Field(description="Name of source of information")
-    slug: str = pydantic.Field(description="Slug for designated source")
-    logo: str = pydantic.Field(description="URL for source logo")
-    status: str = pydantic.Field(description="Status of source, either error or connected")
-    resource_availability: typing.Dict[str, ResourceAvailability]
+class ScopeRequirementsStr(pydantic.BaseModel):
+    required: typing.List[str]
+    optional: typing.List[str]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

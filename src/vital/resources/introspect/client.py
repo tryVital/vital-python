@@ -45,6 +45,7 @@ class IntrospectClient:
         from vital.client import Vital
 
         client = Vital(
+            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.introspect.get_user_resources(
@@ -92,6 +93,7 @@ class IntrospectClient:
         from vital.client import Vital
 
         client = Vital(
+            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.introspect.get_user_historical_pulls(
@@ -144,6 +146,7 @@ class AsyncIntrospectClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
+            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.introspect.get_user_resources(
@@ -191,6 +194,7 @@ class AsyncIntrospectClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
+            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.introspect.get_user_historical_pulls(

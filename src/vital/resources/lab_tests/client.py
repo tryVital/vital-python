@@ -57,6 +57,7 @@ class LabTestsClient:
         from vital.client import Vital
 
         client = Vital(
+            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.lab_tests.get()
@@ -152,6 +153,7 @@ class LabTestsClient:
         from vital.client import Vital
 
         client = Vital(
+            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.lab_tests.get_markers()
@@ -187,6 +189,7 @@ class LabTestsClient:
         from vital.client import Vital
 
         client = Vital(
+            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.lab_tests.get_markers_for_lab_test(
@@ -245,6 +248,7 @@ class LabTestsClient:
         from vital.client import Vital
 
         client = Vital(
+            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.lab_tests.get_labs()
@@ -444,6 +448,7 @@ class LabTestsClient:
         from vital.client import Vital
 
         client = Vital(
+            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.lab_tests.get_phlebotomy_appointment_cancellation_reason()
@@ -788,6 +793,7 @@ class LabTestsClient:
         from vital.client import Vital
 
         client = Vital(
+            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.lab_tests.get_orders()
@@ -832,6 +838,7 @@ class AsyncLabTestsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
+            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.lab_tests.get()
@@ -927,6 +934,7 @@ class AsyncLabTestsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
+            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.lab_tests.get_markers()
@@ -962,6 +970,7 @@ class AsyncLabTestsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
+            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.lab_tests.get_markers_for_lab_test(
@@ -1020,6 +1029,7 @@ class AsyncLabTestsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
+            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.lab_tests.get_labs()
@@ -1221,6 +1231,7 @@ class AsyncLabTestsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
+            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.lab_tests.get_phlebotomy_appointment_cancellation_reason()
@@ -1565,6 +1576,7 @@ class AsyncLabTestsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
+            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.lab_tests.get_orders()

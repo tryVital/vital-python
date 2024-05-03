@@ -46,6 +46,7 @@ class WorkoutsClient:
         from vital.client import Vital
 
         client = Vital(
+            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.workouts.get(
@@ -93,6 +94,7 @@ class WorkoutsClient:
         from vital.client import Vital
 
         client = Vital(
+            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.workouts.get_raw(
@@ -125,6 +127,7 @@ class WorkoutsClient:
         from vital.client import Vital
 
         client = Vital(
+            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.workouts.get_by_workout_id(
@@ -177,6 +180,7 @@ class AsyncWorkoutsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
+            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.workouts.get(
@@ -224,6 +228,7 @@ class AsyncWorkoutsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
+            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.workouts.get_raw(
@@ -256,6 +261,7 @@ class AsyncWorkoutsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
+            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.workouts.get_by_workout_id(

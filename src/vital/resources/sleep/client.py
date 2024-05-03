@@ -46,6 +46,7 @@ class SleepClient:
         from vital.client import Vital
 
         client = Vital(
+            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.sleep.get(
@@ -93,6 +94,7 @@ class SleepClient:
         from vital.client import Vital
 
         client = Vital(
+            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.sleep.get_stream(
@@ -140,6 +142,7 @@ class SleepClient:
         from vital.client import Vital
 
         client = Vital(
+            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.sleep.get_raw(
@@ -174,6 +177,7 @@ class SleepClient:
         from vital.client import Vital
 
         client = Vital(
+            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.sleep.get_stream_by_sleep_id(
@@ -224,6 +228,7 @@ class AsyncSleepClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
+            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.sleep.get(
@@ -271,6 +276,7 @@ class AsyncSleepClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
+            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.sleep.get_stream(
@@ -318,6 +324,7 @@ class AsyncSleepClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
+            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.sleep.get_raw(
@@ -352,6 +359,7 @@ class AsyncSleepClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
+            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.sleep.get_stream_by_sleep_id(

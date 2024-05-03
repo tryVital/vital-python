@@ -11,6 +11,7 @@ from .appointment_type import AppointmentType
 from .area_info import AreaInfo
 from .attempt_status import AttemptStatus
 from .auth_type import AuthType
+from .availability import Availability
 from .biomarker_result import BiomarkerResult
 from .body_v_2_in_db import BodyV2InDb
 from .client_activity_response import ClientActivityResponse
@@ -91,6 +92,7 @@ from .client_user_id_conflict import ClientUserIdConflict
 from .client_workout_response import ClientWorkoutResponse
 from .connected_source_client_facing import ConnectedSourceClientFacing
 from .connection_status import ConnectionStatus
+from .connection_status_state import ConnectionStatusState
 from .consent import Consent
 from .consent_type import ConsentType
 from .day_slots import DaySlots
@@ -211,6 +213,7 @@ from .png import Png
 from .post_order_response import PostOrderResponse
 from .profile_in_db import ProfileInDb
 from .provider_link_response import ProviderLinkResponse
+from .provider_link_response_state import ProviderLinkResponseState
 from .providers import Providers
 from .raw_activity import RawActivity
 from .raw_body import RawBody
@@ -219,8 +222,11 @@ from .raw_profile import RawProfile
 from .raw_sleep import RawSleep
 from .raw_workout import RawWorkout
 from .region import Region
+from .resource_availability import ResourceAvailability
 from .responsible_relationship import ResponsibleRelationship
 from .result_type import ResultType
+from .scope_requirements_grants import ScopeRequirementsGrants
+from .scope_requirements_str import ScopeRequirementsStr
 from .shipping_address import ShippingAddress
 from .single_historical_pull_statistics import SingleHistoricalPullStatistics
 from .single_provider_historical_pull_response import SingleProviderHistoricalPullResponse
@@ -260,6 +266,7 @@ __all__ = [
     "AreaInfo",
     "AttemptStatus",
     "AuthType",
+    "Availability",
     "BiomarkerResult",
     "BodyV2InDb",
     "ClientActivityResponse",
@@ -338,6 +345,7 @@ __all__ = [
     "ClientWorkoutResponse",
     "ConnectedSourceClientFacing",
     "ConnectionStatus",
+    "ConnectionStatusState",
     "Consent",
     "ConsentType",
     "DaySlots",
@@ -450,6 +458,7 @@ __all__ = [
     "PostOrderResponse",
     "ProfileInDb",
     "ProviderLinkResponse",
+    "ProviderLinkResponseState",
     "Providers",
     "RawActivity",
     "RawBody",
@@ -458,8 +467,11 @@ __all__ = [
     "RawSleep",
     "RawWorkout",
     "Region",
+    "ResourceAvailability",
     "ResponsibleRelationship",
     "ResultType",
+    "ScopeRequirementsGrants",
+    "ScopeRequirementsStr",
     "ShippingAddress",
     "SingleHistoricalPullStatistics",
     "SingleProviderHistoricalPullResponse",

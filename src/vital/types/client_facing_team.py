@@ -15,8 +15,15 @@ except ImportError:
 
 
 class ClientFacingTeam(pydantic.BaseModel):
+    """
+    [Deprecated] GET /v2/team is in the process of being removed.
+    Neither customers nor Dashboard should retrieve team settings and metadata directly.
+
+    All must migrate to the Team endpoints of the Org Management API.
+    """
+
     id: str
-    org_id: typing.Optional[str]
+    org_id: str
     name: str
     svix_app_id: typing.Optional[str]
     client_id: typing.Optional[str]
