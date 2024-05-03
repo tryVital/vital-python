@@ -45,7 +45,6 @@ class BodyClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.body.get(
@@ -93,7 +92,6 @@ class BodyClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.body.get_raw(
@@ -146,7 +144,6 @@ class AsyncBodyClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.body.get(
@@ -194,7 +191,6 @@ class AsyncBodyClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.body.get_raw(

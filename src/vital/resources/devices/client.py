@@ -33,7 +33,6 @@ class DevicesClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.devices.get_raw(
@@ -74,7 +73,6 @@ class AsyncDevicesClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.devices.get_raw(

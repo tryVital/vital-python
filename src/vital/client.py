@@ -30,14 +30,12 @@ class Vital:
         *,
         base_url: typing.Optional[str] = None,
         environment: VitalEnvironment = VitalEnvironment.PRODUCTION,
-        vital_link_token: str,
         api_key: str,
         timeout: typing.Optional[float] = 60,
         httpx_client: typing.Optional[httpx.Client] = None
     ):
         self._client_wrapper = SyncClientWrapper(
             base_url=_get_base_url(base_url=base_url, environment=environment),
-            vital_link_token=vital_link_token,
             api_key=api_key,
             httpx_client=httpx.Client(timeout=timeout) if httpx_client is None else httpx_client,
         )
@@ -65,14 +63,12 @@ class AsyncVital:
         *,
         base_url: typing.Optional[str] = None,
         environment: VitalEnvironment = VitalEnvironment.PRODUCTION,
-        vital_link_token: str,
         api_key: str,
         timeout: typing.Optional[float] = 60,
         httpx_client: typing.Optional[httpx.AsyncClient] = None
     ):
         self._client_wrapper = AsyncClientWrapper(
             base_url=_get_base_url(base_url=base_url, environment=environment),
-            vital_link_token=vital_link_token,
             api_key=api_key,
             httpx_client=httpx.AsyncClient(timeout=timeout) if httpx_client is None else httpx_client,
         )

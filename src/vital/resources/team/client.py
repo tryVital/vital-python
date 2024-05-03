@@ -23,15 +23,16 @@ class TeamClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def get_link_config(self) -> typing.Dict[str, typing.Any]:
+    def get_link_config(self, *, vital_link_token: typing.Optional[str] = None) -> typing.Dict[str, typing.Any]:
         """
         Post teams.
 
+        Parameters:
+            - vital_link_token: typing.Optional[str].
         ---
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.team.get_link_config()
@@ -39,7 +40,9 @@ class TeamClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/team/link/config"),
-            headers=self._client_wrapper.get_headers(),
+            headers=remove_none_from_dict(
+                {**self._client_wrapper.get_headers(), "x-vital-link-token": vital_link_token}
+            ),
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
@@ -85,7 +88,6 @@ class TeamClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.team.get_user_by_id()
@@ -112,7 +114,6 @@ class TeamClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.team.get_svix_url()
@@ -143,7 +144,6 @@ class TeamClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.team.get_source_priorities()
@@ -175,7 +175,6 @@ class TeamClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.team.update_source_priorities(
@@ -207,7 +206,6 @@ class TeamClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.team.get_physicians(
@@ -235,15 +233,16 @@ class AsyncTeamClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def get_link_config(self) -> typing.Dict[str, typing.Any]:
+    async def get_link_config(self, *, vital_link_token: typing.Optional[str] = None) -> typing.Dict[str, typing.Any]:
         """
         Post teams.
 
+        Parameters:
+            - vital_link_token: typing.Optional[str].
         ---
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.team.get_link_config()
@@ -251,7 +250,9 @@ class AsyncTeamClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/team/link/config"),
-            headers=self._client_wrapper.get_headers(),
+            headers=remove_none_from_dict(
+                {**self._client_wrapper.get_headers(), "x-vital-link-token": vital_link_token}
+            ),
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
@@ -297,7 +298,6 @@ class AsyncTeamClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.team.get_user_by_id()
@@ -324,7 +324,6 @@ class AsyncTeamClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.team.get_svix_url()
@@ -355,7 +354,6 @@ class AsyncTeamClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.team.get_source_priorities()
@@ -387,7 +385,6 @@ class AsyncTeamClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.team.update_source_priorities(
@@ -419,7 +416,6 @@ class AsyncTeamClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.team.get_physicians(

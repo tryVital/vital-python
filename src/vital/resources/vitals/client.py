@@ -90,7 +90,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.vo_2_max_grouped(
@@ -141,7 +140,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.stress_level_grouped(
@@ -194,7 +192,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.mindfulness_minutes_grouped(
@@ -247,7 +244,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.caffeine_grouped(
@@ -300,7 +296,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.water_grouped(
@@ -351,7 +346,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.steps_grouped(
@@ -402,7 +396,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.floors_climbed_grouped(
@@ -455,7 +448,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.distance_grouped(
@@ -508,7 +500,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.calories_basal_grouped(
@@ -561,7 +552,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.calories_active_grouped(
@@ -614,7 +604,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.respiratory_rate_grouped(
@@ -667,7 +656,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.ige_grouped(
@@ -718,7 +706,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.igg_grouped(
@@ -769,7 +756,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.hypnogram_grouped(
@@ -822,7 +808,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.hrv_grouped(
@@ -873,7 +858,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.heartrate_grouped(
@@ -926,7 +910,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.glucose_grouped(
@@ -977,7 +960,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.cholesterol_grouped(
@@ -1030,7 +1012,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.body_weight_grouped(
@@ -1083,7 +1064,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.body_fat_grouped(
@@ -1136,7 +1116,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.blood_oxygen_grouped(
@@ -1189,7 +1168,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.electrocardiogram_voltage_grouped(
@@ -1242,7 +1220,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.blood_pressure_grouped(
@@ -1292,7 +1269,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.vo_2_max(
@@ -1338,7 +1314,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.stress_level(
@@ -1384,7 +1359,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.mindfulness_minutes(
@@ -1432,7 +1406,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.caffeine(
@@ -1478,7 +1451,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.water(
@@ -1524,7 +1496,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.steps(
@@ -1570,7 +1541,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.floors_climbed(
@@ -1616,7 +1586,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.distance(
@@ -1662,7 +1631,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.calories_basal(
@@ -1708,7 +1676,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.calories_active(
@@ -1754,7 +1721,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.respiratory_rate(
@@ -1802,7 +1768,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.ige(
@@ -1848,7 +1813,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.igg(
@@ -1894,7 +1858,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.hypnogram(
@@ -1940,7 +1903,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.hrv(
@@ -1986,7 +1948,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.heartrate(
@@ -2032,7 +1993,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.glucose(
@@ -2078,7 +2038,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.cholesterol_triglycerides(
@@ -2126,7 +2085,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.cholesterol_total(
@@ -2174,7 +2132,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.cholesterol_ldl(
@@ -2220,7 +2177,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.cholesterol_hdl(
@@ -2266,7 +2222,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.cholesterol(
@@ -2312,7 +2267,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.body_weight(
@@ -2358,7 +2312,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.body_fat(
@@ -2404,7 +2357,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.blood_oxygen(
@@ -2450,7 +2402,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.electrocardiogram_voltage(
@@ -2498,7 +2449,6 @@ class VitalsClient:
         from vital.client import Vital
 
         client = Vital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.vitals.blood_pressure(
@@ -2552,7 +2502,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.vo_2_max_grouped(
@@ -2603,7 +2552,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.stress_level_grouped(
@@ -2656,7 +2604,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.mindfulness_minutes_grouped(
@@ -2709,7 +2656,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.caffeine_grouped(
@@ -2762,7 +2708,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.water_grouped(
@@ -2813,7 +2758,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.steps_grouped(
@@ -2864,7 +2808,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.floors_climbed_grouped(
@@ -2917,7 +2860,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.distance_grouped(
@@ -2970,7 +2912,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.calories_basal_grouped(
@@ -3023,7 +2964,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.calories_active_grouped(
@@ -3076,7 +3016,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.respiratory_rate_grouped(
@@ -3129,7 +3068,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.ige_grouped(
@@ -3180,7 +3118,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.igg_grouped(
@@ -3231,7 +3168,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.hypnogram_grouped(
@@ -3284,7 +3220,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.hrv_grouped(
@@ -3335,7 +3270,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.heartrate_grouped(
@@ -3388,7 +3322,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.glucose_grouped(
@@ -3439,7 +3372,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.cholesterol_grouped(
@@ -3492,7 +3424,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.body_weight_grouped(
@@ -3545,7 +3476,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.body_fat_grouped(
@@ -3598,7 +3528,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.blood_oxygen_grouped(
@@ -3651,7 +3580,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.electrocardiogram_voltage_grouped(
@@ -3704,7 +3632,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.blood_pressure_grouped(
@@ -3754,7 +3681,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.vo_2_max(
@@ -3800,7 +3726,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.stress_level(
@@ -3846,7 +3771,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.mindfulness_minutes(
@@ -3894,7 +3818,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.caffeine(
@@ -3940,7 +3863,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.water(
@@ -3986,7 +3908,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.steps(
@@ -4032,7 +3953,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.floors_climbed(
@@ -4078,7 +3998,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.distance(
@@ -4124,7 +4043,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.calories_basal(
@@ -4170,7 +4088,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.calories_active(
@@ -4216,7 +4133,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.respiratory_rate(
@@ -4264,7 +4180,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.ige(
@@ -4310,7 +4225,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.igg(
@@ -4356,7 +4270,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.hypnogram(
@@ -4402,7 +4315,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.hrv(
@@ -4448,7 +4360,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.heartrate(
@@ -4494,7 +4405,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.glucose(
@@ -4540,7 +4450,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.cholesterol_triglycerides(
@@ -4588,7 +4497,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.cholesterol_total(
@@ -4636,7 +4544,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.cholesterol_ldl(
@@ -4682,7 +4589,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.cholesterol_hdl(
@@ -4728,7 +4634,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.cholesterol(
@@ -4774,7 +4679,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.body_weight(
@@ -4820,7 +4724,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.body_fat(
@@ -4866,7 +4769,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.blood_oxygen(
@@ -4912,7 +4814,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.electrocardiogram_voltage(
@@ -4960,7 +4861,6 @@ class AsyncVitalsClient:
         from vital.client import AsyncVital
 
         client = AsyncVital(
-            vital_link_token="YOUR_VITAL_LINK_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.vitals.blood_pressure(
