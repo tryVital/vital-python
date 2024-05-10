@@ -47,8 +47,8 @@ class MealClient:
             api_key="YOUR_API_KEY",
         )
         client.meal.get(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -99,8 +99,8 @@ class AsyncMealClient:
             api_key="YOUR_API_KEY",
         )
         await client.meal.get(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(

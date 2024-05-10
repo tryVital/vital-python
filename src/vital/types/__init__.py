@@ -214,6 +214,8 @@ from .post_order_response import PostOrderResponse
 from .profile_in_db import ProfileInDb
 from .provider_link_response import ProviderLinkResponse
 from .provider_link_response_state import ProviderLinkResponseState
+from .provider_mfa_request import ProviderMfaRequest
+from .provider_mfa_request_method import ProviderMfaRequestMethod
 from .providers import Providers
 from .raw_activity import RawActivity
 from .raw_body import RawBody
@@ -459,6 +461,8 @@ __all__ = [
     "ProfileInDb",
     "ProviderLinkResponse",
     "ProviderLinkResponseState",
+    "ProviderMfaRequest",
+    "ProviderMfaRequestMethod",
     "Providers",
     "RawActivity",
     "RawBody",

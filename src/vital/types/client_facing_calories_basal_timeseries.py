@@ -21,7 +21,7 @@ class ClientFacingCaloriesBasalTimeseries(pydantic.BaseModel):
     type: typing.Optional[str] = pydantic.Field(
         description="The reading type of the measurement. This is applicable only to Cholesterol, IGG and IGE."
     )
-    unit: typing_extensions.Literal["kcal"]
+    unit: typing_extensions.Literal["kcal"] = pydantic.Field(description="Measured in kilocalories (kcal)")
     timestamp: dt.datetime = pydantic.Field(description="The timestamp of the measurement.")
     value: float = pydantic.Field(description="Basal Metabolic Rate at the time or interval::kilocalories")
 

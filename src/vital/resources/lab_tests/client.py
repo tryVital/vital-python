@@ -101,6 +101,21 @@ class LabTestsClient:
             - description: str.
 
             - fasting: typing.Optional[bool].
+        ---
+        from vital import LabTestCollectionMethod, LabTestSampleType
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.create(
+            marker_ids=[1],
+            lab_id=1,
+            name="name",
+            method=LabTestCollectionMethod.TESTKIT,
+            sample_type=LabTestSampleType.DRIED_BLOOD_SPOT,
+            description="description",
+        )
         """
         _request: typing.Dict[str, typing.Any] = {
             "marker_ids": marker_ids,
@@ -190,7 +205,7 @@ class LabTestsClient:
             api_key="YOUR_API_KEY",
         )
         client.lab_tests.get_markers_for_lab_test(
-            lab_test_id="lab-test-id",
+            lab_test_id="lab_test_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -218,6 +233,16 @@ class LabTestsClient:
             - provider_id: str.
 
             - lab_id: int.
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_markers_by_lab_and_provider_id(
+            provider_id="provider_id",
+            lab_id=1,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -269,6 +294,15 @@ class LabTestsClient:
 
         Parameters:
             - lab_test_id: str.
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_by_id(
+            lab_test_id="lab_test_id",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -293,6 +327,21 @@ class LabTestsClient:
 
         Parameters:
             - request: UsAddress.
+        ---
+        from vital import UsAddress
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_phlebotomy_appointment_availability(
+            request=UsAddress(
+                first_line="first_line",
+                city="city",
+                state="state",
+                zip_code="zip_code",
+            ),
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -321,6 +370,16 @@ class LabTestsClient:
             - order_id: str. Your Order ID.
 
             - booking_key: str.
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.book_phlebotomy_appointment(
+            order_id="order_id",
+            booking_key="booking_key",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -353,6 +412,23 @@ class LabTestsClient:
             - address: UsAddress. At-home phlebotomy appointment address.
 
             - provider: AppointmentProvider.
+        ---
+        from vital import AppointmentProvider, UsAddress
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.request_phlebotomy_appointment(
+            order_id="order_id",
+            address=UsAddress(
+                first_line="first_line",
+                city="city",
+                state="state",
+                zip_code="zip_code",
+            ),
+            provider=AppointmentProvider.GETLABS,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -381,6 +457,16 @@ class LabTestsClient:
             - order_id: str. Your Order ID.
 
             - booking_key: str.
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.reschedule_phlebotomy_appointment(
+            order_id="order_id",
+            booking_key="booking_key",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
@@ -413,6 +499,16 @@ class LabTestsClient:
             - cancellation_reason_id: str.
 
             - notes: typing.Optional[str].
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.cancel_phlebotomy_appointment(
+            order_id="order_id",
+            cancellation_reason_id="cancellation_reason_id",
+        )
         """
         _request: typing.Dict[str, typing.Any] = {"cancellation_reason_id": cancellation_reason_id}
         if notes is not OMIT:
@@ -470,6 +566,15 @@ class LabTestsClient:
 
         Parameters:
             - order_id: str. Your Order ID.
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_phlebotomy_appointment(
+            order_id="order_id",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -499,6 +604,15 @@ class LabTestsClient:
 
         Parameters:
             - zip_code: str. Zip code of the area to check
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_area_info(
+            zip_code="zip_code",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -535,6 +649,10 @@ class LabTestsClient:
                     yield _chunk
                 return
             _response.read()
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    pydantic.parse_obj_as(HttpValidationError, _response.json())  # type: ignore
+                )
             try:
                 _response_json = _response.json()
             except JSONDecodeError:
@@ -548,6 +666,15 @@ class LabTestsClient:
 
         Parameters:
             - order_id: str.
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_result_metadata(
+            order_id="order_id",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -571,6 +698,15 @@ class LabTestsClient:
 
         Parameters:
             - order_id: str.
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_result_raw(
+            order_id="order_id",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -606,6 +742,10 @@ class LabTestsClient:
                     yield _chunk
                 return
             _response.read()
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    pydantic.parse_obj_as(HttpValidationError, _response.json())  # type: ignore
+                )
             try:
                 _response_json = _response.json()
             except JSONDecodeError:
@@ -738,6 +878,15 @@ class LabTestsClient:
             - final_status: typing.Optional[OrderStatus].
 
             - delay: typing.Optional[int].
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.simulate_order_process(
+            order_id="order_id",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -876,6 +1025,21 @@ class AsyncLabTestsClient:
             - description: str.
 
             - fasting: typing.Optional[bool].
+        ---
+        from vital import LabTestCollectionMethod, LabTestSampleType
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.lab_tests.create(
+            marker_ids=[1],
+            lab_id=1,
+            name="name",
+            method=LabTestCollectionMethod.TESTKIT,
+            sample_type=LabTestSampleType.DRIED_BLOOD_SPOT,
+            description="description",
+        )
         """
         _request: typing.Dict[str, typing.Any] = {
             "marker_ids": marker_ids,
@@ -965,7 +1129,7 @@ class AsyncLabTestsClient:
             api_key="YOUR_API_KEY",
         )
         await client.lab_tests.get_markers_for_lab_test(
-            lab_test_id="lab-test-id",
+            lab_test_id="lab_test_id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -993,6 +1157,16 @@ class AsyncLabTestsClient:
             - provider_id: str.
 
             - lab_id: int.
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.lab_tests.get_markers_by_lab_and_provider_id(
+            provider_id="provider_id",
+            lab_id=1,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -1044,6 +1218,15 @@ class AsyncLabTestsClient:
 
         Parameters:
             - lab_test_id: str.
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.lab_tests.get_by_id(
+            lab_test_id="lab_test_id",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -1068,6 +1251,21 @@ class AsyncLabTestsClient:
 
         Parameters:
             - request: UsAddress.
+        ---
+        from vital import UsAddress
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.lab_tests.get_phlebotomy_appointment_availability(
+            request=UsAddress(
+                first_line="first_line",
+                city="city",
+                state="state",
+                zip_code="zip_code",
+            ),
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
@@ -1096,6 +1294,16 @@ class AsyncLabTestsClient:
             - order_id: str. Your Order ID.
 
             - booking_key: str.
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.lab_tests.book_phlebotomy_appointment(
+            order_id="order_id",
+            booking_key="booking_key",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
@@ -1128,6 +1336,23 @@ class AsyncLabTestsClient:
             - address: UsAddress. At-home phlebotomy appointment address.
 
             - provider: AppointmentProvider.
+        ---
+        from vital import AppointmentProvider, UsAddress
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.lab_tests.request_phlebotomy_appointment(
+            order_id="order_id",
+            address=UsAddress(
+                first_line="first_line",
+                city="city",
+                state="state",
+                zip_code="zip_code",
+            ),
+            provider=AppointmentProvider.GETLABS,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
@@ -1156,6 +1381,16 @@ class AsyncLabTestsClient:
             - order_id: str. Your Order ID.
 
             - booking_key: str.
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.lab_tests.reschedule_phlebotomy_appointment(
+            order_id="order_id",
+            booking_key="booking_key",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",
@@ -1188,6 +1423,16 @@ class AsyncLabTestsClient:
             - cancellation_reason_id: str.
 
             - notes: typing.Optional[str].
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.lab_tests.cancel_phlebotomy_appointment(
+            order_id="order_id",
+            cancellation_reason_id="cancellation_reason_id",
+        )
         """
         _request: typing.Dict[str, typing.Any] = {"cancellation_reason_id": cancellation_reason_id}
         if notes is not OMIT:
@@ -1247,6 +1492,15 @@ class AsyncLabTestsClient:
 
         Parameters:
             - order_id: str. Your Order ID.
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.lab_tests.get_phlebotomy_appointment(
+            order_id="order_id",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -1276,6 +1530,15 @@ class AsyncLabTestsClient:
 
         Parameters:
             - zip_code: str. Zip code of the area to check
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.lab_tests.get_area_info(
+            zip_code="zip_code",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -1312,6 +1575,10 @@ class AsyncLabTestsClient:
                     yield _chunk
                 return
             await _response.aread()
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    pydantic.parse_obj_as(HttpValidationError, _response.json())  # type: ignore
+                )
             try:
                 _response_json = _response.json()
             except JSONDecodeError:
@@ -1325,6 +1592,15 @@ class AsyncLabTestsClient:
 
         Parameters:
             - order_id: str.
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.lab_tests.get_result_metadata(
+            order_id="order_id",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -1348,6 +1624,15 @@ class AsyncLabTestsClient:
 
         Parameters:
             - order_id: str.
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.lab_tests.get_result_raw(
+            order_id="order_id",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -1383,6 +1668,10 @@ class AsyncLabTestsClient:
                     yield _chunk
                 return
             await _response.aread()
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    pydantic.parse_obj_as(HttpValidationError, _response.json())  # type: ignore
+                )
             try:
                 _response_json = _response.json()
             except JSONDecodeError:
@@ -1515,6 +1804,15 @@ class AsyncLabTestsClient:
             - final_status: typing.Optional[OrderStatus].
 
             - delay: typing.Optional[int].
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.lab_tests.simulate_order_process(
+            order_id="order_id",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",

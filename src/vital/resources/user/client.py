@@ -44,6 +44,13 @@ class UserClient:
             - offset: typing.Optional[int].
 
             - limit: typing.Optional[int].
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.user.get_all()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -86,6 +93,15 @@ class UserClient:
             - ingestion_start: typing.Optional[str]. Starting bound for user data ingestion. Data older than this date will not be ingested.
 
             - ingestion_end: typing.Optional[str]. Ending bound for user data ingestion. Data newer than this date will not be ingested and the connection deregistered.
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.user.create(
+            client_user_id="client_user_id",
+        )
         """
         _request: typing.Dict[str, typing.Any] = {"client_user_id": client_user_id}
         if fallback_time_zone is not OMIT:
@@ -118,6 +134,14 @@ class UserClient:
     def get_team_metrics(self) -> MetricsResult:
         """
         GET metrics for team.
+
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.user.get_team_metrics()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -137,6 +161,15 @@ class UserClient:
         """
         Parameters:
             - user_id: str.
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.user.get_user_sign_in_token(
+            user_id="user_id",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -167,7 +200,7 @@ class UserClient:
             api_key="YOUR_API_KEY",
         )
         client.user.get_connected_providers(
-            user_id="user-id",
+            user_id="user_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -192,6 +225,15 @@ class UserClient:
 
         Parameters:
             - user_id: str.
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.user.get(
+            user_id="user_id",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -213,6 +255,15 @@ class UserClient:
         """
         Parameters:
             - user_id: str.
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.user.delete(
+            user_id="user_id",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "DELETE",
@@ -259,7 +310,7 @@ class UserClient:
             api_key="YOUR_API_KEY",
         )
         client.user.patch(
-            user_id="user-id",
+            user_id="user_id",
         )
         """
         _request: typing.Dict[str, typing.Any] = {}
@@ -294,6 +345,15 @@ class UserClient:
 
         Parameters:
             - client_user_id: str. A unique ID representing the end user. Typically this will be a user ID number from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id.
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.user.get_by_client_user_id(
+            client_user_id="client_user_id",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -317,6 +377,17 @@ class UserClient:
             - user_id: str.
 
             - provider: Providers. Provider slug. e.g., `oura`, `fitbit`, `garmin`.
+        ---
+        from vital import Providers
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.user.deregister_provider(
+            user_id="user_id",
+            provider=Providers.OURA,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "DELETE",
@@ -342,6 +413,13 @@ class UserClient:
             - user_id: typing.Optional[str]. User ID to undo deletion. Mutually exclusive with `client_user_id`.
 
             - client_user_id: typing.Optional[str]. Client User ID to undo deletion. Mutually exclusive with `user_id`.
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.user.undo_delete()
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -368,6 +446,15 @@ class UserClient:
             - user_id: str.
 
             - timeout: typing.Optional[float].
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.user.refresh(
+            user_id="user_id",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -403,6 +490,13 @@ class AsyncUserClient:
             - offset: typing.Optional[int].
 
             - limit: typing.Optional[int].
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.user.get_all()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -445,6 +539,15 @@ class AsyncUserClient:
             - ingestion_start: typing.Optional[str]. Starting bound for user data ingestion. Data older than this date will not be ingested.
 
             - ingestion_end: typing.Optional[str]. Ending bound for user data ingestion. Data newer than this date will not be ingested and the connection deregistered.
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.user.create(
+            client_user_id="client_user_id",
+        )
         """
         _request: typing.Dict[str, typing.Any] = {"client_user_id": client_user_id}
         if fallback_time_zone is not OMIT:
@@ -477,6 +580,14 @@ class AsyncUserClient:
     async def get_team_metrics(self) -> MetricsResult:
         """
         GET metrics for team.
+
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.user.get_team_metrics()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -496,6 +607,15 @@ class AsyncUserClient:
         """
         Parameters:
             - user_id: str.
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.user.get_user_sign_in_token(
+            user_id="user_id",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
@@ -528,7 +648,7 @@ class AsyncUserClient:
             api_key="YOUR_API_KEY",
         )
         await client.user.get_connected_providers(
-            user_id="user-id",
+            user_id="user_id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -553,6 +673,15 @@ class AsyncUserClient:
 
         Parameters:
             - user_id: str.
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.user.get(
+            user_id="user_id",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -574,6 +703,15 @@ class AsyncUserClient:
         """
         Parameters:
             - user_id: str.
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.user.delete(
+            user_id="user_id",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "DELETE",
@@ -620,7 +758,7 @@ class AsyncUserClient:
             api_key="YOUR_API_KEY",
         )
         await client.user.patch(
-            user_id="user-id",
+            user_id="user_id",
         )
         """
         _request: typing.Dict[str, typing.Any] = {}
@@ -655,6 +793,15 @@ class AsyncUserClient:
 
         Parameters:
             - client_user_id: str. A unique ID representing the end user. Typically this will be a user ID number from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id.
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.user.get_by_client_user_id(
+            client_user_id="client_user_id",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -678,6 +825,17 @@ class AsyncUserClient:
             - user_id: str.
 
             - provider: Providers. Provider slug. e.g., `oura`, `fitbit`, `garmin`.
+        ---
+        from vital import Providers
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.user.deregister_provider(
+            user_id="user_id",
+            provider=Providers.OURA,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "DELETE",
@@ -703,6 +861,13 @@ class AsyncUserClient:
             - user_id: typing.Optional[str]. User ID to undo deletion. Mutually exclusive with `client_user_id`.
 
             - client_user_id: typing.Optional[str]. Client User ID to undo deletion. Mutually exclusive with `user_id`.
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.user.undo_delete()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
@@ -729,6 +894,15 @@ class AsyncUserClient:
             - user_id: str.
 
             - timeout: typing.Optional[float].
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.user.refresh(
+            user_id="user_id",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",

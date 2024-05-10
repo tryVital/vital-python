@@ -48,8 +48,8 @@ class ActivityClient:
             api_key="YOUR_API_KEY",
         )
         client.activity.get(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -95,8 +95,8 @@ class ActivityClient:
             api_key="YOUR_API_KEY",
         )
         client.activity.get_raw(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -147,8 +147,8 @@ class AsyncActivityClient:
             api_key="YOUR_API_KEY",
         )
         await client.activity.get(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -194,8 +194,8 @@ class AsyncActivityClient:
             api_key="YOUR_API_KEY",
         )
         await client.activity.get_raw(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(

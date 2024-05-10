@@ -51,8 +51,8 @@ class ClientFacingWorkout(pydantic.BaseModel):
     weighted_average_watts: typing.Optional[float] = pydantic.Field(
         description="Weighted average watts burned during exercise::watts"
     )
-    map: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(
-        description="Map of workouts encoded as polyline"
+    map_: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(
+        alias="map", description="Map of workouts encoded as polyline"
     )
     provider_id: str = pydantic.Field(description="Provider ID given for that specific workout")
     source: ClientFacingSource = pydantic.Field(description="Source the data has come from.")
@@ -68,4 +68,5 @@ class ClientFacingWorkout(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        allow_population_by_field_name = True
         json_encoders = {dt.datetime: serialize_datetime}

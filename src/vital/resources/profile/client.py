@@ -30,6 +30,15 @@ class ProfileClient:
             - user_id: str.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.profile.get(
+            user_id="user_id",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -56,6 +65,15 @@ class ProfileClient:
             - user_id: str.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.profile.get_raw(
+            user_id="user_id",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -87,6 +105,15 @@ class AsyncProfileClient:
             - user_id: str.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.profile.get(
+            user_id="user_id",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -113,6 +140,15 @@ class AsyncProfileClient:
             - user_id: str.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.profile.get_raw(
+            user_id="user_id",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

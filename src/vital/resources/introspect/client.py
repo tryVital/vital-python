@@ -41,15 +41,12 @@ class IntrospectClient:
 
             - cursor: typing.Optional[str].
         ---
-        from vital import Providers
         from vital.client import Vital
 
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.introspect.get_user_resources(
-            provider=Providers.OURA,
-        )
+        client.introspect.get_user_resources()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -88,15 +85,12 @@ class IntrospectClient:
 
             - cursor: typing.Optional[str].
         ---
-        from vital import Providers
         from vital.client import Vital
 
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.introspect.get_user_historical_pulls(
-            provider=Providers.OURA,
-        )
+        client.introspect.get_user_historical_pulls()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -140,15 +134,12 @@ class AsyncIntrospectClient:
 
             - cursor: typing.Optional[str].
         ---
-        from vital import Providers
         from vital.client import AsyncVital
 
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.introspect.get_user_resources(
-            provider=Providers.OURA,
-        )
+        await client.introspect.get_user_resources()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -187,15 +178,12 @@ class AsyncIntrospectClient:
 
             - cursor: typing.Optional[str].
         ---
-        from vital import Providers
         from vital.client import AsyncVital
 
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.introspect.get_user_historical_pulls(
-            provider=Providers.OURA,
-        )
+        await client.introspect.get_user_historical_pulls()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

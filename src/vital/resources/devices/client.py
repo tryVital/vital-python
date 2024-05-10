@@ -36,7 +36,7 @@ class DevicesClient:
             api_key="YOUR_API_KEY",
         )
         client.devices.get_raw(
-            user_id="user-id",
+            user_id="user_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -76,7 +76,7 @@ class AsyncDevicesClient:
             api_key="YOUR_API_KEY",
         )
         await client.devices.get_raw(
-            user_id="user-id",
+            user_id="user_id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(

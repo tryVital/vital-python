@@ -21,6 +21,7 @@ class Providers(str, enum.Enum):
     WAHOO = "wahoo"
     ZWIFT = "zwift"
     FREESTYLE_LIBRE = "freestyle_libre"
+    ABBOTT_LIBREVIEW = "abbott_libreview"
     FREESTYLE_LIBRE_BLE = "freestyle_libre_ble"
     EIGHT_SLEEP = "eight_sleep"
     WITHINGS = "withings"
@@ -57,6 +58,7 @@ class Providers(str, enum.Enum):
         wahoo: typing.Callable[[], T_Result],
         zwift: typing.Callable[[], T_Result],
         freestyle_libre: typing.Callable[[], T_Result],
+        abbott_libreview: typing.Callable[[], T_Result],
         freestyle_libre_ble: typing.Callable[[], T_Result],
         eight_sleep: typing.Callable[[], T_Result],
         withings: typing.Callable[[], T_Result],
@@ -101,6 +103,8 @@ class Providers(str, enum.Enum):
             return zwift()
         if self is Providers.FREESTYLE_LIBRE:
             return freestyle_libre()
+        if self is Providers.ABBOTT_LIBREVIEW:
+            return abbott_libreview()
         if self is Providers.FREESTYLE_LIBRE_BLE:
             return freestyle_libre_ble()
         if self is Providers.EIGHT_SLEEP:

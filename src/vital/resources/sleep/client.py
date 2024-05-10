@@ -49,8 +49,8 @@ class SleepClient:
             api_key="YOUR_API_KEY",
         )
         client.sleep.get(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -96,8 +96,8 @@ class SleepClient:
             api_key="YOUR_API_KEY",
         )
         client.sleep.get_stream(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -143,8 +143,8 @@ class SleepClient:
             api_key="YOUR_API_KEY",
         )
         client.sleep.get_raw(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -177,7 +177,7 @@ class SleepClient:
             api_key="YOUR_API_KEY",
         )
         client.sleep.get_stream_by_sleep_id(
-            sleep_id="sleep-id",
+            sleep_id="sleep_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -227,8 +227,8 @@ class AsyncSleepClient:
             api_key="YOUR_API_KEY",
         )
         await client.sleep.get(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -274,8 +274,8 @@ class AsyncSleepClient:
             api_key="YOUR_API_KEY",
         )
         await client.sleep.get_stream(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -321,8 +321,8 @@ class AsyncSleepClient:
             api_key="YOUR_API_KEY",
         )
         await client.sleep.get_raw(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -355,7 +355,7 @@ class AsyncSleepClient:
             api_key="YOUR_API_KEY",
         )
         await client.sleep.get_stream_by_sleep_id(
-            sleep_id="sleep-id",
+            sleep_id="sleep_id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(

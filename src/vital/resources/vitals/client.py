@@ -93,8 +93,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.vo_2_max_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -143,8 +143,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.stress_level_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -195,8 +195,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.mindfulness_minutes_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -247,8 +247,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.caffeine_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -299,8 +299,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.water_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -349,8 +349,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.steps_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -399,8 +399,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.floors_climbed_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -451,8 +451,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.distance_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -503,8 +503,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.calories_basal_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -555,8 +555,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.calories_active_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -607,8 +607,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.respiratory_rate_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -659,8 +659,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.ige_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -709,8 +709,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.igg_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -759,8 +759,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.hypnogram_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -811,8 +811,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.hrv_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -861,8 +861,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.heartrate_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -913,8 +913,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.glucose_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -963,8 +963,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.cholesterol_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -1015,8 +1015,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.body_weight_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -1067,8 +1067,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.body_fat_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -1119,8 +1119,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.blood_oxygen_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -1171,8 +1171,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.electrocardiogram_voltage_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -1223,8 +1223,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.blood_pressure_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -1272,8 +1272,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.vo_2_max(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -1317,8 +1317,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.stress_level(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -1362,8 +1362,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.mindfulness_minutes(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -1409,8 +1409,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.caffeine(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -1454,8 +1454,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.water(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -1499,8 +1499,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.steps(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -1544,8 +1544,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.floors_climbed(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -1589,8 +1589,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.distance(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -1634,8 +1634,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.calories_basal(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -1679,8 +1679,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.calories_active(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -1724,8 +1724,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.respiratory_rate(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -1771,8 +1771,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.ige(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -1816,8 +1816,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.igg(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -1861,8 +1861,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.hypnogram(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -1906,8 +1906,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.hrv(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -1951,8 +1951,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.heartrate(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -1996,8 +1996,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.glucose(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -2041,8 +2041,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.cholesterol_triglycerides(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -2088,8 +2088,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.cholesterol_total(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -2135,8 +2135,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.cholesterol_ldl(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -2180,8 +2180,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.cholesterol_hdl(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -2225,8 +2225,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.cholesterol(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -2270,8 +2270,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.body_weight(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -2315,8 +2315,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.body_fat(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -2360,8 +2360,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.blood_oxygen(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -2405,8 +2405,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.electrocardiogram_voltage(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -2452,8 +2452,8 @@ class VitalsClient:
             api_key="YOUR_API_KEY",
         )
         client.vitals.blood_pressure(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -2505,8 +2505,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.vo_2_max_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -2555,8 +2555,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.stress_level_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -2607,8 +2607,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.mindfulness_minutes_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -2659,8 +2659,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.caffeine_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -2711,8 +2711,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.water_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -2761,8 +2761,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.steps_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -2811,8 +2811,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.floors_climbed_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -2863,8 +2863,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.distance_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -2915,8 +2915,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.calories_basal_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -2967,8 +2967,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.calories_active_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -3019,8 +3019,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.respiratory_rate_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -3071,8 +3071,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.ige_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -3121,8 +3121,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.igg_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -3171,8 +3171,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.hypnogram_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -3223,8 +3223,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.hrv_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -3273,8 +3273,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.heartrate_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -3325,8 +3325,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.glucose_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -3375,8 +3375,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.cholesterol_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -3427,8 +3427,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.body_weight_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -3479,8 +3479,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.body_fat_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -3531,8 +3531,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.blood_oxygen_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -3583,8 +3583,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.electrocardiogram_voltage_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -3635,8 +3635,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.blood_pressure_grouped(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -3684,8 +3684,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.vo_2_max(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -3729,8 +3729,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.stress_level(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -3774,8 +3774,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.mindfulness_minutes(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -3821,8 +3821,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.caffeine(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -3866,8 +3866,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.water(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -3911,8 +3911,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.steps(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -3956,8 +3956,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.floors_climbed(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -4001,8 +4001,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.distance(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -4046,8 +4046,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.calories_basal(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -4091,8 +4091,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.calories_active(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -4136,8 +4136,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.respiratory_rate(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -4183,8 +4183,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.ige(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -4228,8 +4228,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.igg(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -4273,8 +4273,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.hypnogram(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -4318,8 +4318,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.hrv(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -4363,8 +4363,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.heartrate(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -4408,8 +4408,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.glucose(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -4453,8 +4453,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.cholesterol_triglycerides(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -4500,8 +4500,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.cholesterol_total(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -4547,8 +4547,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.cholesterol_ldl(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -4592,8 +4592,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.cholesterol_hdl(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -4637,8 +4637,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.cholesterol(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -4682,8 +4682,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.body_weight(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -4727,8 +4727,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.body_fat(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -4772,8 +4772,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.blood_oxygen(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -4817,8 +4817,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.electrocardiogram_voltage(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -4864,8 +4864,8 @@ class AsyncVitalsClient:
             api_key="YOUR_API_KEY",
         )
         await client.vitals.blood_pressure(
-            user_id="user-id",
-            start_date="start-date",
+            user_id="user_id",
+            start_date="start_date",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(

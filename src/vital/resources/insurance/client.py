@@ -34,6 +34,15 @@ class InsuranceClient:
             - insurance_name: str.
 
             - insurance_state: typing.Optional[str].
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.insurance.search_payor_info(
+            insurance_name="insurance_name",
+        )
         """
         _request: typing.Dict[str, typing.Any] = {"insurance_name": insurance_name}
         if insurance_state is not OMIT:
@@ -66,7 +75,7 @@ class InsuranceClient:
             api_key="YOUR_API_KEY",
         )
         client.insurance.search_diagnosis(
-            diagnosis_query="diagnosis-query",
+            diagnosis_query="diagnosis_query",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -99,6 +108,15 @@ class AsyncInsuranceClient:
             - insurance_name: str.
 
             - insurance_state: typing.Optional[str].
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.insurance.search_payor_info(
+            insurance_name="insurance_name",
+        )
         """
         _request: typing.Dict[str, typing.Any] = {"insurance_name": insurance_name}
         if insurance_state is not OMIT:
@@ -131,7 +149,7 @@ class AsyncInsuranceClient:
             api_key="YOUR_API_KEY",
         )
         await client.insurance.search_diagnosis(
-            diagnosis_query="diagnosis-query",
+            diagnosis_query="diagnosis_query",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(

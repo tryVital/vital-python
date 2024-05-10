@@ -13,7 +13,7 @@ except ImportError:
 
 
 class ProfileInDb(pydantic.BaseModel):
-    data: typing.Optional[str]
+    data: typing.Optional[typing.Any]
     user_id: str
     source_id: int
     priority_id: typing.Optional[int]

@@ -5,6 +5,7 @@ import typing
 
 from ..core.datetime_utils import serialize_datetime
 from .connection_status_state import ConnectionStatusState
+from .provider_mfa_request import ProviderMfaRequest
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -13,11 +14,12 @@ except ImportError:
 
 
 class ConnectionStatus(pydantic.BaseModel):
-    success: bool
-    redirect_url: typing.Optional[str]
     state: ConnectionStatusState
     error_type: typing.Optional[str]
     error: typing.Optional[str]
+    provider_mfa: typing.Optional[ProviderMfaRequest]
+    success: bool
+    redirect_url: typing.Optional[str]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

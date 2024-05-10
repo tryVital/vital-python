@@ -6,6 +6,7 @@ import typing
 from ..core.datetime_utils import serialize_datetime
 from .password_providers import PasswordProviders
 from .provider_link_response_state import ProviderLinkResponseState
+from .provider_mfa_request import ProviderMfaRequest
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -14,12 +15,13 @@ except ImportError:
 
 
 class ProviderLinkResponse(pydantic.BaseModel):
-    provider: PasswordProviders
-    connected: bool
-    provider_id: typing.Optional[str]
     state: ProviderLinkResponseState
     error_type: typing.Optional[str]
     error: typing.Optional[str]
+    provider_mfa: typing.Optional[ProviderMfaRequest]
+    provider: PasswordProviders
+    connected: bool
+    provider_id: typing.Optional[str]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

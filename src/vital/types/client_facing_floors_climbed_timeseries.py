@@ -21,7 +21,7 @@ class ClientFacingFloorsClimbedTimeseries(pydantic.BaseModel):
     type: typing.Optional[str] = pydantic.Field(
         description="The reading type of the measurement. This is applicable only to Cholesterol, IGG and IGE."
     )
-    unit: typing_extensions.Literal["count"]
+    unit: typing_extensions.Literal["count"] = pydantic.Field(description="Measured in counts")
     timestamp: dt.datetime = pydantic.Field(description="The timestamp of the measurement.")
     value: float = pydantic.Field(description="Number of floors climbed at the time or interval::count")
 

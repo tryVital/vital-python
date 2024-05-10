@@ -61,6 +61,15 @@ class TeamClient:
 
         Parameters:
             - team_id: str.
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.team.get(
+            team_id="team_id",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -178,7 +187,7 @@ class TeamClient:
             api_key="YOUR_API_KEY",
         )
         client.team.update_source_priorities(
-            team_id="team-id",
+            team_id="team_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -209,7 +218,7 @@ class TeamClient:
             api_key="YOUR_API_KEY",
         )
         client.team.get_physicians(
-            team_id="team-id",
+            team_id="team_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -271,6 +280,15 @@ class AsyncTeamClient:
 
         Parameters:
             - team_id: str.
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.team.get(
+            team_id="team_id",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -388,7 +406,7 @@ class AsyncTeamClient:
             api_key="YOUR_API_KEY",
         )
         await client.team.update_source_priorities(
-            team_id="team-id",
+            team_id="team_id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -419,7 +437,7 @@ class AsyncTeamClient:
             api_key="YOUR_API_KEY",
         )
         await client.team.get_physicians(
-            team_id="team-id",
+            team_id="team_id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
