@@ -92,7 +92,7 @@ class UserClient:
 
             - ingestion_start: typing.Optional[str]. Starting bound for user data ingestion. Data older than this date will not be ingested.
 
-            - ingestion_end: typing.Optional[str]. Ending bound for user data ingestion. Data newer than this date will not be ingested and the connection deregistered.
+            - ingestion_end: typing.Optional[str]. Ending bound for user data ingestion. Data from this date or later will not be ingested and the connection will be deregistered.
         ---
         from vital.client import Vital
 
@@ -302,7 +302,7 @@ class UserClient:
 
             - ingestion_start: typing.Optional[str]. Starting bound for user data ingestion. Data older than this date will not be ingested.
 
-            - ingestion_end: typing.Optional[str]. Ending bound for user data ingestion. Data newer than this date will not be ingested and the connection deregistered.
+            - ingestion_end: typing.Optional[str]. Ending bound for user data ingestion. Data from this date or later will not be ingested and the connection will be deregistered.
         ---
         from vital.client import Vital
 
@@ -538,7 +538,7 @@ class AsyncUserClient:
 
             - ingestion_start: typing.Optional[str]. Starting bound for user data ingestion. Data older than this date will not be ingested.
 
-            - ingestion_end: typing.Optional[str]. Ending bound for user data ingestion. Data newer than this date will not be ingested and the connection deregistered.
+            - ingestion_end: typing.Optional[str]. Ending bound for user data ingestion. Data from this date or later will not be ingested and the connection will be deregistered.
         ---
         from vital.client import AsyncVital
 
@@ -750,7 +750,7 @@ class AsyncUserClient:
 
             - ingestion_start: typing.Optional[str]. Starting bound for user data ingestion. Data older than this date will not be ingested.
 
-            - ingestion_end: typing.Optional[str]. Ending bound for user data ingestion. Data newer than this date will not be ingested and the connection deregistered.
+            - ingestion_end: typing.Optional[str]. Ending bound for user data ingestion. Data from this date or later will not be ingested and the connection will be deregistered.
         ---
         from vital.client import AsyncVital
 

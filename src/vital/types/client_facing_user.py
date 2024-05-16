@@ -39,7 +39,7 @@ class ClientFacingUser(pydantic.BaseModel):
         description="Starting bound for user data ingestion. Data older than this date will not be ingested."
     )
     ingestion_end: typing.Optional[str] = pydantic.Field(
-        description="Ending bound for user data ingestion. Data newer than this date will not be ingested and the connection deregistered."
+        description="Ending bound for user data ingestion. Data from this date or later will not be ingested and the connection will be deregistered."
     )
 
     def json(self, **kwargs: typing.Any) -> str:

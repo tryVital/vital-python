@@ -16,12 +16,13 @@ except ImportError:
 
 class ProviderLinkResponse(pydantic.BaseModel):
     state: ProviderLinkResponseState
+    redirect_url: typing.Optional[str]
     error_type: typing.Optional[str]
     error: typing.Optional[str]
     provider_mfa: typing.Optional[ProviderMfaRequest]
     provider: PasswordProviders
     connected: bool
-    provider_id: typing.Optional[str]
+    provider_id: str
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

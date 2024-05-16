@@ -21,6 +21,7 @@ class PasswordProviders(str, enum.Enum):
     HAMMERHEAD = "hammerhead"
     MY_FITNESS_PAL = "my_fitness_pal"
     KARDIA = "kardia"
+    ABBOTT_LIBREVIEW = "abbott_libreview"
 
     def visit(
         self,
@@ -34,6 +35,7 @@ class PasswordProviders(str, enum.Enum):
         hammerhead: typing.Callable[[], T_Result],
         my_fitness_pal: typing.Callable[[], T_Result],
         kardia: typing.Callable[[], T_Result],
+        abbott_libreview: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is PasswordProviders.WHOOP:
             return whoop()
@@ -55,3 +57,5 @@ class PasswordProviders(str, enum.Enum):
             return my_fitness_pal()
         if self is PasswordProviders.KARDIA:
             return kardia()
+        if self is PasswordProviders.ABBOTT_LIBREVIEW:
+            return abbott_libreview()

@@ -15,11 +15,11 @@ except ImportError:
 
 class ConnectionStatus(pydantic.BaseModel):
     state: ConnectionStatusState
+    redirect_url: typing.Optional[str]
     error_type: typing.Optional[str]
     error: typing.Optional[str]
     provider_mfa: typing.Optional[ProviderMfaRequest]
     success: bool
-    redirect_url: typing.Optional[str]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
