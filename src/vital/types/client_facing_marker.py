@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from ..core.datetime_utils import serialize_datetime
+from .ao_e import AoE
 from .marker_type import MarkerType
 
 try:
@@ -22,6 +23,7 @@ class ClientFacingMarker(pydantic.BaseModel):
     type: typing.Optional[MarkerType]
     unit: typing.Optional[str]
     price: typing.Optional[str]
+    aoe: typing.Optional[AoE]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

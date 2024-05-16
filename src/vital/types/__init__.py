@@ -2,6 +2,9 @@
 
 from .activity_v_2_in_db import ActivityV2InDb
 from .address import Address
+from .answer import Answer
+from .ao_e import AoE
+from .ao_e_answer import AoEAnswer
 from .appointment_availability_slots import AppointmentAvailabilitySlots
 from .appointment_event_status import AppointmentEventStatus
 from .appointment_provider import AppointmentProvider
@@ -217,6 +220,8 @@ from .provider_link_response_state import ProviderLinkResponseState
 from .provider_mfa_request import ProviderMfaRequest
 from .provider_mfa_request_method import ProviderMfaRequestMethod
 from .providers import Providers
+from .question import Question
+from .question_type import QuestionType
 from .raw_activity import RawActivity
 from .raw_body import RawBody
 from .raw_devices import RawDevices
@@ -259,6 +264,9 @@ from .workout_v_2_in_db import WorkoutV2InDb
 __all__ = [
     "ActivityV2InDb",
     "Address",
+    "Answer",
+    "AoE",
+    "AoEAnswer",
     "AppointmentAvailabilitySlots",
     "AppointmentEventStatus",
     "AppointmentProvider",
@@ -464,6 +472,8 @@ __all__ = [
     "ProviderMfaRequest",
     "ProviderMfaRequestMethod",
     "Providers",
+    "Question",
+    "QuestionType",
     "RawActivity",
     "RawBody",
     "RawDevices",

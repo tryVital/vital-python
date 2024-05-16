@@ -4,9 +4,6 @@ import datetime as dt
 import typing
 
 from ..core.datetime_utils import serialize_datetime
-from .ao_e import AoE
-from .client_facing_result import ClientFacingResult
-from .marker_type import MarkerType
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -14,18 +11,10 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class ClientFacingMarkerComplete(pydantic.BaseModel):
-    id: int
-    name: str
-    slug: str
-    description: typing.Optional[str]
-    lab_id: typing.Optional[int]
-    provider_id: typing.Optional[str]
-    type: typing.Optional[MarkerType]
-    unit: typing.Optional[str]
-    price: typing.Optional[str]
-    aoe: typing.Optional[AoE]
-    expected_results: typing.List[ClientFacingResult]
+class AoEAnswer(pydantic.BaseModel):
+    marker_id: int
+    question_id: int
+    answer: str
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

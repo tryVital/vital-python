@@ -11,6 +11,7 @@ from ...core.datetime_utils import serialize_datetime
 from ...core.jsonable_encoder import jsonable_encoder
 from ...core.remove_none_from_dict import remove_none_from_dict
 from ...errors.unprocessable_entity_error import UnprocessableEntityError
+from ...types.ao_e_answer import AoEAnswer
 from ...types.appointment_availability_slots import AppointmentAvailabilitySlots
 from ...types.appointment_provider import AppointmentProvider
 from ...types.area_info import AreaInfo
@@ -785,6 +786,7 @@ class LabTestsClient:
         priority: typing.Optional[bool] = OMIT,
         consents: typing.Optional[typing.List[Consent]] = OMIT,
         activate_by: typing.Optional[str] = OMIT,
+        aoe_answers: typing.Optional[typing.List[AoEAnswer]] = OMIT,
         patient_details: PatientDetails,
         patient_address: PatientAddressCompatible,
     ) -> PostOrderResponse:
@@ -806,6 +808,8 @@ class LabTestsClient:
 
             - activate_by: typing.Optional[str]. Schedule an Order to be processed in a future date.
 
+            - aoe_answers: typing.Optional[typing.List[AoEAnswer]].
+
             - patient_details: PatientDetails.
 
             - patient_address: PatientAddressCompatible.
@@ -826,6 +830,8 @@ class LabTestsClient:
             _request["consents"] = consents
         if activate_by is not OMIT:
             _request["activate_by"] = activate_by
+        if aoe_answers is not OMIT:
+            _request["aoe_answers"] = aoe_answers
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/order"),
@@ -1711,6 +1717,7 @@ class AsyncLabTestsClient:
         priority: typing.Optional[bool] = OMIT,
         consents: typing.Optional[typing.List[Consent]] = OMIT,
         activate_by: typing.Optional[str] = OMIT,
+        aoe_answers: typing.Optional[typing.List[AoEAnswer]] = OMIT,
         patient_details: PatientDetails,
         patient_address: PatientAddressCompatible,
     ) -> PostOrderResponse:
@@ -1732,6 +1739,8 @@ class AsyncLabTestsClient:
 
             - activate_by: typing.Optional[str]. Schedule an Order to be processed in a future date.
 
+            - aoe_answers: typing.Optional[typing.List[AoEAnswer]].
+
             - patient_details: PatientDetails.
 
             - patient_address: PatientAddressCompatible.
@@ -1752,6 +1761,8 @@ class AsyncLabTestsClient:
             _request["consents"] = consents
         if activate_by is not OMIT:
             _request["activate_by"] = activate_by
+        if aoe_answers is not OMIT:
+            _request["aoe_answers"] = aoe_answers
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/order"),
