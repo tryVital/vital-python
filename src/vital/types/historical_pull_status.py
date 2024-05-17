@@ -14,12 +14,14 @@ class HistoricalPullStatus(str, enum.Enum):
     SUCCESS = "success"
     FAILURE = "failure"
     IN_PROGRESS = "in_progress"
+    SCHEDULED = "scheduled"
 
     def visit(
         self,
         success: typing.Callable[[], T_Result],
         failure: typing.Callable[[], T_Result],
         in_progress: typing.Callable[[], T_Result],
+        scheduled: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is HistoricalPullStatus.SUCCESS:
             return success()
@@ -27,3 +29,5 @@ class HistoricalPullStatus(str, enum.Enum):
             return failure()
         if self is HistoricalPullStatus.IN_PROGRESS:
             return in_progress()
+        if self is HistoricalPullStatus.SCHEDULED:
+            return scheduled()

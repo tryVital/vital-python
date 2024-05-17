@@ -177,6 +177,7 @@ from .health_insurance_create_request_patient_signature_image import (
     HealthInsuranceCreateRequestPatientSignatureImage_ImagePng,
 )
 from .historical_pull_status import HistoricalPullStatus
+from .historical_pull_timeline import HistoricalPullTimeline
 from .http_validation_error import HttpValidationError
 from .jpeg import Jpeg
 from .lab_results_metadata import LabResultsMetadata
@@ -431,6 +432,7 @@ __all__ = [
     "HealthInsuranceCreateRequestPatientSignatureImage_ImageJpeg",
     "HealthInsuranceCreateRequestPatientSignatureImage_ImagePng",
     "HistoricalPullStatus",
+    "HistoricalPullTimeline",
     "HttpValidationError",
     "Jpeg",
     "LabResultsMetadata",

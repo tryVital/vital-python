@@ -4,8 +4,6 @@ import datetime as dt
 import typing
 
 from ..core.datetime_utils import serialize_datetime
-from .historical_pull_status import HistoricalPullStatus
-from .historical_pull_timeline import HistoricalPullTimeline
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -13,14 +11,10 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class SingleHistoricalPullStatistics(pydantic.BaseModel):
-    status: HistoricalPullStatus
-    range_start: typing.Optional[dt.datetime]
-    range_end: typing.Optional[dt.datetime]
-    timeline: HistoricalPullTimeline
-    days_with_data: typing.Optional[int]
-    release: str
-    trace_id: typing.Optional[str]
+class HistoricalPullTimeline(pydantic.BaseModel):
+    scheduled_at: dt.datetime
+    started_at: typing.Optional[dt.datetime]
+    ended_at: typing.Optional[dt.datetime]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
