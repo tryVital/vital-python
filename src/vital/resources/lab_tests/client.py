@@ -26,6 +26,7 @@ from ...types.get_markers_response import GetMarkersResponse
 from ...types.get_orders_response import GetOrdersResponse
 from ...types.health_insurance_create_request import HealthInsuranceCreateRequest
 from ...types.http_validation_error import HttpValidationError
+from ...types.lab_results_fhir import LabResultsFhir
 from ...types.lab_results_metadata import LabResultsMetadata
 from ...types.lab_results_raw import LabResultsRaw
 from ...types.lab_test_collection_method import LabTestCollectionMethod
@@ -36,6 +37,7 @@ from ...types.patient_details import PatientDetails
 from ...types.physician_create_request import PhysicianCreateRequest
 from ...types.post_order_response import PostOrderResponse
 from ...types.us_address import UsAddress
+from ...types.vital_core_schemas_request_schemas_orders_entry_item import VitalCoreSchemasRequestSchemasOrdersEntryItem
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -725,31 +727,56 @@ class LabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    def get_result_raw_fhir(self, order_id: str) -> LabResultsFhir:
+        """
+        Return both metadata and raw json test data
+
+        Parameters:
+            - order_id: str.
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_result_raw_fhir(
+            order_id="order_id",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/result/fhir"),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(LabResultsFhir, _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     def get_labels_pdf(
-        self,
-        order_id: str,
-        *,
-        number_of_labels: typing.Optional[int] = None,
-        collection_date: typing.Optional[dt.datetime] = None,
+        self, order_id: str, *, number_of_labels: typing.Optional[int] = None, collection_date: dt.datetime
     ) -> typing.Iterator[bytes]:
         """
-        This endpoint returns the lab results for the order.
+        This endpoint returns the printed labels for the order.
 
         Parameters:
             - order_id: str.
 
             - number_of_labels: typing.Optional[int]. Number of labels to generate
 
-            - collection_date: typing.Optional[dt.datetime]. Collection date
+            - collection_date: dt.datetime. Collection date
         """
         with self._client_wrapper.httpx_client.stream(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/labels/pdf"),
             params=remove_none_from_dict(
-                {
-                    "number_of_labels": number_of_labels,
-                    "collection_date": serialize_datetime(collection_date) if collection_date is not None else None,
-                }
+                {"number_of_labels": number_of_labels, "collection_date": serialize_datetime(collection_date)}
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -812,6 +839,36 @@ class LabTestsClient:
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingOrder, _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def create_order_fhir(
+        self, *, resource_type: str, type: str, entry: typing.List[VitalCoreSchemasRequestSchemasOrdersEntryItem]
+    ) -> PostOrderResponse:
+        """
+        POST create new order
+
+        Parameters:
+            - resource_type: str.
+
+            - type: str.
+
+            - entry: typing.List[VitalCoreSchemasRequestSchemasOrdersEntryItem].
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "POST",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/order/fhir"),
+            json=jsonable_encoder({"resourceType": resource_type, "type": type, "entry": entry}),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(PostOrderResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -1700,31 +1757,56 @@ class AsyncLabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    async def get_result_raw_fhir(self, order_id: str) -> LabResultsFhir:
+        """
+        Return both metadata and raw json test data
+
+        Parameters:
+            - order_id: str.
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.lab_tests.get_result_raw_fhir(
+            order_id="order_id",
+        )
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/result/fhir"),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(LabResultsFhir, _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     async def get_labels_pdf(
-        self,
-        order_id: str,
-        *,
-        number_of_labels: typing.Optional[int] = None,
-        collection_date: typing.Optional[dt.datetime] = None,
+        self, order_id: str, *, number_of_labels: typing.Optional[int] = None, collection_date: dt.datetime
     ) -> typing.AsyncIterator[bytes]:
         """
-        This endpoint returns the lab results for the order.
+        This endpoint returns the printed labels for the order.
 
         Parameters:
             - order_id: str.
 
             - number_of_labels: typing.Optional[int]. Number of labels to generate
 
-            - collection_date: typing.Optional[dt.datetime]. Collection date
+            - collection_date: dt.datetime. Collection date
         """
         async with self._client_wrapper.httpx_client.stream(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/labels/pdf"),
             params=remove_none_from_dict(
-                {
-                    "number_of_labels": number_of_labels,
-                    "collection_date": serialize_datetime(collection_date) if collection_date is not None else None,
-                }
+                {"number_of_labels": number_of_labels, "collection_date": serialize_datetime(collection_date)}
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -1787,6 +1869,36 @@ class AsyncLabTestsClient:
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingOrder, _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def create_order_fhir(
+        self, *, resource_type: str, type: str, entry: typing.List[VitalCoreSchemasRequestSchemasOrdersEntryItem]
+    ) -> PostOrderResponse:
+        """
+        POST create new order
+
+        Parameters:
+            - resource_type: str.
+
+            - type: str.
+
+            - entry: typing.List[VitalCoreSchemasRequestSchemasOrdersEntryItem].
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "POST",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/order/fhir"),
+            json=jsonable_encoder({"resourceType": resource_type, "type": type, "entry": entry}),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(PostOrderResponse, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:

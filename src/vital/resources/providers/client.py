@@ -6,7 +6,10 @@ from json.decoder import JSONDecodeError
 
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from ...core.remove_none_from_dict import remove_none_from_dict
+from ...errors.unprocessable_entity_error import UnprocessableEntityError
 from ...types.client_facing_provider_detailed import ClientFacingProviderDetailed
+from ...types.http_validation_error import HttpValidationError
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -18,10 +21,12 @@ class ProvidersClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def get_all(self) -> typing.List[ClientFacingProviderDetailed]:
+    def get_all(self, *, source_type: typing.Optional[str] = None) -> typing.List[ClientFacingProviderDetailed]:
         """
         Get Provider list
 
+        Parameters:
+            - source_type: typing.Optional[str].
         ---
         from vital.client import Vital
 
@@ -33,11 +38,14 @@ class ProvidersClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/providers"),
+            params=remove_none_from_dict({"source_type": source_type}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingProviderDetailed], _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -49,10 +57,12 @@ class AsyncProvidersClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def get_all(self) -> typing.List[ClientFacingProviderDetailed]:
+    async def get_all(self, *, source_type: typing.Optional[str] = None) -> typing.List[ClientFacingProviderDetailed]:
         """
         Get Provider list
 
+        Parameters:
+            - source_type: typing.Optional[str].
         ---
         from vital.client import AsyncVital
 
@@ -64,11 +74,14 @@ class AsyncProvidersClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/providers"),
+            params=remove_none_from_dict({"source_type": source_type}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingProviderDetailed], _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
