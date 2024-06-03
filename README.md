@@ -1,7 +1,7 @@
 # Vital Python Library
 
 [![pypi](https://img.shields.io/pypi/v/vital.svg)](https://pypi.python.org/pypi/vital)
-[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-SDK%20generated%20by%20Fern-brightgreen)](https://github.com/fern-api/fern)
+[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-SDK%20generated%20by%20Fern-brightgreen)](https://buildwithfern.com/?utm_source=tryvital/vital-python/readme)
 
 The Vital Python library provides access to the Vital API from applications written in Python.
 
