@@ -7,10 +7,6 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class ManualProviders(str, enum.Enum):
-    """
-    An enumeration.
-    """
-
     BEURER_BLE = "beurer_ble"
     OMRON_BLE = "omron_ble"
     ACCUCHEK_BLE = "accuchek_ble"

@@ -26,9 +26,7 @@ class ClientFacingSleep(pydantic.BaseModel):
     )
     bedtime_start: dt.datetime = pydantic.Field(description="UTC Time when the sleep period started")
     bedtime_stop: dt.datetime = pydantic.Field(description="UTC Time when the sleep period ended")
-    timezone_offset: typing.Optional[int] = pydantic.Field(
-        description="Timezone offset from UTC as seconds. For example, EEST (Eastern European Summer Time, +3h) is 10800. PST (Pacific Standard Time, -8h) is -28800::seconds"
-    )
+    timezone_offset: typing.Optional[int]
     duration: int = pydantic.Field(
         description="Total duration of the sleep period (sleep.duration = sleep.bedtime_end - sleep.bedtime_start)::seconds"
     )
@@ -43,34 +41,16 @@ class ClientFacingSleep(pydantic.BaseModel):
     deep: int = pydantic.Field(
         description="Total amount of deep (N3) sleep registered during the sleep period::seconds"
     )
-    score: typing.Optional[int] = pydantic.Field(
-        description="A value between 1 and 100 representing how well the user slept. Currently only available for Withings, Oura, Whoop and Garmin::scalar"
-    )
-    hr_lowest: typing.Optional[int] = pydantic.Field(
-        description="The lowest heart rate (5 minutes sliding average) registered during the sleep period::beats per minute"
-    )
-    hr_average: typing.Optional[int] = pydantic.Field(
-        description="The average heart rate registered during the sleep period::beats per minute"
-    )
-    efficiency: typing.Optional[float] = pydantic.Field(
-        description="Sleep efficiency is the percentage of the sleep period spent asleep (100% \* sleep.total / sleep.duration)::perc"
-    )
-    latency: typing.Optional[int] = pydantic.Field(
-        description="Detected latency from bedtime_start to the beginning of the first five minutes of persistent sleep::seconds"
-    )
-    temperature_delta: typing.Optional[float] = pydantic.Field(
-        description="Skin temperature deviation from the long-term temperature average::celcius"
-    )
-    skin_temperature: typing.Optional[float] = pydantic.Field(description="The skin temperature::celcius")
-    hr_dip: typing.Optional[float] = pydantic.Field(
-        description='Sleeping Heart Rate Dip is the percentage difference between your average waking heart rate and your average sleeping heart rate. In health studies, a greater "dip" is typically seen as a positive indicator of overall health. Currently only available for Garmin::perc'
-    )
-    average_hrv: typing.Optional[float] = pydantic.Field(
-        description="The average heart rate variability registered during the sleep period::rmssd"
-    )
-    respiratory_rate: typing.Optional[float] = pydantic.Field(
-        description="Average respiratory rate::breaths per minute"
-    )
+    score: typing.Optional[int]
+    hr_lowest: typing.Optional[int]
+    hr_average: typing.Optional[int]
+    efficiency: typing.Optional[float]
+    latency: typing.Optional[int]
+    temperature_delta: typing.Optional[float]
+    skin_temperature: typing.Optional[float]
+    hr_dip: typing.Optional[float]
+    average_hrv: typing.Optional[float]
+    respiratory_rate: typing.Optional[float]
     source: ClientFacingSource = pydantic.Field(description="Source the data has come from.")
     sleep_stream: typing.Optional[ClientFacingSleepStream]
 

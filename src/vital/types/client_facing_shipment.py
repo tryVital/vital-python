@@ -19,15 +19,13 @@ class ClientFacingShipment(pydantic.BaseModel):
     """
 
     id: str = pydantic.Field(description="The Vital Shipment ID")
-    outbound_tracking_number: typing.Optional[str] = pydantic.Field(
-        description="Tracking number for delivery to customer"
-    )
-    outbound_tracking_url: typing.Optional[str] = pydantic.Field(description="Tracking url for delivery to customer")
-    inbound_tracking_number: typing.Optional[str] = pydantic.Field(description="Tracking number for delivery to lab")
-    inbound_tracking_url: typing.Optional[str] = pydantic.Field(description="Tracking url for delivery to lab")
-    outbound_courier: typing.Optional[str] = pydantic.Field(description="Courier used for delivery to customer")
-    inbound_courier: typing.Optional[str] = pydantic.Field(description="Courier used for delivery to lab")
-    notes: typing.Optional[str] = pydantic.Field(description="Notes associated to the Vital shipment")
+    outbound_tracking_number: typing.Optional[str]
+    outbound_tracking_url: typing.Optional[str]
+    inbound_tracking_number: typing.Optional[str]
+    inbound_tracking_url: typing.Optional[str]
+    outbound_courier: typing.Optional[str]
+    inbound_courier: typing.Optional[str]
+    notes: typing.Optional[str]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

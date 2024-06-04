@@ -7,10 +7,6 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class SourceAuthType(str, enum.Enum):
-    """
-    An enumeration.
-    """
-
     OAUTH = "oauth"
     TEAM_OAUTH = "team_oauth"
     SDK = "sdk"

@@ -7,10 +7,6 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class PasswordProviders(str, enum.Enum):
-    """
-    An enumeration.
-    """
-
     WHOOP = "whoop"
     RENPHO = "renpho"
     PELOTON = "peloton"

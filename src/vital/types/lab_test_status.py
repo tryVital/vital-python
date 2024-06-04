@@ -7,10 +7,6 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class LabTestStatus(str, enum.Enum):
-    """
-    An enumeration.
-    """
-
     ACTIVE = "active"
     PENDING_APPROVAL = "pending_approval"
     INACTIVE = "inactive"

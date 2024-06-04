@@ -12,16 +12,12 @@ except ImportError:
 
 
 class Fats(pydantic.BaseModel):
-    saturated: typing.Optional[float] = pydantic.Field(description="Amount of saturated fats in grams (g)")
-    monounsaturated: typing.Optional[float] = pydantic.Field(description="Amount of monounsaturated fats in grams (g)")
-    polyunsaturated: typing.Optional[float] = pydantic.Field(description="Amount of polyunsaturated fats in grams (g)")
-    omega_3: typing.Optional[float] = pydantic.Field(
-        alias="omega3", description="Amount of Omega-3 fatty acids in grams (g)"
-    )
-    omega_6: typing.Optional[float] = pydantic.Field(
-        alias="omega6", description="Amount of Omega-6 fatty acids in grams (g)"
-    )
-    total: typing.Optional[float] = pydantic.Field(description="Total amount of fats in grams (g)")
+    saturated: typing.Optional[float]
+    monounsaturated: typing.Optional[float]
+    polyunsaturated: typing.Optional[float]
+    omega_3: typing.Optional[float] = pydantic.Field(alias="omega3")
+    omega_6: typing.Optional[float] = pydantic.Field(alias="omega6")
+    total: typing.Optional[float]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

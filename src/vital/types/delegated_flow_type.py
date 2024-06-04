@@ -7,10 +7,6 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class DelegatedFlowType(str, enum.Enum):
-    """
-    An enumeration.
-    """
-
     ORDER_AND_RESULTS_WITH_CUSTOMER_PHYSICIAN_NETWORK = "order_and_results_with_customer_physician_network"
     ORDER_WITH_VITAL_PHYSICIAN_NETWORK = "order_with_vital_physician_network"
     ORDER_AND_RESULTS_WITH_VITAL_PHYSICIAN_NETWORK = "order_and_results_with_vital_physician_network"

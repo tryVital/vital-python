@@ -20,7 +20,7 @@ class ClientFacingTestkitOrder(pydantic.BaseModel):
     """
 
     id: str = pydantic.Field(description="The Vital TestKit Order ID")
-    shipment: typing.Optional[ClientFacingShipment] = pydantic.Field(description="Shipment object")
+    shipment: typing.Optional[ClientFacingShipment]
     created_at: dt.datetime
     updated_at: dt.datetime
 

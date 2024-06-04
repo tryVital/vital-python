@@ -7,10 +7,6 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class AppointmentStatus(str, enum.Enum):
-    """
-    An enumeration.
-    """
-
     CONFIRMED = "confirmed"
     PENDING = "pending"
     IN_PROGRESS = "in_progress"

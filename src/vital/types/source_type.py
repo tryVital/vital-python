@@ -7,10 +7,6 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class SourceType(str, enum.Enum):
-    """
-    An enumeration.
-    """
-
     APP = "app"
     BLE = "ble"
     DEVICE = "device"

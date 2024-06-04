@@ -7,10 +7,6 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class OrderStatus(str, enum.Enum):
-    """
-    An enumeration.
-    """
-
     RECEIVED_WALK_IN_TEST_ORDERED = "received.walk_in_test.ordered"
     RECEIVED_WALK_IN_TEST_REQUISITION_CREATED = "received.walk_in_test.requisition_created"
     COMPLETED_WALK_IN_TEST_COMPLETED = "completed.walk_in_test.completed"

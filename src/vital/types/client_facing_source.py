@@ -21,9 +21,7 @@ class ClientFacingSource(pydantic.BaseModel):
     type: typing.Optional[str] = pydantic.Field(
         description="The type of the data source (app or device) by which the summary or the timeseries data were recorded. This defaults to `unknown` when Vital cannot extract or infer that information"
     )
-    app_id: typing.Optional[str] = pydantic.Field(
-        description="The identifier of the app which recorded this summary. This is only applicable to multi-source providers like Apple Health and Android Health Connect."
-    )
+    app_id: typing.Optional[str]
     name: str = pydantic.Field(description="Deprecated. Subject to removal after 1 Jan 2024.")
     slug: str = pydantic.Field(description="Deprecated. Use `provider` instead. Subject to removal after 1 Jan 2024.")
     logo: str = pydantic.Field(description="Deprecated. Subject to removal after 1 Jan 2024.")

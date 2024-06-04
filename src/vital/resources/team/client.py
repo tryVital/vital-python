@@ -174,33 +174,26 @@ class TeamClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def update_source_priorities(self, *, team_id: str) -> typing.List[typing.Dict[str, typing.Any]]:
+    def update_source_priorities(self) -> typing.List[typing.Dict[str, typing.Any]]:
         """
         Patch source priorities.
 
-        Parameters:
-            - team_id: str.
         ---
         from vital.client import Vital
 
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.team.update_source_priorities(
-            team_id="team_id",
-        )
+        client.team.update_source_priorities()
         """
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/team/source/priorities"),
-            params=remove_none_from_dict({"team_id": team_id}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[typing.Dict[str, typing.Any]], _response.json())  # type: ignore
-        if _response.status_code == 422:
-            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -393,33 +386,26 @@ class AsyncTeamClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def update_source_priorities(self, *, team_id: str) -> typing.List[typing.Dict[str, typing.Any]]:
+    async def update_source_priorities(self) -> typing.List[typing.Dict[str, typing.Any]]:
         """
         Patch source priorities.
 
-        Parameters:
-            - team_id: str.
         ---
         from vital.client import AsyncVital
 
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
-        await client.team.update_source_priorities(
-            team_id="team_id",
-        )
+        await client.team.update_source_priorities()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/team/source/priorities"),
-            params=remove_none_from_dict({"team_id": team_id}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[typing.Dict[str, typing.Any]], _response.json())  # type: ignore
-        if _response.status_code == 422:
-            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:

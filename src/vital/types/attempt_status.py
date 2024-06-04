@@ -7,10 +7,6 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class AttemptStatus(str, enum.Enum):
-    """
-    An enumeration.
-    """
-
     SUCCESS = "success"
     FAILURE = "failure"
 

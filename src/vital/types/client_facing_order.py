@@ -10,7 +10,7 @@ from .client_facing_order_event import ClientFacingOrderEvent
 from .client_facing_patient_details_compatible import ClientFacingPatientDetailsCompatible
 from .client_facing_physician import ClientFacingPhysician
 from .order_top_level_status import OrderTopLevelStatus
-from .patient_address_compatible import PatientAddressCompatible
+from .patient_address_compatible_output import PatientAddressCompatibleOutput
 from .shipping_address import ShippingAddress
 
 try:
@@ -25,30 +25,24 @@ class ClientFacingOrder(pydantic.BaseModel):
     )
     id: str = pydantic.Field(description="The Vital Order ID")
     team_id: str = pydantic.Field(description="Your team id.")
-    patient_details: typing.Optional[ClientFacingPatientDetailsCompatible] = pydantic.Field(
-        description="Patient Details"
-    )
-    patient_address: typing.Optional[PatientAddressCompatible] = pydantic.Field(description="Patient Address")
+    patient_details: typing.Optional[ClientFacingPatientDetailsCompatible]
+    patient_address: typing.Optional[PatientAddressCompatibleOutput]
     lab_test: ClientFacingLabTest = pydantic.Field(description="The Vital Test associated with the order")
     details: ClientFacingOrderDetails
-    sample_id: typing.Optional[str] = pydantic.Field(description="Sample ID")
-    notes: typing.Optional[str] = pydantic.Field(description="Notes associated with the order")
+    sample_id: typing.Optional[str]
+    notes: typing.Optional[str]
     created_at: dt.datetime = pydantic.Field(description="When your order was created")
     updated_at: dt.datetime = pydantic.Field(description="When your order was last updated.")
     events: typing.List[ClientFacingOrderEvent]
     status: typing.Optional[OrderTopLevelStatus]
     physician: typing.Optional[ClientFacingPhysician]
-    health_insurance_id: typing.Optional[str] = pydantic.Field(description="Vital ID of the health insurance.")
-    requisition_form_url: typing.Optional[str] = pydantic.Field(description="DEPRECATED. Requistion form url.")
+    health_insurance_id: typing.Optional[str]
+    requisition_form_url: typing.Optional[str]
     priority: typing.Optional[bool] = pydantic.Field(
         description="Defines whether order is priority or not. For some labs, this refers to a STAT order."
     )
-    shipping_details: typing.Optional[ShippingAddress] = pydantic.Field(
-        description="Shipping Details. For unregistered testkit orders."
-    )
-    activate_by: typing.Optional[str] = pydantic.Field(
-        description="Schedule an Order to be processed in a future date."
-    )
+    shipping_details: typing.Optional[ShippingAddress]
+    activate_by: typing.Optional[str]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

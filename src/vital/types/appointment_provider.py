@@ -7,10 +7,6 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class AppointmentProvider(str, enum.Enum):
-    """
-    An enumeration.
-    """
-
     GETLABS = "getlabs"
     AXLEHEALTH = "axlehealth"
     PHLEBFINDERS = "phlebfinders"

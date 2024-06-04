@@ -4,7 +4,6 @@ import datetime as dt
 import typing
 
 from ..core.datetime_utils import serialize_datetime
-from .coding_item_1 import CodingItem1
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -12,8 +11,15 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class InterpretationItem(pydantic.BaseModel):
-    coding: typing.List[CodingItem1]
+class PatientAddressCompatibleInput(pydantic.BaseModel):
+    receiver_name: typing.Optional[str]
+    street: str
+    street_number: typing.Optional[str]
+    city: str
+    state: str
+    zip: str
+    country: str
+    phone_number: typing.Optional[str]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

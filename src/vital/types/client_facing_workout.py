@@ -18,42 +18,31 @@ class ClientFacingWorkout(pydantic.BaseModel):
         description="User id returned by vital create user request. This id should be stored in your database against the user and used for all interactions with the vital api."
     )
     id: str
-    title: typing.Optional[str] = pydantic.Field(description="Title given for the workout")
-    timezone_offset: typing.Optional[int] = pydantic.Field(
-        description="Timezone offset from UTC as seconds. For example, EEST (Eastern European Summer Time, +3h) is 10800. PST (Pacific Standard Time, -8h) is -28800::seconds"
-    )
-    average_hr: typing.Optional[int] = pydantic.Field(description="Average heart rate during workout::bpm")
-    max_hr: typing.Optional[int] = pydantic.Field(description="Max heart rate during workout::bpm")
-    distance: typing.Optional[float] = pydantic.Field(description="Distance travelled during workout::meters")
+    title: typing.Optional[str]
+    timezone_offset: typing.Optional[int]
+    average_hr: typing.Optional[int]
+    max_hr: typing.Optional[int]
+    distance: typing.Optional[float]
     calendar_date: str = pydantic.Field(
         description="Date of the workout summary in the YYYY-mm-dd format. This generally matches the workout start date."
     )
     time_start: dt.datetime = pydantic.Field(description="Start time of the workout::time")
     time_end: dt.datetime = pydantic.Field(description="End time of the workout::time")
-    calories: typing.Optional[float] = pydantic.Field(description="Calories burned during the workout::kCal")
+    calories: typing.Optional[float]
     sport: typing.Optional[ClientFacingSport] = pydantic.Field(description="Sport's name")
-    hr_zones: typing.Optional[typing.List[int]] = pydantic.Field(
-        description="Time in seconds spent in different heart rate zones <50%, 50-60%, 60-70%, 70-80%, 80-90%, 90%+. Due to rounding errors, it's possible that summing all values is different than the total time of the workout. Not available for all providers::seconds"
-    )
-    moving_time: typing.Optional[int] = pydantic.Field(description="Time spent active during the workout::seconds")
-    total_elevation_gain: typing.Optional[float] = pydantic.Field(
-        description="Elevation gain during the workout::meters"
-    )
-    elev_high: typing.Optional[float] = pydantic.Field(description="Highest point of elevation::meters")
-    elev_low: typing.Optional[float] = pydantic.Field(description="Lowest point of elevation::meters")
-    average_speed: typing.Optional[float] = pydantic.Field(
-        description="Average speed during workout in m/s::meters/sec"
-    )
-    max_speed: typing.Optional[float] = pydantic.Field(description="Max speed during workout in m/s::meters/sec")
-    average_watts: typing.Optional[float] = pydantic.Field(description="Average watts burned during exercise::watts")
-    device_watts: typing.Optional[float] = pydantic.Field(description="Watts burned during exercise::watts")
-    max_watts: typing.Optional[float] = pydantic.Field(description="Max watts burned during exercise::watts")
-    weighted_average_watts: typing.Optional[float] = pydantic.Field(
-        description="Weighted average watts burned during exercise::watts"
-    )
-    map_: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(
-        alias="map", description="Map of workouts encoded as polyline"
-    )
+    hr_zones: typing.Optional[typing.List[int]]
+    moving_time: typing.Optional[int]
+    total_elevation_gain: typing.Optional[float]
+    elev_high: typing.Optional[float]
+    elev_low: typing.Optional[float]
+    average_speed: typing.Optional[float]
+    max_speed: typing.Optional[float]
+    average_watts: typing.Optional[float]
+    device_watts: typing.Optional[float]
+    max_watts: typing.Optional[float]
+    weighted_average_watts: typing.Optional[float]
+    steps: typing.Optional[int]
+    map_: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(alias="map")
     provider_id: str = pydantic.Field(description="Provider ID given for that specific workout")
     source: ClientFacingSource = pydantic.Field(description="Source the data has come from.")
 

@@ -17,14 +17,14 @@ except ImportError:
 
 
 class ClientFacingLabTest(pydantic.BaseModel):
-    id: str
-    slug: str
-    name: str
-    sample_type: LabTestSampleType
-    method: LabTestCollectionMethod
-    price: float
+    id: str = pydantic.Field(description="")
+    slug: str = pydantic.Field(description="")
+    name: str = pydantic.Field(description="")
+    sample_type: LabTestSampleType = pydantic.Field(description="")
+    method: LabTestCollectionMethod = pydantic.Field(description="")
+    price: float = pydantic.Field(description="")
     is_active: bool = pydantic.Field(description="Deprecated. Use status instead.")
-    status: LabTestStatus
+    status: LabTestStatus = pydantic.Field(description="")
     fasting: typing.Optional[bool] = pydantic.Field(description="Defines whether a lab test requires fasting.")
     lab: typing.Optional[ClientFacingLab]
     markers: typing.Optional[typing.List[ClientFacingMarker]]

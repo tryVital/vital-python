@@ -17,9 +17,7 @@ class UsAddress(pydantic.BaseModel):
     city: str
     state: str
     zip_code: str
-    unit: typing.Optional[str] = pydantic.Field(
-        description="Deprecated. Use `second_line` instead to provide the unit number. Subject to removal after 20 Nov 2023."
-    )
+    unit: typing.Optional[str]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

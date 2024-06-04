@@ -7,10 +7,6 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class OrderTopLevelStatus(str, enum.Enum):
-    """
-    An enumeration.
-    """
-
     RECEIVED = "received"
     COLLECTING_SAMPLE = "collecting_sample"
     SAMPLE_WITH_LAB = "sample_with_lab"

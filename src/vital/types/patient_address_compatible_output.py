@@ -4,12 +4,6 @@ import datetime as dt
 import typing
 
 from ..core.datetime_utils import serialize_datetime
-from .priority import Priority
-from .requester import Requester
-from .subject import Subject
-from .vital_core_schemas_request_schemas_orders_identifier_item import (
-    VitalCoreSchemasRequestSchemasOrdersIdentifierItem,
-)
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -17,14 +11,15 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class PostOrderServiceRequest(pydantic.BaseModel):
-    resource_type: str = pydantic.Field(alias="resourceType")
-    identifier: typing.List[VitalCoreSchemasRequestSchemasOrdersIdentifierItem]
-    status: str
-    intent: str
-    priority: Priority
-    subject: Subject
-    requester: Requester
+class PatientAddressCompatibleOutput(pydantic.BaseModel):
+    receiver_name: typing.Optional[str]
+    first_line: str
+    second_line: typing.Optional[str]
+    city: str
+    state: str
+    zip: str
+    country: str
+    phone_number: typing.Optional[str]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -37,5 +32,4 @@ class PostOrderServiceRequest(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
-        allow_population_by_field_name = True
         json_encoders = {dt.datetime: serialize_datetime}

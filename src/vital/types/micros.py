@@ -12,15 +12,9 @@ except ImportError:
 
 
 class Micros(pydantic.BaseModel):
-    minerals: typing.Optional[typing.Dict[str, float]] = pydantic.Field(
-        description="Amount of each mineral in grams (g)"
-    )
-    trace_elements: typing.Optional[typing.Dict[str, float]] = pydantic.Field(
-        description="Amount of each trace element in grams (g)"
-    )
-    vitamins: typing.Optional[typing.Dict[str, float]] = pydantic.Field(
-        description="Amount of each vitamin in grams (g)"
-    )
+    minerals: typing.Optional[typing.Dict[str, typing.Optional[float]]]
+    trace_elements: typing.Optional[typing.Dict[str, typing.Optional[float]]]
+    vitamins: typing.Optional[typing.Dict[str, typing.Optional[float]]]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

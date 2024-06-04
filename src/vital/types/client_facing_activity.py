@@ -22,37 +22,19 @@ class ClientFacingActivity(pydantic.BaseModel):
         description="Date of the specified record, formatted as ISO8601 datetime string in UTC 00:00. Deprecated in favour of calendar_date."
     )
     calendar_date: str = pydantic.Field(description="Date of the summary in the YYYY-mm-dd format.")
-    calories_total: typing.Optional[float] = pydantic.Field(
-        description="Total energy consumption during the day including Basal Metabolic Rate in kilocalories::kilocalories"
-    )
-    calories_active: typing.Optional[float] = pydantic.Field(
-        description="Energy consumption caused by the physical activity of the day in kilocalories::kilocalories"
-    )
-    steps: typing.Optional[int] = pydantic.Field(description="Total number of steps registered during the day::steps")
-    daily_movement: typing.Optional[float] = pydantic.Field(
-        description="Deprecated. Daily physical activity as equal meters i.e. amount of walking needed to get the same amount of activity::meters"
-    )
-    distance: typing.Optional[float] = pydantic.Field(
-        description="Distance traveled during activities throughout the day::meters"
-    )
-    low: typing.Optional[float] = pydantic.Field(
-        description="Number of minutes during the day with low intensity activity (e.g. household work)::minutes"
-    )
-    medium: typing.Optional[float] = pydantic.Field(
-        description="Number of minutes during the day with medium intensity activity (e.g. walking)::minutes"
-    )
-    high: typing.Optional[float] = pydantic.Field(
-        description="Number of minutes during the day with high intensity activity (e.g. running)::minutes"
-    )
+    calories_total: typing.Optional[float]
+    calories_active: typing.Optional[float]
+    steps: typing.Optional[int]
+    daily_movement: typing.Optional[float]
+    distance: typing.Optional[float]
+    low: typing.Optional[float]
+    medium: typing.Optional[float]
+    high: typing.Optional[float]
     source: ClientFacingSource = pydantic.Field(description="Source the data has come from.")
-    floors_climbed: typing.Optional[int] = pydantic.Field(description="Number of floors climbed by the user::count")
-    time_zone: typing.Optional[str] = pydantic.Field(
-        description="[DEPRECATED] The time zone full identifier for the data. Example: 'Europe/London'."
-    )
-    timezone_offset: typing.Optional[int] = pydantic.Field(
-        description="Timezone offset from UTC as seconds. For example, EEST (Eastern European Summer Time, +3h) is 10800. PST (Pacific Standard Time, -8h) is -28800::seconds"
-    )
-    heart_rate: typing.Optional[ClientFacingHeartRate] = pydantic.Field(description="Heart rate daily summary.")
+    floors_climbed: typing.Optional[int]
+    time_zone: typing.Optional[str]
+    timezone_offset: typing.Optional[int]
+    heart_rate: typing.Optional[ClientFacingHeartRate]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

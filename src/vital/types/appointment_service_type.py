@@ -7,10 +7,6 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class AppointmentServiceType(str, enum.Enum):
-    """
-    An enumeration.
-    """
-
     APPOINTMENT_READY = "appointment-ready"
     APPOINTMENT_REQUEST = "appointment-request"
 

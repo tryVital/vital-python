@@ -16,9 +16,7 @@ class GroupedGlucoseResponse(pydantic.BaseModel):
     groups: typing.Dict[str, typing.List[GroupedGlucose]] = pydantic.Field(
         description="For each matching provider or lab, a list of grouped timeseries values."
     )
-    next: typing.Optional[str] = pydantic.Field(
-        description="The cursor for fetching the next page, or `null` if there is no more data."
-    )
+    next: typing.Optional[str]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

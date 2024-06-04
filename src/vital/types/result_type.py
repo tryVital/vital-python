@@ -7,10 +7,6 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class ResultType(str, enum.Enum):
-    """
-    An enumeration.
-    """
-
     NUMERIC = "numeric"
     RANGE = "range"
     COMMENT = "comment"

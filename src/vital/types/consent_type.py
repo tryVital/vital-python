@@ -7,10 +7,6 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class ConsentType(str, enum.Enum):
-    """
-    An enumeration.
-    """
-
     TERMS_OF_USE = "terms-of-use"
     TELEHEALTH_INFORMED_CONSENT = "telehealth-informed-consent"
     MOBILE_TERMS_AND_CONDITIONS = "mobile-terms-and-conditions"

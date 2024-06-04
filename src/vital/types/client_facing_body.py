@@ -21,8 +21,8 @@ class ClientFacingBody(pydantic.BaseModel):
         description="Date of the specified record, formatted as ISO8601 datetime string in UTC 00:00. Deprecated in favour of calendar_date."
     )
     calendar_date: str = pydantic.Field(description="Date of the summary in the YYYY-mm-dd format.")
-    weight: typing.Optional[float] = pydantic.Field(description="Weight in kg::kg")
-    fat: typing.Optional[float] = pydantic.Field(description="Body fat percentage::perc")
+    weight: typing.Optional[float]
+    fat: typing.Optional[float]
     source: ClientFacingSource
 
     def json(self, **kwargs: typing.Any) -> str:

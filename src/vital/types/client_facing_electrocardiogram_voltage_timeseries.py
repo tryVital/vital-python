@@ -12,13 +12,11 @@ except ImportError:
 
 
 class ClientFacingElectrocardiogramVoltageTimeseries(pydantic.BaseModel):
-    id: typing.Optional[int] = pydantic.Field(description="Deprecated")
-    timezone_offset: typing.Optional[int] = pydantic.Field(
-        description="Time zone UTC offset in seconds. Positive offset indicates east of UTC; negative offset indicates west of UTC; and null indicates the time zone information is unavailable at source."
-    )
-    type: str = pydantic.Field(description="The lead of the measurement.")
+    id: typing.Optional[int]
+    timezone_offset: typing.Optional[int]
+    type: typing.Optional[str] = pydantic.Field(description="The lead of the measurement.")
     unit: str = pydantic.Field(description="Measured in mV.")
-    timestamp: dt.datetime = pydantic.Field(description="The timestamp of the measurement.")
+    timestamp: str = pydantic.Field(description="The timestamp of the measurement.")
     value: float = pydantic.Field(description="The value of the measurement.")
 
     def json(self, **kwargs: typing.Any) -> str:

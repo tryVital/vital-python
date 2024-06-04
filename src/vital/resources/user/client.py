@@ -85,14 +85,12 @@ class UserClient:
             - client_user_id: str. A unique ID representing the end user. Typically this will be a user ID from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id.
 
             - fallback_time_zone: typing.Optional[str].
-                                                            Fallback time zone of the user, in the form of a valid IANA tzdatabase identifier (e.g., `Europe/London` or `America/Los_Angeles`).
-                                                            Used when pulling data from sources that are completely time zone agnostic (e.g., all time is relative to UTC clock, without any time zone attributions on data points).
 
-            - fallback_birth_date: typing.Optional[str]. Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
+            - fallback_birth_date: typing.Optional[str].
 
-            - ingestion_start: typing.Optional[str]. Starting bound for user data ingestion. Data older than this date will not be ingested.
+            - ingestion_start: typing.Optional[str].
 
-            - ingestion_end: typing.Optional[str]. Ending bound for user data ingestion. Data from this date or later will not be ingested and the connection will be deregistered.
+            - ingestion_end: typing.Optional[str].
         ---
         from vital.client import Vital
 
@@ -295,14 +293,12 @@ class UserClient:
             - user_id: str.
 
             - fallback_time_zone: typing.Optional[str].
-                                                            Fallback time zone of the user, in the form of a valid IANA tzdatabase identifier (e.g., `Europe/London` or `America/Los_Angeles`).
-                                                            Used when pulling data from sources that are completely time zone agnostic (e.g., all time is relative to UTC clock, without any time zone attributions on data points).
 
-            - fallback_birth_date: typing.Optional[str]. Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
+            - fallback_birth_date: typing.Optional[str].
 
-            - ingestion_start: typing.Optional[str]. Starting bound for user data ingestion. Data older than this date will not be ingested.
+            - ingestion_start: typing.Optional[str].
 
-            - ingestion_end: typing.Optional[str]. Ending bound for user data ingestion. Data from this date or later will not be ingested and the connection will be deregistered.
+            - ingestion_end: typing.Optional[str].
         ---
         from vital.client import Vital
 
@@ -531,14 +527,12 @@ class AsyncUserClient:
             - client_user_id: str. A unique ID representing the end user. Typically this will be a user ID from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id.
 
             - fallback_time_zone: typing.Optional[str].
-                                                            Fallback time zone of the user, in the form of a valid IANA tzdatabase identifier (e.g., `Europe/London` or `America/Los_Angeles`).
-                                                            Used when pulling data from sources that are completely time zone agnostic (e.g., all time is relative to UTC clock, without any time zone attributions on data points).
 
-            - fallback_birth_date: typing.Optional[str]. Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
+            - fallback_birth_date: typing.Optional[str].
 
-            - ingestion_start: typing.Optional[str]. Starting bound for user data ingestion. Data older than this date will not be ingested.
+            - ingestion_start: typing.Optional[str].
 
-            - ingestion_end: typing.Optional[str]. Ending bound for user data ingestion. Data from this date or later will not be ingested and the connection will be deregistered.
+            - ingestion_end: typing.Optional[str].
         ---
         from vital.client import AsyncVital
 
@@ -743,14 +737,12 @@ class AsyncUserClient:
             - user_id: str.
 
             - fallback_time_zone: typing.Optional[str].
-                                                            Fallback time zone of the user, in the form of a valid IANA tzdatabase identifier (e.g., `Europe/London` or `America/Los_Angeles`).
-                                                            Used when pulling data from sources that are completely time zone agnostic (e.g., all time is relative to UTC clock, without any time zone attributions on data points).
 
-            - fallback_birth_date: typing.Optional[str]. Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
+            - fallback_birth_date: typing.Optional[str].
 
-            - ingestion_start: typing.Optional[str]. Starting bound for user data ingestion. Data older than this date will not be ingested.
+            - ingestion_start: typing.Optional[str].
 
-            - ingestion_end: typing.Optional[str]. Ending bound for user data ingestion. Data from this date or later will not be ingested and the connection will be deregistered.
+            - ingestion_end: typing.Optional[str].
         ---
         from vital.client import AsyncVital
 

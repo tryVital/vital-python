@@ -7,10 +7,6 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class Providers(str, enum.Enum):
-    """
-    An enumeration.
-    """
-
     OURA = "oura"
     FITBIT = "fitbit"
     GARMIN = "garmin"

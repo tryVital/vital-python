@@ -7,10 +7,6 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class QuestionType(str, enum.Enum):
-    """
-    An enumeration.
-    """
-
     CHOICE = "choice"
     TEXT = "text"
     NUMERIC = "numeric"

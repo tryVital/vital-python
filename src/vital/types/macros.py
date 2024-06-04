@@ -13,13 +13,13 @@ except ImportError:
 
 
 class Macros(pydantic.BaseModel):
-    carbs: typing.Optional[float] = pydantic.Field(description="Amount of carbohydrates in grams (g)")
-    protein: typing.Optional[float] = pydantic.Field(description="Amount of protein in grams (g)")
+    carbs: typing.Optional[float]
+    protein: typing.Optional[float]
     fats: typing.Optional[Fats] = pydantic.Field(description="Details of fat content")
-    alcohol: typing.Optional[float] = pydantic.Field(description="Amount of alcohol in grams (g)")
-    water: typing.Optional[float] = pydantic.Field(description="Amount of water in grams (g)")
-    fibre: typing.Optional[float] = pydantic.Field(description="Amount of dietary fiber in grams (g)")
-    sugar: typing.Optional[float] = pydantic.Field(description="Amount of sugar in grams (g)")
+    alcohol: typing.Optional[float]
+    water: typing.Optional[float]
+    fibre: typing.Optional[float]
+    sugar: typing.Optional[float]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

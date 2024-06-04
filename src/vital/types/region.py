@@ -7,10 +7,6 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class Region(str, enum.Enum):
-    """
-    An enumeration.
-    """
-
     US = "us"
     EU = "eu"
     SG = "sg"

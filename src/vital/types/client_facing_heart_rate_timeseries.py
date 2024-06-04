@@ -12,13 +12,9 @@ except ImportError:
 
 
 class ClientFacingHeartRateTimeseries(pydantic.BaseModel):
-    id: typing.Optional[int] = pydantic.Field(description="Deprecated")
-    timezone_offset: typing.Optional[int] = pydantic.Field(
-        description="Time zone UTC offset in seconds. Positive offset indicates east of UTC; negative offset indicates west of UTC; and null indicates the time zone information is unavailable at source."
-    )
-    type: typing.Optional[str] = pydantic.Field(
-        description="The reading type of the measurement. This is applicable only to Cholesterol, IGG and IGE."
-    )
+    id: typing.Optional[int]
+    timezone_offset: typing.Optional[int]
+    type: typing.Optional[str]
     unit: str = pydantic.Field(description="Measured in bpm.")
     timestamp: dt.datetime = pydantic.Field(description="The timestamp of the measurement.")
     value: float = pydantic.Field(description="Heart rate in bpm")

@@ -7,10 +7,6 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class ResponsibleRelationship(str, enum.Enum):
-    """
-    An enumeration.
-    """
-
     SELF = "Self"
     SPOUSE = "Spouse"
     OTHER_RELATIONSHIP = "Other Relationship"

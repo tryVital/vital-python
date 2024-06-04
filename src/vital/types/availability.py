@@ -7,10 +7,6 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class Availability(str, enum.Enum):
-    """
-    An enumeration.
-    """
-
     AVAILABLE = "available"
     UNAVAILABLE = "unavailable"
 

@@ -7,10 +7,6 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class AuthType(str, enum.Enum):
-    """
-    An enumeration.
-    """
-
     PASSWORD = "password"
     OAUTH = "oauth"
     EMAIL = "email"

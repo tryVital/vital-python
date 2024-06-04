@@ -12,13 +12,9 @@ except ImportError:
 
 
 class ClientFacingBloodPressureTimeseries(pydantic.BaseModel):
-    id: typing.Optional[int] = pydantic.Field(description="Deprecated")
-    timezone_offset: typing.Optional[int] = pydantic.Field(
-        description="Time zone UTC offset in seconds. Positive offset indicates east of UTC; negative offset indicates west of UTC; and null indicates the time zone information is unavailable at source."
-    )
-    type: typing.Optional[str] = pydantic.Field(
-        description="The reading type of the measurement. This is applicable only to Cholesterol, IGG and IGE."
-    )
+    id: typing.Optional[int]
+    timezone_offset: typing.Optional[int]
+    type: typing.Optional[str]
     unit: str = pydantic.Field(
         description="The unit of the value. We use SI units where possible, e.g. mmol/L for glucose/cholesterol, bpm for heart rate, etc."
     )

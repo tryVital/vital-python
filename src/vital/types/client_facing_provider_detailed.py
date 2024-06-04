@@ -17,7 +17,7 @@ class ClientFacingProviderDetailed(pydantic.BaseModel):
     name: str = pydantic.Field(description="Name of source of information")
     slug: str = pydantic.Field(description="Slug for designated source")
     description: str = pydantic.Field(description="Description of source of information")
-    logo: typing.Optional[str] = pydantic.Field(description="URL for source logo")
+    logo: typing.Optional[str]
     auth_type: typing.Optional[SourceAuthType]
     supported_resources: typing.Optional[typing.List[ClientFacingResource]]
 

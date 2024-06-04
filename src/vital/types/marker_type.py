@@ -7,10 +7,6 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class MarkerType(str, enum.Enum):
-    """
-    An enumeration.
-    """
-
     BIOMARKER = "biomarker"
     PANEL = "panel"
 
