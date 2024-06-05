@@ -86,7 +86,14 @@ class TestkitClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def create_order(self, *, user_id: str, lab_test_id: str, shipping_details: ShippingAddress) -> PostOrderResponse:
+    def create_order(
+        self,
+        *,
+        user_id: str,
+        lab_test_id: str,
+        shipping_details: ShippingAddress,
+        passthrough: typing.Optional[str] = OMIT,
+    ) -> PostOrderResponse:
         """
         Creates an order for an unregistered testkit
 
@@ -96,13 +103,20 @@ class TestkitClient:
             - lab_test_id: str.
 
             - shipping_details: ShippingAddress.
+
+            - passthrough: typing.Optional[str].
         """
+        _request: typing.Dict[str, typing.Any] = {
+            "user_id": user_id,
+            "lab_test_id": lab_test_id,
+            "shipping_details": shipping_details,
+        }
+        if passthrough is not OMIT:
+            _request["passthrough"] = passthrough
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/order/testkit"),
-            json=jsonable_encoder(
-                {"user_id": user_id, "lab_test_id": lab_test_id, "shipping_details": shipping_details}
-            ),
+            json=jsonable_encoder(_request),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -178,7 +192,12 @@ class AsyncTestkitClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def create_order(
-        self, *, user_id: str, lab_test_id: str, shipping_details: ShippingAddress
+        self,
+        *,
+        user_id: str,
+        lab_test_id: str,
+        shipping_details: ShippingAddress,
+        passthrough: typing.Optional[str] = OMIT,
     ) -> PostOrderResponse:
         """
         Creates an order for an unregistered testkit
@@ -189,13 +208,20 @@ class AsyncTestkitClient:
             - lab_test_id: str.
 
             - shipping_details: ShippingAddress.
+
+            - passthrough: typing.Optional[str].
         """
+        _request: typing.Dict[str, typing.Any] = {
+            "user_id": user_id,
+            "lab_test_id": lab_test_id,
+            "shipping_details": shipping_details,
+        }
+        if passthrough is not OMIT:
+            _request["passthrough"] = passthrough
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/order/testkit"),
-            json=jsonable_encoder(
-                {"user_id": user_id, "lab_test_id": lab_test_id, "shipping_details": shipping_details}
-            ),
+            json=jsonable_encoder(_request),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )

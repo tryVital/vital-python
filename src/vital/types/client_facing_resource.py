@@ -29,6 +29,8 @@ class ClientFacingResource(str, enum.Enum):
     DEVICE = "device"
     WEIGHT = "weight"
     FAT = "fat"
+    BODY_TEMPERATURE = "body_temperature"
+    BODY_TEMPERATURE_DELTA = "body_temperature_delta"
     MEAL = "meal"
     WATER = "water"
     CAFFEINE = "caffeine"
@@ -68,6 +70,8 @@ class ClientFacingResource(str, enum.Enum):
         device: typing.Callable[[], T_Result],
         weight: typing.Callable[[], T_Result],
         fat: typing.Callable[[], T_Result],
+        body_temperature: typing.Callable[[], T_Result],
+        body_temperature_delta: typing.Callable[[], T_Result],
         meal: typing.Callable[[], T_Result],
         water: typing.Callable[[], T_Result],
         caffeine: typing.Callable[[], T_Result],
@@ -127,6 +131,10 @@ class ClientFacingResource(str, enum.Enum):
             return weight()
         if self is ClientFacingResource.FAT:
             return fat()
+        if self is ClientFacingResource.BODY_TEMPERATURE:
+            return body_temperature()
+        if self is ClientFacingResource.BODY_TEMPERATURE_DELTA:
+            return body_temperature_delta()
         if self is ClientFacingResource.MEAL:
             return meal()
         if self is ClientFacingResource.WATER:

@@ -19,6 +19,7 @@ class TeamConfig(pydantic.BaseModel):
     push_historical_data: typing.Optional[bool]
     provider_raw_data: typing.Optional[bool]
     reject_duplicate_connection: typing.Optional[bool]
+    sdk_per_device_activity_timeseries: typing.Optional[bool]
     eds_preferences: typing.Optional[EventDestinationPreferences]
     event_type_prefixes: typing.Optional[typing.List[str]]
 

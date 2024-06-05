@@ -43,6 +43,7 @@ class ClientFacingOrder(pydantic.BaseModel):
     )
     shipping_details: typing.Optional[ShippingAddress]
     activate_by: typing.Optional[str]
+    passthrough: typing.Optional[str]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

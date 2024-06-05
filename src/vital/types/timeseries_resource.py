@@ -14,6 +14,8 @@ class TimeseriesResource(str, enum.Enum):
     BLOOD_PRESSURE = "blood_pressure"
     BODY_FAT = "body_fat"
     BODY_WEIGHT = "body_weight"
+    BODY_TEMPERATURE = "body_temperature"
+    BODY_TEMPERATURE_DELTA = "body_temperature_delta"
     CHOLESTEROL = "cholesterol"
     CHOLESTEROL_LDL = "cholesterol/ldl"
     CHOLESTEROL_HDL = "cholesterol/hdl"
@@ -44,6 +46,8 @@ class TimeseriesResource(str, enum.Enum):
         blood_pressure: typing.Callable[[], T_Result],
         body_fat: typing.Callable[[], T_Result],
         body_weight: typing.Callable[[], T_Result],
+        body_temperature: typing.Callable[[], T_Result],
+        body_temperature_delta: typing.Callable[[], T_Result],
         cholesterol: typing.Callable[[], T_Result],
         cholesterol_ldl: typing.Callable[[], T_Result],
         cholesterol_hdl: typing.Callable[[], T_Result],
@@ -79,6 +83,10 @@ class TimeseriesResource(str, enum.Enum):
             return body_fat()
         if self is TimeseriesResource.BODY_WEIGHT:
             return body_weight()
+        if self is TimeseriesResource.BODY_TEMPERATURE:
+            return body_temperature()
+        if self is TimeseriesResource.BODY_TEMPERATURE_DELTA:
+            return body_temperature_delta()
         if self is TimeseriesResource.CHOLESTEROL:
             return cholesterol()
         if self is TimeseriesResource.CHOLESTEROL_LDL:

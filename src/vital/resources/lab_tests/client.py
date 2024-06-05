@@ -824,6 +824,7 @@ class LabTestsClient:
         consents: typing.Optional[typing.List[Consent]] = OMIT,
         activate_by: typing.Optional[str] = OMIT,
         aoe_answers: typing.Optional[typing.List[AoEAnswer]] = OMIT,
+        passthrough: typing.Optional[str] = OMIT,
         patient_details: PatientDetails,
         patient_address: PatientAddressCompatibleInput,
     ) -> PostOrderResponse:
@@ -847,6 +848,8 @@ class LabTestsClient:
 
             - aoe_answers: typing.Optional[typing.List[AoEAnswer]].
 
+            - passthrough: typing.Optional[str].
+
             - patient_details: PatientDetails.
 
             - patient_address: PatientAddressCompatibleInput.
@@ -869,6 +872,8 @@ class LabTestsClient:
             _request["activate_by"] = activate_by
         if aoe_answers is not OMIT:
             _request["aoe_answers"] = aoe_answers
+        if passthrough is not OMIT:
+            _request["passthrough"] = passthrough
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/order"),
@@ -1792,6 +1797,7 @@ class AsyncLabTestsClient:
         consents: typing.Optional[typing.List[Consent]] = OMIT,
         activate_by: typing.Optional[str] = OMIT,
         aoe_answers: typing.Optional[typing.List[AoEAnswer]] = OMIT,
+        passthrough: typing.Optional[str] = OMIT,
         patient_details: PatientDetails,
         patient_address: PatientAddressCompatibleInput,
     ) -> PostOrderResponse:
@@ -1815,6 +1821,8 @@ class AsyncLabTestsClient:
 
             - aoe_answers: typing.Optional[typing.List[AoEAnswer]].
 
+            - passthrough: typing.Optional[str].
+
             - patient_details: PatientDetails.
 
             - patient_address: PatientAddressCompatibleInput.
@@ -1837,6 +1845,8 @@ class AsyncLabTestsClient:
             _request["activate_by"] = activate_by
         if aoe_answers is not OMIT:
             _request["aoe_answers"] = aoe_answers
+        if passthrough is not OMIT:
+            _request["passthrough"] = passthrough
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/order"),
