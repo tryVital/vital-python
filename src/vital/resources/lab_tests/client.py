@@ -602,6 +602,7 @@ class LabTestsClient:
         Information returned:
 
         - Whether a given zip code is served by our Phlebotomy network.
+        - List of Lab locations in the area.
 
         Parameters:
             - zip_code: str. Zip code of the area to check
@@ -1575,6 +1576,7 @@ class AsyncLabTestsClient:
         Information returned:
 
         - Whether a given zip code is served by our Phlebotomy network.
+        - List of Lab locations in the area.
 
         Parameters:
             - zip_code: str. Zip code of the area to check

@@ -30,6 +30,12 @@ from .client_facing_blood_oxygen_timeseries import ClientFacingBloodOxygenTimese
 from .client_facing_blood_pressure_timeseries import ClientFacingBloodPressureTimeseries
 from .client_facing_body import ClientFacingBody
 from .client_facing_body_fat_timeseries import ClientFacingBodyFatTimeseries
+from .client_facing_body_temperature_delta_sample import ClientFacingBodyTemperatureDeltaSample
+from .client_facing_body_temperature_delta_sample_sensor_location import (
+    ClientFacingBodyTemperatureDeltaSampleSensorLocation,
+)
+from .client_facing_body_temperature_sample import ClientFacingBodyTemperatureSample
+from .client_facing_body_temperature_sample_sensor_location import ClientFacingBodyTemperatureSampleSensorLocation
 from .client_facing_body_weight_timeseries import ClientFacingBodyWeightTimeseries
 from .client_facing_caffeine_timeseries import ClientFacingCaffeineTimeseries
 from .client_facing_calories_active_timeseries import ClientFacingCaloriesActiveTimeseries
@@ -41,6 +47,12 @@ from .client_facing_electrocardiogram_voltage_timeseries import ClientFacingElec
 from .client_facing_floors_climbed_timeseries import ClientFacingFloorsClimbedTimeseries
 from .client_facing_food import ClientFacingFood
 from .client_facing_glucose_timeseries import ClientFacingGlucoseTimeseries
+from .client_facing_grouped_timeseries_response_client_facing_body_temperature_delta_sample import (
+    ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureDeltaSample,
+)
+from .client_facing_grouped_timeseries_response_client_facing_body_temperature_sample import (
+    ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureSample,
+)
 from .client_facing_heart_rate import ClientFacingHeartRate
 from .client_facing_heart_rate_timeseries import ClientFacingHeartRateTimeseries
 from .client_facing_hrv_timeseries import ClientFacingHrvTimeseries
@@ -48,6 +60,7 @@ from .client_facing_hypnogram_timeseries import ClientFacingHypnogramTimeseries
 from .client_facing_ige_timeseries import ClientFacingIgeTimeseries
 from .client_facing_igg_timeseries import ClientFacingIggTimeseries
 from .client_facing_lab import ClientFacingLab
+from .client_facing_lab_location import ClientFacingLabLocation
 from .client_facing_lab_test import ClientFacingLabTest
 from .client_facing_loinc import ClientFacingLoinc
 from .client_facing_marker import ClientFacingMarker
@@ -93,6 +106,12 @@ from .client_facing_stress_level_timeseries import ClientFacingStressLevelTimese
 from .client_facing_team import ClientFacingTeam
 from .client_facing_test_kit_order_details import ClientFacingTestKitOrderDetails
 from .client_facing_testkit_order import ClientFacingTestkitOrder
+from .client_facing_timeseries_group_client_facing_body_temperature_delta_sample import (
+    ClientFacingTimeseriesGroupClientFacingBodyTemperatureDeltaSample,
+)
+from .client_facing_timeseries_group_client_facing_body_temperature_sample import (
+    ClientFacingTimeseriesGroupClientFacingBodyTemperatureSample,
+)
 from .client_facing_user import ClientFacingUser
 from .client_facing_user_key import ClientFacingUserKey
 from .client_facing_vo_2_max_timeseries import ClientFacingVo2MaxTimeseries
@@ -178,6 +197,7 @@ from .historical_pull_status import HistoricalPullStatus
 from .historical_pull_timeline import HistoricalPullTimeline
 from .http_validation_error import HttpValidationError
 from .jpeg import Jpeg
+from .lab_location_metadata import LabLocationMetadata
 from .lab_results_metadata import LabResultsMetadata
 from .lab_results_raw import LabResultsRaw
 from .lab_results_raw_results import LabResultsRawResults
@@ -217,6 +237,7 @@ from .provider_link_response_state import ProviderLinkResponseState
 from .provider_mfa_request import ProviderMfaRequest
 from .provider_mfa_request_method import ProviderMfaRequestMethod
 from .providers import Providers
+from .psc_area_info import PscAreaInfo
 from .question import Question
 from .question_type import QuestionType
 from .raw_activity import RawActivity
@@ -289,6 +310,10 @@ __all__ = [
     "ClientFacingBloodPressureTimeseries",
     "ClientFacingBody",
     "ClientFacingBodyFatTimeseries",
+    "ClientFacingBodyTemperatureDeltaSample",
+    "ClientFacingBodyTemperatureDeltaSampleSensorLocation",
+    "ClientFacingBodyTemperatureSample",
+    "ClientFacingBodyTemperatureSampleSensorLocation",
     "ClientFacingBodyWeightTimeseries",
     "ClientFacingCaffeineTimeseries",
     "ClientFacingCaloriesActiveTimeseries",
@@ -300,6 +325,8 @@ __all__ = [
     "ClientFacingFloorsClimbedTimeseries",
     "ClientFacingFood",
     "ClientFacingGlucoseTimeseries",
+    "ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureDeltaSample",
+    "ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureSample",
     "ClientFacingHeartRate",
     "ClientFacingHeartRateTimeseries",
     "ClientFacingHrvTimeseries",
@@ -307,6 +334,7 @@ __all__ = [
     "ClientFacingIgeTimeseries",
     "ClientFacingIggTimeseries",
     "ClientFacingLab",
+    "ClientFacingLabLocation",
     "ClientFacingLabTest",
     "ClientFacingLoinc",
     "ClientFacingMarker",
@@ -350,6 +378,8 @@ __all__ = [
     "ClientFacingTeam",
     "ClientFacingTestKitOrderDetails",
     "ClientFacingTestkitOrder",
+    "ClientFacingTimeseriesGroupClientFacingBodyTemperatureDeltaSample",
+    "ClientFacingTimeseriesGroupClientFacingBodyTemperatureSample",
     "ClientFacingUser",
     "ClientFacingUserKey",
     "ClientFacingVo2MaxTimeseries",
@@ -435,6 +465,7 @@ __all__ = [
     "HistoricalPullTimeline",
     "HttpValidationError",
     "Jpeg",
+    "LabLocationMetadata",
     "LabResultsMetadata",
     "LabResultsRaw",
     "LabResultsRawResults",
@@ -474,6 +505,7 @@ __all__ = [
     "ProviderMfaRequest",
     "ProviderMfaRequestMethod",
     "Providers",
+    "PscAreaInfo",
     "Question",
     "QuestionType",
     "RawActivity",

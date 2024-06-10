@@ -4,8 +4,8 @@ import datetime as dt
 import typing
 
 from ..core.datetime_utils import serialize_datetime
-from .phlebotomy_area_info import PhlebotomyAreaInfo
-from .psc_area_info import PscAreaInfo
+from .client_facing_body_temperature_sample import ClientFacingBodyTemperatureSample
+from .client_facing_source import ClientFacingSource
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -13,10 +13,9 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class AreaInfo(pydantic.BaseModel):
-    zip_code: str
-    phlebotomy: PhlebotomyAreaInfo
-    psc: PscAreaInfo
+class ClientFacingTimeseriesGroupClientFacingBodyTemperatureSample(pydantic.BaseModel):
+    source: ClientFacingSource
+    data: typing.List[ClientFacingBodyTemperatureSample]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

@@ -20,6 +20,12 @@ from ...types.client_facing_distance_timeseries import ClientFacingDistanceTimes
 from ...types.client_facing_electrocardiogram_voltage_timeseries import ClientFacingElectrocardiogramVoltageTimeseries
 from ...types.client_facing_floors_climbed_timeseries import ClientFacingFloorsClimbedTimeseries
 from ...types.client_facing_glucose_timeseries import ClientFacingGlucoseTimeseries
+from ...types.client_facing_grouped_timeseries_response_client_facing_body_temperature_delta_sample import (
+    ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureDeltaSample,
+)
+from ...types.client_facing_grouped_timeseries_response_client_facing_body_temperature_sample import (
+    ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureSample,
+)
 from ...types.client_facing_heart_rate_timeseries import ClientFacingHeartRateTimeseries
 from ...types.client_facing_hrv_timeseries import ClientFacingHrvTimeseries
 from ...types.client_facing_hypnogram_timeseries import ClientFacingHypnogramTimeseries
@@ -980,6 +986,110 @@ class VitalsClient:
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedCholesterolResponse, _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def body_temperature_delta_grouped(
+        self,
+        user_id: str,
+        *,
+        cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        start_date: str,
+        end_date: typing.Optional[str] = None,
+    ) -> ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureDeltaSample:
+        """
+        Parameters:
+            - user_id: str.
+
+            - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - provider: typing.Optional[str]. Provider oura/strava etc
+
+            - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+            - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.body_temperature_delta_grouped(
+            user_id="user_id",
+            start_date="start_date",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/body_temperature_delta/grouped"
+            ),
+            params=remove_none_from_dict(
+                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+            ),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureDeltaSample, _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def body_temperature_grouped(
+        self,
+        user_id: str,
+        *,
+        cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        start_date: str,
+        end_date: typing.Optional[str] = None,
+    ) -> ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureSample:
+        """
+        Parameters:
+            - user_id: str.
+
+            - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - provider: typing.Optional[str]. Provider oura/strava etc
+
+            - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+            - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.body_temperature_grouped(
+            user_id="user_id",
+            start_date="start_date",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/body_temperature/grouped"
+            ),
+            params=remove_none_from_dict(
+                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+            ),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureSample, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -3392,6 +3502,110 @@ class AsyncVitalsClient:
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedCholesterolResponse, _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def body_temperature_delta_grouped(
+        self,
+        user_id: str,
+        *,
+        cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        start_date: str,
+        end_date: typing.Optional[str] = None,
+    ) -> ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureDeltaSample:
+        """
+        Parameters:
+            - user_id: str.
+
+            - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - provider: typing.Optional[str]. Provider oura/strava etc
+
+            - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+            - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.vitals.body_temperature_delta_grouped(
+            user_id="user_id",
+            start_date="start_date",
+        )
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/body_temperature_delta/grouped"
+            ),
+            params=remove_none_from_dict(
+                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+            ),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureDeltaSample, _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def body_temperature_grouped(
+        self,
+        user_id: str,
+        *,
+        cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        start_date: str,
+        end_date: typing.Optional[str] = None,
+    ) -> ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureSample:
+        """
+        Parameters:
+            - user_id: str.
+
+            - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - provider: typing.Optional[str]. Provider oura/strava etc
+
+            - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+            - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.vitals.body_temperature_grouped(
+            user_id="user_id",
+            start_date="start_date",
+        )
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/body_temperature/grouped"
+            ),
+            params=remove_none_from_dict(
+                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+            ),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureSample, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
