@@ -238,6 +238,8 @@ from .provider_mfa_request import ProviderMfaRequest
 from .provider_mfa_request_method import ProviderMfaRequestMethod
 from .providers import Providers
 from .psc_area_info import PscAreaInfo
+from .psc_area_info_details import PscAreaInfoDetails
+from .psc_info import PscInfo
 from .question import Question
 from .question_type import QuestionType
 from .raw_activity import RawActivity
@@ -506,6 +508,8 @@ __all__ = [
     "ProviderMfaRequestMethod",
     "Providers",
     "PscAreaInfo",
+    "PscAreaInfoDetails",
+    "PscInfo",
     "Question",
     "QuestionType",
     "RawActivity",

@@ -4,7 +4,7 @@ import datetime as dt
 import typing
 
 from ..core.datetime_utils import serialize_datetime
-from .psc_area_info_details import PscAreaInfoDetails
+from .client_facing_lab_location import ClientFacingLabLocation
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -12,8 +12,9 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class PscAreaInfo(pydantic.BaseModel):
-    locations: typing.Dict[str, PscAreaInfoDetails]
+class PscInfo(pydantic.BaseModel):
+    lab_id: int
+    pscs: typing.List[ClientFacingLabLocation]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

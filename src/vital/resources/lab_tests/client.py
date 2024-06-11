@@ -35,6 +35,7 @@ from ...types.patient_address_compatible_input import PatientAddressCompatibleIn
 from ...types.patient_details import PatientDetails
 from ...types.physician_create_request import PhysicianCreateRequest
 from ...types.post_order_response import PostOrderResponse
+from ...types.psc_info import PscInfo
 from ...types.us_address import UsAddress
 
 try:
@@ -633,6 +634,70 @@ class LabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    def get_psc_info(self, *, zip_code: str, lab_id: int) -> PscInfo:
+        """
+        Parameters:
+            - zip_code: str. Zip code of the area to check
+
+            - lab_id: int. Lab ID to check for PSCs
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_psc_info(
+            zip_code="zip_code",
+            lab_id=1,
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/order/psc/info"),
+            params=remove_none_from_dict({"zip_code": zip_code, "lab_id": lab_id}),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(PscInfo, _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def get_order_psc_info(self, order_id: str) -> PscInfo:
+        """
+        Parameters:
+            - order_id: str. Your Order ID.
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_order_psc_info(
+            order_id="order_id",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/psc/info"),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(PscInfo, _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     def get_result_pdf(self, order_id: str) -> typing.Iterator[bytes]:
         """
         This endpoint returns the lab results for the order.
@@ -961,6 +1026,7 @@ class LabTestsClient:
         end_date: typing.Optional[dt.datetime] = None,
         user_id: typing.Optional[str] = None,
         patient_name: typing.Optional[str] = None,
+        shipping_recipient_name: typing.Optional[str] = None,
         order_ids: typing.Optional[typing.Union[str, typing.List[str]]] = None,
         page: typing.Optional[int] = None,
         size: typing.Optional[int] = None,
@@ -976,6 +1042,8 @@ class LabTestsClient:
             - user_id: typing.Optional[str]. Filter by user ID.
 
             - patient_name: typing.Optional[str]. Filter by patient name.
+
+            - shipping_recipient_name: typing.Optional[str]. Filter by shipping recipient name.
 
             - order_ids: typing.Optional[typing.Union[str, typing.List[str]]]. Filter by order ids.
 
@@ -999,6 +1067,7 @@ class LabTestsClient:
                     "end_date": serialize_datetime(end_date) if end_date is not None else None,
                     "user_id": user_id,
                     "patient_name": patient_name,
+                    "shipping_recipient_name": shipping_recipient_name,
                     "order_ids": order_ids,
                     "page": page,
                     "size": size,
@@ -1607,6 +1676,70 @@ class AsyncLabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    async def get_psc_info(self, *, zip_code: str, lab_id: int) -> PscInfo:
+        """
+        Parameters:
+            - zip_code: str. Zip code of the area to check
+
+            - lab_id: int. Lab ID to check for PSCs
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.lab_tests.get_psc_info(
+            zip_code="zip_code",
+            lab_id=1,
+        )
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/order/psc/info"),
+            params=remove_none_from_dict({"zip_code": zip_code, "lab_id": lab_id}),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(PscInfo, _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def get_order_psc_info(self, order_id: str) -> PscInfo:
+        """
+        Parameters:
+            - order_id: str. Your Order ID.
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.lab_tests.get_order_psc_info(
+            order_id="order_id",
+        )
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/psc/info"),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(PscInfo, _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     async def get_result_pdf(self, order_id: str) -> typing.AsyncIterator[bytes]:
         """
         This endpoint returns the lab results for the order.
@@ -1935,6 +2068,7 @@ class AsyncLabTestsClient:
         end_date: typing.Optional[dt.datetime] = None,
         user_id: typing.Optional[str] = None,
         patient_name: typing.Optional[str] = None,
+        shipping_recipient_name: typing.Optional[str] = None,
         order_ids: typing.Optional[typing.Union[str, typing.List[str]]] = None,
         page: typing.Optional[int] = None,
         size: typing.Optional[int] = None,
@@ -1950,6 +2084,8 @@ class AsyncLabTestsClient:
             - user_id: typing.Optional[str]. Filter by user ID.
 
             - patient_name: typing.Optional[str]. Filter by patient name.
+
+            - shipping_recipient_name: typing.Optional[str]. Filter by shipping recipient name.
 
             - order_ids: typing.Optional[typing.Union[str, typing.List[str]]]. Filter by order ids.
 
@@ -1973,6 +2109,7 @@ class AsyncLabTestsClient:
                     "end_date": serialize_datetime(end_date) if end_date is not None else None,
                     "user_id": user_id,
                     "patient_name": patient_name,
+                    "shipping_recipient_name": shipping_recipient_name,
                     "order_ids": order_ids,
                     "page": page,
                     "size": size,
