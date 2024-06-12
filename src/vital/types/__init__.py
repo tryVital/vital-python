@@ -2,6 +2,7 @@
 
 from .activity_v_2_in_db import ActivityV2InDb
 from .address import Address
+from .allowed_radius import AllowedRadius
 from .answer import Answer
 from .ao_e import AoE
 from .ao_e_answer import AoEAnswer
@@ -284,6 +285,7 @@ from .workout_v_2_in_db import WorkoutV2InDb
 __all__ = [
     "ActivityV2InDb",
     "Address",
+    "AllowedRadius",
     "Answer",
     "AoE",
     "AoEAnswer",

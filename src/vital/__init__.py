@@ -3,6 +3,7 @@
 from .types import (
     ActivityV2InDb,
     Address,
+    AllowedRadius,
     Answer,
     AoE,
     AoEAnswer,
@@ -294,6 +295,7 @@ from .environment import VitalEnvironment
 __all__ = [
     "ActivityV2InDb",
     "Address",
+    "AllowedRadius",
     "Answer",
     "AoE",
     "AoEAnswer",

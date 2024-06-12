@@ -11,6 +11,7 @@ from ...core.datetime_utils import serialize_datetime
 from ...core.jsonable_encoder import jsonable_encoder
 from ...core.remove_none_from_dict import remove_none_from_dict
 from ...errors.unprocessable_entity_error import UnprocessableEntityError
+from ...types.allowed_radius import AllowedRadius
 from ...types.ao_e_answer import AoEAnswer
 from ...types.appointment_availability_slots import AppointmentAvailabilitySlots
 from ...types.appointment_provider import AppointmentProvider
@@ -596,7 +597,7 @@ class LabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_area_info(self, *, zip_code: str) -> AreaInfo:
+    def get_area_info(self, *, zip_code: str, radius: typing.Optional[AllowedRadius] = None) -> AreaInfo:
         """
         GET information about an area with respect to lab-testing.
 
@@ -607,6 +608,8 @@ class LabTestsClient:
 
         Parameters:
             - zip_code: str. Zip code of the area to check
+
+            - radius: typing.Optional[AllowedRadius]. Radius in which to search (meters)
         ---
         from vital.client import Vital
 
@@ -620,7 +623,7 @@ class LabTestsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/order/area/info"),
-            params=remove_none_from_dict({"zip_code": zip_code}),
+            params=remove_none_from_dict({"zip_code": zip_code, "radius": radius}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -634,12 +637,14 @@ class LabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_psc_info(self, *, zip_code: str, lab_id: int) -> PscInfo:
+    def get_psc_info(self, *, zip_code: str, lab_id: int, radius: typing.Optional[AllowedRadius] = None) -> PscInfo:
         """
         Parameters:
             - zip_code: str. Zip code of the area to check
 
             - lab_id: int. Lab ID to check for PSCs
+
+            - radius: typing.Optional[AllowedRadius]. Radius in which to search. (meters)
         ---
         from vital.client import Vital
 
@@ -654,7 +659,7 @@ class LabTestsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/order/psc/info"),
-            params=remove_none_from_dict({"zip_code": zip_code, "lab_id": lab_id}),
+            params=remove_none_from_dict({"zip_code": zip_code, "lab_id": lab_id, "radius": radius}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -668,10 +673,12 @@ class LabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_order_psc_info(self, order_id: str) -> PscInfo:
+    def get_order_psc_info(self, order_id: str, *, radius: typing.Optional[AllowedRadius] = None) -> PscInfo:
         """
         Parameters:
             - order_id: str. Your Order ID.
+
+            - radius: typing.Optional[AllowedRadius]. Radius in which to search. (meters)
         ---
         from vital.client import Vital
 
@@ -685,6 +692,7 @@ class LabTestsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/psc/info"),
+            params=remove_none_from_dict({"radius": radius}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -1638,7 +1646,7 @@ class AsyncLabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_area_info(self, *, zip_code: str) -> AreaInfo:
+    async def get_area_info(self, *, zip_code: str, radius: typing.Optional[AllowedRadius] = None) -> AreaInfo:
         """
         GET information about an area with respect to lab-testing.
 
@@ -1649,6 +1657,8 @@ class AsyncLabTestsClient:
 
         Parameters:
             - zip_code: str. Zip code of the area to check
+
+            - radius: typing.Optional[AllowedRadius]. Radius in which to search (meters)
         ---
         from vital.client import AsyncVital
 
@@ -1662,7 +1672,7 @@ class AsyncLabTestsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/order/area/info"),
-            params=remove_none_from_dict({"zip_code": zip_code}),
+            params=remove_none_from_dict({"zip_code": zip_code, "radius": radius}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -1676,12 +1686,16 @@ class AsyncLabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_psc_info(self, *, zip_code: str, lab_id: int) -> PscInfo:
+    async def get_psc_info(
+        self, *, zip_code: str, lab_id: int, radius: typing.Optional[AllowedRadius] = None
+    ) -> PscInfo:
         """
         Parameters:
             - zip_code: str. Zip code of the area to check
 
             - lab_id: int. Lab ID to check for PSCs
+
+            - radius: typing.Optional[AllowedRadius]. Radius in which to search. (meters)
         ---
         from vital.client import AsyncVital
 
@@ -1696,7 +1710,7 @@ class AsyncLabTestsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/order/psc/info"),
-            params=remove_none_from_dict({"zip_code": zip_code, "lab_id": lab_id}),
+            params=remove_none_from_dict({"zip_code": zip_code, "lab_id": lab_id, "radius": radius}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -1710,10 +1724,12 @@ class AsyncLabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_order_psc_info(self, order_id: str) -> PscInfo:
+    async def get_order_psc_info(self, order_id: str, *, radius: typing.Optional[AllowedRadius] = None) -> PscInfo:
         """
         Parameters:
             - order_id: str. Your Order ID.
+
+            - radius: typing.Optional[AllowedRadius]. Radius in which to search. (meters)
         ---
         from vital.client import AsyncVital
 
@@ -1727,6 +1743,7 @@ class AsyncLabTestsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/psc/info"),
+            params=remove_none_from_dict({"radius": radius}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
