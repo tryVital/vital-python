@@ -15,6 +15,7 @@ except ImportError:
 class UserResourcesResponse(pydantic.BaseModel):
     data: typing.List[SingleUserResourceResponse]
     next: typing.Optional[str]
+    next_cursor: typing.Optional[str]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

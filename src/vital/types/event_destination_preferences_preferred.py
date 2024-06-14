@@ -10,12 +10,14 @@ class EventDestinationPreferencesPreferred(str, enum.Enum):
     CLOUD_PUBSUB = "cloud_pubsub"
     RABBITMQ = "rabbitmq"
     SVIX = "svix"
+    AZURE_AMQP = "azure_amqp"
 
     def visit(
         self,
         cloud_pubsub: typing.Callable[[], T_Result],
         rabbitmq: typing.Callable[[], T_Result],
         svix: typing.Callable[[], T_Result],
+        azure_amqp: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is EventDestinationPreferencesPreferred.CLOUD_PUBSUB:
             return cloud_pubsub()
@@ -23,3 +25,5 @@ class EventDestinationPreferencesPreferred(str, enum.Enum):
             return rabbitmq()
         if self is EventDestinationPreferencesPreferred.SVIX:
             return svix()
+        if self is EventDestinationPreferencesPreferred.AZURE_AMQP:
+            return azure_amqp()

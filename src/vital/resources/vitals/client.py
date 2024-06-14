@@ -77,6 +77,7 @@ class VitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -86,6 +87,8 @@ class VitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -107,7 +110,13 @@ class VitalsClient:
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/vo2_max/grouped"),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -127,6 +136,7 @@ class VitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -136,6 +146,8 @@ class VitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -159,7 +171,13 @@ class VitalsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/stress_level/grouped"
             ),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -179,6 +197,7 @@ class VitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -188,6 +207,8 @@ class VitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -211,7 +232,13 @@ class VitalsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/mindfulness_minutes/grouped"
             ),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -231,6 +258,7 @@ class VitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -240,6 +268,8 @@ class VitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -263,7 +293,13 @@ class VitalsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/caffeine/grouped"
             ),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -283,6 +319,7 @@ class VitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -292,6 +329,8 @@ class VitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -313,7 +352,13 @@ class VitalsClient:
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/water/grouped"),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -333,6 +378,7 @@ class VitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -342,6 +388,8 @@ class VitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -363,7 +411,13 @@ class VitalsClient:
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/steps/grouped"),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -383,6 +437,7 @@ class VitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -392,6 +447,8 @@ class VitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -415,7 +472,13 @@ class VitalsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/floors_climbed/grouped"
             ),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -435,6 +498,7 @@ class VitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -444,6 +508,8 @@ class VitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -467,7 +533,13 @@ class VitalsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/distance/grouped"
             ),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -487,6 +559,7 @@ class VitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -496,6 +569,8 @@ class VitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -519,7 +594,13 @@ class VitalsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/calories_basal/grouped"
             ),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -539,6 +620,7 @@ class VitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -548,6 +630,8 @@ class VitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -571,7 +655,13 @@ class VitalsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/calories_active/grouped"
             ),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -591,6 +681,7 @@ class VitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -600,6 +691,8 @@ class VitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -623,7 +716,13 @@ class VitalsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/respiratory_rate/grouped"
             ),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -643,6 +742,7 @@ class VitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -652,6 +752,8 @@ class VitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -673,7 +775,13 @@ class VitalsClient:
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/ige/grouped"),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -693,6 +801,7 @@ class VitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -702,6 +811,8 @@ class VitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -723,7 +834,13 @@ class VitalsClient:
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/igg/grouped"),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -743,6 +860,7 @@ class VitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -752,6 +870,8 @@ class VitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -775,7 +895,13 @@ class VitalsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/hypnogram/grouped"
             ),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -795,6 +921,7 @@ class VitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -804,6 +931,8 @@ class VitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -825,7 +954,13 @@ class VitalsClient:
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/hrv/grouped"),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -845,6 +980,7 @@ class VitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -854,6 +990,8 @@ class VitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -877,7 +1015,13 @@ class VitalsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/heartrate/grouped"
             ),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -897,6 +1041,7 @@ class VitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -906,6 +1051,8 @@ class VitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -927,7 +1074,13 @@ class VitalsClient:
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/glucose/grouped"),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -947,6 +1100,7 @@ class VitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -956,6 +1110,8 @@ class VitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -979,7 +1135,13 @@ class VitalsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/cholesterol/grouped"
             ),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -999,6 +1161,7 @@ class VitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -1008,6 +1171,8 @@ class VitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -1031,7 +1196,13 @@ class VitalsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/body_temperature_delta/grouped"
             ),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -1051,6 +1222,7 @@ class VitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -1060,6 +1232,8 @@ class VitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -1083,7 +1257,13 @@ class VitalsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/body_temperature/grouped"
             ),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -1103,6 +1283,7 @@ class VitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -1112,6 +1293,8 @@ class VitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -1135,7 +1318,13 @@ class VitalsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/body_weight/grouped"
             ),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -1155,6 +1344,7 @@ class VitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -1164,6 +1354,8 @@ class VitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -1187,7 +1379,13 @@ class VitalsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/body_fat/grouped"
             ),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -1207,6 +1405,7 @@ class VitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -1216,6 +1415,8 @@ class VitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -1239,7 +1440,13 @@ class VitalsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/blood_oxygen/grouped"
             ),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -1259,6 +1466,7 @@ class VitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -1268,6 +1476,8 @@ class VitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -1291,7 +1501,13 @@ class VitalsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/electrocardiogram_voltage/grouped"
             ),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -1311,6 +1527,7 @@ class VitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -1320,6 +1537,8 @@ class VitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -1343,7 +1562,13 @@ class VitalsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/blood_pressure/grouped"
             ),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -2593,6 +2818,7 @@ class AsyncVitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -2602,6 +2828,8 @@ class AsyncVitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -2623,7 +2851,13 @@ class AsyncVitalsClient:
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/vo2_max/grouped"),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -2643,6 +2877,7 @@ class AsyncVitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -2652,6 +2887,8 @@ class AsyncVitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -2675,7 +2912,13 @@ class AsyncVitalsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/stress_level/grouped"
             ),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -2695,6 +2938,7 @@ class AsyncVitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -2704,6 +2948,8 @@ class AsyncVitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -2727,7 +2973,13 @@ class AsyncVitalsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/mindfulness_minutes/grouped"
             ),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -2747,6 +2999,7 @@ class AsyncVitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -2756,6 +3009,8 @@ class AsyncVitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -2779,7 +3034,13 @@ class AsyncVitalsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/caffeine/grouped"
             ),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -2799,6 +3060,7 @@ class AsyncVitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -2808,6 +3070,8 @@ class AsyncVitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -2829,7 +3093,13 @@ class AsyncVitalsClient:
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/water/grouped"),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -2849,6 +3119,7 @@ class AsyncVitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -2858,6 +3129,8 @@ class AsyncVitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -2879,7 +3152,13 @@ class AsyncVitalsClient:
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/steps/grouped"),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -2899,6 +3178,7 @@ class AsyncVitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -2908,6 +3188,8 @@ class AsyncVitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -2931,7 +3213,13 @@ class AsyncVitalsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/floors_climbed/grouped"
             ),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -2951,6 +3239,7 @@ class AsyncVitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -2960,6 +3249,8 @@ class AsyncVitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -2983,7 +3274,13 @@ class AsyncVitalsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/distance/grouped"
             ),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -3003,6 +3300,7 @@ class AsyncVitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -3012,6 +3310,8 @@ class AsyncVitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -3035,7 +3335,13 @@ class AsyncVitalsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/calories_basal/grouped"
             ),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -3055,6 +3361,7 @@ class AsyncVitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -3064,6 +3371,8 @@ class AsyncVitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -3087,7 +3396,13 @@ class AsyncVitalsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/calories_active/grouped"
             ),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -3107,6 +3422,7 @@ class AsyncVitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -3116,6 +3432,8 @@ class AsyncVitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -3139,7 +3457,13 @@ class AsyncVitalsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/respiratory_rate/grouped"
             ),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -3159,6 +3483,7 @@ class AsyncVitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -3168,6 +3493,8 @@ class AsyncVitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -3189,7 +3516,13 @@ class AsyncVitalsClient:
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/ige/grouped"),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -3209,6 +3542,7 @@ class AsyncVitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -3218,6 +3552,8 @@ class AsyncVitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -3239,7 +3575,13 @@ class AsyncVitalsClient:
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/igg/grouped"),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -3259,6 +3601,7 @@ class AsyncVitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -3268,6 +3611,8 @@ class AsyncVitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -3291,7 +3636,13 @@ class AsyncVitalsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/hypnogram/grouped"
             ),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -3311,6 +3662,7 @@ class AsyncVitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -3320,6 +3672,8 @@ class AsyncVitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -3341,7 +3695,13 @@ class AsyncVitalsClient:
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/hrv/grouped"),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -3361,6 +3721,7 @@ class AsyncVitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -3370,6 +3731,8 @@ class AsyncVitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -3393,7 +3756,13 @@ class AsyncVitalsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/heartrate/grouped"
             ),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -3413,6 +3782,7 @@ class AsyncVitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -3422,6 +3792,8 @@ class AsyncVitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -3443,7 +3815,13 @@ class AsyncVitalsClient:
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/glucose/grouped"),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -3463,6 +3841,7 @@ class AsyncVitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -3472,6 +3851,8 @@ class AsyncVitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -3495,7 +3876,13 @@ class AsyncVitalsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/cholesterol/grouped"
             ),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -3515,6 +3902,7 @@ class AsyncVitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -3524,6 +3912,8 @@ class AsyncVitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -3547,7 +3937,13 @@ class AsyncVitalsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/body_temperature_delta/grouped"
             ),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -3567,6 +3963,7 @@ class AsyncVitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -3576,6 +3973,8 @@ class AsyncVitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -3599,7 +3998,13 @@ class AsyncVitalsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/body_temperature/grouped"
             ),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -3619,6 +4024,7 @@ class AsyncVitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -3628,6 +4034,8 @@ class AsyncVitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -3651,7 +4059,13 @@ class AsyncVitalsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/body_weight/grouped"
             ),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -3671,6 +4085,7 @@ class AsyncVitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -3680,6 +4095,8 @@ class AsyncVitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -3703,7 +4120,13 @@ class AsyncVitalsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/body_fat/grouped"
             ),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -3723,6 +4146,7 @@ class AsyncVitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -3732,6 +4156,8 @@ class AsyncVitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -3755,7 +4181,13 @@ class AsyncVitalsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/blood_oxygen/grouped"
             ),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -3775,6 +4207,7 @@ class AsyncVitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -3784,6 +4217,8 @@ class AsyncVitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -3807,7 +4242,13 @@ class AsyncVitalsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/electrocardiogram_voltage/grouped"
             ),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -3827,6 +4268,7 @@ class AsyncVitalsClient:
         user_id: str,
         *,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
@@ -3836,6 +4278,8 @@ class AsyncVitalsClient:
             - user_id: str.
 
             - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
 
             - provider: typing.Optional[str]. Provider oura/strava etc
 
@@ -3859,7 +4303,13 @@ class AsyncVitalsClient:
                 f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/blood_pressure/grouped"
             ),
             params=remove_none_from_dict(
-                {"cursor": cursor, "provider": provider, "start_date": start_date, "end_date": end_date}
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,

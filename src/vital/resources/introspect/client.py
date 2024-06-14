@@ -30,6 +30,7 @@ class IntrospectClient:
         provider: typing.Optional[Providers] = None,
         user_limit: typing.Optional[int] = None,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
     ) -> UserResourcesResponse:
         """
         Parameters:
@@ -40,6 +41,8 @@ class IntrospectClient:
             - user_limit: typing.Optional[int].
 
             - cursor: typing.Optional[str].
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
         ---
         from vital.client import Vital
 
@@ -52,7 +55,13 @@ class IntrospectClient:
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/introspect/resources"),
             params=remove_none_from_dict(
-                {"user_id": user_id, "provider": provider, "user_limit": user_limit, "cursor": cursor}
+                {
+                    "user_id": user_id,
+                    "provider": provider,
+                    "user_limit": user_limit,
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -74,6 +83,7 @@ class IntrospectClient:
         provider: typing.Optional[Providers] = None,
         user_limit: typing.Optional[int] = None,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
     ) -> UserHistoricalPullsResponse:
         """
         Parameters:
@@ -84,6 +94,8 @@ class IntrospectClient:
             - user_limit: typing.Optional[int].
 
             - cursor: typing.Optional[str].
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
         ---
         from vital.client import Vital
 
@@ -96,7 +108,13 @@ class IntrospectClient:
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/introspect/historical_pull"),
             params=remove_none_from_dict(
-                {"user_id": user_id, "provider": provider, "user_limit": user_limit, "cursor": cursor}
+                {
+                    "user_id": user_id,
+                    "provider": provider,
+                    "user_limit": user_limit,
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -123,6 +141,7 @@ class AsyncIntrospectClient:
         provider: typing.Optional[Providers] = None,
         user_limit: typing.Optional[int] = None,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
     ) -> UserResourcesResponse:
         """
         Parameters:
@@ -133,6 +152,8 @@ class AsyncIntrospectClient:
             - user_limit: typing.Optional[int].
 
             - cursor: typing.Optional[str].
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
         ---
         from vital.client import AsyncVital
 
@@ -145,7 +166,13 @@ class AsyncIntrospectClient:
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/introspect/resources"),
             params=remove_none_from_dict(
-                {"user_id": user_id, "provider": provider, "user_limit": user_limit, "cursor": cursor}
+                {
+                    "user_id": user_id,
+                    "provider": provider,
+                    "user_limit": user_limit,
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -167,6 +194,7 @@ class AsyncIntrospectClient:
         provider: typing.Optional[Providers] = None,
         user_limit: typing.Optional[int] = None,
         cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
     ) -> UserHistoricalPullsResponse:
         """
         Parameters:
@@ -177,6 +205,8 @@ class AsyncIntrospectClient:
             - user_limit: typing.Optional[int].
 
             - cursor: typing.Optional[str].
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
         ---
         from vital.client import AsyncVital
 
@@ -189,7 +219,13 @@ class AsyncIntrospectClient:
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/introspect/historical_pull"),
             params=remove_none_from_dict(
-                {"user_id": user_id, "provider": provider, "user_limit": user_limit, "cursor": cursor}
+                {
+                    "user_id": user_id,
+                    "provider": provider,
+                    "user_limit": user_limit,
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
