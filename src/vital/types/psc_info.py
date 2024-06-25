@@ -5,6 +5,7 @@ import typing
 
 from ..core.datetime_utils import serialize_datetime
 from .client_facing_lab_location import ClientFacingLabLocation
+from .labs import Labs
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -14,6 +15,7 @@ except ImportError:
 
 class PscInfo(pydantic.BaseModel):
     lab_id: int
+    slug: Labs
     pscs: typing.List[ClientFacingLabLocation]
 
     def json(self, **kwargs: typing.Any) -> str:

@@ -30,7 +30,7 @@ from ...types.http_validation_error import HttpValidationError
 from ...types.lab_results_metadata import LabResultsMetadata
 from ...types.lab_results_raw import LabResultsRaw
 from ...types.lab_test_collection_method import LabTestCollectionMethod
-from ...types.lab_test_sample_type import LabTestSampleType
+from ...types.labs import Labs
 from ...types.order_status import OrderStatus
 from ...types.patient_address_compatible_input import PatientAddressCompatibleInput
 from ...types.patient_details import PatientDetails
@@ -81,17 +81,19 @@ class LabTestsClient:
     def create(
         self,
         *,
-        marker_ids: typing.List[int],
+        marker_ids: typing.Optional[typing.List[int]] = OMIT,
+        provider_ids: typing.Optional[typing.List[str]] = OMIT,
         lab_id: int,
         name: str,
         method: LabTestCollectionMethod,
-        sample_type: LabTestSampleType,
         description: str,
         fasting: typing.Optional[bool] = OMIT,
     ) -> ClientFacingLabTest:
         """
         Parameters:
-            - marker_ids: typing.List[int].
+            - marker_ids: typing.Optional[typing.List[int]].
+
+            - provider_ids: typing.Optional[typing.List[str]].
 
             - lab_id: int.
 
@@ -99,35 +101,33 @@ class LabTestsClient:
 
             - method: LabTestCollectionMethod.
 
-            - sample_type: LabTestSampleType.
-
             - description: str.
 
             - fasting: typing.Optional[bool].
         ---
-        from vital import LabTestCollectionMethod, LabTestSampleType
+        from vital import LabTestCollectionMethod
         from vital.client import Vital
 
         client = Vital(
             api_key="YOUR_API_KEY",
         )
         client.lab_tests.create(
-            marker_ids=[1],
             lab_id=1,
             name="name",
             method=LabTestCollectionMethod.TESTKIT,
-            sample_type=LabTestSampleType.DRIED_BLOOD_SPOT,
             description="description",
         )
         """
         _request: typing.Dict[str, typing.Any] = {
-            "marker_ids": marker_ids,
             "lab_id": lab_id,
             "name": name,
             "method": method.value,
-            "sample_type": sample_type.value,
             "description": description,
         }
+        if marker_ids is not OMIT:
+            _request["marker_ids"] = marker_ids
+        if provider_ids is not OMIT:
+            _request["provider_ids"] = provider_ids
         if fasting is not OMIT:
             _request["fasting"] = fasting
         _response = self._client_wrapper.httpx_client.request(
@@ -597,7 +597,9 @@ class LabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_area_info(self, *, zip_code: str, radius: typing.Optional[AllowedRadius] = None) -> AreaInfo:
+    def get_area_info(
+        self, *, zip_code: str, radius: typing.Optional[AllowedRadius] = None, lab: typing.Optional[Labs] = None
+    ) -> AreaInfo:
         """
         GET information about an area with respect to lab-testing.
 
@@ -609,7 +611,9 @@ class LabTestsClient:
         Parameters:
             - zip_code: str. Zip code of the area to check
 
-            - radius: typing.Optional[AllowedRadius]. Radius in which to search (meters)
+            - radius: typing.Optional[AllowedRadius]. Radius in which to search in miles
+
+            - lab: typing.Optional[Labs]. Lab to check for PSCs
         ---
         from vital.client import Vital
 
@@ -623,7 +627,7 @@ class LabTestsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/order/area/info"),
-            params=remove_none_from_dict({"zip_code": zip_code, "radius": radius}),
+            params=remove_none_from_dict({"zip_code": zip_code, "radius": radius, "lab": lab}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -678,7 +682,7 @@ class LabTestsClient:
         Parameters:
             - order_id: str. Your Order ID.
 
-            - radius: typing.Optional[AllowedRadius]. Radius in which to search. (meters)
+            - radius: typing.Optional[AllowedRadius]. Radius in which to search in miles
         ---
         from vital.client import Vital
 
@@ -1128,17 +1132,19 @@ class AsyncLabTestsClient:
     async def create(
         self,
         *,
-        marker_ids: typing.List[int],
+        marker_ids: typing.Optional[typing.List[int]] = OMIT,
+        provider_ids: typing.Optional[typing.List[str]] = OMIT,
         lab_id: int,
         name: str,
         method: LabTestCollectionMethod,
-        sample_type: LabTestSampleType,
         description: str,
         fasting: typing.Optional[bool] = OMIT,
     ) -> ClientFacingLabTest:
         """
         Parameters:
-            - marker_ids: typing.List[int].
+            - marker_ids: typing.Optional[typing.List[int]].
+
+            - provider_ids: typing.Optional[typing.List[str]].
 
             - lab_id: int.
 
@@ -1146,35 +1152,33 @@ class AsyncLabTestsClient:
 
             - method: LabTestCollectionMethod.
 
-            - sample_type: LabTestSampleType.
-
             - description: str.
 
             - fasting: typing.Optional[bool].
         ---
-        from vital import LabTestCollectionMethod, LabTestSampleType
+        from vital import LabTestCollectionMethod
         from vital.client import AsyncVital
 
         client = AsyncVital(
             api_key="YOUR_API_KEY",
         )
         await client.lab_tests.create(
-            marker_ids=[1],
             lab_id=1,
             name="name",
             method=LabTestCollectionMethod.TESTKIT,
-            sample_type=LabTestSampleType.DRIED_BLOOD_SPOT,
             description="description",
         )
         """
         _request: typing.Dict[str, typing.Any] = {
-            "marker_ids": marker_ids,
             "lab_id": lab_id,
             "name": name,
             "method": method.value,
-            "sample_type": sample_type.value,
             "description": description,
         }
+        if marker_ids is not OMIT:
+            _request["marker_ids"] = marker_ids
+        if provider_ids is not OMIT:
+            _request["provider_ids"] = provider_ids
         if fasting is not OMIT:
             _request["fasting"] = fasting
         _response = await self._client_wrapper.httpx_client.request(
@@ -1646,7 +1650,9 @@ class AsyncLabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_area_info(self, *, zip_code: str, radius: typing.Optional[AllowedRadius] = None) -> AreaInfo:
+    async def get_area_info(
+        self, *, zip_code: str, radius: typing.Optional[AllowedRadius] = None, lab: typing.Optional[Labs] = None
+    ) -> AreaInfo:
         """
         GET information about an area with respect to lab-testing.
 
@@ -1658,7 +1664,9 @@ class AsyncLabTestsClient:
         Parameters:
             - zip_code: str. Zip code of the area to check
 
-            - radius: typing.Optional[AllowedRadius]. Radius in which to search (meters)
+            - radius: typing.Optional[AllowedRadius]. Radius in which to search in miles
+
+            - lab: typing.Optional[Labs]. Lab to check for PSCs
         ---
         from vital.client import AsyncVital
 
@@ -1672,7 +1680,7 @@ class AsyncLabTestsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/order/area/info"),
-            params=remove_none_from_dict({"zip_code": zip_code, "radius": radius}),
+            params=remove_none_from_dict({"zip_code": zip_code, "radius": radius, "lab": lab}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -1729,7 +1737,7 @@ class AsyncLabTestsClient:
         Parameters:
             - order_id: str. Your Order ID.
 
-            - radius: typing.Optional[AllowedRadius]. Radius in which to search. (meters)
+            - radius: typing.Optional[AllowedRadius]. Radius in which to search in miles
         ---
         from vital.client import AsyncVital
 

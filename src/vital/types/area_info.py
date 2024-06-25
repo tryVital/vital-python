@@ -16,7 +16,7 @@ except ImportError:
 class AreaInfo(pydantic.BaseModel):
     zip_code: str
     phlebotomy: PhlebotomyAreaInfo
-    psc: PscAreaInfo
+    central_labs: typing.Dict[str, PscAreaInfo]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

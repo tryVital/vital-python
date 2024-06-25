@@ -16,8 +16,8 @@ class LabLocationMetadata(pydantic.BaseModel):
     state: str
     city: str
     zip_code: str
-    address: str
-    unit: typing.Optional[str]
+    first_line: str
+    second_line: typing.Optional[str]
     phone_number: typing.Optional[str]
     fax_number: typing.Optional[str]
     hours: typing.Optional[typing.Dict[str, typing.Any]]
