@@ -43,6 +43,7 @@ class ClientFacingResource(str, enum.Enum):
     VO_2_MAX = "vo2_max"
     CALORIES_BASAL = "calories_basal"
     STRESS_LEVEL = "stress_level"
+    MENSTRUAL_CYCLE = "menstrual_cycle"
     ELECTROCARDIOGRAM_VOLTAGE = "electrocardiogram_voltage"
     SLEEP_STREAM = "sleep_stream"
 
@@ -84,6 +85,7 @@ class ClientFacingResource(str, enum.Enum):
         vo_2_max: typing.Callable[[], T_Result],
         calories_basal: typing.Callable[[], T_Result],
         stress_level: typing.Callable[[], T_Result],
+        menstrual_cycle: typing.Callable[[], T_Result],
         electrocardiogram_voltage: typing.Callable[[], T_Result],
         sleep_stream: typing.Callable[[], T_Result],
     ) -> T_Result:
@@ -159,6 +161,8 @@ class ClientFacingResource(str, enum.Enum):
             return calories_basal()
         if self is ClientFacingResource.STRESS_LEVEL:
             return stress_level()
+        if self is ClientFacingResource.MENSTRUAL_CYCLE:
+            return menstrual_cycle()
         if self is ClientFacingResource.ELECTROCARDIOGRAM_VOLTAGE:
             return electrocardiogram_voltage()
         if self is ClientFacingResource.SLEEP_STREAM:
