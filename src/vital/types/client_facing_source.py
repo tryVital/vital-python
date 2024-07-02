@@ -22,9 +22,11 @@ class ClientFacingSource(pydantic.BaseModel):
         description="The type of the data source (app or device) by which the summary or the timeseries data were recorded. This defaults to `unknown` when Vital cannot extract or infer that information"
     )
     app_id: typing.Optional[str]
-    name: str = pydantic.Field(description="Deprecated. Subject to removal after 1 Jan 2024.")
-    slug: str = pydantic.Field(description="Deprecated. Use `provider` instead. Subject to removal after 1 Jan 2024.")
-    logo: str = pydantic.Field(description="Deprecated. Subject to removal after 1 Jan 2024.")
+    name: typing.Optional[str] = pydantic.Field(description="Deprecated. Subject to removal after 1 Jan 2024.")
+    slug: typing.Optional[str] = pydantic.Field(
+        description="Deprecated. Use `provider` instead. Subject to removal after 1 Jan 2024."
+    )
+    logo: typing.Optional[str] = pydantic.Field(description="Deprecated. Subject to removal after 1 Jan 2024.")
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
