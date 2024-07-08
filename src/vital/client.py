@@ -14,6 +14,7 @@ from .resources.introspect.client import AsyncIntrospectClient, IntrospectClient
 from .resources.lab_tests.client import AsyncLabTestsClient, LabTestsClient
 from .resources.link.client import AsyncLinkClient, LinkClient
 from .resources.meal.client import AsyncMealClient, MealClient
+from .resources.menstrual_cycle.client import AsyncMenstrualCycleClient, MenstrualCycleClient
 from .resources.profile.client import AsyncProfileClient, ProfileClient
 from .resources.providers.client import AsyncProvidersClient, ProvidersClient
 from .resources.sleep.client import AsyncSleepClient, SleepClient
@@ -47,6 +48,7 @@ class Vital:
         self.sleep = SleepClient(client_wrapper=self._client_wrapper)
         self.body = BodyClient(client_wrapper=self._client_wrapper)
         self.meal = MealClient(client_wrapper=self._client_wrapper)
+        self.menstrual_cycle = MenstrualCycleClient(client_wrapper=self._client_wrapper)
         self.vitals = VitalsClient(client_wrapper=self._client_wrapper)
         self.user = UserClient(client_wrapper=self._client_wrapper)
         self.team = TeamClient(client_wrapper=self._client_wrapper)
@@ -80,6 +82,7 @@ class AsyncVital:
         self.sleep = AsyncSleepClient(client_wrapper=self._client_wrapper)
         self.body = AsyncBodyClient(client_wrapper=self._client_wrapper)
         self.meal = AsyncMealClient(client_wrapper=self._client_wrapper)
+        self.menstrual_cycle = AsyncMenstrualCycleClient(client_wrapper=self._client_wrapper)
         self.vitals = AsyncVitalsClient(client_wrapper=self._client_wrapper)
         self.user = AsyncUserClient(client_wrapper=self._client_wrapper)
         self.team = AsyncTeamClient(client_wrapper=self._client_wrapper)
