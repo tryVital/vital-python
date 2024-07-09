@@ -83,7 +83,6 @@ class LabTestsClient:
         *,
         marker_ids: typing.Optional[typing.List[int]] = OMIT,
         provider_ids: typing.Optional[typing.List[str]] = OMIT,
-        lab_id: int,
         name: str,
         method: LabTestCollectionMethod,
         description: str,
@@ -94,8 +93,6 @@ class LabTestsClient:
             - marker_ids: typing.Optional[typing.List[int]].
 
             - provider_ids: typing.Optional[typing.List[str]].
-
-            - lab_id: int.
 
             - name: str.
 
@@ -112,18 +109,12 @@ class LabTestsClient:
             api_key="YOUR_API_KEY",
         )
         client.lab_tests.create(
-            lab_id=1,
             name="name",
             method=LabTestCollectionMethod.TESTKIT,
             description="description",
         )
         """
-        _request: typing.Dict[str, typing.Any] = {
-            "lab_id": lab_id,
-            "name": name,
-            "method": method.value,
-            "description": description,
-        }
+        _request: typing.Dict[str, typing.Any] = {"name": name, "method": method.value, "description": description}
         if marker_ids is not OMIT:
             _request["marker_ids"] = marker_ids
         if provider_ids is not OMIT:
@@ -1134,7 +1125,6 @@ class AsyncLabTestsClient:
         *,
         marker_ids: typing.Optional[typing.List[int]] = OMIT,
         provider_ids: typing.Optional[typing.List[str]] = OMIT,
-        lab_id: int,
         name: str,
         method: LabTestCollectionMethod,
         description: str,
@@ -1145,8 +1135,6 @@ class AsyncLabTestsClient:
             - marker_ids: typing.Optional[typing.List[int]].
 
             - provider_ids: typing.Optional[typing.List[str]].
-
-            - lab_id: int.
 
             - name: str.
 
@@ -1163,18 +1151,12 @@ class AsyncLabTestsClient:
             api_key="YOUR_API_KEY",
         )
         await client.lab_tests.create(
-            lab_id=1,
             name="name",
             method=LabTestCollectionMethod.TESTKIT,
             description="description",
         )
         """
-        _request: typing.Dict[str, typing.Any] = {
-            "lab_id": lab_id,
-            "name": name,
-            "method": method.value,
-            "description": description,
-        }
+        _request: typing.Dict[str, typing.Any] = {"name": name, "method": method.value, "description": description}
         if marker_ids is not OMIT:
             _request["marker_ids"] = marker_ids
         if provider_ids is not OMIT:
