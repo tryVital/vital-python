@@ -32,7 +32,7 @@ from ...types.lab_results_raw import LabResultsRaw
 from ...types.lab_test_collection_method import LabTestCollectionMethod
 from ...types.labs import Labs
 from ...types.order_status import OrderStatus
-from ...types.patient_address_compatible_input import PatientAddressCompatibleInput
+from ...types.patient_address_compatible import PatientAddressCompatible
 from ...types.patient_details import PatientDetails
 from ...types.physician_create_request import PhysicianCreateRequest
 from ...types.post_order_response import PostOrderResponse
@@ -895,7 +895,7 @@ class LabTestsClient:
         aoe_answers: typing.Optional[typing.List[AoEAnswer]] = OMIT,
         passthrough: typing.Optional[str] = OMIT,
         patient_details: PatientDetails,
-        patient_address: PatientAddressCompatibleInput,
+        patient_address: PatientAddressCompatible,
     ) -> PostOrderResponse:
         """
         POST create new order
@@ -921,7 +921,7 @@ class LabTestsClient:
 
             - patient_details: PatientDetails.
 
-            - patient_address: PatientAddressCompatibleInput.
+            - patient_address: PatientAddressCompatible.
         """
         _request: typing.Dict[str, typing.Any] = {
             "user_id": user_id,
@@ -1941,7 +1941,7 @@ class AsyncLabTestsClient:
         aoe_answers: typing.Optional[typing.List[AoEAnswer]] = OMIT,
         passthrough: typing.Optional[str] = OMIT,
         patient_details: PatientDetails,
-        patient_address: PatientAddressCompatibleInput,
+        patient_address: PatientAddressCompatible,
     ) -> PostOrderResponse:
         """
         POST create new order
@@ -1967,7 +1967,7 @@ class AsyncLabTestsClient:
 
             - patient_details: PatientDetails.
 
-            - patient_address: PatientAddressCompatibleInput.
+            - patient_address: PatientAddressCompatible.
         """
         _request: typing.Dict[str, typing.Any] = {
             "user_id": user_id,

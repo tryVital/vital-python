@@ -11,7 +11,7 @@ from ...errors.unprocessable_entity_error import UnprocessableEntityError
 from ...types.consent import Consent
 from ...types.health_insurance_create_request import HealthInsuranceCreateRequest
 from ...types.http_validation_error import HttpValidationError
-from ...types.patient_address_compatible_input import PatientAddressCompatibleInput
+from ...types.patient_address_compatible import PatientAddressCompatible
 from ...types.patient_details import PatientDetails
 from ...types.physician_create_request_base import PhysicianCreateRequestBase
 from ...types.post_order_response import PostOrderResponse
@@ -36,7 +36,7 @@ class TestkitClient:
         user_id: str,
         sample_id: str,
         patient_details: PatientDetails,
-        patient_address: PatientAddressCompatibleInput,
+        patient_address: PatientAddressCompatible,
         physician: typing.Optional[PhysicianCreateRequestBase] = OMIT,
         health_insurance: typing.Optional[HealthInsuranceCreateRequest] = OMIT,
         consents: typing.Optional[typing.List[Consent]] = OMIT,
@@ -49,7 +49,7 @@ class TestkitClient:
 
             - patient_details: PatientDetails.
 
-            - patient_address: PatientAddressCompatibleInput.
+            - patient_address: PatientAddressCompatible.
 
             - physician: typing.Optional[PhysicianCreateRequestBase].
 
@@ -141,7 +141,7 @@ class AsyncTestkitClient:
         user_id: str,
         sample_id: str,
         patient_details: PatientDetails,
-        patient_address: PatientAddressCompatibleInput,
+        patient_address: PatientAddressCompatible,
         physician: typing.Optional[PhysicianCreateRequestBase] = OMIT,
         health_insurance: typing.Optional[HealthInsuranceCreateRequest] = OMIT,
         consents: typing.Optional[typing.List[Consent]] = OMIT,
@@ -154,7 +154,7 @@ class AsyncTestkitClient:
 
             - patient_details: PatientDetails.
 
-            - patient_address: PatientAddressCompatibleInput.
+            - patient_address: PatientAddressCompatible.
 
             - physician: typing.Optional[PhysicianCreateRequestBase].
 

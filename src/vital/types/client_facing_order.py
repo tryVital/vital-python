@@ -10,7 +10,7 @@ from .client_facing_order_event import ClientFacingOrderEvent
 from .client_facing_patient_details_compatible import ClientFacingPatientDetailsCompatible
 from .client_facing_physician import ClientFacingPhysician
 from .order_top_level_status import OrderTopLevelStatus
-from .patient_address_compatible_output import PatientAddressCompatibleOutput
+from .patient_address_compatible import PatientAddressCompatible
 from .shipping_address import ShippingAddress
 
 try:
@@ -26,7 +26,7 @@ class ClientFacingOrder(pydantic.BaseModel):
     id: str = pydantic.Field(description="The Vital Order ID")
     team_id: str = pydantic.Field(description="Your team id.")
     patient_details: typing.Optional[ClientFacingPatientDetailsCompatible]
-    patient_address: typing.Optional[PatientAddressCompatibleOutput]
+    patient_address: typing.Optional[PatientAddressCompatible]
     lab_test: ClientFacingLabTest = pydantic.Field(description="The Vital Test associated with the order")
     details: ClientFacingOrderDetails
     sample_id: typing.Optional[str]

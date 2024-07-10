@@ -21,6 +21,7 @@ class Question(pydantic.BaseModel):
     type: QuestionType
     sequence: int
     answers: typing.List[Answer]
+    constraint: typing.Optional[str]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

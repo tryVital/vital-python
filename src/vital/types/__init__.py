@@ -239,8 +239,7 @@ from .ovulation_test_entry import OvulationTestEntry
 from .ovulation_test_entry_test_result import OvulationTestEntryTestResult
 from .paginated_users_response import PaginatedUsersResponse
 from .password_providers import PasswordProviders
-from .patient_address_compatible_input import PatientAddressCompatibleInput
-from .patient_address_compatible_output import PatientAddressCompatibleOutput
+from .patient_address_compatible import PatientAddressCompatible
 from .patient_details import PatientDetails
 from .person_details import PersonDetails
 from .phlebotomy_area_info import PhlebotomyAreaInfo
@@ -529,8 +528,7 @@ __all__ = [
     "OvulationTestEntryTestResult",
     "PaginatedUsersResponse",
     "PasswordProviders",
-    "PatientAddressCompatibleInput",
-    "PatientAddressCompatibleOutput",
+    "PatientAddressCompatible",
     "PatientDetails",
     "PersonDetails",
     "PhlebotomyAreaInfo",
