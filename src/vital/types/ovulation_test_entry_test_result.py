@@ -8,6 +8,7 @@ T_Result = typing.TypeVar("T_Result")
 
 class OvulationTestEntryTestResult(str, enum.Enum):
     NEGATIVE = "negative"
+    POSITIVE = "positive"
     LUTEINIZING_HORMONE_SURGE = "luteinizing_hormone_surge"
     ESTROGEN_SURGE = "estrogen_surge"
     INDETERMINATE = "indeterminate"
@@ -15,12 +16,15 @@ class OvulationTestEntryTestResult(str, enum.Enum):
     def visit(
         self,
         negative: typing.Callable[[], T_Result],
+        positive: typing.Callable[[], T_Result],
         luteinizing_hormone_surge: typing.Callable[[], T_Result],
         estrogen_surge: typing.Callable[[], T_Result],
         indeterminate: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is OvulationTestEntryTestResult.NEGATIVE:
             return negative()
+        if self is OvulationTestEntryTestResult.POSITIVE:
+            return positive()
         if self is OvulationTestEntryTestResult.LUTEINIZING_HORMONE_SURGE:
             return luteinizing_hormone_surge()
         if self is OvulationTestEntryTestResult.ESTROGEN_SURGE:

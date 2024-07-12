@@ -13,7 +13,7 @@ except ImportError:
 
 class SexualActivityEntry(pydantic.BaseModel):
     date: str
-    protection_used: bool
+    protection_used: typing.Optional[bool]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
