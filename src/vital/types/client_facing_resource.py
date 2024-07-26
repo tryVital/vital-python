@@ -45,6 +45,9 @@ class ClientFacingResource(str, enum.Enum):
     STRESS_LEVEL = "stress_level"
     MENSTRUAL_CYCLE = "menstrual_cycle"
     ELECTROCARDIOGRAM_VOLTAGE = "electrocardiogram_voltage"
+    WORKOUT_DURATION = "workout_duration"
+    INSULIN_INJECTION = "insulin_injection"
+    CARBOHYDRATES = "carbohydrates"
     SLEEP_STREAM = "sleep_stream"
 
     def visit(
@@ -87,6 +90,9 @@ class ClientFacingResource(str, enum.Enum):
         stress_level: typing.Callable[[], T_Result],
         menstrual_cycle: typing.Callable[[], T_Result],
         electrocardiogram_voltage: typing.Callable[[], T_Result],
+        workout_duration: typing.Callable[[], T_Result],
+        insulin_injection: typing.Callable[[], T_Result],
+        carbohydrates: typing.Callable[[], T_Result],
         sleep_stream: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is ClientFacingResource.PROFILE:
@@ -165,5 +171,11 @@ class ClientFacingResource(str, enum.Enum):
             return menstrual_cycle()
         if self is ClientFacingResource.ELECTROCARDIOGRAM_VOLTAGE:
             return electrocardiogram_voltage()
+        if self is ClientFacingResource.WORKOUT_DURATION:
+            return workout_duration()
+        if self is ClientFacingResource.INSULIN_INJECTION:
+            return insulin_injection()
+        if self is ClientFacingResource.CARBOHYDRATES:
+            return carbohydrates()
         if self is ClientFacingResource.SLEEP_STREAM:
             return sleep_stream()

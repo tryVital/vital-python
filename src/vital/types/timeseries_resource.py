@@ -36,6 +36,9 @@ class TimeseriesResource(str, enum.Enum):
     WATER = "water"
     CAFFEINE = "caffeine"
     MINDFULNESS_MINUTES = "mindfulness_minutes"
+    WORKOUT_DURATION = "workout_duration"
+    INSULIN_INJECTION = "insulin_injection"
+    CARBOHYDRATES = "carbohydrates"
 
     def visit(
         self,
@@ -68,6 +71,9 @@ class TimeseriesResource(str, enum.Enum):
         water: typing.Callable[[], T_Result],
         caffeine: typing.Callable[[], T_Result],
         mindfulness_minutes: typing.Callable[[], T_Result],
+        workout_duration: typing.Callable[[], T_Result],
+        insulin_injection: typing.Callable[[], T_Result],
+        carbohydrates: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is TimeseriesResource.CALORIES_ACTIVE:
             return calories_active()
@@ -127,3 +133,9 @@ class TimeseriesResource(str, enum.Enum):
             return caffeine()
         if self is TimeseriesResource.MINDFULNESS_MINUTES:
             return mindfulness_minutes()
+        if self is TimeseriesResource.WORKOUT_DURATION:
+            return workout_duration()
+        if self is TimeseriesResource.INSULIN_INJECTION:
+            return insulin_injection()
+        if self is TimeseriesResource.CARBOHYDRATES:
+            return carbohydrates()
