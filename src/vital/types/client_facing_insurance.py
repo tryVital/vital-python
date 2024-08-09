@@ -4,7 +4,9 @@ import datetime as dt
 import typing
 
 from ..core.datetime_utils import serialize_datetime
-from .address import Address
+from .company_details import CompanyDetails
+from .person_details_output import PersonDetailsOutput
+from .responsible_relationship import ResponsibleRelationship
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -12,12 +14,14 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class PersonDetails(pydantic.BaseModel):
-    first_name: str
-    last_name: str
-    address: Address
-    phone_number: str
-    phone_type: typing.Optional[str]
+class ClientFacingInsurance(pydantic.BaseModel):
+    member_id: str
+    payor_code: str
+    relationship: ResponsibleRelationship
+    insured: PersonDetailsOutput
+    company: CompanyDetails
+    group_id: typing.Optional[str]
+    guarantor: typing.Optional[PersonDetailsOutput]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

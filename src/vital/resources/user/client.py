@@ -10,6 +10,8 @@ from ...core.jsonable_encoder import jsonable_encoder
 from ...core.remove_none_from_dict import remove_none_from_dict
 from ...errors.bad_request_error import BadRequestError
 from ...errors.unprocessable_entity_error import UnprocessableEntityError
+from ...types.address import Address
+from ...types.client_facing_insurance import ClientFacingInsurance
 from ...types.client_facing_provider_with_status import ClientFacingProviderWithStatus
 from ...types.client_facing_user import ClientFacingUser
 from ...types.client_facing_user_key import ClientFacingUserKey
@@ -17,9 +19,14 @@ from ...types.http_validation_error import HttpValidationError
 from ...types.metrics_result import MetricsResult
 from ...types.paginated_users_response import PaginatedUsersResponse
 from ...types.providers import Providers
+from ...types.responsible_relationship import ResponsibleRelationship
+from ...types.user_info import UserInfo
 from ...types.user_refresh_success_response import UserRefreshSuccessResponse
 from ...types.user_sign_in_token_response import UserSignInTokenResponse
 from ...types.user_success_response import UserSuccessResponse
+from ...types.vital_core_schemas_db_schemas_lab_test_insurance_person_details import (
+    VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails,
+)
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -327,6 +334,233 @@ class UserClient:
         )
         if 200 <= _response.status_code < 300:
             return
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def get_latest_user_info(self, user_id: str) -> UserInfo:
+        """
+        Parameters:
+            - user_id: str.
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.user.get_latest_user_info(
+            user_id="user_id",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/{user_id}/info/latest"),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(UserInfo, _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def create_insurance(
+        self,
+        user_id: str,
+        *,
+        payor_code: str,
+        member_id: str,
+        group_id: typing.Optional[str] = OMIT,
+        relationship: ResponsibleRelationship,
+        insured: VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails,
+        guarantor: typing.Optional[VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails] = OMIT,
+    ) -> ClientFacingInsurance:
+        """
+        Parameters:
+            - user_id: str.
+
+            - payor_code: str.
+
+            - member_id: str.
+
+            - group_id: typing.Optional[str].
+
+            - relationship: ResponsibleRelationship.
+
+            - insured: VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails.
+
+            - guarantor: typing.Optional[VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails].
+        ---
+        from vital import (
+            Address,
+            Gender,
+            ResponsibleRelationship,
+            VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails,
+        )
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.user.create_insurance(
+            user_id="user_id",
+            payor_code="payor_code",
+            member_id="member_id",
+            relationship=ResponsibleRelationship.SELF,
+            insured=VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails(
+                first_name="first_name",
+                last_name="last_name",
+                gender=Gender.FEMALE,
+                address=Address(
+                    first_line="first_line",
+                    country="country",
+                    zip="zip",
+                    city="city",
+                    state="state",
+                ),
+                dob="dob",
+                email="email",
+                phone_number="phone_number",
+            ),
+        )
+        """
+        _request: typing.Dict[str, typing.Any] = {
+            "payor_code": payor_code,
+            "member_id": member_id,
+            "relationship": relationship.value,
+            "insured": insured,
+        }
+        if group_id is not OMIT:
+            _request["group_id"] = group_id
+        if guarantor is not OMIT:
+            _request["guarantor"] = guarantor
+        _response = self._client_wrapper.httpx_client.request(
+            "POST",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/{user_id}/insurance"),
+            json=jsonable_encoder(_request),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(ClientFacingInsurance, _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def get_latest_insurance(self, user_id: str) -> ClientFacingInsurance:
+        """
+        Parameters:
+            - user_id: str.
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.user.get_latest_insurance(
+            user_id="user_id",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/{user_id}/insurance/latest"),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(ClientFacingInsurance, _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def upsert_user_info(
+        self,
+        user_id: str,
+        *,
+        first_name: str,
+        last_name: str,
+        email: str,
+        phone_number: str,
+        gender: str,
+        dob: str,
+        address: Address,
+    ) -> UserInfo:
+        """
+        Parameters:
+            - user_id: str.
+
+            - first_name: str.
+
+            - last_name: str.
+
+            - email: str.
+
+            - phone_number: str.
+
+            - gender: str.
+
+            - dob: str.
+
+            - address: Address.
+        ---
+        from vital import Address
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.user.upsert_user_info(
+            user_id="user_id",
+            first_name="first_name",
+            last_name="last_name",
+            email="email",
+            phone_number="phone_number",
+            gender="gender",
+            dob="dob",
+            address=Address(
+                first_line="first_line",
+                country="country",
+                zip="zip",
+                city="city",
+                state="state",
+            ),
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "PATCH",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/{user_id}/info"),
+            json=jsonable_encoder(
+                {
+                    "first_name": first_name,
+                    "last_name": last_name,
+                    "email": email,
+                    "phone_number": phone_number,
+                    "gender": gender,
+                    "dob": dob,
+                    "address": address,
+                }
+            ),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(UserInfo, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -771,6 +1005,233 @@ class AsyncUserClient:
         )
         if 200 <= _response.status_code < 300:
             return
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def get_latest_user_info(self, user_id: str) -> UserInfo:
+        """
+        Parameters:
+            - user_id: str.
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.user.get_latest_user_info(
+            user_id="user_id",
+        )
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/{user_id}/info/latest"),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(UserInfo, _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def create_insurance(
+        self,
+        user_id: str,
+        *,
+        payor_code: str,
+        member_id: str,
+        group_id: typing.Optional[str] = OMIT,
+        relationship: ResponsibleRelationship,
+        insured: VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails,
+        guarantor: typing.Optional[VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails] = OMIT,
+    ) -> ClientFacingInsurance:
+        """
+        Parameters:
+            - user_id: str.
+
+            - payor_code: str.
+
+            - member_id: str.
+
+            - group_id: typing.Optional[str].
+
+            - relationship: ResponsibleRelationship.
+
+            - insured: VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails.
+
+            - guarantor: typing.Optional[VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails].
+        ---
+        from vital import (
+            Address,
+            Gender,
+            ResponsibleRelationship,
+            VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails,
+        )
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.user.create_insurance(
+            user_id="user_id",
+            payor_code="payor_code",
+            member_id="member_id",
+            relationship=ResponsibleRelationship.SELF,
+            insured=VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails(
+                first_name="first_name",
+                last_name="last_name",
+                gender=Gender.FEMALE,
+                address=Address(
+                    first_line="first_line",
+                    country="country",
+                    zip="zip",
+                    city="city",
+                    state="state",
+                ),
+                dob="dob",
+                email="email",
+                phone_number="phone_number",
+            ),
+        )
+        """
+        _request: typing.Dict[str, typing.Any] = {
+            "payor_code": payor_code,
+            "member_id": member_id,
+            "relationship": relationship.value,
+            "insured": insured,
+        }
+        if group_id is not OMIT:
+            _request["group_id"] = group_id
+        if guarantor is not OMIT:
+            _request["guarantor"] = guarantor
+        _response = await self._client_wrapper.httpx_client.request(
+            "POST",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/{user_id}/insurance"),
+            json=jsonable_encoder(_request),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(ClientFacingInsurance, _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def get_latest_insurance(self, user_id: str) -> ClientFacingInsurance:
+        """
+        Parameters:
+            - user_id: str.
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.user.get_latest_insurance(
+            user_id="user_id",
+        )
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/{user_id}/insurance/latest"),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(ClientFacingInsurance, _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def upsert_user_info(
+        self,
+        user_id: str,
+        *,
+        first_name: str,
+        last_name: str,
+        email: str,
+        phone_number: str,
+        gender: str,
+        dob: str,
+        address: Address,
+    ) -> UserInfo:
+        """
+        Parameters:
+            - user_id: str.
+
+            - first_name: str.
+
+            - last_name: str.
+
+            - email: str.
+
+            - phone_number: str.
+
+            - gender: str.
+
+            - dob: str.
+
+            - address: Address.
+        ---
+        from vital import Address
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.user.upsert_user_info(
+            user_id="user_id",
+            first_name="first_name",
+            last_name="last_name",
+            email="email",
+            phone_number="phone_number",
+            gender="gender",
+            dob="dob",
+            address=Address(
+                first_line="first_line",
+                country="country",
+                zip="zip",
+                city="city",
+                state="state",
+            ),
+        )
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "PATCH",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/{user_id}/info"),
+            json=jsonable_encoder(
+                {
+                    "first_name": first_name,
+                    "last_name": last_name,
+                    "email": email,
+                    "phone_number": phone_number,
+                    "gender": gender,
+                    "dob": dob,
+                    "address": address,
+                }
+            ),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(UserInfo, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:

@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from ..core.datetime_utils import serialize_datetime
+from .billing import Billing
 from .psc_area_info_details import PscAreaInfoDetails
 
 try:
@@ -14,6 +15,7 @@ except ImportError:
 
 class PscAreaInfo(pydantic.BaseModel):
     patient_service_centers: PscAreaInfoDetails
+    supported_bill_types: typing.List[Billing]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

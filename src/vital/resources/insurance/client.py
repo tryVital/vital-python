@@ -26,14 +26,10 @@ class InsuranceClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def search_payor_info(
-        self, *, insurance_name: str, insurance_state: typing.Optional[str] = OMIT
-    ) -> typing.List[ClientFacingPayorSearchResponse]:
+    def search_payor_info(self, *, insurance_name: str) -> typing.List[ClientFacingPayorSearchResponse]:
         """
         Parameters:
             - insurance_name: str.
-
-            - insurance_state: typing.Optional[str].
         ---
         from vital.client import Vital
 
@@ -44,13 +40,10 @@ class InsuranceClient:
             insurance_name="insurance_name",
         )
         """
-        _request: typing.Dict[str, typing.Any] = {"insurance_name": insurance_name}
-        if insurance_state is not OMIT:
-            _request["insurance_state"] = insurance_state
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/insurance/search/payor"),
-            json=jsonable_encoder(_request),
+            json=jsonable_encoder({"insurance_name": insurance_name}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -100,14 +93,10 @@ class AsyncInsuranceClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def search_payor_info(
-        self, *, insurance_name: str, insurance_state: typing.Optional[str] = OMIT
-    ) -> typing.List[ClientFacingPayorSearchResponse]:
+    async def search_payor_info(self, *, insurance_name: str) -> typing.List[ClientFacingPayorSearchResponse]:
         """
         Parameters:
             - insurance_name: str.
-
-            - insurance_state: typing.Optional[str].
         ---
         from vital.client import AsyncVital
 
@@ -118,13 +107,10 @@ class AsyncInsuranceClient:
             insurance_name="insurance_name",
         )
         """
-        _request: typing.Dict[str, typing.Any] = {"insurance_name": insurance_name}
-        if insurance_state is not OMIT:
-            _request["insurance_state"] = insurance_state
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/insurance/search/payor"),
-            json=jsonable_encoder(_request),
+            json=jsonable_encoder({"insurance_name": insurance_name}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )

@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from ..core.datetime_utils import serialize_datetime
+from .billing import Billing
 from .client_facing_lab_test import ClientFacingLabTest
 from .client_facing_order_details import ClientFacingOrderDetails
 from .client_facing_order_event import ClientFacingOrderEvent
@@ -44,6 +45,8 @@ class ClientFacingOrder(pydantic.BaseModel):
     shipping_details: typing.Optional[ShippingAddress]
     activate_by: typing.Optional[str]
     passthrough: typing.Optional[str]
+    billing_type: typing.Optional[Billing]
+    icd_codes: typing.Optional[typing.List[str]]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

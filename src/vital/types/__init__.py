@@ -17,6 +17,7 @@ from .attempt_status import AttemptStatus
 from .auth_type import AuthType
 from .availability import Availability
 from .basal_body_temperature_entry import BasalBodyTemperatureEntry
+from .billing import Billing
 from .biomarker_result import BiomarkerResult
 from .body_v_2_in_db import BodyV2InDb
 from .cervical_mucus_entry import CervicalMucusEntry
@@ -63,9 +64,11 @@ from .client_facing_hrv_timeseries import ClientFacingHrvTimeseries
 from .client_facing_hypnogram_timeseries import ClientFacingHypnogramTimeseries
 from .client_facing_ige_timeseries import ClientFacingIgeTimeseries
 from .client_facing_igg_timeseries import ClientFacingIggTimeseries
+from .client_facing_insurance import ClientFacingInsurance
 from .client_facing_lab import ClientFacingLab
 from .client_facing_lab_location import ClientFacingLabLocation
 from .client_facing_lab_test import ClientFacingLabTest
+from .client_facing_labs import ClientFacingLabs
 from .client_facing_loinc import ClientFacingLoinc
 from .client_facing_marker import ClientFacingMarker
 from .client_facing_marker_complete import ClientFacingMarkerComplete
@@ -126,6 +129,7 @@ from .client_facing_workout import ClientFacingWorkout
 from .client_sleep_response import ClientSleepResponse
 from .client_user_id_conflict import ClientUserIdConflict
 from .client_workout_response import ClientWorkoutResponse
+from .company_details import CompanyDetails
 from .connected_source_client_facing import ConnectedSourceClientFacing
 from .connection_status import ConnectionStatus
 from .connection_status_state import ConnectionStatusState
@@ -241,7 +245,7 @@ from .paginated_users_response import PaginatedUsersResponse
 from .password_providers import PasswordProviders
 from .patient_address_compatible import PatientAddressCompatible
 from .patient_details import PatientDetails
-from .person_details import PersonDetails
+from .person_details_output import PersonDetailsOutput
 from .phlebotomy_area_info import PhlebotomyAreaInfo
 from .phlebotomy_provider_info import PhlebotomyProviderInfo
 from .physician_create_request import PhysicianCreateRequest
@@ -290,6 +294,7 @@ from .timeseries_metric_point import TimeseriesMetricPoint
 from .timeseries_resource import TimeseriesResource
 from .us_address import UsAddress
 from .user_historical_pulls_response import UserHistoricalPullsResponse
+from .user_info import UserInfo
 from .user_refresh_error_response import UserRefreshErrorResponse
 from .user_refresh_success_response import UserRefreshSuccessResponse
 from .user_resources_response import UserResourcesResponse
@@ -297,6 +302,12 @@ from .user_sign_in_token_response import UserSignInTokenResponse
 from .user_success_response import UserSuccessResponse
 from .validation_error import ValidationError
 from .validation_error_loc_item import ValidationErrorLocItem
+from .vital_core_schemas_db_schemas_lab_test_health_insurance_person_details import (
+    VitalCoreSchemasDbSchemasLabTestHealthInsurancePersonDetails,
+)
+from .vital_core_schemas_db_schemas_lab_test_insurance_person_details import (
+    VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails,
+)
 from .vital_token_created_response import VitalTokenCreatedResponse
 from .workout_v_2_in_db import WorkoutV2InDb
 
@@ -318,6 +329,7 @@ __all__ = [
     "AuthType",
     "Availability",
     "BasalBodyTemperatureEntry",
+    "Billing",
     "BiomarkerResult",
     "BodyV2InDb",
     "CervicalMucusEntry",
@@ -358,9 +370,11 @@ __all__ = [
     "ClientFacingHypnogramTimeseries",
     "ClientFacingIgeTimeseries",
     "ClientFacingIggTimeseries",
+    "ClientFacingInsurance",
     "ClientFacingLab",
     "ClientFacingLabLocation",
     "ClientFacingLabTest",
+    "ClientFacingLabs",
     "ClientFacingLoinc",
     "ClientFacingMarker",
     "ClientFacingMarkerComplete",
@@ -415,6 +429,7 @@ __all__ = [
     "ClientSleepResponse",
     "ClientUserIdConflict",
     "ClientWorkoutResponse",
+    "CompanyDetails",
     "ConnectedSourceClientFacing",
     "ConnectionStatus",
     "ConnectionStatusState",
@@ -530,7 +545,7 @@ __all__ = [
     "PasswordProviders",
     "PatientAddressCompatible",
     "PatientDetails",
-    "PersonDetails",
+    "PersonDetailsOutput",
     "PhlebotomyAreaInfo",
     "PhlebotomyProviderInfo",
     "PhysicianCreateRequest",
@@ -579,6 +594,7 @@ __all__ = [
     "TimeseriesResource",
     "UsAddress",
     "UserHistoricalPullsResponse",
+    "UserInfo",
     "UserRefreshErrorResponse",
     "UserRefreshSuccessResponse",
     "UserResourcesResponse",
@@ -586,6 +602,8 @@ __all__ = [
     "UserSuccessResponse",
     "ValidationError",
     "ValidationErrorLocItem",
+    "VitalCoreSchemasDbSchemasLabTestHealthInsurancePersonDetails",
+    "VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails",
     "VitalTokenCreatedResponse",
     "WorkoutV2InDb",
 ]

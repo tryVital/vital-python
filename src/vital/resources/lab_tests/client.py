@@ -16,10 +16,12 @@ from ...types.ao_e_answer import AoEAnswer
 from ...types.appointment_availability_slots import AppointmentAvailabilitySlots
 from ...types.appointment_provider import AppointmentProvider
 from ...types.area_info import AreaInfo
+from ...types.billing import Billing
 from ...types.client_facing_appointment import ClientFacingAppointment
 from ...types.client_facing_appointment_cancellation_reason import ClientFacingAppointmentCancellationReason
 from ...types.client_facing_lab import ClientFacingLab
 from ...types.client_facing_lab_test import ClientFacingLabTest
+from ...types.client_facing_labs import ClientFacingLabs
 from ...types.client_facing_marker import ClientFacingMarker
 from ...types.client_facing_order import ClientFacingOrder
 from ...types.consent import Consent
@@ -30,7 +32,6 @@ from ...types.http_validation_error import HttpValidationError
 from ...types.lab_results_metadata import LabResultsMetadata
 from ...types.lab_results_raw import LabResultsRaw
 from ...types.lab_test_collection_method import LabTestCollectionMethod
-from ...types.labs import Labs
 from ...types.order_status import OrderStatus
 from ...types.patient_address_compatible import PatientAddressCompatible
 from ...types.patient_details import PatientDetails
@@ -589,7 +590,11 @@ class LabTestsClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def get_area_info(
-        self, *, zip_code: str, radius: typing.Optional[AllowedRadius] = None, lab: typing.Optional[Labs] = None
+        self,
+        *,
+        zip_code: str,
+        radius: typing.Optional[AllowedRadius] = None,
+        lab: typing.Optional[ClientFacingLabs] = None,
     ) -> AreaInfo:
         """
         GET information about an area with respect to lab-testing.
@@ -604,7 +609,7 @@ class LabTestsClient:
 
             - radius: typing.Optional[AllowedRadius]. Radius in which to search in miles
 
-            - lab: typing.Optional[Labs]. Lab to check for PSCs
+            - lab: typing.Optional[ClientFacingLabs]. Lab to check for PSCs
         ---
         from vital.client import Vital
 
@@ -890,6 +895,8 @@ class LabTestsClient:
         physician: typing.Optional[PhysicianCreateRequest] = OMIT,
         health_insurance: typing.Optional[HealthInsuranceCreateRequest] = OMIT,
         priority: typing.Optional[bool] = OMIT,
+        billing_type: typing.Optional[Billing] = OMIT,
+        icd_codes: typing.Optional[typing.List[str]] = OMIT,
         consents: typing.Optional[typing.List[Consent]] = OMIT,
         activate_by: typing.Optional[str] = OMIT,
         aoe_answers: typing.Optional[typing.List[AoEAnswer]] = OMIT,
@@ -910,6 +917,10 @@ class LabTestsClient:
             - health_insurance: typing.Optional[HealthInsuranceCreateRequest].
 
             - priority: typing.Optional[bool]. Defines whether order is priority or not. For some labs, this refers to a STAT order.
+
+            - billing_type: typing.Optional[Billing].
+
+            - icd_codes: typing.Optional[typing.List[str]].
 
             - consents: typing.Optional[typing.List[Consent]].
 
@@ -935,6 +946,10 @@ class LabTestsClient:
             _request["health_insurance"] = health_insurance
         if priority is not OMIT:
             _request["priority"] = priority
+        if billing_type is not OMIT:
+            _request["billing_type"] = billing_type.value
+        if icd_codes is not OMIT:
+            _request["icd_codes"] = icd_codes
         if consents is not OMIT:
             _request["consents"] = consents
         if activate_by is not OMIT:
@@ -1633,7 +1648,11 @@ class AsyncLabTestsClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def get_area_info(
-        self, *, zip_code: str, radius: typing.Optional[AllowedRadius] = None, lab: typing.Optional[Labs] = None
+        self,
+        *,
+        zip_code: str,
+        radius: typing.Optional[AllowedRadius] = None,
+        lab: typing.Optional[ClientFacingLabs] = None,
     ) -> AreaInfo:
         """
         GET information about an area with respect to lab-testing.
@@ -1648,7 +1667,7 @@ class AsyncLabTestsClient:
 
             - radius: typing.Optional[AllowedRadius]. Radius in which to search in miles
 
-            - lab: typing.Optional[Labs]. Lab to check for PSCs
+            - lab: typing.Optional[ClientFacingLabs]. Lab to check for PSCs
         ---
         from vital.client import AsyncVital
 
@@ -1936,6 +1955,8 @@ class AsyncLabTestsClient:
         physician: typing.Optional[PhysicianCreateRequest] = OMIT,
         health_insurance: typing.Optional[HealthInsuranceCreateRequest] = OMIT,
         priority: typing.Optional[bool] = OMIT,
+        billing_type: typing.Optional[Billing] = OMIT,
+        icd_codes: typing.Optional[typing.List[str]] = OMIT,
         consents: typing.Optional[typing.List[Consent]] = OMIT,
         activate_by: typing.Optional[str] = OMIT,
         aoe_answers: typing.Optional[typing.List[AoEAnswer]] = OMIT,
@@ -1956,6 +1977,10 @@ class AsyncLabTestsClient:
             - health_insurance: typing.Optional[HealthInsuranceCreateRequest].
 
             - priority: typing.Optional[bool]. Defines whether order is priority or not. For some labs, this refers to a STAT order.
+
+            - billing_type: typing.Optional[Billing].
+
+            - icd_codes: typing.Optional[typing.List[str]].
 
             - consents: typing.Optional[typing.List[Consent]].
 
@@ -1981,6 +2006,10 @@ class AsyncLabTestsClient:
             _request["health_insurance"] = health_insurance
         if priority is not OMIT:
             _request["priority"] = priority
+        if billing_type is not OMIT:
+            _request["billing_type"] = billing_type.value
+        if icd_codes is not OMIT:
+            _request["icd_codes"] = icd_codes
         if consents is not OMIT:
             _request["consents"] = consents
         if activate_by is not OMIT:

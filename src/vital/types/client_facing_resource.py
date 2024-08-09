@@ -48,6 +48,7 @@ class ClientFacingResource(str, enum.Enum):
     WORKOUT_DURATION = "workout_duration"
     INSULIN_INJECTION = "insulin_injection"
     CARBOHYDRATES = "carbohydrates"
+    NOTE = "note"
     SLEEP_STREAM = "sleep_stream"
 
     def visit(
@@ -93,6 +94,7 @@ class ClientFacingResource(str, enum.Enum):
         workout_duration: typing.Callable[[], T_Result],
         insulin_injection: typing.Callable[[], T_Result],
         carbohydrates: typing.Callable[[], T_Result],
+        note: typing.Callable[[], T_Result],
         sleep_stream: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is ClientFacingResource.PROFILE:
@@ -177,5 +179,7 @@ class ClientFacingResource(str, enum.Enum):
             return insulin_injection()
         if self is ClientFacingResource.CARBOHYDRATES:
             return carbohydrates()
+        if self is ClientFacingResource.NOTE:
+            return note()
         if self is ClientFacingResource.SLEEP_STREAM:
             return sleep_stream()

@@ -7,8 +7,10 @@ from ..core.datetime_utils import serialize_datetime
 from .health_insurance_create_request_back_image import HealthInsuranceCreateRequestBackImage
 from .health_insurance_create_request_front_image import HealthInsuranceCreateRequestFrontImage
 from .health_insurance_create_request_patient_signature_image import HealthInsuranceCreateRequestPatientSignatureImage
-from .person_details import PersonDetails
 from .responsible_relationship import ResponsibleRelationship
+from .vital_core_schemas_db_schemas_lab_test_health_insurance_person_details import (
+    VitalCoreSchemasDbSchemasLabTestHealthInsurancePersonDetails,
+)
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -31,7 +33,7 @@ class HealthInsuranceCreateRequest(pydantic.BaseModel):
     payor_code: typing.Optional[str]
     insurance_id: typing.Optional[str]
     responsible_relationship: typing.Optional[ResponsibleRelationship]
-    responsible_details: typing.Optional[PersonDetails]
+    responsible_details: typing.Optional[VitalCoreSchemasDbSchemasLabTestHealthInsurancePersonDetails]
     diagnosis_codes: typing.Optional[typing.List[str]]
 
     def json(self, **kwargs: typing.Any) -> str:

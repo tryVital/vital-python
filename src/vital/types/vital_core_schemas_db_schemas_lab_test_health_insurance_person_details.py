@@ -12,15 +12,12 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class ClientFacingPayorSearchResponse(pydantic.BaseModel):
-    code: str = pydantic.Field(description="Payor code returned for the insurance information.")
-    name: str = pydantic.Field(description="Insurance name returned for the insurance information.")
-    aliases: typing.List[str] = pydantic.Field(
-        description="Insurance name aliases returned for the insurance information."
-    )
-    org_address: Address = pydantic.Field(
-        description="Insurance business address returned for the insurance information."
-    )
+class VitalCoreSchemasDbSchemasLabTestHealthInsurancePersonDetails(pydantic.BaseModel):
+    first_name: str
+    last_name: str
+    address: Address
+    phone_number: str
+    phone_type: typing.Optional[str]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

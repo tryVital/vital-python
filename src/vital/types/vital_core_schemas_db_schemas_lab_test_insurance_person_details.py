@@ -5,6 +5,7 @@ import typing
 
 from ..core.datetime_utils import serialize_datetime
 from .address import Address
+from .gender import Gender
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -12,15 +13,14 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class ClientFacingPayorSearchResponse(pydantic.BaseModel):
-    code: str = pydantic.Field(description="Payor code returned for the insurance information.")
-    name: str = pydantic.Field(description="Insurance name returned for the insurance information.")
-    aliases: typing.List[str] = pydantic.Field(
-        description="Insurance name aliases returned for the insurance information."
-    )
-    org_address: Address = pydantic.Field(
-        description="Insurance business address returned for the insurance information."
-    )
+class VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails(pydantic.BaseModel):
+    first_name: str
+    last_name: str
+    gender: Gender
+    address: Address
+    dob: str
+    email: str
+    phone_number: str
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
