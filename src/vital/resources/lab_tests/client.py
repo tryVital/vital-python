@@ -39,6 +39,8 @@ from ...types.physician_create_request import PhysicianCreateRequest
 from ...types.post_order_response import PostOrderResponse
 from ...types.psc_info import PscInfo
 from ...types.us_address import UsAddress
+from .types.lab_tests_get_orders_request_order_direction import LabTestsGetOrdersRequestOrderDirection
+from .types.lab_tests_get_orders_request_order_key import LabTestsGetOrdersRequestOrderKey
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -1040,8 +1042,13 @@ class LabTestsClient:
     def get_orders(
         self,
         *,
+        search_input: typing.Optional[str] = None,
         start_date: typing.Optional[dt.datetime] = None,
         end_date: typing.Optional[dt.datetime] = None,
+        updated_start_date: typing.Optional[dt.datetime] = None,
+        updated_end_date: typing.Optional[dt.datetime] = None,
+        order_key: typing.Optional[LabTestsGetOrdersRequestOrderKey] = None,
+        order_direction: typing.Optional[LabTestsGetOrdersRequestOrderDirection] = None,
         user_id: typing.Optional[str] = None,
         patient_name: typing.Optional[str] = None,
         shipping_recipient_name: typing.Optional[str] = None,
@@ -1053,9 +1060,19 @@ class LabTestsClient:
         GET many orders with filters.
 
         Parameters:
+            - search_input: typing.Optional[str]. Search by order id, user id, patient name, shipping dob, or shipping recipient name.
+
             - start_date: typing.Optional[dt.datetime]. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[dt.datetime]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - updated_start_date: typing.Optional[dt.datetime]. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+            - updated_end_date: typing.Optional[dt.datetime]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+            - order_key: typing.Optional[LabTestsGetOrdersRequestOrderKey].
+
+            - order_direction: typing.Optional[LabTestsGetOrdersRequestOrderDirection].
 
             - user_id: typing.Optional[str]. Filter by user ID.
 
@@ -1081,8 +1098,15 @@ class LabTestsClient:
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/orders"),
             params=remove_none_from_dict(
                 {
+                    "search_input": search_input,
                     "start_date": serialize_datetime(start_date) if start_date is not None else None,
                     "end_date": serialize_datetime(end_date) if end_date is not None else None,
+                    "updated_start_date": serialize_datetime(updated_start_date)
+                    if updated_start_date is not None
+                    else None,
+                    "updated_end_date": serialize_datetime(updated_end_date) if updated_end_date is not None else None,
+                    "order_key": order_key,
+                    "order_direction": order_direction,
                     "user_id": user_id,
                     "patient_name": patient_name,
                     "shipping_recipient_name": shipping_recipient_name,
@@ -2100,8 +2124,13 @@ class AsyncLabTestsClient:
     async def get_orders(
         self,
         *,
+        search_input: typing.Optional[str] = None,
         start_date: typing.Optional[dt.datetime] = None,
         end_date: typing.Optional[dt.datetime] = None,
+        updated_start_date: typing.Optional[dt.datetime] = None,
+        updated_end_date: typing.Optional[dt.datetime] = None,
+        order_key: typing.Optional[LabTestsGetOrdersRequestOrderKey] = None,
+        order_direction: typing.Optional[LabTestsGetOrdersRequestOrderDirection] = None,
         user_id: typing.Optional[str] = None,
         patient_name: typing.Optional[str] = None,
         shipping_recipient_name: typing.Optional[str] = None,
@@ -2113,9 +2142,19 @@ class AsyncLabTestsClient:
         GET many orders with filters.
 
         Parameters:
+            - search_input: typing.Optional[str]. Search by order id, user id, patient name, shipping dob, or shipping recipient name.
+
             - start_date: typing.Optional[dt.datetime]. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[dt.datetime]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - updated_start_date: typing.Optional[dt.datetime]. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+            - updated_end_date: typing.Optional[dt.datetime]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+            - order_key: typing.Optional[LabTestsGetOrdersRequestOrderKey].
+
+            - order_direction: typing.Optional[LabTestsGetOrdersRequestOrderDirection].
 
             - user_id: typing.Optional[str]. Filter by user ID.
 
@@ -2141,8 +2180,15 @@ class AsyncLabTestsClient:
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/orders"),
             params=remove_none_from_dict(
                 {
+                    "search_input": search_input,
                     "start_date": serialize_datetime(start_date) if start_date is not None else None,
                     "end_date": serialize_datetime(end_date) if end_date is not None else None,
+                    "updated_start_date": serialize_datetime(updated_start_date)
+                    if updated_start_date is not None
+                    else None,
+                    "updated_end_date": serialize_datetime(updated_end_date) if updated_end_date is not None else None,
+                    "order_key": order_key,
+                    "order_direction": order_direction,
                     "user_id": user_id,
                     "patient_name": patient_name,
                     "shipping_recipient_name": shipping_recipient_name,

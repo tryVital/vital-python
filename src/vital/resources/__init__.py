@@ -19,8 +19,11 @@ from . import (
     vitals,
     workouts,
 )
+from .lab_tests import LabTestsGetOrdersRequestOrderDirection, LabTestsGetOrdersRequestOrderKey
 
 __all__ = [
+    "LabTestsGetOrdersRequestOrderDirection",
+    "LabTestsGetOrdersRequestOrderKey",
     "activity",
     "body",
     "devices",

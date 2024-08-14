@@ -26,6 +26,18 @@ from ...types.client_facing_grouped_timeseries_response_client_facing_body_tempe
 from ...types.client_facing_grouped_timeseries_response_client_facing_body_temperature_sample import (
     ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureSample,
 )
+from ...types.client_facing_grouped_timeseries_response_client_facing_carbohydrates_sample import (
+    ClientFacingGroupedTimeseriesResponseClientFacingCarbohydratesSample,
+)
+from ...types.client_facing_grouped_timeseries_response_client_facing_insulin_injection_sample import (
+    ClientFacingGroupedTimeseriesResponseClientFacingInsulinInjectionSample,
+)
+from ...types.client_facing_grouped_timeseries_response_client_facing_note_sample import (
+    ClientFacingGroupedTimeseriesResponseClientFacingNoteSample,
+)
+from ...types.client_facing_grouped_timeseries_response_client_facing_workout_duration_sample import (
+    ClientFacingGroupedTimeseriesResponseClientFacingWorkoutDurationSample,
+)
 from ...types.client_facing_heart_rate_timeseries import ClientFacingHeartRateTimeseries
 from ...types.client_facing_hrv_timeseries import ClientFacingHrvTimeseries
 from ...types.client_facing_hypnogram_timeseries import ClientFacingHypnogramTimeseries
@@ -71,6 +83,67 @@ except ImportError:
 class VitalsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
+
+    def workout_duration_grouped(
+        self,
+        user_id: str,
+        *,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        start_date: str,
+        end_date: typing.Optional[str] = None,
+    ) -> ClientFacingGroupedTimeseriesResponseClientFacingWorkoutDurationSample:
+        """
+        Parameters:
+            - user_id: str.
+
+            - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - provider: typing.Optional[str]. Provider oura/strava etc
+
+            - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+            - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.workout_duration_grouped(
+            user_id="user_id",
+            start_date="start_date",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/workout_duration/grouped"
+            ),
+            params=remove_none_from_dict(
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
+            ),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingWorkoutDurationSample, _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def vo_2_max_grouped(
         self,
@@ -737,6 +810,126 @@ class VitalsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    def note_grouped(
+        self,
+        user_id: str,
+        *,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        start_date: str,
+        end_date: typing.Optional[str] = None,
+    ) -> ClientFacingGroupedTimeseriesResponseClientFacingNoteSample:
+        """
+        Parameters:
+            - user_id: str.
+
+            - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - provider: typing.Optional[str]. Provider oura/strava etc
+
+            - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+            - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.note_grouped(
+            user_id="user_id",
+            start_date="start_date",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/note/grouped"),
+            params=remove_none_from_dict(
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
+            ),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingNoteSample, _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def insulin_injection_grouped(
+        self,
+        user_id: str,
+        *,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        start_date: str,
+        end_date: typing.Optional[str] = None,
+    ) -> ClientFacingGroupedTimeseriesResponseClientFacingInsulinInjectionSample:
+        """
+        Parameters:
+            - user_id: str.
+
+            - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - provider: typing.Optional[str]. Provider oura/strava etc
+
+            - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+            - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.insulin_injection_grouped(
+            user_id="user_id",
+            start_date="start_date",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/insulin_injection/grouped"
+            ),
+            params=remove_none_from_dict(
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
+            ),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingInsulinInjectionSample, _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     def ige_grouped(
         self,
         user_id: str,
@@ -1148,6 +1341,67 @@ class VitalsClient:
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedCholesterolResponse, _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def carbohydrates_grouped(
+        self,
+        user_id: str,
+        *,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        start_date: str,
+        end_date: typing.Optional[str] = None,
+    ) -> ClientFacingGroupedTimeseriesResponseClientFacingCarbohydratesSample:
+        """
+        Parameters:
+            - user_id: str.
+
+            - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - provider: typing.Optional[str]. Provider oura/strava etc
+
+            - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+            - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.carbohydrates_grouped(
+            user_id="user_id",
+            start_date="start_date",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/carbohydrates/grouped"
+            ),
+            params=remove_none_from_dict(
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
+            ),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingCarbohydratesSample, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:
@@ -2813,6 +3067,67 @@ class AsyncVitalsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
+    async def workout_duration_grouped(
+        self,
+        user_id: str,
+        *,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        start_date: str,
+        end_date: typing.Optional[str] = None,
+    ) -> ClientFacingGroupedTimeseriesResponseClientFacingWorkoutDurationSample:
+        """
+        Parameters:
+            - user_id: str.
+
+            - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - provider: typing.Optional[str]. Provider oura/strava etc
+
+            - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+            - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.vitals.workout_duration_grouped(
+            user_id="user_id",
+            start_date="start_date",
+        )
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/workout_duration/grouped"
+            ),
+            params=remove_none_from_dict(
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
+            ),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingWorkoutDurationSample, _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     async def vo_2_max_grouped(
         self,
         user_id: str,
@@ -3478,6 +3793,126 @@ class AsyncVitalsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    async def note_grouped(
+        self,
+        user_id: str,
+        *,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        start_date: str,
+        end_date: typing.Optional[str] = None,
+    ) -> ClientFacingGroupedTimeseriesResponseClientFacingNoteSample:
+        """
+        Parameters:
+            - user_id: str.
+
+            - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - provider: typing.Optional[str]. Provider oura/strava etc
+
+            - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+            - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.vitals.note_grouped(
+            user_id="user_id",
+            start_date="start_date",
+        )
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/note/grouped"),
+            params=remove_none_from_dict(
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
+            ),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingNoteSample, _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def insulin_injection_grouped(
+        self,
+        user_id: str,
+        *,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        start_date: str,
+        end_date: typing.Optional[str] = None,
+    ) -> ClientFacingGroupedTimeseriesResponseClientFacingInsulinInjectionSample:
+        """
+        Parameters:
+            - user_id: str.
+
+            - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - provider: typing.Optional[str]. Provider oura/strava etc
+
+            - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+            - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.vitals.insulin_injection_grouped(
+            user_id="user_id",
+            start_date="start_date",
+        )
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/insulin_injection/grouped"
+            ),
+            params=remove_none_from_dict(
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
+            ),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingInsulinInjectionSample, _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     async def ige_grouped(
         self,
         user_id: str,
@@ -3889,6 +4324,67 @@ class AsyncVitalsClient:
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedCholesterolResponse, _response.json())  # type: ignore
+        if _response.status_code == 422:
+            raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def carbohydrates_grouped(
+        self,
+        user_id: str,
+        *,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        start_date: str,
+        end_date: typing.Optional[str] = None,
+    ) -> ClientFacingGroupedTimeseriesResponseClientFacingCarbohydratesSample:
+        """
+        Parameters:
+            - user_id: str.
+
+            - cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - provider: typing.Optional[str]. Provider oura/strava etc
+
+            - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+            - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.vitals.carbohydrates_grouped(
+            user_id="user_id",
+            start_date="start_date",
+        )
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/carbohydrates/grouped"
+            ),
+            params=remove_none_from_dict(
+                {
+                    "cursor": cursor,
+                    "next_cursor": next_cursor,
+                    "provider": provider,
+                    "start_date": start_date,
+                    "end_date": end_date,
+                }
+            ),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingCarbohydratesSample, _response.json())  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(HttpValidationError, _response.json()))  # type: ignore
         try:

@@ -45,6 +45,7 @@ from .client_facing_body_weight_timeseries import ClientFacingBodyWeightTimeseri
 from .client_facing_caffeine_timeseries import ClientFacingCaffeineTimeseries
 from .client_facing_calories_active_timeseries import ClientFacingCaloriesActiveTimeseries
 from .client_facing_calories_basal_timeseries import ClientFacingCaloriesBasalTimeseries
+from .client_facing_carbohydrates_sample import ClientFacingCarbohydratesSample
 from .client_facing_cholesterol_timeseries import ClientFacingCholesterolTimeseries
 from .client_facing_diagnosis_information import ClientFacingDiagnosisInformation
 from .client_facing_distance_timeseries import ClientFacingDistanceTimeseries
@@ -58,12 +59,26 @@ from .client_facing_grouped_timeseries_response_client_facing_body_temperature_d
 from .client_facing_grouped_timeseries_response_client_facing_body_temperature_sample import (
     ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureSample,
 )
+from .client_facing_grouped_timeseries_response_client_facing_carbohydrates_sample import (
+    ClientFacingGroupedTimeseriesResponseClientFacingCarbohydratesSample,
+)
+from .client_facing_grouped_timeseries_response_client_facing_insulin_injection_sample import (
+    ClientFacingGroupedTimeseriesResponseClientFacingInsulinInjectionSample,
+)
+from .client_facing_grouped_timeseries_response_client_facing_note_sample import (
+    ClientFacingGroupedTimeseriesResponseClientFacingNoteSample,
+)
+from .client_facing_grouped_timeseries_response_client_facing_workout_duration_sample import (
+    ClientFacingGroupedTimeseriesResponseClientFacingWorkoutDurationSample,
+)
 from .client_facing_heart_rate import ClientFacingHeartRate
 from .client_facing_heart_rate_timeseries import ClientFacingHeartRateTimeseries
 from .client_facing_hrv_timeseries import ClientFacingHrvTimeseries
 from .client_facing_hypnogram_timeseries import ClientFacingHypnogramTimeseries
 from .client_facing_ige_timeseries import ClientFacingIgeTimeseries
 from .client_facing_igg_timeseries import ClientFacingIggTimeseries
+from .client_facing_insulin_injection_sample import ClientFacingInsulinInjectionSample
+from .client_facing_insulin_injection_sample_type import ClientFacingInsulinInjectionSampleType
 from .client_facing_insurance import ClientFacingInsurance
 from .client_facing_lab import ClientFacingLab
 from .client_facing_lab_location import ClientFacingLabLocation
@@ -74,6 +89,8 @@ from .client_facing_marker import ClientFacingMarker
 from .client_facing_marker_complete import ClientFacingMarkerComplete
 from .client_facing_meal_response import ClientFacingMealResponse
 from .client_facing_mindfulness_minutes_timeseries import ClientFacingMindfulnessMinutesTimeseries
+from .client_facing_note_sample import ClientFacingNoteSample
+from .client_facing_note_sample_tags_item import ClientFacingNoteSampleTagsItem
 from .client_facing_order import ClientFacingOrder
 from .client_facing_order_details import (
     ClientFacingOrderDetails,
@@ -119,6 +136,16 @@ from .client_facing_timeseries_group_client_facing_body_temperature_delta_sample
 from .client_facing_timeseries_group_client_facing_body_temperature_sample import (
     ClientFacingTimeseriesGroupClientFacingBodyTemperatureSample,
 )
+from .client_facing_timeseries_group_client_facing_carbohydrates_sample import (
+    ClientFacingTimeseriesGroupClientFacingCarbohydratesSample,
+)
+from .client_facing_timeseries_group_client_facing_insulin_injection_sample import (
+    ClientFacingTimeseriesGroupClientFacingInsulinInjectionSample,
+)
+from .client_facing_timeseries_group_client_facing_note_sample import ClientFacingTimeseriesGroupClientFacingNoteSample
+from .client_facing_timeseries_group_client_facing_workout_duration_sample import (
+    ClientFacingTimeseriesGroupClientFacingWorkoutDurationSample,
+)
 from .client_facing_user import ClientFacingUser
 from .client_facing_user_key import ClientFacingUserKey
 from .client_facing_vo_2_max_timeseries import ClientFacingVo2MaxTimeseries
@@ -126,6 +153,8 @@ from .client_facing_walk_in_order_details import ClientFacingWalkInOrderDetails
 from .client_facing_walk_in_test_order import ClientFacingWalkInTestOrder
 from .client_facing_water_timeseries import ClientFacingWaterTimeseries
 from .client_facing_workout import ClientFacingWorkout
+from .client_facing_workout_duration_sample import ClientFacingWorkoutDurationSample
+from .client_facing_workout_duration_sample_intensity import ClientFacingWorkoutDurationSampleIntensity
 from .client_sleep_response import ClientSleepResponse
 from .client_user_id_conflict import ClientUserIdConflict
 from .client_workout_response import ClientWorkoutResponse
@@ -355,6 +384,7 @@ __all__ = [
     "ClientFacingCaffeineTimeseries",
     "ClientFacingCaloriesActiveTimeseries",
     "ClientFacingCaloriesBasalTimeseries",
+    "ClientFacingCarbohydratesSample",
     "ClientFacingCholesterolTimeseries",
     "ClientFacingDiagnosisInformation",
     "ClientFacingDistanceTimeseries",
@@ -364,12 +394,18 @@ __all__ = [
     "ClientFacingGlucoseTimeseries",
     "ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureDeltaSample",
     "ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureSample",
+    "ClientFacingGroupedTimeseriesResponseClientFacingCarbohydratesSample",
+    "ClientFacingGroupedTimeseriesResponseClientFacingInsulinInjectionSample",
+    "ClientFacingGroupedTimeseriesResponseClientFacingNoteSample",
+    "ClientFacingGroupedTimeseriesResponseClientFacingWorkoutDurationSample",
     "ClientFacingHeartRate",
     "ClientFacingHeartRateTimeseries",
     "ClientFacingHrvTimeseries",
     "ClientFacingHypnogramTimeseries",
     "ClientFacingIgeTimeseries",
     "ClientFacingIggTimeseries",
+    "ClientFacingInsulinInjectionSample",
+    "ClientFacingInsulinInjectionSampleType",
     "ClientFacingInsurance",
     "ClientFacingLab",
     "ClientFacingLabLocation",
@@ -380,6 +416,8 @@ __all__ = [
     "ClientFacingMarkerComplete",
     "ClientFacingMealResponse",
     "ClientFacingMindfulnessMinutesTimeseries",
+    "ClientFacingNoteSample",
+    "ClientFacingNoteSampleTagsItem",
     "ClientFacingOrder",
     "ClientFacingOrderDetails",
     "ClientFacingOrderDetails_AtHomePhlebotomy",
@@ -419,6 +457,10 @@ __all__ = [
     "ClientFacingTestkitOrder",
     "ClientFacingTimeseriesGroupClientFacingBodyTemperatureDeltaSample",
     "ClientFacingTimeseriesGroupClientFacingBodyTemperatureSample",
+    "ClientFacingTimeseriesGroupClientFacingCarbohydratesSample",
+    "ClientFacingTimeseriesGroupClientFacingInsulinInjectionSample",
+    "ClientFacingTimeseriesGroupClientFacingNoteSample",
+    "ClientFacingTimeseriesGroupClientFacingWorkoutDurationSample",
     "ClientFacingUser",
     "ClientFacingUserKey",
     "ClientFacingVo2MaxTimeseries",
@@ -426,6 +468,8 @@ __all__ = [
     "ClientFacingWalkInTestOrder",
     "ClientFacingWaterTimeseries",
     "ClientFacingWorkout",
+    "ClientFacingWorkoutDurationSample",
+    "ClientFacingWorkoutDurationSampleIntensity",
     "ClientSleepResponse",
     "ClientUserIdConflict",
     "ClientWorkoutResponse",
