@@ -16,6 +16,7 @@ except ImportError:
 class PscAreaInfo(pydantic.BaseModel):
     patient_service_centers: PscAreaInfoDetails
     supported_bill_types: typing.List[Billing]
+    lab_id: int
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
