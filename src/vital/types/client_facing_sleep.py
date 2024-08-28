@@ -6,6 +6,7 @@ import typing
 from ..core.datetime_utils import serialize_datetime
 from .client_facing_sleep_stream import ClientFacingSleepStream
 from .client_facing_source import ClientFacingSource
+from .sleep_summary_state import SleepSummaryState
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -49,6 +50,7 @@ class ClientFacingSleep(pydantic.BaseModel):
     temperature_delta: typing.Optional[float]
     skin_temperature: typing.Optional[float]
     hr_dip: typing.Optional[float]
+    state: typing.Optional[SleepSummaryState]
     average_hrv: typing.Optional[float]
     respiratory_rate: typing.Optional[float]
     source: ClientFacingSource = pydantic.Field(description="Source the data has come from.")

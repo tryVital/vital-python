@@ -312,6 +312,7 @@ from .single_provider_historical_pull_response import SingleProviderHistoricalPu
 from .single_resource_statistics import SingleResourceStatistics
 from .single_user_historical_pull_response import SingleUserHistoricalPullResponse
 from .single_user_resource_response import SingleUserResourceResponse
+from .sleep_summary_state import SleepSummaryState
 from .sleep_v_2_in_db import SleepV2InDb
 from .source import Source
 from .source_auth_type import SourceAuthType
@@ -627,6 +628,7 @@ __all__ = [
     "SingleResourceStatistics",
     "SingleUserHistoricalPullResponse",
     "SingleUserResourceResponse",
+    "SleepSummaryState",
     "SleepV2InDb",
     "Source",
     "SourceAuthType",
