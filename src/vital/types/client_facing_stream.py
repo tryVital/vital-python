@@ -12,6 +12,7 @@ from .client_facing_stream_lat import ClientFacingStreamLat
 from .client_facing_stream_lng import ClientFacingStreamLng
 from .client_facing_stream_power import ClientFacingStreamPower
 from .client_facing_stream_resistance import ClientFacingStreamResistance
+from .client_facing_stream_temperature import ClientFacingStreamTemperature
 from .client_facing_stream_velocity_smooth import ClientFacingStreamVelocitySmooth
 
 try:
@@ -35,6 +36,9 @@ class ClientFacingStream(pydantic.BaseModel):
     )
     power: typing.Optional[ClientFacingStreamPower] = pydantic.Field(description="Power in watts")
     resistance: typing.Optional[ClientFacingStreamResistance] = pydantic.Field(description="Resistance on bike")
+    temperature: typing.Optional[ClientFacingStreamTemperature] = pydantic.Field(
+        description="Temperature stream measured by device in Celsius"
+    )
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

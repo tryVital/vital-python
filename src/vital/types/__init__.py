@@ -125,6 +125,7 @@ from .client_facing_stream_lat import ClientFacingStreamLat
 from .client_facing_stream_lng import ClientFacingStreamLng
 from .client_facing_stream_power import ClientFacingStreamPower
 from .client_facing_stream_resistance import ClientFacingStreamResistance
+from .client_facing_stream_temperature import ClientFacingStreamTemperature
 from .client_facing_stream_velocity_smooth import ClientFacingStreamVelocitySmooth
 from .client_facing_stress_level_timeseries import ClientFacingStressLevelTimeseries
 from .client_facing_team import ClientFacingTeam
@@ -451,6 +452,7 @@ __all__ = [
     "ClientFacingStreamLng",
     "ClientFacingStreamPower",
     "ClientFacingStreamResistance",
+    "ClientFacingStreamTemperature",
     "ClientFacingStreamVelocitySmooth",
     "ClientFacingStressLevelTimeseries",
     "ClientFacingTeam",
