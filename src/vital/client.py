@@ -7,6 +7,7 @@ import httpx
 from .core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .environment import VitalEnvironment
 from .resources.activity.client import ActivityClient, AsyncActivityClient
+from .resources.aggregate.client import AggregateClient, AsyncAggregateClient
 from .resources.body.client import AsyncBodyClient, BodyClient
 from .resources.devices.client import AsyncDevicesClient, DevicesClient
 from .resources.insurance.client import AsyncInsuranceClient, InsuranceClient
@@ -57,6 +58,7 @@ class Vital:
         self.lab_tests = LabTestsClient(client_wrapper=self._client_wrapper)
         self.testkit = TestkitClient(client_wrapper=self._client_wrapper)
         self.insurance = InsuranceClient(client_wrapper=self._client_wrapper)
+        self.aggregate = AggregateClient(client_wrapper=self._client_wrapper)
 
 
 class AsyncVital:
@@ -91,6 +93,7 @@ class AsyncVital:
         self.lab_tests = AsyncLabTestsClient(client_wrapper=self._client_wrapper)
         self.testkit = AsyncTestkitClient(client_wrapper=self._client_wrapper)
         self.insurance = AsyncInsuranceClient(client_wrapper=self._client_wrapper)
+        self.aggregate = AsyncAggregateClient(client_wrapper=self._client_wrapper)
 
 
 def _get_base_url(*, base_url: typing.Optional[str] = None, environment: VitalEnvironment) -> str:

@@ -2,6 +2,7 @@
 
 from . import (
     activity,
+    aggregate,
     body,
     devices,
     insurance,
@@ -25,6 +26,7 @@ __all__ = [
     "LabTestsGetOrdersRequestOrderDirection",
     "LabTestsGetOrdersRequestOrderKey",
     "activity",
+    "aggregate",
     "body",
     "devices",
     "insurance",
