@@ -20,6 +20,7 @@ class Macros(pydantic.BaseModel):
     water: typing.Optional[float]
     fibre: typing.Optional[float]
     sugar: typing.Optional[float]
+    cholesterol: typing.Optional[float]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

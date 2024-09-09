@@ -16,7 +16,7 @@ class ClientFacingWaterTimeseries(pydantic.BaseModel):
     timezone_offset: typing.Optional[int]
     type: typing.Optional[str]
     unit: str = pydantic.Field(description="Measured in milliters.")
-    timestamp: dt.datetime = pydantic.Field(description="The timestamp of the measurement.")
+    timestamp: str = pydantic.Field(description="The timestamp of the measurement.")
     value: float = pydantic.Field(description="Quantity of water drank during the time period.")
 
     def json(self, **kwargs: typing.Any) -> str:

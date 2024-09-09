@@ -16,7 +16,7 @@ class ClientFacingStressLevelTimeseries(pydantic.BaseModel):
     timezone_offset: typing.Optional[int]
     type: typing.Optional[str]
     unit: str = pydantic.Field(description="Measured in percentage (0-100).")
-    timestamp: dt.datetime = pydantic.Field(description="The timestamp of the measurement.")
+    timestamp: str = pydantic.Field(description="The timestamp of the measurement.")
     value: float
 
     def json(self, **kwargs: typing.Any) -> str:

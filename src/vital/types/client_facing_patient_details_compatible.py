@@ -14,7 +14,7 @@ except ImportError:
 class ClientFacingPatientDetailsCompatible(pydantic.BaseModel):
     first_name: typing.Optional[str]
     last_name: typing.Optional[str]
-    dob: dt.datetime
+    dob: str
     gender: str
     phone_number: typing.Optional[str]
     email: typing.Optional[str]

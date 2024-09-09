@@ -15,8 +15,8 @@ except ImportError:
 
 class SingleHistoricalPullStatistics(pydantic.BaseModel):
     status: HistoricalPullStatus
-    range_start: typing.Optional[dt.datetime]
-    range_end: typing.Optional[dt.datetime]
+    range_start: typing.Optional[str]
+    range_end: typing.Optional[str]
     timeline: HistoricalPullTimeline
     days_with_data: typing.Optional[int]
     release: str

@@ -13,7 +13,7 @@ except ImportError:
 
 
 class LastAttempt(pydantic.BaseModel):
-    timestamp: dt.datetime
+    timestamp: str
     status: AttemptStatus
 
     def json(self, **kwargs: typing.Any) -> str:

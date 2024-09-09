@@ -6,7 +6,7 @@ import typing
 T_Result = typing.TypeVar("T_Result")
 
 
-class DateTimeUnit(str, enum.Enum):
+class PeriodUnit(str, enum.Enum):
     MINUTE = "minute"
     HOUR = "hour"
     DAY = "day"
@@ -23,15 +23,15 @@ class DateTimeUnit(str, enum.Enum):
         month: typing.Callable[[], T_Result],
         year: typing.Callable[[], T_Result],
     ) -> T_Result:
-        if self is DateTimeUnit.MINUTE:
+        if self is PeriodUnit.MINUTE:
             return minute()
-        if self is DateTimeUnit.HOUR:
+        if self is PeriodUnit.HOUR:
             return hour()
-        if self is DateTimeUnit.DAY:
+        if self is PeriodUnit.DAY:
             return day()
-        if self is DateTimeUnit.WEEK:
+        if self is PeriodUnit.WEEK:
             return week()
-        if self is DateTimeUnit.MONTH:
+        if self is PeriodUnit.MONTH:
             return month()
-        if self is DateTimeUnit.YEAR:
+        if self is PeriodUnit.YEAR:
             return year()

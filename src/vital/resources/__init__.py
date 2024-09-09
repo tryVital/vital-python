@@ -20,11 +20,13 @@ from . import (
     vitals,
     workouts,
 )
+from .aggregate import QueryTimeframe
 from .lab_tests import LabTestsGetOrdersRequestOrderDirection, LabTestsGetOrdersRequestOrderKey
 
 __all__ = [
     "LabTestsGetOrdersRequestOrderDirection",
     "LabTestsGetOrdersRequestOrderKey",
+    "QueryTimeframe",
     "activity",
     "aggregate",
     "body",

@@ -22,15 +22,16 @@ class MealInDbBaseClientFacingSource(pydantic.BaseModel):
     priority_id: int
     source_id: int
     provider_id: str
-    timestamp: dt.datetime
+    timestamp: str
     name: str
     energy: typing.Optional[Energy]
     macros: typing.Optional[Macros]
     micros: typing.Optional[Micros]
     data: typing.Optional[typing.Dict[str, ClientFacingFood]]
     source: ClientFacingSource
-    created_at: dt.datetime
-    updated_at: dt.datetime
+    created_at: str
+    updated_at: str
+    source_app_id: typing.Optional[str]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

@@ -32,8 +32,8 @@ class ClientFacingOrder(pydantic.BaseModel):
     details: ClientFacingOrderDetails
     sample_id: typing.Optional[str]
     notes: typing.Optional[str]
-    created_at: dt.datetime = pydantic.Field(description="When your order was created")
-    updated_at: dt.datetime = pydantic.Field(description="When your order was last updated.")
+    created_at: str = pydantic.Field(description="When your order was created")
+    updated_at: str = pydantic.Field(description="When your order was last updated.")
     events: typing.List[ClientFacingOrderEvent]
     status: typing.Optional[OrderTopLevelStatus]
     physician: typing.Optional[ClientFacingPhysician]

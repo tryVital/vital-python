@@ -13,9 +13,9 @@ except ImportError:
 
 class TimeSlot(pydantic.BaseModel):
     booking_key: typing.Optional[str]
-    start: dt.datetime = pydantic.Field(description="Time is in UTC")
-    end: dt.datetime = pydantic.Field(description="Time is in UTC")
-    expires_at: typing.Optional[dt.datetime]
+    start: str = pydantic.Field(description="Time is in UTC")
+    end: str = pydantic.Field(description="Time is in UTC")
+    expires_at: typing.Optional[str]
     price: float
     is_priority: bool
     num_appointments_available: int

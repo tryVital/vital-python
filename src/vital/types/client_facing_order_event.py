@@ -14,7 +14,7 @@ except ImportError:
 
 class ClientFacingOrderEvent(pydantic.BaseModel):
     id: int
-    created_at: dt.datetime
+    created_at: str
     status: OrderStatus
 
     def json(self, **kwargs: typing.Any) -> str:

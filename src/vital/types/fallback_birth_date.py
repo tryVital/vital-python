@@ -16,7 +16,7 @@ class FallbackBirthDate(pydantic.BaseModel):
         description="Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age."
     )
     source_slug: str = pydantic.Field(description="Slug for designated source")
-    updated_at: dt.datetime
+    updated_at: str
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

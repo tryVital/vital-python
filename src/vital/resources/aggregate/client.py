@@ -12,7 +12,7 @@ from ...errors.unprocessable_entity_error import UnprocessableEntityError
 from ...types.http_validation_error import HttpValidationError
 from ...types.query_config import QueryConfig
 from ...types.query_instruction import QueryInstruction
-from ...types.relative_timeframe import RelativeTimeframe
+from .types.query_timeframe import QueryTimeframe
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -31,7 +31,7 @@ class AggregateClient:
         self,
         user_id: str,
         *,
-        timeframe: RelativeTimeframe,
+        timeframe: QueryTimeframe,
         instructions: typing.List[QueryInstruction],
         config: typing.Optional[QueryConfig] = OMIT,
     ) -> typing.Any:
@@ -39,20 +39,13 @@ class AggregateClient:
         Parameters:
             - user_id: str.
 
-            - timeframe: RelativeTimeframe.
+            - timeframe: QueryTimeframe.
 
             - instructions: typing.List[QueryInstruction].
 
             - config: typing.Optional[QueryConfig].
         ---
-        from vital import (
-            DateTimeUnit,
-            Period,
-            QueryInstruction,
-            Reducer,
-            ReducerFunction,
-            RelativeTimeframe,
-        )
+        from vital import QueryInstruction, Reducer, ReducerFunction
         from vital.client import Vital
 
         client = Vital(
@@ -60,13 +53,6 @@ class AggregateClient:
         )
         client.aggregate.query_one(
             user_id="user_id",
-            timeframe=RelativeTimeframe(
-                type="relative",
-                anchor="anchor",
-                past=Period(
-                    unit=DateTimeUnit.MINUTE,
-                ),
-            ),
             instructions=[
                 QueryInstruction(
                     reduce_by=[
@@ -107,7 +93,7 @@ class AsyncAggregateClient:
         self,
         user_id: str,
         *,
-        timeframe: RelativeTimeframe,
+        timeframe: QueryTimeframe,
         instructions: typing.List[QueryInstruction],
         config: typing.Optional[QueryConfig] = OMIT,
     ) -> typing.Any:
@@ -115,20 +101,13 @@ class AsyncAggregateClient:
         Parameters:
             - user_id: str.
 
-            - timeframe: RelativeTimeframe.
+            - timeframe: QueryTimeframe.
 
             - instructions: typing.List[QueryInstruction].
 
             - config: typing.Optional[QueryConfig].
         ---
-        from vital import (
-            DateTimeUnit,
-            Period,
-            QueryInstruction,
-            Reducer,
-            ReducerFunction,
-            RelativeTimeframe,
-        )
+        from vital import QueryInstruction, Reducer, ReducerFunction
         from vital.client import AsyncVital
 
         client = AsyncVital(
@@ -136,13 +115,6 @@ class AsyncAggregateClient:
         )
         await client.aggregate.query_one(
             user_id="user_id",
-            timeframe=RelativeTimeframe(
-                type="relative",
-                anchor="anchor",
-                past=Period(
-                    unit=DateTimeUnit.MINUTE,
-                ),
-            ),
             instructions=[
                 QueryInstruction(
                     reduce_by=[

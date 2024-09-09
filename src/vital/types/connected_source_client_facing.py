@@ -14,7 +14,7 @@ except ImportError:
 
 class ConnectedSourceClientFacing(pydantic.BaseModel):
     provider: ClientFacingProvider = pydantic.Field(description="The provider of this connected source.")
-    created_on: dt.datetime = pydantic.Field(description="When your item is created")
+    created_on: str = pydantic.Field(description="When your item is created")
     source: ClientFacingProvider = pydantic.Field(
         description="Deprecated. Use `provider` instead. Subject to removal after 1 Jan 2024."
     )

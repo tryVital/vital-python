@@ -19,14 +19,14 @@ class ClientFacingSleep(pydantic.BaseModel):
         description="User id returned by vital create user request. This id should be stored in your database against the user and used for all interactions with the vital api."
     )
     id: str
-    date: dt.datetime = pydantic.Field(
+    date: str = pydantic.Field(
         description="Date of the specified record, formatted as ISO8601 datetime string in UTC 00:00. Deprecated in favour of calendar_date."
     )
     calendar_date: str = pydantic.Field(
         description="Date of the sleep summary in the YYYY-mm-dd format. This generally matches the sleep end date."
     )
-    bedtime_start: dt.datetime = pydantic.Field(description="UTC Time when the sleep period started")
-    bedtime_stop: dt.datetime = pydantic.Field(description="UTC Time when the sleep period ended")
+    bedtime_start: str = pydantic.Field(description="UTC Time when the sleep period started")
+    bedtime_stop: str = pydantic.Field(description="UTC Time when the sleep period ended")
     timezone_offset: typing.Optional[int]
     duration: int = pydantic.Field(
         description="Total duration of the sleep period (sleep.duration = sleep.bedtime_end - sleep.bedtime_start)::seconds"

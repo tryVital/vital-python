@@ -18,7 +18,7 @@ class ClientFacingActivity(pydantic.BaseModel):
         description="User id returned by vital create user request. This id should be stored in your database against the user and used for all interactions with the vital api."
     )
     id: str
-    date: dt.datetime = pydantic.Field(
+    date: str = pydantic.Field(
         description="Date of the specified record, formatted as ISO8601 datetime string in UTC 00:00. Deprecated in favour of calendar_date."
     )
     calendar_date: str = pydantic.Field(description="Date of the summary in the YYYY-mm-dd format.")

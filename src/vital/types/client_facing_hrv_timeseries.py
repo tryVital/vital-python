@@ -16,7 +16,7 @@ class ClientFacingHrvTimeseries(pydantic.BaseModel):
     timezone_offset: typing.Optional[int]
     type: typing.Optional[str]
     unit: str = pydantic.Field(description="Measured in rmssd.")
-    timestamp: dt.datetime = pydantic.Field(description="The timestamp of the measurement.")
+    timestamp: str = pydantic.Field(description="The timestamp of the measurement.")
     value: float = pydantic.Field(description="HRV calculated using rmssd during sleep")
 
     def json(self, **kwargs: typing.Any) -> str:

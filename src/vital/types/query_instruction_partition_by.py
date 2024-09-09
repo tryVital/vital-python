@@ -3,6 +3,6 @@
 import typing
 
 from .period import Period
-from .session_partitioning import SessionPartitioning
+from .placeholder import Placeholder
 
-QueryInstructionPartitionBy = typing.Union[Period, SessionPartitioning]
+QueryInstructionPartitionBy = typing.Union[Period, Placeholder]

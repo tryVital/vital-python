@@ -18,7 +18,7 @@ class ClientFacingCaloriesBasalTimeseries(pydantic.BaseModel):
     timezone_offset: typing.Optional[int]
     type: typing.Optional[str]
     unit: typing_extensions.Literal["kcal"] = pydantic.Field(description="Measured in kilocalories (kcal)")
-    timestamp: dt.datetime = pydantic.Field(description="The timestamp of the measurement.")
+    timestamp: str = pydantic.Field(description="The timestamp of the measurement.")
     value: float = pydantic.Field(description="Basal Metabolic Rate at the time or interval::kilocalories")
 
     def json(self, **kwargs: typing.Any) -> str:

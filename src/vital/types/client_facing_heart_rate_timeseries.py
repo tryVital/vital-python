@@ -16,7 +16,7 @@ class ClientFacingHeartRateTimeseries(pydantic.BaseModel):
     timezone_offset: typing.Optional[int]
     type: typing.Optional[str]
     unit: str = pydantic.Field(description="Measured in bpm.")
-    timestamp: dt.datetime = pydantic.Field(description="The timestamp of the measurement.")
+    timestamp: str = pydantic.Field(description="The timestamp of the measurement.")
     value: float = pydantic.Field(description="Heart rate in bpm")
 
     def json(self, **kwargs: typing.Any) -> str:

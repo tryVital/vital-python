@@ -17,9 +17,9 @@ class ClientFacingNoteSample(pydantic.BaseModel):
     timezone_offset: typing.Optional[int]
     type: typing.Optional[str]
     unit: str = pydantic.Field(description="User notes as text.")
-    timestamp: dt.datetime = pydantic.Field(description="Depracated. The start time (inclusive) of the interval.")
-    start: dt.datetime = pydantic.Field(description="The start time (inclusive) of the interval.")
-    end: dt.datetime = pydantic.Field(description="The end time (exclusive) of the interval.")
+    timestamp: str = pydantic.Field(description="Depracated. The start time (inclusive) of the interval.")
+    start: str = pydantic.Field(description="The start time (inclusive) of the interval.")
+    end: str = pydantic.Field(description="The end time (exclusive) of the interval.")
     value: str = pydantic.Field(description="The recorded value for the interval.")
     tags: typing.Optional[typing.List[ClientFacingNoteSampleTagsItem]]
 

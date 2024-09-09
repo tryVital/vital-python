@@ -23,7 +23,7 @@ class BiomarkerResult(pydantic.BaseModel):
     result: str
     type: ResultType
     unit: typing.Optional[str]
-    timestamp: typing.Optional[dt.datetime]
+    timestamp: typing.Optional[str]
     notes: typing.Optional[str]
     min_range_value: typing.Optional[float]
     max_range_value: typing.Optional[float]
@@ -32,6 +32,7 @@ class BiomarkerResult(pydantic.BaseModel):
     interpretation: typing.Optional[str]
     loinc: typing.Optional[str]
     loinc_slug: typing.Optional[str]
+    provider_id: typing.Optional[str]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

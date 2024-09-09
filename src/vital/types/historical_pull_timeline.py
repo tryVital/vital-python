@@ -12,9 +12,9 @@ except ImportError:
 
 
 class HistoricalPullTimeline(pydantic.BaseModel):
-    scheduled_at: dt.datetime
-    started_at: typing.Optional[dt.datetime]
-    ended_at: typing.Optional[dt.datetime]
+    scheduled_at: str
+    started_at: typing.Optional[str]
+    ended_at: typing.Optional[str]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

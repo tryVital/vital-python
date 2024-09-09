@@ -25,6 +25,7 @@ class ClientFacingMarkerComplete(pydantic.BaseModel):
     unit: typing.Optional[str]
     price: typing.Optional[str]
     aoe: typing.Optional[AoE]
+    a_la_carte_enabled: typing.Optional[bool]
     expected_results: typing.List[ClientFacingResult]
 
     def json(self, **kwargs: typing.Any) -> str:

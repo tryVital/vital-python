@@ -24,8 +24,8 @@ class ClientFacingAppointment(pydantic.BaseModel):
     order_id: str
     address: UsAddress
     location: LngLat
-    start_at: typing.Optional[dt.datetime]
-    end_at: typing.Optional[dt.datetime]
+    start_at: typing.Optional[str]
+    end_at: typing.Optional[str]
     iana_timezone: typing.Optional[str]
     type: AppointmentType
     provider: AppointmentProvider

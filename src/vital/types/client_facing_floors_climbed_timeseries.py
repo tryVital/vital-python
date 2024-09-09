@@ -18,7 +18,7 @@ class ClientFacingFloorsClimbedTimeseries(pydantic.BaseModel):
     timezone_offset: typing.Optional[int]
     type: typing.Optional[str]
     unit: typing_extensions.Literal["count"] = pydantic.Field(description="Measured in counts")
-    timestamp: dt.datetime = pydantic.Field(description="The timestamp of the measurement.")
+    timestamp: str = pydantic.Field(description="The timestamp of the measurement.")
     value: float = pydantic.Field(description="Number of floors climbed at the time or interval::count")
 
     def json(self, **kwargs: typing.Any) -> str:

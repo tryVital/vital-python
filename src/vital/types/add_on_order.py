@@ -11,13 +11,9 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class ClientFacingIggTimeseries(pydantic.BaseModel):
-    id: typing.Optional[int]
-    timezone_offset: typing.Optional[int]
-    type: typing.Optional[str]
-    unit: str = pydantic.Field(description="Measured in FSU.")
-    timestamp: str = pydantic.Field(description="The timestamp of the measurement.")
-    value: float = pydantic.Field(description="The value of the measurement.")
+class AddOnOrder(pydantic.BaseModel):
+    marker_ids: typing.Optional[typing.List[int]]
+    provider_ids: typing.Optional[typing.List[str]]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

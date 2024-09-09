@@ -3,6 +3,7 @@
 from .activity_selector import ActivitySelector
 from .activity_selector_activity import ActivitySelectorActivity
 from .activity_v_2_in_db import ActivityV2InDb
+from .add_on_order import AddOnOrder
 from .address import Address
 from .allowed_radius import AllowedRadius
 from .answer import Answer
@@ -169,7 +170,6 @@ from .consent import Consent
 from .consent_type import ConsentType
 from .contraceptive_entry import ContraceptiveEntry
 from .contraceptive_entry_type import ContraceptiveEntryType
-from .date_time_unit import DateTimeUnit
 from .day_slots import DaySlots
 from .delegated_flow_type import DelegatedFlowType
 from .demo_connection_status import DemoConnectionStatus
@@ -269,7 +269,9 @@ from .menstrual_flow_entry import MenstrualFlowEntry
 from .menstrual_flow_entry_flow import MenstrualFlowEntryFlow
 from .metrics_result import MetricsResult
 from .micros import Micros
+from .minerals import Minerals
 from .o_auth_providers import OAuthProviders
+from .order_set_request import OrderSetRequest
 from .order_status import OrderStatus
 from .order_top_level_status import OrderTopLevelStatus
 from .ovulation_test_entry import OvulationTestEntry
@@ -279,12 +281,14 @@ from .password_providers import PasswordProviders
 from .patient_address_compatible import PatientAddressCompatible
 from .patient_details import PatientDetails
 from .period import Period
+from .period_unit import PeriodUnit
 from .person_details_output import PersonDetailsOutput
 from .phlebotomy_area_info import PhlebotomyAreaInfo
 from .phlebotomy_provider_info import PhlebotomyProviderInfo
 from .physician_create_request import PhysicianCreateRequest
 from .physician_create_request_base import PhysicianCreateRequestBase
 from .physician_create_request_signature_image import PhysicianCreateRequestSignatureImage
+from .placeholder import Placeholder
 from .png import Png
 from .post_order_response import PostOrderResponse
 from .profile_in_db import ProfileInDb
@@ -302,7 +306,6 @@ from .query_config_week_starts_on import QueryConfigWeekStartsOn
 from .query_instruction import QueryInstruction
 from .query_instruction_partition_by import QueryInstructionPartitionBy
 from .query_instruction_select import QueryInstructionSelect
-from .query_instruction_swizzle_by import QueryInstructionSwizzleBy
 from .question import Question
 from .question_type import QuestionType
 from .raw_activity import RawActivity
@@ -320,8 +323,6 @@ from .responsible_relationship import ResponsibleRelationship
 from .result_type import ResultType
 from .scope_requirements_grants import ScopeRequirementsGrants
 from .scope_requirements_str import ScopeRequirementsStr
-from .session_partitioning import SessionPartitioning
-from .session_partitioning_session import SessionPartitioningSession
 from .sexual_activity_entry import SexualActivityEntry
 from .shipping_address import ShippingAddress
 from .single_historical_pull_statistics import SingleHistoricalPullStatistics
@@ -343,6 +344,7 @@ from .team_config import TeamConfig
 from .time_slot import TimeSlot
 from .timeseries_metric_point import TimeseriesMetricPoint
 from .timeseries_resource import TimeseriesResource
+from .trace_elements import TraceElements
 from .us_address import UsAddress
 from .user_historical_pulls_response import UserHistoricalPullsResponse
 from .user_info import UserInfo
@@ -360,12 +362,14 @@ from .vital_core_schemas_db_schemas_lab_test_insurance_person_details import (
     VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails,
 )
 from .vital_token_created_response import VitalTokenCreatedResponse
+from .vitamins import Vitamins
 from .workout_v_2_in_db import WorkoutV2InDb
 
 __all__ = [
     "ActivitySelector",
     "ActivitySelectorActivity",
     "ActivityV2InDb",
+    "AddOnOrder",
     "Address",
     "AllowedRadius",
     "Answer",
@@ -506,7 +510,6 @@ __all__ = [
     "ConsentType",
     "ContraceptiveEntry",
     "ContraceptiveEntryType",
-    "DateTimeUnit",
     "DaySlots",
     "DelegatedFlowType",
     "DemoConnectionStatus",
@@ -606,7 +609,9 @@ __all__ = [
     "MenstrualFlowEntryFlow",
     "MetricsResult",
     "Micros",
+    "Minerals",
     "OAuthProviders",
+    "OrderSetRequest",
     "OrderStatus",
     "OrderTopLevelStatus",
     "OvulationTestEntry",
@@ -616,12 +621,14 @@ __all__ = [
     "PatientAddressCompatible",
     "PatientDetails",
     "Period",
+    "PeriodUnit",
     "PersonDetailsOutput",
     "PhlebotomyAreaInfo",
     "PhlebotomyProviderInfo",
     "PhysicianCreateRequest",
     "PhysicianCreateRequestBase",
     "PhysicianCreateRequestSignatureImage",
+    "Placeholder",
     "Png",
     "PostOrderResponse",
     "ProfileInDb",
@@ -639,7 +646,6 @@ __all__ = [
     "QueryInstruction",
     "QueryInstructionPartitionBy",
     "QueryInstructionSelect",
-    "QueryInstructionSwizzleBy",
     "Question",
     "QuestionType",
     "RawActivity",
@@ -657,8 +663,6 @@ __all__ = [
     "ResultType",
     "ScopeRequirementsGrants",
     "ScopeRequirementsStr",
-    "SessionPartitioning",
-    "SessionPartitioningSession",
     "SexualActivityEntry",
     "ShippingAddress",
     "SingleHistoricalPullStatistics",
@@ -680,6 +684,7 @@ __all__ = [
     "TimeSlot",
     "TimeseriesMetricPoint",
     "TimeseriesResource",
+    "TraceElements",
     "UsAddress",
     "UserHistoricalPullsResponse",
     "UserInfo",
@@ -693,5 +698,6 @@ __all__ = [
     "VitalCoreSchemasDbSchemasLabTestHealthInsurancePersonDetails",
     "VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails",
     "VitalTokenCreatedResponse",
+    "Vitamins",
     "WorkoutV2InDb",
 ]

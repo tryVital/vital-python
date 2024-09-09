@@ -26,8 +26,8 @@ class ClientFacingWorkout(pydantic.BaseModel):
     calendar_date: str = pydantic.Field(
         description="Date of the workout summary in the YYYY-mm-dd format. This generally matches the workout start date."
     )
-    time_start: dt.datetime = pydantic.Field(description="Start time of the workout::time")
-    time_end: dt.datetime = pydantic.Field(description="End time of the workout::time")
+    time_start: str = pydantic.Field(description="Start time of the workout::time")
+    time_end: str = pydantic.Field(description="End time of the workout::time")
     calories: typing.Optional[float]
     sport: typing.Optional[ClientFacingSport] = pydantic.Field(description="Sport's name")
     hr_zones: typing.Optional[typing.List[int]]

@@ -32,6 +32,7 @@ from ...types.http_validation_error import HttpValidationError
 from ...types.lab_results_metadata import LabResultsMetadata
 from ...types.lab_results_raw import LabResultsRaw
 from ...types.lab_test_collection_method import LabTestCollectionMethod
+from ...types.order_set_request import OrderSetRequest
 from ...types.order_status import OrderStatus
 from ...types.patient_address_compatible import PatientAddressCompatible
 from ...types.patient_details import PatientDetails
@@ -146,6 +147,7 @@ class LabTestsClient:
         *,
         lab_id: typing.Optional[typing.Union[int, typing.List[int]]] = None,
         name: typing.Optional[str] = None,
+        a_la_carte_enabled: typing.Optional[bool] = None,
         page: typing.Optional[int] = None,
         size: typing.Optional[int] = None,
     ) -> GetMarkersResponse:
@@ -156,6 +158,8 @@ class LabTestsClient:
             - lab_id: typing.Optional[typing.Union[int, typing.List[int]]]. The identifier Vital assigned to a lab partner.
 
             - name: typing.Optional[str]. The name or test code of an individual biomarker or a panel.
+
+            - a_la_carte_enabled: typing.Optional[bool].
 
             - page: typing.Optional[int].
 
@@ -171,7 +175,9 @@ class LabTestsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/lab_tests/markers"),
-            params=remove_none_from_dict({"lab_id": lab_id, "name": name, "page": page, "size": size}),
+            params=remove_none_from_dict(
+                {"lab_id": lab_id, "name": name, "a_la_carte_enabled": a_la_carte_enabled, "page": page, "size": size}
+            ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -893,7 +899,9 @@ class LabTestsClient:
         self,
         *,
         user_id: str,
-        lab_test_id: str,
+        lab_test_id: typing.Optional[str] = OMIT,
+        order_set: typing.Optional[OrderSetRequest] = OMIT,
+        collection_method: typing.Optional[LabTestCollectionMethod] = OMIT,
         physician: typing.Optional[PhysicianCreateRequest] = OMIT,
         health_insurance: typing.Optional[HealthInsuranceCreateRequest] = OMIT,
         priority: typing.Optional[bool] = OMIT,
@@ -912,7 +920,11 @@ class LabTestsClient:
         Parameters:
             - user_id: str.
 
-            - lab_test_id: str.
+            - lab_test_id: typing.Optional[str].
+
+            - order_set: typing.Optional[OrderSetRequest].
+
+            - collection_method: typing.Optional[LabTestCollectionMethod].
 
             - physician: typing.Optional[PhysicianCreateRequest].
 
@@ -938,10 +950,15 @@ class LabTestsClient:
         """
         _request: typing.Dict[str, typing.Any] = {
             "user_id": user_id,
-            "lab_test_id": lab_test_id,
             "patient_details": patient_details,
             "patient_address": patient_address,
         }
+        if lab_test_id is not OMIT:
+            _request["lab_test_id"] = lab_test_id
+        if order_set is not OMIT:
+            _request["order_set"] = order_set
+        if collection_method is not OMIT:
+            _request["collection_method"] = collection_method.value
         if physician is not OMIT:
             _request["physician"] = physician
         if health_insurance is not OMIT:
@@ -1224,6 +1241,7 @@ class AsyncLabTestsClient:
         *,
         lab_id: typing.Optional[typing.Union[int, typing.List[int]]] = None,
         name: typing.Optional[str] = None,
+        a_la_carte_enabled: typing.Optional[bool] = None,
         page: typing.Optional[int] = None,
         size: typing.Optional[int] = None,
     ) -> GetMarkersResponse:
@@ -1234,6 +1252,8 @@ class AsyncLabTestsClient:
             - lab_id: typing.Optional[typing.Union[int, typing.List[int]]]. The identifier Vital assigned to a lab partner.
 
             - name: typing.Optional[str]. The name or test code of an individual biomarker or a panel.
+
+            - a_la_carte_enabled: typing.Optional[bool].
 
             - page: typing.Optional[int].
 
@@ -1249,7 +1269,9 @@ class AsyncLabTestsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/lab_tests/markers"),
-            params=remove_none_from_dict({"lab_id": lab_id, "name": name, "page": page, "size": size}),
+            params=remove_none_from_dict(
+                {"lab_id": lab_id, "name": name, "a_la_carte_enabled": a_la_carte_enabled, "page": page, "size": size}
+            ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -1975,7 +1997,9 @@ class AsyncLabTestsClient:
         self,
         *,
         user_id: str,
-        lab_test_id: str,
+        lab_test_id: typing.Optional[str] = OMIT,
+        order_set: typing.Optional[OrderSetRequest] = OMIT,
+        collection_method: typing.Optional[LabTestCollectionMethod] = OMIT,
         physician: typing.Optional[PhysicianCreateRequest] = OMIT,
         health_insurance: typing.Optional[HealthInsuranceCreateRequest] = OMIT,
         priority: typing.Optional[bool] = OMIT,
@@ -1994,7 +2018,11 @@ class AsyncLabTestsClient:
         Parameters:
             - user_id: str.
 
-            - lab_test_id: str.
+            - lab_test_id: typing.Optional[str].
+
+            - order_set: typing.Optional[OrderSetRequest].
+
+            - collection_method: typing.Optional[LabTestCollectionMethod].
 
             - physician: typing.Optional[PhysicianCreateRequest].
 
@@ -2020,10 +2048,15 @@ class AsyncLabTestsClient:
         """
         _request: typing.Dict[str, typing.Any] = {
             "user_id": user_id,
-            "lab_test_id": lab_test_id,
             "patient_details": patient_details,
             "patient_address": patient_address,
         }
+        if lab_test_id is not OMIT:
+            _request["lab_test_id"] = lab_test_id
+        if order_set is not OMIT:
+            _request["order_set"] = order_set
+        if collection_method is not OMIT:
+            _request["collection_method"] = collection_method.value
         if physician is not OMIT:
             _request["physician"] = physician
         if health_insurance is not OMIT:

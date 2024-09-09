@@ -13,7 +13,7 @@ except ImportError:
 
 
 class ClientFacingAppointmentEvent(pydantic.BaseModel):
-    created_at: dt.datetime
+    created_at: str
     status: AppointmentEventStatus
     data: typing.Optional[typing.Dict[str, typing.Any]]
 

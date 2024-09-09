@@ -21,8 +21,8 @@ class ClientFacingTestkitOrder(pydantic.BaseModel):
 
     id: str = pydantic.Field(description="The Vital TestKit Order ID")
     shipment: typing.Optional[ClientFacingShipment]
-    created_at: dt.datetime
-    updated_at: dt.datetime
+    created_at: str
+    updated_at: str
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

@@ -18,7 +18,7 @@ class ClientFacingBloodPressureTimeseries(pydantic.BaseModel):
     unit: str = pydantic.Field(
         description="The unit of the value. We use SI units where possible, e.g. mmol/L for glucose/cholesterol, bpm for heart rate, etc."
     )
-    timestamp: dt.datetime
+    timestamp: str
     systolic: float
     diastolic: float
 

@@ -12,7 +12,7 @@ except ImportError:
 
 
 class TimeseriesMetricPoint(pydantic.BaseModel):
-    date: dt.datetime
+    date: str
     value: float
 
     def json(self, **kwargs: typing.Any) -> str:

@@ -3,13 +3,11 @@
 import datetime as dt
 import typing
 
-import typing_extensions
-
 from ..core.datetime_utils import serialize_datetime
 from .query_instruction_partition_by import QueryInstructionPartitionBy
 from .query_instruction_select import QueryInstructionSelect
-from .query_instruction_swizzle_by import QueryInstructionSwizzleBy
 from .reducer import Reducer
+from .swizzling import Swizzling
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -20,9 +18,8 @@ except ImportError:
 class QueryInstruction(pydantic.BaseModel):
     select: QueryInstructionSelect
     partition_by: QueryInstructionPartitionBy
-    swizzle_by: QueryInstructionSwizzleBy
+    swizzle_by: typing.Optional[Swizzling]
     reduce_by: typing.List[Reducer]
-    prioritize_by: typing.Optional[typing.List[typing_extensions.Literal["by_source_priority"]]]
     split_by_source: typing.Optional[bool]
 
     def json(self, **kwargs: typing.Any) -> str:

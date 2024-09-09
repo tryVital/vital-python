@@ -16,8 +16,8 @@ class ClientFacingApiKey(pydantic.BaseModel):
     value: str
     team_id: typing.Optional[str]
     id: str
-    created_at: dt.datetime
-    deleted_at: typing.Optional[dt.datetime]
+    created_at: str
+    deleted_at: typing.Optional[str]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

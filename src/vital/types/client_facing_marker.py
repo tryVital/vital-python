@@ -24,6 +24,7 @@ class ClientFacingMarker(pydantic.BaseModel):
     unit: typing.Optional[str]
     price: typing.Optional[str]
     aoe: typing.Optional[AoE]
+    a_la_carte_enabled: typing.Optional[bool]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

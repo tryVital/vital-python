@@ -22,7 +22,7 @@ class ClientFacingUser(pydantic.BaseModel):
     client_user_id: str = pydantic.Field(
         description="A unique ID representing the end user. Typically this will be a user ID from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id."
     )
-    created_on: dt.datetime = pydantic.Field(description="When your item is created")
+    created_on: str = pydantic.Field(description="When your item is created")
     connected_sources: typing.List[ConnectedSourceClientFacing] = pydantic.Field(
         description="A list of the users connected sources."
     )
