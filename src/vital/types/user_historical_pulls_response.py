@@ -14,8 +14,11 @@ except ImportError:
 
 class UserHistoricalPullsResponse(pydantic.BaseModel):
     data: typing.List[SingleUserHistoricalPullResponse]
-    next: typing.Optional[str]
-    next_cursor: typing.Optional[str]
+    next: typing.Optional[str] = None
+    next_cursor: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The cursor for fetching the next page, or `null` to fetch the first page.
+    """
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -28,4 +31,5 @@ class UserHistoricalPullsResponse(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

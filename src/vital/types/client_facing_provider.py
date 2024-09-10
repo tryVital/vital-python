@@ -16,9 +16,20 @@ class ClientFacingProvider(pydantic.BaseModel):
     A vendor, a service, or a platform which Vital can connect with.
     """
 
-    name: str = pydantic.Field(description="Name of source of information")
-    slug: str = pydantic.Field(description="Slug for designated source")
-    logo: str = pydantic.Field(description="URL for source logo")
+    name: str = pydantic.Field()
+    """
+    Name of source of information
+    """
+
+    slug: str = pydantic.Field()
+    """
+    Slug for designated source
+    """
+
+    logo: str = pydantic.Field()
+    """
+    URL for source logo
+    """
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -31,4 +42,5 @@ class ClientFacingProvider(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

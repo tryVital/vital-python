@@ -15,21 +15,51 @@ except ImportError:
 
 
 class ClientFacingUser(pydantic.BaseModel):
-    user_id: str = pydantic.Field(
-        description="User id returned by vital create user request. This id should be stored in your database against the user and used for all interactions with the vital api."
-    )
-    team_id: str = pydantic.Field(description="Your team id.")
-    client_user_id: str = pydantic.Field(
-        description="A unique ID representing the end user. Typically this will be a user ID from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id."
-    )
-    created_on: str = pydantic.Field(description="When your item is created")
-    connected_sources: typing.List[ConnectedSourceClientFacing] = pydantic.Field(
-        description="A list of the users connected sources."
-    )
-    fallback_time_zone: typing.Optional[FallbackTimeZone]
-    fallback_birth_date: typing.Optional[FallbackBirthDate]
-    ingestion_start: typing.Optional[str]
-    ingestion_end: typing.Optional[str]
+    user_id: str = pydantic.Field()
+    """
+    User id returned by vital create user request. This id should be stored in your database against the user and used for all interactions with the vital api.
+    """
+
+    team_id: str = pydantic.Field()
+    """
+    Your team id.
+    """
+
+    client_user_id: str = pydantic.Field()
+    """
+    A unique ID representing the end user. Typically this will be a user ID from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id.
+    """
+
+    created_on: str = pydantic.Field()
+    """
+    When your item is created
+    """
+
+    connected_sources: typing.List[ConnectedSourceClientFacing] = pydantic.Field()
+    """
+    A list of the users connected sources.
+    """
+
+    fallback_time_zone: typing.Optional[FallbackTimeZone] = pydantic.Field(default=None)
+    """
+        Fallback time zone of the user, in the form of a valid IANA tzdatabase identifier (e.g., `Europe/London` or `America/Los_Angeles`).
+        Used when pulling data from sources that are completely time zone agnostic (e.g., all time is relative to UTC clock, without any time zone attributions on data points).
+    """
+
+    fallback_birth_date: typing.Optional[FallbackBirthDate] = pydantic.Field(default=None)
+    """
+    Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
+    """
+
+    ingestion_start: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Starting bound for user data ingestion. Data older than this date will not be ingested.
+    """
+
+    ingestion_end: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Ending bound for user data ingestion. Data from this date or later will not be ingested and the connection will be deregistered.
+    """
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -42,4 +72,5 @@ class ClientFacingUser(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

@@ -15,12 +15,12 @@ except ImportError:
 
 class SingleHistoricalPullStatistics(pydantic.BaseModel):
     status: HistoricalPullStatus
-    range_start: typing.Optional[str]
-    range_end: typing.Optional[str]
+    range_start: typing.Optional[str] = None
+    range_end: typing.Optional[str] = None
     timeline: HistoricalPullTimeline
-    days_with_data: typing.Optional[int]
+    days_with_data: typing.Optional[int] = None
     release: str
-    trace_id: typing.Optional[str]
+    trace_id: typing.Optional[str] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -33,4 +33,5 @@ class SingleHistoricalPullStatistics(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

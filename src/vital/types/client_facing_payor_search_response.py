@@ -13,14 +13,25 @@ except ImportError:
 
 
 class ClientFacingPayorSearchResponse(pydantic.BaseModel):
-    code: str = pydantic.Field(description="Payor code returned for the insurance information.")
-    name: str = pydantic.Field(description="Insurance name returned for the insurance information.")
-    aliases: typing.List[str] = pydantic.Field(
-        description="Insurance name aliases returned for the insurance information."
-    )
-    org_address: Address = pydantic.Field(
-        description="Insurance business address returned for the insurance information."
-    )
+    code: str = pydantic.Field()
+    """
+    Payor code returned for the insurance information.
+    """
+
+    name: str = pydantic.Field()
+    """
+    Insurance name returned for the insurance information.
+    """
+
+    aliases: typing.List[str] = pydantic.Field()
+    """
+    Insurance name aliases returned for the insurance information.
+    """
+
+    org_address: Address = pydantic.Field()
+    """
+    Insurance business address returned for the insurance information.
+    """
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -33,4 +44,5 @@ class ClientFacingPayorSearchResponse(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

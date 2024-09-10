@@ -22,23 +22,60 @@ except ImportError:
 
 
 class ClientFacingStream(pydantic.BaseModel):
-    cadence: typing.Optional[ClientFacingStreamCadence] = pydantic.Field(
-        description="RPM for cycling, Steps per minute for running"
-    )
-    time: typing.Optional[typing.List[int]]
-    altitude: typing.Optional[ClientFacingStreamAltitude] = pydantic.Field(description="Data points for altitude")
-    velocity_smooth: typing.Optional[ClientFacingStreamVelocitySmooth] = pydantic.Field(description="Velocity in m/s")
-    heartrate: typing.Optional[ClientFacingStreamHeartrate] = pydantic.Field(description="Heart rate in bpm")
-    lat: typing.Optional[ClientFacingStreamLat] = pydantic.Field(description="Latitude for data point")
-    lng: typing.Optional[ClientFacingStreamLng] = pydantic.Field(description="Longitude for data point")
-    distance: typing.Optional[ClientFacingStreamDistance] = pydantic.Field(
-        description="Cumulated distance for exercise"
-    )
-    power: typing.Optional[ClientFacingStreamPower] = pydantic.Field(description="Power in watts")
-    resistance: typing.Optional[ClientFacingStreamResistance] = pydantic.Field(description="Resistance on bike")
-    temperature: typing.Optional[ClientFacingStreamTemperature] = pydantic.Field(
-        description="Temperature stream measured by device in Celsius"
-    )
+    cadence: typing.Optional[ClientFacingStreamCadence] = pydantic.Field(default=None)
+    """
+    RPM for cycling, Steps per minute for running
+    """
+
+    time: typing.Optional[typing.List[int]] = pydantic.Field(default=None)
+    """
+    Corresponding time stamp in unix time for datapoint
+    """
+
+    altitude: typing.Optional[ClientFacingStreamAltitude] = pydantic.Field(default=None)
+    """
+    Data points for altitude
+    """
+
+    velocity_smooth: typing.Optional[ClientFacingStreamVelocitySmooth] = pydantic.Field(default=None)
+    """
+    Velocity in m/s
+    """
+
+    heartrate: typing.Optional[ClientFacingStreamHeartrate] = pydantic.Field(default=None)
+    """
+    Heart rate in bpm
+    """
+
+    lat: typing.Optional[ClientFacingStreamLat] = pydantic.Field(default=None)
+    """
+    Latitude for data point
+    """
+
+    lng: typing.Optional[ClientFacingStreamLng] = pydantic.Field(default=None)
+    """
+    Longitude for data point
+    """
+
+    distance: typing.Optional[ClientFacingStreamDistance] = pydantic.Field(default=None)
+    """
+    Cumulated distance for exercise
+    """
+
+    power: typing.Optional[ClientFacingStreamPower] = pydantic.Field(default=None)
+    """
+    Power in watts
+    """
+
+    resistance: typing.Optional[ClientFacingStreamResistance] = pydantic.Field(default=None)
+    """
+    Resistance on bike
+    """
+
+    temperature: typing.Optional[ClientFacingStreamTemperature] = pydantic.Field(default=None)
+    """
+    Temperature stream measured by device in Celsius
+    """
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -51,4 +88,5 @@ class ClientFacingStream(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

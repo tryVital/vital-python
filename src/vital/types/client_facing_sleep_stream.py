@@ -16,10 +16,10 @@ except ImportError:
 
 
 class ClientFacingSleepStream(pydantic.BaseModel):
-    hrv: typing.Optional[typing.List[ClientFacingHrvTimeseries]]
-    heartrate: typing.Optional[typing.List[ClientFacingHeartRateTimeseries]]
-    hypnogram: typing.Optional[typing.List[ClientFacingHypnogramTimeseries]]
-    respiratory_rate: typing.Optional[typing.List[ClientFacingRespiratoryRateTimeseries]]
+    hrv: typing.Optional[typing.List[ClientFacingHrvTimeseries]] = None
+    heartrate: typing.Optional[typing.List[ClientFacingHeartRateTimeseries]] = None
+    hypnogram: typing.Optional[typing.List[ClientFacingHypnogramTimeseries]] = None
+    respiratory_rate: typing.Optional[typing.List[ClientFacingRespiratoryRateTimeseries]] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -32,4 +32,5 @@ class ClientFacingSleepStream(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

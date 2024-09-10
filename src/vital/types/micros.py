@@ -12,9 +12,20 @@ except ImportError:
 
 
 class Micros(pydantic.BaseModel):
-    minerals: typing.Optional[typing.Dict[str, typing.Optional[float]]]
-    trace_elements: typing.Optional[typing.Dict[str, typing.Optional[float]]]
-    vitamins: typing.Optional[typing.Dict[str, typing.Optional[float]]]
+    minerals: typing.Optional[typing.Dict[str, typing.Optional[float]]] = pydantic.Field(default=None)
+    """
+    Amount of each mineral in grams (g)
+    """
+
+    trace_elements: typing.Optional[typing.Dict[str, typing.Optional[float]]] = pydantic.Field(default=None)
+    """
+    Amount of each trace element in grams (g)
+    """
+
+    vitamins: typing.Optional[typing.Dict[str, typing.Optional[float]]] = pydantic.Field(default=None)
+    """
+    Amount of each vitamin in grams (g)
+    """
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -27,4 +38,5 @@ class Micros(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

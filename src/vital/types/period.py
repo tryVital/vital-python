@@ -13,7 +13,7 @@ except ImportError:
 
 
 class Period(pydantic.BaseModel):
-    value: typing.Optional[int]
+    value: typing.Optional[int] = None
     unit: PeriodUnit
 
     def json(self, **kwargs: typing.Any) -> str:
@@ -27,4 +27,5 @@ class Period(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

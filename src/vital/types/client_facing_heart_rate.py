@@ -12,10 +12,25 @@ except ImportError:
 
 
 class ClientFacingHeartRate(pydantic.BaseModel):
-    avg_bpm: typing.Optional[float]
-    min_bpm: typing.Optional[float]
-    max_bpm: typing.Optional[float]
-    resting_bpm: typing.Optional[float]
+    avg_bpm: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Average heart rate::bpm
+    """
+
+    min_bpm: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Minimum heart rate::bpm
+    """
+
+    max_bpm: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Maximum heart rate::bpm
+    """
+
+    resting_bpm: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Resting heart rate::bpm
+    """
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -28,4 +43,5 @@ class ClientFacingHeartRate(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

@@ -20,8 +20,8 @@ class ClientFacingInsurance(pydantic.BaseModel):
     relationship: ResponsibleRelationship
     insured: PersonDetailsOutput
     company: CompanyDetails
-    group_id: typing.Optional[str]
-    guarantor: typing.Optional[PersonDetailsOutput]
+    group_id: typing.Optional[str] = None
+    guarantor: typing.Optional[PersonDetailsOutput] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -34,4 +34,5 @@ class ClientFacingInsurance(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

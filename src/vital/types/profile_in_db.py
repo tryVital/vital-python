@@ -16,10 +16,10 @@ class ProfileInDb(pydantic.BaseModel):
     data: typing.Any
     user_id: str
     source_id: int
-    priority_id: typing.Optional[int]
+    priority_id: typing.Optional[int] = None
     id: str
     source: ClientFacingProvider
-    updated_at: typing.Optional[dt.datetime]
+    updated_at: typing.Optional[dt.datetime] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -32,4 +32,5 @@ class ProfileInDb(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

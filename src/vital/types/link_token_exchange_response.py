@@ -12,12 +12,15 @@ except ImportError:
 
 
 class LinkTokenExchangeResponse(pydantic.BaseModel):
-    link_token: str = pydantic.Field(
-        description="A short-lived Vital Link token for your Custom Link Widget to communicate with the Vital API."
-    )
-    link_web_url: str = pydantic.Field(
-        description="The web browser link to launch the default Vital Link experience. If you requested the token for one specific provider, the link would redirect directly to the provider authentication flow. Otherwise, the user would be presented with a list of providers based on your team and token configurations."
-    )
+    link_token: str = pydantic.Field()
+    """
+    A short-lived Vital Link token for your Custom Link Widget to communicate with the Vital API.
+    """
+
+    link_web_url: str = pydantic.Field()
+    """
+    The web browser link to launch the default Vital Link experience. If you requested the token for one specific provider, the link would redirect directly to the provider authentication flow. Otherwise, the user would be presented with a list of providers based on your team and token configurations.
+    """
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -30,4 +33,5 @@ class LinkTokenExchangeResponse(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

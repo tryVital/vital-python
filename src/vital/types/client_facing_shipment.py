@@ -18,14 +18,45 @@ class ClientFacingShipment(pydantic.BaseModel):
     To be used as part of a ClientFacingTestkitOrder.
     """
 
-    id: str = pydantic.Field(description="The Vital Shipment ID")
-    outbound_tracking_number: typing.Optional[str]
-    outbound_tracking_url: typing.Optional[str]
-    inbound_tracking_number: typing.Optional[str]
-    inbound_tracking_url: typing.Optional[str]
-    outbound_courier: typing.Optional[str]
-    inbound_courier: typing.Optional[str]
-    notes: typing.Optional[str]
+    id: str = pydantic.Field()
+    """
+    The Vital Shipment ID
+    """
+
+    outbound_tracking_number: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Tracking number for delivery to customer
+    """
+
+    outbound_tracking_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Tracking url for delivery to customer
+    """
+
+    inbound_tracking_number: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Tracking number for delivery to lab
+    """
+
+    inbound_tracking_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Tracking url for delivery to lab
+    """
+
+    outbound_courier: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Courier used for delivery to customer
+    """
+
+    inbound_courier: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Courier used for delivery to lab
+    """
+
+    notes: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Notes associated to the Vital shipment
+    """
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -38,4 +69,5 @@ class ClientFacingShipment(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

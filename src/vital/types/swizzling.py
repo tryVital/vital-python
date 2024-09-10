@@ -43,7 +43,7 @@ class Swizzling(pydantic.BaseModel):
     """
 
     bin_granularity: SwizzlingBinGranularity
-    bin_count: typing.Optional[int]
+    bin_count: typing.Optional[int] = None
     gather_every: Period
 
     def json(self, **kwargs: typing.Any) -> str:
@@ -57,4 +57,5 @@ class Swizzling(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

@@ -16,13 +16,13 @@ except ImportError:
 
 class ProviderLinkResponse(pydantic.BaseModel):
     state: ProviderLinkResponseState
-    redirect_url: typing.Optional[str]
-    error_type: typing.Optional[str]
-    error: typing.Optional[str]
-    provider_mfa: typing.Optional[ProviderMfaRequest]
+    redirect_url: typing.Optional[str] = None
+    error_type: typing.Optional[str] = None
+    error: typing.Optional[str] = None
+    provider_mfa: typing.Optional[ProviderMfaRequest] = None
     provider: PasswordProviders
     connected: bool
-    provider_id: typing.Optional[str]
+    provider_id: typing.Optional[str] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -35,4 +35,5 @@ class ProviderLinkResponse(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

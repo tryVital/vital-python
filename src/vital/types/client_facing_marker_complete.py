@@ -18,14 +18,14 @@ class ClientFacingMarkerComplete(pydantic.BaseModel):
     id: int
     name: str
     slug: str
-    description: typing.Optional[str]
-    lab_id: typing.Optional[int]
-    provider_id: typing.Optional[str]
-    type: typing.Optional[MarkerType]
-    unit: typing.Optional[str]
-    price: typing.Optional[str]
-    aoe: typing.Optional[AoE]
-    a_la_carte_enabled: typing.Optional[bool]
+    description: typing.Optional[str] = None
+    lab_id: typing.Optional[int] = None
+    provider_id: typing.Optional[str] = None
+    type: typing.Optional[MarkerType] = None
+    unit: typing.Optional[str] = None
+    price: typing.Optional[str] = None
+    aoe: typing.Optional[AoE] = None
+    a_la_carte_enabled: typing.Optional[bool] = None
     expected_results: typing.List[ClientFacingResult]
 
     def json(self, **kwargs: typing.Any) -> str:
@@ -39,4 +39,5 @@ class ClientFacingMarkerComplete(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

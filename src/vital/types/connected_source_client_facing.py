@@ -13,11 +13,20 @@ except ImportError:
 
 
 class ConnectedSourceClientFacing(pydantic.BaseModel):
-    provider: ClientFacingProvider = pydantic.Field(description="The provider of this connected source.")
-    created_on: str = pydantic.Field(description="When your item is created")
-    source: ClientFacingProvider = pydantic.Field(
-        description="Deprecated. Use `provider` instead. Subject to removal after 1 Jan 2024."
-    )
+    provider: ClientFacingProvider = pydantic.Field()
+    """
+    The provider of this connected source.
+    """
+
+    created_on: str = pydantic.Field()
+    """
+    When your item is created
+    """
+
+    source: ClientFacingProvider = pydantic.Field()
+    """
+    Deprecated. Use `provider` instead. Subject to removal after 1 Jan 2024.
+    """
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -30,4 +39,5 @@ class ConnectedSourceClientFacing(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

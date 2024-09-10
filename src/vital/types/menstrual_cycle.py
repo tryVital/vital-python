@@ -24,19 +24,19 @@ except ImportError:
 
 class MenstrualCycle(pydantic.BaseModel):
     period_start: str
-    period_end: typing.Optional[str]
-    cycle_end: typing.Optional[str]
-    is_predicted: typing.Optional[bool]
-    menstrual_flow: typing.Optional[typing.List[MenstrualFlowEntry]]
-    cervical_mucus: typing.Optional[typing.List[CervicalMucusEntry]]
-    intermenstrual_bleeding: typing.Optional[typing.List[IntermenstrualBleedingEntry]]
-    contraceptive: typing.Optional[typing.List[ContraceptiveEntry]]
-    detected_deviations: typing.Optional[typing.List[DetectedDeviationEntry]]
-    ovulation_test: typing.Optional[typing.List[OvulationTestEntry]]
-    home_pregnancy_test: typing.Optional[typing.List[HomePregnancyTestEntry]]
-    home_progesterone_test: typing.Optional[typing.List[HomeProgesteroneTestEntry]]
-    sexual_activity: typing.Optional[typing.List[SexualActivityEntry]]
-    basal_body_temperature: typing.Optional[typing.List[BasalBodyTemperatureEntry]]
+    period_end: typing.Optional[str] = None
+    cycle_end: typing.Optional[str] = None
+    is_predicted: typing.Optional[bool] = None
+    menstrual_flow: typing.Optional[typing.List[MenstrualFlowEntry]] = None
+    cervical_mucus: typing.Optional[typing.List[CervicalMucusEntry]] = None
+    intermenstrual_bleeding: typing.Optional[typing.List[IntermenstrualBleedingEntry]] = None
+    contraceptive: typing.Optional[typing.List[ContraceptiveEntry]] = None
+    detected_deviations: typing.Optional[typing.List[DetectedDeviationEntry]] = None
+    ovulation_test: typing.Optional[typing.List[OvulationTestEntry]] = None
+    home_pregnancy_test: typing.Optional[typing.List[HomePregnancyTestEntry]] = None
+    home_progesterone_test: typing.Optional[typing.List[HomeProgesteroneTestEntry]] = None
+    sexual_activity: typing.Optional[typing.List[SexualActivityEntry]] = None
+    basal_body_temperature: typing.Optional[typing.List[BasalBodyTemperatureEntry]] = None
     source: ClientFacingSource
 
     def json(self, **kwargs: typing.Any) -> str:
@@ -50,4 +50,5 @@ class MenstrualCycle(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

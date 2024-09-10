@@ -12,14 +12,14 @@ except ImportError:
 
 
 class PatientAddressCompatible(pydantic.BaseModel):
-    receiver_name: typing.Optional[str]
+    receiver_name: typing.Optional[str] = None
     first_line: str
-    second_line: typing.Optional[str]
+    second_line: typing.Optional[str] = None
     city: str
     state: str
     zip: str
     country: str
-    phone_number: typing.Optional[str]
+    phone_number: typing.Optional[str] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -32,4 +32,5 @@ class PatientAddressCompatible(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

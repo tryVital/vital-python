@@ -13,7 +13,7 @@ except ImportError:
 
 class Address(pydantic.BaseModel):
     first_line: str
-    second_line: typing.Optional[str]
+    second_line: typing.Optional[str] = None
     country: str
     zip: str
     city: str
@@ -30,4 +30,5 @@ class Address(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

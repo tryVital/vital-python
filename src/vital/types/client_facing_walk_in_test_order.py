@@ -18,7 +18,11 @@ class ClientFacingWalkInTestOrder(pydantic.BaseModel):
     To be used as part of a ClientFacingOrder.
     """
 
-    id: str = pydantic.Field(description="The Vital walk-in test Order ID")
+    id: str = pydantic.Field()
+    """
+    The Vital walk-in test Order ID
+    """
+
     created_at: str
     updated_at: str
 
@@ -33,4 +37,5 @@ class ClientFacingWalkInTestOrder(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

@@ -6,7 +6,9 @@ from json.decoder import JSONDecodeError
 
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from ...core.jsonable_encoder import jsonable_encoder
 from ...core.remove_none_from_dict import remove_none_from_dict
+from ...core.request_options import RequestOptions
 from ...errors.unprocessable_entity_error import UnprocessableEntityError
 from ...types.client_facing_blood_oxygen_timeseries import ClientFacingBloodOxygenTimeseries
 from ...types.client_facing_blood_pressure_timeseries import ClientFacingBloodPressureTimeseries
@@ -93,6 +95,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingGroupedTimeseriesResponseClientFacingWorkoutDurationSample:
         """
         Parameters:
@@ -107,6 +110,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -121,19 +126,38 @@ class VitalsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/workout_duration/grouped"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/workout_duration/grouped",
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingWorkoutDurationSample, _response.json())  # type: ignore
@@ -154,6 +178,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedVo2MaxResponse:
         """
         Parameters:
@@ -168,6 +193,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -181,18 +208,38 @@ class VitalsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/vo2_max/grouped"),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/vo2_max/grouped"
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedVo2MaxResponse, _response.json())  # type: ignore
@@ -213,6 +260,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedStressLevelResponse:
         """
         Parameters:
@@ -227,6 +275,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -241,19 +291,38 @@ class VitalsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/stress_level/grouped"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/stress_level/grouped",
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedStressLevelResponse, _response.json())  # type: ignore
@@ -274,6 +343,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedMindfulnessMinutesResponse:
         """
         Parameters:
@@ -288,6 +358,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -302,19 +374,38 @@ class VitalsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/mindfulness_minutes/grouped"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/mindfulness_minutes/grouped",
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedMindfulnessMinutesResponse, _response.json())  # type: ignore
@@ -335,6 +426,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedCaffeineResponse:
         """
         Parameters:
@@ -349,6 +441,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -363,19 +457,37 @@ class VitalsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/caffeine/grouped"
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/caffeine/grouped"
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedCaffeineResponse, _response.json())  # type: ignore
@@ -396,6 +508,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedWaterResponse:
         """
         Parameters:
@@ -410,6 +523,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -423,18 +538,38 @@ class VitalsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/water/grouped"),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/water/grouped"
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedWaterResponse, _response.json())  # type: ignore
@@ -455,6 +590,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedStepsResponse:
         """
         Parameters:
@@ -469,6 +605,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -482,18 +620,38 @@ class VitalsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/steps/grouped"),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/steps/grouped"
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedStepsResponse, _response.json())  # type: ignore
@@ -514,6 +672,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedFloorsClimbedResponse:
         """
         Parameters:
@@ -528,6 +687,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -542,19 +703,38 @@ class VitalsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/floors_climbed/grouped"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/floors_climbed/grouped",
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedFloorsClimbedResponse, _response.json())  # type: ignore
@@ -575,6 +755,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedDistanceResponse:
         """
         Parameters:
@@ -589,6 +770,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -603,19 +786,37 @@ class VitalsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/distance/grouped"
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/distance/grouped"
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedDistanceResponse, _response.json())  # type: ignore
@@ -636,6 +837,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedCaloriesBasalResponse:
         """
         Parameters:
@@ -650,6 +852,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -664,19 +868,38 @@ class VitalsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/calories_basal/grouped"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/calories_basal/grouped",
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedCaloriesBasalResponse, _response.json())  # type: ignore
@@ -697,6 +920,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedCaloriesActiveResponse:
         """
         Parameters:
@@ -711,6 +935,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -725,19 +951,38 @@ class VitalsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/calories_active/grouped"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/calories_active/grouped",
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedCaloriesActiveResponse, _response.json())  # type: ignore
@@ -758,6 +1003,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedRespiratoryRateResponse:
         """
         Parameters:
@@ -772,6 +1018,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -786,19 +1034,38 @@ class VitalsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/respiratory_rate/grouped"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/respiratory_rate/grouped",
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedRespiratoryRateResponse, _response.json())  # type: ignore
@@ -819,6 +1086,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingGroupedTimeseriesResponseClientFacingNoteSample:
         """
         Parameters:
@@ -833,6 +1101,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -846,18 +1116,38 @@ class VitalsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/note/grouped"),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/note/grouped"
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingNoteSample, _response.json())  # type: ignore
@@ -878,6 +1168,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingGroupedTimeseriesResponseClientFacingInsulinInjectionSample:
         """
         Parameters:
@@ -892,6 +1183,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -906,19 +1199,38 @@ class VitalsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/insulin_injection/grouped"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/insulin_injection/grouped",
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingInsulinInjectionSample, _response.json())  # type: ignore
@@ -939,6 +1251,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedIgeResponse:
         """
         Parameters:
@@ -953,6 +1266,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -966,18 +1281,38 @@ class VitalsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/ige/grouped"),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/ige/grouped"
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedIgeResponse, _response.json())  # type: ignore
@@ -998,6 +1333,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedIggResponse:
         """
         Parameters:
@@ -1012,6 +1348,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -1025,18 +1363,38 @@ class VitalsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/igg/grouped"),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/igg/grouped"
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedIggResponse, _response.json())  # type: ignore
@@ -1057,6 +1415,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedHypnogramResponse:
         """
         Parameters:
@@ -1071,6 +1430,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -1085,19 +1446,38 @@ class VitalsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/hypnogram/grouped"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/hypnogram/grouped",
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedHypnogramResponse, _response.json())  # type: ignore
@@ -1118,6 +1498,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedHrvResponse:
         """
         Parameters:
@@ -1132,6 +1513,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -1145,18 +1528,38 @@ class VitalsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/hrv/grouped"),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/hrv/grouped"
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedHrvResponse, _response.json())  # type: ignore
@@ -1177,6 +1580,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedHeartRateResponse:
         """
         Parameters:
@@ -1191,6 +1595,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -1205,19 +1611,38 @@ class VitalsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/heartrate/grouped"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/heartrate/grouped",
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedHeartRateResponse, _response.json())  # type: ignore
@@ -1238,6 +1663,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedGlucoseResponse:
         """
         Parameters:
@@ -1252,6 +1678,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -1265,18 +1693,38 @@ class VitalsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/glucose/grouped"),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/glucose/grouped"
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedGlucoseResponse, _response.json())  # type: ignore
@@ -1297,6 +1745,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedCholesterolResponse:
         """
         Parameters:
@@ -1311,6 +1760,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -1325,19 +1776,38 @@ class VitalsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/cholesterol/grouped"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/cholesterol/grouped",
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedCholesterolResponse, _response.json())  # type: ignore
@@ -1358,6 +1828,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingGroupedTimeseriesResponseClientFacingCarbohydratesSample:
         """
         Parameters:
@@ -1372,6 +1843,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -1386,19 +1859,38 @@ class VitalsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/carbohydrates/grouped"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/carbohydrates/grouped",
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingCarbohydratesSample, _response.json())  # type: ignore
@@ -1419,6 +1911,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureDeltaSample:
         """
         Parameters:
@@ -1433,6 +1926,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -1447,19 +1942,38 @@ class VitalsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/body_temperature_delta/grouped"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/body_temperature_delta/grouped",
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureDeltaSample, _response.json())  # type: ignore
@@ -1480,6 +1994,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureSample:
         """
         Parameters:
@@ -1494,6 +2009,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -1508,19 +2025,38 @@ class VitalsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/body_temperature/grouped"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/body_temperature/grouped",
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureSample, _response.json())  # type: ignore
@@ -1541,6 +2077,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedBodyWeightResponse:
         """
         Parameters:
@@ -1555,6 +2092,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -1569,19 +2108,38 @@ class VitalsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/body_weight/grouped"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/body_weight/grouped",
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedBodyWeightResponse, _response.json())  # type: ignore
@@ -1602,6 +2160,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedBodyFatResponse:
         """
         Parameters:
@@ -1616,6 +2175,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -1630,19 +2191,37 @@ class VitalsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/body_fat/grouped"
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/body_fat/grouped"
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedBodyFatResponse, _response.json())  # type: ignore
@@ -1663,6 +2242,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedBloodOxygenResponse:
         """
         Parameters:
@@ -1677,6 +2257,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -1691,19 +2273,38 @@ class VitalsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/blood_oxygen/grouped"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/blood_oxygen/grouped",
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedBloodOxygenResponse, _response.json())  # type: ignore
@@ -1724,6 +2325,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedElectrocardiogramVoltageResponse:
         """
         Parameters:
@@ -1738,6 +2340,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -1752,19 +2356,38 @@ class VitalsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/electrocardiogram_voltage/grouped"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/electrocardiogram_voltage/grouped",
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedElectrocardiogramVoltageResponse, _response.json())  # type: ignore
@@ -1785,6 +2408,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedBloodPressureResponse:
         """
         Parameters:
@@ -1799,6 +2423,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -1813,19 +2439,38 @@ class VitalsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/blood_pressure/grouped"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/blood_pressure/grouped",
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedBloodPressureResponse, _response.json())  # type: ignore
@@ -1844,6 +2489,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingVo2MaxTimeseries]:
         """
         Parameters:
@@ -1854,6 +2500,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -1867,10 +2515,36 @@ class VitalsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/vo2_max"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/vo2_max"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingVo2MaxTimeseries], _response.json())  # type: ignore
@@ -1889,6 +2563,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingStressLevelTimeseries]:
         """
         Parameters:
@@ -1899,6 +2574,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -1912,10 +2589,36 @@ class VitalsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/stress_level"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/stress_level"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingStressLevelTimeseries], _response.json())  # type: ignore
@@ -1934,6 +2637,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingMindfulnessMinutesTimeseries]:
         """
         Parameters:
@@ -1944,6 +2648,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -1958,11 +2664,36 @@ class VitalsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/mindfulness_minutes"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/mindfulness_minutes",
             ),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingMindfulnessMinutesTimeseries], _response.json())  # type: ignore
@@ -1981,6 +2712,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingCaffeineTimeseries]:
         """
         Parameters:
@@ -1991,6 +2723,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -2004,10 +2738,36 @@ class VitalsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/caffeine"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/caffeine"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingCaffeineTimeseries], _response.json())  # type: ignore
@@ -2026,6 +2786,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingWaterTimeseries]:
         """
         Parameters:
@@ -2036,6 +2797,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -2049,10 +2812,36 @@ class VitalsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/water"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/water"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingWaterTimeseries], _response.json())  # type: ignore
@@ -2071,6 +2860,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingStepsTimeseries]:
         """
         Parameters:
@@ -2081,6 +2871,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -2094,10 +2886,36 @@ class VitalsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/steps"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/steps"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingStepsTimeseries], _response.json())  # type: ignore
@@ -2116,6 +2934,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingFloorsClimbedTimeseries]:
         """
         Parameters:
@@ -2126,6 +2945,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -2139,10 +2960,36 @@ class VitalsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/floors_climbed"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/floors_climbed"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingFloorsClimbedTimeseries], _response.json())  # type: ignore
@@ -2161,6 +3008,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingDistanceTimeseries]:
         """
         Parameters:
@@ -2171,6 +3019,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -2184,10 +3034,36 @@ class VitalsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/distance"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/distance"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingDistanceTimeseries], _response.json())  # type: ignore
@@ -2206,6 +3082,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingCaloriesBasalTimeseries]:
         """
         Parameters:
@@ -2216,6 +3093,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -2229,10 +3108,36 @@ class VitalsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/calories_basal"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/calories_basal"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingCaloriesBasalTimeseries], _response.json())  # type: ignore
@@ -2251,6 +3156,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingCaloriesActiveTimeseries]:
         """
         Parameters:
@@ -2261,6 +3167,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -2274,10 +3182,36 @@ class VitalsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/calories_active"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/calories_active"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingCaloriesActiveTimeseries], _response.json())  # type: ignore
@@ -2296,6 +3230,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingRespiratoryRateTimeseries]:
         """
         Parameters:
@@ -2306,6 +3241,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -2320,11 +3257,35 @@ class VitalsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/respiratory_rate"
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/respiratory_rate"
             ),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingRespiratoryRateTimeseries], _response.json())  # type: ignore
@@ -2343,6 +3304,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingIgeTimeseries]:
         """
         Parameters:
@@ -2353,6 +3315,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -2366,10 +3330,36 @@ class VitalsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/ige"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/ige"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingIgeTimeseries], _response.json())  # type: ignore
@@ -2388,6 +3378,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingIggTimeseries]:
         """
         Parameters:
@@ -2398,6 +3389,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -2411,10 +3404,36 @@ class VitalsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/igg"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/igg"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingIggTimeseries], _response.json())  # type: ignore
@@ -2433,6 +3452,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingHypnogramTimeseries]:
         """
         Parameters:
@@ -2443,6 +3463,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -2456,10 +3478,36 @@ class VitalsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/hypnogram"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/hypnogram"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingHypnogramTimeseries], _response.json())  # type: ignore
@@ -2478,6 +3526,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingHrvTimeseries]:
         """
         Parameters:
@@ -2488,6 +3537,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -2501,10 +3552,36 @@ class VitalsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/hrv"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/hrv"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingHrvTimeseries], _response.json())  # type: ignore
@@ -2523,6 +3600,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingHeartRateTimeseries]:
         """
         Parameters:
@@ -2533,6 +3611,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -2546,10 +3626,36 @@ class VitalsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/heartrate"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/heartrate"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingHeartRateTimeseries], _response.json())  # type: ignore
@@ -2568,6 +3674,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingGlucoseTimeseries]:
         """
         Parameters:
@@ -2578,6 +3685,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -2591,10 +3700,36 @@ class VitalsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/glucose"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/glucose"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingGlucoseTimeseries], _response.json())  # type: ignore
@@ -2613,6 +3748,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingCholesterolTimeseries]:
         """
         Parameters:
@@ -2623,6 +3759,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -2637,11 +3775,36 @@ class VitalsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/cholesterol/triglycerides"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/cholesterol/triglycerides",
             ),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingCholesterolTimeseries], _response.json())  # type: ignore
@@ -2660,6 +3823,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingCholesterolTimeseries]:
         """
         Parameters:
@@ -2670,6 +3834,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -2684,11 +3850,36 @@ class VitalsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/cholesterol/total"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/cholesterol/total",
             ),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingCholesterolTimeseries], _response.json())  # type: ignore
@@ -2707,6 +3898,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingCholesterolTimeseries]:
         """
         Parameters:
@@ -2717,6 +3909,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -2730,10 +3924,36 @@ class VitalsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/cholesterol/ldl"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/cholesterol/ldl"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingCholesterolTimeseries], _response.json())  # type: ignore
@@ -2752,6 +3972,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingCholesterolTimeseries]:
         """
         Parameters:
@@ -2762,6 +3983,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -2775,10 +3998,36 @@ class VitalsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/cholesterol/hdl"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/cholesterol/hdl"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingCholesterolTimeseries], _response.json())  # type: ignore
@@ -2797,6 +4046,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingCholesterolTimeseries]:
         """
         Parameters:
@@ -2807,6 +4057,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -2820,10 +4072,36 @@ class VitalsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/cholesterol"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/cholesterol"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingCholesterolTimeseries], _response.json())  # type: ignore
@@ -2842,6 +4120,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingBodyWeightTimeseries]:
         """
         Parameters:
@@ -2852,6 +4131,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -2865,10 +4146,36 @@ class VitalsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/body_weight"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/body_weight"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingBodyWeightTimeseries], _response.json())  # type: ignore
@@ -2887,6 +4194,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingBodyFatTimeseries]:
         """
         Parameters:
@@ -2897,6 +4205,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -2910,10 +4220,36 @@ class VitalsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/body_fat"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/body_fat"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingBodyFatTimeseries], _response.json())  # type: ignore
@@ -2932,6 +4268,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingBloodOxygenTimeseries]:
         """
         Parameters:
@@ -2942,6 +4279,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -2955,10 +4294,36 @@ class VitalsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/blood_oxygen"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/blood_oxygen"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingBloodOxygenTimeseries], _response.json())  # type: ignore
@@ -2977,6 +4342,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingElectrocardiogramVoltageTimeseries]:
         """
         Parameters:
@@ -2987,6 +4353,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -3001,11 +4369,36 @@ class VitalsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/electrocardiogram_voltage"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/electrocardiogram_voltage",
             ),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingElectrocardiogramVoltageTimeseries], _response.json())  # type: ignore
@@ -3024,6 +4417,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingBloodPressureTimeseries]:
         """
         Parameters:
@@ -3034,6 +4428,8 @@ class VitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -3047,10 +4443,36 @@ class VitalsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/blood_pressure"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/blood_pressure"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingBloodPressureTimeseries], _response.json())  # type: ignore
@@ -3076,6 +4498,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingGroupedTimeseriesResponseClientFacingWorkoutDurationSample:
         """
         Parameters:
@@ -3090,6 +4513,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -3104,19 +4529,38 @@ class AsyncVitalsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/workout_duration/grouped"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/workout_duration/grouped",
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingWorkoutDurationSample, _response.json())  # type: ignore
@@ -3137,6 +4581,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedVo2MaxResponse:
         """
         Parameters:
@@ -3151,6 +4596,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -3164,18 +4611,38 @@ class AsyncVitalsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/vo2_max/grouped"),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/vo2_max/grouped"
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedVo2MaxResponse, _response.json())  # type: ignore
@@ -3196,6 +4663,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedStressLevelResponse:
         """
         Parameters:
@@ -3210,6 +4678,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -3224,19 +4694,38 @@ class AsyncVitalsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/stress_level/grouped"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/stress_level/grouped",
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedStressLevelResponse, _response.json())  # type: ignore
@@ -3257,6 +4746,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedMindfulnessMinutesResponse:
         """
         Parameters:
@@ -3271,6 +4761,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -3285,19 +4777,38 @@ class AsyncVitalsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/mindfulness_minutes/grouped"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/mindfulness_minutes/grouped",
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedMindfulnessMinutesResponse, _response.json())  # type: ignore
@@ -3318,6 +4829,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedCaffeineResponse:
         """
         Parameters:
@@ -3332,6 +4844,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -3346,19 +4860,37 @@ class AsyncVitalsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/caffeine/grouped"
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/caffeine/grouped"
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedCaffeineResponse, _response.json())  # type: ignore
@@ -3379,6 +4911,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedWaterResponse:
         """
         Parameters:
@@ -3393,6 +4926,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -3406,18 +4941,38 @@ class AsyncVitalsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/water/grouped"),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/water/grouped"
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedWaterResponse, _response.json())  # type: ignore
@@ -3438,6 +4993,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedStepsResponse:
         """
         Parameters:
@@ -3452,6 +5008,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -3465,18 +5023,38 @@ class AsyncVitalsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/steps/grouped"),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/steps/grouped"
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedStepsResponse, _response.json())  # type: ignore
@@ -3497,6 +5075,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedFloorsClimbedResponse:
         """
         Parameters:
@@ -3511,6 +5090,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -3525,19 +5106,38 @@ class AsyncVitalsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/floors_climbed/grouped"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/floors_climbed/grouped",
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedFloorsClimbedResponse, _response.json())  # type: ignore
@@ -3558,6 +5158,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedDistanceResponse:
         """
         Parameters:
@@ -3572,6 +5173,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -3586,19 +5189,37 @@ class AsyncVitalsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/distance/grouped"
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/distance/grouped"
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedDistanceResponse, _response.json())  # type: ignore
@@ -3619,6 +5240,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedCaloriesBasalResponse:
         """
         Parameters:
@@ -3633,6 +5255,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -3647,19 +5271,38 @@ class AsyncVitalsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/calories_basal/grouped"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/calories_basal/grouped",
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedCaloriesBasalResponse, _response.json())  # type: ignore
@@ -3680,6 +5323,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedCaloriesActiveResponse:
         """
         Parameters:
@@ -3694,6 +5338,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -3708,19 +5354,38 @@ class AsyncVitalsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/calories_active/grouped"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/calories_active/grouped",
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedCaloriesActiveResponse, _response.json())  # type: ignore
@@ -3741,6 +5406,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedRespiratoryRateResponse:
         """
         Parameters:
@@ -3755,6 +5421,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -3769,19 +5437,38 @@ class AsyncVitalsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/respiratory_rate/grouped"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/respiratory_rate/grouped",
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedRespiratoryRateResponse, _response.json())  # type: ignore
@@ -3802,6 +5489,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingGroupedTimeseriesResponseClientFacingNoteSample:
         """
         Parameters:
@@ -3816,6 +5504,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -3829,18 +5519,38 @@ class AsyncVitalsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/note/grouped"),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/note/grouped"
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingNoteSample, _response.json())  # type: ignore
@@ -3861,6 +5571,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingGroupedTimeseriesResponseClientFacingInsulinInjectionSample:
         """
         Parameters:
@@ -3875,6 +5586,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -3889,19 +5602,38 @@ class AsyncVitalsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/insulin_injection/grouped"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/insulin_injection/grouped",
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingInsulinInjectionSample, _response.json())  # type: ignore
@@ -3922,6 +5654,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedIgeResponse:
         """
         Parameters:
@@ -3936,6 +5669,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -3949,18 +5684,38 @@ class AsyncVitalsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/ige/grouped"),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/ige/grouped"
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedIgeResponse, _response.json())  # type: ignore
@@ -3981,6 +5736,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedIggResponse:
         """
         Parameters:
@@ -3995,6 +5751,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -4008,18 +5766,38 @@ class AsyncVitalsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/igg/grouped"),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/igg/grouped"
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedIggResponse, _response.json())  # type: ignore
@@ -4040,6 +5818,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedHypnogramResponse:
         """
         Parameters:
@@ -4054,6 +5833,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -4068,19 +5849,38 @@ class AsyncVitalsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/hypnogram/grouped"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/hypnogram/grouped",
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedHypnogramResponse, _response.json())  # type: ignore
@@ -4101,6 +5901,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedHrvResponse:
         """
         Parameters:
@@ -4115,6 +5916,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -4128,18 +5931,38 @@ class AsyncVitalsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/hrv/grouped"),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/hrv/grouped"
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedHrvResponse, _response.json())  # type: ignore
@@ -4160,6 +5983,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedHeartRateResponse:
         """
         Parameters:
@@ -4174,6 +5998,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -4188,19 +6014,38 @@ class AsyncVitalsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/heartrate/grouped"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/heartrate/grouped",
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedHeartRateResponse, _response.json())  # type: ignore
@@ -4221,6 +6066,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedGlucoseResponse:
         """
         Parameters:
@@ -4235,6 +6081,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -4248,18 +6096,38 @@ class AsyncVitalsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/glucose/grouped"),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/glucose/grouped"
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedGlucoseResponse, _response.json())  # type: ignore
@@ -4280,6 +6148,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedCholesterolResponse:
         """
         Parameters:
@@ -4294,6 +6163,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -4308,19 +6179,38 @@ class AsyncVitalsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/cholesterol/grouped"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/cholesterol/grouped",
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedCholesterolResponse, _response.json())  # type: ignore
@@ -4341,6 +6231,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingGroupedTimeseriesResponseClientFacingCarbohydratesSample:
         """
         Parameters:
@@ -4355,6 +6246,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -4369,19 +6262,38 @@ class AsyncVitalsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/carbohydrates/grouped"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/carbohydrates/grouped",
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingCarbohydratesSample, _response.json())  # type: ignore
@@ -4402,6 +6314,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureDeltaSample:
         """
         Parameters:
@@ -4416,6 +6329,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -4430,19 +6345,38 @@ class AsyncVitalsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/body_temperature_delta/grouped"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/body_temperature_delta/grouped",
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureDeltaSample, _response.json())  # type: ignore
@@ -4463,6 +6397,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureSample:
         """
         Parameters:
@@ -4477,6 +6412,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -4491,19 +6428,38 @@ class AsyncVitalsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/body_temperature/grouped"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/body_temperature/grouped",
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureSample, _response.json())  # type: ignore
@@ -4524,6 +6480,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedBodyWeightResponse:
         """
         Parameters:
@@ -4538,6 +6495,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -4552,19 +6511,38 @@ class AsyncVitalsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/body_weight/grouped"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/body_weight/grouped",
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedBodyWeightResponse, _response.json())  # type: ignore
@@ -4585,6 +6563,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedBodyFatResponse:
         """
         Parameters:
@@ -4599,6 +6578,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -4613,19 +6594,37 @@ class AsyncVitalsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/body_fat/grouped"
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/body_fat/grouped"
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedBodyFatResponse, _response.json())  # type: ignore
@@ -4646,6 +6645,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedBloodOxygenResponse:
         """
         Parameters:
@@ -4660,6 +6660,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -4674,19 +6676,38 @@ class AsyncVitalsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/blood_oxygen/grouped"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/blood_oxygen/grouped",
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedBloodOxygenResponse, _response.json())  # type: ignore
@@ -4707,6 +6728,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedElectrocardiogramVoltageResponse:
         """
         Parameters:
@@ -4721,6 +6743,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -4735,19 +6759,38 @@ class AsyncVitalsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/electrocardiogram_voltage/grouped"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/electrocardiogram_voltage/grouped",
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedElectrocardiogramVoltageResponse, _response.json())  # type: ignore
@@ -4768,6 +6811,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GroupedBloodPressureResponse:
         """
         Parameters:
@@ -4782,6 +6826,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -4796,19 +6842,38 @@ class AsyncVitalsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/blood_pressure/grouped"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/blood_pressure/grouped",
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                    "provider": provider,
-                    "start_date": start_date,
-                    "end_date": end_date,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GroupedBloodPressureResponse, _response.json())  # type: ignore
@@ -4827,6 +6892,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingVo2MaxTimeseries]:
         """
         Parameters:
@@ -4837,6 +6903,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -4850,10 +6918,36 @@ class AsyncVitalsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/vo2_max"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/vo2_max"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingVo2MaxTimeseries], _response.json())  # type: ignore
@@ -4872,6 +6966,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingStressLevelTimeseries]:
         """
         Parameters:
@@ -4882,6 +6977,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -4895,10 +6992,36 @@ class AsyncVitalsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/stress_level"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/stress_level"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingStressLevelTimeseries], _response.json())  # type: ignore
@@ -4917,6 +7040,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingMindfulnessMinutesTimeseries]:
         """
         Parameters:
@@ -4927,6 +7051,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -4941,11 +7067,36 @@ class AsyncVitalsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/mindfulness_minutes"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/mindfulness_minutes",
             ),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingMindfulnessMinutesTimeseries], _response.json())  # type: ignore
@@ -4964,6 +7115,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingCaffeineTimeseries]:
         """
         Parameters:
@@ -4974,6 +7126,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -4987,10 +7141,36 @@ class AsyncVitalsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/caffeine"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/caffeine"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingCaffeineTimeseries], _response.json())  # type: ignore
@@ -5009,6 +7189,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingWaterTimeseries]:
         """
         Parameters:
@@ -5019,6 +7200,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -5032,10 +7215,36 @@ class AsyncVitalsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/water"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/water"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingWaterTimeseries], _response.json())  # type: ignore
@@ -5054,6 +7263,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingStepsTimeseries]:
         """
         Parameters:
@@ -5064,6 +7274,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -5077,10 +7289,36 @@ class AsyncVitalsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/steps"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/steps"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingStepsTimeseries], _response.json())  # type: ignore
@@ -5099,6 +7337,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingFloorsClimbedTimeseries]:
         """
         Parameters:
@@ -5109,6 +7348,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -5122,10 +7363,36 @@ class AsyncVitalsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/floors_climbed"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/floors_climbed"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingFloorsClimbedTimeseries], _response.json())  # type: ignore
@@ -5144,6 +7411,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingDistanceTimeseries]:
         """
         Parameters:
@@ -5154,6 +7422,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -5167,10 +7437,36 @@ class AsyncVitalsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/distance"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/distance"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingDistanceTimeseries], _response.json())  # type: ignore
@@ -5189,6 +7485,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingCaloriesBasalTimeseries]:
         """
         Parameters:
@@ -5199,6 +7496,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -5212,10 +7511,36 @@ class AsyncVitalsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/calories_basal"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/calories_basal"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingCaloriesBasalTimeseries], _response.json())  # type: ignore
@@ -5234,6 +7559,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingCaloriesActiveTimeseries]:
         """
         Parameters:
@@ -5244,6 +7570,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -5257,10 +7585,36 @@ class AsyncVitalsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/calories_active"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/calories_active"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingCaloriesActiveTimeseries], _response.json())  # type: ignore
@@ -5279,6 +7633,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingRespiratoryRateTimeseries]:
         """
         Parameters:
@@ -5289,6 +7644,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -5303,11 +7660,35 @@ class AsyncVitalsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/respiratory_rate"
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/respiratory_rate"
             ),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingRespiratoryRateTimeseries], _response.json())  # type: ignore
@@ -5326,6 +7707,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingIgeTimeseries]:
         """
         Parameters:
@@ -5336,6 +7718,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -5349,10 +7733,36 @@ class AsyncVitalsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/ige"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/ige"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingIgeTimeseries], _response.json())  # type: ignore
@@ -5371,6 +7781,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingIggTimeseries]:
         """
         Parameters:
@@ -5381,6 +7792,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -5394,10 +7807,36 @@ class AsyncVitalsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/igg"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/igg"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingIggTimeseries], _response.json())  # type: ignore
@@ -5416,6 +7855,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingHypnogramTimeseries]:
         """
         Parameters:
@@ -5426,6 +7866,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -5439,10 +7881,36 @@ class AsyncVitalsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/hypnogram"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/hypnogram"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingHypnogramTimeseries], _response.json())  # type: ignore
@@ -5461,6 +7929,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingHrvTimeseries]:
         """
         Parameters:
@@ -5471,6 +7940,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -5484,10 +7955,36 @@ class AsyncVitalsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/hrv"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/hrv"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingHrvTimeseries], _response.json())  # type: ignore
@@ -5506,6 +8003,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingHeartRateTimeseries]:
         """
         Parameters:
@@ -5516,6 +8014,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -5529,10 +8029,36 @@ class AsyncVitalsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/heartrate"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/heartrate"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingHeartRateTimeseries], _response.json())  # type: ignore
@@ -5551,6 +8077,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingGlucoseTimeseries]:
         """
         Parameters:
@@ -5561,6 +8088,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -5574,10 +8103,36 @@ class AsyncVitalsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/glucose"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/glucose"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingGlucoseTimeseries], _response.json())  # type: ignore
@@ -5596,6 +8151,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingCholesterolTimeseries]:
         """
         Parameters:
@@ -5606,6 +8162,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -5620,11 +8178,36 @@ class AsyncVitalsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/cholesterol/triglycerides"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/cholesterol/triglycerides",
             ),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingCholesterolTimeseries], _response.json())  # type: ignore
@@ -5643,6 +8226,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingCholesterolTimeseries]:
         """
         Parameters:
@@ -5653,6 +8237,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -5667,11 +8253,36 @@ class AsyncVitalsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/cholesterol/total"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/cholesterol/total",
             ),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingCholesterolTimeseries], _response.json())  # type: ignore
@@ -5690,6 +8301,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingCholesterolTimeseries]:
         """
         Parameters:
@@ -5700,6 +8312,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -5713,10 +8327,36 @@ class AsyncVitalsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/cholesterol/ldl"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/cholesterol/ldl"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingCholesterolTimeseries], _response.json())  # type: ignore
@@ -5735,6 +8375,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingCholesterolTimeseries]:
         """
         Parameters:
@@ -5745,6 +8386,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -5758,10 +8401,36 @@ class AsyncVitalsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/cholesterol/hdl"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/cholesterol/hdl"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingCholesterolTimeseries], _response.json())  # type: ignore
@@ -5780,6 +8449,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingCholesterolTimeseries]:
         """
         Parameters:
@@ -5790,6 +8460,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -5803,10 +8475,36 @@ class AsyncVitalsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/cholesterol"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/cholesterol"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingCholesterolTimeseries], _response.json())  # type: ignore
@@ -5825,6 +8523,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingBodyWeightTimeseries]:
         """
         Parameters:
@@ -5835,6 +8534,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -5848,10 +8549,36 @@ class AsyncVitalsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/body_weight"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/body_weight"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingBodyWeightTimeseries], _response.json())  # type: ignore
@@ -5870,6 +8597,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingBodyFatTimeseries]:
         """
         Parameters:
@@ -5880,6 +8608,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -5893,10 +8623,36 @@ class AsyncVitalsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/body_fat"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/body_fat"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingBodyFatTimeseries], _response.json())  # type: ignore
@@ -5915,6 +8671,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingBloodOxygenTimeseries]:
         """
         Parameters:
@@ -5925,6 +8682,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -5938,10 +8697,36 @@ class AsyncVitalsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/blood_oxygen"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/blood_oxygen"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingBloodOxygenTimeseries], _response.json())  # type: ignore
@@ -5960,6 +8745,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingElectrocardiogramVoltageTimeseries]:
         """
         Parameters:
@@ -5970,6 +8756,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -5984,11 +8772,36 @@ class AsyncVitalsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/electrocardiogram_voltage"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/{jsonable_encoder(user_id)}/electrocardiogram_voltage",
             ),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingElectrocardiogramVoltageTimeseries], _response.json())  # type: ignore
@@ -6007,6 +8820,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingBloodPressureTimeseries]:
         """
         Parameters:
@@ -6017,6 +8831,8 @@ class AsyncVitalsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -6030,10 +8846,36 @@ class AsyncVitalsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{user_id}/blood_pressure"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/{jsonable_encoder(user_id)}/blood_pressure"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingBloodPressureTimeseries], _response.json())  # type: ignore

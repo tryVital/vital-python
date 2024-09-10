@@ -12,12 +12,35 @@ except ImportError:
 
 
 class ClientFacingWaterTimeseries(pydantic.BaseModel):
-    id: typing.Optional[int]
-    timezone_offset: typing.Optional[int]
-    type: typing.Optional[str]
-    unit: str = pydantic.Field(description="Measured in milliters.")
-    timestamp: str = pydantic.Field(description="The timestamp of the measurement.")
-    value: float = pydantic.Field(description="Quantity of water drank during the time period.")
+    id: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Deprecated
+    """
+
+    timezone_offset: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Time zone UTC offset in seconds. Positive offset indicates east of UTC; negative offset indicates west of UTC; and null indicates the time zone information is unavailable at source.
+    """
+
+    type: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The reading type of the measurement. This is applicable only to Cholesterol, IGG, IGE and InsulinInjection.
+    """
+
+    unit: str = pydantic.Field()
+    """
+    Measured in milliters.
+    """
+
+    timestamp: str = pydantic.Field()
+    """
+    The timestamp of the measurement.
+    """
+
+    value: float = pydantic.Field()
+    """
+    Quantity of water drank during the time period.
+    """
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -30,4 +53,5 @@ class ClientFacingWaterTimeseries(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

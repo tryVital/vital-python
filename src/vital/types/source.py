@@ -18,12 +18,12 @@ class Source(pydantic.BaseModel):
     slug: str
     description: str
     logo: str
-    group: typing.Optional[str]
-    oauth_url: typing.Optional[str]
-    auth_type: typing.Optional[SourceAuthType]
-    source_type: typing.Optional[SourceType]
-    is_active: typing.Optional[bool]
-    backfill_num_days: typing.Optional[int]
+    group: typing.Optional[str] = None
+    oauth_url: typing.Optional[str] = None
+    auth_type: typing.Optional[SourceAuthType] = None
+    source_type: typing.Optional[SourceType] = None
+    is_active: typing.Optional[bool] = None
+    backfill_num_days: typing.Optional[int] = None
     id: int
 
     def json(self, **kwargs: typing.Any) -> str:
@@ -37,4 +37,5 @@ class Source(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

@@ -6,7 +6,9 @@ from json.decoder import JSONDecodeError
 
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from ...core.jsonable_encoder import jsonable_encoder
 from ...core.remove_none_from_dict import remove_none_from_dict
+from ...core.request_options import RequestOptions
 from ...errors.unprocessable_entity_error import UnprocessableEntityError
 from ...types.client_facing_meal_response import ClientFacingMealResponse
 from ...types.http_validation_error import HttpValidationError
@@ -28,6 +30,7 @@ class MealClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingMealResponse:
         """
         Get user's meals
@@ -40,6 +43,8 @@ class MealClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -53,10 +58,36 @@ class MealClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/summary/meal/{user_id}"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/summary/meal/{jsonable_encoder(user_id)}"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingMealResponse, _response.json())  # type: ignore
@@ -80,6 +111,7 @@ class AsyncMealClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingMealResponse:
         """
         Get user's meals
@@ -92,6 +124,8 @@ class AsyncMealClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -105,10 +139,36 @@ class AsyncMealClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/summary/meal/{user_id}"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/summary/meal/{jsonable_encoder(user_id)}"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingMealResponse, _response.json())  # type: ignore

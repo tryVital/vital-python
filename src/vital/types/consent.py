@@ -14,8 +14,8 @@ except ImportError:
 
 class Consent(pydantic.BaseModel):
     consent_type: ConsentType = pydantic.Field(alias="consentType")
-    version: typing.Optional[str]
-    time_of_consent: typing.Optional[dt.datetime] = pydantic.Field(alias="timeOfConsent")
+    version: typing.Optional[str] = None
+    time_of_consent: typing.Optional[dt.datetime] = pydantic.Field(alias="timeOfConsent", default=None)
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -29,4 +29,6 @@ class Consent(pydantic.BaseModel):
         frozen = True
         smart_union = True
         allow_population_by_field_name = True
+        populate_by_name = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

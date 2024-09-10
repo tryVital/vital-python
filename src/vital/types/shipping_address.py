@@ -14,7 +14,7 @@ except ImportError:
 class ShippingAddress(pydantic.BaseModel):
     receiver_name: str
     first_line: str
-    second_line: typing.Optional[str]
+    second_line: typing.Optional[str] = None
     city: str
     state: str
     zip: str
@@ -32,4 +32,5 @@ class ShippingAddress(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

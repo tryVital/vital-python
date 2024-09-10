@@ -19,8 +19,16 @@ class ClientFacingTestkitOrder(pydantic.BaseModel):
     To be used as part of a ClientFacingOrder.
     """
 
-    id: str = pydantic.Field(description="The Vital TestKit Order ID")
-    shipment: typing.Optional[ClientFacingShipment]
+    id: str = pydantic.Field()
+    """
+    The Vital TestKit Order ID
+    """
+
+    shipment: typing.Optional[ClientFacingShipment] = pydantic.Field(default=None)
+    """
+    Shipment object
+    """
+
     created_at: str
     updated_at: str
 
@@ -35,4 +43,5 @@ class ClientFacingTestkitOrder(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

@@ -12,12 +12,12 @@ except ImportError:
 
 
 class ClientFacingPatientDetailsCompatible(pydantic.BaseModel):
-    first_name: typing.Optional[str]
-    last_name: typing.Optional[str]
+    first_name: typing.Optional[str] = None
+    last_name: typing.Optional[str] = None
     dob: str
     gender: str
-    phone_number: typing.Optional[str]
-    email: typing.Optional[str]
+    phone_number: typing.Optional[str] = None
+    email: typing.Optional[str] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -30,4 +30,5 @@ class ClientFacingPatientDetailsCompatible(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

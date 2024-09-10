@@ -21,32 +21,88 @@ except ImportError:
 
 
 class ClientFacingOrder(pydantic.BaseModel):
-    user_id: str = pydantic.Field(
-        description="User id returned by vital create user request. This id should be stored in your database against the user and used for all interactions with the vital api."
-    )
-    id: str = pydantic.Field(description="The Vital Order ID")
-    team_id: str = pydantic.Field(description="Your team id.")
-    patient_details: typing.Optional[ClientFacingPatientDetailsCompatible]
-    patient_address: typing.Optional[PatientAddressCompatible]
-    lab_test: ClientFacingLabTest = pydantic.Field(description="The Vital Test associated with the order")
+    user_id: str = pydantic.Field()
+    """
+    User id returned by vital create user request. This id should be stored in your database against the user and used for all interactions with the vital api.
+    """
+
+    id: str = pydantic.Field()
+    """
+    The Vital Order ID
+    """
+
+    team_id: str = pydantic.Field()
+    """
+    Your team id.
+    """
+
+    patient_details: typing.Optional[ClientFacingPatientDetailsCompatible] = pydantic.Field(default=None)
+    """
+    Patient Details
+    """
+
+    patient_address: typing.Optional[PatientAddressCompatible] = pydantic.Field(default=None)
+    """
+    Patient Address
+    """
+
+    lab_test: ClientFacingLabTest = pydantic.Field()
+    """
+    The Vital Test associated with the order
+    """
+
     details: ClientFacingOrderDetails
-    sample_id: typing.Optional[str]
-    notes: typing.Optional[str]
-    created_at: str = pydantic.Field(description="When your order was created")
-    updated_at: str = pydantic.Field(description="When your order was last updated.")
+    sample_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Sample ID
+    """
+
+    notes: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Notes associated with the order
+    """
+
+    created_at: str = pydantic.Field()
+    """
+    When your order was created
+    """
+
+    updated_at: str = pydantic.Field()
+    """
+    When your order was last updated.
+    """
+
     events: typing.List[ClientFacingOrderEvent]
-    status: typing.Optional[OrderTopLevelStatus]
-    physician: typing.Optional[ClientFacingPhysician]
-    health_insurance_id: typing.Optional[str]
-    requisition_form_url: typing.Optional[str]
-    priority: typing.Optional[bool] = pydantic.Field(
-        description="Defines whether order is priority or not. For some labs, this refers to a STAT order."
-    )
-    shipping_details: typing.Optional[ShippingAddress]
-    activate_by: typing.Optional[str]
-    passthrough: typing.Optional[str]
-    billing_type: typing.Optional[Billing]
-    icd_codes: typing.Optional[typing.List[str]]
+    status: typing.Optional[OrderTopLevelStatus] = None
+    physician: typing.Optional[ClientFacingPhysician] = None
+    health_insurance_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Vital ID of the health insurance.
+    """
+
+    requisition_form_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    DEPRECATED. Requistion form url.
+    """
+
+    priority: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Defines whether order is priority or not. For some labs, this refers to a STAT order.
+    """
+
+    shipping_details: typing.Optional[ShippingAddress] = pydantic.Field(default=None)
+    """
+    Shipping Details. For unregistered testkit orders.
+    """
+
+    activate_by: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Schedule an Order to be processed in a future date.
+    """
+
+    passthrough: typing.Optional[str] = None
+    billing_type: typing.Optional[Billing] = None
+    icd_codes: typing.Optional[typing.List[str]] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -59,4 +115,5 @@ class ClientFacingOrder(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

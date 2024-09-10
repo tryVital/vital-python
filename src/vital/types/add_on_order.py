@@ -12,8 +12,8 @@ except ImportError:
 
 
 class AddOnOrder(pydantic.BaseModel):
-    marker_ids: typing.Optional[typing.List[int]]
-    provider_ids: typing.Optional[typing.List[str]]
+    marker_ids: typing.Optional[typing.List[int]] = None
+    provider_ids: typing.Optional[typing.List[str]] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -26,4 +26,5 @@ class AddOnOrder(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

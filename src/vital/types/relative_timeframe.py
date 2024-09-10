@@ -3,8 +3,6 @@
 import datetime as dt
 import typing
 
-import typing_extensions
-
 from ..core.datetime_utils import serialize_datetime
 from .period import Period
 
@@ -15,7 +13,7 @@ except ImportError:
 
 
 class RelativeTimeframe(pydantic.BaseModel):
-    type: typing_extensions.Literal["relative"]
+    type: typing.Literal["relative"]
     anchor: str
     past: Period
 
@@ -30,4 +28,5 @@ class RelativeTimeframe(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

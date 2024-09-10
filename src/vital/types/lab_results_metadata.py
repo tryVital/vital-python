@@ -14,16 +14,16 @@ except ImportError:
 class LabResultsMetadata(pydantic.BaseModel):
     age: str
     dob: str
-    clia: typing.Optional[str] = pydantic.Field(alias="clia_#")
+    clia: typing.Optional[str] = pydantic.Field(alias="clia_#", default=None)
     patient: str
-    provider: typing.Optional[str]
-    laboratory: typing.Optional[str]
+    provider: typing.Optional[str] = None
+    laboratory: typing.Optional[str] = None
     date_reported: str
-    date_collected: typing.Optional[str]
+    date_collected: typing.Optional[str] = None
     specimen_number: str
-    date_received: typing.Optional[str]
-    status: typing.Optional[str]
-    interpretation: typing.Optional[str]
+    date_received: typing.Optional[str] = None
+    status: typing.Optional[str] = None
+    interpretation: typing.Optional[str] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -37,4 +37,6 @@ class LabResultsMetadata(pydantic.BaseModel):
         frozen = True
         smart_union = True
         allow_population_by_field_name = True
+        populate_by_name = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

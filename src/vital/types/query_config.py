@@ -14,8 +14,8 @@ except ImportError:
 
 
 class QueryConfig(pydantic.BaseModel):
-    week_starts_on: typing.Optional[QueryConfigWeekStartsOn]
-    provider_priority_overrides: typing.Optional[typing.List[QueryConfigProviderPriorityOverridesItem]]
+    week_starts_on: typing.Optional[QueryConfigWeekStartsOn] = None
+    provider_priority_overrides: typing.Optional[typing.List[QueryConfigProviderPriorityOverridesItem]] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -28,4 +28,5 @@ class QueryConfig(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

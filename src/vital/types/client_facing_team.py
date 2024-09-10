@@ -25,20 +25,20 @@ class ClientFacingTeam(pydantic.BaseModel):
     id: str
     org_id: str
     name: str
-    svix_app_id: typing.Optional[str]
-    client_id: typing.Optional[str]
-    client_secret: typing.Optional[str]
-    airtable_api_key: typing.Optional[str]
-    airtable_base_id: typing.Optional[str]
-    webhook_secret: typing.Optional[str]
-    api_key: typing.Optional[str]
-    api_keys: typing.Optional[typing.List[ClientFacingApiKey]]
-    configuration: typing.Optional[TeamConfig]
+    svix_app_id: typing.Optional[str] = None
+    client_id: typing.Optional[str] = None
+    client_secret: typing.Optional[str] = None
+    airtable_api_key: typing.Optional[str] = None
+    airtable_base_id: typing.Optional[str] = None
+    webhook_secret: typing.Optional[str] = None
+    api_key: typing.Optional[str] = None
+    api_keys: typing.Optional[typing.List[ClientFacingApiKey]] = None
+    configuration: typing.Optional[TeamConfig] = None
     testkits_texts_enabled: bool
     lab_tests_patient_communication_enabled: bool
     lab_tests_patient_sms_communication_enabled: bool
     lab_tests_patient_email_communication_enabled: bool
-    logo_url: typing.Optional[str]
+    logo_url: typing.Optional[str] = None
     delegated_flow: DelegatedFlowType
 
     def json(self, **kwargs: typing.Any) -> str:
@@ -52,4 +52,5 @@ class ClientFacingTeam(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

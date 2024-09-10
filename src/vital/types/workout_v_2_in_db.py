@@ -19,7 +19,7 @@ class WorkoutV2InDb(pydantic.BaseModel):
     provider_id: str
     user_id: str
     source_id: int
-    priority_id: typing.Optional[int]
+    priority_id: typing.Optional[int] = None
     id: str
     sport_id: int
     source: ClientFacingProvider
@@ -36,4 +36,5 @@ class WorkoutV2InDb(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

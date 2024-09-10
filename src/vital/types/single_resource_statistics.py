@@ -13,10 +13,10 @@ except ImportError:
 
 
 class SingleResourceStatistics(pydantic.BaseModel):
-    last_attempt: typing.Optional[LastAttempt]
-    oldest_data: typing.Optional[str]
-    newest_data: typing.Optional[str]
-    sent_count: typing.Optional[int]
+    last_attempt: typing.Optional[LastAttempt] = None
+    oldest_data: typing.Optional[str] = None
+    newest_data: typing.Optional[str] = None
+    sent_count: typing.Optional[int] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -29,4 +29,5 @@ class SingleResourceStatistics(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

@@ -13,11 +13,20 @@ except ImportError:
 
 
 class GroupedStressLevelResponse(pydantic.BaseModel):
-    groups: typing.Dict[str, typing.List[GroupedStressLevel]] = pydantic.Field(
-        description="For each matching provider or lab, a list of grouped timeseries values."
-    )
-    next: typing.Optional[str]
-    next_cursor: typing.Optional[str]
+    groups: typing.Dict[str, typing.List[GroupedStressLevel]] = pydantic.Field()
+    """
+    For each matching provider or lab, a list of grouped timeseries values.
+    """
+
+    next: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The cursor for fetching the next page, or `null` if there is no more data.
+    """
+
+    next_cursor: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The cursor for fetching the next page, or `null` if there is no more data.
+    """
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -30,4 +39,5 @@ class GroupedStressLevelResponse(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

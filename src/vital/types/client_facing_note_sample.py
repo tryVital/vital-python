@@ -13,15 +13,50 @@ except ImportError:
 
 
 class ClientFacingNoteSample(pydantic.BaseModel):
-    id: typing.Optional[int]
-    timezone_offset: typing.Optional[int]
-    type: typing.Optional[str]
-    unit: str = pydantic.Field(description="User notes as text.")
-    timestamp: str = pydantic.Field(description="Depracated. The start time (inclusive) of the interval.")
-    start: str = pydantic.Field(description="The start time (inclusive) of the interval.")
-    end: str = pydantic.Field(description="The end time (exclusive) of the interval.")
-    value: str = pydantic.Field(description="The recorded value for the interval.")
-    tags: typing.Optional[typing.List[ClientFacingNoteSampleTagsItem]]
+    id: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Deprecated
+    """
+
+    timezone_offset: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Time zone UTC offset in seconds. Positive offset indicates east of UTC; negative offset indicates west of UTC; and null indicates the time zone information is unavailable at source.
+    """
+
+    type: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The reading type of the measurement. This is applicable only to Cholesterol, IGG, IGE and InsulinInjection.
+    """
+
+    unit: str = pydantic.Field()
+    """
+    User notes as text.
+    """
+
+    timestamp: str = pydantic.Field()
+    """
+    Depracated. The start time (inclusive) of the interval.
+    """
+
+    start: str = pydantic.Field()
+    """
+    The start time (inclusive) of the interval.
+    """
+
+    end: str = pydantic.Field()
+    """
+    The end time (exclusive) of the interval.
+    """
+
+    value: str = pydantic.Field()
+    """
+    The recorded value for the interval.
+    """
+
+    tags: typing.Optional[typing.List[ClientFacingNoteSampleTagsItem]] = pydantic.Field(default=None)
+    """
+    What the note refers to.
+    """
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -34,4 +69,5 @@ class ClientFacingNoteSample(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

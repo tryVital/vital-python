@@ -13,8 +13,8 @@ except ImportError:
 
 
 class OrderSetRequest(pydantic.BaseModel):
-    lab_test_ids: typing.Optional[typing.List[str]]
-    add_on: typing.Optional[AddOnOrder]
+    lab_test_ids: typing.Optional[typing.List[str]] = None
+    add_on: typing.Optional[AddOnOrder] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -27,4 +27,5 @@ class OrderSetRequest(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

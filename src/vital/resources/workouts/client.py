@@ -6,7 +6,9 @@ from json.decoder import JSONDecodeError
 
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from ...core.jsonable_encoder import jsonable_encoder
 from ...core.remove_none_from_dict import remove_none_from_dict
+from ...core.request_options import RequestOptions
 from ...errors.unprocessable_entity_error import UnprocessableEntityError
 from ...types.client_facing_stream import ClientFacingStream
 from ...types.client_workout_response import ClientWorkoutResponse
@@ -30,6 +32,7 @@ class WorkoutsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientWorkoutResponse:
         """
         Get Daily workout for user_id
@@ -42,6 +45,8 @@ class WorkoutsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -55,10 +60,36 @@ class WorkoutsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/summary/workouts/{user_id}"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/summary/workouts/{jsonable_encoder(user_id)}"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientWorkoutResponse, _response.json())  # type: ignore
@@ -77,6 +108,7 @@ class WorkoutsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> RawWorkout:
         """
         Get Daily workout for user_id
@@ -89,6 +121,8 @@ class WorkoutsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -102,10 +136,36 @@ class WorkoutsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/summary/workouts/{user_id}/raw"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/summary/workouts/{jsonable_encoder(user_id)}/raw"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(RawWorkout, _response.json())  # type: ignore
@@ -117,10 +177,14 @@ class WorkoutsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_by_workout_id(self, workout_id: str) -> ClientFacingStream:
+    def get_by_workout_id(
+        self, workout_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ClientFacingStream:
         """
         Parameters:
             - workout_id: str. The Vital ID for the workout
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -134,10 +198,25 @@ class WorkoutsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/workouts/{workout_id}/stream"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/workouts/{jsonable_encoder(workout_id)}/stream",
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingStream, _response.json())  # type: ignore
@@ -161,6 +240,7 @@ class AsyncWorkoutsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientWorkoutResponse:
         """
         Get Daily workout for user_id
@@ -173,6 +253,8 @@ class AsyncWorkoutsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -186,10 +268,36 @@ class AsyncWorkoutsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/summary/workouts/{user_id}"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/summary/workouts/{jsonable_encoder(user_id)}"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientWorkoutResponse, _response.json())  # type: ignore
@@ -208,6 +316,7 @@ class AsyncWorkoutsClient:
         provider: typing.Optional[str] = None,
         start_date: str,
         end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> RawWorkout:
         """
         Get Daily workout for user_id
@@ -220,6 +329,8 @@ class AsyncWorkoutsClient:
             - start_date: str. Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
             - end_date: typing.Optional[str]. Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -233,10 +344,36 @@ class AsyncWorkoutsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/summary/workouts/{user_id}/raw"),
-            params=remove_none_from_dict({"provider": provider, "start_date": start_date, "end_date": end_date}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/summary/workouts/{jsonable_encoder(user_id)}/raw"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "provider": provider,
+                        "start_date": start_date,
+                        "end_date": end_date,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(RawWorkout, _response.json())  # type: ignore
@@ -248,10 +385,14 @@ class AsyncWorkoutsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_by_workout_id(self, workout_id: str) -> ClientFacingStream:
+    async def get_by_workout_id(
+        self, workout_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ClientFacingStream:
         """
         Parameters:
             - workout_id: str. The Vital ID for the workout
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -265,10 +406,25 @@ class AsyncWorkoutsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v2/timeseries/workouts/{workout_id}/stream"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/timeseries/workouts/{jsonable_encoder(workout_id)}/stream",
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingStream, _response.json())  # type: ignore

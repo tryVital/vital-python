@@ -361,6 +361,7 @@ from .resources import (
     workouts,
 )
 from .environment import VitalEnvironment
+from .version import __version__
 
 __all__ = [
     "ActivitySelector",
@@ -703,6 +704,7 @@ __all__ = [
     "VitalTokenCreatedResponse",
     "Vitamins",
     "WorkoutV2InDb",
+    "__version__",
     "activity",
     "aggregate",
     "body",

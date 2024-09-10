@@ -12,10 +12,18 @@ except ImportError:
 
 
 class TimeSlot(pydantic.BaseModel):
-    booking_key: typing.Optional[str]
-    start: str = pydantic.Field(description="Time is in UTC")
-    end: str = pydantic.Field(description="Time is in UTC")
-    expires_at: typing.Optional[str]
+    booking_key: typing.Optional[str] = None
+    start: str = pydantic.Field()
+    """
+    Time is in UTC
+    """
+
+    end: str = pydantic.Field()
+    """
+    Time is in UTC
+    """
+
+    expires_at: typing.Optional[str] = None
     price: float
     is_priority: bool
     num_appointments_available: int
@@ -31,4 +39,5 @@ class TimeSlot(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

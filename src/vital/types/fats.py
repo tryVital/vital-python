@@ -12,12 +12,35 @@ except ImportError:
 
 
 class Fats(pydantic.BaseModel):
-    saturated: typing.Optional[float]
-    monounsaturated: typing.Optional[float]
-    polyunsaturated: typing.Optional[float]
-    omega_3: typing.Optional[float] = pydantic.Field(alias="omega3")
-    omega_6: typing.Optional[float] = pydantic.Field(alias="omega6")
-    total: typing.Optional[float]
+    saturated: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Amount of saturated fats in grams (g)
+    """
+
+    monounsaturated: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Amount of monounsaturated fats in grams (g)
+    """
+
+    polyunsaturated: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Amount of polyunsaturated fats in grams (g)
+    """
+
+    omega_3: typing.Optional[float] = pydantic.Field(alias="omega3", default=None)
+    """
+    Amount of Omega-3 fatty acids in grams (g)
+    """
+
+    omega_6: typing.Optional[float] = pydantic.Field(alias="omega6", default=None)
+    """
+    Amount of Omega-6 fatty acids in grams (g)
+    """
+
+    total: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Total amount of fats in grams (g)
+    """
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -31,4 +54,6 @@ class Fats(pydantic.BaseModel):
         frozen = True
         smart_union = True
         allow_population_by_field_name = True
+        populate_by_name = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

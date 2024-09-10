@@ -13,11 +13,13 @@ except ImportError:
 
 
 class ClientFacingProfile(pydantic.BaseModel):
-    user_id: str = pydantic.Field(
-        description="User id returned by vital create user request. This id should be stored in your database against the user and used for all interactions with the vital api."
-    )
+    user_id: str = pydantic.Field()
+    """
+    User id returned by vital create user request. This id should be stored in your database against the user and used for all interactions with the vital api.
+    """
+
     id: str
-    height: typing.Optional[int]
+    height: typing.Optional[int] = None
     source: ClientFacingSource
 
     def json(self, **kwargs: typing.Any) -> str:
@@ -31,4 +33,5 @@ class ClientFacingProfile(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

@@ -21,7 +21,7 @@ class Question(pydantic.BaseModel):
     type: QuestionType
     sequence: int
     answers: typing.List[Answer]
-    constraint: typing.Optional[str]
+    constraint: typing.Optional[str] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -34,4 +34,5 @@ class Question(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

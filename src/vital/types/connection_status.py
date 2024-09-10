@@ -15,10 +15,10 @@ except ImportError:
 
 class ConnectionStatus(pydantic.BaseModel):
     state: ConnectionStatusState
-    redirect_url: typing.Optional[str]
-    error_type: typing.Optional[str]
-    error: typing.Optional[str]
-    provider_mfa: typing.Optional[ProviderMfaRequest]
+    redirect_url: typing.Optional[str] = None
+    error_type: typing.Optional[str] = None
+    error: typing.Optional[str] = None
+    provider_mfa: typing.Optional[ProviderMfaRequest] = None
     success: bool
 
     def json(self, **kwargs: typing.Any) -> str:
@@ -32,4 +32,5 @@ class ConnectionStatus(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

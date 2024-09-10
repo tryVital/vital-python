@@ -17,10 +17,10 @@ class LabLocationMetadata(pydantic.BaseModel):
     city: str
     zip_code: str
     first_line: str
-    second_line: typing.Optional[str]
-    phone_number: typing.Optional[str]
-    fax_number: typing.Optional[str]
-    hours: typing.Optional[typing.Dict[str, typing.Any]]
+    second_line: typing.Optional[str] = None
+    phone_number: typing.Optional[str] = None
+    fax_number: typing.Optional[str] = None
+    hours: typing.Optional[typing.Dict[str, typing.Any]] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -33,4 +33,5 @@ class LabLocationMetadata(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

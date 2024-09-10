@@ -12,12 +12,26 @@ except ImportError:
 
 
 class ClientFacingBloodPressureTimeseries(pydantic.BaseModel):
-    id: typing.Optional[int]
-    timezone_offset: typing.Optional[int]
-    type: typing.Optional[str]
-    unit: str = pydantic.Field(
-        description="The unit of the value. We use SI units where possible, e.g. mmol/L for glucose/cholesterol, bpm for heart rate, etc."
-    )
+    id: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Deprecated
+    """
+
+    timezone_offset: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Time zone UTC offset in seconds. Positive offset indicates east of UTC; negative offset indicates west of UTC; and null indicates the time zone information is unavailable at source.
+    """
+
+    type: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The reading type of the measurement. This is applicable only to Cholesterol, IGG, IGE and InsulinInjection.
+    """
+
+    unit: str = pydantic.Field()
+    """
+    The unit of the value. We use SI units where possible, e.g. mmol/L for glucose/cholesterol, bpm for heart rate, etc.
+    """
+
     timestamp: str
     systolic: float
     diastolic: float
@@ -33,4 +47,5 @@ class ClientFacingBloodPressureTimeseries(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

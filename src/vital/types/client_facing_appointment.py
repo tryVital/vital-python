@@ -24,16 +24,24 @@ class ClientFacingAppointment(pydantic.BaseModel):
     order_id: str
     address: UsAddress
     location: LngLat
-    start_at: typing.Optional[str]
-    end_at: typing.Optional[str]
-    iana_timezone: typing.Optional[str]
+    start_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Time is in UTC
+    """
+
+    end_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Time is in UTC
+    """
+
+    iana_timezone: typing.Optional[str] = None
     type: AppointmentType
     provider: AppointmentProvider
     status: AppointmentStatus
     provider_id: str
     can_reschedule: bool
     event_status: AppointmentEventStatus
-    event_data: typing.Optional[typing.Dict[str, typing.Any]]
+    event_data: typing.Optional[typing.Dict[str, typing.Any]] = None
     events: typing.List[ClientFacingAppointmentEvent]
 
     def json(self, **kwargs: typing.Any) -> str:
@@ -47,4 +55,5 @@ class ClientFacingAppointment(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

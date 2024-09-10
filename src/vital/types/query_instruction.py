@@ -18,9 +18,9 @@ except ImportError:
 class QueryInstruction(pydantic.BaseModel):
     select: QueryInstructionSelect
     partition_by: QueryInstructionPartitionBy
-    swizzle_by: typing.Optional[Swizzling]
+    swizzle_by: typing.Optional[Swizzling] = None
     reduce_by: typing.List[Reducer]
-    split_by_source: typing.Optional[bool]
+    split_by_source: typing.Optional[bool] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -33,4 +33,5 @@ class QueryInstruction(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

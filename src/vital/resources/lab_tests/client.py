@@ -10,6 +10,7 @@ from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.datetime_utils import serialize_datetime
 from ...core.jsonable_encoder import jsonable_encoder
 from ...core.remove_none_from_dict import remove_none_from_dict
+from ...core.request_options import RequestOptions
 from ...errors.unprocessable_entity_error import UnprocessableEntityError
 from ...types.allowed_radius import AllowedRadius
 from ...types.ao_e_answer import AoEAnswer
@@ -56,10 +57,12 @@ class LabTestsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def get(self) -> typing.List[ClientFacingLabTest]:
+    def get(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[ClientFacingLabTest]:
         """
         GET all the lab tests the team has access to.
 
+        Parameters:
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -71,8 +74,22 @@ class LabTestsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/lab_tests"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingLabTest], _response.json())  # type: ignore
@@ -85,18 +102,19 @@ class LabTestsClient:
     def create(
         self,
         *,
-        marker_ids: typing.Optional[typing.List[int]] = OMIT,
-        provider_ids: typing.Optional[typing.List[str]] = OMIT,
+        marker_ids: typing.Optional[typing.Sequence[int]] = OMIT,
+        provider_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         name: str,
         method: LabTestCollectionMethod,
         description: str,
         fasting: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingLabTest:
         """
         Parameters:
-            - marker_ids: typing.Optional[typing.List[int]].
+            - marker_ids: typing.Optional[typing.Sequence[int]].
 
-            - provider_ids: typing.Optional[typing.List[str]].
+            - provider_ids: typing.Optional[typing.Sequence[str]].
 
             - name: str.
 
@@ -105,6 +123,8 @@ class LabTestsClient:
             - description: str.
 
             - fasting: typing.Optional[bool].
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital import LabTestCollectionMethod
         from vital.client import Vital
@@ -118,7 +138,7 @@ class LabTestsClient:
             description="description",
         )
         """
-        _request: typing.Dict[str, typing.Any] = {"name": name, "method": method.value, "description": description}
+        _request: typing.Dict[str, typing.Any] = {"name": name, "method": method, "description": description}
         if marker_ids is not OMIT:
             _request["marker_ids"] = marker_ids
         if provider_ids is not OMIT:
@@ -128,9 +148,28 @@ class LabTestsClient:
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/lab_tests"),
-            json=jsonable_encoder(_request),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(_request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(_request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingLabTest, _response.json())  # type: ignore
@@ -145,17 +184,18 @@ class LabTestsClient:
     def get_markers(
         self,
         *,
-        lab_id: typing.Optional[typing.Union[int, typing.List[int]]] = None,
+        lab_id: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
         name: typing.Optional[str] = None,
         a_la_carte_enabled: typing.Optional[bool] = None,
         page: typing.Optional[int] = None,
         size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GetMarkersResponse:
         """
         GET all the markers for the given lab.
 
         Parameters:
-            - lab_id: typing.Optional[typing.Union[int, typing.List[int]]]. The identifier Vital assigned to a lab partner.
+            - lab_id: typing.Optional[typing.Union[int, typing.Sequence[int]]]. The identifier Vital assigned to a lab partner.
 
             - name: typing.Optional[str]. The name or test code of an individual biomarker or a panel.
 
@@ -164,6 +204,8 @@ class LabTestsClient:
             - page: typing.Optional[int].
 
             - size: typing.Optional[int].
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -175,11 +217,35 @@ class LabTestsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/lab_tests/markers"),
-            params=remove_none_from_dict(
-                {"lab_id": lab_id, "name": name, "a_la_carte_enabled": a_la_carte_enabled, "page": page, "size": size}
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "lab_id": lab_id,
+                        "name": name,
+                        "a_la_carte_enabled": a_la_carte_enabled,
+                        "page": page,
+                        "size": size,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GetMarkersResponse, _response.json())  # type: ignore
@@ -192,7 +258,12 @@ class LabTestsClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def get_markers_for_lab_test(
-        self, lab_test_id: str, *, page: typing.Optional[int] = None, size: typing.Optional[int] = None
+        self,
+        lab_test_id: str,
+        *,
+        page: typing.Optional[int] = None,
+        size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GetMarkersResponse:
         """
         Parameters:
@@ -201,6 +272,8 @@ class LabTestsClient:
             - page: typing.Optional[int].
 
             - size: typing.Optional[int].
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -213,10 +286,35 @@ class LabTestsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/lab_tests/{lab_test_id}/markers"),
-            params=remove_none_from_dict({"page": page, "size": size}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v3/lab_tests/{jsonable_encoder(lab_test_id)}/markers"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "page": page,
+                        "size": size,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GetMarkersResponse, _response.json())  # type: ignore
@@ -228,7 +326,9 @@ class LabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_markers_by_lab_and_provider_id(self, provider_id: str, lab_id: int) -> ClientFacingMarker:
+    def get_markers_by_lab_and_provider_id(
+        self, provider_id: str, lab_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ClientFacingMarker:
         """
         GET a specific marker for the given lab and provider_id
 
@@ -236,6 +336,8 @@ class LabTestsClient:
             - provider_id: str.
 
             - lab_id: int.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -250,10 +352,25 @@ class LabTestsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v3/lab_tests/{lab_id}/markers/{provider_id}"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v3/lab_tests/{jsonable_encoder(lab_id)}/markers/{jsonable_encoder(provider_id)}",
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingMarker, _response.json())  # type: ignore
@@ -265,10 +382,12 @@ class LabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_labs(self) -> typing.List[ClientFacingLab]:
+    def get_labs(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[ClientFacingLab]:
         """
         GET all the labs.
 
+        Parameters:
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -280,8 +399,22 @@ class LabTestsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/lab_tests/labs"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingLab], _response.json())  # type: ignore
@@ -291,12 +424,16 @@ class LabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_by_id(self, lab_test_id: str) -> ClientFacingLabTest:
+    def get_by_id(
+        self, lab_test_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ClientFacingLabTest:
         """
         GET all the lab tests the team has access to.
 
         Parameters:
             - lab_test_id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -309,9 +446,25 @@ class LabTestsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/lab_tests/{lab_test_id}"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v3/lab_tests/{jsonable_encoder(lab_test_id)}"
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingLabTest, _response.json())  # type: ignore
@@ -323,13 +476,17 @@ class LabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_phlebotomy_appointment_availability(self, *, request: UsAddress) -> AppointmentAvailabilitySlots:
+    def get_phlebotomy_appointment_availability(
+        self, *, request: UsAddress, request_options: typing.Optional[RequestOptions] = None
+    ) -> AppointmentAvailabilitySlots:
         """
         Return the available time slots to book an appointment with a phlebotomist
         for the given address and order.
 
         Parameters:
             - request: UsAddress.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital import UsAddress
         from vital.client import Vital
@@ -351,9 +508,28 @@ class LabTestsClient:
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", "v3/order/phlebotomy/appointment/availability"
             ),
-            json=jsonable_encoder(request),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(AppointmentAvailabilitySlots, _response.json())  # type: ignore
@@ -365,7 +541,9 @@ class LabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def book_phlebotomy_appointment(self, order_id: str, *, booking_key: str) -> ClientFacingAppointment:
+    def book_phlebotomy_appointment(
+        self, order_id: str, *, booking_key: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> ClientFacingAppointment:
         """
         Book an at-home phlebotomy appointment.
 
@@ -373,6 +551,8 @@ class LabTestsClient:
             - order_id: str. Your Order ID.
 
             - booking_key: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -387,11 +567,31 @@ class LabTestsClient:
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/phlebotomy/appointment/book"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v3/order/{jsonable_encoder(order_id)}/phlebotomy/appointment/book",
             ),
-            json=jsonable_encoder({"booking_key": booking_key}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder({"booking_key": booking_key})
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder({"booking_key": booking_key}),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingAppointment, _response.json())  # type: ignore
@@ -404,7 +604,12 @@ class LabTestsClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def request_phlebotomy_appointment(
-        self, order_id: str, *, address: UsAddress, provider: AppointmentProvider
+        self,
+        order_id: str,
+        *,
+        address: UsAddress,
+        provider: AppointmentProvider,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingAppointment:
         """
         Request an at-home phlebotomy appointment.
@@ -415,6 +620,8 @@ class LabTestsClient:
             - address: UsAddress. At-home phlebotomy appointment address.
 
             - provider: AppointmentProvider.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital import AppointmentProvider, UsAddress
         from vital.client import Vital
@@ -436,11 +643,31 @@ class LabTestsClient:
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/phlebotomy/appointment/request"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v3/order/{jsonable_encoder(order_id)}/phlebotomy/appointment/request",
             ),
-            json=jsonable_encoder({"address": address, "provider": provider}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder({"address": address, "provider": provider})
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder({"address": address, "provider": provider}),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingAppointment, _response.json())  # type: ignore
@@ -452,7 +679,9 @@ class LabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def reschedule_phlebotomy_appointment(self, order_id: str, *, booking_key: str) -> ClientFacingAppointment:
+    def reschedule_phlebotomy_appointment(
+        self, order_id: str, *, booking_key: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> ClientFacingAppointment:
         """
         Reschedule a previously booked at-home phlebotomy appointment.
 
@@ -460,6 +689,8 @@ class LabTestsClient:
             - order_id: str. Your Order ID.
 
             - booking_key: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -474,11 +705,31 @@ class LabTestsClient:
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/phlebotomy/appointment/reschedule"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v3/order/{jsonable_encoder(order_id)}/phlebotomy/appointment/reschedule",
             ),
-            json=jsonable_encoder({"booking_key": booking_key}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder({"booking_key": booking_key})
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder({"booking_key": booking_key}),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingAppointment, _response.json())  # type: ignore
@@ -491,7 +742,12 @@ class LabTestsClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def cancel_phlebotomy_appointment(
-        self, order_id: str, *, cancellation_reason_id: str, notes: typing.Optional[str] = OMIT
+        self,
+        order_id: str,
+        *,
+        cancellation_reason_id: str,
+        notes: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingAppointment:
         """
         Cancel a previously booked at-home phlebotomy appointment.
@@ -502,6 +758,8 @@ class LabTestsClient:
             - cancellation_reason_id: str.
 
             - notes: typing.Optional[str].
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -519,11 +777,31 @@ class LabTestsClient:
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/phlebotomy/appointment/cancel"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v3/order/{jsonable_encoder(order_id)}/phlebotomy/appointment/cancel",
             ),
-            json=jsonable_encoder(_request),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(_request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(_request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingAppointment, _response.json())  # type: ignore
@@ -535,10 +813,14 @@ class LabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_phlebotomy_appointment_cancellation_reason(self) -> typing.List[ClientFacingAppointmentCancellationReason]:
+    def get_phlebotomy_appointment_cancellation_reason(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.List[ClientFacingAppointmentCancellationReason]:
         """
         Get the list of reasons for cancelling an at-home phlebotomy appointment.
 
+        Parameters:
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -552,8 +834,22 @@ class LabTestsClient:
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", "v3/order/phlebotomy/appointment/cancellation-reasons"
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingAppointmentCancellationReason], _response.json())  # type: ignore
@@ -563,12 +859,16 @@ class LabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_phlebotomy_appointment(self, order_id: str) -> ClientFacingAppointment:
+    def get_phlebotomy_appointment(
+        self, order_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ClientFacingAppointment:
         """
         Get the appointment associated with an order.
 
         Parameters:
             - order_id: str. Your Order ID.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -582,10 +882,25 @@ class LabTestsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/phlebotomy/appointment"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v3/order/{jsonable_encoder(order_id)}/phlebotomy/appointment",
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingAppointment, _response.json())  # type: ignore
@@ -603,6 +918,7 @@ class LabTestsClient:
         zip_code: str,
         radius: typing.Optional[AllowedRadius] = None,
         lab: typing.Optional[ClientFacingLabs] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AreaInfo:
         """
         GET information about an area with respect to lab-testing.
@@ -618,6 +934,8 @@ class LabTestsClient:
             - radius: typing.Optional[AllowedRadius]. Radius in which to search in miles
 
             - lab: typing.Optional[ClientFacingLabs]. Lab to check for PSCs
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -631,9 +949,33 @@ class LabTestsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/order/area/info"),
-            params=remove_none_from_dict({"zip_code": zip_code, "radius": radius, "lab": lab}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "zip_code": zip_code,
+                        "radius": radius,
+                        "lab": lab,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(AreaInfo, _response.json())  # type: ignore
@@ -645,7 +987,14 @@ class LabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_psc_info(self, *, zip_code: str, lab_id: int, radius: typing.Optional[AllowedRadius] = None) -> PscInfo:
+    def get_psc_info(
+        self,
+        *,
+        zip_code: str,
+        lab_id: int,
+        radius: typing.Optional[AllowedRadius] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PscInfo:
         """
         Parameters:
             - zip_code: str. Zip code of the area to check
@@ -653,6 +1002,8 @@ class LabTestsClient:
             - lab_id: int. Lab ID to check for PSCs
 
             - radius: typing.Optional[AllowedRadius]. Radius in which to search. (meters)
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -667,9 +1018,33 @@ class LabTestsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/order/psc/info"),
-            params=remove_none_from_dict({"zip_code": zip_code, "lab_id": lab_id, "radius": radius}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "zip_code": zip_code,
+                        "lab_id": lab_id,
+                        "radius": radius,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PscInfo, _response.json())  # type: ignore
@@ -681,12 +1056,20 @@ class LabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_order_psc_info(self, order_id: str, *, radius: typing.Optional[AllowedRadius] = None) -> PscInfo:
+    def get_order_psc_info(
+        self,
+        order_id: str,
+        *,
+        radius: typing.Optional[AllowedRadius] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PscInfo:
         """
         Parameters:
             - order_id: str. Your Order ID.
 
             - radius: typing.Optional[AllowedRadius]. Radius in which to search in miles
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -699,10 +1082,34 @@ class LabTestsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/psc/info"),
-            params=remove_none_from_dict({"radius": radius}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v3/order/{jsonable_encoder(order_id)}/psc/info"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "radius": radius,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PscInfo, _response.json())  # type: ignore
@@ -714,18 +1121,47 @@ class LabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_result_pdf(self, order_id: str) -> typing.Iterator[bytes]:
+    def get_result_pdf(
+        self, order_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Iterator[bytes]:
         """
         This endpoint returns the lab results for the order.
 
         Parameters:
             - order_id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_result_pdf(
+            order_id="string",
+        )
         """
         with self._client_wrapper.httpx_client.stream(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/result/pdf"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v3/order/{jsonable_encoder(order_id)}/result/pdf"
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         ) as _response:
             if 200 <= _response.status_code < 300:
                 for _chunk in _response.iter_bytes():
@@ -742,13 +1178,17 @@ class LabTestsClient:
                 raise ApiError(status_code=_response.status_code, body=_response.text)
             raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_result_metadata(self, order_id: str) -> LabResultsMetadata:
+    def get_result_metadata(
+        self, order_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> LabResultsMetadata:
         """
         Return metadata related to order results, such as lab metadata,
         provider and sample dates.
 
         Parameters:
             - order_id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -761,9 +1201,25 @@ class LabTestsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/result/metadata"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v3/order/{jsonable_encoder(order_id)}/result/metadata"
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(LabResultsMetadata, _response.json())  # type: ignore
@@ -775,12 +1231,16 @@ class LabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_result_raw(self, order_id: str) -> LabResultsRaw:
+    def get_result_raw(
+        self, order_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> LabResultsRaw:
         """
         Return both metadata and raw json test data
 
         Parameters:
             - order_id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -793,9 +1253,25 @@ class LabTestsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/result"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v3/order/{jsonable_encoder(order_id)}/result"
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(LabResultsRaw, _response.json())  # type: ignore
@@ -808,7 +1284,12 @@ class LabTestsClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def get_labels_pdf(
-        self, order_id: str, *, number_of_labels: typing.Optional[int] = None, collection_date: dt.datetime
+        self,
+        order_id: str,
+        *,
+        number_of_labels: typing.Optional[int] = None,
+        collection_date: dt.datetime,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Iterator[bytes]:
         """
         This endpoint returns the printed labels for the order.
@@ -819,15 +1300,55 @@ class LabTestsClient:
             - number_of_labels: typing.Optional[int]. Number of labels to generate
 
             - collection_date: dt.datetime. Collection date
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        import datetime
+
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_labels_pdf(
+            order_id="string",
+            number_of_labels=1,
+            collection_date=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+        )
         """
         with self._client_wrapper.httpx_client.stream(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/labels/pdf"),
-            params=remove_none_from_dict(
-                {"number_of_labels": number_of_labels, "collection_date": serialize_datetime(collection_date)}
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v3/order/{jsonable_encoder(order_id)}/labels/pdf"
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "number_of_labels": number_of_labels,
+                        "collection_date": serialize_datetime(collection_date),
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         ) as _response:
             if 200 <= _response.status_code < 300:
                 for _chunk in _response.iter_bytes():
@@ -844,18 +1365,47 @@ class LabTestsClient:
                 raise ApiError(status_code=_response.status_code, body=_response.text)
             raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_order_requistion_pdf(self, order_id: str) -> typing.Iterator[bytes]:
+    def get_order_requistion_pdf(
+        self, order_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Iterator[bytes]:
         """
         GET requisition pdf for an order
 
         Parameters:
             - order_id: str. Your Order ID.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_order_requistion_pdf(
+            order_id="string",
+        )
         """
         with self._client_wrapper.httpx_client.stream(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/requisition/pdf"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v3/order/{jsonable_encoder(order_id)}/requisition/pdf"
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         ) as _response:
             if 200 <= _response.status_code < 300:
                 for _chunk in _response.iter_bytes():
@@ -872,18 +1422,43 @@ class LabTestsClient:
                 raise ApiError(status_code=_response.status_code, body=_response.text)
             raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_order(self, order_id: str) -> ClientFacingOrder:
+    def get_order(self, order_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> ClientFacingOrder:
         """
         GET individual order by ID.
 
         Parameters:
             - order_id: str. Your Order ID.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_order(
+            order_id="order_id",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/order/{jsonable_encoder(order_id)}"),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingOrder, _response.json())  # type: ignore
@@ -906,13 +1481,14 @@ class LabTestsClient:
         health_insurance: typing.Optional[HealthInsuranceCreateRequest] = OMIT,
         priority: typing.Optional[bool] = OMIT,
         billing_type: typing.Optional[Billing] = OMIT,
-        icd_codes: typing.Optional[typing.List[str]] = OMIT,
-        consents: typing.Optional[typing.List[Consent]] = OMIT,
+        icd_codes: typing.Optional[typing.Sequence[str]] = OMIT,
+        consents: typing.Optional[typing.Sequence[Consent]] = OMIT,
         activate_by: typing.Optional[str] = OMIT,
-        aoe_answers: typing.Optional[typing.List[AoEAnswer]] = OMIT,
+        aoe_answers: typing.Optional[typing.Sequence[AoEAnswer]] = OMIT,
         passthrough: typing.Optional[str] = OMIT,
         patient_details: PatientDetails,
         patient_address: PatientAddressCompatible,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PostOrderResponse:
         """
         POST create new order
@@ -934,19 +1510,50 @@ class LabTestsClient:
 
             - billing_type: typing.Optional[Billing].
 
-            - icd_codes: typing.Optional[typing.List[str]].
+            - icd_codes: typing.Optional[typing.Sequence[str]].
 
-            - consents: typing.Optional[typing.List[Consent]].
+            - consents: typing.Optional[typing.Sequence[Consent]].
 
-            - activate_by: typing.Optional[str].
+            - activate_by: typing.Optional[str]. Schedule an Order to be processed in a future date.
 
-            - aoe_answers: typing.Optional[typing.List[AoEAnswer]].
+            - aoe_answers: typing.Optional[typing.Sequence[AoEAnswer]].
 
             - passthrough: typing.Optional[str].
 
             - patient_details: PatientDetails.
 
             - patient_address: PatientAddressCompatible.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        import datetime
+
+        from vital import Gender, PatientAddressCompatible, PatientDetails
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.create_order(
+            user_id="user_id",
+            patient_details=PatientDetails(
+                first_name="first_name",
+                last_name="last_name",
+                dob=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                gender=Gender.FEMALE,
+                phone_number="phone_number",
+                email="email",
+            ),
+            patient_address=PatientAddressCompatible(
+                first_line="first_line",
+                city="city",
+                state="state",
+                zip="zip",
+                country="country",
+            ),
+        )
         """
         _request: typing.Dict[str, typing.Any] = {
             "user_id": user_id,
@@ -958,7 +1565,7 @@ class LabTestsClient:
         if order_set is not OMIT:
             _request["order_set"] = order_set
         if collection_method is not OMIT:
-            _request["collection_method"] = collection_method.value
+            _request["collection_method"] = collection_method
         if physician is not OMIT:
             _request["physician"] = physician
         if health_insurance is not OMIT:
@@ -966,7 +1573,7 @@ class LabTestsClient:
         if priority is not OMIT:
             _request["priority"] = priority
         if billing_type is not OMIT:
-            _request["billing_type"] = billing_type.value
+            _request["billing_type"] = billing_type
         if icd_codes is not OMIT:
             _request["icd_codes"] = icd_codes
         if consents is not OMIT:
@@ -980,9 +1587,28 @@ class LabTestsClient:
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/order"),
-            json=jsonable_encoder(_request),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(_request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(_request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PostOrderResponse, _response.json())  # type: ignore
@@ -994,18 +1620,50 @@ class LabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def cancel_order(self, order_id: str) -> PostOrderResponse:
+    def cancel_order(
+        self, order_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> PostOrderResponse:
         """
         POST cancel order
 
         Parameters:
             - order_id: str. Your Order ID.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.cancel_order(
+            order_id="order_id",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/cancel"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v3/order/{jsonable_encoder(order_id)}/cancel"
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))
+            if request_options is not None
+            else None,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PostOrderResponse, _response.json())  # type: ignore
@@ -1018,7 +1676,12 @@ class LabTestsClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def simulate_order_process(
-        self, order_id: str, *, final_status: typing.Optional[OrderStatus] = None, delay: typing.Optional[int] = None
+        self,
+        order_id: str,
+        *,
+        final_status: typing.Optional[OrderStatus] = None,
+        delay: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Any:
         """
         Get available test kits.
@@ -1029,6 +1692,8 @@ class LabTestsClient:
             - final_status: typing.Optional[OrderStatus].
 
             - delay: typing.Optional[int].
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -1041,10 +1706,38 @@ class LabTestsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/test"),
-            params=remove_none_from_dict({"final_status": final_status, "delay": delay}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v3/order/{jsonable_encoder(order_id)}/test"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "final_status": final_status,
+                        "delay": delay,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))
+            if request_options is not None
+            else None,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.Any, _response.json())  # type: ignore
@@ -1069,9 +1762,10 @@ class LabTestsClient:
         user_id: typing.Optional[str] = None,
         patient_name: typing.Optional[str] = None,
         shipping_recipient_name: typing.Optional[str] = None,
-        order_ids: typing.Optional[typing.Union[str, typing.List[str]]] = None,
+        order_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         page: typing.Optional[int] = None,
         size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GetOrdersResponse:
         """
         GET many orders with filters.
@@ -1097,11 +1791,13 @@ class LabTestsClient:
 
             - shipping_recipient_name: typing.Optional[str]. Filter by shipping recipient name.
 
-            - order_ids: typing.Optional[typing.Union[str, typing.List[str]]]. Filter by order ids.
+            - order_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]]. Filter by order ids.
 
             - page: typing.Optional[int].
 
             - size: typing.Optional[int].
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -1113,27 +1809,47 @@ class LabTestsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/orders"),
-            params=remove_none_from_dict(
-                {
-                    "search_input": search_input,
-                    "start_date": serialize_datetime(start_date) if start_date is not None else None,
-                    "end_date": serialize_datetime(end_date) if end_date is not None else None,
-                    "updated_start_date": serialize_datetime(updated_start_date)
-                    if updated_start_date is not None
-                    else None,
-                    "updated_end_date": serialize_datetime(updated_end_date) if updated_end_date is not None else None,
-                    "order_key": order_key,
-                    "order_direction": order_direction,
-                    "user_id": user_id,
-                    "patient_name": patient_name,
-                    "shipping_recipient_name": shipping_recipient_name,
-                    "order_ids": order_ids,
-                    "page": page,
-                    "size": size,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "search_input": search_input,
+                        "start_date": serialize_datetime(start_date) if start_date is not None else None,
+                        "end_date": serialize_datetime(end_date) if end_date is not None else None,
+                        "updated_start_date": serialize_datetime(updated_start_date)
+                        if updated_start_date is not None
+                        else None,
+                        "updated_end_date": serialize_datetime(updated_end_date)
+                        if updated_end_date is not None
+                        else None,
+                        "order_key": order_key,
+                        "order_direction": order_direction,
+                        "user_id": user_id,
+                        "patient_name": patient_name,
+                        "shipping_recipient_name": shipping_recipient_name,
+                        "order_ids": order_ids,
+                        "page": page,
+                        "size": size,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GetOrdersResponse, _response.json())  # type: ignore
@@ -1150,10 +1866,12 @@ class AsyncLabTestsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def get(self) -> typing.List[ClientFacingLabTest]:
+    async def get(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[ClientFacingLabTest]:
         """
         GET all the lab tests the team has access to.
 
+        Parameters:
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -1165,8 +1883,22 @@ class AsyncLabTestsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/lab_tests"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingLabTest], _response.json())  # type: ignore
@@ -1179,18 +1911,19 @@ class AsyncLabTestsClient:
     async def create(
         self,
         *,
-        marker_ids: typing.Optional[typing.List[int]] = OMIT,
-        provider_ids: typing.Optional[typing.List[str]] = OMIT,
+        marker_ids: typing.Optional[typing.Sequence[int]] = OMIT,
+        provider_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         name: str,
         method: LabTestCollectionMethod,
         description: str,
         fasting: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingLabTest:
         """
         Parameters:
-            - marker_ids: typing.Optional[typing.List[int]].
+            - marker_ids: typing.Optional[typing.Sequence[int]].
 
-            - provider_ids: typing.Optional[typing.List[str]].
+            - provider_ids: typing.Optional[typing.Sequence[str]].
 
             - name: str.
 
@@ -1199,6 +1932,8 @@ class AsyncLabTestsClient:
             - description: str.
 
             - fasting: typing.Optional[bool].
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital import LabTestCollectionMethod
         from vital.client import AsyncVital
@@ -1212,7 +1947,7 @@ class AsyncLabTestsClient:
             description="description",
         )
         """
-        _request: typing.Dict[str, typing.Any] = {"name": name, "method": method.value, "description": description}
+        _request: typing.Dict[str, typing.Any] = {"name": name, "method": method, "description": description}
         if marker_ids is not OMIT:
             _request["marker_ids"] = marker_ids
         if provider_ids is not OMIT:
@@ -1222,9 +1957,28 @@ class AsyncLabTestsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/lab_tests"),
-            json=jsonable_encoder(_request),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(_request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(_request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingLabTest, _response.json())  # type: ignore
@@ -1239,17 +1993,18 @@ class AsyncLabTestsClient:
     async def get_markers(
         self,
         *,
-        lab_id: typing.Optional[typing.Union[int, typing.List[int]]] = None,
+        lab_id: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
         name: typing.Optional[str] = None,
         a_la_carte_enabled: typing.Optional[bool] = None,
         page: typing.Optional[int] = None,
         size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GetMarkersResponse:
         """
         GET all the markers for the given lab.
 
         Parameters:
-            - lab_id: typing.Optional[typing.Union[int, typing.List[int]]]. The identifier Vital assigned to a lab partner.
+            - lab_id: typing.Optional[typing.Union[int, typing.Sequence[int]]]. The identifier Vital assigned to a lab partner.
 
             - name: typing.Optional[str]. The name or test code of an individual biomarker or a panel.
 
@@ -1258,6 +2013,8 @@ class AsyncLabTestsClient:
             - page: typing.Optional[int].
 
             - size: typing.Optional[int].
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -1269,11 +2026,35 @@ class AsyncLabTestsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/lab_tests/markers"),
-            params=remove_none_from_dict(
-                {"lab_id": lab_id, "name": name, "a_la_carte_enabled": a_la_carte_enabled, "page": page, "size": size}
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "lab_id": lab_id,
+                        "name": name,
+                        "a_la_carte_enabled": a_la_carte_enabled,
+                        "page": page,
+                        "size": size,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GetMarkersResponse, _response.json())  # type: ignore
@@ -1286,7 +2067,12 @@ class AsyncLabTestsClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def get_markers_for_lab_test(
-        self, lab_test_id: str, *, page: typing.Optional[int] = None, size: typing.Optional[int] = None
+        self,
+        lab_test_id: str,
+        *,
+        page: typing.Optional[int] = None,
+        size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GetMarkersResponse:
         """
         Parameters:
@@ -1295,6 +2081,8 @@ class AsyncLabTestsClient:
             - page: typing.Optional[int].
 
             - size: typing.Optional[int].
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -1307,10 +2095,35 @@ class AsyncLabTestsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/lab_tests/{lab_test_id}/markers"),
-            params=remove_none_from_dict({"page": page, "size": size}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v3/lab_tests/{jsonable_encoder(lab_test_id)}/markers"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "page": page,
+                        "size": size,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GetMarkersResponse, _response.json())  # type: ignore
@@ -1322,7 +2135,9 @@ class AsyncLabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_markers_by_lab_and_provider_id(self, provider_id: str, lab_id: int) -> ClientFacingMarker:
+    async def get_markers_by_lab_and_provider_id(
+        self, provider_id: str, lab_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ClientFacingMarker:
         """
         GET a specific marker for the given lab and provider_id
 
@@ -1330,6 +2145,8 @@ class AsyncLabTestsClient:
             - provider_id: str.
 
             - lab_id: int.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -1344,10 +2161,25 @@ class AsyncLabTestsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v3/lab_tests/{lab_id}/markers/{provider_id}"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v3/lab_tests/{jsonable_encoder(lab_id)}/markers/{jsonable_encoder(provider_id)}",
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingMarker, _response.json())  # type: ignore
@@ -1359,10 +2191,14 @@ class AsyncLabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_labs(self) -> typing.List[ClientFacingLab]:
+    async def get_labs(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.List[ClientFacingLab]:
         """
         GET all the labs.
 
+        Parameters:
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -1374,8 +2210,22 @@ class AsyncLabTestsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/lab_tests/labs"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingLab], _response.json())  # type: ignore
@@ -1385,12 +2235,16 @@ class AsyncLabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_by_id(self, lab_test_id: str) -> ClientFacingLabTest:
+    async def get_by_id(
+        self, lab_test_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ClientFacingLabTest:
         """
         GET all the lab tests the team has access to.
 
         Parameters:
             - lab_test_id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -1403,9 +2257,25 @@ class AsyncLabTestsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/lab_tests/{lab_test_id}"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v3/lab_tests/{jsonable_encoder(lab_test_id)}"
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingLabTest, _response.json())  # type: ignore
@@ -1417,13 +2287,17 @@ class AsyncLabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_phlebotomy_appointment_availability(self, *, request: UsAddress) -> AppointmentAvailabilitySlots:
+    async def get_phlebotomy_appointment_availability(
+        self, *, request: UsAddress, request_options: typing.Optional[RequestOptions] = None
+    ) -> AppointmentAvailabilitySlots:
         """
         Return the available time slots to book an appointment with a phlebotomist
         for the given address and order.
 
         Parameters:
             - request: UsAddress.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital import UsAddress
         from vital.client import AsyncVital
@@ -1445,9 +2319,28 @@ class AsyncLabTestsClient:
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", "v3/order/phlebotomy/appointment/availability"
             ),
-            json=jsonable_encoder(request),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(AppointmentAvailabilitySlots, _response.json())  # type: ignore
@@ -1459,7 +2352,9 @@ class AsyncLabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def book_phlebotomy_appointment(self, order_id: str, *, booking_key: str) -> ClientFacingAppointment:
+    async def book_phlebotomy_appointment(
+        self, order_id: str, *, booking_key: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> ClientFacingAppointment:
         """
         Book an at-home phlebotomy appointment.
 
@@ -1467,6 +2362,8 @@ class AsyncLabTestsClient:
             - order_id: str. Your Order ID.
 
             - booking_key: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -1481,11 +2378,31 @@ class AsyncLabTestsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/phlebotomy/appointment/book"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v3/order/{jsonable_encoder(order_id)}/phlebotomy/appointment/book",
             ),
-            json=jsonable_encoder({"booking_key": booking_key}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder({"booking_key": booking_key})
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder({"booking_key": booking_key}),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingAppointment, _response.json())  # type: ignore
@@ -1498,7 +2415,12 @@ class AsyncLabTestsClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def request_phlebotomy_appointment(
-        self, order_id: str, *, address: UsAddress, provider: AppointmentProvider
+        self,
+        order_id: str,
+        *,
+        address: UsAddress,
+        provider: AppointmentProvider,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingAppointment:
         """
         Request an at-home phlebotomy appointment.
@@ -1509,6 +2431,8 @@ class AsyncLabTestsClient:
             - address: UsAddress. At-home phlebotomy appointment address.
 
             - provider: AppointmentProvider.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital import AppointmentProvider, UsAddress
         from vital.client import AsyncVital
@@ -1530,11 +2454,31 @@ class AsyncLabTestsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/phlebotomy/appointment/request"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v3/order/{jsonable_encoder(order_id)}/phlebotomy/appointment/request",
             ),
-            json=jsonable_encoder({"address": address, "provider": provider}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder({"address": address, "provider": provider})
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder({"address": address, "provider": provider}),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingAppointment, _response.json())  # type: ignore
@@ -1546,7 +2490,9 @@ class AsyncLabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def reschedule_phlebotomy_appointment(self, order_id: str, *, booking_key: str) -> ClientFacingAppointment:
+    async def reschedule_phlebotomy_appointment(
+        self, order_id: str, *, booking_key: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> ClientFacingAppointment:
         """
         Reschedule a previously booked at-home phlebotomy appointment.
 
@@ -1554,6 +2500,8 @@ class AsyncLabTestsClient:
             - order_id: str. Your Order ID.
 
             - booking_key: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -1568,11 +2516,31 @@ class AsyncLabTestsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/phlebotomy/appointment/reschedule"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v3/order/{jsonable_encoder(order_id)}/phlebotomy/appointment/reschedule",
             ),
-            json=jsonable_encoder({"booking_key": booking_key}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder({"booking_key": booking_key})
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder({"booking_key": booking_key}),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingAppointment, _response.json())  # type: ignore
@@ -1585,7 +2553,12 @@ class AsyncLabTestsClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def cancel_phlebotomy_appointment(
-        self, order_id: str, *, cancellation_reason_id: str, notes: typing.Optional[str] = OMIT
+        self,
+        order_id: str,
+        *,
+        cancellation_reason_id: str,
+        notes: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingAppointment:
         """
         Cancel a previously booked at-home phlebotomy appointment.
@@ -1596,6 +2569,8 @@ class AsyncLabTestsClient:
             - cancellation_reason_id: str.
 
             - notes: typing.Optional[str].
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -1613,11 +2588,31 @@ class AsyncLabTestsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/phlebotomy/appointment/cancel"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v3/order/{jsonable_encoder(order_id)}/phlebotomy/appointment/cancel",
             ),
-            json=jsonable_encoder(_request),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(_request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(_request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingAppointment, _response.json())  # type: ignore
@@ -1630,11 +2625,13 @@ class AsyncLabTestsClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def get_phlebotomy_appointment_cancellation_reason(
-        self,
+        self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.List[ClientFacingAppointmentCancellationReason]:
         """
         Get the list of reasons for cancelling an at-home phlebotomy appointment.
 
+        Parameters:
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -1648,8 +2645,22 @@ class AsyncLabTestsClient:
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", "v3/order/phlebotomy/appointment/cancellation-reasons"
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.List[ClientFacingAppointmentCancellationReason], _response.json())  # type: ignore
@@ -1659,12 +2670,16 @@ class AsyncLabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_phlebotomy_appointment(self, order_id: str) -> ClientFacingAppointment:
+    async def get_phlebotomy_appointment(
+        self, order_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ClientFacingAppointment:
         """
         Get the appointment associated with an order.
 
         Parameters:
             - order_id: str. Your Order ID.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -1678,10 +2693,25 @@ class AsyncLabTestsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/phlebotomy/appointment"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v3/order/{jsonable_encoder(order_id)}/phlebotomy/appointment",
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingAppointment, _response.json())  # type: ignore
@@ -1699,6 +2729,7 @@ class AsyncLabTestsClient:
         zip_code: str,
         radius: typing.Optional[AllowedRadius] = None,
         lab: typing.Optional[ClientFacingLabs] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AreaInfo:
         """
         GET information about an area with respect to lab-testing.
@@ -1714,6 +2745,8 @@ class AsyncLabTestsClient:
             - radius: typing.Optional[AllowedRadius]. Radius in which to search in miles
 
             - lab: typing.Optional[ClientFacingLabs]. Lab to check for PSCs
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -1727,9 +2760,33 @@ class AsyncLabTestsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/order/area/info"),
-            params=remove_none_from_dict({"zip_code": zip_code, "radius": radius, "lab": lab}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "zip_code": zip_code,
+                        "radius": radius,
+                        "lab": lab,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(AreaInfo, _response.json())  # type: ignore
@@ -1742,7 +2799,12 @@ class AsyncLabTestsClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def get_psc_info(
-        self, *, zip_code: str, lab_id: int, radius: typing.Optional[AllowedRadius] = None
+        self,
+        *,
+        zip_code: str,
+        lab_id: int,
+        radius: typing.Optional[AllowedRadius] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PscInfo:
         """
         Parameters:
@@ -1751,6 +2813,8 @@ class AsyncLabTestsClient:
             - lab_id: int. Lab ID to check for PSCs
 
             - radius: typing.Optional[AllowedRadius]. Radius in which to search. (meters)
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -1765,9 +2829,33 @@ class AsyncLabTestsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/order/psc/info"),
-            params=remove_none_from_dict({"zip_code": zip_code, "lab_id": lab_id, "radius": radius}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "zip_code": zip_code,
+                        "lab_id": lab_id,
+                        "radius": radius,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PscInfo, _response.json())  # type: ignore
@@ -1779,12 +2867,20 @@ class AsyncLabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_order_psc_info(self, order_id: str, *, radius: typing.Optional[AllowedRadius] = None) -> PscInfo:
+    async def get_order_psc_info(
+        self,
+        order_id: str,
+        *,
+        radius: typing.Optional[AllowedRadius] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PscInfo:
         """
         Parameters:
             - order_id: str. Your Order ID.
 
             - radius: typing.Optional[AllowedRadius]. Radius in which to search in miles
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -1797,10 +2893,34 @@ class AsyncLabTestsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/psc/info"),
-            params=remove_none_from_dict({"radius": radius}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v3/order/{jsonable_encoder(order_id)}/psc/info"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "radius": radius,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PscInfo, _response.json())  # type: ignore
@@ -1812,18 +2932,47 @@ class AsyncLabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_result_pdf(self, order_id: str) -> typing.AsyncIterator[bytes]:
+    async def get_result_pdf(
+        self, order_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.AsyncIterator[bytes]:
         """
         This endpoint returns the lab results for the order.
 
         Parameters:
             - order_id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.lab_tests.get_result_pdf(
+            order_id="string",
+        )
         """
         async with self._client_wrapper.httpx_client.stream(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/result/pdf"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v3/order/{jsonable_encoder(order_id)}/result/pdf"
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         ) as _response:
             if 200 <= _response.status_code < 300:
                 async for _chunk in _response.aiter_bytes():
@@ -1840,13 +2989,17 @@ class AsyncLabTestsClient:
                 raise ApiError(status_code=_response.status_code, body=_response.text)
             raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_result_metadata(self, order_id: str) -> LabResultsMetadata:
+    async def get_result_metadata(
+        self, order_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> LabResultsMetadata:
         """
         Return metadata related to order results, such as lab metadata,
         provider and sample dates.
 
         Parameters:
             - order_id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -1859,9 +3012,25 @@ class AsyncLabTestsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/result/metadata"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v3/order/{jsonable_encoder(order_id)}/result/metadata"
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(LabResultsMetadata, _response.json())  # type: ignore
@@ -1873,12 +3042,16 @@ class AsyncLabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_result_raw(self, order_id: str) -> LabResultsRaw:
+    async def get_result_raw(
+        self, order_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> LabResultsRaw:
         """
         Return both metadata and raw json test data
 
         Parameters:
             - order_id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -1891,9 +3064,25 @@ class AsyncLabTestsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/result"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v3/order/{jsonable_encoder(order_id)}/result"
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(LabResultsRaw, _response.json())  # type: ignore
@@ -1906,7 +3095,12 @@ class AsyncLabTestsClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def get_labels_pdf(
-        self, order_id: str, *, number_of_labels: typing.Optional[int] = None, collection_date: dt.datetime
+        self,
+        order_id: str,
+        *,
+        number_of_labels: typing.Optional[int] = None,
+        collection_date: dt.datetime,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.AsyncIterator[bytes]:
         """
         This endpoint returns the printed labels for the order.
@@ -1917,15 +3111,55 @@ class AsyncLabTestsClient:
             - number_of_labels: typing.Optional[int]. Number of labels to generate
 
             - collection_date: dt.datetime. Collection date
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        import datetime
+
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.lab_tests.get_labels_pdf(
+            order_id="string",
+            number_of_labels=1,
+            collection_date=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+        )
         """
         async with self._client_wrapper.httpx_client.stream(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/labels/pdf"),
-            params=remove_none_from_dict(
-                {"number_of_labels": number_of_labels, "collection_date": serialize_datetime(collection_date)}
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v3/order/{jsonable_encoder(order_id)}/labels/pdf"
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "number_of_labels": number_of_labels,
+                        "collection_date": serialize_datetime(collection_date),
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         ) as _response:
             if 200 <= _response.status_code < 300:
                 async for _chunk in _response.aiter_bytes():
@@ -1942,18 +3176,47 @@ class AsyncLabTestsClient:
                 raise ApiError(status_code=_response.status_code, body=_response.text)
             raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_order_requistion_pdf(self, order_id: str) -> typing.AsyncIterator[bytes]:
+    async def get_order_requistion_pdf(
+        self, order_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.AsyncIterator[bytes]:
         """
         GET requisition pdf for an order
 
         Parameters:
             - order_id: str. Your Order ID.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.lab_tests.get_order_requistion_pdf(
+            order_id="string",
+        )
         """
         async with self._client_wrapper.httpx_client.stream(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/requisition/pdf"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v3/order/{jsonable_encoder(order_id)}/requisition/pdf"
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         ) as _response:
             if 200 <= _response.status_code < 300:
                 async for _chunk in _response.aiter_bytes():
@@ -1970,18 +3233,45 @@ class AsyncLabTestsClient:
                 raise ApiError(status_code=_response.status_code, body=_response.text)
             raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_order(self, order_id: str) -> ClientFacingOrder:
+    async def get_order(
+        self, order_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ClientFacingOrder:
         """
         GET individual order by ID.
 
         Parameters:
             - order_id: str. Your Order ID.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.lab_tests.get_order(
+            order_id="order_id",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/order/{jsonable_encoder(order_id)}"),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingOrder, _response.json())  # type: ignore
@@ -2004,13 +3294,14 @@ class AsyncLabTestsClient:
         health_insurance: typing.Optional[HealthInsuranceCreateRequest] = OMIT,
         priority: typing.Optional[bool] = OMIT,
         billing_type: typing.Optional[Billing] = OMIT,
-        icd_codes: typing.Optional[typing.List[str]] = OMIT,
-        consents: typing.Optional[typing.List[Consent]] = OMIT,
+        icd_codes: typing.Optional[typing.Sequence[str]] = OMIT,
+        consents: typing.Optional[typing.Sequence[Consent]] = OMIT,
         activate_by: typing.Optional[str] = OMIT,
-        aoe_answers: typing.Optional[typing.List[AoEAnswer]] = OMIT,
+        aoe_answers: typing.Optional[typing.Sequence[AoEAnswer]] = OMIT,
         passthrough: typing.Optional[str] = OMIT,
         patient_details: PatientDetails,
         patient_address: PatientAddressCompatible,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PostOrderResponse:
         """
         POST create new order
@@ -2032,19 +3323,50 @@ class AsyncLabTestsClient:
 
             - billing_type: typing.Optional[Billing].
 
-            - icd_codes: typing.Optional[typing.List[str]].
+            - icd_codes: typing.Optional[typing.Sequence[str]].
 
-            - consents: typing.Optional[typing.List[Consent]].
+            - consents: typing.Optional[typing.Sequence[Consent]].
 
-            - activate_by: typing.Optional[str].
+            - activate_by: typing.Optional[str]. Schedule an Order to be processed in a future date.
 
-            - aoe_answers: typing.Optional[typing.List[AoEAnswer]].
+            - aoe_answers: typing.Optional[typing.Sequence[AoEAnswer]].
 
             - passthrough: typing.Optional[str].
 
             - patient_details: PatientDetails.
 
             - patient_address: PatientAddressCompatible.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        import datetime
+
+        from vital import Gender, PatientAddressCompatible, PatientDetails
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.lab_tests.create_order(
+            user_id="user_id",
+            patient_details=PatientDetails(
+                first_name="first_name",
+                last_name="last_name",
+                dob=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                gender=Gender.FEMALE,
+                phone_number="phone_number",
+                email="email",
+            ),
+            patient_address=PatientAddressCompatible(
+                first_line="first_line",
+                city="city",
+                state="state",
+                zip="zip",
+                country="country",
+            ),
+        )
         """
         _request: typing.Dict[str, typing.Any] = {
             "user_id": user_id,
@@ -2056,7 +3378,7 @@ class AsyncLabTestsClient:
         if order_set is not OMIT:
             _request["order_set"] = order_set
         if collection_method is not OMIT:
-            _request["collection_method"] = collection_method.value
+            _request["collection_method"] = collection_method
         if physician is not OMIT:
             _request["physician"] = physician
         if health_insurance is not OMIT:
@@ -2064,7 +3386,7 @@ class AsyncLabTestsClient:
         if priority is not OMIT:
             _request["priority"] = priority
         if billing_type is not OMIT:
-            _request["billing_type"] = billing_type.value
+            _request["billing_type"] = billing_type
         if icd_codes is not OMIT:
             _request["icd_codes"] = icd_codes
         if consents is not OMIT:
@@ -2078,9 +3400,28 @@ class AsyncLabTestsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/order"),
-            json=jsonable_encoder(_request),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(_request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(_request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PostOrderResponse, _response.json())  # type: ignore
@@ -2092,18 +3433,50 @@ class AsyncLabTestsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def cancel_order(self, order_id: str) -> PostOrderResponse:
+    async def cancel_order(
+        self, order_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> PostOrderResponse:
         """
         POST cancel order
 
         Parameters:
             - order_id: str. Your Order ID.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.lab_tests.cancel_order(
+            order_id="order_id",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/cancel"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v3/order/{jsonable_encoder(order_id)}/cancel"
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))
+            if request_options is not None
+            else None,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PostOrderResponse, _response.json())  # type: ignore
@@ -2116,7 +3489,12 @@ class AsyncLabTestsClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def simulate_order_process(
-        self, order_id: str, *, final_status: typing.Optional[OrderStatus] = None, delay: typing.Optional[int] = None
+        self,
+        order_id: str,
+        *,
+        final_status: typing.Optional[OrderStatus] = None,
+        delay: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Any:
         """
         Get available test kits.
@@ -2127,6 +3505,8 @@ class AsyncLabTestsClient:
             - final_status: typing.Optional[OrderStatus].
 
             - delay: typing.Optional[int].
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -2139,10 +3519,38 @@ class AsyncLabTestsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v3/order/{order_id}/test"),
-            params=remove_none_from_dict({"final_status": final_status, "delay": delay}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v3/order/{jsonable_encoder(order_id)}/test"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "final_status": final_status,
+                        "delay": delay,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))
+            if request_options is not None
+            else None,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.Any, _response.json())  # type: ignore
@@ -2167,9 +3575,10 @@ class AsyncLabTestsClient:
         user_id: typing.Optional[str] = None,
         patient_name: typing.Optional[str] = None,
         shipping_recipient_name: typing.Optional[str] = None,
-        order_ids: typing.Optional[typing.Union[str, typing.List[str]]] = None,
+        order_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         page: typing.Optional[int] = None,
         size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GetOrdersResponse:
         """
         GET many orders with filters.
@@ -2195,11 +3604,13 @@ class AsyncLabTestsClient:
 
             - shipping_recipient_name: typing.Optional[str]. Filter by shipping recipient name.
 
-            - order_ids: typing.Optional[typing.Union[str, typing.List[str]]]. Filter by order ids.
+            - order_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]]. Filter by order ids.
 
             - page: typing.Optional[int].
 
             - size: typing.Optional[int].
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -2211,27 +3622,47 @@ class AsyncLabTestsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/orders"),
-            params=remove_none_from_dict(
-                {
-                    "search_input": search_input,
-                    "start_date": serialize_datetime(start_date) if start_date is not None else None,
-                    "end_date": serialize_datetime(end_date) if end_date is not None else None,
-                    "updated_start_date": serialize_datetime(updated_start_date)
-                    if updated_start_date is not None
-                    else None,
-                    "updated_end_date": serialize_datetime(updated_end_date) if updated_end_date is not None else None,
-                    "order_key": order_key,
-                    "order_direction": order_direction,
-                    "user_id": user_id,
-                    "patient_name": patient_name,
-                    "shipping_recipient_name": shipping_recipient_name,
-                    "order_ids": order_ids,
-                    "page": page,
-                    "size": size,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "search_input": search_input,
+                        "start_date": serialize_datetime(start_date) if start_date is not None else None,
+                        "end_date": serialize_datetime(end_date) if end_date is not None else None,
+                        "updated_start_date": serialize_datetime(updated_start_date)
+                        if updated_start_date is not None
+                        else None,
+                        "updated_end_date": serialize_datetime(updated_end_date)
+                        if updated_end_date is not None
+                        else None,
+                        "order_key": order_key,
+                        "order_direction": order_direction,
+                        "user_id": user_id,
+                        "patient_name": patient_name,
+                        "shipping_recipient_name": shipping_recipient_name,
+                        "order_ids": order_ids,
+                        "page": page,
+                        "size": size,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GetOrdersResponse, _response.json())  # type: ignore

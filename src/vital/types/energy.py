@@ -3,8 +3,6 @@
 import datetime as dt
 import typing
 
-import typing_extensions
-
 from ..core.datetime_utils import serialize_datetime
 
 try:
@@ -14,7 +12,7 @@ except ImportError:
 
 
 class Energy(pydantic.BaseModel):
-    unit: typing_extensions.Literal["kcal"]
+    unit: typing.Literal["kcal"]
     value: float
 
     def json(self, **kwargs: typing.Any) -> str:
@@ -28,4 +26,5 @@ class Energy(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

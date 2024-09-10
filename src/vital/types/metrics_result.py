@@ -14,11 +14,11 @@ except ImportError:
 
 class MetricsResult(pydantic.BaseModel):
     team_id: str
-    number_of_connected_sources: typing.Optional[int]
-    number_of_users: typing.Optional[int]
-    number_of_errored_connected_sources: typing.Optional[int]
-    number_of_connected_sources_by_week: typing.Optional[typing.List[TimeseriesMetricPoint]]
-    number_of_ordered_tests: typing.Optional[int]
+    number_of_connected_sources: typing.Optional[int] = None
+    number_of_users: typing.Optional[int] = None
+    number_of_errored_connected_sources: typing.Optional[int] = None
+    number_of_connected_sources_by_week: typing.Optional[typing.List[TimeseriesMetricPoint]] = None
+    number_of_ordered_tests: typing.Optional[int] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -31,4 +31,5 @@ class MetricsResult(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

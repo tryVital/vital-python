@@ -13,10 +13,26 @@ except ImportError:
 
 
 class ClientFacingProviderWithStatus(pydantic.BaseModel):
-    name: str = pydantic.Field(description="Name of source of information")
-    slug: str = pydantic.Field(description="Slug for designated source")
-    logo: str = pydantic.Field(description="URL for source logo")
-    status: str = pydantic.Field(description="Status of source, either error or connected")
+    name: str = pydantic.Field()
+    """
+    Name of source of information
+    """
+
+    slug: str = pydantic.Field()
+    """
+    Slug for designated source
+    """
+
+    logo: str = pydantic.Field()
+    """
+    URL for source logo
+    """
+
+    status: str = pydantic.Field()
+    """
+    Status of source, either error or connected
+    """
+
     resource_availability: typing.Dict[str, ResourceAvailability]
 
     def json(self, **kwargs: typing.Any) -> str:
@@ -30,4 +46,5 @@ class ClientFacingProviderWithStatus(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

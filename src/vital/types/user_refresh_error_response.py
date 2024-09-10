@@ -12,12 +12,18 @@ except ImportError:
 
 
 class UserRefreshErrorResponse(pydantic.BaseModel):
-    success: bool = pydantic.Field(description="Whether operation was successful or not")
-    user_id: str = pydantic.Field(
-        description="A unique ID representing the end user. Typically this will be a user ID from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id."
-    )
+    success: bool = pydantic.Field()
+    """
+    Whether operation was successful or not
+    """
+
+    user_id: str = pydantic.Field()
+    """
+    A unique ID representing the end user. Typically this will be a user ID from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id.
+    """
+
     error: str
-    failed_sources: typing.Optional[typing.List[str]]
+    failed_sources: typing.Optional[typing.List[str]] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -30,4 +36,5 @@ class UserRefreshErrorResponse(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

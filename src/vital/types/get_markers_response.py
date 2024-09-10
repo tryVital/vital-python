@@ -14,10 +14,10 @@ except ImportError:
 
 class GetMarkersResponse(pydantic.BaseModel):
     markers: typing.List[ClientFacingMarkerComplete]
-    total: typing.Optional[int]
-    page: typing.Optional[int]
-    size: typing.Optional[int]
-    pages: typing.Optional[int]
+    total: typing.Optional[int] = None
+    page: typing.Optional[int] = None
+    size: typing.Optional[int] = None
+    pages: typing.Optional[int] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -30,4 +30,5 @@ class GetMarkersResponse(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

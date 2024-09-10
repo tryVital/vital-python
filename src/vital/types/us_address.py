@@ -13,11 +13,14 @@ except ImportError:
 
 class UsAddress(pydantic.BaseModel):
     first_line: str
-    second_line: typing.Optional[str]
+    second_line: typing.Optional[str] = None
     city: str
     state: str
     zip_code: str
-    unit: typing.Optional[str]
+    unit: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Deprecated. Use `second_line` instead to provide the unit number. Subject to removal after 20 Nov 2023.
+    """
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -30,4 +33,5 @@ class UsAddress(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

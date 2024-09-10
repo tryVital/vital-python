@@ -15,7 +15,7 @@ except ImportError:
 class ClientFacingAppointmentEvent(pydantic.BaseModel):
     created_at: str
     status: AppointmentEventStatus
-    data: typing.Optional[typing.Dict[str, typing.Any]]
+    data: typing.Optional[typing.Dict[str, typing.Any]] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -28,4 +28,5 @@ class ClientFacingAppointmentEvent(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

@@ -18,10 +18,10 @@ class SleepV2InDb(pydantic.BaseModel):
     provider_id: str
     user_id: str
     source_id: int
-    priority_id: typing.Optional[int]
+    priority_id: typing.Optional[int] = None
     id: str
     source: ClientFacingProvider
-    priority: typing.Optional[int]
+    priority: typing.Optional[int] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -34,4 +34,5 @@ class SleepV2InDb(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

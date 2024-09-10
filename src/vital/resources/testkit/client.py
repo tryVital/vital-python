@@ -7,6 +7,8 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.jsonable_encoder import jsonable_encoder
+from ...core.remove_none_from_dict import remove_none_from_dict
+from ...core.request_options import RequestOptions
 from ...errors.unprocessable_entity_error import UnprocessableEntityError
 from ...types.consent import Consent
 from ...types.health_insurance_create_request import HealthInsuranceCreateRequest
@@ -39,7 +41,8 @@ class TestkitClient:
         patient_address: PatientAddressCompatible,
         physician: typing.Optional[PhysicianCreateRequestBase] = OMIT,
         health_insurance: typing.Optional[HealthInsuranceCreateRequest] = OMIT,
-        consents: typing.Optional[typing.List[Consent]] = OMIT,
+        consents: typing.Optional[typing.Sequence[Consent]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PostOrderResponse:
         """
         Parameters:
@@ -55,7 +58,39 @@ class TestkitClient:
 
             - health_insurance: typing.Optional[HealthInsuranceCreateRequest].
 
-            - consents: typing.Optional[typing.List[Consent]].
+            - consents: typing.Optional[typing.Sequence[Consent]].
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        import datetime
+
+        from vital import Gender, PatientAddressCompatible, PatientDetails
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.testkit.register(
+            user_id="user_id",
+            sample_id="sample_id",
+            patient_details=PatientDetails(
+                first_name="first_name",
+                last_name="last_name",
+                dob=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                gender=Gender.FEMALE,
+                phone_number="phone_number",
+                email="email",
+            ),
+            patient_address=PatientAddressCompatible(
+                first_line="first_line",
+                city="city",
+                state="state",
+                zip="zip",
+                country="country",
+            ),
+        )
         """
         _request: typing.Dict[str, typing.Any] = {
             "user_id": user_id,
@@ -72,9 +107,28 @@ class TestkitClient:
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/order/testkit/register"),
-            json=jsonable_encoder(_request),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(_request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(_request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PostOrderResponse, _response.json())  # type: ignore
@@ -93,6 +147,7 @@ class TestkitClient:
         lab_test_id: str,
         shipping_details: ShippingAddress,
         passthrough: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PostOrderResponse:
         """
         Creates an order for an unregistered testkit
@@ -105,6 +160,28 @@ class TestkitClient:
             - shipping_details: ShippingAddress.
 
             - passthrough: typing.Optional[str].
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        from vital import ShippingAddress
+        from vital.client import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.testkit.create_order(
+            user_id="user_id",
+            lab_test_id="lab_test_id",
+            shipping_details=ShippingAddress(
+                receiver_name="receiver_name",
+                first_line="first_line",
+                city="city",
+                state="state",
+                zip="zip",
+                country="country",
+                phone_number="phone_number",
+            ),
+        )
         """
         _request: typing.Dict[str, typing.Any] = {
             "user_id": user_id,
@@ -116,9 +193,28 @@ class TestkitClient:
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/order/testkit"),
-            json=jsonable_encoder(_request),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(_request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(_request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PostOrderResponse, _response.json())  # type: ignore
@@ -144,7 +240,8 @@ class AsyncTestkitClient:
         patient_address: PatientAddressCompatible,
         physician: typing.Optional[PhysicianCreateRequestBase] = OMIT,
         health_insurance: typing.Optional[HealthInsuranceCreateRequest] = OMIT,
-        consents: typing.Optional[typing.List[Consent]] = OMIT,
+        consents: typing.Optional[typing.Sequence[Consent]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PostOrderResponse:
         """
         Parameters:
@@ -160,7 +257,39 @@ class AsyncTestkitClient:
 
             - health_insurance: typing.Optional[HealthInsuranceCreateRequest].
 
-            - consents: typing.Optional[typing.List[Consent]].
+            - consents: typing.Optional[typing.Sequence[Consent]].
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        import datetime
+
+        from vital import Gender, PatientAddressCompatible, PatientDetails
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.testkit.register(
+            user_id="user_id",
+            sample_id="sample_id",
+            patient_details=PatientDetails(
+                first_name="first_name",
+                last_name="last_name",
+                dob=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                gender=Gender.FEMALE,
+                phone_number="phone_number",
+                email="email",
+            ),
+            patient_address=PatientAddressCompatible(
+                first_line="first_line",
+                city="city",
+                state="state",
+                zip="zip",
+                country="country",
+            ),
+        )
         """
         _request: typing.Dict[str, typing.Any] = {
             "user_id": user_id,
@@ -177,9 +306,28 @@ class AsyncTestkitClient:
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/order/testkit/register"),
-            json=jsonable_encoder(_request),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(_request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(_request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PostOrderResponse, _response.json())  # type: ignore
@@ -198,6 +346,7 @@ class AsyncTestkitClient:
         lab_test_id: str,
         shipping_details: ShippingAddress,
         passthrough: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PostOrderResponse:
         """
         Creates an order for an unregistered testkit
@@ -210,6 +359,28 @@ class AsyncTestkitClient:
             - shipping_details: ShippingAddress.
 
             - passthrough: typing.Optional[str].
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        from vital import ShippingAddress
+        from vital.client import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+        await client.testkit.create_order(
+            user_id="user_id",
+            lab_test_id="lab_test_id",
+            shipping_details=ShippingAddress(
+                receiver_name="receiver_name",
+                first_line="first_line",
+                city="city",
+                state="state",
+                zip="zip",
+                country="country",
+                phone_number="phone_number",
+            ),
+        )
         """
         _request: typing.Dict[str, typing.Any] = {
             "user_id": user_id,
@@ -221,9 +392,28 @@ class AsyncTestkitClient:
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v3/order/testkit"),
-            json=jsonable_encoder(_request),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(_request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(_request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PostOrderResponse, _response.json())  # type: ignore

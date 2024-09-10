@@ -3,8 +3,6 @@
 import datetime as dt
 import typing
 
-import typing_extensions
-
 from ..core.datetime_utils import serialize_datetime
 
 try:
@@ -14,12 +12,35 @@ except ImportError:
 
 
 class ClientFacingCaloriesBasalTimeseries(pydantic.BaseModel):
-    id: typing.Optional[int]
-    timezone_offset: typing.Optional[int]
-    type: typing.Optional[str]
-    unit: typing_extensions.Literal["kcal"] = pydantic.Field(description="Measured in kilocalories (kcal)")
-    timestamp: str = pydantic.Field(description="The timestamp of the measurement.")
-    value: float = pydantic.Field(description="Basal Metabolic Rate at the time or interval::kilocalories")
+    id: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Deprecated
+    """
+
+    timezone_offset: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Time zone UTC offset in seconds. Positive offset indicates east of UTC; negative offset indicates west of UTC; and null indicates the time zone information is unavailable at source.
+    """
+
+    type: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The reading type of the measurement. This is applicable only to Cholesterol, IGG, IGE and InsulinInjection.
+    """
+
+    unit: typing.Literal["kcal"] = pydantic.Field()
+    """
+    Measured in kilocalories (kcal)
+    """
+
+    timestamp: str = pydantic.Field()
+    """
+    The timestamp of the measurement.
+    """
+
+    value: float = pydantic.Field()
+    """
+    Basal Metabolic Rate at the time or interval::kilocalories
+    """
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -32,4 +53,5 @@ class ClientFacingCaloriesBasalTimeseries(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

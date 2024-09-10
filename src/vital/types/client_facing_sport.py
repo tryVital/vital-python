@@ -13,8 +13,15 @@ except ImportError:
 
 class ClientFacingSport(pydantic.BaseModel):
     id: int
-    name: str = pydantic.Field(description="Sport's name")
-    slug: str = pydantic.Field(description="Slug for designated sport")
+    name: str = pydantic.Field()
+    """
+    Sport's name
+    """
+
+    slug: str = pydantic.Field()
+    """
+    Slug for designated sport
+    """
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -27,4 +34,5 @@ class ClientFacingSport(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

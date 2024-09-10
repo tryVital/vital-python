@@ -12,13 +12,17 @@ except ImportError:
 
 
 class FallbackTimeZone(pydantic.BaseModel):
-    id: str = pydantic.Field(
-        description=(
-            "    Fallback time zone of the user, in the form of a valid IANA tzdatabase identifier (e.g., `Europe/London` or `America/Los_Angeles`).\n"
-            "    Used when pulling data from sources that are completely time zone agnostic (e.g., all time is relative to UTC clock, without any time zone attributions on data points).\n"
-        )
-    )
-    source_slug: str = pydantic.Field(description="Slug for designated source")
+    id: str = pydantic.Field()
+    """
+        Fallback time zone of the user, in the form of a valid IANA tzdatabase identifier (e.g., `Europe/London` or `America/Los_Angeles`).
+        Used when pulling data from sources that are completely time zone agnostic (e.g., all time is relative to UTC clock, without any time zone attributions on data points).
+    """
+
+    source_slug: str = pydantic.Field()
+    """
+    Slug for designated source
+    """
+
     updated_at: str
 
     def json(self, **kwargs: typing.Any) -> str:
@@ -32,4 +36,5 @@ class FallbackTimeZone(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

@@ -8,6 +8,7 @@ from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.jsonable_encoder import jsonable_encoder
 from ...core.remove_none_from_dict import remove_none_from_dict
+from ...core.request_options import RequestOptions
 from ...errors.unprocessable_entity_error import UnprocessableEntityError
 from ...types.http_validation_error import HttpValidationError
 from ...types.query_config import QueryConfig
@@ -32,8 +33,9 @@ class AggregateClient:
         user_id: str,
         *,
         timeframe: QueryTimeframe,
-        instructions: typing.List[QueryInstruction],
+        instructions: typing.Sequence[QueryInstruction],
         config: typing.Optional[QueryConfig] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Any:
         """
         Parameters:
@@ -41,11 +43,22 @@ class AggregateClient:
 
             - timeframe: QueryTimeframe.
 
-            - instructions: typing.List[QueryInstruction].
+            - instructions: typing.Sequence[QueryInstruction].
 
             - config: typing.Optional[QueryConfig].
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        from vital import QueryInstruction, Reducer, ReducerFunction
+        from vital import (
+            Period,
+            PeriodUnit,
+            QueryInstruction,
+            Reducer,
+            ReducerFunction,
+            RelativeTimeframe,
+            SleepSelector,
+            SleepSelectorSleep,
+        )
         from vital.client import Vital
 
         client = Vital(
@@ -53,8 +66,21 @@ class AggregateClient:
         )
         client.aggregate.query_one(
             user_id="user_id",
+            timeframe=RelativeTimeframe(
+                type="relative",
+                anchor="anchor",
+                past=Period(
+                    unit=PeriodUnit.MINUTE,
+                ),
+            ),
             instructions=[
                 QueryInstruction(
+                    select=SleepSelector(
+                        sleep=SleepSelectorSleep.SESSION_START,
+                    ),
+                    partition_by=Period(
+                        unit=PeriodUnit.MINUTE,
+                    ),
                     reduce_by=[
                         Reducer(
                             function=ReducerFunction.MEAN,
@@ -69,10 +95,32 @@ class AggregateClient:
             _request["config"] = config
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"aggregate/v1/query_one/{user_id}"),
-            json=jsonable_encoder(_request),
-            headers=remove_none_from_dict({**self._client_wrapper.get_headers(), "accept": "*/*"}),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"aggregate/v1/query_one/{jsonable_encoder(user_id)}"
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(_request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(_request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        "accept": "*/*",
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.Any, _response.json())  # type: ignore
@@ -94,8 +142,9 @@ class AsyncAggregateClient:
         user_id: str,
         *,
         timeframe: QueryTimeframe,
-        instructions: typing.List[QueryInstruction],
+        instructions: typing.Sequence[QueryInstruction],
         config: typing.Optional[QueryConfig] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Any:
         """
         Parameters:
@@ -103,11 +152,22 @@ class AsyncAggregateClient:
 
             - timeframe: QueryTimeframe.
 
-            - instructions: typing.List[QueryInstruction].
+            - instructions: typing.Sequence[QueryInstruction].
 
             - config: typing.Optional[QueryConfig].
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        from vital import QueryInstruction, Reducer, ReducerFunction
+        from vital import (
+            Period,
+            PeriodUnit,
+            QueryInstruction,
+            Reducer,
+            ReducerFunction,
+            RelativeTimeframe,
+            SleepSelector,
+            SleepSelectorSleep,
+        )
         from vital.client import AsyncVital
 
         client = AsyncVital(
@@ -115,8 +175,21 @@ class AsyncAggregateClient:
         )
         await client.aggregate.query_one(
             user_id="user_id",
+            timeframe=RelativeTimeframe(
+                type="relative",
+                anchor="anchor",
+                past=Period(
+                    unit=PeriodUnit.MINUTE,
+                ),
+            ),
             instructions=[
                 QueryInstruction(
+                    select=SleepSelector(
+                        sleep=SleepSelectorSleep.SESSION_START,
+                    ),
+                    partition_by=Period(
+                        unit=PeriodUnit.MINUTE,
+                    ),
                     reduce_by=[
                         Reducer(
                             function=ReducerFunction.MEAN,
@@ -131,10 +204,32 @@ class AsyncAggregateClient:
             _request["config"] = config
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"aggregate/v1/query_one/{user_id}"),
-            json=jsonable_encoder(_request),
-            headers=remove_none_from_dict({**self._client_wrapper.get_headers(), "accept": "*/*"}),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"aggregate/v1/query_one/{jsonable_encoder(user_id)}"
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(_request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(_request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        "accept": "*/*",
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.Any, _response.json())  # type: ignore

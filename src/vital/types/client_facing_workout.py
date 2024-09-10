@@ -14,37 +14,136 @@ except ImportError:
 
 
 class ClientFacingWorkout(pydantic.BaseModel):
-    user_id: str = pydantic.Field(
-        description="User id returned by vital create user request. This id should be stored in your database against the user and used for all interactions with the vital api."
-    )
+    user_id: str = pydantic.Field()
+    """
+    User id returned by vital create user request. This id should be stored in your database against the user and used for all interactions with the vital api.
+    """
+
     id: str
-    title: typing.Optional[str]
-    timezone_offset: typing.Optional[int]
-    average_hr: typing.Optional[int]
-    max_hr: typing.Optional[int]
-    distance: typing.Optional[float]
-    calendar_date: str = pydantic.Field(
-        description="Date of the workout summary in the YYYY-mm-dd format. This generally matches the workout start date."
-    )
-    time_start: str = pydantic.Field(description="Start time of the workout::time")
-    time_end: str = pydantic.Field(description="End time of the workout::time")
-    calories: typing.Optional[float]
-    sport: typing.Optional[ClientFacingSport] = pydantic.Field(description="Sport's name")
-    hr_zones: typing.Optional[typing.List[int]]
-    moving_time: typing.Optional[int]
-    total_elevation_gain: typing.Optional[float]
-    elev_high: typing.Optional[float]
-    elev_low: typing.Optional[float]
-    average_speed: typing.Optional[float]
-    max_speed: typing.Optional[float]
-    average_watts: typing.Optional[float]
-    device_watts: typing.Optional[float]
-    max_watts: typing.Optional[float]
-    weighted_average_watts: typing.Optional[float]
-    steps: typing.Optional[int]
-    map_: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(alias="map")
-    provider_id: str = pydantic.Field(description="Provider ID given for that specific workout")
-    source: ClientFacingSource = pydantic.Field(description="Source the data has come from.")
+    title: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Title given for the workout
+    """
+
+    timezone_offset: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Timezone offset from UTC as seconds. For example, EEST (Eastern European Summer Time, +3h) is 10800. PST (Pacific Standard Time, -8h) is -28800::seconds
+    """
+
+    average_hr: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Average heart rate during workout::bpm
+    """
+
+    max_hr: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Max heart rate during workout::bpm
+    """
+
+    distance: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Distance travelled during workout::meters
+    """
+
+    calendar_date: str = pydantic.Field()
+    """
+    Date of the workout summary in the YYYY-mm-dd format. This generally matches the workout start date.
+    """
+
+    time_start: str = pydantic.Field()
+    """
+    Start time of the workout::time
+    """
+
+    time_end: str = pydantic.Field()
+    """
+    End time of the workout::time
+    """
+
+    calories: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Calories burned during the workout::kCal
+    """
+
+    sport: typing.Optional[ClientFacingSport] = pydantic.Field(default=None)
+    """
+    Sport's name
+    """
+
+    hr_zones: typing.Optional[typing.List[int]] = pydantic.Field(default=None)
+    """
+    Time in seconds spent in different heart rate zones <50%, 50-60%, 60-70%, 70-80%, 80-90%, 90%+. Due to rounding errors, it's possible that summing all values is different than the total time of the workout. Not available for all providers::seconds
+    """
+
+    moving_time: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Time spent active during the workout::seconds
+    """
+
+    total_elevation_gain: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Elevation gain during the workout::meters
+    """
+
+    elev_high: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Highest point of elevation::meters
+    """
+
+    elev_low: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Lowest point of elevation::meters
+    """
+
+    average_speed: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Average speed during workout in m/s::meters/sec
+    """
+
+    max_speed: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Max speed during workout in m/s::meters/sec
+    """
+
+    average_watts: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Average watts burned during exercise::watts
+    """
+
+    device_watts: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Watts burned during exercise::watts
+    """
+
+    max_watts: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Max watts burned during exercise::watts
+    """
+
+    weighted_average_watts: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Weighted average watts burned during exercise::watts
+    """
+
+    steps: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Number of steps accumulated during this workout::count
+    """
+
+    map_: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(alias="map", default=None)
+    """
+    Map of workouts encoded as polyline
+    """
+
+    provider_id: str = pydantic.Field()
+    """
+    Provider ID given for that specific workout
+    """
+
+    source: ClientFacingSource = pydantic.Field()
+    """
+    Source the data has come from.
+    """
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -58,4 +157,6 @@ class ClientFacingWorkout(pydantic.BaseModel):
         frozen = True
         smart_union = True
         allow_population_by_field_name = True
+        populate_by_name = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

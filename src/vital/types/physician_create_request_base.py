@@ -14,9 +14,9 @@ except ImportError:
 class PhysicianCreateRequestBase(pydantic.BaseModel):
     first_name: str
     last_name: str
-    email: typing.Optional[str]
+    email: typing.Optional[str] = None
     npi: str
-    licensed_states: typing.Optional[typing.List[str]]
+    licensed_states: typing.Optional[typing.List[str]] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -29,4 +29,5 @@ class PhysicianCreateRequestBase(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

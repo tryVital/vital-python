@@ -14,12 +14,28 @@ except ImportError:
 
 
 class ClientFacingProviderDetailed(pydantic.BaseModel):
-    name: str = pydantic.Field(description="Name of source of information")
-    slug: str = pydantic.Field(description="Slug for designated source")
-    description: str = pydantic.Field(description="Description of source of information")
-    logo: typing.Optional[str]
-    auth_type: typing.Optional[SourceAuthType]
-    supported_resources: typing.Optional[typing.List[ClientFacingResource]]
+    name: str = pydantic.Field()
+    """
+    Name of source of information
+    """
+
+    slug: str = pydantic.Field()
+    """
+    Slug for designated source
+    """
+
+    description: str = pydantic.Field()
+    """
+    Description of source of information
+    """
+
+    logo: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    URL for source logo
+    """
+
+    auth_type: typing.Optional[SourceAuthType] = None
+    supported_resources: typing.Optional[typing.List[ClientFacingResource]] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -32,4 +48,5 @@ class ClientFacingProviderDetailed(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

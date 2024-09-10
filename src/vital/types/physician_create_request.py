@@ -15,12 +15,13 @@ except ImportError:
 class PhysicianCreateRequest(pydantic.BaseModel):
     first_name: str
     last_name: str
-    email: typing.Optional[str]
+    email: typing.Optional[str] = None
     npi: str
-    licensed_states: typing.Optional[typing.List[str]]
-    signature_image: typing.Optional[PhysicianCreateRequestSignatureImage] = pydantic.Field(
-        description="An image of the physician signature for health insurance billing"
-    )
+    licensed_states: typing.Optional[typing.List[str]] = None
+    signature_image: typing.Optional[PhysicianCreateRequestSignatureImage] = pydantic.Field(default=None)
+    """
+    An image of the physician signature for health insurance billing
+    """
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -33,4 +34,5 @@ class PhysicianCreateRequest(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

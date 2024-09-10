@@ -18,9 +18,9 @@ class SourceLink(pydantic.BaseModel):
     slug: str
     description: str
     logo: str
-    oauth_url: typing.Optional[str]
-    auth_type: typing.Optional[SourceAuthType]
-    form_components: typing.Optional[typing.Dict[str, typing.Any]]
+    oauth_url: typing.Optional[str] = None
+    auth_type: typing.Optional[SourceAuthType] = None
+    form_components: typing.Optional[typing.Dict[str, typing.Any]] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -33,4 +33,5 @@ class SourceLink(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

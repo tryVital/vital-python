@@ -18,21 +18,21 @@ class BiomarkerResult(pydantic.BaseModel):
     """
 
     name: str
-    slug: typing.Optional[str]
+    slug: typing.Optional[str] = None
     value: float
     result: str
     type: ResultType
-    unit: typing.Optional[str]
-    timestamp: typing.Optional[str]
-    notes: typing.Optional[str]
-    min_range_value: typing.Optional[float]
-    max_range_value: typing.Optional[float]
-    is_above_max_range: typing.Optional[bool]
-    is_below_min_range: typing.Optional[bool]
-    interpretation: typing.Optional[str]
-    loinc: typing.Optional[str]
-    loinc_slug: typing.Optional[str]
-    provider_id: typing.Optional[str]
+    unit: typing.Optional[str] = None
+    timestamp: typing.Optional[str] = None
+    notes: typing.Optional[str] = None
+    min_range_value: typing.Optional[float] = None
+    max_range_value: typing.Optional[float] = None
+    is_above_max_range: typing.Optional[bool] = None
+    is_below_min_range: typing.Optional[bool] = None
+    interpretation: typing.Optional[str] = None
+    loinc: typing.Optional[str] = None
+    loinc_slug: typing.Optional[str] = None
+    provider_id: typing.Optional[str] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -45,4 +45,5 @@ class BiomarkerResult(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

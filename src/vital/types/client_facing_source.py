@@ -17,16 +17,35 @@ class ClientFacingSource(pydantic.BaseModel):
     At minimum, the source provider is always included.
     """
 
-    provider: str = pydantic.Field(description="Provider slug. e.g., `oura`, `fitbit`, `garmin`.")
-    type: typing.Optional[str] = pydantic.Field(
-        description="The type of the data source (app or device) by which the summary or the timeseries data were recorded. This defaults to `unknown` when Vital cannot extract or infer that information"
-    )
-    app_id: typing.Optional[str]
-    name: typing.Optional[str] = pydantic.Field(description="Deprecated. Subject to removal after 1 Jan 2024.")
-    slug: typing.Optional[str] = pydantic.Field(
-        description="Deprecated. Use `provider` instead. Subject to removal after 1 Jan 2024."
-    )
-    logo: typing.Optional[str] = pydantic.Field(description="Deprecated. Subject to removal after 1 Jan 2024.")
+    provider: str = pydantic.Field()
+    """
+    Provider slug. e.g., `oura`, `fitbit`, `garmin`.
+    """
+
+    type: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The type of the data source (app or device) by which the summary or the timeseries data were recorded. This defaults to `unknown` when Vital cannot extract or infer that information
+    """
+
+    app_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The identifier of the app which recorded this summary. This is only applicable to multi-source providers like Apple Health and Android Health Connect.
+    """
+
+    name: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Deprecated. Subject to removal after 1 Jan 2024.
+    """
+
+    slug: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Deprecated. Use `provider` instead. Subject to removal after 1 Jan 2024.
+    """
+
+    logo: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Deprecated. Subject to removal after 1 Jan 2024.
+    """
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -39,4 +58,5 @@ class ClientFacingSource(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

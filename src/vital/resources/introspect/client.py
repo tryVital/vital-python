@@ -6,7 +6,9 @@ from json.decoder import JSONDecodeError
 
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from ...core.jsonable_encoder import jsonable_encoder
 from ...core.remove_none_from_dict import remove_none_from_dict
+from ...core.request_options import RequestOptions
 from ...errors.unprocessable_entity_error import UnprocessableEntityError
 from ...types.http_validation_error import HttpValidationError
 from ...types.providers import Providers
@@ -31,6 +33,7 @@ class IntrospectClient:
         user_limit: typing.Optional[int] = None,
         cursor: typing.Optional[str] = None,
         next_cursor: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> UserResourcesResponse:
         """
         Parameters:
@@ -43,6 +46,8 @@ class IntrospectClient:
             - cursor: typing.Optional[str].
 
             - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -54,17 +59,35 @@ class IntrospectClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/introspect/resources"),
-            params=remove_none_from_dict(
-                {
-                    "user_id": user_id,
-                    "provider": provider,
-                    "user_limit": user_limit,
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "user_id": user_id,
+                        "provider": provider,
+                        "user_limit": user_limit,
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(UserResourcesResponse, _response.json())  # type: ignore
@@ -84,6 +107,7 @@ class IntrospectClient:
         user_limit: typing.Optional[int] = None,
         cursor: typing.Optional[str] = None,
         next_cursor: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> UserHistoricalPullsResponse:
         """
         Parameters:
@@ -96,6 +120,8 @@ class IntrospectClient:
             - cursor: typing.Optional[str].
 
             - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -107,17 +133,35 @@ class IntrospectClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/introspect/historical_pull"),
-            params=remove_none_from_dict(
-                {
-                    "user_id": user_id,
-                    "provider": provider,
-                    "user_limit": user_limit,
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "user_id": user_id,
+                        "provider": provider,
+                        "user_limit": user_limit,
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(UserHistoricalPullsResponse, _response.json())  # type: ignore
@@ -142,6 +186,7 @@ class AsyncIntrospectClient:
         user_limit: typing.Optional[int] = None,
         cursor: typing.Optional[str] = None,
         next_cursor: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> UserResourcesResponse:
         """
         Parameters:
@@ -154,6 +199,8 @@ class AsyncIntrospectClient:
             - cursor: typing.Optional[str].
 
             - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -165,17 +212,35 @@ class AsyncIntrospectClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/introspect/resources"),
-            params=remove_none_from_dict(
-                {
-                    "user_id": user_id,
-                    "provider": provider,
-                    "user_limit": user_limit,
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "user_id": user_id,
+                        "provider": provider,
+                        "user_limit": user_limit,
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(UserResourcesResponse, _response.json())  # type: ignore
@@ -195,6 +260,7 @@ class AsyncIntrospectClient:
         user_limit: typing.Optional[int] = None,
         cursor: typing.Optional[str] = None,
         next_cursor: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> UserHistoricalPullsResponse:
         """
         Parameters:
@@ -207,6 +273,8 @@ class AsyncIntrospectClient:
             - cursor: typing.Optional[str].
 
             - next_cursor: typing.Optional[str]. The cursor for fetching the next page, or `null` to fetch the first page.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -218,17 +286,35 @@ class AsyncIntrospectClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/introspect/historical_pull"),
-            params=remove_none_from_dict(
-                {
-                    "user_id": user_id,
-                    "provider": provider,
-                    "user_limit": user_limit,
-                    "cursor": cursor,
-                    "next_cursor": next_cursor,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "user_id": user_id,
+                        "provider": provider,
+                        "user_limit": user_limit,
+                        "cursor": cursor,
+                        "next_cursor": next_cursor,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(UserHistoricalPullsResponse, _response.json())  # type: ignore

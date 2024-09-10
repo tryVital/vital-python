@@ -16,7 +16,7 @@ class ClientFacingLoinc(pydantic.BaseModel):
     name: str
     slug: str
     code: str
-    unit: typing.Optional[str]
+    unit: typing.Optional[str] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -29,4 +29,5 @@ class ClientFacingLoinc(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

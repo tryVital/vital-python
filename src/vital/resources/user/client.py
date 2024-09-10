@@ -8,6 +8,7 @@ from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.jsonable_encoder import jsonable_encoder
 from ...core.remove_none_from_dict import remove_none_from_dict
+from ...core.request_options import RequestOptions
 from ...errors.bad_request_error import BadRequestError
 from ...errors.unprocessable_entity_error import UnprocessableEntityError
 from ...types.address import Address
@@ -42,7 +43,11 @@ class UserClient:
         self._client_wrapper = client_wrapper
 
     def get_all(
-        self, *, offset: typing.Optional[int] = None, limit: typing.Optional[int] = None
+        self,
+        *,
+        offset: typing.Optional[int] = None,
+        limit: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedUsersResponse:
         """
         GET All users for team.
@@ -51,6 +56,8 @@ class UserClient:
             - offset: typing.Optional[int].
 
             - limit: typing.Optional[int].
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -62,9 +69,32 @@ class UserClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/user"),
-            params=remove_none_from_dict({"offset": offset, "limit": limit}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "offset": offset,
+                        "limit": limit,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedUsersResponse, _response.json())  # type: ignore
@@ -84,6 +114,7 @@ class UserClient:
         fallback_birth_date: typing.Optional[str] = OMIT,
         ingestion_start: typing.Optional[str] = OMIT,
         ingestion_end: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingUserKey:
         """
         POST Create a Vital user given a client_user_id and returns the user_id.
@@ -92,12 +123,16 @@ class UserClient:
             - client_user_id: str. A unique ID representing the end user. Typically this will be a user ID from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id.
 
             - fallback_time_zone: typing.Optional[str].
+                                                            Fallback time zone of the user, in the form of a valid IANA tzdatabase identifier (e.g., `Europe/London` or `America/Los_Angeles`).
+                                                            Used when pulling data from sources that are completely time zone agnostic (e.g., all time is relative to UTC clock, without any time zone attributions on data points).
 
-            - fallback_birth_date: typing.Optional[str].
+            - fallback_birth_date: typing.Optional[str]. Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
 
-            - ingestion_start: typing.Optional[str].
+            - ingestion_start: typing.Optional[str]. Starting bound for user data ingestion. Data older than this date will not be ingested.
 
-            - ingestion_end: typing.Optional[str].
+            - ingestion_end: typing.Optional[str]. Ending bound for user data ingestion. Data from this date or later will not be ingested and the connection will be deregistered.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -120,9 +155,28 @@ class UserClient:
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/user"),
-            json=jsonable_encoder(_request),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(_request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(_request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingUserKey, _response.json())  # type: ignore
@@ -136,10 +190,12 @@ class UserClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_team_metrics(self) -> MetricsResult:
+    def get_team_metrics(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetricsResult:
         """
         GET metrics for team.
 
+        Parameters:
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -151,8 +207,22 @@ class UserClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/user/metrics"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(MetricsResult, _response.json())  # type: ignore
@@ -162,10 +232,14 @@ class UserClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_user_sign_in_token(self, user_id: str) -> UserSignInTokenResponse:
+    def get_user_sign_in_token(
+        self, user_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> UserSignInTokenResponse:
         """
         Parameters:
             - user_id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -178,9 +252,28 @@ class UserClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/{user_id}/sign_in_token"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/user/{jsonable_encoder(user_id)}/sign_in_token"
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))
+            if request_options is not None
+            else None,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(UserSignInTokenResponse, _response.json())  # type: ignore
@@ -192,12 +285,16 @@ class UserClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_connected_providers(self, user_id: str) -> typing.Dict[str, typing.List[ClientFacingProviderWithStatus]]:
+    def get_connected_providers(
+        self, user_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, typing.List[ClientFacingProviderWithStatus]]:
         """
         GET Users connected providers
 
         Parameters:
             - user_id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -210,9 +307,25 @@ class UserClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/providers/{user_id}"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/user/providers/{jsonable_encoder(user_id)}"
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.Dict[str, typing.List[ClientFacingProviderWithStatus]], _response.json())  # type: ignore
@@ -224,12 +337,14 @@ class UserClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get(self, user_id: str) -> ClientFacingUser:
+    def get(self, user_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> ClientFacingUser:
         """
         GET User details given the user_id.
 
         Parameters:
             - user_id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -242,9 +357,23 @@ class UserClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/{user_id}"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/{jsonable_encoder(user_id)}"),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingUser, _response.json())  # type: ignore
@@ -256,10 +385,12 @@ class UserClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def delete(self, user_id: str) -> UserSuccessResponse:
+    def delete(self, user_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> UserSuccessResponse:
         """
         Parameters:
             - user_id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -272,9 +403,23 @@ class UserClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "DELETE",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/{user_id}"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/{jsonable_encoder(user_id)}"),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(UserSuccessResponse, _response.json())  # type: ignore
@@ -294,18 +439,23 @@ class UserClient:
         fallback_birth_date: typing.Optional[str] = OMIT,
         ingestion_start: typing.Optional[str] = OMIT,
         ingestion_end: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> None:
         """
         Parameters:
             - user_id: str.
 
             - fallback_time_zone: typing.Optional[str].
+                                                            Fallback time zone of the user, in the form of a valid IANA tzdatabase identifier (e.g., `Europe/London` or `America/Los_Angeles`).
+                                                            Used when pulling data from sources that are completely time zone agnostic (e.g., all time is relative to UTC clock, without any time zone attributions on data points).
 
-            - fallback_birth_date: typing.Optional[str].
+            - fallback_birth_date: typing.Optional[str]. Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
 
-            - ingestion_start: typing.Optional[str].
+            - ingestion_start: typing.Optional[str]. Starting bound for user data ingestion. Data older than this date will not be ingested.
 
-            - ingestion_end: typing.Optional[str].
+            - ingestion_end: typing.Optional[str]. Ending bound for user data ingestion. Data from this date or later will not be ingested and the connection will be deregistered.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -327,10 +477,29 @@ class UserClient:
             _request["ingestion_end"] = ingestion_end
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/{user_id}"),
-            json=jsonable_encoder(_request),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/{jsonable_encoder(user_id)}"),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(_request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(_request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return
@@ -342,10 +511,14 @@ class UserClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_latest_user_info(self, user_id: str) -> UserInfo:
+    def get_latest_user_info(
+        self, user_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> UserInfo:
         """
         Parameters:
             - user_id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -358,9 +531,25 @@ class UserClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/{user_id}/info/latest"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/user/{jsonable_encoder(user_id)}/info/latest"
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(UserInfo, _response.json())  # type: ignore
@@ -382,6 +571,7 @@ class UserClient:
         relationship: ResponsibleRelationship,
         insured: VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails,
         guarantor: typing.Optional[VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingInsurance:
         """
         Parameters:
@@ -398,6 +588,8 @@ class UserClient:
             - insured: VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails.
 
             - guarantor: typing.Optional[VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails].
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital import (
             Address,
@@ -435,7 +627,7 @@ class UserClient:
         _request: typing.Dict[str, typing.Any] = {
             "payor_code": payor_code,
             "member_id": member_id,
-            "relationship": relationship.value,
+            "relationship": relationship,
             "insured": insured,
         }
         if group_id is not OMIT:
@@ -444,10 +636,31 @@ class UserClient:
             _request["guarantor"] = guarantor
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/{user_id}/insurance"),
-            json=jsonable_encoder(_request),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/user/{jsonable_encoder(user_id)}/insurance"
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(_request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(_request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingInsurance, _response.json())  # type: ignore
@@ -459,10 +672,14 @@ class UserClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_latest_insurance(self, user_id: str) -> ClientFacingInsurance:
+    def get_latest_insurance(
+        self, user_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ClientFacingInsurance:
         """
         Parameters:
             - user_id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -475,9 +692,25 @@ class UserClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/{user_id}/insurance/latest"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/user/{jsonable_encoder(user_id)}/insurance/latest"
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingInsurance, _response.json())  # type: ignore
@@ -500,6 +733,7 @@ class UserClient:
         gender: str,
         dob: str,
         address: Address,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> UserInfo:
         """
         Parameters:
@@ -518,6 +752,8 @@ class UserClient:
             - dob: str.
 
             - address: Address.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital import Address
         from vital.client import Vital
@@ -544,7 +780,12 @@ class UserClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/{user_id}/info"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/user/{jsonable_encoder(user_id)}/info"
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
             json=jsonable_encoder(
                 {
                     "first_name": first_name,
@@ -555,9 +796,35 @@ class UserClient:
                     "dob": dob,
                     "address": address,
                 }
+            )
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(
+                    {
+                        "first_name": first_name,
+                        "last_name": last_name,
+                        "email": email,
+                        "phone_number": phone_number,
+                        "gender": gender,
+                        "dob": dob,
+                        "address": address,
+                    }
+                ),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(UserInfo, _response.json())  # type: ignore
@@ -569,12 +836,16 @@ class UserClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_by_client_user_id(self, client_user_id: str) -> ClientFacingUser:
+    def get_by_client_user_id(
+        self, client_user_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ClientFacingUser:
         """
         GET user_id from client_user_id.
 
         Parameters:
             - client_user_id: str. A unique ID representing the end user. Typically this will be a user ID number from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -587,9 +858,25 @@ class UserClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/resolve/{client_user_id}"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/user/resolve/{jsonable_encoder(client_user_id)}"
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingUser, _response.json())  # type: ignore
@@ -601,12 +888,16 @@ class UserClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def deregister_provider(self, user_id: str, provider: Providers) -> UserSuccessResponse:
+    def deregister_provider(
+        self, user_id: str, provider: Providers, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> UserSuccessResponse:
         """
         Parameters:
             - user_id: str.
 
             - provider: Providers. Provider slug. e.g., `oura`, `fitbit`, `garmin`.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital import Providers
         from vital.client import Vital
@@ -621,9 +912,26 @@ class UserClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "DELETE",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/{user_id}/{provider}"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/user/{jsonable_encoder(user_id)}/{jsonable_encoder(provider)}",
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(UserSuccessResponse, _response.json())  # type: ignore
@@ -636,13 +944,19 @@ class UserClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def undo_delete(
-        self, *, user_id: typing.Optional[str] = None, client_user_id: typing.Optional[str] = None
+        self,
+        *,
+        user_id: typing.Optional[str] = None,
+        client_user_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> UserSuccessResponse:
         """
         Parameters:
             - user_id: typing.Optional[str]. User ID to undo deletion. Mutually exclusive with `client_user_id`.
 
             - client_user_id: typing.Optional[str]. Client User ID to undo deletion. Mutually exclusive with `user_id`.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -654,9 +968,35 @@ class UserClient:
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/user/undo_delete"),
-            params=remove_none_from_dict({"user_id": user_id, "client_user_id": client_user_id}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "user_id": user_id,
+                        "client_user_id": client_user_id,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))
+            if request_options is not None
+            else None,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(UserSuccessResponse, _response.json())  # type: ignore
@@ -668,7 +1008,13 @@ class UserClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def refresh(self, user_id: str, *, timeout: typing.Optional[float] = None) -> UserRefreshSuccessResponse:
+    def refresh(
+        self,
+        user_id: str,
+        *,
+        timeout: typing.Optional[float] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> UserRefreshSuccessResponse:
         """
         Trigger a manual refresh for a specific user
 
@@ -676,6 +1022,8 @@ class UserClient:
             - user_id: str.
 
             - timeout: typing.Optional[float].
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import Vital
 
@@ -688,10 +1036,37 @@ class UserClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/refresh/{user_id}"),
-            params=remove_none_from_dict({"timeout": timeout}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/user/refresh/{jsonable_encoder(user_id)}"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "timeout": timeout,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))
+            if request_options is not None
+            else None,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(UserRefreshSuccessResponse, _response.json())  # type: ignore
@@ -711,7 +1086,11 @@ class AsyncUserClient:
         self._client_wrapper = client_wrapper
 
     async def get_all(
-        self, *, offset: typing.Optional[int] = None, limit: typing.Optional[int] = None
+        self,
+        *,
+        offset: typing.Optional[int] = None,
+        limit: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedUsersResponse:
         """
         GET All users for team.
@@ -720,6 +1099,8 @@ class AsyncUserClient:
             - offset: typing.Optional[int].
 
             - limit: typing.Optional[int].
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -731,9 +1112,32 @@ class AsyncUserClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/user"),
-            params=remove_none_from_dict({"offset": offset, "limit": limit}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "offset": offset,
+                        "limit": limit,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedUsersResponse, _response.json())  # type: ignore
@@ -753,6 +1157,7 @@ class AsyncUserClient:
         fallback_birth_date: typing.Optional[str] = OMIT,
         ingestion_start: typing.Optional[str] = OMIT,
         ingestion_end: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingUserKey:
         """
         POST Create a Vital user given a client_user_id and returns the user_id.
@@ -761,12 +1166,16 @@ class AsyncUserClient:
             - client_user_id: str. A unique ID representing the end user. Typically this will be a user ID from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id.
 
             - fallback_time_zone: typing.Optional[str].
+                                                            Fallback time zone of the user, in the form of a valid IANA tzdatabase identifier (e.g., `Europe/London` or `America/Los_Angeles`).
+                                                            Used when pulling data from sources that are completely time zone agnostic (e.g., all time is relative to UTC clock, without any time zone attributions on data points).
 
-            - fallback_birth_date: typing.Optional[str].
+            - fallback_birth_date: typing.Optional[str]. Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
 
-            - ingestion_start: typing.Optional[str].
+            - ingestion_start: typing.Optional[str]. Starting bound for user data ingestion. Data older than this date will not be ingested.
 
-            - ingestion_end: typing.Optional[str].
+            - ingestion_end: typing.Optional[str]. Ending bound for user data ingestion. Data from this date or later will not be ingested and the connection will be deregistered.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -789,9 +1198,28 @@ class AsyncUserClient:
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/user"),
-            json=jsonable_encoder(_request),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(_request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(_request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingUserKey, _response.json())  # type: ignore
@@ -805,10 +1233,12 @@ class AsyncUserClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_team_metrics(self) -> MetricsResult:
+    async def get_team_metrics(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetricsResult:
         """
         GET metrics for team.
 
+        Parameters:
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -820,8 +1250,22 @@ class AsyncUserClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/user/metrics"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(MetricsResult, _response.json())  # type: ignore
@@ -831,10 +1275,14 @@ class AsyncUserClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_user_sign_in_token(self, user_id: str) -> UserSignInTokenResponse:
+    async def get_user_sign_in_token(
+        self, user_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> UserSignInTokenResponse:
         """
         Parameters:
             - user_id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -847,9 +1295,28 @@ class AsyncUserClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/{user_id}/sign_in_token"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/user/{jsonable_encoder(user_id)}/sign_in_token"
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))
+            if request_options is not None
+            else None,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(UserSignInTokenResponse, _response.json())  # type: ignore
@@ -862,13 +1329,15 @@ class AsyncUserClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def get_connected_providers(
-        self, user_id: str
+        self, user_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.Dict[str, typing.List[ClientFacingProviderWithStatus]]:
         """
         GET Users connected providers
 
         Parameters:
             - user_id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -881,9 +1350,25 @@ class AsyncUserClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/providers/{user_id}"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/user/providers/{jsonable_encoder(user_id)}"
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(typing.Dict[str, typing.List[ClientFacingProviderWithStatus]], _response.json())  # type: ignore
@@ -895,12 +1380,14 @@ class AsyncUserClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get(self, user_id: str) -> ClientFacingUser:
+    async def get(self, user_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> ClientFacingUser:
         """
         GET User details given the user_id.
 
         Parameters:
             - user_id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -913,9 +1400,23 @@ class AsyncUserClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/{user_id}"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/{jsonable_encoder(user_id)}"),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingUser, _response.json())  # type: ignore
@@ -927,10 +1428,14 @@ class AsyncUserClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def delete(self, user_id: str) -> UserSuccessResponse:
+    async def delete(
+        self, user_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> UserSuccessResponse:
         """
         Parameters:
             - user_id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -943,9 +1448,23 @@ class AsyncUserClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "DELETE",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/{user_id}"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/{jsonable_encoder(user_id)}"),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(UserSuccessResponse, _response.json())  # type: ignore
@@ -965,18 +1484,23 @@ class AsyncUserClient:
         fallback_birth_date: typing.Optional[str] = OMIT,
         ingestion_start: typing.Optional[str] = OMIT,
         ingestion_end: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> None:
         """
         Parameters:
             - user_id: str.
 
             - fallback_time_zone: typing.Optional[str].
+                                                            Fallback time zone of the user, in the form of a valid IANA tzdatabase identifier (e.g., `Europe/London` or `America/Los_Angeles`).
+                                                            Used when pulling data from sources that are completely time zone agnostic (e.g., all time is relative to UTC clock, without any time zone attributions on data points).
 
-            - fallback_birth_date: typing.Optional[str].
+            - fallback_birth_date: typing.Optional[str]. Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
 
-            - ingestion_start: typing.Optional[str].
+            - ingestion_start: typing.Optional[str]. Starting bound for user data ingestion. Data older than this date will not be ingested.
 
-            - ingestion_end: typing.Optional[str].
+            - ingestion_end: typing.Optional[str]. Ending bound for user data ingestion. Data from this date or later will not be ingested and the connection will be deregistered.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -998,10 +1522,29 @@ class AsyncUserClient:
             _request["ingestion_end"] = ingestion_end
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/{user_id}"),
-            json=jsonable_encoder(_request),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/{jsonable_encoder(user_id)}"),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(_request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(_request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return
@@ -1013,10 +1556,14 @@ class AsyncUserClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_latest_user_info(self, user_id: str) -> UserInfo:
+    async def get_latest_user_info(
+        self, user_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> UserInfo:
         """
         Parameters:
             - user_id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -1029,9 +1576,25 @@ class AsyncUserClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/{user_id}/info/latest"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/user/{jsonable_encoder(user_id)}/info/latest"
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(UserInfo, _response.json())  # type: ignore
@@ -1053,6 +1616,7 @@ class AsyncUserClient:
         relationship: ResponsibleRelationship,
         insured: VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails,
         guarantor: typing.Optional[VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingInsurance:
         """
         Parameters:
@@ -1069,6 +1633,8 @@ class AsyncUserClient:
             - insured: VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails.
 
             - guarantor: typing.Optional[VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails].
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital import (
             Address,
@@ -1106,7 +1672,7 @@ class AsyncUserClient:
         _request: typing.Dict[str, typing.Any] = {
             "payor_code": payor_code,
             "member_id": member_id,
-            "relationship": relationship.value,
+            "relationship": relationship,
             "insured": insured,
         }
         if group_id is not OMIT:
@@ -1115,10 +1681,31 @@ class AsyncUserClient:
             _request["guarantor"] = guarantor
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/{user_id}/insurance"),
-            json=jsonable_encoder(_request),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/user/{jsonable_encoder(user_id)}/insurance"
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(_request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(_request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingInsurance, _response.json())  # type: ignore
@@ -1130,10 +1717,14 @@ class AsyncUserClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_latest_insurance(self, user_id: str) -> ClientFacingInsurance:
+    async def get_latest_insurance(
+        self, user_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ClientFacingInsurance:
         """
         Parameters:
             - user_id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -1146,9 +1737,25 @@ class AsyncUserClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/{user_id}/insurance/latest"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/user/{jsonable_encoder(user_id)}/insurance/latest"
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingInsurance, _response.json())  # type: ignore
@@ -1171,6 +1778,7 @@ class AsyncUserClient:
         gender: str,
         dob: str,
         address: Address,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> UserInfo:
         """
         Parameters:
@@ -1189,6 +1797,8 @@ class AsyncUserClient:
             - dob: str.
 
             - address: Address.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital import Address
         from vital.client import AsyncVital
@@ -1215,7 +1825,12 @@ class AsyncUserClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/{user_id}/info"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/user/{jsonable_encoder(user_id)}/info"
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
             json=jsonable_encoder(
                 {
                     "first_name": first_name,
@@ -1226,9 +1841,35 @@ class AsyncUserClient:
                     "dob": dob,
                     "address": address,
                 }
+            )
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(
+                    {
+                        "first_name": first_name,
+                        "last_name": last_name,
+                        "email": email,
+                        "phone_number": phone_number,
+                        "gender": gender,
+                        "dob": dob,
+                        "address": address,
+                    }
+                ),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(UserInfo, _response.json())  # type: ignore
@@ -1240,12 +1881,16 @@ class AsyncUserClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_by_client_user_id(self, client_user_id: str) -> ClientFacingUser:
+    async def get_by_client_user_id(
+        self, client_user_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ClientFacingUser:
         """
         GET user_id from client_user_id.
 
         Parameters:
             - client_user_id: str. A unique ID representing the end user. Typically this will be a user ID number from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -1258,9 +1903,25 @@ class AsyncUserClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/resolve/{client_user_id}"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/user/resolve/{jsonable_encoder(client_user_id)}"
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ClientFacingUser, _response.json())  # type: ignore
@@ -1272,12 +1933,16 @@ class AsyncUserClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def deregister_provider(self, user_id: str, provider: Providers) -> UserSuccessResponse:
+    async def deregister_provider(
+        self, user_id: str, provider: Providers, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> UserSuccessResponse:
         """
         Parameters:
             - user_id: str.
 
             - provider: Providers. Provider slug. e.g., `oura`, `fitbit`, `garmin`.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital import Providers
         from vital.client import AsyncVital
@@ -1292,9 +1957,26 @@ class AsyncUserClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "DELETE",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/{user_id}/{provider}"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v2/user/{jsonable_encoder(user_id)}/{jsonable_encoder(provider)}",
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(UserSuccessResponse, _response.json())  # type: ignore
@@ -1307,13 +1989,19 @@ class AsyncUserClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def undo_delete(
-        self, *, user_id: typing.Optional[str] = None, client_user_id: typing.Optional[str] = None
+        self,
+        *,
+        user_id: typing.Optional[str] = None,
+        client_user_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> UserSuccessResponse:
         """
         Parameters:
             - user_id: typing.Optional[str]. User ID to undo deletion. Mutually exclusive with `client_user_id`.
 
             - client_user_id: typing.Optional[str]. Client User ID to undo deletion. Mutually exclusive with `user_id`.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -1325,9 +2013,35 @@ class AsyncUserClient:
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v2/user/undo_delete"),
-            params=remove_none_from_dict({"user_id": user_id, "client_user_id": client_user_id}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "user_id": user_id,
+                        "client_user_id": client_user_id,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))
+            if request_options is not None
+            else None,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(UserSuccessResponse, _response.json())  # type: ignore
@@ -1339,7 +2053,13 @@ class AsyncUserClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def refresh(self, user_id: str, *, timeout: typing.Optional[float] = None) -> UserRefreshSuccessResponse:
+    async def refresh(
+        self,
+        user_id: str,
+        *,
+        timeout: typing.Optional[float] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> UserRefreshSuccessResponse:
         """
         Trigger a manual refresh for a specific user
 
@@ -1347,6 +2067,8 @@ class AsyncUserClient:
             - user_id: str.
 
             - timeout: typing.Optional[float].
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from vital.client import AsyncVital
 
@@ -1359,10 +2081,37 @@ class AsyncUserClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v2/user/refresh/{user_id}"),
-            params=remove_none_from_dict({"timeout": timeout}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v2/user/refresh/{jsonable_encoder(user_id)}"
+            ),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "timeout": timeout,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))
+            if request_options is not None
+            else None,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(UserRefreshSuccessResponse, _response.json())  # type: ignore
