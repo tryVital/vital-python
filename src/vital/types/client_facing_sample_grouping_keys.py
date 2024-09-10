@@ -2,4 +2,4 @@
 
 import typing
 
-ClientFacingSampleGroupingKeys = typing.List[typing.Any]
+ClientFacingSampleGroupingKeys = typing.List[typing.Optional[typing.Any]]

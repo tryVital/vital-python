@@ -337,10 +337,7 @@ from .types import (
     WorkoutV2InDb,
 )
 from .errors import BadRequestError, UnprocessableEntityError
-from .resources import (
-    LabTestsGetOrdersRequestOrderDirection,
-    LabTestsGetOrdersRequestOrderKey,
-    QueryTimeframe,
+from . import (
     activity,
     aggregate,
     body,
@@ -360,7 +357,10 @@ from .resources import (
     vitals,
     workouts,
 )
+from .aggregate import QueryTimeframe
+from .client import AsyncVital, Vital
 from .environment import VitalEnvironment
+from .lab_tests import LabTestsGetOrdersRequestOrderDirection, LabTestsGetOrdersRequestOrderKey
 from .version import __version__
 
 __all__ = [
@@ -380,6 +380,7 @@ __all__ = [
     "AppointmentStatus",
     "AppointmentType",
     "AreaInfo",
+    "AsyncVital",
     "AttemptStatus",
     "AuthType",
     "Availability",
@@ -698,6 +699,7 @@ __all__ = [
     "UserSuccessResponse",
     "ValidationError",
     "ValidationErrorLocItem",
+    "Vital",
     "VitalCoreSchemasDbSchemasLabTestHealthInsurancePersonDetails",
     "VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails",
     "VitalEnvironment",
