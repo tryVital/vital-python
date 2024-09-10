@@ -54,10 +54,13 @@ class AggregateClient:
         --------
         from vital import (
             Period,
+            PeriodUnit,
             QueryInstruction,
             Reducer,
+            ReducerFunction,
             RelativeTimeframe,
             SleepSelector,
+            SleepSelectorSleep,
             Vital,
         )
 
@@ -69,20 +72,20 @@ class AggregateClient:
             timeframe=RelativeTimeframe(
                 anchor="anchor",
                 past=Period(
-                    unit="minute",
+                    unit=PeriodUnit.MINUTE,
                 ),
             ),
             instructions=[
                 QueryInstruction(
                     select=SleepSelector(
-                        sleep="session_start",
+                        sleep=SleepSelectorSleep.SESSION_START,
                     ),
                     partition_by=Period(
-                        unit="minute",
+                        unit=PeriodUnit.MINUTE,
                     ),
                     reduce_by=[
                         Reducer(
-                            function="mean",
+                            function=ReducerFunction.MEAN,
                         )
                     ],
                 )
@@ -167,10 +170,13 @@ class AsyncAggregateClient:
         from vital import (
             AsyncVital,
             Period,
+            PeriodUnit,
             QueryInstruction,
             Reducer,
+            ReducerFunction,
             RelativeTimeframe,
             SleepSelector,
+            SleepSelectorSleep,
         )
 
         client = AsyncVital(
@@ -184,20 +190,20 @@ class AsyncAggregateClient:
                 timeframe=RelativeTimeframe(
                     anchor="anchor",
                     past=Period(
-                        unit="minute",
+                        unit=PeriodUnit.MINUTE,
                     ),
                 ),
                 instructions=[
                     QueryInstruction(
                         select=SleepSelector(
-                            sleep="session_start",
+                            sleep=SleepSelectorSleep.SESSION_START,
                         ),
                         partition_by=Period(
-                            unit="minute",
+                            unit=PeriodUnit.MINUTE,
                         ),
                         reduce_by=[
                             Reducer(
-                                function="mean",
+                                function=ReducerFunction.MEAN,
                             )
                         ],
                     )

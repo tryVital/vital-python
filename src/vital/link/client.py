@@ -280,14 +280,14 @@ class LinkClient:
 
         Examples
         --------
-        from vital import Vital
+        from vital import Providers, Vital
 
         client = Vital(
             api_key="YOUR_API_KEY",
         )
         client.link.start_connect(
             link_token="link_token",
-            provider="oura",
+            provider=Providers.OURA,
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -419,15 +419,15 @@ class LinkClient:
 
         Examples
         --------
-        from vital import Vital
+        from vital import AuthType, Providers, Vital
 
         client = Vital(
             api_key="YOUR_API_KEY",
         )
         client.link.email_auth(
             email="email",
-            provider="oura",
-            auth_type="password",
+            provider=Providers.OURA,
+            auth_type=AuthType.PASSWORD,
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -504,7 +504,7 @@ class LinkClient:
 
         Examples
         --------
-        from vital import Vital
+        from vital import AuthType, Providers, Vital
 
         client = Vital(
             api_key="YOUR_API_KEY",
@@ -512,8 +512,8 @@ class LinkClient:
         client.link.password_auth(
             username="username",
             password="password",
-            provider="oura",
-            auth_type="password",
+            provider=Providers.OURA,
+            auth_type=AuthType.PASSWORD,
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -581,13 +581,13 @@ class LinkClient:
 
         Examples
         --------
-        from vital import Vital
+        from vital import OAuthProviders, Vital
 
         client = Vital(
             api_key="YOUR_API_KEY",
         )
         client.link.generate_oauth_link(
-            oauth_provider="oura",
+            oauth_provider=OAuthProviders.OURA,
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -659,13 +659,13 @@ class LinkClient:
 
         Examples
         --------
-        from vital import Vital
+        from vital import PasswordProviders, Vital
 
         client = Vital(
             api_key="YOUR_API_KEY",
         )
         client.link.connect_password_provider(
-            provider="whoop",
+            provider=PasswordProviders.WHOOP,
             username="username",
             password="password",
         )
@@ -737,13 +737,13 @@ class LinkClient:
 
         Examples
         --------
-        from vital import Vital
+        from vital import PasswordProviders, Vital
 
         client = Vital(
             api_key="YOUR_API_KEY",
         )
         client.link.complete_password_provider_mfa(
-            provider="whoop",
+            provider=PasswordProviders.WHOOP,
             mfa_code="mfa_code",
         )
         """
@@ -948,13 +948,13 @@ class LinkClient:
 
         Examples
         --------
-        from vital import Vital
+        from vital import ManualProviders, Vital
 
         client = Vital(
             api_key="YOUR_API_KEY",
         )
         client.link.connect_manual_provider(
-            provider="beurer_ble",
+            provider=ManualProviders.BEURER_BLE,
             user_id="user_id",
         )
         """
@@ -1016,14 +1016,14 @@ class LinkClient:
 
         Examples
         --------
-        from vital import Vital
+        from vital import DemoProviders, Vital
 
         client = Vital(
             api_key="YOUR_API_KEY",
         )
         client.link.connect_demo_provider(
             user_id="user_id",
-            provider="apple_health_kit",
+            provider=DemoProviders.APPLE_HEALTH_KIT,
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -1336,7 +1336,7 @@ class AsyncLinkClient:
         --------
         import asyncio
 
-        from vital import AsyncVital
+        from vital import AsyncVital, Providers
 
         client = AsyncVital(
             api_key="YOUR_API_KEY",
@@ -1346,7 +1346,7 @@ class AsyncLinkClient:
         async def main() -> None:
             await client.link.start_connect(
                 link_token="link_token",
-                provider="oura",
+                provider=Providers.OURA,
             )
 
 
@@ -1491,7 +1491,7 @@ class AsyncLinkClient:
         --------
         import asyncio
 
-        from vital import AsyncVital
+        from vital import AsyncVital, AuthType, Providers
 
         client = AsyncVital(
             api_key="YOUR_API_KEY",
@@ -1501,8 +1501,8 @@ class AsyncLinkClient:
         async def main() -> None:
             await client.link.email_auth(
                 email="email",
-                provider="oura",
-                auth_type="password",
+                provider=Providers.OURA,
+                auth_type=AuthType.PASSWORD,
             )
 
 
@@ -1584,7 +1584,7 @@ class AsyncLinkClient:
         --------
         import asyncio
 
-        from vital import AsyncVital
+        from vital import AsyncVital, AuthType, Providers
 
         client = AsyncVital(
             api_key="YOUR_API_KEY",
@@ -1595,8 +1595,8 @@ class AsyncLinkClient:
             await client.link.password_auth(
                 username="username",
                 password="password",
-                provider="oura",
-                auth_type="password",
+                provider=Providers.OURA,
+                auth_type=AuthType.PASSWORD,
             )
 
 
@@ -1669,7 +1669,7 @@ class AsyncLinkClient:
         --------
         import asyncio
 
-        from vital import AsyncVital
+        from vital import AsyncVital, OAuthProviders
 
         client = AsyncVital(
             api_key="YOUR_API_KEY",
@@ -1678,7 +1678,7 @@ class AsyncLinkClient:
 
         async def main() -> None:
             await client.link.generate_oauth_link(
-                oauth_provider="oura",
+                oauth_provider=OAuthProviders.OURA,
             )
 
 
@@ -1755,7 +1755,7 @@ class AsyncLinkClient:
         --------
         import asyncio
 
-        from vital import AsyncVital
+        from vital import AsyncVital, PasswordProviders
 
         client = AsyncVital(
             api_key="YOUR_API_KEY",
@@ -1764,7 +1764,7 @@ class AsyncLinkClient:
 
         async def main() -> None:
             await client.link.connect_password_provider(
-                provider="whoop",
+                provider=PasswordProviders.WHOOP,
                 username="username",
                 password="password",
             )
@@ -1841,7 +1841,7 @@ class AsyncLinkClient:
         --------
         import asyncio
 
-        from vital import AsyncVital
+        from vital import AsyncVital, PasswordProviders
 
         client = AsyncVital(
             api_key="YOUR_API_KEY",
@@ -1850,7 +1850,7 @@ class AsyncLinkClient:
 
         async def main() -> None:
             await client.link.complete_password_provider_mfa(
-                provider="whoop",
+                provider=PasswordProviders.WHOOP,
                 mfa_code="mfa_code",
             )
 
@@ -2076,7 +2076,7 @@ class AsyncLinkClient:
         --------
         import asyncio
 
-        from vital import AsyncVital
+        from vital import AsyncVital, ManualProviders
 
         client = AsyncVital(
             api_key="YOUR_API_KEY",
@@ -2085,7 +2085,7 @@ class AsyncLinkClient:
 
         async def main() -> None:
             await client.link.connect_manual_provider(
-                provider="beurer_ble",
+                provider=ManualProviders.BEURER_BLE,
                 user_id="user_id",
             )
 
@@ -2152,7 +2152,7 @@ class AsyncLinkClient:
         --------
         import asyncio
 
-        from vital import AsyncVital
+        from vital import AsyncVital, DemoProviders
 
         client = AsyncVital(
             api_key="YOUR_API_KEY",
@@ -2162,7 +2162,7 @@ class AsyncLinkClient:
         async def main() -> None:
             await client.link.connect_demo_provider(
                 user_id="user_id",
-                provider="apple_health_kit",
+                provider=DemoProviders.APPLE_HEALTH_KIT,
             )
 
 

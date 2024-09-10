@@ -66,7 +66,7 @@ class TestkitClient:
         --------
         import datetime
 
-        from vital import PatientAddressCompatible, PatientDetails, Vital
+        from vital import Gender, PatientAddressCompatible, PatientDetails, Vital
 
         client = Vital(
             api_key="YOUR_API_KEY",
@@ -80,7 +80,7 @@ class TestkitClient:
                 dob=datetime.datetime.fromisoformat(
                     "2024-01-15 09:30:00+00:00",
                 ),
-                gender="female",
+                gender=Gender.FEMALE,
                 phone_number="phone_number",
                 email="email",
             ),
@@ -266,7 +266,7 @@ class AsyncTestkitClient:
         import asyncio
         import datetime
 
-        from vital import AsyncVital, PatientAddressCompatible, PatientDetails
+        from vital import AsyncVital, Gender, PatientAddressCompatible, PatientDetails
 
         client = AsyncVital(
             api_key="YOUR_API_KEY",
@@ -283,7 +283,7 @@ class AsyncTestkitClient:
                     dob=datetime.datetime.fromisoformat(
                         "2024-01-15 09:30:00+00:00",
                     ),
-                    gender="female",
+                    gender=Gender.FEMALE,
                     phone_number="phone_number",
                     email="email",
                 ),

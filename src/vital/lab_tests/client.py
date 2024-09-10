@@ -129,14 +129,14 @@ class LabTestsClient:
 
         Examples
         --------
-        from vital import Vital
+        from vital import LabTestCollectionMethod, Vital
 
         client = Vital(
             api_key="YOUR_API_KEY",
         )
         client.lab_tests.create(
             name="name",
-            method="testkit",
+            method=LabTestCollectionMethod.TESTKIT,
             description="description",
         )
         """
@@ -651,7 +651,7 @@ class LabTestsClient:
 
         Examples
         --------
-        from vital import UsAddress, Vital
+        from vital import AppointmentProvider, UsAddress, Vital
 
         client = Vital(
             api_key="YOUR_API_KEY",
@@ -664,7 +664,7 @@ class LabTestsClient:
                 state="state",
                 zip_code="zip_code",
             ),
-            provider="getlabs",
+            provider=AppointmentProvider.GETLABS,
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -1595,7 +1595,7 @@ class LabTestsClient:
         --------
         import datetime
 
-        from vital import PatientAddressCompatible, PatientDetails, Vital
+        from vital import Gender, PatientAddressCompatible, PatientDetails, Vital
 
         client = Vital(
             api_key="YOUR_API_KEY",
@@ -1608,7 +1608,7 @@ class LabTestsClient:
                 dob=datetime.datetime.fromisoformat(
                     "2024-01-15 09:30:00+00:00",
                 ),
-                gender="female",
+                gender=Gender.FEMALE,
                 phone_number="phone_number",
                 email="email",
             ),
@@ -2012,7 +2012,7 @@ class AsyncLabTestsClient:
         --------
         import asyncio
 
-        from vital import AsyncVital
+        from vital import AsyncVital, LabTestCollectionMethod
 
         client = AsyncVital(
             api_key="YOUR_API_KEY",
@@ -2022,7 +2022,7 @@ class AsyncLabTestsClient:
         async def main() -> None:
             await client.lab_tests.create(
                 name="name",
-                method="testkit",
+                method=LabTestCollectionMethod.TESTKIT,
                 description="description",
             )
 
@@ -2600,7 +2600,7 @@ class AsyncLabTestsClient:
         --------
         import asyncio
 
-        from vital import AsyncVital, UsAddress
+        from vital import AppointmentProvider, AsyncVital, UsAddress
 
         client = AsyncVital(
             api_key="YOUR_API_KEY",
@@ -2616,7 +2616,7 @@ class AsyncLabTestsClient:
                     state="state",
                     zip_code="zip_code",
                 ),
-                provider="getlabs",
+                provider=AppointmentProvider.GETLABS,
             )
 
 
@@ -3656,7 +3656,7 @@ class AsyncLabTestsClient:
         import asyncio
         import datetime
 
-        from vital import AsyncVital, PatientAddressCompatible, PatientDetails
+        from vital import AsyncVital, Gender, PatientAddressCompatible, PatientDetails
 
         client = AsyncVital(
             api_key="YOUR_API_KEY",
@@ -3672,7 +3672,7 @@ class AsyncLabTestsClient:
                     dob=datetime.datetime.fromisoformat(
                         "2024-01-15 09:30:00+00:00",
                     ),
-                    gender="female",
+                    gender=Gender.FEMALE,
                     phone_number="phone_number",
                     email="email",
                 ),

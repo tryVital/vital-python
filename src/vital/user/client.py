@@ -642,6 +642,8 @@ class UserClient:
         --------
         from vital import (
             Address,
+            Gender,
+            ResponsibleRelationship,
             Vital,
             VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails,
         )
@@ -653,11 +655,11 @@ class UserClient:
             user_id="user_id",
             payor_code="payor_code",
             member_id="member_id",
-            relationship="Self",
+            relationship=ResponsibleRelationship.SELF,
             insured=VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails(
                 first_name="first_name",
                 last_name="last_name",
-                gender="female",
+                gender=Gender.FEMALE,
                 address=Address(
                     first_line="first_line",
                     country="country",
@@ -948,14 +950,14 @@ class UserClient:
 
         Examples
         --------
-        from vital import Vital
+        from vital import Providers, Vital
 
         client = Vital(
             api_key="YOUR_API_KEY",
         )
         client.user.deregister_provider(
             user_id="user_id",
-            provider="oura",
+            provider=Providers.OURA,
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -1818,6 +1820,8 @@ class AsyncUserClient:
         from vital import (
             Address,
             AsyncVital,
+            Gender,
+            ResponsibleRelationship,
             VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails,
         )
 
@@ -1831,11 +1835,11 @@ class AsyncUserClient:
                 user_id="user_id",
                 payor_code="payor_code",
                 member_id="member_id",
-                relationship="Self",
+                relationship=ResponsibleRelationship.SELF,
                 insured=VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails(
                     first_name="first_name",
                     last_name="last_name",
-                    gender="female",
+                    gender=Gender.FEMALE,
                     address=Address(
                         first_line="first_line",
                         country="country",
@@ -2155,7 +2159,7 @@ class AsyncUserClient:
         --------
         import asyncio
 
-        from vital import AsyncVital
+        from vital import AsyncVital, Providers
 
         client = AsyncVital(
             api_key="YOUR_API_KEY",
@@ -2165,7 +2169,7 @@ class AsyncUserClient:
         async def main() -> None:
             await client.user.deregister_provider(
                 user_id="user_id",
-                provider="oura",
+                provider=Providers.OURA,
             )
 
 
