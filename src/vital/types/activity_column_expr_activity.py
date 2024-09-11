@@ -6,7 +6,7 @@ import typing
 T_Result = typing.TypeVar("T_Result")
 
 
-class ActivitySelectorActivity(str, enum.Enum):
+class ActivityColumnExprActivity(str, enum.Enum):
     DATE = "date"
     CALORIES_TOTAL = "calories_total"
     CALORIES_ACTIVE = "calories_active"
@@ -47,39 +47,39 @@ class ActivitySelectorActivity(str, enum.Enum):
         source_provider: typing.Callable[[], T_Result],
         source_app_id: typing.Callable[[], T_Result],
     ) -> T_Result:
-        if self is ActivitySelectorActivity.DATE:
+        if self is ActivityColumnExprActivity.DATE:
             return date()
-        if self is ActivitySelectorActivity.CALORIES_TOTAL:
+        if self is ActivityColumnExprActivity.CALORIES_TOTAL:
             return calories_total()
-        if self is ActivitySelectorActivity.CALORIES_ACTIVE:
+        if self is ActivityColumnExprActivity.CALORIES_ACTIVE:
             return calories_active()
-        if self is ActivitySelectorActivity.STEPS:
+        if self is ActivityColumnExprActivity.STEPS:
             return steps()
-        if self is ActivitySelectorActivity.DISTANCE_METER:
+        if self is ActivityColumnExprActivity.DISTANCE_METER:
             return distance_meter()
-        if self is ActivitySelectorActivity.FLOORS_CLIMBED:
+        if self is ActivityColumnExprActivity.FLOORS_CLIMBED:
             return floors_climbed()
-        if self is ActivitySelectorActivity.DURATION_ACTIVE_SECOND:
+        if self is ActivityColumnExprActivity.DURATION_ACTIVE_SECOND:
             return duration_active_second()
-        if self is ActivitySelectorActivity.INTENSITY_SEDENTARY_SECOND:
+        if self is ActivityColumnExprActivity.INTENSITY_SEDENTARY_SECOND:
             return intensity_sedentary_second()
-        if self is ActivitySelectorActivity.INTENSITY_LOW_SECOND:
+        if self is ActivityColumnExprActivity.INTENSITY_LOW_SECOND:
             return intensity_low_second()
-        if self is ActivitySelectorActivity.INTENSITY_MEDIUM_SECOND:
+        if self is ActivityColumnExprActivity.INTENSITY_MEDIUM_SECOND:
             return intensity_medium_second()
-        if self is ActivitySelectorActivity.INTENSITY_HIGH_SECOND:
+        if self is ActivityColumnExprActivity.INTENSITY_HIGH_SECOND:
             return intensity_high_second()
-        if self is ActivitySelectorActivity.HEART_RATE_MEAN:
+        if self is ActivityColumnExprActivity.HEART_RATE_MEAN:
             return heart_rate_mean()
-        if self is ActivitySelectorActivity.HEART_RATE_MIN:
+        if self is ActivityColumnExprActivity.HEART_RATE_MIN:
             return heart_rate_min()
-        if self is ActivitySelectorActivity.HEART_RATE_MAX:
+        if self is ActivityColumnExprActivity.HEART_RATE_MAX:
             return heart_rate_max()
-        if self is ActivitySelectorActivity.HEART_RATE_RESTING:
+        if self is ActivityColumnExprActivity.HEART_RATE_RESTING:
             return heart_rate_resting()
-        if self is ActivitySelectorActivity.SOURCE_TYPE:
+        if self is ActivityColumnExprActivity.SOURCE_TYPE:
             return source_type()
-        if self is ActivitySelectorActivity.SOURCE_PROVIDER:
+        if self is ActivityColumnExprActivity.SOURCE_PROVIDER:
             return source_provider()
-        if self is ActivitySelectorActivity.SOURCE_APP_ID:
+        if self is ActivityColumnExprActivity.SOURCE_APP_ID:
             return source_app_id()

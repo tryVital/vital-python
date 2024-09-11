@@ -12131,14 +12131,17 @@ client.insurance.search_diagnosis(
 
 ```python
 from vital import (
+    AggregateExpr,
+    AggregateExprFunc,
+    DateTruncExpr,
+    IndexColumnExpr,
+    IndexColumnExprIndex,
     Period,
     PeriodUnit,
     QueryInstruction,
-    Reducer,
-    ReducerFunction,
     RelativeTimeframe,
-    SleepSelector,
-    SleepSelectorSleep,
+    SleepColumnExpr,
+    SleepColumnExprSleep,
     Vital,
 )
 
@@ -12155,15 +12158,22 @@ client.aggregate.query_one(
     ),
     instructions=[
         QueryInstruction(
-            select=SleepSelector(
-                sleep=SleepSelectorSleep.SESSION_START,
-            ),
-            partition_by=Period(
-                unit=PeriodUnit.MINUTE,
-            ),
-            reduce_by=[
-                Reducer(
-                    function=ReducerFunction.MEAN,
+            select=[
+                AggregateExpr(
+                    arg=SleepColumnExpr(
+                        sleep=SleepColumnExprSleep.SESSION_START,
+                    ),
+                    func=AggregateExprFunc.MEAN,
+                )
+            ],
+            group_by=[
+                DateTruncExpr(
+                    date_trunc=Period(
+                        unit=PeriodUnit.MINUTE,
+                    ),
+                    arg=IndexColumnExpr(
+                        index=IndexColumnExprIndex.SLEEP,
+                    ),
                 )
             ],
         )

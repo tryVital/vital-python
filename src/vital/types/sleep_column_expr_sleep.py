@@ -6,7 +6,7 @@ import typing
 T_Result = typing.TypeVar("T_Result")
 
 
-class SleepSelectorSleep(str, enum.Enum):
+class SleepColumnExprSleep(str, enum.Enum):
     SESSION_START = "session_start"
     SESSION_END = "session_end"
     STATE = "state"
@@ -59,51 +59,51 @@ class SleepSelectorSleep(str, enum.Enum):
         source_provider: typing.Callable[[], T_Result],
         source_app_id: typing.Callable[[], T_Result],
     ) -> T_Result:
-        if self is SleepSelectorSleep.SESSION_START:
+        if self is SleepColumnExprSleep.SESSION_START:
             return session_start()
-        if self is SleepSelectorSleep.SESSION_END:
+        if self is SleepColumnExprSleep.SESSION_END:
             return session_end()
-        if self is SleepSelectorSleep.STATE:
+        if self is SleepColumnExprSleep.STATE:
             return state()
-        if self is SleepSelectorSleep.DURATION_SECOND:
+        if self is SleepColumnExprSleep.DURATION_SECOND:
             return duration_second()
-        if self is SleepSelectorSleep.STAGE_ASLEEP_SECOND:
+        if self is SleepColumnExprSleep.STAGE_ASLEEP_SECOND:
             return stage_asleep_second()
-        if self is SleepSelectorSleep.STAGE_AWAKE_SECOND:
+        if self is SleepColumnExprSleep.STAGE_AWAKE_SECOND:
             return stage_awake_second()
-        if self is SleepSelectorSleep.STAGE_LIGHT_SECOND:
+        if self is SleepColumnExprSleep.STAGE_LIGHT_SECOND:
             return stage_light_second()
-        if self is SleepSelectorSleep.STAGE_REM_SECOND:
+        if self is SleepColumnExprSleep.STAGE_REM_SECOND:
             return stage_rem_second()
-        if self is SleepSelectorSleep.STAGE_DEEP_SECOND:
+        if self is SleepColumnExprSleep.STAGE_DEEP_SECOND:
             return stage_deep_second()
-        if self is SleepSelectorSleep.STAGE_UNKNOWN_SECOND:
+        if self is SleepColumnExprSleep.STAGE_UNKNOWN_SECOND:
             return stage_unknown_second()
-        if self is SleepSelectorSleep.LATENCY_SECOND:
+        if self is SleepColumnExprSleep.LATENCY_SECOND:
             return latency_second()
-        if self is SleepSelectorSleep.HEART_RATE_MINIMUM:
+        if self is SleepColumnExprSleep.HEART_RATE_MINIMUM:
             return heart_rate_minimum()
-        if self is SleepSelectorSleep.HEART_RATE_MEAN:
+        if self is SleepColumnExprSleep.HEART_RATE_MEAN:
             return heart_rate_mean()
-        if self is SleepSelectorSleep.HEART_RATE_MAXIMUM:
+        if self is SleepColumnExprSleep.HEART_RATE_MAXIMUM:
             return heart_rate_maximum()
-        if self is SleepSelectorSleep.HEART_RATE_DIP:
+        if self is SleepColumnExprSleep.HEART_RATE_DIP:
             return heart_rate_dip()
-        if self is SleepSelectorSleep.EFFICIENCY:
+        if self is SleepColumnExprSleep.EFFICIENCY:
             return efficiency()
-        if self is SleepSelectorSleep.HRV_MEAN_RMSSD:
+        if self is SleepColumnExprSleep.HRV_MEAN_RMSSD:
             return hrv_mean_rmssd()
-        if self is SleepSelectorSleep.HRV_MEAN_SDNN:
+        if self is SleepColumnExprSleep.HRV_MEAN_SDNN:
             return hrv_mean_sdnn()
-        if self is SleepSelectorSleep.SKIN_TEMPERATURE_DELTA:
+        if self is SleepColumnExprSleep.SKIN_TEMPERATURE_DELTA:
             return skin_temperature_delta()
-        if self is SleepSelectorSleep.RESPIRATORY_RATE:
+        if self is SleepColumnExprSleep.RESPIRATORY_RATE:
             return respiratory_rate()
-        if self is SleepSelectorSleep.SCORE:
+        if self is SleepColumnExprSleep.SCORE:
             return score()
-        if self is SleepSelectorSleep.SOURCE_TYPE:
+        if self is SleepColumnExprSleep.SOURCE_TYPE:
             return source_type()
-        if self is SleepSelectorSleep.SOURCE_PROVIDER:
+        if self is SleepColumnExprSleep.SOURCE_PROVIDER:
             return source_provider()
-        if self is SleepSelectorSleep.SOURCE_APP_ID:
+        if self is SleepColumnExprSleep.SOURCE_APP_ID:
             return source_app_id()

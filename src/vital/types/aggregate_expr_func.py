@@ -6,7 +6,7 @@ import typing
 T_Result = typing.TypeVar("T_Result")
 
 
-class ReducerFunction(str, enum.Enum):
+class AggregateExprFunc(str, enum.Enum):
     MEAN = "mean"
     MIN = "min"
     MAX = "max"
@@ -29,21 +29,21 @@ class ReducerFunction(str, enum.Enum):
         oldest: typing.Callable[[], T_Result],
         newest: typing.Callable[[], T_Result],
     ) -> T_Result:
-        if self is ReducerFunction.MEAN:
+        if self is AggregateExprFunc.MEAN:
             return mean()
-        if self is ReducerFunction.MIN:
+        if self is AggregateExprFunc.MIN:
             return min()
-        if self is ReducerFunction.MAX:
+        if self is AggregateExprFunc.MAX:
             return max()
-        if self is ReducerFunction.SUM:
+        if self is AggregateExprFunc.SUM:
             return sum()
-        if self is ReducerFunction.COUNT:
+        if self is AggregateExprFunc.COUNT:
             return count()
-        if self is ReducerFunction.MEDIAN:
+        if self is AggregateExprFunc.MEDIAN:
             return median()
-        if self is ReducerFunction.STDDEV:
+        if self is AggregateExprFunc.STDDEV:
             return stddev()
-        if self is ReducerFunction.OLDEST:
+        if self is AggregateExprFunc.OLDEST:
             return oldest()
-        if self is ReducerFunction.NEWEST:
+        if self is AggregateExprFunc.NEWEST:
             return newest()

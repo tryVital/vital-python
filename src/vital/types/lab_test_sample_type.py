@@ -12,6 +12,7 @@ class LabTestSampleType(str, enum.Enum):
     """
 
     DRIED_BLOOD_SPOT = "dried_blood_spot"
+    ARM_COLLECTOR = "arm_collector"
     SERUM = "serum"
     SALIVA = "saliva"
     URINE = "urine"
@@ -19,12 +20,15 @@ class LabTestSampleType(str, enum.Enum):
     def visit(
         self,
         dried_blood_spot: typing.Callable[[], T_Result],
+        arm_collector: typing.Callable[[], T_Result],
         serum: typing.Callable[[], T_Result],
         saliva: typing.Callable[[], T_Result],
         urine: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is LabTestSampleType.DRIED_BLOOD_SPOT:
             return dried_blood_spot()
+        if self is LabTestSampleType.ARM_COLLECTOR:
+            return arm_collector()
         if self is LabTestSampleType.SERUM:
             return serum()
         if self is LabTestSampleType.SALIVA:
