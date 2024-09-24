@@ -489,7 +489,11 @@ class LabTestsClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def get_phlebotomy_appointment_availability(
-        self, *, request: UsAddress, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        request: UsAddress,
+        start_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AppointmentAvailabilitySlots:
         """
         Return the available time slots to book an appointment with a phlebotomist
@@ -498,6 +502,9 @@ class LabTestsClient:
         Parameters
         ----------
         request : UsAddress
+
+        start_date : typing.Optional[str]
+            Start date for appointment availability
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -526,6 +533,9 @@ class LabTestsClient:
         _response = self._client_wrapper.httpx_client.request(
             "v3/order/phlebotomy/appointment/availability",
             method="POST",
+            params={
+                "start_date": start_date,
+            },
             json=request,
             request_options=request_options,
             omit=OMIT,
@@ -2420,7 +2430,11 @@ class AsyncLabTestsClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def get_phlebotomy_appointment_availability(
-        self, *, request: UsAddress, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        request: UsAddress,
+        start_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AppointmentAvailabilitySlots:
         """
         Return the available time slots to book an appointment with a phlebotomist
@@ -2429,6 +2443,9 @@ class AsyncLabTestsClient:
         Parameters
         ----------
         request : UsAddress
+
+        start_date : typing.Optional[str]
+            Start date for appointment availability
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2465,6 +2482,9 @@ class AsyncLabTestsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "v3/order/phlebotomy/appointment/availability",
             method="POST",
+            params={
+                "start_date": start_date,
+            },
             json=request,
             request_options=request_options,
             omit=OMIT,

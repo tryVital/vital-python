@@ -190,6 +190,7 @@ from .energy import Energy
 from .event_destination_preferences import EventDestinationPreferences
 from .event_destination_preferences_enabled_item import EventDestinationPreferencesEnabledItem
 from .event_destination_preferences_preferred import EventDestinationPreferencesPreferred
+from .failure_type import FailureType
 from .fallback_birth_date import FallbackBirthDate
 from .fallback_time_zone import FallbackTimeZone
 from .fats import Fats
@@ -282,6 +283,7 @@ from .menstrual_flow_entry_flow import MenstrualFlowEntryFlow
 from .metrics_result import MetricsResult
 from .micros import Micros
 from .minerals import Minerals
+from .missing_biomarker_result import MissingBiomarkerResult
 from .o_auth_providers import OAuthProviders
 from .order_set_request import OrderSetRequest
 from .order_status import OrderStatus
@@ -538,6 +540,7 @@ __all__ = [
     "EventDestinationPreferences",
     "EventDestinationPreferencesEnabledItem",
     "EventDestinationPreferencesPreferred",
+    "FailureType",
     "FallbackBirthDate",
     "FallbackTimeZone",
     "Fats",
@@ -630,6 +633,7 @@ __all__ = [
     "MetricsResult",
     "Micros",
     "Minerals",
+    "MissingBiomarkerResult",
     "OAuthProviders",
     "OrderSetRequest",
     "OrderStatus",

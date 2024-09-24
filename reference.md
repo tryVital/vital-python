@@ -10102,6 +10102,14 @@ client.lab_tests.get_phlebotomy_appointment_availability(
 <dl>
 <dd>
 
+**start_date:** `typing.Optional[str]` — Start date for appointment availability
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
