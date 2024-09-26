@@ -10,7 +10,8 @@ import pydantic
 class MissingBiomarkerResult(UniversalBaseModel):
     name: str
     slug: str
-    reason: FailureType
+    inferred_failure_type: FailureType
+    note: typing.Optional[str] = None
     loinc: typing.Optional[str] = None
     loinc_slug: typing.Optional[str] = None
     provider_id: typing.Optional[str] = None
