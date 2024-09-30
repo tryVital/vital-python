@@ -11,6 +11,7 @@ from ..types.lab_test_collection_method import LabTestCollectionMethod
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.http_validation_error import HttpValidationError
 from ..types.get_markers_response import GetMarkersResponse
+from ..types.order_set_request import OrderSetRequest
 from ..core.jsonable_encoder import jsonable_encoder
 from ..types.client_facing_marker import ClientFacingMarker
 from ..types.client_facing_lab import ClientFacingLab
@@ -30,7 +31,6 @@ from ..core.datetime_utils import serialize_datetime
 from ..types.client_facing_order import ClientFacingOrder
 from ..types.patient_details import PatientDetails
 from ..types.patient_address_compatible import PatientAddressCompatible
-from ..types.order_set_request import OrderSetRequest
 from ..types.physician_create_request import PhysicianCreateRequest
 from ..types.health_insurance_create_request import HealthInsuranceCreateRequest
 from ..types.billing import Billing
@@ -233,6 +233,77 @@ class LabTestsClient:
                 "size": size,
             },
             request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    GetMarkersResponse,
+                    parse_obj_as(
+                        type_=GetMarkersResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def get_markers_for_order_set(
+        self,
+        *,
+        request: OrderSetRequest,
+        page: typing.Optional[int] = None,
+        size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GetMarkersResponse:
+        """
+        Parameters
+        ----------
+        request : OrderSetRequest
+
+        page : typing.Optional[int]
+
+        size : typing.Optional[int]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetMarkersResponse
+            Successful Response
+
+        Examples
+        --------
+        from vital import OrderSetRequest, Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_markers_for_order_set(
+            request=OrderSetRequest(),
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v3/lab_tests/order_set/markers",
+            method="POST",
+            params={
+                "page": page,
+                "size": size,
+            },
+            json=request,
+            request_options=request_options,
+            omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:
@@ -2140,6 +2211,85 @@ class AsyncLabTestsClient:
                 "size": size,
             },
             request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    GetMarkersResponse,
+                    parse_obj_as(
+                        type_=GetMarkersResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def get_markers_for_order_set(
+        self,
+        *,
+        request: OrderSetRequest,
+        page: typing.Optional[int] = None,
+        size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GetMarkersResponse:
+        """
+        Parameters
+        ----------
+        request : OrderSetRequest
+
+        page : typing.Optional[int]
+
+        size : typing.Optional[int]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetMarkersResponse
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from vital import AsyncVital, OrderSetRequest
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.lab_tests.get_markers_for_order_set(
+                request=OrderSetRequest(),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "v3/lab_tests/order_set/markers",
+            method="POST",
+            params={
+                "page": page,
+                "size": size,
+            },
+            json=request,
+            request_options=request_options,
+            omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:

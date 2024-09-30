@@ -9757,6 +9757,78 @@ client.lab_tests.get_markers()
 </dl>
 </details>
 
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_markers_for_order_set</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import OrderSetRequest, Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.get_markers_for_order_set(
+    request=OrderSetRequest(),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `OrderSetRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**size:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_markers_for_lab_test</a>(...)</code></summary>
 <dl>
 <dd>
