@@ -295,7 +295,7 @@ class LabTestsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "v3/lab_tests/order_set/markers",
+            "v3/lab_tests/list_order_set_markers",
             method="POST",
             params={
                 "page": page,
@@ -2281,7 +2281,7 @@ class AsyncLabTestsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "v3/lab_tests/order_set/markers",
+            "v3/lab_tests/list_order_set_markers",
             method="POST",
             params={
                 "page": page,
