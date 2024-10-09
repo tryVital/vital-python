@@ -345,6 +345,8 @@ from .types import (
     VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails,
     VitalTokenCreatedResponse,
     Vitamins,
+    WorkoutColumnExpr,
+    WorkoutColumnExprWorkout,
     WorkoutV2InDb,
 )
 from .errors import BadRequestError, UnprocessableEntityError
@@ -727,6 +729,8 @@ __all__ = [
     "VitalEnvironment",
     "VitalTokenCreatedResponse",
     "Vitamins",
+    "WorkoutColumnExpr",
+    "WorkoutColumnExprWorkout",
     "WorkoutV2InDb",
     "__version__",
     "activity",

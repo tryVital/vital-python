@@ -4,9 +4,10 @@ import typing
 from .aggregate_expr import AggregateExpr
 from .sleep_column_expr import SleepColumnExpr
 from .activity_column_expr import ActivityColumnExpr
+from .workout_column_expr import WorkoutColumnExpr
 from .index_column_expr import IndexColumnExpr
 from .group_key_column_expr import GroupKeyColumnExpr
 
 QueryInstructionSelectItem = typing.Union[
-    AggregateExpr, SleepColumnExpr, ActivityColumnExpr, IndexColumnExpr, GroupKeyColumnExpr
+    AggregateExpr, SleepColumnExpr, ActivityColumnExpr, WorkoutColumnExpr, IndexColumnExpr, GroupKeyColumnExpr
 ]

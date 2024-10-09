@@ -3,7 +3,10 @@
 import typing
 from .sleep_column_expr import SleepColumnExpr
 from .activity_column_expr import ActivityColumnExpr
+from .workout_column_expr import WorkoutColumnExpr
 from .index_column_expr import IndexColumnExpr
 from .group_key_column_expr import GroupKeyColumnExpr
 
-AggregateExprArg = typing.Union[SleepColumnExpr, ActivityColumnExpr, IndexColumnExpr, GroupKeyColumnExpr]
+AggregateExprArg = typing.Union[
+    SleepColumnExpr, ActivityColumnExpr, WorkoutColumnExpr, IndexColumnExpr, GroupKeyColumnExpr
+]

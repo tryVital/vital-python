@@ -19,8 +19,8 @@ class ActivityColumnExprActivity(str, enum.Enum):
     INTENSITY_MEDIUM_SECOND = "intensity_medium_second"
     INTENSITY_HIGH_SECOND = "intensity_high_second"
     HEART_RATE_MEAN = "heart_rate_mean"
-    HEART_RATE_MIN = "heart_rate_min"
-    HEART_RATE_MAX = "heart_rate_max"
+    HEART_RATE_MINIMUM = "heart_rate_minimum"
+    HEART_RATE_MAXIMUM = "heart_rate_maximum"
     HEART_RATE_RESTING = "heart_rate_resting"
     SOURCE_TYPE = "source_type"
     SOURCE_PROVIDER = "source_provider"
@@ -40,8 +40,8 @@ class ActivityColumnExprActivity(str, enum.Enum):
         intensity_medium_second: typing.Callable[[], T_Result],
         intensity_high_second: typing.Callable[[], T_Result],
         heart_rate_mean: typing.Callable[[], T_Result],
-        heart_rate_min: typing.Callable[[], T_Result],
-        heart_rate_max: typing.Callable[[], T_Result],
+        heart_rate_minimum: typing.Callable[[], T_Result],
+        heart_rate_maximum: typing.Callable[[], T_Result],
         heart_rate_resting: typing.Callable[[], T_Result],
         source_type: typing.Callable[[], T_Result],
         source_provider: typing.Callable[[], T_Result],
@@ -71,10 +71,10 @@ class ActivityColumnExprActivity(str, enum.Enum):
             return intensity_high_second()
         if self is ActivityColumnExprActivity.HEART_RATE_MEAN:
             return heart_rate_mean()
-        if self is ActivityColumnExprActivity.HEART_RATE_MIN:
-            return heart_rate_min()
-        if self is ActivityColumnExprActivity.HEART_RATE_MAX:
-            return heart_rate_max()
+        if self is ActivityColumnExprActivity.HEART_RATE_MINIMUM:
+            return heart_rate_minimum()
+        if self is ActivityColumnExprActivity.HEART_RATE_MAXIMUM:
+            return heart_rate_maximum()
         if self is ActivityColumnExprActivity.HEART_RATE_RESTING:
             return heart_rate_resting()
         if self is ActivityColumnExprActivity.SOURCE_TYPE:

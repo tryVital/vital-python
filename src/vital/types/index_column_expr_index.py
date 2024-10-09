@@ -9,9 +9,17 @@ T_Result = typing.TypeVar("T_Result")
 class IndexColumnExprIndex(str, enum.Enum):
     SLEEP = "sleep"
     ACTIVITY = "activity"
+    WORKOUT = "workout"
 
-    def visit(self, sleep: typing.Callable[[], T_Result], activity: typing.Callable[[], T_Result]) -> T_Result:
+    def visit(
+        self,
+        sleep: typing.Callable[[], T_Result],
+        activity: typing.Callable[[], T_Result],
+        workout: typing.Callable[[], T_Result],
+    ) -> T_Result:
         if self is IndexColumnExprIndex.SLEEP:
             return sleep()
         if self is IndexColumnExprIndex.ACTIVITY:
             return activity()
+        if self is IndexColumnExprIndex.WORKOUT:
+            return workout()

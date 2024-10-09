@@ -374,6 +374,8 @@ from .vital_core_schemas_db_schemas_lab_test_insurance_person_details import (
 )
 from .vital_token_created_response import VitalTokenCreatedResponse
 from .vitamins import Vitamins
+from .workout_column_expr import WorkoutColumnExpr
+from .workout_column_expr_workout import WorkoutColumnExprWorkout
 from .workout_v_2_in_db import WorkoutV2InDb
 
 __all__ = [
@@ -721,5 +723,7 @@ __all__ = [
     "VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails",
     "VitalTokenCreatedResponse",
     "Vitamins",
+    "WorkoutColumnExpr",
+    "WorkoutColumnExprWorkout",
     "WorkoutV2InDb",
 ]
