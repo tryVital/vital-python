@@ -25,6 +25,8 @@ from .availability import Availability
 from .basal_body_temperature_entry import BasalBodyTemperatureEntry
 from .billing import Billing
 from .biomarker_result import BiomarkerResult
+from .body_column_expr import BodyColumnExpr
+from .body_column_expr_body import BodyColumnExprBody
 from .body_v_2_in_db import BodyV2InDb
 from .cervical_mucus_entry import CervicalMucusEntry
 from .cervical_mucus_entry_quality import CervicalMucusEntryQuality
@@ -404,6 +406,8 @@ __all__ = [
     "BasalBodyTemperatureEntry",
     "Billing",
     "BiomarkerResult",
+    "BodyColumnExpr",
+    "BodyColumnExprBody",
     "BodyV2InDb",
     "CervicalMucusEntry",
     "CervicalMucusEntryQuality",

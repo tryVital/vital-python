@@ -13,6 +13,7 @@ class Labs(str, enum.Enum):
     QUEST = "quest"
     LABCORP = "labcorp"
     BIOREFERENCE = "bioreference"
+    US_BIOTEK = "us_biotek"
     MANUAL = "manual"
     SANOCARDIO = "sanocardio"
 
@@ -24,6 +25,7 @@ class Labs(str, enum.Enum):
         quest: typing.Callable[[], T_Result],
         labcorp: typing.Callable[[], T_Result],
         bioreference: typing.Callable[[], T_Result],
+        us_biotek: typing.Callable[[], T_Result],
         manual: typing.Callable[[], T_Result],
         sanocardio: typing.Callable[[], T_Result],
     ) -> T_Result:
@@ -39,6 +41,8 @@ class Labs(str, enum.Enum):
             return labcorp()
         if self is Labs.BIOREFERENCE:
             return bioreference()
+        if self is Labs.US_BIOTEK:
+            return us_biotek()
         if self is Labs.MANUAL:
             return manual()
         if self is Labs.SANOCARDIO:

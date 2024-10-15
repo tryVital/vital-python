@@ -10,12 +10,14 @@ class IndexColumnExprIndex(str, enum.Enum):
     SLEEP = "sleep"
     ACTIVITY = "activity"
     WORKOUT = "workout"
+    BODY = "body"
 
     def visit(
         self,
         sleep: typing.Callable[[], T_Result],
         activity: typing.Callable[[], T_Result],
         workout: typing.Callable[[], T_Result],
+        body: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is IndexColumnExprIndex.SLEEP:
             return sleep()
@@ -23,3 +25,5 @@ class IndexColumnExprIndex(str, enum.Enum):
             return activity()
         if self is IndexColumnExprIndex.WORKOUT:
             return workout()
+        if self is IndexColumnExprIndex.BODY:
+            return body()
