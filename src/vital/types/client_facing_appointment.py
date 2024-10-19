@@ -30,7 +30,7 @@ class ClientFacingAppointment(UniversalBaseModel):
     """
 
     iana_timezone: typing.Optional[str] = None
-    type: AppointmentType = "phlebotomy"
+    type: AppointmentType
     provider: AppointmentProvider
     status: AppointmentStatus
     provider_id: str

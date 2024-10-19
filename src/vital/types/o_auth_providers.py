@@ -20,6 +20,7 @@ class OAuthProviders(str, enum.Enum):
     CRONOMETER = "cronometer"
     OMRON = "omron"
     WHOOP_V_2 = "whoop_v2"
+    MY_FITNESS_PAL_V_2 = "my_fitness_pal_v2"
 
     def visit(
         self,
@@ -36,6 +37,7 @@ class OAuthProviders(str, enum.Enum):
         cronometer: typing.Callable[[], T_Result],
         omron: typing.Callable[[], T_Result],
         whoop_v_2: typing.Callable[[], T_Result],
+        my_fitness_pal_v_2: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is OAuthProviders.OURA:
             return oura()
@@ -63,3 +65,5 @@ class OAuthProviders(str, enum.Enum):
             return omron()
         if self is OAuthProviders.WHOOP_V_2:
             return whoop_v_2()
+        if self is OAuthProviders.MY_FITNESS_PAL_V_2:
+            return my_fitness_pal_v_2()

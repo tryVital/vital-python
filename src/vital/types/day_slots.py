@@ -2,12 +2,14 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing
+from .appointment_location import AppointmentLocation
 from .time_slot import TimeSlot
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
 
 class DaySlots(UniversalBaseModel):
+    location: typing.Optional[AppointmentLocation] = None
     date: str
     slots: typing.List[TimeSlot]
 

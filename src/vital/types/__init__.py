@@ -13,8 +13,12 @@ from .answer import Answer
 from .ao_e import AoE
 from .ao_e_answer import AoEAnswer
 from .appointment_availability_slots import AppointmentAvailabilitySlots
+from .appointment_booking_request import AppointmentBookingRequest
 from .appointment_event_status import AppointmentEventStatus
+from .appointment_location import AppointmentLocation
 from .appointment_provider import AppointmentProvider
+from .appointment_psc_labs import AppointmentPscLabs
+from .appointment_reschedule_request import AppointmentRescheduleRequest
 from .appointment_service_type import AppointmentServiceType
 from .appointment_status import AppointmentStatus
 from .appointment_type import AppointmentType
@@ -394,8 +398,12 @@ __all__ = [
     "AoE",
     "AoEAnswer",
     "AppointmentAvailabilitySlots",
+    "AppointmentBookingRequest",
     "AppointmentEventStatus",
+    "AppointmentLocation",
     "AppointmentProvider",
+    "AppointmentPscLabs",
+    "AppointmentRescheduleRequest",
     "AppointmentServiceType",
     "AppointmentStatus",
     "AppointmentType",

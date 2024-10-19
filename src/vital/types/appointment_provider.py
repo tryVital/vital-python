@@ -10,12 +10,14 @@ class AppointmentProvider(str, enum.Enum):
     GETLABS = "getlabs"
     AXLEHEALTH = "axlehealth"
     PHLEBFINDERS = "phlebfinders"
+    QUEST = "quest"
 
     def visit(
         self,
         getlabs: typing.Callable[[], T_Result],
         axlehealth: typing.Callable[[], T_Result],
         phlebfinders: typing.Callable[[], T_Result],
+        quest: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is AppointmentProvider.GETLABS:
             return getlabs()
@@ -23,3 +25,5 @@ class AppointmentProvider(str, enum.Enum):
             return axlehealth()
         if self is AppointmentProvider.PHLEBFINDERS:
             return phlebfinders()
+        if self is AppointmentProvider.QUEST:
+            return quest()

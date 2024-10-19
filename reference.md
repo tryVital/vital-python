@@ -10229,14 +10229,16 @@ Book an at-home phlebotomy appointment.
 <dd>
 
 ```python
-from vital import Vital
+from vital import AppointmentBookingRequest, Vital
 
 client = Vital(
     api_key="YOUR_API_KEY",
 )
 client.lab_tests.book_phlebotomy_appointment(
     order_id="order_id",
-    booking_key="booking_key",
+    request=AppointmentBookingRequest(
+        booking_key="booking_key",
+    ),
 )
 
 ```
@@ -10261,7 +10263,7 @@ client.lab_tests.book_phlebotomy_appointment(
 <dl>
 <dd>
 
-**booking_key:** `str` 
+**request:** `AppointmentBookingRequest` 
     
 </dd>
 </dl>
@@ -10401,14 +10403,16 @@ Reschedule a previously booked at-home phlebotomy appointment.
 <dd>
 
 ```python
-from vital import Vital
+from vital import AppointmentRescheduleRequest, Vital
 
 client = Vital(
     api_key="YOUR_API_KEY",
 )
 client.lab_tests.reschedule_phlebotomy_appointment(
     order_id="order_id",
-    booking_key="booking_key",
+    request=AppointmentRescheduleRequest(
+        booking_key="booking_key",
+    ),
 )
 
 ```
@@ -10433,7 +10437,7 @@ client.lab_tests.reschedule_phlebotomy_appointment(
 <dl>
 <dd>
 
-**booking_key:** `str` 
+**request:** `AppointmentRescheduleRequest` 
     
 </dd>
 </dl>
@@ -11185,6 +11189,337 @@ client.lab_tests.get_labels_pdf(
     
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_psc_appointment_availability</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.get_psc_appointment_availability()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**start_date:** `typing.Optional[str]` — Start date for appointment availability
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**site_codes:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — List of site codes to fetch availability for
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**zip_code:** `typing.Optional[str]` — Zip code of the area to check
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**radius:** `typing.Optional[AllowedRadius]` — Radius in which to search. (meters)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">book_psc_appointment</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import AppointmentBookingRequest, Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.book_psc_appointment(
+    order_id="order_id",
+    request=AppointmentBookingRequest(
+        booking_key="booking_key",
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**order_id:** `str` — Your Order ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `AppointmentBookingRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">reschedule_psc_appointment</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import AppointmentRescheduleRequest, Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.reschedule_psc_appointment(
+    order_id="order_id",
+    request=AppointmentRescheduleRequest(
+        booking_key="booking_key",
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**order_id:** `str` — Your Order ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `AppointmentRescheduleRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">cancel_psc_appointment</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.cancel_psc_appointment(
+    order_id="order_id",
+    cancellation_reason_id="cancellationReasonId",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**order_id:** `str` — Your Order ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cancellation_reason_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**note:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_psc_appointment_cancellation_reason</a>()</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.get_psc_appointment_cancellation_reason()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
 
 <dl>
 <dd>

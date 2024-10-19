@@ -13,6 +13,9 @@ class OrderStatus(str, enum.Enum):
     SAMPLE_WITH_LAB_WALK_IN_TEST_PARTIAL_RESULTS = "sample_with_lab.walk_in_test.partial_results"
     FAILED_WALK_IN_TEST_SAMPLE_ERROR = "failed.walk_in_test.sample_error"
     CANCELLED_WALK_IN_TEST_CANCELLED = "cancelled.walk_in_test.cancelled"
+    COLLECTING_SAMPLE_WALK_IN_TEST_APPOINTMENT_PENDING = "collecting_sample.walk_in_test.appointment_pending"
+    COLLECTING_SAMPLE_WALK_IN_TEST_APPOINTMENT_SCHEDULED = "collecting_sample.walk_in_test.appointment_scheduled"
+    COLLECTING_SAMPLE_WALK_IN_TEST_APPOINTMENT_CANCELLED = "collecting_sample.walk_in_test.appointment_cancelled"
     RECEIVED_AT_HOME_PHLEBOTOMY_ORDERED = "received.at_home_phlebotomy.ordered"
     RECEIVED_AT_HOME_PHLEBOTOMY_REQUISITION_CREATED = "received.at_home_phlebotomy.requisition_created"
     COLLECTING_SAMPLE_AT_HOME_PHLEBOTOMY_APPOINTMENT_PENDING = (
@@ -54,6 +57,9 @@ class OrderStatus(str, enum.Enum):
         sample_with_lab_walk_in_test_partial_results: typing.Callable[[], T_Result],
         failed_walk_in_test_sample_error: typing.Callable[[], T_Result],
         cancelled_walk_in_test_cancelled: typing.Callable[[], T_Result],
+        collecting_sample_walk_in_test_appointment_pending: typing.Callable[[], T_Result],
+        collecting_sample_walk_in_test_appointment_scheduled: typing.Callable[[], T_Result],
+        collecting_sample_walk_in_test_appointment_cancelled: typing.Callable[[], T_Result],
         received_at_home_phlebotomy_ordered: typing.Callable[[], T_Result],
         received_at_home_phlebotomy_requisition_created: typing.Callable[[], T_Result],
         collecting_sample_at_home_phlebotomy_appointment_pending: typing.Callable[[], T_Result],
@@ -93,6 +99,12 @@ class OrderStatus(str, enum.Enum):
             return failed_walk_in_test_sample_error()
         if self is OrderStatus.CANCELLED_WALK_IN_TEST_CANCELLED:
             return cancelled_walk_in_test_cancelled()
+        if self is OrderStatus.COLLECTING_SAMPLE_WALK_IN_TEST_APPOINTMENT_PENDING:
+            return collecting_sample_walk_in_test_appointment_pending()
+        if self is OrderStatus.COLLECTING_SAMPLE_WALK_IN_TEST_APPOINTMENT_SCHEDULED:
+            return collecting_sample_walk_in_test_appointment_scheduled()
+        if self is OrderStatus.COLLECTING_SAMPLE_WALK_IN_TEST_APPOINTMENT_CANCELLED:
+            return collecting_sample_walk_in_test_appointment_cancelled()
         if self is OrderStatus.RECEIVED_AT_HOME_PHLEBOTOMY_ORDERED:
             return received_at_home_phlebotomy_ordered()
         if self is OrderStatus.RECEIVED_AT_HOME_PHLEBOTOMY_REQUISITION_CREATED:

@@ -17,8 +17,10 @@ from ..types.client_facing_marker import ClientFacingMarker
 from ..types.client_facing_lab import ClientFacingLab
 from ..types.us_address import UsAddress
 from ..types.appointment_availability_slots import AppointmentAvailabilitySlots
+from ..types.appointment_booking_request import AppointmentBookingRequest
 from ..types.client_facing_appointment import ClientFacingAppointment
 from ..types.appointment_provider import AppointmentProvider
+from ..types.appointment_reschedule_request import AppointmentRescheduleRequest
 from ..types.client_facing_appointment_cancellation_reason import ClientFacingAppointmentCancellationReason
 from ..types.allowed_radius import AllowedRadius
 from ..types.client_facing_labs import ClientFacingLabs
@@ -636,7 +638,11 @@ class LabTestsClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def book_phlebotomy_appointment(
-        self, order_id: str, *, booking_key: str, request_options: typing.Optional[RequestOptions] = None
+        self,
+        order_id: str,
+        *,
+        request: AppointmentBookingRequest,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingAppointment:
         """
         Book an at-home phlebotomy appointment.
@@ -646,7 +652,7 @@ class LabTestsClient:
         order_id : str
             Your Order ID.
 
-        booking_key : str
+        request : AppointmentBookingRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -658,22 +664,22 @@ class LabTestsClient:
 
         Examples
         --------
-        from vital import Vital
+        from vital import AppointmentBookingRequest, Vital
 
         client = Vital(
             api_key="YOUR_API_KEY",
         )
         client.lab_tests.book_phlebotomy_appointment(
             order_id="order_id",
-            booking_key="booking_key",
+            request=AppointmentBookingRequest(
+                booking_key="booking_key",
+            ),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             f"v3/order/{jsonable_encoder(order_id)}/phlebotomy/appointment/book",
             method="POST",
-            json={
-                "booking_key": booking_key,
-            },
+            json=request,
             request_options=request_options,
             omit=OMIT,
         )
@@ -783,7 +789,11 @@ class LabTestsClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def reschedule_phlebotomy_appointment(
-        self, order_id: str, *, booking_key: str, request_options: typing.Optional[RequestOptions] = None
+        self,
+        order_id: str,
+        *,
+        request: AppointmentRescheduleRequest,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingAppointment:
         """
         Reschedule a previously booked at-home phlebotomy appointment.
@@ -793,7 +803,7 @@ class LabTestsClient:
         order_id : str
             Your Order ID.
 
-        booking_key : str
+        request : AppointmentRescheduleRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -805,22 +815,22 @@ class LabTestsClient:
 
         Examples
         --------
-        from vital import Vital
+        from vital import AppointmentRescheduleRequest, Vital
 
         client = Vital(
             api_key="YOUR_API_KEY",
         )
         client.lab_tests.reschedule_phlebotomy_appointment(
             order_id="order_id",
-            booking_key="booking_key",
+            request=AppointmentRescheduleRequest(
+                booking_key="booking_key",
+            ),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             f"v3/order/{jsonable_encoder(order_id)}/phlebotomy/appointment/reschedule",
             method="PATCH",
-            json={
-                "booking_key": booking_key,
-            },
+            json=request,
             request_options=request_options,
             omit=OMIT,
         )
@@ -1493,6 +1503,333 @@ class LabTestsClient:
             except JSONDecodeError:
                 raise ApiError(status_code=_response.status_code, body=_response.text)
             raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def get_psc_appointment_availability(
+        self,
+        *,
+        start_date: typing.Optional[str] = None,
+        site_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        zip_code: typing.Optional[str] = None,
+        radius: typing.Optional[AllowedRadius] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AppointmentAvailabilitySlots:
+        """
+        Parameters
+        ----------
+        start_date : typing.Optional[str]
+            Start date for appointment availability
+
+        site_codes : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            List of site codes to fetch availability for
+
+        zip_code : typing.Optional[str]
+            Zip code of the area to check
+
+        radius : typing.Optional[AllowedRadius]
+            Radius in which to search. (meters)
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AppointmentAvailabilitySlots
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_psc_appointment_availability()
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v3/order/psc/appointment/availability",
+            method="GET",
+            params={
+                "lab": "quest",
+                "start_date": start_date,
+                "site_codes": site_codes,
+                "zip_code": zip_code,
+                "radius": radius,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AppointmentAvailabilitySlots,
+                    parse_obj_as(
+                        type_=AppointmentAvailabilitySlots,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def book_psc_appointment(
+        self,
+        order_id: str,
+        *,
+        request: AppointmentBookingRequest,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ClientFacingAppointment:
+        """
+        Parameters
+        ----------
+        order_id : str
+            Your Order ID.
+
+        request : AppointmentBookingRequest
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ClientFacingAppointment
+            Successful Response
+
+        Examples
+        --------
+        from vital import AppointmentBookingRequest, Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.book_psc_appointment(
+            order_id="order_id",
+            request=AppointmentBookingRequest(
+                booking_key="booking_key",
+            ),
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v3/order/{jsonable_encoder(order_id)}/psc/appointment/book",
+            method="POST",
+            json=request,
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    ClientFacingAppointment,
+                    parse_obj_as(
+                        type_=ClientFacingAppointment,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def reschedule_psc_appointment(
+        self,
+        order_id: str,
+        *,
+        request: AppointmentRescheduleRequest,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ClientFacingAppointment:
+        """
+        Parameters
+        ----------
+        order_id : str
+            Your Order ID.
+
+        request : AppointmentRescheduleRequest
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ClientFacingAppointment
+            Successful Response
+
+        Examples
+        --------
+        from vital import AppointmentRescheduleRequest, Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.reschedule_psc_appointment(
+            order_id="order_id",
+            request=AppointmentRescheduleRequest(
+                booking_key="booking_key",
+            ),
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v3/order/{jsonable_encoder(order_id)}/psc/appointment/reschedule",
+            method="PATCH",
+            json=request,
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    ClientFacingAppointment,
+                    parse_obj_as(
+                        type_=ClientFacingAppointment,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def cancel_psc_appointment(
+        self,
+        order_id: str,
+        *,
+        cancellation_reason_id: str,
+        note: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ClientFacingAppointment:
+        """
+        Parameters
+        ----------
+        order_id : str
+            Your Order ID.
+
+        cancellation_reason_id : str
+
+        note : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ClientFacingAppointment
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.cancel_psc_appointment(
+            order_id="order_id",
+            cancellation_reason_id="cancellationReasonId",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v3/order/{jsonable_encoder(order_id)}/psc/appointment/cancel",
+            method="PATCH",
+            json={
+                "cancellationReasonId": cancellation_reason_id,
+                "note": note,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    ClientFacingAppointment,
+                    parse_obj_as(
+                        type_=ClientFacingAppointment,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def get_psc_appointment_cancellation_reason(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.List[ClientFacingAppointmentCancellationReason]:
+        """
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[ClientFacingAppointmentCancellationReason]
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_psc_appointment_cancellation_reason()
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v3/order/psc/appointment/cancellation-reasons",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.List[ClientFacingAppointmentCancellationReason],
+                    parse_obj_as(
+                        type_=typing.List[ClientFacingAppointmentCancellationReason],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def get_order_requistion_pdf(
         self, order_id: str, *, request_options: typing.Optional[RequestOptions] = None
@@ -2664,7 +3001,11 @@ class AsyncLabTestsClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def book_phlebotomy_appointment(
-        self, order_id: str, *, booking_key: str, request_options: typing.Optional[RequestOptions] = None
+        self,
+        order_id: str,
+        *,
+        request: AppointmentBookingRequest,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingAppointment:
         """
         Book an at-home phlebotomy appointment.
@@ -2674,7 +3015,7 @@ class AsyncLabTestsClient:
         order_id : str
             Your Order ID.
 
-        booking_key : str
+        request : AppointmentBookingRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2688,7 +3029,7 @@ class AsyncLabTestsClient:
         --------
         import asyncio
 
-        from vital import AsyncVital
+        from vital import AppointmentBookingRequest, AsyncVital
 
         client = AsyncVital(
             api_key="YOUR_API_KEY",
@@ -2698,7 +3039,9 @@ class AsyncLabTestsClient:
         async def main() -> None:
             await client.lab_tests.book_phlebotomy_appointment(
                 order_id="order_id",
-                booking_key="booking_key",
+                request=AppointmentBookingRequest(
+                    booking_key="booking_key",
+                ),
             )
 
 
@@ -2707,9 +3050,7 @@ class AsyncLabTestsClient:
         _response = await self._client_wrapper.httpx_client.request(
             f"v3/order/{jsonable_encoder(order_id)}/phlebotomy/appointment/book",
             method="POST",
-            json={
-                "booking_key": booking_key,
-            },
+            json=request,
             request_options=request_options,
             omit=OMIT,
         )
@@ -2827,7 +3168,11 @@ class AsyncLabTestsClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def reschedule_phlebotomy_appointment(
-        self, order_id: str, *, booking_key: str, request_options: typing.Optional[RequestOptions] = None
+        self,
+        order_id: str,
+        *,
+        request: AppointmentRescheduleRequest,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingAppointment:
         """
         Reschedule a previously booked at-home phlebotomy appointment.
@@ -2837,7 +3182,7 @@ class AsyncLabTestsClient:
         order_id : str
             Your Order ID.
 
-        booking_key : str
+        request : AppointmentRescheduleRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2851,7 +3196,7 @@ class AsyncLabTestsClient:
         --------
         import asyncio
 
-        from vital import AsyncVital
+        from vital import AppointmentRescheduleRequest, AsyncVital
 
         client = AsyncVital(
             api_key="YOUR_API_KEY",
@@ -2861,7 +3206,9 @@ class AsyncLabTestsClient:
         async def main() -> None:
             await client.lab_tests.reschedule_phlebotomy_appointment(
                 order_id="order_id",
-                booking_key="booking_key",
+                request=AppointmentRescheduleRequest(
+                    booking_key="booking_key",
+                ),
             )
 
 
@@ -2870,9 +3217,7 @@ class AsyncLabTestsClient:
         _response = await self._client_wrapper.httpx_client.request(
             f"v3/order/{jsonable_encoder(order_id)}/phlebotomy/appointment/reschedule",
             method="PATCH",
-            json={
-                "booking_key": booking_key,
-            },
+            json=request,
             request_options=request_options,
             omit=OMIT,
         )
@@ -3624,6 +3969,373 @@ class AsyncLabTestsClient:
             except JSONDecodeError:
                 raise ApiError(status_code=_response.status_code, body=_response.text)
             raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def get_psc_appointment_availability(
+        self,
+        *,
+        start_date: typing.Optional[str] = None,
+        site_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        zip_code: typing.Optional[str] = None,
+        radius: typing.Optional[AllowedRadius] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AppointmentAvailabilitySlots:
+        """
+        Parameters
+        ----------
+        start_date : typing.Optional[str]
+            Start date for appointment availability
+
+        site_codes : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            List of site codes to fetch availability for
+
+        zip_code : typing.Optional[str]
+            Zip code of the area to check
+
+        radius : typing.Optional[AllowedRadius]
+            Radius in which to search. (meters)
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AppointmentAvailabilitySlots
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.lab_tests.get_psc_appointment_availability()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "v3/order/psc/appointment/availability",
+            method="GET",
+            params={
+                "lab": "quest",
+                "start_date": start_date,
+                "site_codes": site_codes,
+                "zip_code": zip_code,
+                "radius": radius,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AppointmentAvailabilitySlots,
+                    parse_obj_as(
+                        type_=AppointmentAvailabilitySlots,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def book_psc_appointment(
+        self,
+        order_id: str,
+        *,
+        request: AppointmentBookingRequest,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ClientFacingAppointment:
+        """
+        Parameters
+        ----------
+        order_id : str
+            Your Order ID.
+
+        request : AppointmentBookingRequest
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ClientFacingAppointment
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from vital import AppointmentBookingRequest, AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.lab_tests.book_psc_appointment(
+                order_id="order_id",
+                request=AppointmentBookingRequest(
+                    booking_key="booking_key",
+                ),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v3/order/{jsonable_encoder(order_id)}/psc/appointment/book",
+            method="POST",
+            json=request,
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    ClientFacingAppointment,
+                    parse_obj_as(
+                        type_=ClientFacingAppointment,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def reschedule_psc_appointment(
+        self,
+        order_id: str,
+        *,
+        request: AppointmentRescheduleRequest,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ClientFacingAppointment:
+        """
+        Parameters
+        ----------
+        order_id : str
+            Your Order ID.
+
+        request : AppointmentRescheduleRequest
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ClientFacingAppointment
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from vital import AppointmentRescheduleRequest, AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.lab_tests.reschedule_psc_appointment(
+                order_id="order_id",
+                request=AppointmentRescheduleRequest(
+                    booking_key="booking_key",
+                ),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v3/order/{jsonable_encoder(order_id)}/psc/appointment/reschedule",
+            method="PATCH",
+            json=request,
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    ClientFacingAppointment,
+                    parse_obj_as(
+                        type_=ClientFacingAppointment,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def cancel_psc_appointment(
+        self,
+        order_id: str,
+        *,
+        cancellation_reason_id: str,
+        note: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ClientFacingAppointment:
+        """
+        Parameters
+        ----------
+        order_id : str
+            Your Order ID.
+
+        cancellation_reason_id : str
+
+        note : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ClientFacingAppointment
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.lab_tests.cancel_psc_appointment(
+                order_id="order_id",
+                cancellation_reason_id="cancellationReasonId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v3/order/{jsonable_encoder(order_id)}/psc/appointment/cancel",
+            method="PATCH",
+            json={
+                "cancellationReasonId": cancellation_reason_id,
+                "note": note,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    ClientFacingAppointment,
+                    parse_obj_as(
+                        type_=ClientFacingAppointment,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def get_psc_appointment_cancellation_reason(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.List[ClientFacingAppointmentCancellationReason]:
+        """
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[ClientFacingAppointmentCancellationReason]
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.lab_tests.get_psc_appointment_cancellation_reason()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "v3/order/psc/appointment/cancellation-reasons",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.List[ClientFacingAppointmentCancellationReason],
+                    parse_obj_as(
+                        type_=typing.List[ClientFacingAppointmentCancellationReason],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def get_order_requistion_pdf(
         self, order_id: str, *, request_options: typing.Optional[RequestOptions] = None

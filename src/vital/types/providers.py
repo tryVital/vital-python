@@ -42,6 +42,7 @@ class Providers(str, enum.Enum):
     KARDIA = "kardia"
     WHOOP_V_2 = "whoop_v2"
     ULTRAHUMAN = "ultrahuman"
+    MY_FITNESS_PAL_V_2 = "my_fitness_pal_v2"
 
     def visit(
         self,
@@ -80,6 +81,7 @@ class Providers(str, enum.Enum):
         kardia: typing.Callable[[], T_Result],
         whoop_v_2: typing.Callable[[], T_Result],
         ultrahuman: typing.Callable[[], T_Result],
+        my_fitness_pal_v_2: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is Providers.OURA:
             return oura()
@@ -151,3 +153,5 @@ class Providers(str, enum.Enum):
             return whoop_v_2()
         if self is Providers.ULTRAHUMAN:
             return ultrahuman()
+        if self is Providers.MY_FITNESS_PAL_V_2:
+            return my_fitness_pal_v_2()
