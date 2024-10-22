@@ -11536,6 +11536,76 @@ client.lab_tests.get_psc_appointment_cancellation_reason()
 </dl>
 </details>
 
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_psc_appointment</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get the appointment associated with an order.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.get_psc_appointment(
+    order_id="order_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**order_id:** `str` — Your Order ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_order_requistion_pdf</a>(...)</code></summary>
 <dl>
 <dd>

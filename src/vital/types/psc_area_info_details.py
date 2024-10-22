@@ -7,6 +7,7 @@ import pydantic
 
 
 class PscAreaInfoDetails(UniversalBaseModel):
+    appointment_with_vital: bool
     within_radius: int
     radius: str
 

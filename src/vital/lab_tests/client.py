@@ -1547,7 +1547,7 @@ class LabTestsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "v3/order/psc/appointment/availability",
-            method="GET",
+            method="POST",
             params={
                 "lab": "quest",
                 "start_date": start_date,
@@ -1825,6 +1825,65 @@ class LabTestsClient:
                         type_=typing.List[ClientFacingAppointmentCancellationReason],  # type: ignore
                         object_=_response.json(),
                     ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def get_psc_appointment(
+        self, order_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ClientFacingAppointment:
+        """
+        Get the appointment associated with an order.
+
+        Parameters
+        ----------
+        order_id : str
+            Your Order ID.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ClientFacingAppointment
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_psc_appointment(
+            order_id="order_id",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v3/order/{jsonable_encoder(order_id)}/psc/appointment",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    ClientFacingAppointment,
+                    parse_obj_as(
+                        type_=ClientFacingAppointment,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
                 )
             _response_json = _response.json()
         except JSONDecodeError:
@@ -4021,7 +4080,7 @@ class AsyncLabTestsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "v3/order/psc/appointment/availability",
-            method="GET",
+            method="POST",
             params={
                 "lab": "quest",
                 "start_date": start_date,
@@ -4331,6 +4390,73 @@ class AsyncLabTestsClient:
                         type_=typing.List[ClientFacingAppointmentCancellationReason],  # type: ignore
                         object_=_response.json(),
                     ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def get_psc_appointment(
+        self, order_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ClientFacingAppointment:
+        """
+        Get the appointment associated with an order.
+
+        Parameters
+        ----------
+        order_id : str
+            Your Order ID.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ClientFacingAppointment
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.lab_tests.get_psc_appointment(
+                order_id="order_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v3/order/{jsonable_encoder(order_id)}/psc/appointment",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    ClientFacingAppointment,
+                    parse_obj_as(
+                        type_=ClientFacingAppointment,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
                 )
             _response_json = _response.json()
         except JSONDecodeError:

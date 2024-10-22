@@ -10,6 +10,7 @@ import pydantic
 class ClientFacingLabLocation(UniversalBaseModel):
     metadata: LabLocationMetadata
     distance: int
+    site_code: str
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
