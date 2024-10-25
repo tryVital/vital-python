@@ -5,6 +5,7 @@ from .responsible_relationship import ResponsibleRelationship
 from .person_details_output import PersonDetailsOutput
 from .company_details import CompanyDetails
 import typing
+from .guarantor_details import GuarantorDetails
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
@@ -16,7 +17,7 @@ class ClientFacingInsurance(UniversalBaseModel):
     insured: PersonDetailsOutput
     company: CompanyDetails
     group_id: typing.Optional[str] = None
-    guarantor: typing.Optional[PersonDetailsOutput] = None
+    guarantor: typing.Optional[GuarantorDetails] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

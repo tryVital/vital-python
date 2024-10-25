@@ -8351,7 +8351,7 @@ client.user.create_insurance(
 <dl>
 <dd>
 
-**guarantor:** `typing.Optional[VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails]` 
+**guarantor:** `typing.Optional[GuarantorDetails]` 
     
 </dd>
 </dl>

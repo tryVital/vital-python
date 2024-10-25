@@ -22,6 +22,7 @@ from ..types.responsible_relationship import ResponsibleRelationship
 from ..types.vital_core_schemas_db_schemas_lab_test_insurance_person_details import (
     VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails,
 )
+from ..types.guarantor_details import GuarantorDetails
 from ..types.client_facing_insurance import ClientFacingInsurance
 from ..types.address import Address
 from ..types.providers import Providers
@@ -615,7 +616,7 @@ class UserClient:
         relationship: ResponsibleRelationship,
         insured: VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails,
         group_id: typing.Optional[str] = OMIT,
-        guarantor: typing.Optional[VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails] = OMIT,
+        guarantor: typing.Optional[GuarantorDetails] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingInsurance:
         """
@@ -633,7 +634,7 @@ class UserClient:
 
         group_id : typing.Optional[str]
 
-        guarantor : typing.Optional[VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails]
+        guarantor : typing.Optional[GuarantorDetails]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1795,7 +1796,7 @@ class AsyncUserClient:
         relationship: ResponsibleRelationship,
         insured: VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails,
         group_id: typing.Optional[str] = OMIT,
-        guarantor: typing.Optional[VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails] = OMIT,
+        guarantor: typing.Optional[GuarantorDetails] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingInsurance:
         """
@@ -1813,7 +1814,7 @@ class AsyncUserClient:
 
         group_id : typing.Optional[str]
 
-        guarantor : typing.Optional[VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails]
+        guarantor : typing.Optional[GuarantorDetails]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

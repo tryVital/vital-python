@@ -251,6 +251,7 @@ from .grouped_vo_2_max import GroupedVo2Max
 from .grouped_vo_2_max_response import GroupedVo2MaxResponse
 from .grouped_water import GroupedWater
 from .grouped_water_response import GroupedWaterResponse
+from .guarantor_details import GuarantorDetails
 from .health_insurance_create_request import HealthInsuranceCreateRequest
 from .health_insurance_create_request_back_image import HealthInsuranceCreateRequestBackImage
 from .health_insurance_create_request_front_image import HealthInsuranceCreateRequestFrontImage
@@ -610,6 +611,7 @@ __all__ = [
     "GroupedVo2MaxResponse",
     "GroupedWater",
     "GroupedWaterResponse",
+    "GuarantorDetails",
     "HealthInsuranceCreateRequest",
     "HealthInsuranceCreateRequestBackImage",
     "HealthInsuranceCreateRequestFrontImage",

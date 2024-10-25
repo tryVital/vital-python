@@ -10,12 +10,14 @@ class Billing(str, enum.Enum):
     CLIENT_BILL = "client_bill"
     COMMERCIAL_INSURANCE = "commercial_insurance"
     PATIENT_BILL_PASSTHROUGH = "patient_bill_passthrough"
+    PATIENT_BILL = "patient_bill"
 
     def visit(
         self,
         client_bill: typing.Callable[[], T_Result],
         commercial_insurance: typing.Callable[[], T_Result],
         patient_bill_passthrough: typing.Callable[[], T_Result],
+        patient_bill: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is Billing.CLIENT_BILL:
             return client_bill()
@@ -23,3 +25,5 @@ class Billing(str, enum.Enum):
             return commercial_insurance()
         if self is Billing.PATIENT_BILL_PASSTHROUGH:
             return patient_bill_passthrough()
+        if self is Billing.PATIENT_BILL:
+            return patient_bill()
