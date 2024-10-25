@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "vital"
-version = "2.1.92"
+version = "2.1.93"
 description = ""
 readme = "README.md"
 authors = []
