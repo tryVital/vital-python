@@ -352,7 +352,9 @@ from .single_user_historical_pull_response import SingleUserHistoricalPullRespon
 from .single_user_resource_response import SingleUserResourceResponse
 from .sleep_column_expr import SleepColumnExpr
 from .sleep_column_expr_sleep import SleepColumnExprSleep
+from .sleep_score_value_macro_expr import SleepScoreValueMacroExpr
 from .sleep_summary_state import SleepSummaryState
+from .sleep_type import SleepType
 from .sleep_v_2_in_db import SleepV2InDb
 from .source import Source
 from .source_auth_type import SourceAuthType
@@ -363,6 +365,7 @@ from .time_slot import TimeSlot
 from .timeseries_metric_point import TimeseriesMetricPoint
 from .timeseries_resource import TimeseriesResource
 from .trace_elements import TraceElements
+from .unrecognized_value_macro_expr import UnrecognizedValueMacroExpr
 from .us_address import UsAddress
 from .user_historical_pulls_response import UserHistoricalPullsResponse
 from .user_info import UserInfo
@@ -712,7 +715,9 @@ __all__ = [
     "SingleUserResourceResponse",
     "SleepColumnExpr",
     "SleepColumnExprSleep",
+    "SleepScoreValueMacroExpr",
     "SleepSummaryState",
+    "SleepType",
     "SleepV2InDb",
     "Source",
     "SourceAuthType",
@@ -723,6 +728,7 @@ __all__ = [
     "TimeseriesMetricPoint",
     "TimeseriesResource",
     "TraceElements",
+    "UnrecognizedValueMacroExpr",
     "UsAddress",
     "UserHistoricalPullsResponse",
     "UserInfo",

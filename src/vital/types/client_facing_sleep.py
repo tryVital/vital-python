@@ -2,6 +2,7 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import pydantic
+from .sleep_type import SleepType
 import typing
 from .sleep_summary_state import SleepSummaryState
 from .client_facing_source import ClientFacingSource
@@ -34,6 +35,14 @@ class ClientFacingSleep(UniversalBaseModel):
     bedtime_stop: str = pydantic.Field()
     """
     UTC Time when the sleep period ended
+    """
+
+    type: SleepType = pydantic.Field()
+    """
+    `long_sleep`: >=3 hours of sleep;
+    `short_sleep`: <3 hours of sleep that was ended before 6:00 PM in local time;
+    `acknowledged_nap`: User-acknowledged naps, typically under 3 hours of sleep;
+    `indeterminate`: The sleep session recording is ongoing.
     """
 
     timezone_offset: typing.Optional[int] = pydantic.Field(default=None)

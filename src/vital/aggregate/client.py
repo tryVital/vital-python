@@ -55,9 +55,6 @@ class AggregateClient:
         from vital import (
             AggregateExpr,
             AggregateExprFunc,
-            DateTruncExpr,
-            IndexColumnExpr,
-            IndexColumnExprIndex,
             Period,
             PeriodUnit,
             QueryInstruction,
@@ -86,16 +83,6 @@ class AggregateClient:
                                 sleep=SleepColumnExprSleep.SESSION_START,
                             ),
                             func=AggregateExprFunc.MEAN,
-                        )
-                    ],
-                    group_by=[
-                        DateTruncExpr(
-                            date_trunc=Period(
-                                unit=PeriodUnit.MINUTE,
-                            ),
-                            arg=IndexColumnExpr(
-                                index=IndexColumnExprIndex.SLEEP,
-                            ),
                         )
                     ],
                 )
@@ -181,9 +168,6 @@ class AsyncAggregateClient:
             AggregateExpr,
             AggregateExprFunc,
             AsyncVital,
-            DateTruncExpr,
-            IndexColumnExpr,
-            IndexColumnExprIndex,
             Period,
             PeriodUnit,
             QueryInstruction,
@@ -214,16 +198,6 @@ class AsyncAggregateClient:
                                     sleep=SleepColumnExprSleep.SESSION_START,
                                 ),
                                 func=AggregateExprFunc.MEAN,
-                            )
-                        ],
-                        group_by=[
-                            DateTruncExpr(
-                                date_trunc=Period(
-                                    unit=PeriodUnit.MINUTE,
-                                ),
-                                arg=IndexColumnExpr(
-                                    index=IndexColumnExprIndex.SLEEP,
-                                ),
                             )
                         ],
                     )

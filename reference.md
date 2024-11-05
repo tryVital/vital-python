@@ -12626,9 +12626,6 @@ client.insurance.search_diagnosis(
 from vital import (
     AggregateExpr,
     AggregateExprFunc,
-    DateTruncExpr,
-    IndexColumnExpr,
-    IndexColumnExprIndex,
     Period,
     PeriodUnit,
     QueryInstruction,
@@ -12657,16 +12654,6 @@ client.aggregate.query_one(
                         sleep=SleepColumnExprSleep.SESSION_START,
                     ),
                     func=AggregateExprFunc.MEAN,
-                )
-            ],
-            group_by=[
-                DateTruncExpr(
-                    date_trunc=Period(
-                        unit=PeriodUnit.MINUTE,
-                    ),
-                    arg=IndexColumnExpr(
-                        index=IndexColumnExprIndex.SLEEP,
-                    ),
                 )
             ],
         )

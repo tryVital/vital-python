@@ -8,6 +8,8 @@ from .workout_column_expr import WorkoutColumnExpr
 from .body_column_expr import BodyColumnExpr
 from .index_column_expr import IndexColumnExpr
 from .group_key_column_expr import GroupKeyColumnExpr
+from .sleep_score_value_macro_expr import SleepScoreValueMacroExpr
+from .unrecognized_value_macro_expr import UnrecognizedValueMacroExpr
 
 QueryInstructionSelectItem = typing.Union[
     AggregateExpr,
@@ -17,4 +19,6 @@ QueryInstructionSelectItem = typing.Union[
     BodyColumnExpr,
     IndexColumnExpr,
     GroupKeyColumnExpr,
+    SleepScoreValueMacroExpr,
+    UnrecognizedValueMacroExpr,
 ]

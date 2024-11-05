@@ -2,16 +2,13 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing
-from .query_instruction_select_item import QueryInstructionSelectItem
-from .query_instruction_group_by_item import QueryInstructionGroupByItem
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
 
-class QueryInstruction(UniversalBaseModel):
-    select: typing.List[QueryInstructionSelectItem]
-    group_by: typing.Optional[typing.List[QueryInstructionGroupByItem]] = None
-    split_by_source: typing.Optional[bool] = None
+class SleepScoreValueMacroExpr(UniversalBaseModel):
+    value_macro: typing.Literal["sleep_score"] = "sleep_score"
+    version: typing.Optional[typing.Literal["automatic"]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
