@@ -10,6 +10,7 @@ class SleepColumnExprSleep(str, enum.Enum):
     SESSION_START = "session_start"
     SESSION_END = "session_end"
     STATE = "state"
+    TYPE = "type"
     DURATION_SECOND = "duration_second"
     STAGE_ASLEEP_SECOND = "stage_asleep_second"
     STAGE_AWAKE_SECOND = "stage_awake_second"
@@ -37,6 +38,7 @@ class SleepColumnExprSleep(str, enum.Enum):
         session_start: typing.Callable[[], T_Result],
         session_end: typing.Callable[[], T_Result],
         state: typing.Callable[[], T_Result],
+        type: typing.Callable[[], T_Result],
         duration_second: typing.Callable[[], T_Result],
         stage_asleep_second: typing.Callable[[], T_Result],
         stage_awake_second: typing.Callable[[], T_Result],
@@ -65,6 +67,8 @@ class SleepColumnExprSleep(str, enum.Enum):
             return session_end()
         if self is SleepColumnExprSleep.STATE:
             return state()
+        if self is SleepColumnExprSleep.TYPE:
+            return type()
         if self is SleepColumnExprSleep.DURATION_SECOND:
             return duration_second()
         if self is SleepColumnExprSleep.STAGE_ASLEEP_SECOND:
