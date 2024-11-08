@@ -277,6 +277,7 @@ from .lab_test_status import LabTestStatus
 from .labs import Labs
 from .last_attempt import LastAttempt
 from .libre_config import LibreConfig
+from .link_requirements import LinkRequirements
 from .link_token_exchange_response import LinkTokenExchangeResponse
 from .lng_lat import LngLat
 from .macros import Macros
@@ -298,6 +299,7 @@ from .order_top_level_status import OrderTopLevelStatus
 from .ovulation_test_entry import OvulationTestEntry
 from .ovulation_test_entry_test_result import OvulationTestEntryTestResult
 from .paginated_users_response import PaginatedUsersResponse
+from .parent_biomarker_data import ParentBiomarkerData
 from .password_providers import PasswordProviders
 from .patient_address_compatible import PatientAddressCompatible
 from .patient_details import PatientDetails
@@ -640,6 +642,7 @@ __all__ = [
     "Labs",
     "LastAttempt",
     "LibreConfig",
+    "LinkRequirements",
     "LinkTokenExchangeResponse",
     "LngLat",
     "Macros",
@@ -661,6 +664,7 @@ __all__ = [
     "OvulationTestEntry",
     "OvulationTestEntryTestResult",
     "PaginatedUsersResponse",
+    "ParentBiomarkerData",
     "PasswordProviders",
     "PatientAddressCompatible",
     "PatientDetails",

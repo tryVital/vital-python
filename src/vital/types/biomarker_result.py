@@ -3,6 +3,7 @@
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing
 from .result_type import ResultType
+from .parent_biomarker_data import ParentBiomarkerData
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
@@ -28,6 +29,7 @@ class BiomarkerResult(UniversalBaseModel):
     loinc: typing.Optional[str] = None
     loinc_slug: typing.Optional[str] = None
     provider_id: typing.Optional[str] = None
+    source_markers: typing.Optional[typing.List[ParentBiomarkerData]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

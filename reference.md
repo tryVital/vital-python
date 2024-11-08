@@ -159,6 +159,14 @@ client.link.is_token_valid(
 <dl>
 <dd>
 
+**requirements:** `typing.Optional[LinkRequirements]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
