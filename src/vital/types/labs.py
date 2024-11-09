@@ -16,6 +16,7 @@ class Labs(str, enum.Enum):
     US_BIOTEK = "us_biotek"
     MANUAL = "manual"
     SANOCARDIO = "sanocardio"
+    IHD = "ihd"
 
     def visit(
         self,
@@ -28,6 +29,7 @@ class Labs(str, enum.Enum):
         us_biotek: typing.Callable[[], T_Result],
         manual: typing.Callable[[], T_Result],
         sanocardio: typing.Callable[[], T_Result],
+        ihd: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is Labs.AYUMETRIX:
             return ayumetrix()
@@ -47,3 +49,5 @@ class Labs(str, enum.Enum):
             return manual()
         if self is Labs.SANOCARDIO:
             return sanocardio()
+        if self is Labs.IHD:
+            return ihd()

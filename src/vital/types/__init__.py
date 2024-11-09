@@ -168,6 +168,7 @@ from .client_facing_water_timeseries import ClientFacingWaterTimeseries
 from .client_facing_workout import ClientFacingWorkout
 from .client_facing_workout_duration_sample import ClientFacingWorkoutDurationSample
 from .client_facing_workout_duration_sample_intensity import ClientFacingWorkoutDurationSampleIntensity
+from .client_sleep_cycle_response import ClientSleepCycleResponse
 from .client_sleep_response import ClientSleepResponse
 from .client_user_id_conflict import ClientUserIdConflict
 from .client_workout_response import ClientWorkoutResponse
@@ -354,6 +355,9 @@ from .single_user_historical_pull_response import SingleUserHistoricalPullRespon
 from .single_user_resource_response import SingleUserResourceResponse
 from .sleep_column_expr import SleepColumnExpr
 from .sleep_column_expr_sleep import SleepColumnExprSleep
+from .sleep_cycle import SleepCycle
+from .sleep_cycle_source_provider import SleepCycleSourceProvider
+from .sleep_cycle_source_type import SleepCycleSourceType
 from .sleep_score_value_macro_expr import SleepScoreValueMacroExpr
 from .sleep_summary_state import SleepSummaryState
 from .sleep_type import SleepType
@@ -384,6 +388,7 @@ from .vital_core_schemas_db_schemas_lab_test_health_insurance_person_details imp
 from .vital_core_schemas_db_schemas_lab_test_insurance_person_details import (
     VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails,
 )
+from .vital_sleep_stage import VitalSleepStage
 from .vital_token_created_response import VitalTokenCreatedResponse
 from .vitamins import Vitamins
 from .workout_column_expr import WorkoutColumnExpr
@@ -533,6 +538,7 @@ __all__ = [
     "ClientFacingWorkout",
     "ClientFacingWorkoutDurationSample",
     "ClientFacingWorkoutDurationSampleIntensity",
+    "ClientSleepCycleResponse",
     "ClientSleepResponse",
     "ClientUserIdConflict",
     "ClientWorkoutResponse",
@@ -719,6 +725,9 @@ __all__ = [
     "SingleUserResourceResponse",
     "SleepColumnExpr",
     "SleepColumnExprSleep",
+    "SleepCycle",
+    "SleepCycleSourceProvider",
+    "SleepCycleSourceType",
     "SleepScoreValueMacroExpr",
     "SleepSummaryState",
     "SleepType",
@@ -745,6 +754,7 @@ __all__ = [
     "ValidationErrorLocItem",
     "VitalCoreSchemasDbSchemasLabTestHealthInsurancePersonDetails",
     "VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails",
+    "VitalSleepStage",
     "VitalTokenCreatedResponse",
     "Vitamins",
     "WorkoutColumnExpr",

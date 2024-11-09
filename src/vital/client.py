@@ -5,6 +5,7 @@ from .environment import VitalEnvironment
 import httpx
 from .core.client_wrapper import SyncClientWrapper
 from .link.client import LinkClient
+from .sleep_cycle.client import SleepCycleClient
 from .profile.client import ProfileClient
 from .devices.client import DevicesClient
 from .activity.client import ActivityClient
@@ -24,6 +25,7 @@ from .insurance.client import InsuranceClient
 from .aggregate.client import AggregateClient
 from .core.client_wrapper import AsyncClientWrapper
 from .link.client import AsyncLinkClient
+from .sleep_cycle.client import AsyncSleepCycleClient
 from .profile.client import AsyncProfileClient
 from .devices.client import AsyncDevicesClient
 from .activity.client import AsyncActivityClient
@@ -102,6 +104,7 @@ class Vital:
             timeout=_defaulted_timeout,
         )
         self.link = LinkClient(client_wrapper=self._client_wrapper)
+        self.sleep_cycle = SleepCycleClient(client_wrapper=self._client_wrapper)
         self.profile = ProfileClient(client_wrapper=self._client_wrapper)
         self.devices = DevicesClient(client_wrapper=self._client_wrapper)
         self.activity = ActivityClient(client_wrapper=self._client_wrapper)
@@ -180,6 +183,7 @@ class AsyncVital:
             timeout=_defaulted_timeout,
         )
         self.link = AsyncLinkClient(client_wrapper=self._client_wrapper)
+        self.sleep_cycle = AsyncSleepCycleClient(client_wrapper=self._client_wrapper)
         self.profile = AsyncProfileClient(client_wrapper=self._client_wrapper)
         self.devices = AsyncDevicesClient(client_wrapper=self._client_wrapper)
         self.activity = AsyncActivityClient(client_wrapper=self._client_wrapper)
