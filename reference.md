@@ -143,30 +143,6 @@ client.link.is_token_valid(
 <dl>
 <dd>
 
-**is_used:** `typing.Optional[bool]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**oauth_info:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requirements:** `typing.Optional[LinkRequirements]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>

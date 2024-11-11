@@ -10,7 +10,6 @@ from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
-from ..types.link_requirements import LinkRequirements
 import datetime as dt
 from ..types.vital_token_created_response import VitalTokenCreatedResponse
 from ..core.datetime_utils import serialize_datetime
@@ -120,24 +119,12 @@ class LinkClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def is_token_valid(
-        self,
-        *,
-        token: str,
-        is_used: typing.Optional[bool] = OMIT,
-        oauth_info: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
-        requirements: typing.Optional[LinkRequirements] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, *, token: str, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.Dict[str, typing.Optional[typing.Any]]:
         """
         Parameters
         ----------
         token : str
-
-        is_used : typing.Optional[bool]
-
-        oauth_info : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-
-        requirements : typing.Optional[LinkRequirements]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -163,9 +150,6 @@ class LinkClient:
             method="POST",
             json={
                 "token": token,
-                "is_used": is_used,
-                "oauth_info": oauth_info,
-                "requirements": requirements,
             },
             request_options=request_options,
             omit=OMIT,
@@ -1162,24 +1146,12 @@ class AsyncLinkClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def is_token_valid(
-        self,
-        *,
-        token: str,
-        is_used: typing.Optional[bool] = OMIT,
-        oauth_info: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
-        requirements: typing.Optional[LinkRequirements] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, *, token: str, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.Dict[str, typing.Optional[typing.Any]]:
         """
         Parameters
         ----------
         token : str
-
-        is_used : typing.Optional[bool]
-
-        oauth_info : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-
-        requirements : typing.Optional[LinkRequirements]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1213,9 +1185,6 @@ class AsyncLinkClient:
             method="POST",
             json={
                 "token": token,
-                "is_used": is_used,
-                "oauth_info": oauth_info,
-                "requirements": requirements,
             },
             request_options=request_options,
             omit=OMIT,

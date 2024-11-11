@@ -278,7 +278,6 @@ from .lab_test_status import LabTestStatus
 from .labs import Labs
 from .last_attempt import LastAttempt
 from .libre_config import LibreConfig
-from .link_requirements import LinkRequirements
 from .link_token_exchange_response import LinkTokenExchangeResponse
 from .lng_lat import LngLat
 from .macros import Macros
@@ -648,7 +647,6 @@ __all__ = [
     "Labs",
     "LastAttempt",
     "LibreConfig",
-    "LinkRequirements",
     "LinkTokenExchangeResponse",
     "LngLat",
     "Macros",
