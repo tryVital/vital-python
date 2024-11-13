@@ -28,8 +28,8 @@ class WorkoutColumnExprWorkout(str, enum.Enum):
     ELEVATION_GAIN_METER = "elevation_gain_meter"
     ELEVATION_MAXIMUM_METER = "elevation_maximum_meter"
     ELEVATION_MINIMUM_METER = "elevation_minimum_meter"
-    AVERAGE_SPEED = "average_speed"
-    MAX_SPEED = "max_speed"
+    SPEED_MEAN = "speed_mean"
+    SPEED_MAXIMUM = "speed_maximum"
     POWER_SOURCE = "power_source"
     POWER_MEAN = "power_mean"
     POWER_MAXIMUM = "power_maximum"
@@ -63,8 +63,8 @@ class WorkoutColumnExprWorkout(str, enum.Enum):
         elevation_gain_meter: typing.Callable[[], T_Result],
         elevation_maximum_meter: typing.Callable[[], T_Result],
         elevation_minimum_meter: typing.Callable[[], T_Result],
-        average_speed: typing.Callable[[], T_Result],
-        max_speed: typing.Callable[[], T_Result],
+        speed_mean: typing.Callable[[], T_Result],
+        speed_maximum: typing.Callable[[], T_Result],
         power_source: typing.Callable[[], T_Result],
         power_mean: typing.Callable[[], T_Result],
         power_maximum: typing.Callable[[], T_Result],
@@ -117,10 +117,10 @@ class WorkoutColumnExprWorkout(str, enum.Enum):
             return elevation_maximum_meter()
         if self is WorkoutColumnExprWorkout.ELEVATION_MINIMUM_METER:
             return elevation_minimum_meter()
-        if self is WorkoutColumnExprWorkout.AVERAGE_SPEED:
-            return average_speed()
-        if self is WorkoutColumnExprWorkout.MAX_SPEED:
-            return max_speed()
+        if self is WorkoutColumnExprWorkout.SPEED_MEAN:
+            return speed_mean()
+        if self is WorkoutColumnExprWorkout.SPEED_MAXIMUM:
+            return speed_maximum()
         if self is WorkoutColumnExprWorkout.POWER_SOURCE:
             return power_source()
         if self is WorkoutColumnExprWorkout.POWER_MEAN:
