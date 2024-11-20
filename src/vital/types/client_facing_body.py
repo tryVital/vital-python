@@ -31,7 +31,22 @@ class ClientFacingBody(UniversalBaseModel):
 
     fat: typing.Optional[float] = pydantic.Field(default=None)
     """
-    Body fat percentage::perc
+    Total body fat percentage::perc
+    """
+
+    water_percentage: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Water percentage in the body::perc
+    """
+
+    muscle_mass_percentage: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Muscle mass percentage in the body::perc
+    """
+
+    visceral_fat_index: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Visceral fat index::scalar
     """
 
     source: ClientFacingSource
