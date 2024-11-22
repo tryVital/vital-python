@@ -13,6 +13,7 @@ class BodyColumnExprBody(str, enum.Enum):
     WATER_PERCENTAGE = "water_percentage"
     MUSCLE_MASS_PERCENTAGE = "muscle_mass_percentage"
     VISCERAL_FAT_INDEX = "visceral_fat_index"
+    BONE_MASS_PERCENTAGE = "bone_mass_percentage"
     SOURCE_TYPE = "source_type"
     SOURCE_PROVIDER = "source_provider"
     SOURCE_APP_ID = "source_app_id"
@@ -25,6 +26,7 @@ class BodyColumnExprBody(str, enum.Enum):
         water_percentage: typing.Callable[[], T_Result],
         muscle_mass_percentage: typing.Callable[[], T_Result],
         visceral_fat_index: typing.Callable[[], T_Result],
+        bone_mass_percentage: typing.Callable[[], T_Result],
         source_type: typing.Callable[[], T_Result],
         source_provider: typing.Callable[[], T_Result],
         source_app_id: typing.Callable[[], T_Result],
@@ -41,6 +43,8 @@ class BodyColumnExprBody(str, enum.Enum):
             return muscle_mass_percentage()
         if self is BodyColumnExprBody.VISCERAL_FAT_INDEX:
             return visceral_fat_index()
+        if self is BodyColumnExprBody.BONE_MASS_PERCENTAGE:
+            return bone_mass_percentage()
         if self is BodyColumnExprBody.SOURCE_TYPE:
             return source_type()
         if self is BodyColumnExprBody.SOURCE_PROVIDER:

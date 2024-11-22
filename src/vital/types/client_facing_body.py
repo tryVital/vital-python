@@ -49,6 +49,11 @@ class ClientFacingBody(UniversalBaseModel):
     Visceral fat index::scalar
     """
 
+    bone_mass_percentage: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Bone mass percentage in the body::perc
+    """
+
     source: ClientFacingSource
 
     if IS_PYDANTIC_V2:
