@@ -2,13 +2,13 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing
-from .sleep_cycle import SleepCycle
+from .client_facing_sleep_cycle import ClientFacingSleepCycle
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
 
 class ClientSleepCycleResponse(UniversalBaseModel):
-    sleep_cycle: typing.List[SleepCycle]
+    sleep_cycle: typing.List[ClientFacingSleepCycle]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

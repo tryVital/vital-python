@@ -6,7 +6,7 @@ import typing
 T_Result = typing.TypeVar("T_Result")
 
 
-class SleepCycleSourceType(str, enum.Enum):
+class ClientFacingSleepCycleSourceType(str, enum.Enum):
     UNKNOWN = "unknown"
     PHONE = "phone"
     WATCH = "watch"
@@ -37,29 +37,29 @@ class SleepCycleSourceType(str, enum.Enum):
         ring: typing.Callable[[], T_Result],
         lab: typing.Callable[[], T_Result],
     ) -> T_Result:
-        if self is SleepCycleSourceType.UNKNOWN:
+        if self is ClientFacingSleepCycleSourceType.UNKNOWN:
             return unknown()
-        if self is SleepCycleSourceType.PHONE:
+        if self is ClientFacingSleepCycleSourceType.PHONE:
             return phone()
-        if self is SleepCycleSourceType.WATCH:
+        if self is ClientFacingSleepCycleSourceType.WATCH:
             return watch()
-        if self is SleepCycleSourceType.APP:
+        if self is ClientFacingSleepCycleSourceType.APP:
             return app()
-        if self is SleepCycleSourceType.MULTIPLE_SOURCES:
+        if self is ClientFacingSleepCycleSourceType.MULTIPLE_SOURCES:
             return multiple_sources()
-        if self is SleepCycleSourceType.FINGERPRICK:
+        if self is ClientFacingSleepCycleSourceType.FINGERPRICK:
             return fingerprick()
-        if self is SleepCycleSourceType.CUFF:
+        if self is ClientFacingSleepCycleSourceType.CUFF:
             return cuff()
-        if self is SleepCycleSourceType.MANUAL_SCAN:
+        if self is ClientFacingSleepCycleSourceType.MANUAL_SCAN:
             return manual_scan()
-        if self is SleepCycleSourceType.AUTOMATIC:
+        if self is ClientFacingSleepCycleSourceType.AUTOMATIC:
             return automatic()
-        if self is SleepCycleSourceType.SCALE:
+        if self is ClientFacingSleepCycleSourceType.SCALE:
             return scale()
-        if self is SleepCycleSourceType.CHEST_STRAP:
+        if self is ClientFacingSleepCycleSourceType.CHEST_STRAP:
             return chest_strap()
-        if self is SleepCycleSourceType.RING:
+        if self is ClientFacingSleepCycleSourceType.RING:
             return ring()
-        if self is SleepCycleSourceType.LAB:
+        if self is ClientFacingSleepCycleSourceType.LAB:
             return lab()

@@ -4,4 +4,4 @@ import typing
 from .providers import Providers
 from .labs import Labs
 
-SleepCycleSourceProvider = typing.Union[Providers, Labs]
+ClientFacingSleepCycleSourceProvider = typing.Union[Providers, Labs]

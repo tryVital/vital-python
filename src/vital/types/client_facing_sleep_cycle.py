@@ -4,13 +4,14 @@ from ..core.pydantic_utilities import UniversalBaseModel
 import datetime as dt
 import typing
 from .vital_sleep_stage import VitalSleepStage
-from .sleep_cycle_source_provider import SleepCycleSourceProvider
-from .sleep_cycle_source_type import SleepCycleSourceType
+from .client_facing_sleep_cycle_source_provider import ClientFacingSleepCycleSourceProvider
+from .client_facing_sleep_cycle_source_type import ClientFacingSleepCycleSourceType
+from .client_facing_source import ClientFacingSource
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
 
-class SleepCycle(UniversalBaseModel):
+class ClientFacingSleepCycle(UniversalBaseModel):
     id: str
     sleep_id: str
     session_start: dt.datetime
@@ -19,9 +20,11 @@ class SleepCycle(UniversalBaseModel):
     stage_end_offset_second: typing.List[int]
     stage_type: typing.List[VitalSleepStage]
     time_zone: typing.Optional[str] = None
-    source_provider: SleepCycleSourceProvider
-    source_type: SleepCycleSourceType
+    source_provider: ClientFacingSleepCycleSourceProvider
+    source_type: ClientFacingSleepCycleSourceType
     source_app_id: typing.Optional[str] = None
+    user_id: str
+    source: ClientFacingSource
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -124,6 +124,9 @@ from .client_facing_result import ClientFacingResult
 from .client_facing_sample_grouping_keys import ClientFacingSampleGroupingKeys
 from .client_facing_shipment import ClientFacingShipment
 from .client_facing_sleep import ClientFacingSleep
+from .client_facing_sleep_cycle import ClientFacingSleepCycle
+from .client_facing_sleep_cycle_source_provider import ClientFacingSleepCycleSourceProvider
+from .client_facing_sleep_cycle_source_type import ClientFacingSleepCycleSourceType
 from .client_facing_sleep_stream import ClientFacingSleepStream
 from .client_facing_source import ClientFacingSource
 from .client_facing_sport import ClientFacingSport
@@ -354,9 +357,6 @@ from .single_user_historical_pull_response import SingleUserHistoricalPullRespon
 from .single_user_resource_response import SingleUserResourceResponse
 from .sleep_column_expr import SleepColumnExpr
 from .sleep_column_expr_sleep import SleepColumnExprSleep
-from .sleep_cycle import SleepCycle
-from .sleep_cycle_source_provider import SleepCycleSourceProvider
-from .sleep_cycle_source_type import SleepCycleSourceType
 from .sleep_score_value_macro_expr import SleepScoreValueMacroExpr
 from .sleep_summary_state import SleepSummaryState
 from .sleep_type import SleepType
@@ -503,6 +503,9 @@ __all__ = [
     "ClientFacingSampleGroupingKeys",
     "ClientFacingShipment",
     "ClientFacingSleep",
+    "ClientFacingSleepCycle",
+    "ClientFacingSleepCycleSourceProvider",
+    "ClientFacingSleepCycleSourceType",
     "ClientFacingSleepStream",
     "ClientFacingSource",
     "ClientFacingSport",
@@ -723,9 +726,6 @@ __all__ = [
     "SingleUserResourceResponse",
     "SleepColumnExpr",
     "SleepColumnExprSleep",
-    "SleepCycle",
-    "SleepCycleSourceProvider",
-    "SleepCycleSourceType",
     "SleepScoreValueMacroExpr",
     "SleepSummaryState",
     "SleepType",
