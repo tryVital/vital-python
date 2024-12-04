@@ -34,8 +34,10 @@ from .body_column_expr_body import BodyColumnExprBody
 from .body_v_2_in_db import BodyV2InDb
 from .cervical_mucus_entry import CervicalMucusEntry
 from .cervical_mucus_entry_quality import CervicalMucusEntryQuality
+from .chronotype_value_macro_expr import ChronotypeValueMacroExpr
 from .client_activity_response import ClientActivityResponse
 from .client_body_response import ClientBodyResponse
+from .client_facing_a_fib_burden_sample import ClientFacingAFibBurdenSample
 from .client_facing_activity import ClientFacingActivity
 from .client_facing_api_key import ClientFacingApiKey
 from .client_facing_appointment import ClientFacingAppointment
@@ -65,6 +67,9 @@ from .client_facing_electrocardiogram_voltage_timeseries import ClientFacingElec
 from .client_facing_floors_climbed_timeseries import ClientFacingFloorsClimbedTimeseries
 from .client_facing_food import ClientFacingFood
 from .client_facing_glucose_timeseries import ClientFacingGlucoseTimeseries
+from .client_facing_grouped_timeseries_response_client_facing_a_fib_burden_sample import (
+    ClientFacingGroupedTimeseriesResponseClientFacingAFibBurdenSample,
+)
 from .client_facing_grouped_timeseries_response_client_facing_body_temperature_delta_sample import (
     ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureDeltaSample,
 )
@@ -73,6 +78,9 @@ from .client_facing_grouped_timeseries_response_client_facing_body_temperature_s
 )
 from .client_facing_grouped_timeseries_response_client_facing_carbohydrates_sample import (
     ClientFacingGroupedTimeseriesResponseClientFacingCarbohydratesSample,
+)
+from .client_facing_grouped_timeseries_response_client_facing_heart_rate_alert_sample import (
+    ClientFacingGroupedTimeseriesResponseClientFacingHeartRateAlertSample,
 )
 from .client_facing_grouped_timeseries_response_client_facing_insulin_injection_sample import (
     ClientFacingGroupedTimeseriesResponseClientFacingInsulinInjectionSample,
@@ -84,6 +92,8 @@ from .client_facing_grouped_timeseries_response_client_facing_workout_duration_s
     ClientFacingGroupedTimeseriesResponseClientFacingWorkoutDurationSample,
 )
 from .client_facing_heart_rate import ClientFacingHeartRate
+from .client_facing_heart_rate_alert_sample import ClientFacingHeartRateAlertSample
+from .client_facing_heart_rate_alert_sample_type import ClientFacingHeartRateAlertSampleType
 from .client_facing_heart_rate_timeseries import ClientFacingHeartRateTimeseries
 from .client_facing_hrv_timeseries import ClientFacingHrvTimeseries
 from .client_facing_hypnogram_timeseries import ClientFacingHypnogramTimeseries
@@ -146,6 +156,9 @@ from .client_facing_stress_level_timeseries import ClientFacingStressLevelTimese
 from .client_facing_team import ClientFacingTeam
 from .client_facing_test_kit_order_details import ClientFacingTestKitOrderDetails
 from .client_facing_testkit_order import ClientFacingTestkitOrder
+from .client_facing_timeseries_group_client_facing_a_fib_burden_sample import (
+    ClientFacingTimeseriesGroupClientFacingAFibBurdenSample,
+)
 from .client_facing_timeseries_group_client_facing_body_temperature_delta_sample import (
     ClientFacingTimeseriesGroupClientFacingBodyTemperatureDeltaSample,
 )
@@ -154,6 +167,9 @@ from .client_facing_timeseries_group_client_facing_body_temperature_sample impor
 )
 from .client_facing_timeseries_group_client_facing_carbohydrates_sample import (
     ClientFacingTimeseriesGroupClientFacingCarbohydratesSample,
+)
+from .client_facing_timeseries_group_client_facing_heart_rate_alert_sample import (
+    ClientFacingTimeseriesGroupClientFacingHeartRateAlertSample,
 )
 from .client_facing_timeseries_group_client_facing_insulin_injection_sample import (
     ClientFacingTimeseriesGroupClientFacingInsulinInjectionSample,
@@ -429,8 +445,10 @@ __all__ = [
     "BodyV2InDb",
     "CervicalMucusEntry",
     "CervicalMucusEntryQuality",
+    "ChronotypeValueMacroExpr",
     "ClientActivityResponse",
     "ClientBodyResponse",
+    "ClientFacingAFibBurdenSample",
     "ClientFacingActivity",
     "ClientFacingApiKey",
     "ClientFacingAppointment",
@@ -458,13 +476,17 @@ __all__ = [
     "ClientFacingFloorsClimbedTimeseries",
     "ClientFacingFood",
     "ClientFacingGlucoseTimeseries",
+    "ClientFacingGroupedTimeseriesResponseClientFacingAFibBurdenSample",
     "ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureDeltaSample",
     "ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureSample",
     "ClientFacingGroupedTimeseriesResponseClientFacingCarbohydratesSample",
+    "ClientFacingGroupedTimeseriesResponseClientFacingHeartRateAlertSample",
     "ClientFacingGroupedTimeseriesResponseClientFacingInsulinInjectionSample",
     "ClientFacingGroupedTimeseriesResponseClientFacingNoteSample",
     "ClientFacingGroupedTimeseriesResponseClientFacingWorkoutDurationSample",
     "ClientFacingHeartRate",
+    "ClientFacingHeartRateAlertSample",
+    "ClientFacingHeartRateAlertSampleType",
     "ClientFacingHeartRateTimeseries",
     "ClientFacingHrvTimeseries",
     "ClientFacingHypnogramTimeseries",
@@ -525,9 +547,11 @@ __all__ = [
     "ClientFacingTeam",
     "ClientFacingTestKitOrderDetails",
     "ClientFacingTestkitOrder",
+    "ClientFacingTimeseriesGroupClientFacingAFibBurdenSample",
     "ClientFacingTimeseriesGroupClientFacingBodyTemperatureDeltaSample",
     "ClientFacingTimeseriesGroupClientFacingBodyTemperatureSample",
     "ClientFacingTimeseriesGroupClientFacingCarbohydratesSample",
+    "ClientFacingTimeseriesGroupClientFacingHeartRateAlertSample",
     "ClientFacingTimeseriesGroupClientFacingInsulinInjectionSample",
     "ClientFacingTimeseriesGroupClientFacingNoteSample",
     "ClientFacingTimeseriesGroupClientFacingWorkoutDurationSample",

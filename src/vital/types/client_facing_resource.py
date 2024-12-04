@@ -46,6 +46,8 @@ class ClientFacingResource(str, enum.Enum):
     MENSTRUAL_CYCLE = "menstrual_cycle"
     SLEEP_CYCLE = "sleep_cycle"
     ELECTROCARDIOGRAM_VOLTAGE = "electrocardiogram_voltage"
+    AFIB_BURDEN = "afib_burden"
+    HEART_RATE_ALERT = "heart_rate_alert"
     WORKOUT_DURATION = "workout_duration"
     INSULIN_INJECTION = "insulin_injection"
     CARBOHYDRATES = "carbohydrates"
@@ -93,6 +95,8 @@ class ClientFacingResource(str, enum.Enum):
         menstrual_cycle: typing.Callable[[], T_Result],
         sleep_cycle: typing.Callable[[], T_Result],
         electrocardiogram_voltage: typing.Callable[[], T_Result],
+        afib_burden: typing.Callable[[], T_Result],
+        heart_rate_alert: typing.Callable[[], T_Result],
         workout_duration: typing.Callable[[], T_Result],
         insulin_injection: typing.Callable[[], T_Result],
         carbohydrates: typing.Callable[[], T_Result],
@@ -177,6 +181,10 @@ class ClientFacingResource(str, enum.Enum):
             return sleep_cycle()
         if self is ClientFacingResource.ELECTROCARDIOGRAM_VOLTAGE:
             return electrocardiogram_voltage()
+        if self is ClientFacingResource.AFIB_BURDEN:
+            return afib_burden()
+        if self is ClientFacingResource.HEART_RATE_ALERT:
+            return heart_rate_alert()
         if self is ClientFacingResource.WORKOUT_DURATION:
             return workout_duration()
         if self is ClientFacingResource.INSULIN_INJECTION:

@@ -36,6 +36,8 @@ class TimeseriesResource(str, enum.Enum):
     WATER = "water"
     CAFFEINE = "caffeine"
     MINDFULNESS_MINUTES = "mindfulness_minutes"
+    AFIB_BURDEN = "afib_burden"
+    HEART_RATE_ALERT = "heart_rate_alert"
     WORKOUT_DURATION = "workout_duration"
     INSULIN_INJECTION = "insulin_injection"
     CARBOHYDRATES = "carbohydrates"
@@ -72,6 +74,8 @@ class TimeseriesResource(str, enum.Enum):
         water: typing.Callable[[], T_Result],
         caffeine: typing.Callable[[], T_Result],
         mindfulness_minutes: typing.Callable[[], T_Result],
+        afib_burden: typing.Callable[[], T_Result],
+        heart_rate_alert: typing.Callable[[], T_Result],
         workout_duration: typing.Callable[[], T_Result],
         insulin_injection: typing.Callable[[], T_Result],
         carbohydrates: typing.Callable[[], T_Result],
@@ -135,6 +139,10 @@ class TimeseriesResource(str, enum.Enum):
             return caffeine()
         if self is TimeseriesResource.MINDFULNESS_MINUTES:
             return mindfulness_minutes()
+        if self is TimeseriesResource.AFIB_BURDEN:
+            return afib_burden()
+        if self is TimeseriesResource.HEART_RATE_ALERT:
+            return heart_rate_alert()
         if self is TimeseriesResource.WORKOUT_DURATION:
             return workout_duration()
         if self is TimeseriesResource.INSULIN_INJECTION:

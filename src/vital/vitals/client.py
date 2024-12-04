@@ -3,8 +3,8 @@
 from ..core.client_wrapper import SyncClientWrapper
 import typing
 from ..core.request_options import RequestOptions
-from ..types.client_facing_grouped_timeseries_response_client_facing_workout_duration_sample import (
-    ClientFacingGroupedTimeseriesResponseClientFacingWorkoutDurationSample,
+from ..types.client_facing_grouped_timeseries_response_client_facing_heart_rate_alert_sample import (
+    ClientFacingGroupedTimeseriesResponseClientFacingHeartRateAlertSample,
 )
 from ..core.jsonable_encoder import jsonable_encoder
 from ..core.pydantic_utilities import parse_obj_as
@@ -12,6 +12,12 @@ from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
+from ..types.client_facing_grouped_timeseries_response_client_facing_a_fib_burden_sample import (
+    ClientFacingGroupedTimeseriesResponseClientFacingAFibBurdenSample,
+)
+from ..types.client_facing_grouped_timeseries_response_client_facing_workout_duration_sample import (
+    ClientFacingGroupedTimeseriesResponseClientFacingWorkoutDurationSample,
+)
 from ..types.grouped_vo_2_max_response import GroupedVo2MaxResponse
 from ..types.grouped_stress_level_response import GroupedStressLevelResponse
 from ..types.grouped_mindfulness_minutes_response import GroupedMindfulnessMinutesResponse
@@ -79,6 +85,180 @@ from ..core.client_wrapper import AsyncClientWrapper
 class VitalsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
+
+    def heart_rate_alert_grouped(
+        self,
+        user_id: str,
+        *,
+        start_date: str,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ClientFacingGroupedTimeseriesResponseClientFacingHeartRateAlertSample:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        start_date : str
+            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+        cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        next_cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        provider : typing.Optional[str]
+            Provider oura/strava etc
+
+        end_date : typing.Optional[str]
+            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ClientFacingGroupedTimeseriesResponseClientFacingHeartRateAlertSample
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.heart_rate_alert_grouped(
+            user_id="user_id",
+            start_date="start_date",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v2/timeseries/{jsonable_encoder(user_id)}/heart_rate_alert/grouped",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "next_cursor": next_cursor,
+                "provider": provider,
+                "start_date": start_date,
+                "end_date": end_date,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    ClientFacingGroupedTimeseriesResponseClientFacingHeartRateAlertSample,
+                    parse_obj_as(
+                        type_=ClientFacingGroupedTimeseriesResponseClientFacingHeartRateAlertSample,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def afib_burden_grouped(
+        self,
+        user_id: str,
+        *,
+        start_date: str,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ClientFacingGroupedTimeseriesResponseClientFacingAFibBurdenSample:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        start_date : str
+            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+        cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        next_cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        provider : typing.Optional[str]
+            Provider oura/strava etc
+
+        end_date : typing.Optional[str]
+            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ClientFacingGroupedTimeseriesResponseClientFacingAFibBurdenSample
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.afib_burden_grouped(
+            user_id="user_id",
+            start_date="start_date",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v2/timeseries/{jsonable_encoder(user_id)}/afib_burden/grouped",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "next_cursor": next_cursor,
+                "provider": provider,
+                "start_date": start_date,
+                "end_date": end_date,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    ClientFacingGroupedTimeseriesResponseClientFacingAFibBurdenSample,
+                    parse_obj_as(
+                        type_=ClientFacingGroupedTimeseriesResponseClientFacingAFibBurdenSample,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def workout_duration_grouped(
         self,
@@ -4686,6 +4866,196 @@ class VitalsClient:
 class AsyncVitalsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
+
+    async def heart_rate_alert_grouped(
+        self,
+        user_id: str,
+        *,
+        start_date: str,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ClientFacingGroupedTimeseriesResponseClientFacingHeartRateAlertSample:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        start_date : str
+            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+        cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        next_cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        provider : typing.Optional[str]
+            Provider oura/strava etc
+
+        end_date : typing.Optional[str]
+            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ClientFacingGroupedTimeseriesResponseClientFacingHeartRateAlertSample
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.vitals.heart_rate_alert_grouped(
+                user_id="user_id",
+                start_date="start_date",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v2/timeseries/{jsonable_encoder(user_id)}/heart_rate_alert/grouped",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "next_cursor": next_cursor,
+                "provider": provider,
+                "start_date": start_date,
+                "end_date": end_date,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    ClientFacingGroupedTimeseriesResponseClientFacingHeartRateAlertSample,
+                    parse_obj_as(
+                        type_=ClientFacingGroupedTimeseriesResponseClientFacingHeartRateAlertSample,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def afib_burden_grouped(
+        self,
+        user_id: str,
+        *,
+        start_date: str,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ClientFacingGroupedTimeseriesResponseClientFacingAFibBurdenSample:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        start_date : str
+            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+        cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        next_cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        provider : typing.Optional[str]
+            Provider oura/strava etc
+
+        end_date : typing.Optional[str]
+            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ClientFacingGroupedTimeseriesResponseClientFacingAFibBurdenSample
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.vitals.afib_burden_grouped(
+                user_id="user_id",
+                start_date="start_date",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v2/timeseries/{jsonable_encoder(user_id)}/afib_burden/grouped",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "next_cursor": next_cursor,
+                "provider": provider,
+                "start_date": start_date,
+                "end_date": end_date,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    ClientFacingGroupedTimeseriesResponseClientFacingAFibBurdenSample,
+                    parse_obj_as(
+                        type_=ClientFacingGroupedTimeseriesResponseClientFacingAFibBurdenSample,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def workout_duration_grouped(
         self,

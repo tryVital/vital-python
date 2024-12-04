@@ -8,6 +8,7 @@ from .body_column_expr import BodyColumnExpr
 from .index_column_expr import IndexColumnExpr
 from .group_key_column_expr import GroupKeyColumnExpr
 from .sleep_score_value_macro_expr import SleepScoreValueMacroExpr
+from .chronotype_value_macro_expr import ChronotypeValueMacroExpr
 from .unrecognized_value_macro_expr import UnrecognizedValueMacroExpr
 
 AggregateExprArg = typing.Union[
@@ -18,5 +19,6 @@ AggregateExprArg = typing.Union[
     IndexColumnExpr,
     GroupKeyColumnExpr,
     SleepScoreValueMacroExpr,
+    ChronotypeValueMacroExpr,
     UnrecognizedValueMacroExpr,
 ]
