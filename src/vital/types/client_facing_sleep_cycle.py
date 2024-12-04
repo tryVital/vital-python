@@ -4,11 +4,11 @@ from ..core.pydantic_utilities import UniversalBaseModel
 import datetime as dt
 import typing
 from .vital_sleep_stage import VitalSleepStage
+import pydantic
 from .client_facing_sleep_cycle_source_provider import ClientFacingSleepCycleSourceProvider
 from .client_facing_sleep_cycle_source_type import ClientFacingSleepCycleSourceType
 from .client_facing_source import ClientFacingSource
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
-import pydantic
 
 
 class ClientFacingSleepCycle(UniversalBaseModel):
@@ -18,7 +18,17 @@ class ClientFacingSleepCycle(UniversalBaseModel):
     session_end: dt.datetime
     stage_start_offset_second: typing.List[int]
     stage_end_offset_second: typing.List[int]
-    stage_type: typing.List[VitalSleepStage]
+    stage_type: typing.List[VitalSleepStage] = pydantic.Field()
+    """
+    Sleep stage classification:
+    `-1`: Unknown or unclassified sleep stage;
+    `1`: Deep sleep;
+    `2`: Light/non-REM sleep;
+    `3`: Rapid Eye Movement sleep;
+    `4`: Awake period;
+    `5`: Manually classified stage.
+    """
+
     time_zone: typing.Optional[str] = None
     source_provider: ClientFacingSleepCycleSourceProvider
     source_type: ClientFacingSleepCycleSourceType
