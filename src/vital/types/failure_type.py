@@ -17,6 +17,7 @@ class FailureType(str, enum.Enum):
     PATIENT_CONDITION_FAILURE = "patient_condition_failure"
     MISSING_RESULT_CALC_FAILURE = "missing_result_calc_failure"
     MISSING_DEMO_AOE_CALC_FAILURE = "missing_demo_aoe_calc_failure"
+    INSUFFICIENT_VOLUME = "insufficient_volume"
 
     def visit(
         self,
@@ -30,6 +31,7 @@ class FailureType(str, enum.Enum):
         patient_condition_failure: typing.Callable[[], T_Result],
         missing_result_calc_failure: typing.Callable[[], T_Result],
         missing_demo_aoe_calc_failure: typing.Callable[[], T_Result],
+        insufficient_volume: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is FailureType.QUANTITY_NOT_SUFFICIENT_FAILURE:
             return quantity_not_sufficient_failure()
@@ -51,3 +53,5 @@ class FailureType(str, enum.Enum):
             return missing_result_calc_failure()
         if self is FailureType.MISSING_DEMO_AOE_CALC_FAILURE:
             return missing_demo_aoe_calc_failure()
+        if self is FailureType.INSUFFICIENT_VOLUME:
+            return insufficient_volume()
