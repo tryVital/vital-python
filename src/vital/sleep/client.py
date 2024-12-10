@@ -29,7 +29,7 @@ class SleepClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientSleepResponse:
         """
-        Get Daily sleep for user_id
+        Get sleep summary for user_id
 
         Parameters
         ----------
@@ -108,7 +108,7 @@ class SleepClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientSleepResponse:
         """
-        Get Daily sleep stream for user_id
+        Get sleep stream for user_id
 
         Parameters
         ----------
@@ -187,7 +187,7 @@ class SleepClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> RawSleep:
         """
-        Get Daily sleep for user_id
+        Get raw sleep summary for user_id
 
         Parameters
         ----------
@@ -330,7 +330,7 @@ class AsyncSleepClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientSleepResponse:
         """
-        Get Daily sleep for user_id
+        Get sleep summary for user_id
 
         Parameters
         ----------
@@ -417,7 +417,7 @@ class AsyncSleepClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientSleepResponse:
         """
-        Get Daily sleep stream for user_id
+        Get sleep stream for user_id
 
         Parameters
         ----------
@@ -504,7 +504,7 @@ class AsyncSleepClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> RawSleep:
         """
-        Get Daily sleep for user_id
+        Get raw sleep summary for user_id
 
         Parameters
         ----------

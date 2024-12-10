@@ -28,7 +28,7 @@ class ActivityClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientActivityResponse:
         """
-        Get Daily Activity for user_id
+        Get activity summary for user_id
 
         Parameters
         ----------
@@ -107,7 +107,7 @@ class ActivityClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> RawActivity:
         """
-        Get Daily Activity for user_id
+        Get raw activity summary for user_id
 
         Parameters
         ----------
@@ -191,7 +191,7 @@ class AsyncActivityClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientActivityResponse:
         """
-        Get Daily Activity for user_id
+        Get activity summary for user_id
 
         Parameters
         ----------
@@ -278,7 +278,7 @@ class AsyncActivityClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> RawActivity:
         """
-        Get Daily Activity for user_id
+        Get raw activity summary for user_id
 
         Parameters
         ----------

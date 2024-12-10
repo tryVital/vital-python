@@ -28,7 +28,7 @@ class BodyClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientBodyResponse:
         """
-        Get Daily Body data for user_id
+        Get Body summary for user_id
 
         Parameters
         ----------
@@ -107,7 +107,7 @@ class BodyClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> RawBody:
         """
-        Get Daily Body data for user_id
+        Get raw Body summary for user_id
 
         Parameters
         ----------
@@ -191,7 +191,7 @@ class AsyncBodyClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientBodyResponse:
         """
-        Get Daily Body data for user_id
+        Get Body summary for user_id
 
         Parameters
         ----------
@@ -278,7 +278,7 @@ class AsyncBodyClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> RawBody:
         """
-        Get Daily Body data for user_id
+        Get raw Body summary for user_id
 
         Parameters
         ----------

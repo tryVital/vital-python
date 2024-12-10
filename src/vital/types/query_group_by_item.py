@@ -4,4 +4,4 @@ import typing
 from .date_trunc_expr import DateTruncExpr
 from .date_part_expr import DatePartExpr
 
-QueryInstructionGroupByItem = typing.Union[DateTruncExpr, DatePartExpr]
+QueryGroupByItem = typing.Union[DateTruncExpr, DatePartExpr]

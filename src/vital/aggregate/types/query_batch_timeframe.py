@@ -4,4 +4,4 @@ import typing
 from ...types.relative_timeframe import RelativeTimeframe
 from ...types.placeholder import Placeholder
 
-QueryTimeframe = typing.Union[RelativeTimeframe, Placeholder]
+QueryBatchTimeframe = typing.Union[RelativeTimeframe, Placeholder]

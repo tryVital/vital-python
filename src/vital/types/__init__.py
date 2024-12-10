@@ -8,6 +8,8 @@ from .address import Address
 from .aggregate_expr import AggregateExpr
 from .aggregate_expr_arg import AggregateExprArg
 from .aggregate_expr_func import AggregateExprFunc
+from .aggregation_response import AggregationResponse
+from .aggregation_result import AggregationResult
 from .allowed_radius import AllowedRadius
 from .answer import Answer
 from .ao_e import AoE
@@ -342,12 +344,12 @@ from .providers import Providers
 from .psc_area_info import PscAreaInfo
 from .psc_area_info_details import PscAreaInfoDetails
 from .psc_info import PscInfo
+from .query import Query
 from .query_config import QueryConfig
 from .query_config_provider_priority_overrides_item import QueryConfigProviderPriorityOverridesItem
 from .query_config_week_starts_on import QueryConfigWeekStartsOn
-from .query_instruction import QueryInstruction
-from .query_instruction_group_by_item import QueryInstructionGroupByItem
-from .query_instruction_select_item import QueryInstructionSelectItem
+from .query_group_by_item import QueryGroupByItem
+from .query_select_item import QuerySelectItem
 from .question import Question
 from .question_type import QuestionType
 from .raw_activity import RawActivity
@@ -419,6 +421,8 @@ __all__ = [
     "AggregateExpr",
     "AggregateExprArg",
     "AggregateExprFunc",
+    "AggregationResponse",
+    "AggregationResult",
     "AllowedRadius",
     "Answer",
     "AoE",
@@ -719,12 +723,12 @@ __all__ = [
     "PscAreaInfo",
     "PscAreaInfoDetails",
     "PscInfo",
+    "Query",
     "QueryConfig",
     "QueryConfigProviderPriorityOverridesItem",
     "QueryConfigWeekStartsOn",
-    "QueryInstruction",
-    "QueryInstructionGroupByItem",
-    "QueryInstructionSelectItem",
+    "QueryGroupByItem",
+    "QuerySelectItem",
     "Question",
     "QuestionType",
     "RawActivity",

@@ -12,7 +12,7 @@ from .sleep_score_value_macro_expr import SleepScoreValueMacroExpr
 from .chronotype_value_macro_expr import ChronotypeValueMacroExpr
 from .unrecognized_value_macro_expr import UnrecognizedValueMacroExpr
 
-QueryInstructionSelectItem = typing.Union[
+QuerySelectItem = typing.Union[
     AggregateExpr,
     SleepColumnExpr,
     ActivityColumnExpr,

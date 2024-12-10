@@ -1187,7 +1187,7 @@ client.link.connect_demo_provider(
 <dl>
 <dd>
 
-Get Daily sleep cycle for user_id
+Get sleep cycle for user_id
 </dd>
 </dl>
 </dd>
@@ -1283,7 +1283,7 @@ client.sleep_cycle.get(
 <dl>
 <dd>
 
-Get Daily profile for user_id
+Get profile for user_id
 </dd>
 </dl>
 </dd>
@@ -1361,7 +1361,7 @@ client.profile.get(
 <dl>
 <dd>
 
-Get Daily profile for user_id
+Get raw profile for user_id
 </dd>
 </dl>
 </dd>
@@ -1519,7 +1519,7 @@ client.devices.get_raw(
 <dl>
 <dd>
 
-Get Daily Activity for user_id
+Get activity summary for user_id
 </dd>
 </dl>
 </dd>
@@ -1614,7 +1614,7 @@ client.activity.get(
 <dl>
 <dd>
 
-Get Daily Activity for user_id
+Get raw activity summary for user_id
 </dd>
 </dl>
 </dd>
@@ -1710,7 +1710,7 @@ client.activity.get_raw(
 <dl>
 <dd>
 
-Get Daily workout for user_id
+Get workout summary for user_id
 </dd>
 </dl>
 </dd>
@@ -1805,7 +1805,7 @@ client.workouts.get(
 <dl>
 <dd>
 
-Get Daily workout for user_id
+Get raw workout summary for user_id
 </dd>
 </dl>
 </dd>
@@ -1957,7 +1957,7 @@ client.workouts.get_by_workout_id(
 <dl>
 <dd>
 
-Get Daily sleep for user_id
+Get sleep summary for user_id
 </dd>
 </dl>
 </dd>
@@ -2052,7 +2052,7 @@ client.sleep.get(
 <dl>
 <dd>
 
-Get Daily sleep stream for user_id
+Get sleep stream for user_id
 </dd>
 </dl>
 </dd>
@@ -2147,7 +2147,7 @@ client.sleep.get_stream(
 <dl>
 <dd>
 
-Get Daily sleep for user_id
+Get raw sleep summary for user_id
 </dd>
 </dl>
 </dd>
@@ -2313,7 +2313,7 @@ client.sleep.get_stream_by_sleep_id(
 <dl>
 <dd>
 
-Get Daily Body data for user_id
+Get Body summary for user_id
 </dd>
 </dl>
 </dd>
@@ -2408,7 +2408,7 @@ client.body.get(
 <dl>
 <dd>
 
-Get Daily Body data for user_id
+Get raw Body summary for user_id
 </dd>
 </dl>
 </dd>
@@ -12902,7 +12902,7 @@ from vital import (
     AggregateExprFunc,
     Period,
     PeriodUnit,
-    QueryInstruction,
+    Query,
     RelativeTimeframe,
     SleepColumnExpr,
     SleepColumnExprSleep,
@@ -12920,8 +12920,8 @@ client.aggregate.query_one(
             unit=PeriodUnit.MINUTE,
         ),
     ),
-    instructions=[
-        QueryInstruction(
+    queries=[
+        Query(
             select=[
                 AggregateExpr(
                     arg=SleepColumnExpr(
@@ -12956,7 +12956,7 @@ client.aggregate.query_one(
 <dl>
 <dd>
 
-**timeframe:** `QueryTimeframe` 
+**timeframe:** `QueryBatchTimeframe` 
     
 </dd>
 </dl>
@@ -12964,7 +12964,7 @@ client.aggregate.query_one(
 <dl>
 <dd>
 
-**instructions:** `typing.Sequence[QueryInstruction]` 
+**queries:** `typing.Sequence[Query]` 
     
 </dd>
 </dl>

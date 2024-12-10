@@ -29,7 +29,7 @@ class WorkoutsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientWorkoutResponse:
         """
-        Get Daily workout for user_id
+        Get workout summary for user_id
 
         Parameters
         ----------
@@ -108,7 +108,7 @@ class WorkoutsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> RawWorkout:
         """
-        Get Daily workout for user_id
+        Get raw workout summary for user_id
 
         Parameters
         ----------
@@ -249,7 +249,7 @@ class AsyncWorkoutsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientWorkoutResponse:
         """
-        Get Daily workout for user_id
+        Get workout summary for user_id
 
         Parameters
         ----------
@@ -336,7 +336,7 @@ class AsyncWorkoutsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> RawWorkout:
         """
-        Get Daily workout for user_id
+        Get raw workout summary for user_id
 
         Parameters
         ----------

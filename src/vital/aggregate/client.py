@@ -2,10 +2,11 @@
 
 import typing
 from ..core.client_wrapper import SyncClientWrapper
-from .types.query_timeframe import QueryTimeframe
-from ..types.query_instruction import QueryInstruction
+from .types.query_batch_timeframe import QueryBatchTimeframe
+from ..types.query import Query
 from ..types.query_config import QueryConfig
 from ..core.request_options import RequestOptions
+from ..types.aggregation_response import AggregationResponse
 from ..core.jsonable_encoder import jsonable_encoder
 from ..core.pydantic_utilities import parse_obj_as
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
@@ -26,19 +27,19 @@ class AggregateClient:
         self,
         user_id: str,
         *,
-        timeframe: QueryTimeframe,
-        instructions: typing.Sequence[QueryInstruction],
+        timeframe: QueryBatchTimeframe,
+        queries: typing.Sequence[Query],
         config: typing.Optional[QueryConfig] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.Optional[typing.Any]:
+    ) -> AggregationResponse:
         """
         Parameters
         ----------
         user_id : str
 
-        timeframe : QueryTimeframe
+        timeframe : QueryBatchTimeframe
 
-        instructions : typing.Sequence[QueryInstruction]
+        queries : typing.Sequence[Query]
 
         config : typing.Optional[QueryConfig]
 
@@ -47,7 +48,7 @@ class AggregateClient:
 
         Returns
         -------
-        typing.Optional[typing.Any]
+        AggregationResponse
             Successful Response
 
         Examples
@@ -57,7 +58,7 @@ class AggregateClient:
             AggregateExprFunc,
             Period,
             PeriodUnit,
-            QueryInstruction,
+            Query,
             RelativeTimeframe,
             SleepColumnExpr,
             SleepColumnExprSleep,
@@ -75,8 +76,8 @@ class AggregateClient:
                     unit=PeriodUnit.MINUTE,
                 ),
             ),
-            instructions=[
-                QueryInstruction(
+            queries=[
+                Query(
                     select=[
                         AggregateExpr(
                             arg=SleepColumnExpr(
@@ -90,11 +91,11 @@ class AggregateClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"aggregate/v1/query_one/{jsonable_encoder(user_id)}",
+            f"aggregate/v1/user/{jsonable_encoder(user_id)}/query",
             method="POST",
             json={
                 "timeframe": timeframe,
-                "instructions": instructions,
+                "queries": queries,
                 "config": config,
             },
             headers={
@@ -106,9 +107,9 @@ class AggregateClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    typing.Optional[typing.Any],
+                    AggregationResponse,
                     parse_obj_as(
-                        type_=typing.Optional[typing.Any],  # type: ignore
+                        type_=AggregationResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -136,19 +137,19 @@ class AsyncAggregateClient:
         self,
         user_id: str,
         *,
-        timeframe: QueryTimeframe,
-        instructions: typing.Sequence[QueryInstruction],
+        timeframe: QueryBatchTimeframe,
+        queries: typing.Sequence[Query],
         config: typing.Optional[QueryConfig] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.Optional[typing.Any]:
+    ) -> AggregationResponse:
         """
         Parameters
         ----------
         user_id : str
 
-        timeframe : QueryTimeframe
+        timeframe : QueryBatchTimeframe
 
-        instructions : typing.Sequence[QueryInstruction]
+        queries : typing.Sequence[Query]
 
         config : typing.Optional[QueryConfig]
 
@@ -157,7 +158,7 @@ class AsyncAggregateClient:
 
         Returns
         -------
-        typing.Optional[typing.Any]
+        AggregationResponse
             Successful Response
 
         Examples
@@ -170,7 +171,7 @@ class AsyncAggregateClient:
             AsyncVital,
             Period,
             PeriodUnit,
-            QueryInstruction,
+            Query,
             RelativeTimeframe,
             SleepColumnExpr,
             SleepColumnExprSleep,
@@ -190,8 +191,8 @@ class AsyncAggregateClient:
                         unit=PeriodUnit.MINUTE,
                     ),
                 ),
-                instructions=[
-                    QueryInstruction(
+                queries=[
+                    Query(
                         select=[
                             AggregateExpr(
                                 arg=SleepColumnExpr(
@@ -208,11 +209,11 @@ class AsyncAggregateClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"aggregate/v1/query_one/{jsonable_encoder(user_id)}",
+            f"aggregate/v1/user/{jsonable_encoder(user_id)}/query",
             method="POST",
             json={
                 "timeframe": timeframe,
-                "instructions": instructions,
+                "queries": queries,
                 "config": config,
             },
             headers={
@@ -224,9 +225,9 @@ class AsyncAggregateClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    typing.Optional[typing.Any],
+                    AggregationResponse,
                     parse_obj_as(
-                        type_=typing.Optional[typing.Any],  # type: ignore
+                        type_=AggregationResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

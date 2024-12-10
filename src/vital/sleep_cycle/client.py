@@ -27,7 +27,7 @@ class SleepCycleClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientSleepCycleResponse:
         """
-        Get Daily sleep cycle for user_id
+        Get sleep cycle for user_id
 
         Parameters
         ----------
@@ -109,7 +109,7 @@ class AsyncSleepCycleClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientSleepCycleResponse:
         """
-        Get Daily sleep cycle for user_id
+        Get sleep cycle for user_id
 
         Parameters
         ----------

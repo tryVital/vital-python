@@ -2,16 +2,15 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing
-from .query_instruction_select_item import QueryInstructionSelectItem
-from .query_instruction_group_by_item import QueryInstructionGroupByItem
-from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
+from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
-class QueryInstruction(UniversalBaseModel):
-    select: typing.List[QueryInstructionSelectItem]
-    group_by: typing.Optional[typing.List[QueryInstructionGroupByItem]] = None
-    split_by_source: typing.Optional[bool] = None
+class AggregationResult(UniversalBaseModel):
+    table: typing.Dict[str, typing.List[typing.Optional[typing.Any]]] = pydantic.Field()
+    """
+    The result table of the query, organized in a column oriented format.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

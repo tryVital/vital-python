@@ -26,7 +26,7 @@ class ProfileClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingProfile:
         """
-        Get Daily profile for user_id
+        Get profile for user_id
 
         Parameters
         ----------
@@ -94,7 +94,7 @@ class ProfileClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> RawProfile:
         """
-        Get Daily profile for user_id
+        Get raw profile for user_id
 
         Parameters
         ----------
@@ -167,7 +167,7 @@ class AsyncProfileClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingProfile:
         """
-        Get Daily profile for user_id
+        Get profile for user_id
 
         Parameters
         ----------
@@ -243,7 +243,7 @@ class AsyncProfileClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> RawProfile:
         """
-        Get Daily profile for user_id
+        Get raw profile for user_id
 
         Parameters
         ----------
