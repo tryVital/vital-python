@@ -31,7 +31,7 @@ from ..types.lab_results_raw import LabResultsRaw
 import datetime as dt
 from ..core.datetime_utils import serialize_datetime
 from ..types.client_facing_order import ClientFacingOrder
-from ..types.patient_details import PatientDetails
+from ..types.patient_details_with_validation import PatientDetailsWithValidation
 from ..types.patient_address_compatible import PatientAddressCompatible
 from ..types.physician_create_request import PhysicianCreateRequest
 from ..types.health_insurance_create_request import HealthInsuranceCreateRequest
@@ -2007,7 +2007,7 @@ class LabTestsClient:
         self,
         *,
         user_id: str,
-        patient_details: PatientDetails,
+        patient_details: PatientDetailsWithValidation,
         patient_address: PatientAddressCompatible,
         lab_test_id: typing.Optional[str] = OMIT,
         order_set: typing.Optional[OrderSetRequest] = OMIT,
@@ -2030,7 +2030,7 @@ class LabTestsClient:
         ----------
         user_id : str
 
-        patient_details : PatientDetails
+        patient_details : PatientDetailsWithValidation
 
         patient_address : PatientAddressCompatible
 
@@ -2072,14 +2072,19 @@ class LabTestsClient:
         --------
         import datetime
 
-        from vital import Gender, PatientAddressCompatible, PatientDetails, Vital
+        from vital import (
+            Gender,
+            PatientAddressCompatible,
+            PatientDetailsWithValidation,
+            Vital,
+        )
 
         client = Vital(
             api_key="YOUR_API_KEY",
         )
         client.lab_tests.create_order(
             user_id="user_id",
-            patient_details=PatientDetails(
+            patient_details=PatientDetailsWithValidation(
                 first_name="first_name",
                 last_name="last_name",
                 dob=datetime.datetime.fromisoformat(
@@ -4598,7 +4603,7 @@ class AsyncLabTestsClient:
         self,
         *,
         user_id: str,
-        patient_details: PatientDetails,
+        patient_details: PatientDetailsWithValidation,
         patient_address: PatientAddressCompatible,
         lab_test_id: typing.Optional[str] = OMIT,
         order_set: typing.Optional[OrderSetRequest] = OMIT,
@@ -4621,7 +4626,7 @@ class AsyncLabTestsClient:
         ----------
         user_id : str
 
-        patient_details : PatientDetails
+        patient_details : PatientDetailsWithValidation
 
         patient_address : PatientAddressCompatible
 
@@ -4664,7 +4669,12 @@ class AsyncLabTestsClient:
         import asyncio
         import datetime
 
-        from vital import AsyncVital, Gender, PatientAddressCompatible, PatientDetails
+        from vital import (
+            AsyncVital,
+            Gender,
+            PatientAddressCompatible,
+            PatientDetailsWithValidation,
+        )
 
         client = AsyncVital(
             api_key="YOUR_API_KEY",
@@ -4674,7 +4684,7 @@ class AsyncLabTestsClient:
         async def main() -> None:
             await client.lab_tests.create_order(
                 user_id="user_id",
-                patient_details=PatientDetails(
+                patient_details=PatientDetailsWithValidation(
                     first_name="first_name",
                     last_name="last_name",
                     dob=datetime.datetime.fromisoformat(

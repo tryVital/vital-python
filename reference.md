@@ -12049,14 +12049,19 @@ POST create new order
 ```python
 import datetime
 
-from vital import Gender, PatientAddressCompatible, PatientDetails, Vital
+from vital import (
+    Gender,
+    PatientAddressCompatible,
+    PatientDetailsWithValidation,
+    Vital,
+)
 
 client = Vital(
     api_key="YOUR_API_KEY",
 )
 client.lab_tests.create_order(
     user_id="user_id",
-    patient_details=PatientDetails(
+    patient_details=PatientDetailsWithValidation(
         first_name="first_name",
         last_name="last_name",
         dob=datetime.datetime.fromisoformat(
@@ -12097,7 +12102,7 @@ client.lab_tests.create_order(
 <dl>
 <dd>
 
-**patient_details:** `PatientDetails` 
+**patient_details:** `PatientDetailsWithValidation` 
     
 </dd>
 </dl>

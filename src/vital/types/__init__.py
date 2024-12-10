@@ -324,6 +324,7 @@ from .parent_biomarker_data import ParentBiomarkerData
 from .password_providers import PasswordProviders
 from .patient_address_compatible import PatientAddressCompatible
 from .patient_details import PatientDetails
+from .patient_details_with_validation import PatientDetailsWithValidation
 from .period import Period
 from .period_unit import PeriodUnit
 from .person_details_output import PersonDetailsOutput
@@ -703,6 +704,7 @@ __all__ = [
     "PasswordProviders",
     "PatientAddressCompatible",
     "PatientDetails",
+    "PatientDetailsWithValidation",
     "Period",
     "PeriodUnit",
     "PersonDetailsOutput",
