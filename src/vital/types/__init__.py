@@ -65,6 +65,12 @@ from .client_facing_carbohydrates_sample import ClientFacingCarbohydratesSample
 from .client_facing_cholesterol_timeseries import ClientFacingCholesterolTimeseries
 from .client_facing_diagnosis_information import ClientFacingDiagnosisInformation
 from .client_facing_distance_timeseries import ClientFacingDistanceTimeseries
+from .client_facing_electrocardiogram import ClientFacingElectrocardiogram
+from .client_facing_electrocardiogram_classification import ClientFacingElectrocardiogramClassification
+from .client_facing_electrocardiogram_inconclusive_cause import ClientFacingElectrocardiogramInconclusiveCause
+from .client_facing_electrocardiogram_response import ClientFacingElectrocardiogramResponse
+from .client_facing_electrocardiogram_source_provider import ClientFacingElectrocardiogramSourceProvider
+from .client_facing_electrocardiogram_source_type import ClientFacingElectrocardiogramSourceType
 from .client_facing_electrocardiogram_voltage_timeseries import ClientFacingElectrocardiogramVoltageTimeseries
 from .client_facing_floors_climbed_timeseries import ClientFacingFloorsClimbedTimeseries
 from .client_facing_food import ClientFacingFood
@@ -112,6 +118,9 @@ from .client_facing_loinc import ClientFacingLoinc
 from .client_facing_marker import ClientFacingMarker
 from .client_facing_marker_complete import ClientFacingMarkerComplete
 from .client_facing_meal_response import ClientFacingMealResponse
+from .client_facing_menstrual_cycle import ClientFacingMenstrualCycle
+from .client_facing_menstrual_cycle_source_provider import ClientFacingMenstrualCycleSourceProvider
+from .client_facing_menstrual_cycle_source_type import ClientFacingMenstrualCycleSourceType
 from .client_facing_mindfulness_minutes_timeseries import ClientFacingMindfulnessMinutesTimeseries
 from .client_facing_note_sample import ClientFacingNoteSample
 from .client_facing_note_sample_tags_item import ClientFacingNoteSampleTagsItem
@@ -305,7 +314,6 @@ from .macros import Macros
 from .manual_providers import ManualProviders
 from .marker_type import MarkerType
 from .meal_in_db_base_client_facing_source import MealInDbBaseClientFacingSource
-from .menstrual_cycle import MenstrualCycle
 from .menstrual_cycle_response import MenstrualCycleResponse
 from .menstrual_flow_entry import MenstrualFlowEntry
 from .menstrual_flow_entry_flow import MenstrualFlowEntryFlow
@@ -477,6 +485,12 @@ __all__ = [
     "ClientFacingCholesterolTimeseries",
     "ClientFacingDiagnosisInformation",
     "ClientFacingDistanceTimeseries",
+    "ClientFacingElectrocardiogram",
+    "ClientFacingElectrocardiogramClassification",
+    "ClientFacingElectrocardiogramInconclusiveCause",
+    "ClientFacingElectrocardiogramResponse",
+    "ClientFacingElectrocardiogramSourceProvider",
+    "ClientFacingElectrocardiogramSourceType",
     "ClientFacingElectrocardiogramVoltageTimeseries",
     "ClientFacingFloorsClimbedTimeseries",
     "ClientFacingFood",
@@ -508,6 +522,9 @@ __all__ = [
     "ClientFacingMarker",
     "ClientFacingMarkerComplete",
     "ClientFacingMealResponse",
+    "ClientFacingMenstrualCycle",
+    "ClientFacingMenstrualCycleSourceProvider",
+    "ClientFacingMenstrualCycleSourceType",
     "ClientFacingMindfulnessMinutesTimeseries",
     "ClientFacingNoteSample",
     "ClientFacingNoteSampleTagsItem",
@@ -685,7 +702,6 @@ __all__ = [
     "ManualProviders",
     "MarkerType",
     "MealInDbBaseClientFacingSource",
-    "MenstrualCycle",
     "MenstrualCycleResponse",
     "MenstrualFlowEntry",
     "MenstrualFlowEntryFlow",

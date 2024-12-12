@@ -10,7 +10,6 @@ class WorkoutColumnExprWorkout(str, enum.Enum):
     SESSION_START = "session_start"
     SESSION_END = "session_end"
     TITLE = "title"
-    SPORT_ID = "sport_id"
     SPORT_NAME = "sport_name"
     SPORT_SLUG = "sport_slug"
     DURATION_ACTIVE_SECOND = "duration_active_second"
@@ -45,7 +44,6 @@ class WorkoutColumnExprWorkout(str, enum.Enum):
         session_start: typing.Callable[[], T_Result],
         session_end: typing.Callable[[], T_Result],
         title: typing.Callable[[], T_Result],
-        sport_id: typing.Callable[[], T_Result],
         sport_name: typing.Callable[[], T_Result],
         sport_slug: typing.Callable[[], T_Result],
         duration_active_second: typing.Callable[[], T_Result],
@@ -81,8 +79,6 @@ class WorkoutColumnExprWorkout(str, enum.Enum):
             return session_end()
         if self is WorkoutColumnExprWorkout.TITLE:
             return title()
-        if self is WorkoutColumnExprWorkout.SPORT_ID:
-            return sport_id()
         if self is WorkoutColumnExprWorkout.SPORT_NAME:
             return sport_name()
         if self is WorkoutColumnExprWorkout.SPORT_SLUG:

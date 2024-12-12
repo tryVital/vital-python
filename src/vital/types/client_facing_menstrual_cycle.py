@@ -12,12 +12,15 @@ from .home_pregnancy_test_entry import HomePregnancyTestEntry
 from .home_progesterone_test_entry import HomeProgesteroneTestEntry
 from .sexual_activity_entry import SexualActivityEntry
 from .basal_body_temperature_entry import BasalBodyTemperatureEntry
+from .client_facing_menstrual_cycle_source_provider import ClientFacingMenstrualCycleSourceProvider
+from .client_facing_menstrual_cycle_source_type import ClientFacingMenstrualCycleSourceType
 from .client_facing_source import ClientFacingSource
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
 
-class MenstrualCycle(UniversalBaseModel):
+class ClientFacingMenstrualCycle(UniversalBaseModel):
+    id: str
     period_start: str
     period_end: typing.Optional[str] = None
     cycle_end: typing.Optional[str] = None
@@ -32,6 +35,10 @@ class MenstrualCycle(UniversalBaseModel):
     home_progesterone_test: typing.Optional[typing.List[HomeProgesteroneTestEntry]] = None
     sexual_activity: typing.Optional[typing.List[SexualActivityEntry]] = None
     basal_body_temperature: typing.Optional[typing.List[BasalBodyTemperatureEntry]] = None
+    source_provider: ClientFacingMenstrualCycleSourceProvider
+    source_type: ClientFacingMenstrualCycleSourceType
+    source_app_id: typing.Optional[str] = None
+    user_id: str
     source: ClientFacingSource
 
     if IS_PYDANTIC_V2:

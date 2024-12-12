@@ -5,6 +5,7 @@ from .environment import VitalEnvironment
 import httpx
 from .core.client_wrapper import SyncClientWrapper
 from .link.client import LinkClient
+from .electrocardiogram.client import ElectrocardiogramClient
 from .sleep_cycle.client import SleepCycleClient
 from .profile.client import ProfileClient
 from .devices.client import DevicesClient
@@ -25,6 +26,7 @@ from .insurance.client import InsuranceClient
 from .aggregate.client import AggregateClient
 from .core.client_wrapper import AsyncClientWrapper
 from .link.client import AsyncLinkClient
+from .electrocardiogram.client import AsyncElectrocardiogramClient
 from .sleep_cycle.client import AsyncSleepCycleClient
 from .profile.client import AsyncProfileClient
 from .devices.client import AsyncDevicesClient
@@ -104,6 +106,7 @@ class Vital:
             timeout=_defaulted_timeout,
         )
         self.link = LinkClient(client_wrapper=self._client_wrapper)
+        self.electrocardiogram = ElectrocardiogramClient(client_wrapper=self._client_wrapper)
         self.sleep_cycle = SleepCycleClient(client_wrapper=self._client_wrapper)
         self.profile = ProfileClient(client_wrapper=self._client_wrapper)
         self.devices = DevicesClient(client_wrapper=self._client_wrapper)
@@ -183,6 +186,7 @@ class AsyncVital:
             timeout=_defaulted_timeout,
         )
         self.link = AsyncLinkClient(client_wrapper=self._client_wrapper)
+        self.electrocardiogram = AsyncElectrocardiogramClient(client_wrapper=self._client_wrapper)
         self.sleep_cycle = AsyncSleepCycleClient(client_wrapper=self._client_wrapper)
         self.profile = AsyncProfileClient(client_wrapper=self._client_wrapper)
         self.devices = AsyncDevicesClient(client_wrapper=self._client_wrapper)

@@ -2,13 +2,13 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing
-from .menstrual_cycle import MenstrualCycle
+from .client_facing_menstrual_cycle import ClientFacingMenstrualCycle
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
 
 class MenstrualCycleResponse(UniversalBaseModel):
-    menstrual_cycle: typing.List[MenstrualCycle]
+    menstrual_cycle: typing.List[ClientFacingMenstrualCycle]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
