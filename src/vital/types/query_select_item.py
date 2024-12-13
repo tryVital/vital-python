@@ -2,24 +2,24 @@
 
 import typing
 from .aggregate_expr import AggregateExpr
+from .group_key_column_expr import GroupKeyColumnExpr
 from .sleep_column_expr import SleepColumnExpr
 from .activity_column_expr import ActivityColumnExpr
 from .workout_column_expr import WorkoutColumnExpr
 from .body_column_expr import BodyColumnExpr
 from .index_column_expr import IndexColumnExpr
-from .group_key_column_expr import GroupKeyColumnExpr
 from .sleep_score_value_macro_expr import SleepScoreValueMacroExpr
 from .chronotype_value_macro_expr import ChronotypeValueMacroExpr
 from .unrecognized_value_macro_expr import UnrecognizedValueMacroExpr
 
 QuerySelectItem = typing.Union[
     AggregateExpr,
+    GroupKeyColumnExpr,
     SleepColumnExpr,
     ActivityColumnExpr,
     WorkoutColumnExpr,
     BodyColumnExpr,
     IndexColumnExpr,
-    GroupKeyColumnExpr,
     SleepScoreValueMacroExpr,
     ChronotypeValueMacroExpr,
     UnrecognizedValueMacroExpr,
