@@ -213,7 +213,7 @@ client.link.code_create(
 <dl>
 <dd>
 
-**expires_at:** `typing.Optional[dt.datetime]` 
+**expires_at:** `typing.Optional[dt.datetime]` — When the link code should expire. Defaults to server time plus 1 hour.
     
 </dd>
 </dl>
@@ -12890,9 +12890,7 @@ from vital import Vital
 client = Vital(
     api_key="YOUR_API_KEY",
 )
-client.insurance.search_payor_info(
-    insurance_name="insurance_name",
-)
+client.insurance.search_payor_info()
 
 ```
 </dd>
@@ -12908,7 +12906,23 @@ client.insurance.search_payor_info(
 <dl>
 <dd>
 
-**insurance_name:** `str` 
+**insurance_name:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider:** `typing.Optional[PayorCodeExternalProvider]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider_id:** `typing.Optional[str]` 
     
 </dd>
 </dl>

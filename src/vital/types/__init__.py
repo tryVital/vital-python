@@ -63,6 +63,8 @@ from .client_facing_calories_active_timeseries import ClientFacingCaloriesActive
 from .client_facing_calories_basal_timeseries import ClientFacingCaloriesBasalTimeseries
 from .client_facing_carbohydrates_sample import ClientFacingCarbohydratesSample
 from .client_facing_cholesterol_timeseries import ClientFacingCholesterolTimeseries
+from .client_facing_connection_error_details import ClientFacingConnectionErrorDetails
+from .client_facing_connection_error_details_error_type import ClientFacingConnectionErrorDetailsErrorType
 from .client_facing_diagnosis_information import ClientFacingDiagnosisInformation
 from .client_facing_distance_timeseries import ClientFacingDistanceTimeseries
 from .client_facing_electrocardiogram import ClientFacingElectrocardiogram
@@ -333,6 +335,7 @@ from .password_providers import PasswordProviders
 from .patient_address_compatible import PatientAddressCompatible
 from .patient_details import PatientDetails
 from .patient_details_with_validation import PatientDetailsWithValidation
+from .payor_code_external_provider import PayorCodeExternalProvider
 from .period import Period
 from .period_unit import PeriodUnit
 from .person_details_output import PersonDetailsOutput
@@ -483,6 +486,8 @@ __all__ = [
     "ClientFacingCaloriesBasalTimeseries",
     "ClientFacingCarbohydratesSample",
     "ClientFacingCholesterolTimeseries",
+    "ClientFacingConnectionErrorDetails",
+    "ClientFacingConnectionErrorDetailsErrorType",
     "ClientFacingDiagnosisInformation",
     "ClientFacingDistanceTimeseries",
     "ClientFacingElectrocardiogram",
@@ -721,6 +726,7 @@ __all__ = [
     "PatientAddressCompatible",
     "PatientDetails",
     "PatientDetailsWithValidation",
+    "PayorCodeExternalProvider",
     "Period",
     "PeriodUnit",
     "PersonDetailsOutput",

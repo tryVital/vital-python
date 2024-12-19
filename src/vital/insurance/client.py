@@ -2,6 +2,7 @@
 
 import typing
 from ..core.client_wrapper import SyncClientWrapper
+from ..types.payor_code_external_provider import PayorCodeExternalProvider
 from ..core.request_options import RequestOptions
 from ..types.client_facing_payor_search_response import ClientFacingPayorSearchResponse
 from ..core.pydantic_utilities import parse_obj_as
@@ -21,12 +22,21 @@ class InsuranceClient:
         self._client_wrapper = client_wrapper
 
     def search_payor_info(
-        self, *, insurance_name: str, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        insurance_name: typing.Optional[str] = OMIT,
+        provider: typing.Optional[PayorCodeExternalProvider] = OMIT,
+        provider_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingPayorSearchResponse]:
         """
         Parameters
         ----------
-        insurance_name : str
+        insurance_name : typing.Optional[str]
+
+        provider : typing.Optional[PayorCodeExternalProvider]
+
+        provider_id : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -43,15 +53,15 @@ class InsuranceClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.insurance.search_payor_info(
-            insurance_name="insurance_name",
-        )
+        client.insurance.search_payor_info()
         """
         _response = self._client_wrapper.httpx_client.request(
             "v3/insurance/search/payor",
             method="POST",
             json={
                 "insurance_name": insurance_name,
+                "provider": provider,
+                "provider_id": provider_id,
             },
             request_options=request_options,
             omit=OMIT,
@@ -145,12 +155,21 @@ class AsyncInsuranceClient:
         self._client_wrapper = client_wrapper
 
     async def search_payor_info(
-        self, *, insurance_name: str, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        insurance_name: typing.Optional[str] = OMIT,
+        provider: typing.Optional[PayorCodeExternalProvider] = OMIT,
+        provider_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingPayorSearchResponse]:
         """
         Parameters
         ----------
-        insurance_name : str
+        insurance_name : typing.Optional[str]
+
+        provider : typing.Optional[PayorCodeExternalProvider]
+
+        provider_id : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -172,9 +191,7 @@ class AsyncInsuranceClient:
 
 
         async def main() -> None:
-            await client.insurance.search_payor_info(
-                insurance_name="insurance_name",
-            )
+            await client.insurance.search_payor_info()
 
 
         asyncio.run(main())
@@ -184,6 +201,8 @@ class AsyncInsuranceClient:
             method="POST",
             json={
                 "insurance_name": insurance_name,
+                "provider": provider,
+                "provider_id": provider_id,
             },
             request_options=request_options,
             omit=OMIT,

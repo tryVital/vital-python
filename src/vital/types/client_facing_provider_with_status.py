@@ -3,6 +3,7 @@
 from ..core.pydantic_utilities import UniversalBaseModel
 import pydantic
 import typing
+from .client_facing_connection_error_details import ClientFacingConnectionErrorDetails
 from .resource_availability import ResourceAvailability
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
@@ -23,9 +24,15 @@ class ClientFacingProviderWithStatus(UniversalBaseModel):
     URL for source logo
     """
 
+    created_on: str
     status: str = pydantic.Field()
     """
     Status of source, either error or connected
+    """
+
+    error_details: typing.Optional[ClientFacingConnectionErrorDetails] = pydantic.Field(default=None)
+    """
+    Details of the terminal connection error — populated only when the status is `error`.
     """
 
     resource_availability: typing.Dict[str, ResourceAvailability]

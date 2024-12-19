@@ -193,6 +193,7 @@ class LinkClient:
         user_id : str
 
         expires_at : typing.Optional[dt.datetime]
+            When the link code should expire. Defaults to server time plus 1 hour.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1228,6 +1229,7 @@ class AsyncLinkClient:
         user_id : str
 
         expires_at : typing.Optional[dt.datetime]
+            When the link code should expire. Defaults to server time plus 1 hour.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
