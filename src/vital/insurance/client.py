@@ -10,6 +10,7 @@ from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
+from ..types.client_facing_payor_search_response_deprecated import ClientFacingPayorSearchResponseDeprecated
 from ..types.client_facing_diagnosis_information import ClientFacingDiagnosisInformation
 from ..core.client_wrapper import AsyncClientWrapper
 
@@ -21,6 +22,74 @@ class InsuranceClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
+    def search_get_payor_info(
+        self,
+        *,
+        insurance_name: typing.Optional[str] = None,
+        provider: typing.Optional[PayorCodeExternalProvider] = None,
+        provider_payor_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.List[ClientFacingPayorSearchResponse]:
+        """
+        Parameters
+        ----------
+        insurance_name : typing.Optional[str]
+
+        provider : typing.Optional[PayorCodeExternalProvider]
+
+        provider_payor_id : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[ClientFacingPayorSearchResponse]
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.insurance.search_get_payor_info()
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v3/insurance/search/payor",
+            method="GET",
+            params={
+                "insurance_name": insurance_name,
+                "provider": provider,
+                "provider_payor_id": provider_payor_id,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.List[ClientFacingPayorSearchResponse],
+                    parse_obj_as(
+                        type_=typing.List[ClientFacingPayorSearchResponse],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     def search_payor_info(
         self,
         *,
@@ -28,7 +97,7 @@ class InsuranceClient:
         provider: typing.Optional[PayorCodeExternalProvider] = OMIT,
         provider_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.List[ClientFacingPayorSearchResponse]:
+    ) -> typing.List[ClientFacingPayorSearchResponseDeprecated]:
         """
         Parameters
         ----------
@@ -43,7 +112,7 @@ class InsuranceClient:
 
         Returns
         -------
-        typing.List[ClientFacingPayorSearchResponse]
+        typing.List[ClientFacingPayorSearchResponseDeprecated]
             Successful Response
 
         Examples
@@ -69,9 +138,9 @@ class InsuranceClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    typing.List[ClientFacingPayorSearchResponse],
+                    typing.List[ClientFacingPayorSearchResponseDeprecated],
                     parse_obj_as(
-                        type_=typing.List[ClientFacingPayorSearchResponse],  # type: ignore
+                        type_=typing.List[ClientFacingPayorSearchResponseDeprecated],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -154,6 +223,82 @@ class AsyncInsuranceClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
+    async def search_get_payor_info(
+        self,
+        *,
+        insurance_name: typing.Optional[str] = None,
+        provider: typing.Optional[PayorCodeExternalProvider] = None,
+        provider_payor_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.List[ClientFacingPayorSearchResponse]:
+        """
+        Parameters
+        ----------
+        insurance_name : typing.Optional[str]
+
+        provider : typing.Optional[PayorCodeExternalProvider]
+
+        provider_payor_id : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[ClientFacingPayorSearchResponse]
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.insurance.search_get_payor_info()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "v3/insurance/search/payor",
+            method="GET",
+            params={
+                "insurance_name": insurance_name,
+                "provider": provider,
+                "provider_payor_id": provider_payor_id,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.List[ClientFacingPayorSearchResponse],
+                    parse_obj_as(
+                        type_=typing.List[ClientFacingPayorSearchResponse],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     async def search_payor_info(
         self,
         *,
@@ -161,7 +306,7 @@ class AsyncInsuranceClient:
         provider: typing.Optional[PayorCodeExternalProvider] = OMIT,
         provider_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.List[ClientFacingPayorSearchResponse]:
+    ) -> typing.List[ClientFacingPayorSearchResponseDeprecated]:
         """
         Parameters
         ----------
@@ -176,7 +321,7 @@ class AsyncInsuranceClient:
 
         Returns
         -------
-        typing.List[ClientFacingPayorSearchResponse]
+        typing.List[ClientFacingPayorSearchResponseDeprecated]
             Successful Response
 
         Examples
@@ -210,9 +355,9 @@ class AsyncInsuranceClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    typing.List[ClientFacingPayorSearchResponse],
+                    typing.List[ClientFacingPayorSearchResponseDeprecated],
                     parse_obj_as(
-                        type_=typing.List[ClientFacingPayorSearchResponse],  # type: ignore
+                        type_=typing.List[ClientFacingPayorSearchResponseDeprecated],  # type: ignore
                         object_=_response.json(),
                     ),
                 )

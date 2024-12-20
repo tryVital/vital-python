@@ -7,8 +7,8 @@ from .address import Address
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
-class ClientFacingPayorSearchResponse(UniversalBaseModel):
-    payor_code: str = pydantic.Field()
+class ClientFacingPayorSearchResponseDeprecated(UniversalBaseModel):
+    code: str = pydantic.Field()
     """
     Payor code returned for the insurance information.
     """

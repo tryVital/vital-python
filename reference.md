@@ -12872,6 +12872,76 @@ client.testkit.create_order(
 </details>
 
 ## Insurance
+<details><summary><code>client.insurance.<a href="src/vital/insurance/client.py">search_get_payor_info</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.insurance.search_get_payor_info()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**insurance_name:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider:** `typing.Optional[PayorCodeExternalProvider]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider_payor_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.insurance.<a href="src/vital/insurance/client.py">search_payor_info</a>(...)</code></summary>
 <dl>
 <dd>
