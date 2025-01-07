@@ -32,7 +32,7 @@ import datetime as dt
 from ..core.datetime_utils import serialize_datetime
 from ..types.client_facing_order import ClientFacingOrder
 from ..types.patient_details_with_validation import PatientDetailsWithValidation
-from ..types.patient_address_compatible import PatientAddressCompatible
+from ..types.patient_address_with_validation import PatientAddressWithValidation
 from ..types.physician_create_request import PhysicianCreateRequest
 from ..types.health_insurance_create_request import HealthInsuranceCreateRequest
 from ..types.billing import Billing
@@ -2008,7 +2008,7 @@ class LabTestsClient:
         *,
         user_id: str,
         patient_details: PatientDetailsWithValidation,
-        patient_address: PatientAddressCompatible,
+        patient_address: PatientAddressWithValidation,
         lab_test_id: typing.Optional[str] = OMIT,
         order_set: typing.Optional[OrderSetRequest] = OMIT,
         collection_method: typing.Optional[LabTestCollectionMethod] = OMIT,
@@ -2032,7 +2032,7 @@ class LabTestsClient:
 
         patient_details : PatientDetailsWithValidation
 
-        patient_address : PatientAddressCompatible
+        patient_address : PatientAddressWithValidation
 
         lab_test_id : typing.Optional[str]
 
@@ -2074,7 +2074,7 @@ class LabTestsClient:
 
         from vital import (
             Gender,
-            PatientAddressCompatible,
+            PatientAddressWithValidation,
             PatientDetailsWithValidation,
             Vital,
         )
@@ -2094,7 +2094,7 @@ class LabTestsClient:
                 phone_number="phone_number",
                 email="email",
             ),
-            patient_address=PatientAddressCompatible(
+            patient_address=PatientAddressWithValidation(
                 first_line="first_line",
                 city="city",
                 state="state",
@@ -4604,7 +4604,7 @@ class AsyncLabTestsClient:
         *,
         user_id: str,
         patient_details: PatientDetailsWithValidation,
-        patient_address: PatientAddressCompatible,
+        patient_address: PatientAddressWithValidation,
         lab_test_id: typing.Optional[str] = OMIT,
         order_set: typing.Optional[OrderSetRequest] = OMIT,
         collection_method: typing.Optional[LabTestCollectionMethod] = OMIT,
@@ -4628,7 +4628,7 @@ class AsyncLabTestsClient:
 
         patient_details : PatientDetailsWithValidation
 
-        patient_address : PatientAddressCompatible
+        patient_address : PatientAddressWithValidation
 
         lab_test_id : typing.Optional[str]
 
@@ -4672,7 +4672,7 @@ class AsyncLabTestsClient:
         from vital import (
             AsyncVital,
             Gender,
-            PatientAddressCompatible,
+            PatientAddressWithValidation,
             PatientDetailsWithValidation,
         )
 
@@ -4694,7 +4694,7 @@ class AsyncLabTestsClient:
                     phone_number="phone_number",
                     email="email",
                 ),
-                patient_address=PatientAddressCompatible(
+                patient_address=PatientAddressWithValidation(
                     first_line="first_line",
                     city="city",
                     state="state",

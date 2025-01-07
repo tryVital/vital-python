@@ -12147,7 +12147,7 @@ import datetime
 
 from vital import (
     Gender,
-    PatientAddressCompatible,
+    PatientAddressWithValidation,
     PatientDetailsWithValidation,
     Vital,
 )
@@ -12167,7 +12167,7 @@ client.lab_tests.create_order(
         phone_number="phone_number",
         email="email",
     ),
-    patient_address=PatientAddressCompatible(
+    patient_address=PatientAddressWithValidation(
         first_line="first_line",
         city="city",
         state="state",
@@ -12206,7 +12206,7 @@ client.lab_tests.create_order(
 <dl>
 <dd>
 
-**patient_address:** `PatientAddressCompatible` 
+**patient_address:** `PatientAddressWithValidation` 
     
 </dd>
 </dl>

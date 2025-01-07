@@ -334,6 +334,7 @@ from .paginated_users_response import PaginatedUsersResponse
 from .parent_biomarker_data import ParentBiomarkerData
 from .password_providers import PasswordProviders
 from .patient_address_compatible import PatientAddressCompatible
+from .patient_address_with_validation import PatientAddressWithValidation
 from .patient_details import PatientDetails
 from .patient_details_with_validation import PatientDetailsWithValidation
 from .payor_code_external_provider import PayorCodeExternalProvider
@@ -360,7 +361,6 @@ from .psc_info import PscInfo
 from .query import Query
 from .query_config import QueryConfig
 from .query_config_provider_priority_overrides_item import QueryConfigProviderPriorityOverridesItem
-from .query_config_week_starts_on import QueryConfigWeekStartsOn
 from .query_group_by_item import QueryGroupByItem
 from .query_select_item import QuerySelectItem
 from .question import Question
@@ -726,6 +726,7 @@ __all__ = [
     "ParentBiomarkerData",
     "PasswordProviders",
     "PatientAddressCompatible",
+    "PatientAddressWithValidation",
     "PatientDetails",
     "PatientDetailsWithValidation",
     "PayorCodeExternalProvider",
@@ -752,7 +753,6 @@ __all__ = [
     "Query",
     "QueryConfig",
     "QueryConfigProviderPriorityOverridesItem",
-    "QueryConfigWeekStartsOn",
     "QueryGroupByItem",
     "QuerySelectItem",
     "Question",

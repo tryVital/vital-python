@@ -2,13 +2,19 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing
-from .query_config_provider_priority_overrides_item import QueryConfigProviderPriorityOverridesItem
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
 
-class QueryConfig(UniversalBaseModel):
-    provider_priority_overrides: typing.Optional[typing.List[QueryConfigProviderPriorityOverridesItem]] = None
+class PatientAddressWithValidation(UniversalBaseModel):
+    receiver_name: typing.Optional[str] = None
+    first_line: str
+    second_line: typing.Optional[str] = None
+    city: str
+    state: str
+    zip: str
+    country: str
+    phone_number: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
