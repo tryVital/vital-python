@@ -142,7 +142,6 @@ from .client_facing_profile import ClientFacingProfile
 from .client_facing_provider import ClientFacingProvider
 from .client_facing_provider_detailed import ClientFacingProviderDetailed
 from .client_facing_provider_with_status import ClientFacingProviderWithStatus
-from .client_facing_resource import ClientFacingResource
 from .client_facing_respiratory_rate_timeseries import ClientFacingRespiratoryRateTimeseries
 from .client_facing_result import ClientFacingResult
 from .client_facing_sample_grouping_keys import ClientFacingSampleGroupingKeys
@@ -373,6 +372,7 @@ from .raw_sleep import RawSleep
 from .raw_workout import RawWorkout
 from .region import Region
 from .relative_timeframe import RelativeTimeframe
+from .resource import Resource
 from .resource_availability import ResourceAvailability
 from .responsible_relationship import ResponsibleRelationship
 from .result_type import ResultType
@@ -548,7 +548,6 @@ __all__ = [
     "ClientFacingProvider",
     "ClientFacingProviderDetailed",
     "ClientFacingProviderWithStatus",
-    "ClientFacingResource",
     "ClientFacingRespiratoryRateTimeseries",
     "ClientFacingResult",
     "ClientFacingSampleGroupingKeys",
@@ -765,6 +764,7 @@ __all__ = [
     "RawWorkout",
     "Region",
     "RelativeTimeframe",
+    "Resource",
     "ResourceAvailability",
     "ResponsibleRelationship",
     "ResultType",

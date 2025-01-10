@@ -4,7 +4,7 @@ from ..core.pydantic_utilities import UniversalBaseModel
 import pydantic
 import typing
 from .source_auth_type import SourceAuthType
-from .client_facing_resource import ClientFacingResource
+from .resource import Resource
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -30,7 +30,7 @@ class ClientFacingProviderDetailed(UniversalBaseModel):
     """
 
     auth_type: typing.Optional[SourceAuthType] = None
-    supported_resources: typing.Optional[typing.List[ClientFacingResource]] = None
+    supported_resources: typing.Optional[typing.List[Resource]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
