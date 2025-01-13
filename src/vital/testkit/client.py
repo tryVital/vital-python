@@ -28,10 +28,10 @@ class TestkitClient:
     def register(
         self,
         *,
-        user_id: str,
         sample_id: str,
         patient_details: PatientDetails,
         patient_address: PatientAddressCompatible,
+        user_id: typing.Optional[str] = OMIT,
         physician: typing.Optional[PhysicianCreateRequestBase] = OMIT,
         health_insurance: typing.Optional[HealthInsuranceCreateRequest] = OMIT,
         consents: typing.Optional[typing.Sequence[Consent]] = OMIT,
@@ -40,13 +40,14 @@ class TestkitClient:
         """
         Parameters
         ----------
-        user_id : str
-
         sample_id : str
 
         patient_details : PatientDetails
 
         patient_address : PatientAddressCompatible
+
+        user_id : typing.Optional[str]
+            The user ID of the patient.
 
         physician : typing.Optional[PhysicianCreateRequestBase]
 
@@ -72,7 +73,6 @@ class TestkitClient:
             api_key="YOUR_API_KEY",
         )
         client.testkit.register(
-            user_id="user_id",
             sample_id="sample_id",
             patient_details=PatientDetails(
                 first_name="first_name",
@@ -227,10 +227,10 @@ class AsyncTestkitClient:
     async def register(
         self,
         *,
-        user_id: str,
         sample_id: str,
         patient_details: PatientDetails,
         patient_address: PatientAddressCompatible,
+        user_id: typing.Optional[str] = OMIT,
         physician: typing.Optional[PhysicianCreateRequestBase] = OMIT,
         health_insurance: typing.Optional[HealthInsuranceCreateRequest] = OMIT,
         consents: typing.Optional[typing.Sequence[Consent]] = OMIT,
@@ -239,13 +239,14 @@ class AsyncTestkitClient:
         """
         Parameters
         ----------
-        user_id : str
-
         sample_id : str
 
         patient_details : PatientDetails
 
         patient_address : PatientAddressCompatible
+
+        user_id : typing.Optional[str]
+            The user ID of the patient.
 
         physician : typing.Optional[PhysicianCreateRequestBase]
 
@@ -275,7 +276,6 @@ class AsyncTestkitClient:
 
         async def main() -> None:
             await client.testkit.register(
-                user_id="user_id",
                 sample_id="sample_id",
                 patient_details=PatientDetails(
                     first_name="first_name",
