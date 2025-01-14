@@ -6,7 +6,7 @@ import typing
 T_Result = typing.TypeVar("T_Result")
 
 
-class Resource(str, enum.Enum):
+class ClientFacingResource(str, enum.Enum):
     PROFILE = "profile"
     ACTIVITY = "activity"
     SLEEP = "sleep"
@@ -105,97 +105,97 @@ class Resource(str, enum.Enum):
         sleep_stream: typing.Callable[[], T_Result],
         hypnogram: typing.Callable[[], T_Result],
     ) -> T_Result:
-        if self is Resource.PROFILE:
+        if self is ClientFacingResource.PROFILE:
             return profile()
-        if self is Resource.ACTIVITY:
+        if self is ClientFacingResource.ACTIVITY:
             return activity()
-        if self is Resource.SLEEP:
+        if self is ClientFacingResource.SLEEP:
             return sleep()
-        if self is Resource.BODY:
+        if self is ClientFacingResource.BODY:
             return body()
-        if self is Resource.WORKOUTS:
+        if self is ClientFacingResource.WORKOUTS:
             return workouts()
-        if self is Resource.WORKOUT_STREAM:
+        if self is ClientFacingResource.WORKOUT_STREAM:
             return workout_stream()
-        if self is Resource.CONNECTION:
+        if self is ClientFacingResource.CONNECTION:
             return connection()
-        if self is Resource.ORDER:
+        if self is ClientFacingResource.ORDER:
             return order()
-        if self is Resource.RESULT:
+        if self is ClientFacingResource.RESULT:
             return result()
-        if self is Resource.APPOINTMENT:
+        if self is ClientFacingResource.APPOINTMENT:
             return appointment()
-        if self is Resource.GLUCOSE:
+        if self is ClientFacingResource.GLUCOSE:
             return glucose()
-        if self is Resource.HEARTRATE:
+        if self is ClientFacingResource.HEARTRATE:
             return heartrate()
-        if self is Resource.HRV:
+        if self is ClientFacingResource.HRV:
             return hrv()
-        if self is Resource.IGE:
+        if self is ClientFacingResource.IGE:
             return ige()
-        if self is Resource.IGG:
+        if self is ClientFacingResource.IGG:
             return igg()
-        if self is Resource.BLOOD_OXYGEN:
+        if self is ClientFacingResource.BLOOD_OXYGEN:
             return blood_oxygen()
-        if self is Resource.BLOOD_PRESSURE:
+        if self is ClientFacingResource.BLOOD_PRESSURE:
             return blood_pressure()
-        if self is Resource.CHOLESTEROL:
+        if self is ClientFacingResource.CHOLESTEROL:
             return cholesterol()
-        if self is Resource.DEVICE:
+        if self is ClientFacingResource.DEVICE:
             return device()
-        if self is Resource.WEIGHT:
+        if self is ClientFacingResource.WEIGHT:
             return weight()
-        if self is Resource.FAT:
+        if self is ClientFacingResource.FAT:
             return fat()
-        if self is Resource.BODY_TEMPERATURE:
+        if self is ClientFacingResource.BODY_TEMPERATURE:
             return body_temperature()
-        if self is Resource.BODY_TEMPERATURE_DELTA:
+        if self is ClientFacingResource.BODY_TEMPERATURE_DELTA:
             return body_temperature_delta()
-        if self is Resource.MEAL:
+        if self is ClientFacingResource.MEAL:
             return meal()
-        if self is Resource.WATER:
+        if self is ClientFacingResource.WATER:
             return water()
-        if self is Resource.CAFFEINE:
+        if self is ClientFacingResource.CAFFEINE:
             return caffeine()
-        if self is Resource.MINDFULNESS_MINUTES:
+        if self is ClientFacingResource.MINDFULNESS_MINUTES:
             return mindfulness_minutes()
-        if self is Resource.STEPS:
+        if self is ClientFacingResource.STEPS:
             return steps()
-        if self is Resource.CALORIES_ACTIVE:
+        if self is ClientFacingResource.CALORIES_ACTIVE:
             return calories_active()
-        if self is Resource.DISTANCE:
+        if self is ClientFacingResource.DISTANCE:
             return distance()
-        if self is Resource.FLOORS_CLIMBED:
+        if self is ClientFacingResource.FLOORS_CLIMBED:
             return floors_climbed()
-        if self is Resource.RESPIRATORY_RATE:
+        if self is ClientFacingResource.RESPIRATORY_RATE:
             return respiratory_rate()
-        if self is Resource.VO_2_MAX:
+        if self is ClientFacingResource.VO_2_MAX:
             return vo_2_max()
-        if self is Resource.CALORIES_BASAL:
+        if self is ClientFacingResource.CALORIES_BASAL:
             return calories_basal()
-        if self is Resource.STRESS_LEVEL:
+        if self is ClientFacingResource.STRESS_LEVEL:
             return stress_level()
-        if self is Resource.MENSTRUAL_CYCLE:
+        if self is ClientFacingResource.MENSTRUAL_CYCLE:
             return menstrual_cycle()
-        if self is Resource.SLEEP_CYCLE:
+        if self is ClientFacingResource.SLEEP_CYCLE:
             return sleep_cycle()
-        if self is Resource.ELECTROCARDIOGRAM:
+        if self is ClientFacingResource.ELECTROCARDIOGRAM:
             return electrocardiogram()
-        if self is Resource.ELECTROCARDIOGRAM_VOLTAGE:
+        if self is ClientFacingResource.ELECTROCARDIOGRAM_VOLTAGE:
             return electrocardiogram_voltage()
-        if self is Resource.AFIB_BURDEN:
+        if self is ClientFacingResource.AFIB_BURDEN:
             return afib_burden()
-        if self is Resource.HEART_RATE_ALERT:
+        if self is ClientFacingResource.HEART_RATE_ALERT:
             return heart_rate_alert()
-        if self is Resource.WORKOUT_DURATION:
+        if self is ClientFacingResource.WORKOUT_DURATION:
             return workout_duration()
-        if self is Resource.INSULIN_INJECTION:
+        if self is ClientFacingResource.INSULIN_INJECTION:
             return insulin_injection()
-        if self is Resource.CARBOHYDRATES:
+        if self is ClientFacingResource.CARBOHYDRATES:
             return carbohydrates()
-        if self is Resource.NOTE:
+        if self is ClientFacingResource.NOTE:
             return note()
-        if self is Resource.SLEEP_STREAM:
+        if self is ClientFacingResource.SLEEP_STREAM:
             return sleep_stream()
-        if self is Resource.HYPNOGRAM:
+        if self is ClientFacingResource.HYPNOGRAM:
             return hypnogram()

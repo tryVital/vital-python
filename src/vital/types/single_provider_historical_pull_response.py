@@ -3,14 +3,14 @@
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing
 from .single_historical_pull_statistics import SingleHistoricalPullStatistics
-from .resource import Resource
+from .client_facing_resource import ClientFacingResource
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
 
 class SingleProviderHistoricalPullResponse(UniversalBaseModel):
     pulled: typing.Dict[str, SingleHistoricalPullStatistics]
-    not_pulled: typing.List[Resource]
+    not_pulled: typing.List[ClientFacingResource]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
