@@ -34,6 +34,11 @@ from .biomarker_result import BiomarkerResult
 from .body_column_expr import BodyColumnExpr
 from .body_column_expr_body import BodyColumnExprBody
 from .body_v_2_in_db import BodyV2InDb
+from .bulk_export_connections_body import BulkExportConnectionsBody
+from .bulk_export_connections_response import BulkExportConnectionsResponse
+from .bulk_import_connections_body import BulkImportConnectionsBody
+from .bulk_pause_connections_body import BulkPauseConnectionsBody
+from .bulk_trigger_historical_pull_body import BulkTriggerHistoricalPullBody
 from .cervical_mucus_entry import CervicalMucusEntry
 from .cervical_mucus_entry_quality import CervicalMucusEntryQuality
 from .chronotype_value_macro_expr import ChronotypeValueMacroExpr
@@ -207,6 +212,7 @@ from .client_user_id_conflict import ClientUserIdConflict
 from .client_workout_response import ClientWorkoutResponse
 from .company_details import CompanyDetails
 from .connected_source_client_facing import ConnectedSourceClientFacing
+from .connection_recipe import ConnectionRecipe
 from .connection_status import ConnectionStatus
 from .connection_status_state import ConnectionStatusState
 from .consent import Consent
@@ -460,6 +466,11 @@ __all__ = [
     "BodyColumnExpr",
     "BodyColumnExprBody",
     "BodyV2InDb",
+    "BulkExportConnectionsBody",
+    "BulkExportConnectionsResponse",
+    "BulkImportConnectionsBody",
+    "BulkPauseConnectionsBody",
+    "BulkTriggerHistoricalPullBody",
     "CervicalMucusEntry",
     "CervicalMucusEntryQuality",
     "ChronotypeValueMacroExpr",
@@ -599,6 +610,7 @@ __all__ = [
     "ClientWorkoutResponse",
     "CompanyDetails",
     "ConnectedSourceClientFacing",
+    "ConnectionRecipe",
     "ConnectionStatus",
     "ConnectionStatusState",
     "Consent",
