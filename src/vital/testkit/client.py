@@ -2,8 +2,8 @@
 
 import typing
 from ..core.client_wrapper import SyncClientWrapper
-from ..types.patient_details import PatientDetails
-from ..types.patient_address_compatible import PatientAddressCompatible
+from ..types.patient_details_with_validation import PatientDetailsWithValidation
+from ..types.patient_address_with_validation import PatientAddressWithValidation
 from ..types.physician_create_request_base import PhysicianCreateRequestBase
 from ..types.health_insurance_create_request import HealthInsuranceCreateRequest
 from ..types.consent import Consent
@@ -14,7 +14,7 @@ from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
-from ..types.shipping_address import ShippingAddress
+from ..types.shipping_address_with_validation import ShippingAddressWithValidation
 from ..core.client_wrapper import AsyncClientWrapper
 
 # this is used as the default value for optional parameters
@@ -29,8 +29,8 @@ class TestkitClient:
         self,
         *,
         sample_id: str,
-        patient_details: PatientDetails,
-        patient_address: PatientAddressCompatible,
+        patient_details: PatientDetailsWithValidation,
+        patient_address: PatientAddressWithValidation,
         user_id: typing.Optional[str] = OMIT,
         physician: typing.Optional[PhysicianCreateRequestBase] = OMIT,
         health_insurance: typing.Optional[HealthInsuranceCreateRequest] = OMIT,
@@ -42,9 +42,9 @@ class TestkitClient:
         ----------
         sample_id : str
 
-        patient_details : PatientDetails
+        patient_details : PatientDetailsWithValidation
 
-        patient_address : PatientAddressCompatible
+        patient_address : PatientAddressWithValidation
 
         user_id : typing.Optional[str]
             The user ID of the patient.
@@ -67,14 +67,19 @@ class TestkitClient:
         --------
         import datetime
 
-        from vital import Gender, PatientAddressCompatible, PatientDetails, Vital
+        from vital import (
+            Gender,
+            PatientAddressWithValidation,
+            PatientDetailsWithValidation,
+            Vital,
+        )
 
         client = Vital(
             api_key="YOUR_API_KEY",
         )
         client.testkit.register(
             sample_id="sample_id",
-            patient_details=PatientDetails(
+            patient_details=PatientDetailsWithValidation(
                 first_name="first_name",
                 last_name="last_name",
                 dob=datetime.datetime.fromisoformat(
@@ -84,7 +89,7 @@ class TestkitClient:
                 phone_number="phone_number",
                 email="email",
             ),
-            patient_address=PatientAddressCompatible(
+            patient_address=PatientAddressWithValidation(
                 first_line="first_line",
                 city="city",
                 state="state",
@@ -137,7 +142,7 @@ class TestkitClient:
         *,
         user_id: str,
         lab_test_id: str,
-        shipping_details: ShippingAddress,
+        shipping_details: ShippingAddressWithValidation,
         passthrough: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PostOrderResponse:
@@ -150,7 +155,7 @@ class TestkitClient:
 
         lab_test_id : str
 
-        shipping_details : ShippingAddress
+        shipping_details : ShippingAddressWithValidation
 
         passthrough : typing.Optional[str]
 
@@ -164,7 +169,7 @@ class TestkitClient:
 
         Examples
         --------
-        from vital import ShippingAddress, Vital
+        from vital import ShippingAddressWithValidation, Vital
 
         client = Vital(
             api_key="YOUR_API_KEY",
@@ -172,7 +177,7 @@ class TestkitClient:
         client.testkit.create_order(
             user_id="user_id",
             lab_test_id="lab_test_id",
-            shipping_details=ShippingAddress(
+            shipping_details=ShippingAddressWithValidation(
                 receiver_name="receiver_name",
                 first_line="first_line",
                 city="city",
@@ -228,8 +233,8 @@ class AsyncTestkitClient:
         self,
         *,
         sample_id: str,
-        patient_details: PatientDetails,
-        patient_address: PatientAddressCompatible,
+        patient_details: PatientDetailsWithValidation,
+        patient_address: PatientAddressWithValidation,
         user_id: typing.Optional[str] = OMIT,
         physician: typing.Optional[PhysicianCreateRequestBase] = OMIT,
         health_insurance: typing.Optional[HealthInsuranceCreateRequest] = OMIT,
@@ -241,9 +246,9 @@ class AsyncTestkitClient:
         ----------
         sample_id : str
 
-        patient_details : PatientDetails
+        patient_details : PatientDetailsWithValidation
 
-        patient_address : PatientAddressCompatible
+        patient_address : PatientAddressWithValidation
 
         user_id : typing.Optional[str]
             The user ID of the patient.
@@ -267,7 +272,12 @@ class AsyncTestkitClient:
         import asyncio
         import datetime
 
-        from vital import AsyncVital, Gender, PatientAddressCompatible, PatientDetails
+        from vital import (
+            AsyncVital,
+            Gender,
+            PatientAddressWithValidation,
+            PatientDetailsWithValidation,
+        )
 
         client = AsyncVital(
             api_key="YOUR_API_KEY",
@@ -277,7 +287,7 @@ class AsyncTestkitClient:
         async def main() -> None:
             await client.testkit.register(
                 sample_id="sample_id",
-                patient_details=PatientDetails(
+                patient_details=PatientDetailsWithValidation(
                     first_name="first_name",
                     last_name="last_name",
                     dob=datetime.datetime.fromisoformat(
@@ -287,7 +297,7 @@ class AsyncTestkitClient:
                     phone_number="phone_number",
                     email="email",
                 ),
-                patient_address=PatientAddressCompatible(
+                patient_address=PatientAddressWithValidation(
                     first_line="first_line",
                     city="city",
                     state="state",
@@ -343,7 +353,7 @@ class AsyncTestkitClient:
         *,
         user_id: str,
         lab_test_id: str,
-        shipping_details: ShippingAddress,
+        shipping_details: ShippingAddressWithValidation,
         passthrough: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PostOrderResponse:
@@ -356,7 +366,7 @@ class AsyncTestkitClient:
 
         lab_test_id : str
 
-        shipping_details : ShippingAddress
+        shipping_details : ShippingAddressWithValidation
 
         passthrough : typing.Optional[str]
 
@@ -372,7 +382,7 @@ class AsyncTestkitClient:
         --------
         import asyncio
 
-        from vital import AsyncVital, ShippingAddress
+        from vital import AsyncVital, ShippingAddressWithValidation
 
         client = AsyncVital(
             api_key="YOUR_API_KEY",
@@ -383,7 +393,7 @@ class AsyncTestkitClient:
             await client.testkit.create_order(
                 user_id="user_id",
                 lab_test_id="lab_test_id",
-                shipping_details=ShippingAddress(
+                shipping_details=ShippingAddressWithValidation(
                     receiver_name="receiver_name",
                     first_line="first_line",
                     city="city",

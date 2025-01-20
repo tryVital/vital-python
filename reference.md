@@ -12666,14 +12666,19 @@ client.lab_tests.get_orders()
 ```python
 import datetime
 
-from vital import Gender, PatientAddressCompatible, PatientDetails, Vital
+from vital import (
+    Gender,
+    PatientAddressWithValidation,
+    PatientDetailsWithValidation,
+    Vital,
+)
 
 client = Vital(
     api_key="YOUR_API_KEY",
 )
 client.testkit.register(
     sample_id="sample_id",
-    patient_details=PatientDetails(
+    patient_details=PatientDetailsWithValidation(
         first_name="first_name",
         last_name="last_name",
         dob=datetime.datetime.fromisoformat(
@@ -12683,7 +12688,7 @@ client.testkit.register(
         phone_number="phone_number",
         email="email",
     ),
-    patient_address=PatientAddressCompatible(
+    patient_address=PatientAddressWithValidation(
         first_line="first_line",
         city="city",
         state="state",
@@ -12714,7 +12719,7 @@ client.testkit.register(
 <dl>
 <dd>
 
-**patient_details:** `PatientDetails` 
+**patient_details:** `PatientDetailsWithValidation` 
     
 </dd>
 </dl>
@@ -12722,7 +12727,7 @@ client.testkit.register(
 <dl>
 <dd>
 
-**patient_address:** `PatientAddressCompatible` 
+**patient_address:** `PatientAddressWithValidation` 
     
 </dd>
 </dl>
@@ -12801,7 +12806,7 @@ Creates an order for an unregistered testkit
 <dd>
 
 ```python
-from vital import ShippingAddress, Vital
+from vital import ShippingAddressWithValidation, Vital
 
 client = Vital(
     api_key="YOUR_API_KEY",
@@ -12809,7 +12814,7 @@ client = Vital(
 client.testkit.create_order(
     user_id="user_id",
     lab_test_id="lab_test_id",
-    shipping_details=ShippingAddress(
+    shipping_details=ShippingAddressWithValidation(
         receiver_name="receiver_name",
         first_line="first_line",
         city="city",
@@ -12850,7 +12855,7 @@ client.testkit.create_order(
 <dl>
 <dd>
 
-**shipping_details:** `ShippingAddress` 
+**shipping_details:** `ShippingAddressWithValidation` 
     
 </dd>
 </dl>

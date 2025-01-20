@@ -341,7 +341,6 @@ from .parent_biomarker_data import ParentBiomarkerData
 from .password_providers import PasswordProviders
 from .patient_address_compatible import PatientAddressCompatible
 from .patient_address_with_validation import PatientAddressWithValidation
-from .patient_details import PatientDetails
 from .patient_details_with_validation import PatientDetailsWithValidation
 from .payor_code_external_provider import PayorCodeExternalProvider
 from .period import Period
@@ -387,6 +386,7 @@ from .scope_requirements_str import ScopeRequirementsStr
 from .select import Select
 from .sexual_activity_entry import SexualActivityEntry
 from .shipping_address import ShippingAddress
+from .shipping_address_with_validation import ShippingAddressWithValidation
 from .single_historical_pull_statistics import SingleHistoricalPullStatistics
 from .single_provider_historical_pull_response import SingleProviderHistoricalPullResponse
 from .single_resource_statistics import SingleResourceStatistics
@@ -739,7 +739,6 @@ __all__ = [
     "PasswordProviders",
     "PatientAddressCompatible",
     "PatientAddressWithValidation",
-    "PatientDetails",
     "PatientDetailsWithValidation",
     "PayorCodeExternalProvider",
     "Period",
@@ -785,6 +784,7 @@ __all__ = [
     "Select",
     "SexualActivityEntry",
     "ShippingAddress",
+    "ShippingAddressWithValidation",
     "SingleHistoricalPullStatistics",
     "SingleProviderHistoricalPullResponse",
     "SingleResourceStatistics",
