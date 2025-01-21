@@ -213,8 +213,6 @@ from .client_workout_response import ClientWorkoutResponse
 from .company_details import CompanyDetails
 from .connected_source_client_facing import ConnectedSourceClientFacing
 from .connection_recipe import ConnectionRecipe
-from .connection_status import ConnectionStatus
-from .connection_status_state import ConnectionStatusState
 from .consent import Consent
 from .consent_type import ConsentType
 from .contraceptive_entry import ContraceptiveEntry
@@ -611,8 +609,6 @@ __all__ = [
     "CompanyDetails",
     "ConnectedSourceClientFacing",
     "ConnectionRecipe",
-    "ConnectionStatus",
-    "ConnectionStatusState",
     "Consent",
     "ConsentType",
     "ContraceptiveEntry",

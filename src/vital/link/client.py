@@ -15,7 +15,6 @@ from ..types.vital_token_created_response import VitalTokenCreatedResponse
 from ..core.datetime_utils import serialize_datetime
 from ..types.auth_type import AuthType
 from ..types.region import Region
-from ..types.connection_status import ConnectionStatus
 from ..types.o_auth_providers import OAuthProviders
 from ..types.source import Source
 from ..core.jsonable_encoder import jsonable_encoder
@@ -387,7 +386,7 @@ class LinkClient:
         vital_link_token: typing.Optional[str] = None,
         region: typing.Optional[Region] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ConnectionStatus:
+    ) -> typing.Optional[typing.Any]:
         """
         Deprecated. Use `POST /v2/link/provider/email/{provider}` instead.
 
@@ -408,7 +407,7 @@ class LinkClient:
 
         Returns
         -------
-        ConnectionStatus
+        typing.Optional[typing.Any]
             Successful Response
 
         Examples
@@ -442,9 +441,9 @@ class LinkClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    ConnectionStatus,
+                    typing.Optional[typing.Any],
                     parse_obj_as(
-                        type_=ConnectionStatus,  # type: ignore
+                        type_=typing.Optional[typing.Any],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -472,7 +471,7 @@ class LinkClient:
         auth_type: AuthType,
         vital_link_token: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ConnectionStatus:
+    ) -> typing.Optional[typing.Any]:
         """
         Deprecated. Use `POST /v2/link/provider/password/{provider}` instead.
 
@@ -493,7 +492,7 @@ class LinkClient:
 
         Returns
         -------
-        ConnectionStatus
+        typing.Optional[typing.Any]
             Successful Response
 
         Examples
@@ -528,9 +527,9 @@ class LinkClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    ConnectionStatus,
+                    typing.Optional[typing.Any],
                     parse_obj_as(
-                        type_=ConnectionStatus,  # type: ignore
+                        type_=typing.Optional[typing.Any],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -785,7 +784,7 @@ class LinkClient:
         email_provider_auth_link_provider: typing.Optional[Providers] = OMIT,
         region: typing.Optional[Region] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ConnectionStatus:
+    ) -> typing.Optional[typing.Any]:
         """
         This connects auth providers that are email based.
 
@@ -804,7 +803,7 @@ class LinkClient:
 
         Returns
         -------
-        ConnectionStatus
+        typing.Optional[typing.Any]
             Successful Response
 
         Examples
@@ -835,9 +834,9 @@ class LinkClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    ConnectionStatus,
+                    typing.Optional[typing.Any],
                     parse_obj_as(
-                        type_=ConnectionStatus,  # type: ignore
+                        type_=typing.Optional[typing.Any],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1451,7 +1450,7 @@ class AsyncLinkClient:
         vital_link_token: typing.Optional[str] = None,
         region: typing.Optional[Region] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ConnectionStatus:
+    ) -> typing.Optional[typing.Any]:
         """
         Deprecated. Use `POST /v2/link/provider/email/{provider}` instead.
 
@@ -1472,7 +1471,7 @@ class AsyncLinkClient:
 
         Returns
         -------
-        ConnectionStatus
+        typing.Optional[typing.Any]
             Successful Response
 
         Examples
@@ -1514,9 +1513,9 @@ class AsyncLinkClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    ConnectionStatus,
+                    typing.Optional[typing.Any],
                     parse_obj_as(
-                        type_=ConnectionStatus,  # type: ignore
+                        type_=typing.Optional[typing.Any],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1544,7 +1543,7 @@ class AsyncLinkClient:
         auth_type: AuthType,
         vital_link_token: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ConnectionStatus:
+    ) -> typing.Optional[typing.Any]:
         """
         Deprecated. Use `POST /v2/link/provider/password/{provider}` instead.
 
@@ -1565,7 +1564,7 @@ class AsyncLinkClient:
 
         Returns
         -------
-        ConnectionStatus
+        typing.Optional[typing.Any]
             Successful Response
 
         Examples
@@ -1608,9 +1607,9 @@ class AsyncLinkClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    ConnectionStatus,
+                    typing.Optional[typing.Any],
                     parse_obj_as(
-                        type_=ConnectionStatus,  # type: ignore
+                        type_=typing.Optional[typing.Any],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1889,7 +1888,7 @@ class AsyncLinkClient:
         email_provider_auth_link_provider: typing.Optional[Providers] = OMIT,
         region: typing.Optional[Region] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ConnectionStatus:
+    ) -> typing.Optional[typing.Any]:
         """
         This connects auth providers that are email based.
 
@@ -1908,7 +1907,7 @@ class AsyncLinkClient:
 
         Returns
         -------
-        ConnectionStatus
+        typing.Optional[typing.Any]
             Successful Response
 
         Examples
@@ -1947,9 +1946,9 @@ class AsyncLinkClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    ConnectionStatus,
+                    typing.Optional[typing.Any],
                     parse_obj_as(
-                        type_=ConnectionStatus,  # type: ignore
+                        type_=typing.Optional[typing.Any],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
