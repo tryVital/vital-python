@@ -4,6 +4,7 @@ from ..core.pydantic_utilities import UniversalBaseModel
 import pydantic
 import typing
 from .client_facing_sport import ClientFacingSport
+from .client_facing_workout_map import ClientFacingWorkoutMap
 from .client_facing_source import ClientFacingSource
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
@@ -125,9 +126,9 @@ class ClientFacingWorkout(UniversalBaseModel):
     Number of steps accumulated during this workout::count
     """
 
-    map_: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = pydantic.Field(alias="map", default=None)
+    map_: typing.Optional[ClientFacingWorkoutMap] = pydantic.Field(alias="map", default=None)
     """
-    Map of workouts encoded as polyline
+    Map of the workout
     """
 
     provider_id: str = pydantic.Field()

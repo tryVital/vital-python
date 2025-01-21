@@ -34,7 +34,8 @@ class WorkoutColumnExprWorkout(str, enum.Enum):
     POWER_MAXIMUM = "power_maximum"
     POWER_WEIGHTED_MEAN = "power_weighted_mean"
     STEPS = "steps"
-    MAP = "map"
+    MAP_POLYLINE = "map_polyline"
+    MAP_SUMMARY_POLYLINE = "map_summary_polyline"
     SOURCE_TYPE = "source_type"
     SOURCE_PROVIDER = "source_provider"
     SOURCE_APP_ID = "source_app_id"
@@ -68,7 +69,8 @@ class WorkoutColumnExprWorkout(str, enum.Enum):
         power_maximum: typing.Callable[[], T_Result],
         power_weighted_mean: typing.Callable[[], T_Result],
         steps: typing.Callable[[], T_Result],
-        map_: typing.Callable[[], T_Result],
+        map_polyline: typing.Callable[[], T_Result],
+        map_summary_polyline: typing.Callable[[], T_Result],
         source_type: typing.Callable[[], T_Result],
         source_provider: typing.Callable[[], T_Result],
         source_app_id: typing.Callable[[], T_Result],
@@ -127,8 +129,10 @@ class WorkoutColumnExprWorkout(str, enum.Enum):
             return power_weighted_mean()
         if self is WorkoutColumnExprWorkout.STEPS:
             return steps()
-        if self is WorkoutColumnExprWorkout.MAP:
-            return map_()
+        if self is WorkoutColumnExprWorkout.MAP_POLYLINE:
+            return map_polyline()
+        if self is WorkoutColumnExprWorkout.MAP_SUMMARY_POLYLINE:
+            return map_summary_polyline()
         if self is WorkoutColumnExprWorkout.SOURCE_TYPE:
             return source_type()
         if self is WorkoutColumnExprWorkout.SOURCE_PROVIDER:

@@ -206,6 +206,7 @@ from .client_facing_water_timeseries import ClientFacingWaterTimeseries
 from .client_facing_workout import ClientFacingWorkout
 from .client_facing_workout_duration_sample import ClientFacingWorkoutDurationSample
 from .client_facing_workout_duration_sample_intensity import ClientFacingWorkoutDurationSampleIntensity
+from .client_facing_workout_map import ClientFacingWorkoutMap
 from .client_sleep_cycle_response import ClientSleepCycleResponse
 from .client_sleep_response import ClientSleepResponse
 from .client_user_id_conflict import ClientUserIdConflict
@@ -602,6 +603,7 @@ __all__ = [
     "ClientFacingWorkout",
     "ClientFacingWorkoutDurationSample",
     "ClientFacingWorkoutDurationSampleIntensity",
+    "ClientFacingWorkoutMap",
     "ClientSleepCycleResponse",
     "ClientSleepResponse",
     "ClientUserIdConflict",
