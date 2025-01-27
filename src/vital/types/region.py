@@ -9,45 +9,201 @@ T_Result = typing.TypeVar("T_Result")
 class Region(str, enum.Enum):
     US = "us"
     EU = "eu"
-    SG = "sg"
     DE = "de"
-    AU = "au"
-    BR = "br"
-    NL = "nl"
     FR = "fr"
     CA = "ca"
+    BR = "br"
+    AR = "ar"
+    CL = "cl"
+    CO = "co"
+    MX = "mx"
+    GB = "gb"
+    IE = "ie"
+    AU = "au"
+    NZ = "nz"
+    NL = "nl"
+    AT = "at"
+    BE = "be"
+    BH = "bh"
+    CH = "ch"
+    CZ = "cz"
+    DK = "dk"
+    EG = "eg"
+    ES = "es"
+    FI = "fi"
+    GR = "gr"
+    HR = "hr"
+    IL = "il"
+    IT = "it"
+    JO = "jo"
+    KW = "kw"
+    LB = "lb"
+    LU = "lu"
+    NO = "no"
+    OM = "om"
+    PL = "pl"
+    PT = "pt"
+    QA = "qa"
+    SA = "sa"
+    SE = "se"
+    SI = "si"
+    SK = "sk"
+    TR = "tr"
+    ZA = "za"
     IN = "in"
+    SG = "sg"
+    HK = "hk"
+    KR = "kr"
+    PH = "ph"
+    TW = "tw"
 
     def visit(
         self,
         us: typing.Callable[[], T_Result],
         eu: typing.Callable[[], T_Result],
-        sg: typing.Callable[[], T_Result],
         de: typing.Callable[[], T_Result],
-        au: typing.Callable[[], T_Result],
-        br: typing.Callable[[], T_Result],
-        nl: typing.Callable[[], T_Result],
         fr: typing.Callable[[], T_Result],
         ca: typing.Callable[[], T_Result],
+        br: typing.Callable[[], T_Result],
+        ar: typing.Callable[[], T_Result],
+        cl: typing.Callable[[], T_Result],
+        co: typing.Callable[[], T_Result],
+        mx: typing.Callable[[], T_Result],
+        gb: typing.Callable[[], T_Result],
+        ie: typing.Callable[[], T_Result],
+        au: typing.Callable[[], T_Result],
+        nz: typing.Callable[[], T_Result],
+        nl: typing.Callable[[], T_Result],
+        at: typing.Callable[[], T_Result],
+        be: typing.Callable[[], T_Result],
+        bh: typing.Callable[[], T_Result],
+        ch: typing.Callable[[], T_Result],
+        cz: typing.Callable[[], T_Result],
+        dk: typing.Callable[[], T_Result],
+        eg: typing.Callable[[], T_Result],
+        es: typing.Callable[[], T_Result],
+        fi: typing.Callable[[], T_Result],
+        gr: typing.Callable[[], T_Result],
+        hr: typing.Callable[[], T_Result],
+        il: typing.Callable[[], T_Result],
+        it: typing.Callable[[], T_Result],
+        jo: typing.Callable[[], T_Result],
+        kw: typing.Callable[[], T_Result],
+        lb: typing.Callable[[], T_Result],
+        lu: typing.Callable[[], T_Result],
+        no: typing.Callable[[], T_Result],
+        om: typing.Callable[[], T_Result],
+        pl: typing.Callable[[], T_Result],
+        pt: typing.Callable[[], T_Result],
+        qa: typing.Callable[[], T_Result],
+        sa: typing.Callable[[], T_Result],
+        se: typing.Callable[[], T_Result],
+        si: typing.Callable[[], T_Result],
+        sk: typing.Callable[[], T_Result],
+        tr: typing.Callable[[], T_Result],
+        za: typing.Callable[[], T_Result],
         in_: typing.Callable[[], T_Result],
+        sg: typing.Callable[[], T_Result],
+        hk: typing.Callable[[], T_Result],
+        kr: typing.Callable[[], T_Result],
+        ph: typing.Callable[[], T_Result],
+        tw: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is Region.US:
             return us()
         if self is Region.EU:
             return eu()
-        if self is Region.SG:
-            return sg()
         if self is Region.DE:
             return de()
-        if self is Region.AU:
-            return au()
-        if self is Region.BR:
-            return br()
-        if self is Region.NL:
-            return nl()
         if self is Region.FR:
             return fr()
         if self is Region.CA:
             return ca()
+        if self is Region.BR:
+            return br()
+        if self is Region.AR:
+            return ar()
+        if self is Region.CL:
+            return cl()
+        if self is Region.CO:
+            return co()
+        if self is Region.MX:
+            return mx()
+        if self is Region.GB:
+            return gb()
+        if self is Region.IE:
+            return ie()
+        if self is Region.AU:
+            return au()
+        if self is Region.NZ:
+            return nz()
+        if self is Region.NL:
+            return nl()
+        if self is Region.AT:
+            return at()
+        if self is Region.BE:
+            return be()
+        if self is Region.BH:
+            return bh()
+        if self is Region.CH:
+            return ch()
+        if self is Region.CZ:
+            return cz()
+        if self is Region.DK:
+            return dk()
+        if self is Region.EG:
+            return eg()
+        if self is Region.ES:
+            return es()
+        if self is Region.FI:
+            return fi()
+        if self is Region.GR:
+            return gr()
+        if self is Region.HR:
+            return hr()
+        if self is Region.IL:
+            return il()
+        if self is Region.IT:
+            return it()
+        if self is Region.JO:
+            return jo()
+        if self is Region.KW:
+            return kw()
+        if self is Region.LB:
+            return lb()
+        if self is Region.LU:
+            return lu()
+        if self is Region.NO:
+            return no()
+        if self is Region.OM:
+            return om()
+        if self is Region.PL:
+            return pl()
+        if self is Region.PT:
+            return pt()
+        if self is Region.QA:
+            return qa()
+        if self is Region.SA:
+            return sa()
+        if self is Region.SE:
+            return se()
+        if self is Region.SI:
+            return si()
+        if self is Region.SK:
+            return sk()
+        if self is Region.TR:
+            return tr()
+        if self is Region.ZA:
+            return za()
         if self is Region.IN:
             return in_()
+        if self is Region.SG:
+            return sg()
+        if self is Region.HK:
+            return hk()
+        if self is Region.KR:
+            return kr()
+        if self is Region.PH:
+            return ph()
+        if self is Region.TW:
+            return tw()
