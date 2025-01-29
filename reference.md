@@ -1,5 +1,78 @@
 # Reference
 ## Link
+<details><summary><code>client.link.<a href="src/vital/link/client.py">bulk_import</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import ConnectionRecipe, OAuthProviders, Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.link.bulk_import(
+    provider=OAuthProviders.OURA,
+    connections=[
+        ConnectionRecipe(
+            user_id="user_id",
+            access_token="access_token",
+            refresh_token="refresh_token",
+            provider_id="provider_id",
+            expires_at=1,
+        )
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**provider:** `OAuthProviders` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**connections:** `typing.Sequence[ConnectionRecipe]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.link.<a href="src/vital/link/client.py">token</a>(...)</code></summary>
 <dl>
 <dd>

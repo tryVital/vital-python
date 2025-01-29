@@ -2,20 +2,22 @@
 
 import typing
 from ..core.client_wrapper import SyncClientWrapper
-from ..types.providers import Providers
+from ..types.o_auth_providers import OAuthProviders
+from ..types.connection_recipe import ConnectionRecipe
 from ..core.request_options import RequestOptions
-from ..types.link_token_exchange_response import LinkTokenExchangeResponse
+from ..types.bulk_import_connections_response import BulkImportConnectionsResponse
 from ..core.pydantic_utilities import parse_obj_as
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
+from ..types.providers import Providers
+from ..types.link_token_exchange_response import LinkTokenExchangeResponse
 import datetime as dt
 from ..types.vital_token_created_response import VitalTokenCreatedResponse
 from ..core.datetime_utils import serialize_datetime
 from ..types.auth_type import AuthType
 from ..types.region import Region
-from ..types.o_auth_providers import OAuthProviders
 from ..types.source import Source
 from ..core.jsonable_encoder import jsonable_encoder
 from ..types.password_providers import PasswordProviders
@@ -33,6 +35,82 @@ OMIT = typing.cast(typing.Any, ...)
 class LinkClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
+
+    def bulk_import(
+        self,
+        *,
+        provider: OAuthProviders,
+        connections: typing.Sequence[ConnectionRecipe],
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> BulkImportConnectionsResponse:
+        """
+        Parameters
+        ----------
+        provider : OAuthProviders
+
+        connections : typing.Sequence[ConnectionRecipe]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        BulkImportConnectionsResponse
+            Successful Response
+
+        Examples
+        --------
+        from vital import ConnectionRecipe, OAuthProviders, Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.link.bulk_import(
+            provider=OAuthProviders.OURA,
+            connections=[
+                ConnectionRecipe(
+                    user_id="user_id",
+                    access_token="access_token",
+                    refresh_token="refresh_token",
+                    provider_id="provider_id",
+                    expires_at=1,
+                )
+            ],
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v2/link/bulk_import",
+            method="POST",
+            json={
+                "provider": provider,
+                "connections": connections,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    BulkImportConnectionsResponse,
+                    parse_obj_as(
+                        type_=BulkImportConnectionsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def token(
         self,
@@ -1057,6 +1135,90 @@ class LinkClient:
 class AsyncLinkClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
+
+    async def bulk_import(
+        self,
+        *,
+        provider: OAuthProviders,
+        connections: typing.Sequence[ConnectionRecipe],
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> BulkImportConnectionsResponse:
+        """
+        Parameters
+        ----------
+        provider : OAuthProviders
+
+        connections : typing.Sequence[ConnectionRecipe]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        BulkImportConnectionsResponse
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from vital import AsyncVital, ConnectionRecipe, OAuthProviders
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.link.bulk_import(
+                provider=OAuthProviders.OURA,
+                connections=[
+                    ConnectionRecipe(
+                        user_id="user_id",
+                        access_token="access_token",
+                        refresh_token="refresh_token",
+                        provider_id="provider_id",
+                        expires_at=1,
+                    )
+                ],
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "v2/link/bulk_import",
+            method="POST",
+            json={
+                "provider": provider,
+                "connections": connections,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    BulkImportConnectionsResponse,
+                    parse_obj_as(
+                        type_=BulkImportConnectionsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def token(
         self,
