@@ -73,6 +73,71 @@ client.link.bulk_import(
 </dl>
 </details>
 
+<details><summary><code>client.link.<a href="src/vital/link/client.py">bulk_trigger_historical_pull</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import OAuthProviders, Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.link.bulk_trigger_historical_pull(
+    user_ids=["user_ids"],
+    provider=OAuthProviders.OURA,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_ids:** `typing.Sequence[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider:** `OAuthProviders` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.link.<a href="src/vital/link/client.py">token</a>(...)</code></summary>
 <dl>
 <dd>
@@ -11269,7 +11334,7 @@ client.lab_tests.get_psc_info(
 <dl>
 <dd>
 
-**radius:** `typing.Optional[AllowedRadius]` — Radius in which to search. (meters)
+**radius:** `typing.Optional[AllowedRadius]` — Radius in which to search in miles
     
 </dd>
 </dl>
@@ -13243,6 +13308,71 @@ client.aggregate.query_one(
 <dd>
 
 **config:** `typing.Optional[QueryConfig]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.aggregate.<a href="src/vital/aggregate/client.py">get_result_table_for_continuous_query</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.aggregate.get_result_table_for_continuous_query(
+    user_id="user_id",
+    query_id="query_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**query_id:** `str` 
     
 </dd>
 </dl>

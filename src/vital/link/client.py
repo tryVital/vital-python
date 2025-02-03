@@ -112,6 +112,74 @@ class LinkClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    def bulk_trigger_historical_pull(
+        self,
+        *,
+        user_ids: typing.Sequence[str],
+        provider: OAuthProviders,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Optional[typing.Any]:
+        """
+        Parameters
+        ----------
+        user_ids : typing.Sequence[str]
+
+        provider : OAuthProviders
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Optional[typing.Any]
+            Successful Response
+
+        Examples
+        --------
+        from vital import OAuthProviders, Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.link.bulk_trigger_historical_pull(
+            user_ids=["user_ids"],
+            provider=OAuthProviders.OURA,
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v2/link/bulk_trigger_historical_pull",
+            method="POST",
+            json={
+                "user_ids": user_ids,
+                "provider": provider,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.Optional[typing.Any],
+                    parse_obj_as(
+                        type_=typing.Optional[typing.Any],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     def token(
         self,
         *,
@@ -1202,6 +1270,82 @@ class AsyncLinkClient:
                     BulkImportConnectionsResponse,
                     parse_obj_as(
                         type_=BulkImportConnectionsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def bulk_trigger_historical_pull(
+        self,
+        *,
+        user_ids: typing.Sequence[str],
+        provider: OAuthProviders,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Optional[typing.Any]:
+        """
+        Parameters
+        ----------
+        user_ids : typing.Sequence[str]
+
+        provider : OAuthProviders
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Optional[typing.Any]
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from vital import AsyncVital, OAuthProviders
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.link.bulk_trigger_historical_pull(
+                user_ids=["user_ids"],
+                provider=OAuthProviders.OURA,
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "v2/link/bulk_trigger_historical_pull",
+            method="POST",
+            json={
+                "user_ids": user_ids,
+                "provider": provider,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.Optional[typing.Any],
+                    parse_obj_as(
+                        type_=typing.Optional[typing.Any],  # type: ignore
                         object_=_response.json(),
                     ),
                 )

@@ -1133,7 +1133,7 @@ class LabTestsClient:
             Lab ID to check for PSCs
 
         radius : typing.Optional[AllowedRadius]
-            Radius in which to search. (meters)
+            Radius in which to search in miles
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -3616,7 +3616,7 @@ class AsyncLabTestsClient:
             Lab ID to check for PSCs
 
         radius : typing.Optional[AllowedRadius]
-            Radius in which to search. (meters)
+            Radius in which to search in miles
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

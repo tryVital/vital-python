@@ -38,7 +38,6 @@ from .bulk_export_connections_body import BulkExportConnectionsBody
 from .bulk_export_connections_response import BulkExportConnectionsResponse
 from .bulk_import_connections_response import BulkImportConnectionsResponse
 from .bulk_pause_connections_body import BulkPauseConnectionsBody
-from .bulk_trigger_historical_pull_body import BulkTriggerHistoricalPullBody
 from .cervical_mucus_entry import CervicalMucusEntry
 from .cervical_mucus_entry_quality import CervicalMucusEntryQuality
 from .chronotype_value_macro_expr import ChronotypeValueMacroExpr
@@ -469,7 +468,6 @@ __all__ = [
     "BulkExportConnectionsResponse",
     "BulkImportConnectionsResponse",
     "BulkPauseConnectionsBody",
-    "BulkTriggerHistoricalPullBody",
     "CervicalMucusEntry",
     "CervicalMucusEntryQuality",
     "ChronotypeValueMacroExpr",

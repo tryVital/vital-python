@@ -7,10 +7,6 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class AllowedRadius(str, enum.Enum):
-    """
-    Maps miles to meters
-    """
-
     TEN = "10"
     TWENTY = "20"
     TWENTY_FIVE = "25"
