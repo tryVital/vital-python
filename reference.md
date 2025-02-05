@@ -13673,7 +13673,7 @@ client = Vital(
 )
 client.aggregate.get_result_table_for_continuous_query(
     user_id="user_id",
-    query_id="query_id",
+    query_id_or_slug="query_id_or_slug",
 )
 
 ```
@@ -13698,7 +13698,7 @@ client.aggregate.get_result_table_for_continuous_query(
 <dl>
 <dd>
 
-**query_id:** `str` 
+**query_id_or_slug:** `str` 
     
 </dd>
 </dl>

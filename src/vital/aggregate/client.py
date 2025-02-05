@@ -130,14 +130,14 @@ class AggregateClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def get_result_table_for_continuous_query(
-        self, user_id: str, query_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self, user_id: str, query_id_or_slug: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AggregationResult:
         """
         Parameters
         ----------
         user_id : str
 
-        query_id : str
+        query_id_or_slug : str
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -156,11 +156,11 @@ class AggregateClient:
         )
         client.aggregate.get_result_table_for_continuous_query(
             user_id="user_id",
-            query_id="query_id",
+            query_id_or_slug="query_id_or_slug",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"aggregate/v1/user/{jsonable_encoder(user_id)}/continuous_query/{jsonable_encoder(query_id)}/result_table",
+            f"aggregate/v1/user/{jsonable_encoder(user_id)}/continuous_query/{jsonable_encoder(query_id_or_slug)}/result_table",
             method="GET",
             request_options=request_options,
         )
@@ -307,14 +307,14 @@ class AsyncAggregateClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def get_result_table_for_continuous_query(
-        self, user_id: str, query_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self, user_id: str, query_id_or_slug: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AggregationResult:
         """
         Parameters
         ----------
         user_id : str
 
-        query_id : str
+        query_id_or_slug : str
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -338,14 +338,14 @@ class AsyncAggregateClient:
         async def main() -> None:
             await client.aggregate.get_result_table_for_continuous_query(
                 user_id="user_id",
-                query_id="query_id",
+                query_id_or_slug="query_id_or_slug",
             )
 
 
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"aggregate/v1/user/{jsonable_encoder(user_id)}/continuous_query/{jsonable_encoder(query_id)}/result_table",
+            f"aggregate/v1/user/{jsonable_encoder(user_id)}/continuous_query/{jsonable_encoder(query_id_or_slug)}/result_table",
             method="GET",
             request_options=request_options,
         )
