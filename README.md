@@ -290,8 +290,6 @@ Please read our [Contribution Guide](https://github.com/tryvital/.github/blob/ma
 
 ## License
 
-## License
-
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)  
 [![Compliance](https://img.shields.io/badge/HIPAA-Compliant-brightgreen)](https://tryvital.io/compliance)  
 [![Warranty](https://img.shields.io/badge/Warranty-As%20Provided%20in%20MIT-red)](https://opensource.org/licenses/MIT)
