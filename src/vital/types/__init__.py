@@ -34,10 +34,8 @@ from .biomarker_result import BiomarkerResult
 from .body_column_expr import BodyColumnExpr
 from .body_column_expr_body import BodyColumnExprBody
 from .body_v_2_in_db import BodyV2InDb
-from .bulk_export_connections_body import BulkExportConnectionsBody
 from .bulk_export_connections_response import BulkExportConnectionsResponse
 from .bulk_import_connections_response import BulkImportConnectionsResponse
-from .bulk_pause_connections_body import BulkPauseConnectionsBody
 from .cervical_mucus_entry import CervicalMucusEntry
 from .cervical_mucus_entry_quality import CervicalMucusEntryQuality
 from .chronotype_value_macro_expr import ChronotypeValueMacroExpr
@@ -310,6 +308,7 @@ from .lab_results_metadata import LabResultsMetadata
 from .lab_results_raw import LabResultsRaw
 from .lab_results_raw_results import LabResultsRawResults
 from .lab_test_collection_method import LabTestCollectionMethod
+from .lab_test_generation_method_filter import LabTestGenerationMethodFilter
 from .lab_test_sample_type import LabTestSampleType
 from .lab_test_status import LabTestStatus
 from .labs import Labs
@@ -376,6 +375,7 @@ from .raw_sleep import RawSleep
 from .raw_workout import RawWorkout
 from .region import Region
 from .relative_timeframe import RelativeTimeframe
+from .resend_webhook_response import ResendWebhookResponse
 from .resource_availability import ResourceAvailability
 from .responsible_relationship import ResponsibleRelationship
 from .result_type import ResultType
@@ -464,10 +464,8 @@ __all__ = [
     "BodyColumnExpr",
     "BodyColumnExprBody",
     "BodyV2InDb",
-    "BulkExportConnectionsBody",
     "BulkExportConnectionsResponse",
     "BulkImportConnectionsResponse",
-    "BulkPauseConnectionsBody",
     "CervicalMucusEntry",
     "CervicalMucusEntryQuality",
     "ChronotypeValueMacroExpr",
@@ -706,6 +704,7 @@ __all__ = [
     "LabResultsRaw",
     "LabResultsRawResults",
     "LabTestCollectionMethod",
+    "LabTestGenerationMethodFilter",
     "LabTestSampleType",
     "LabTestStatus",
     "Labs",
@@ -772,6 +771,7 @@ __all__ = [
     "RawWorkout",
     "Region",
     "RelativeTimeframe",
+    "ResendWebhookResponse",
     "ResourceAvailability",
     "ResponsibleRelationship",
     "ResultType",

@@ -2,14 +2,12 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing
-from .o_auth_providers import OAuthProviders
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
 
-class BulkPauseConnectionsBody(UniversalBaseModel):
-    user_ids: typing.List[str]
-    provider: OAuthProviders
+class ResendWebhookResponse(UniversalBaseModel):
+    order_ids: typing.List[str]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -138,6 +138,143 @@ client.link.bulk_trigger_historical_pull(
 </dl>
 </details>
 
+<details><summary><code>client.link.<a href="src/vital/link/client.py">bulk_export</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import OAuthProviders, Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.link.bulk_export(
+    provider=OAuthProviders.OURA,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**provider:** `OAuthProviders` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**user_ids:** `typing.Optional[typing.Sequence[str]]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**next_token:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.link.<a href="src/vital/link/client.py">bulk_pause</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import OAuthProviders, Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.link.bulk_pause(
+    user_ids=["user_ids"],
+    provider=OAuthProviders.OURA,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_ids:** `typing.Sequence[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider:** `OAuthProviders` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.link.<a href="src/vital/link/client.py">token</a>(...)</code></summary>
 <dl>
 <dd>
@@ -10023,7 +10160,7 @@ client.introspect.get_user_historical_pulls()
 </details>
 
 ## LabTests
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get</a>()</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -10067,6 +10204,38 @@ client.lab_tests.get()
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**generation_method:** `typing.Optional[LabTestGenerationMethodFilter]` — Filter on whether auto-generated lab tests created by Vital, manually created lab tests, or all lab tests should be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**lab_slug:** `typing.Optional[str]` — Filter by the slug of the lab for these lab tests.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**collection_method:** `typing.Optional[LabTestCollectionMethod]` — Filter by the collection method for these lab tests.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `typing.Optional[LabTestStatus]` — Filter by the status of these lab tests.
+    
+</dd>
+</dl>
 
 <dl>
 <dd>
@@ -10162,6 +10331,148 @@ client.lab_tests.create(
 <dd>
 
 **fasting:** `typing.Optional[bool]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_by_id</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+GET all the lab tests the team has access to.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.get_by_id(
+    lab_test_id="lab_test_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**lab_test_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">update_lab_test</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.update_lab_test(
+    lab_test_id="lab_test_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**lab_test_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**active:** `typing.Optional[bool]` 
     
 </dd>
 </dl>
@@ -10548,76 +10859,6 @@ client.lab_tests.get_labs()
 
 <dl>
 <dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_by_id</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-GET all the lab tests the team has access to.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.lab_tests.get_by_id(
-    lab_test_id="lab_test_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**lab_test_id:** `str` 
-    
-</dd>
-</dl>
 
 <dl>
 <dd>
@@ -13002,6 +13243,91 @@ client.testkit.create_order(
 <dd>
 
 **passthrough:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Order
+<details><summary><code>client.order.<a href="src/vital/order/client.py">resend_events</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Replay a webhook for a given set of orders
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.order.resend_events()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**order_ids:** `typing.Optional[typing.Sequence[str]]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**start_at:** `typing.Optional[dt.datetime]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**end_at:** `typing.Optional[dt.datetime]` 
     
 </dd>
 </dl>

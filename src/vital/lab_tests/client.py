@@ -2,17 +2,19 @@
 
 import typing
 from ..core.client_wrapper import SyncClientWrapper
+from ..types.lab_test_generation_method_filter import LabTestGenerationMethodFilter
+from ..types.lab_test_collection_method import LabTestCollectionMethod
+from ..types.lab_test_status import LabTestStatus
 from ..core.request_options import RequestOptions
 from ..types.client_facing_lab_test import ClientFacingLabTest
 from ..core.pydantic_utilities import parse_obj_as
-from json.decoder import JSONDecodeError
-from ..core.api_error import ApiError
-from ..types.lab_test_collection_method import LabTestCollectionMethod
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.http_validation_error import HttpValidationError
+from json.decoder import JSONDecodeError
+from ..core.api_error import ApiError
+from ..core.jsonable_encoder import jsonable_encoder
 from ..types.get_markers_response import GetMarkersResponse
 from ..types.order_set_request import OrderSetRequest
-from ..core.jsonable_encoder import jsonable_encoder
 from ..types.client_facing_marker import ClientFacingMarker
 from ..types.client_facing_lab import ClientFacingLab
 from ..types.us_address import UsAddress
@@ -53,12 +55,32 @@ class LabTestsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def get(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[ClientFacingLabTest]:
+    def get(
+        self,
+        *,
+        generation_method: typing.Optional[LabTestGenerationMethodFilter] = None,
+        lab_slug: typing.Optional[str] = None,
+        collection_method: typing.Optional[LabTestCollectionMethod] = None,
+        status: typing.Optional[LabTestStatus] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.List[ClientFacingLabTest]:
         """
         GET all the lab tests the team has access to.
 
         Parameters
         ----------
+        generation_method : typing.Optional[LabTestGenerationMethodFilter]
+            Filter on whether auto-generated lab tests created by Vital, manually created lab tests, or all lab tests should be returned.
+
+        lab_slug : typing.Optional[str]
+            Filter by the slug of the lab for these lab tests.
+
+        collection_method : typing.Optional[LabTestCollectionMethod]
+            Filter by the collection method for these lab tests.
+
+        status : typing.Optional[LabTestStatus]
+            Filter by the status of these lab tests.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -79,6 +101,12 @@ class LabTestsClient:
         _response = self._client_wrapper.httpx_client.request(
             "v3/lab_tests",
             method="GET",
+            params={
+                "generation_method": generation_method,
+                "lab_slug": lab_slug,
+                "collection_method": collection_method,
+                "status": status,
+            },
             request_options=request_options,
         )
         try:
@@ -89,6 +117,16 @@ class LabTestsClient:
                         type_=typing.List[ClientFacingLabTest],  # type: ignore
                         object_=_response.json(),
                     ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
                 )
             _response_json = _response.json()
         except JSONDecodeError:
@@ -152,6 +190,134 @@ class LabTestsClient:
                 "method": method,
                 "description": description,
                 "fasting": fasting,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    ClientFacingLabTest,
+                    parse_obj_as(
+                        type_=ClientFacingLabTest,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def get_by_id(
+        self, lab_test_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ClientFacingLabTest:
+        """
+        GET all the lab tests the team has access to.
+
+        Parameters
+        ----------
+        lab_test_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ClientFacingLabTest
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_by_id(
+            lab_test_id="lab_test_id",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v3/lab_tests/{jsonable_encoder(lab_test_id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    ClientFacingLabTest,
+                    parse_obj_as(
+                        type_=ClientFacingLabTest,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def update_lab_test(
+        self,
+        lab_test_id: str,
+        *,
+        name: typing.Optional[str] = OMIT,
+        active: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ClientFacingLabTest:
+        """
+        Parameters
+        ----------
+        lab_test_id : str
+
+        name : typing.Optional[str]
+
+        active : typing.Optional[bool]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ClientFacingLabTest
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.update_lab_test(
+            lab_test_id="lab_test_id",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v3/lab_tests/{jsonable_encoder(lab_test_id)}",
+            method="PATCH",
+            json={
+                "name": name,
+                "active": active,
             },
             request_options=request_options,
             omit=OMIT,
@@ -497,64 +663,6 @@ class LabTestsClient:
                         type_=typing.List[ClientFacingLab],  # type: ignore
                         object_=_response.json(),
                     ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    def get_by_id(
-        self, lab_test_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> ClientFacingLabTest:
-        """
-        GET all the lab tests the team has access to.
-
-        Parameters
-        ----------
-        lab_test_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ClientFacingLabTest
-            Successful Response
-
-        Examples
-        --------
-        from vital import Vital
-
-        client = Vital(
-            api_key="YOUR_API_KEY",
-        )
-        client.lab_tests.get_by_id(
-            lab_test_id="lab_test_id",
-        )
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v3/lab_tests/{jsonable_encoder(lab_test_id)}",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    ClientFacingLabTest,
-                    parse_obj_as(
-                        type_=ClientFacingLabTest,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
                 )
             _response_json = _response.json()
         except JSONDecodeError:
@@ -2406,12 +2514,32 @@ class AsyncLabTestsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def get(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[ClientFacingLabTest]:
+    async def get(
+        self,
+        *,
+        generation_method: typing.Optional[LabTestGenerationMethodFilter] = None,
+        lab_slug: typing.Optional[str] = None,
+        collection_method: typing.Optional[LabTestCollectionMethod] = None,
+        status: typing.Optional[LabTestStatus] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.List[ClientFacingLabTest]:
         """
         GET all the lab tests the team has access to.
 
         Parameters
         ----------
+        generation_method : typing.Optional[LabTestGenerationMethodFilter]
+            Filter on whether auto-generated lab tests created by Vital, manually created lab tests, or all lab tests should be returned.
+
+        lab_slug : typing.Optional[str]
+            Filter by the slug of the lab for these lab tests.
+
+        collection_method : typing.Optional[LabTestCollectionMethod]
+            Filter by the collection method for these lab tests.
+
+        status : typing.Optional[LabTestStatus]
+            Filter by the status of these lab tests.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -2440,6 +2568,12 @@ class AsyncLabTestsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "v3/lab_tests",
             method="GET",
+            params={
+                "generation_method": generation_method,
+                "lab_slug": lab_slug,
+                "collection_method": collection_method,
+                "status": status,
+            },
             request_options=request_options,
         )
         try:
@@ -2450,6 +2584,16 @@ class AsyncLabTestsClient:
                         type_=typing.List[ClientFacingLabTest],  # type: ignore
                         object_=_response.json(),
                     ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
                 )
             _response_json = _response.json()
         except JSONDecodeError:
@@ -2521,6 +2665,150 @@ class AsyncLabTestsClient:
                 "method": method,
                 "description": description,
                 "fasting": fasting,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    ClientFacingLabTest,
+                    parse_obj_as(
+                        type_=ClientFacingLabTest,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def get_by_id(
+        self, lab_test_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ClientFacingLabTest:
+        """
+        GET all the lab tests the team has access to.
+
+        Parameters
+        ----------
+        lab_test_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ClientFacingLabTest
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.lab_tests.get_by_id(
+                lab_test_id="lab_test_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v3/lab_tests/{jsonable_encoder(lab_test_id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    ClientFacingLabTest,
+                    parse_obj_as(
+                        type_=ClientFacingLabTest,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def update_lab_test(
+        self,
+        lab_test_id: str,
+        *,
+        name: typing.Optional[str] = OMIT,
+        active: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ClientFacingLabTest:
+        """
+        Parameters
+        ----------
+        lab_test_id : str
+
+        name : typing.Optional[str]
+
+        active : typing.Optional[bool]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ClientFacingLabTest
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.lab_tests.update_lab_test(
+                lab_test_id="lab_test_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v3/lab_tests/{jsonable_encoder(lab_test_id)}",
+            method="PATCH",
+            json={
+                "name": name,
+                "active": active,
             },
             request_options=request_options,
             omit=OMIT,
@@ -2908,72 +3196,6 @@ class AsyncLabTestsClient:
                         type_=typing.List[ClientFacingLab],  # type: ignore
                         object_=_response.json(),
                     ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    async def get_by_id(
-        self, lab_test_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> ClientFacingLabTest:
-        """
-        GET all the lab tests the team has access to.
-
-        Parameters
-        ----------
-        lab_test_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ClientFacingLabTest
-            Successful Response
-
-        Examples
-        --------
-        import asyncio
-
-        from vital import AsyncVital
-
-        client = AsyncVital(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.lab_tests.get_by_id(
-                lab_test_id="lab_test_id",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v3/lab_tests/{jsonable_encoder(lab_test_id)}",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    ClientFacingLabTest,
-                    parse_obj_as(
-                        type_=ClientFacingLabTest,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
                 )
             _response_json = _response.json()
         except JSONDecodeError:

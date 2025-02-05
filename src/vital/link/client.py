@@ -11,6 +11,7 @@ from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
+from ..types.bulk_export_connections_response import BulkExportConnectionsResponse
 from ..types.providers import Providers
 from ..types.link_token_exchange_response import LinkTokenExchangeResponse
 import datetime as dt
@@ -148,6 +149,145 @@ class LinkClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "v2/link/bulk_trigger_historical_pull",
+            method="POST",
+            json={
+                "user_ids": user_ids,
+                "provider": provider,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.Optional[typing.Any],
+                    parse_obj_as(
+                        type_=typing.Optional[typing.Any],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def bulk_export(
+        self,
+        *,
+        provider: OAuthProviders,
+        user_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        next_token: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> BulkExportConnectionsResponse:
+        """
+        Parameters
+        ----------
+        provider : OAuthProviders
+
+        user_ids : typing.Optional[typing.Sequence[str]]
+
+        next_token : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        BulkExportConnectionsResponse
+            Successful Response
+
+        Examples
+        --------
+        from vital import OAuthProviders, Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.link.bulk_export(
+            provider=OAuthProviders.OURA,
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v2/link/bulk_export",
+            method="POST",
+            json={
+                "user_ids": user_ids,
+                "provider": provider,
+                "next_token": next_token,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    BulkExportConnectionsResponse,
+                    parse_obj_as(
+                        type_=BulkExportConnectionsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def bulk_pause(
+        self,
+        *,
+        user_ids: typing.Sequence[str],
+        provider: OAuthProviders,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Optional[typing.Any]:
+        """
+        Parameters
+        ----------
+        user_ids : typing.Sequence[str]
+
+        provider : OAuthProviders
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Optional[typing.Any]
+            Successful Response
+
+        Examples
+        --------
+        from vital import OAuthProviders, Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.link.bulk_pause(
+            user_ids=["user_ids"],
+            provider=OAuthProviders.OURA,
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v2/link/bulk_pause",
             method="POST",
             json={
                 "user_ids": user_ids,
@@ -1332,6 +1472,161 @@ class AsyncLinkClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "v2/link/bulk_trigger_historical_pull",
+            method="POST",
+            json={
+                "user_ids": user_ids,
+                "provider": provider,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.Optional[typing.Any],
+                    parse_obj_as(
+                        type_=typing.Optional[typing.Any],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def bulk_export(
+        self,
+        *,
+        provider: OAuthProviders,
+        user_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        next_token: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> BulkExportConnectionsResponse:
+        """
+        Parameters
+        ----------
+        provider : OAuthProviders
+
+        user_ids : typing.Optional[typing.Sequence[str]]
+
+        next_token : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        BulkExportConnectionsResponse
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from vital import AsyncVital, OAuthProviders
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.link.bulk_export(
+                provider=OAuthProviders.OURA,
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "v2/link/bulk_export",
+            method="POST",
+            json={
+                "user_ids": user_ids,
+                "provider": provider,
+                "next_token": next_token,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    BulkExportConnectionsResponse,
+                    parse_obj_as(
+                        type_=BulkExportConnectionsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def bulk_pause(
+        self,
+        *,
+        user_ids: typing.Sequence[str],
+        provider: OAuthProviders,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Optional[typing.Any]:
+        """
+        Parameters
+        ----------
+        user_ids : typing.Sequence[str]
+
+        provider : OAuthProviders
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Optional[typing.Any]
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from vital import AsyncVital, OAuthProviders
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.link.bulk_pause(
+                user_ids=["user_ids"],
+                provider=OAuthProviders.OURA,
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "v2/link/bulk_pause",
             method="POST",
             json={
                 "user_ids": user_ids,

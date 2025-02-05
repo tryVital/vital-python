@@ -22,6 +22,7 @@ from .providers.client import ProvidersClient
 from .introspect.client import IntrospectClient
 from .lab_tests.client import LabTestsClient
 from .testkit.client import TestkitClient
+from .order.client import OrderClient
 from .insurance.client import InsuranceClient
 from .aggregate.client import AggregateClient
 from .core.client_wrapper import AsyncClientWrapper
@@ -43,6 +44,7 @@ from .providers.client import AsyncProvidersClient
 from .introspect.client import AsyncIntrospectClient
 from .lab_tests.client import AsyncLabTestsClient
 from .testkit.client import AsyncTestkitClient
+from .order.client import AsyncOrderClient
 from .insurance.client import AsyncInsuranceClient
 from .aggregate.client import AsyncAggregateClient
 
@@ -123,6 +125,7 @@ class Vital:
         self.introspect = IntrospectClient(client_wrapper=self._client_wrapper)
         self.lab_tests = LabTestsClient(client_wrapper=self._client_wrapper)
         self.testkit = TestkitClient(client_wrapper=self._client_wrapper)
+        self.order = OrderClient(client_wrapper=self._client_wrapper)
         self.insurance = InsuranceClient(client_wrapper=self._client_wrapper)
         self.aggregate = AggregateClient(client_wrapper=self._client_wrapper)
 
@@ -203,6 +206,7 @@ class AsyncVital:
         self.introspect = AsyncIntrospectClient(client_wrapper=self._client_wrapper)
         self.lab_tests = AsyncLabTestsClient(client_wrapper=self._client_wrapper)
         self.testkit = AsyncTestkitClient(client_wrapper=self._client_wrapper)
+        self.order = AsyncOrderClient(client_wrapper=self._client_wrapper)
         self.insurance = AsyncInsuranceClient(client_wrapper=self._client_wrapper)
         self.aggregate = AsyncAggregateClient(client_wrapper=self._client_wrapper)
 
