@@ -288,6 +288,27 @@ While this SDK is generated programmatically, we welcome:
 
 Please read our [Contribution Guide](https://github.com/tryvital/.github/blob/main/CONTRIBUTING.md) before submitting PRs.
 
+## License
+
+## License
+
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)  
+[![Compliance](https://img.shields.io/badge/HIPAA-Compliant-brightgreen)](https://tryvital.io/compliance)  
+[![Warranty](https://img.shields.io/badge/Warranty-As%20Provided%20in%20MIT-red)](https://opensource.org/licenses/MIT)
+
+**Copyright (c) 2025 Vital Technologies Inc.**  
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for full legal text.
+
+### Compliance Note for Enterprises
+
+- Contains explicit patent grant in license terms  
+- Includes healthcare-specific warranty disclaimer  
+- Third-party dependencies documented in [NOTICES.md](NOTICES.md)  
+- Export controlled under ECCN 5D992.c (EU Dual-Use Regulation compliance)
+
+*For enterprise licensing options or GDPR addendum requests, contact [legal@tryvital.io](mailto:legal@tryvital.io).*
+
 > **Beta Notice**  
 > This SDK is currently in beta. We recommend pinning versions in your requirements:
 
