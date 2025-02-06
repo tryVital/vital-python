@@ -419,7 +419,12 @@ from . import (
 from .aggregate import QueryBatchTimeframe
 from .client import AsyncVital, Vital
 from .environment import VitalEnvironment
-from .lab_tests import LabTestsGetOrdersRequestOrderDirection, LabTestsGetOrdersRequestOrderKey
+from .lab_tests import (
+    LabTestsGetOrdersRequestOrderDirection,
+    LabTestsGetOrdersRequestOrderKey,
+    LabTestsGetRequestOrderDirection,
+    LabTestsGetRequestOrderKey,
+)
 from .version import __version__
 
 __all__ = [
@@ -704,6 +709,8 @@ __all__ = [
     "LabTestStatus",
     "LabTestsGetOrdersRequestOrderDirection",
     "LabTestsGetOrdersRequestOrderKey",
+    "LabTestsGetRequestOrderDirection",
+    "LabTestsGetRequestOrderKey",
     "Labs",
     "LastAttempt",
     "LibreConfig",

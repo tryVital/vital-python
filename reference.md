@@ -10240,6 +10240,46 @@ client.lab_tests.get()
 <dl>
 <dd>
 
+**marker_ids:** `typing.Optional[typing.Union[int, typing.Sequence[int]]]` — Filter to only include lab tests containing these marker IDs.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter to only include lab tests containing these provider IDs.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — Filter by the name of the lab test (a case-insensitive substring search).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_key:** `typing.Optional[LabTestsGetRequestOrderKey]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_direction:** `typing.Optional[LabTestsGetRequestOrderDirection]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>

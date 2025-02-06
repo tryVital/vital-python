@@ -5,6 +5,8 @@ from ..core.client_wrapper import SyncClientWrapper
 from ..types.lab_test_generation_method_filter import LabTestGenerationMethodFilter
 from ..types.lab_test_collection_method import LabTestCollectionMethod
 from ..types.lab_test_status import LabTestStatus
+from .types.lab_tests_get_request_order_key import LabTestsGetRequestOrderKey
+from .types.lab_tests_get_request_order_direction import LabTestsGetRequestOrderDirection
 from ..core.request_options import RequestOptions
 from ..types.client_facing_lab_test import ClientFacingLabTest
 from ..core.pydantic_utilities import parse_obj_as
@@ -62,6 +64,11 @@ class LabTestsClient:
         lab_slug: typing.Optional[str] = None,
         collection_method: typing.Optional[LabTestCollectionMethod] = None,
         status: typing.Optional[LabTestStatus] = None,
+        marker_ids: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
+        provider_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        name: typing.Optional[str] = None,
+        order_key: typing.Optional[LabTestsGetRequestOrderKey] = None,
+        order_direction: typing.Optional[LabTestsGetRequestOrderDirection] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingLabTest]:
         """
@@ -80,6 +87,19 @@ class LabTestsClient:
 
         status : typing.Optional[LabTestStatus]
             Filter by the status of these lab tests.
+
+        marker_ids : typing.Optional[typing.Union[int, typing.Sequence[int]]]
+            Filter to only include lab tests containing these marker IDs.
+
+        provider_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Filter to only include lab tests containing these provider IDs.
+
+        name : typing.Optional[str]
+            Filter by the name of the lab test (a case-insensitive substring search).
+
+        order_key : typing.Optional[LabTestsGetRequestOrderKey]
+
+        order_direction : typing.Optional[LabTestsGetRequestOrderDirection]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -106,6 +126,11 @@ class LabTestsClient:
                 "lab_slug": lab_slug,
                 "collection_method": collection_method,
                 "status": status,
+                "marker_ids": marker_ids,
+                "provider_ids": provider_ids,
+                "name": name,
+                "order_key": order_key,
+                "order_direction": order_direction,
             },
             request_options=request_options,
         )
@@ -2521,6 +2546,11 @@ class AsyncLabTestsClient:
         lab_slug: typing.Optional[str] = None,
         collection_method: typing.Optional[LabTestCollectionMethod] = None,
         status: typing.Optional[LabTestStatus] = None,
+        marker_ids: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
+        provider_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        name: typing.Optional[str] = None,
+        order_key: typing.Optional[LabTestsGetRequestOrderKey] = None,
+        order_direction: typing.Optional[LabTestsGetRequestOrderDirection] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingLabTest]:
         """
@@ -2539,6 +2569,19 @@ class AsyncLabTestsClient:
 
         status : typing.Optional[LabTestStatus]
             Filter by the status of these lab tests.
+
+        marker_ids : typing.Optional[typing.Union[int, typing.Sequence[int]]]
+            Filter to only include lab tests containing these marker IDs.
+
+        provider_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Filter to only include lab tests containing these provider IDs.
+
+        name : typing.Optional[str]
+            Filter by the name of the lab test (a case-insensitive substring search).
+
+        order_key : typing.Optional[LabTestsGetRequestOrderKey]
+
+        order_direction : typing.Optional[LabTestsGetRequestOrderDirection]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2573,6 +2616,11 @@ class AsyncLabTestsClient:
                 "lab_slug": lab_slug,
                 "collection_method": collection_method,
                 "status": status,
+                "marker_ids": marker_ids,
+                "provider_ids": provider_ids,
+                "name": name,
+                "order_key": order_key,
+                "order_direction": order_direction,
             },
             request_options=request_options,
         )

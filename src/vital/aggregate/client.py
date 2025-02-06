@@ -162,6 +162,9 @@ class AggregateClient:
         _response = self._client_wrapper.httpx_client.request(
             f"aggregate/v1/user/{jsonable_encoder(user_id)}/continuous_query/{jsonable_encoder(query_id_or_slug)}/result_table",
             method="GET",
+            headers={
+                "accept": "*/*",
+            },
             request_options=request_options,
         )
         try:
@@ -347,6 +350,9 @@ class AsyncAggregateClient:
         _response = await self._client_wrapper.httpx_client.request(
             f"aggregate/v1/user/{jsonable_encoder(user_id)}/continuous_query/{jsonable_encoder(query_id_or_slug)}/result_table",
             method="GET",
+            headers={
+                "accept": "*/*",
+            },
             request_options=request_options,
         )
         try:
