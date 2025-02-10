@@ -3,6 +3,8 @@
 from .types import (
     LabTestsGetOrdersRequestOrderDirection,
     LabTestsGetOrdersRequestOrderKey,
+    LabTestsGetPaginatedRequestOrderDirection,
+    LabTestsGetPaginatedRequestOrderKey,
     LabTestsGetRequestOrderDirection,
     LabTestsGetRequestOrderKey,
 )
@@ -10,6 +12,8 @@ from .types import (
 __all__ = [
     "LabTestsGetOrdersRequestOrderDirection",
     "LabTestsGetOrdersRequestOrderKey",
+    "LabTestsGetPaginatedRequestOrderDirection",
+    "LabTestsGetPaginatedRequestOrderKey",
     "LabTestsGetRequestOrderDirection",
     "LabTestsGetRequestOrderKey",
 ]

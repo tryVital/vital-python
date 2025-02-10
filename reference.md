@@ -10915,6 +10915,154 @@ client.lab_tests.get_labs()
 </dl>
 </details>
 
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_paginated</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+GET lab tests the team has access to as a paginated list.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.get_paginated()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**lab_test_limit:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**next_cursor:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**generation_method:** `typing.Optional[LabTestGenerationMethodFilter]` — Filter on whether auto-generated lab tests created by Vital, manually created lab tests, or all lab tests should be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**lab_slug:** `typing.Optional[str]` — Filter by the slug of the lab for these lab tests.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**collection_method:** `typing.Optional[LabTestCollectionMethod]` — Filter by the collection method for these lab tests.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `typing.Optional[LabTestStatus]` — Filter by the status of these lab tests.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**marker_ids:** `typing.Optional[typing.Union[int, typing.Sequence[int]]]` — Filter to only include lab tests containing these marker IDs.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter to only include lab tests containing these provider IDs.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — Filter by the name of the lab test (a case-insensitive substring search).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_key:** `typing.Optional[LabTestsGetPaginatedRequestOrderKey]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_direction:** `typing.Optional[LabTestsGetPaginatedRequestOrderDirection]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_phlebotomy_appointment_availability</a>(...)</code></summary>
 <dl>
 <dd>

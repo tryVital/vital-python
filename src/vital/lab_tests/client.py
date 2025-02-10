@@ -19,6 +19,9 @@ from ..types.get_markers_response import GetMarkersResponse
 from ..types.order_set_request import OrderSetRequest
 from ..types.client_facing_marker import ClientFacingMarker
 from ..types.client_facing_lab import ClientFacingLab
+from .types.lab_tests_get_paginated_request_order_key import LabTestsGetPaginatedRequestOrderKey
+from .types.lab_tests_get_paginated_request_order_direction import LabTestsGetPaginatedRequestOrderDirection
+from ..types.lab_test_resources_response import LabTestResourcesResponse
 from ..types.us_address import UsAddress
 from ..types.appointment_availability_slots import AppointmentAvailabilitySlots
 from ..types.appointment_booking_request import AppointmentBookingRequest
@@ -688,6 +691,115 @@ class LabTestsClient:
                         type_=typing.List[ClientFacingLab],  # type: ignore
                         object_=_response.json(),
                     ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def get_paginated(
+        self,
+        *,
+        lab_test_limit: typing.Optional[int] = None,
+        next_cursor: typing.Optional[str] = None,
+        generation_method: typing.Optional[LabTestGenerationMethodFilter] = None,
+        lab_slug: typing.Optional[str] = None,
+        collection_method: typing.Optional[LabTestCollectionMethod] = None,
+        status: typing.Optional[LabTestStatus] = None,
+        marker_ids: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
+        provider_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        name: typing.Optional[str] = None,
+        order_key: typing.Optional[LabTestsGetPaginatedRequestOrderKey] = None,
+        order_direction: typing.Optional[LabTestsGetPaginatedRequestOrderDirection] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> LabTestResourcesResponse:
+        """
+        GET lab tests the team has access to as a paginated list.
+
+        Parameters
+        ----------
+        lab_test_limit : typing.Optional[int]
+
+        next_cursor : typing.Optional[str]
+
+        generation_method : typing.Optional[LabTestGenerationMethodFilter]
+            Filter on whether auto-generated lab tests created by Vital, manually created lab tests, or all lab tests should be returned.
+
+        lab_slug : typing.Optional[str]
+            Filter by the slug of the lab for these lab tests.
+
+        collection_method : typing.Optional[LabTestCollectionMethod]
+            Filter by the collection method for these lab tests.
+
+        status : typing.Optional[LabTestStatus]
+            Filter by the status of these lab tests.
+
+        marker_ids : typing.Optional[typing.Union[int, typing.Sequence[int]]]
+            Filter to only include lab tests containing these marker IDs.
+
+        provider_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Filter to only include lab tests containing these provider IDs.
+
+        name : typing.Optional[str]
+            Filter by the name of the lab test (a case-insensitive substring search).
+
+        order_key : typing.Optional[LabTestsGetPaginatedRequestOrderKey]
+
+        order_direction : typing.Optional[LabTestsGetPaginatedRequestOrderDirection]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        LabTestResourcesResponse
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_paginated()
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v3/lab_test",
+            method="GET",
+            params={
+                "lab_test_limit": lab_test_limit,
+                "next_cursor": next_cursor,
+                "generation_method": generation_method,
+                "lab_slug": lab_slug,
+                "collection_method": collection_method,
+                "status": status,
+                "marker_ids": marker_ids,
+                "provider_ids": provider_ids,
+                "name": name,
+                "order_key": order_key,
+                "order_direction": order_direction,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    LabTestResourcesResponse,
+                    parse_obj_as(
+                        type_=LabTestResourcesResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
                 )
             _response_json = _response.json()
         except JSONDecodeError:
@@ -3244,6 +3356,123 @@ class AsyncLabTestsClient:
                         type_=typing.List[ClientFacingLab],  # type: ignore
                         object_=_response.json(),
                     ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def get_paginated(
+        self,
+        *,
+        lab_test_limit: typing.Optional[int] = None,
+        next_cursor: typing.Optional[str] = None,
+        generation_method: typing.Optional[LabTestGenerationMethodFilter] = None,
+        lab_slug: typing.Optional[str] = None,
+        collection_method: typing.Optional[LabTestCollectionMethod] = None,
+        status: typing.Optional[LabTestStatus] = None,
+        marker_ids: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
+        provider_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        name: typing.Optional[str] = None,
+        order_key: typing.Optional[LabTestsGetPaginatedRequestOrderKey] = None,
+        order_direction: typing.Optional[LabTestsGetPaginatedRequestOrderDirection] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> LabTestResourcesResponse:
+        """
+        GET lab tests the team has access to as a paginated list.
+
+        Parameters
+        ----------
+        lab_test_limit : typing.Optional[int]
+
+        next_cursor : typing.Optional[str]
+
+        generation_method : typing.Optional[LabTestGenerationMethodFilter]
+            Filter on whether auto-generated lab tests created by Vital, manually created lab tests, or all lab tests should be returned.
+
+        lab_slug : typing.Optional[str]
+            Filter by the slug of the lab for these lab tests.
+
+        collection_method : typing.Optional[LabTestCollectionMethod]
+            Filter by the collection method for these lab tests.
+
+        status : typing.Optional[LabTestStatus]
+            Filter by the status of these lab tests.
+
+        marker_ids : typing.Optional[typing.Union[int, typing.Sequence[int]]]
+            Filter to only include lab tests containing these marker IDs.
+
+        provider_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Filter to only include lab tests containing these provider IDs.
+
+        name : typing.Optional[str]
+            Filter by the name of the lab test (a case-insensitive substring search).
+
+        order_key : typing.Optional[LabTestsGetPaginatedRequestOrderKey]
+
+        order_direction : typing.Optional[LabTestsGetPaginatedRequestOrderDirection]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        LabTestResourcesResponse
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.lab_tests.get_paginated()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "v3/lab_test",
+            method="GET",
+            params={
+                "lab_test_limit": lab_test_limit,
+                "next_cursor": next_cursor,
+                "generation_method": generation_method,
+                "lab_slug": lab_slug,
+                "collection_method": collection_method,
+                "status": status,
+                "marker_ids": marker_ids,
+                "provider_ids": provider_ids,
+                "name": name,
+                "order_key": order_key,
+                "order_direction": order_direction,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    LabTestResourcesResponse,
+                    parse_obj_as(
+                        type_=LabTestResourcesResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
                 )
             _response_json = _response.json()
         except JSONDecodeError:

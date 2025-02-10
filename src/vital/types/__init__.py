@@ -309,6 +309,7 @@ from .lab_results_raw import LabResultsRaw
 from .lab_results_raw_results import LabResultsRawResults
 from .lab_test_collection_method import LabTestCollectionMethod
 from .lab_test_generation_method_filter import LabTestGenerationMethodFilter
+from .lab_test_resources_response import LabTestResourcesResponse
 from .lab_test_sample_type import LabTestSampleType
 from .lab_test_status import LabTestStatus
 from .labs import Labs
@@ -705,6 +706,7 @@ __all__ = [
     "LabResultsRawResults",
     "LabTestCollectionMethod",
     "LabTestGenerationMethodFilter",
+    "LabTestResourcesResponse",
     "LabTestSampleType",
     "LabTestStatus",
     "Labs",
