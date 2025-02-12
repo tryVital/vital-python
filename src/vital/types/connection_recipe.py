@@ -12,8 +12,18 @@ class ConnectionRecipe(UniversalBaseModel):
     Vital User ID. The user must be created ahead of the bulk import operation.
     """
 
-    access_token: str
-    refresh_token: str
+    access_token: str = pydantic.Field()
+    """
+    - OAuth 2.0 providers (Fitbit, etc): The latest Access Token.
+    - OAuth 1.0 providers (Garmin): The Access Token.
+    """
+
+    refresh_token: str = pydantic.Field()
+    """
+    - OAuth 2.0 providers (Fitbit, etc): The latest Refresh Token.
+    - OAuth 1.0 providers (Garmin): The Token Secret.
+    """
+
     provider_id: str = pydantic.Field()
     """
     User ID of the data provider.
@@ -25,6 +35,9 @@ class ConnectionRecipe(UniversalBaseModel):
     expires_at: int = pydantic.Field()
     """
     Access token expiry date, in terms of UNIX epoch seconds.
+    
+    - OAuth 2.0 providers (Fitbit, etc): The latest expiry date on your record.
+    - OAuth 1.0 providers (Garmin): Use the constant value `2147483647`.
     """
 
     oauth_scopes: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
