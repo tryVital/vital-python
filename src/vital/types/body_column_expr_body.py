@@ -17,6 +17,7 @@ class BodyColumnExprBody(str, enum.Enum):
     SOURCE_TYPE = "source_type"
     SOURCE_PROVIDER = "source_provider"
     SOURCE_APP_ID = "source_app_id"
+    TIME_ZONE = "time_zone"
 
     def visit(
         self,
@@ -30,6 +31,7 @@ class BodyColumnExprBody(str, enum.Enum):
         source_type: typing.Callable[[], T_Result],
         source_provider: typing.Callable[[], T_Result],
         source_app_id: typing.Callable[[], T_Result],
+        time_zone: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is BodyColumnExprBody.MEASURED_AT:
             return measured_at()
@@ -51,3 +53,5 @@ class BodyColumnExprBody(str, enum.Enum):
             return source_provider()
         if self is BodyColumnExprBody.SOURCE_APP_ID:
             return source_app_id()
+        if self is BodyColumnExprBody.TIME_ZONE:
+            return time_zone()

@@ -26,12 +26,14 @@ class SleepColumnExprSleep(str, enum.Enum):
     EFFICIENCY = "efficiency"
     HRV_MEAN_RMSSD = "hrv_mean_rmssd"
     HRV_MEAN_SDNN = "hrv_mean_sdnn"
+    SKIN_TEMPERATURE = "skin_temperature"
     SKIN_TEMPERATURE_DELTA = "skin_temperature_delta"
     RESPIRATORY_RATE = "respiratory_rate"
     SCORE = "score"
     SOURCE_TYPE = "source_type"
     SOURCE_PROVIDER = "source_provider"
     SOURCE_APP_ID = "source_app_id"
+    TIME_ZONE = "time_zone"
 
     def visit(
         self,
@@ -54,12 +56,14 @@ class SleepColumnExprSleep(str, enum.Enum):
         efficiency: typing.Callable[[], T_Result],
         hrv_mean_rmssd: typing.Callable[[], T_Result],
         hrv_mean_sdnn: typing.Callable[[], T_Result],
+        skin_temperature: typing.Callable[[], T_Result],
         skin_temperature_delta: typing.Callable[[], T_Result],
         respiratory_rate: typing.Callable[[], T_Result],
         score: typing.Callable[[], T_Result],
         source_type: typing.Callable[[], T_Result],
         source_provider: typing.Callable[[], T_Result],
         source_app_id: typing.Callable[[], T_Result],
+        time_zone: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is SleepColumnExprSleep.SESSION_START:
             return session_start()
@@ -99,6 +103,8 @@ class SleepColumnExprSleep(str, enum.Enum):
             return hrv_mean_rmssd()
         if self is SleepColumnExprSleep.HRV_MEAN_SDNN:
             return hrv_mean_sdnn()
+        if self is SleepColumnExprSleep.SKIN_TEMPERATURE:
+            return skin_temperature()
         if self is SleepColumnExprSleep.SKIN_TEMPERATURE_DELTA:
             return skin_temperature_delta()
         if self is SleepColumnExprSleep.RESPIRATORY_RATE:
@@ -111,3 +117,5 @@ class SleepColumnExprSleep(str, enum.Enum):
             return source_provider()
         if self is SleepColumnExprSleep.SOURCE_APP_ID:
             return source_app_id()
+        if self is SleepColumnExprSleep.TIME_ZONE:
+            return time_zone()

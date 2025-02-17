@@ -39,6 +39,8 @@ class WorkoutColumnExprWorkout(str, enum.Enum):
     SOURCE_TYPE = "source_type"
     SOURCE_PROVIDER = "source_provider"
     SOURCE_APP_ID = "source_app_id"
+    SOURCE_WORKOUT_ID = "source_workout_id"
+    TIME_ZONE = "time_zone"
 
     def visit(
         self,
@@ -74,6 +76,8 @@ class WorkoutColumnExprWorkout(str, enum.Enum):
         source_type: typing.Callable[[], T_Result],
         source_provider: typing.Callable[[], T_Result],
         source_app_id: typing.Callable[[], T_Result],
+        source_workout_id: typing.Callable[[], T_Result],
+        time_zone: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is WorkoutColumnExprWorkout.SESSION_START:
             return session_start()
@@ -139,3 +143,7 @@ class WorkoutColumnExprWorkout(str, enum.Enum):
             return source_provider()
         if self is WorkoutColumnExprWorkout.SOURCE_APP_ID:
             return source_app_id()
+        if self is WorkoutColumnExprWorkout.SOURCE_WORKOUT_ID:
+            return source_workout_id()
+        if self is WorkoutColumnExprWorkout.TIME_ZONE:
+            return time_zone()

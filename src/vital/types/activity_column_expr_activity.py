@@ -25,6 +25,8 @@ class ActivityColumnExprActivity(str, enum.Enum):
     SOURCE_TYPE = "source_type"
     SOURCE_PROVIDER = "source_provider"
     SOURCE_APP_ID = "source_app_id"
+    TIME_ZONE = "time_zone"
+    TIME_ZONE_OFFSET = "time_zone_offset"
 
     def visit(
         self,
@@ -46,6 +48,8 @@ class ActivityColumnExprActivity(str, enum.Enum):
         source_type: typing.Callable[[], T_Result],
         source_provider: typing.Callable[[], T_Result],
         source_app_id: typing.Callable[[], T_Result],
+        time_zone: typing.Callable[[], T_Result],
+        time_zone_offset: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is ActivityColumnExprActivity.DATE:
             return date()
@@ -83,3 +87,7 @@ class ActivityColumnExprActivity(str, enum.Enum):
             return source_provider()
         if self is ActivityColumnExprActivity.SOURCE_APP_ID:
             return source_app_id()
+        if self is ActivityColumnExprActivity.TIME_ZONE:
+            return time_zone()
+        if self is ActivityColumnExprActivity.TIME_ZONE_OFFSET:
+            return time_zone_offset()
