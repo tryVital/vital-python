@@ -2,6 +2,7 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import pydantic
+import datetime as dt
 import typing
 from .energy import Energy
 from .macros import Macros
@@ -29,19 +30,19 @@ class MealInDbBaseClientFacingSource(UniversalBaseModel):
     This value is identical to `id`.
     """
 
-    timestamp: str
+    timestamp: dt.datetime
     name: str
     energy: typing.Optional[Energy] = None
     macros: typing.Optional[Macros] = None
     micros: typing.Optional[Micros] = None
     data: typing.Optional[typing.Dict[str, ClientFacingFood]] = None
     source: ClientFacingSource
-    created_at: str = pydantic.Field()
+    created_at: dt.datetime = pydantic.Field()
     """
     This value is identical to `timestamp`.
     """
 
-    updated_at: str = pydantic.Field()
+    updated_at: dt.datetime = pydantic.Field()
     """
     This value is identical to `timestamp`.
     """

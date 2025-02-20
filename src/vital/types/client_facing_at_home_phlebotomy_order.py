@@ -3,6 +3,7 @@
 from ..core.pydantic_utilities import UniversalBaseModel
 import pydantic
 import typing
+import datetime as dt
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -19,8 +20,8 @@ class ClientFacingAtHomePhlebotomyOrder(UniversalBaseModel):
     """
 
     appointment_id: typing.Optional[str] = None
-    created_at: str
-    updated_at: str
+    created_at: dt.datetime
+    updated_at: dt.datetime
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

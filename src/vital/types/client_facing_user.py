@@ -2,6 +2,7 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import pydantic
+import datetime as dt
 import typing
 from .connected_source_client_facing import ConnectedSourceClientFacing
 from .fallback_time_zone import FallbackTimeZone
@@ -25,7 +26,7 @@ class ClientFacingUser(UniversalBaseModel):
     A unique ID representing the end user. Typically this will be a user ID from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id.
     """
 
-    created_on: str = pydantic.Field()
+    created_on: dt.datetime = pydantic.Field()
     """
     When your item is created
     """

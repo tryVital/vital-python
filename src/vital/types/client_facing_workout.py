@@ -3,6 +3,7 @@
 from ..core.pydantic_utilities import UniversalBaseModel
 import pydantic
 import typing
+import datetime as dt
 from .client_facing_sport import ClientFacingSport
 from .client_facing_workout_map import ClientFacingWorkoutMap
 from .client_facing_source import ClientFacingSource
@@ -46,12 +47,12 @@ class ClientFacingWorkout(UniversalBaseModel):
     Date of the workout summary in the YYYY-mm-dd format. This generally matches the workout start date.
     """
 
-    time_start: str = pydantic.Field()
+    time_start: dt.datetime = pydantic.Field()
     """
     Start time of the workout::time
     """
 
-    time_end: str = pydantic.Field()
+    time_end: dt.datetime = pydantic.Field()
     """
     End time of the workout::time
     """

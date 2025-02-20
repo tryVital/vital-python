@@ -2,6 +2,7 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import pydantic
+import datetime as dt
 from .sleep_type import SleepType
 import typing
 from .sleep_summary_state import SleepSummaryState
@@ -17,7 +18,7 @@ class ClientFacingSleep(UniversalBaseModel):
     """
 
     id: str
-    date: str = pydantic.Field()
+    date: dt.datetime = pydantic.Field()
     """
     Date of the specified record, formatted as ISO8601 datetime string in UTC 00:00. Deprecated in favour of calendar_date.
     """
@@ -27,12 +28,12 @@ class ClientFacingSleep(UniversalBaseModel):
     Date of the sleep summary in the YYYY-mm-dd format. This generally matches the sleep end date.
     """
 
-    bedtime_start: str = pydantic.Field()
+    bedtime_start: dt.datetime = pydantic.Field()
     """
     UTC Time when the sleep period started
     """
 
-    bedtime_stop: str = pydantic.Field()
+    bedtime_stop: dt.datetime = pydantic.Field()
     """
     UTC Time when the sleep period ended
     """

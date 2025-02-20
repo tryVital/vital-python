@@ -2,6 +2,7 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import pydantic
+import datetime as dt
 import typing
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
@@ -18,8 +19,8 @@ class ClientFacingWalkInTestOrder(UniversalBaseModel):
     The Vital walk-in test Order ID
     """
 
-    created_at: str
-    updated_at: str
+    created_at: dt.datetime
+    updated_at: dt.datetime
     appointment_id: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:

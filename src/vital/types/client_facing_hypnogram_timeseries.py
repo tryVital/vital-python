@@ -3,6 +3,8 @@
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing
 import pydantic
+from .client_facing_sample_grouping_keys import ClientFacingSampleGroupingKeys
+import datetime as dt
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -27,17 +29,18 @@ class ClientFacingHypnogramTimeseries(UniversalBaseModel):
     enum: 1: deep, 2: light, 3: rem, 4: awake, -1: missing_data.
     """
 
-    timestamp: str = pydantic.Field()
+    grouping: typing.Optional[ClientFacingSampleGroupingKeys] = None
+    timestamp: dt.datetime = pydantic.Field()
     """
     Depracated. The start time (inclusive) of the interval.
     """
 
-    start: str = pydantic.Field()
+    start: dt.datetime = pydantic.Field()
     """
     The start time (inclusive) of the interval.
     """
 
-    end: str = pydantic.Field()
+    end: dt.datetime = pydantic.Field()
     """
     The end time (exclusive) of the interval.
     """

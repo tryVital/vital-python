@@ -3,6 +3,8 @@
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing
 import pydantic
+from .client_facing_sample_grouping_keys import ClientFacingSampleGroupingKeys
+import datetime as dt
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -27,7 +29,8 @@ class ClientFacingBloodPressureTimeseries(UniversalBaseModel):
     The unit of the value. We use SI units where possible, e.g. mmol/L for glucose/cholesterol, bpm for heart rate, etc.
     """
 
-    timestamp: str
+    grouping: typing.Optional[ClientFacingSampleGroupingKeys] = None
+    timestamp: dt.datetime
     systolic: float
     diastolic: float
 

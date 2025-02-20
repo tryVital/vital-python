@@ -3,21 +3,15 @@
 from ..core.client_wrapper import SyncClientWrapper
 import typing
 from ..core.request_options import RequestOptions
-from ..types.client_facing_grouped_timeseries_response_client_facing_heart_rate_alert_sample import (
-    ClientFacingGroupedTimeseriesResponseClientFacingHeartRateAlertSample,
-)
+from ..types.grouped_heart_rate_alert_response import GroupedHeartRateAlertResponse
 from ..core.jsonable_encoder import jsonable_encoder
 from ..core.pydantic_utilities import parse_obj_as
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
-from ..types.client_facing_grouped_timeseries_response_client_facing_a_fib_burden_sample import (
-    ClientFacingGroupedTimeseriesResponseClientFacingAFibBurdenSample,
-)
-from ..types.client_facing_grouped_timeseries_response_client_facing_workout_duration_sample import (
-    ClientFacingGroupedTimeseriesResponseClientFacingWorkoutDurationSample,
-)
+from ..types.grouped_a_fib_burden_response import GroupedAFibBurdenResponse
+from ..types.grouped_workout_duration_response import GroupedWorkoutDurationResponse
 from ..types.grouped_vo_2_max_response import GroupedVo2MaxResponse
 from ..types.grouped_stress_level_response import GroupedStressLevelResponse
 from ..types.grouped_mindfulness_minutes_response import GroupedMindfulnessMinutesResponse
@@ -29,12 +23,8 @@ from ..types.grouped_distance_response import GroupedDistanceResponse
 from ..types.grouped_calories_basal_response import GroupedCaloriesBasalResponse
 from ..types.grouped_calories_active_response import GroupedCaloriesActiveResponse
 from ..types.grouped_respiratory_rate_response import GroupedRespiratoryRateResponse
-from ..types.client_facing_grouped_timeseries_response_client_facing_note_sample import (
-    ClientFacingGroupedTimeseriesResponseClientFacingNoteSample,
-)
-from ..types.client_facing_grouped_timeseries_response_client_facing_insulin_injection_sample import (
-    ClientFacingGroupedTimeseriesResponseClientFacingInsulinInjectionSample,
-)
+from ..types.grouped_note_response import GroupedNoteResponse
+from ..types.grouped_insulin_injection_response import GroupedInsulinInjectionResponse
 from ..types.grouped_ige_response import GroupedIgeResponse
 from ..types.grouped_igg_response import GroupedIggResponse
 from ..types.grouped_hypnogram_response import GroupedHypnogramResponse
@@ -42,15 +32,9 @@ from ..types.grouped_hrv_response import GroupedHrvResponse
 from ..types.grouped_heart_rate_response import GroupedHeartRateResponse
 from ..types.grouped_glucose_response import GroupedGlucoseResponse
 from ..types.grouped_cholesterol_response import GroupedCholesterolResponse
-from ..types.client_facing_grouped_timeseries_response_client_facing_carbohydrates_sample import (
-    ClientFacingGroupedTimeseriesResponseClientFacingCarbohydratesSample,
-)
-from ..types.client_facing_grouped_timeseries_response_client_facing_body_temperature_delta_sample import (
-    ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureDeltaSample,
-)
-from ..types.client_facing_grouped_timeseries_response_client_facing_body_temperature_sample import (
-    ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureSample,
-)
+from ..types.grouped_carbohydrates_response import GroupedCarbohydratesResponse
+from ..types.grouped_body_temperature_delta_response import GroupedBodyTemperatureDeltaResponse
+from ..types.grouped_body_temperature_response import GroupedBodyTemperatureResponse
 from ..types.grouped_body_weight_response import GroupedBodyWeightResponse
 from ..types.grouped_body_fat_response import GroupedBodyFatResponse
 from ..types.grouped_blood_oxygen_response import GroupedBloodOxygenResponse
@@ -96,7 +80,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingHeartRateAlertSample:
+    ) -> GroupedHeartRateAlertResponse:
         """
         Parameters
         ----------
@@ -122,7 +106,7 @@ class VitalsClient:
 
         Returns
         -------
-        ClientFacingGroupedTimeseriesResponseClientFacingHeartRateAlertSample
+        GroupedHeartRateAlertResponse
             Successful Response
 
         Examples
@@ -152,9 +136,9 @@ class VitalsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    ClientFacingGroupedTimeseriesResponseClientFacingHeartRateAlertSample,
+                    GroupedHeartRateAlertResponse,
                     parse_obj_as(
-                        type_=ClientFacingGroupedTimeseriesResponseClientFacingHeartRateAlertSample,  # type: ignore
+                        type_=GroupedHeartRateAlertResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -183,7 +167,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingAFibBurdenSample:
+    ) -> GroupedAFibBurdenResponse:
         """
         Parameters
         ----------
@@ -209,7 +193,7 @@ class VitalsClient:
 
         Returns
         -------
-        ClientFacingGroupedTimeseriesResponseClientFacingAFibBurdenSample
+        GroupedAFibBurdenResponse
             Successful Response
 
         Examples
@@ -239,9 +223,9 @@ class VitalsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    ClientFacingGroupedTimeseriesResponseClientFacingAFibBurdenSample,
+                    GroupedAFibBurdenResponse,
                     parse_obj_as(
-                        type_=ClientFacingGroupedTimeseriesResponseClientFacingAFibBurdenSample,  # type: ignore
+                        type_=GroupedAFibBurdenResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -270,7 +254,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingWorkoutDurationSample:
+    ) -> GroupedWorkoutDurationResponse:
         """
         Parameters
         ----------
@@ -296,7 +280,7 @@ class VitalsClient:
 
         Returns
         -------
-        ClientFacingGroupedTimeseriesResponseClientFacingWorkoutDurationSample
+        GroupedWorkoutDurationResponse
             Successful Response
 
         Examples
@@ -326,9 +310,9 @@ class VitalsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    ClientFacingGroupedTimeseriesResponseClientFacingWorkoutDurationSample,
+                    GroupedWorkoutDurationResponse,
                     parse_obj_as(
-                        type_=ClientFacingGroupedTimeseriesResponseClientFacingWorkoutDurationSample,  # type: ignore
+                        type_=GroupedWorkoutDurationResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1314,7 +1298,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingNoteSample:
+    ) -> GroupedNoteResponse:
         """
         Parameters
         ----------
@@ -1340,7 +1324,7 @@ class VitalsClient:
 
         Returns
         -------
-        ClientFacingGroupedTimeseriesResponseClientFacingNoteSample
+        GroupedNoteResponse
             Successful Response
 
         Examples
@@ -1370,9 +1354,9 @@ class VitalsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    ClientFacingGroupedTimeseriesResponseClientFacingNoteSample,
+                    GroupedNoteResponse,
                     parse_obj_as(
-                        type_=ClientFacingGroupedTimeseriesResponseClientFacingNoteSample,  # type: ignore
+                        type_=GroupedNoteResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1401,7 +1385,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingInsulinInjectionSample:
+    ) -> GroupedInsulinInjectionResponse:
         """
         Parameters
         ----------
@@ -1427,7 +1411,7 @@ class VitalsClient:
 
         Returns
         -------
-        ClientFacingGroupedTimeseriesResponseClientFacingInsulinInjectionSample
+        GroupedInsulinInjectionResponse
             Successful Response
 
         Examples
@@ -1457,9 +1441,9 @@ class VitalsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    ClientFacingGroupedTimeseriesResponseClientFacingInsulinInjectionSample,
+                    GroupedInsulinInjectionResponse,
                     parse_obj_as(
-                        type_=ClientFacingGroupedTimeseriesResponseClientFacingInsulinInjectionSample,  # type: ignore
+                        type_=GroupedInsulinInjectionResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -2097,7 +2081,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingCarbohydratesSample:
+    ) -> GroupedCarbohydratesResponse:
         """
         Parameters
         ----------
@@ -2123,7 +2107,7 @@ class VitalsClient:
 
         Returns
         -------
-        ClientFacingGroupedTimeseriesResponseClientFacingCarbohydratesSample
+        GroupedCarbohydratesResponse
             Successful Response
 
         Examples
@@ -2153,9 +2137,9 @@ class VitalsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    ClientFacingGroupedTimeseriesResponseClientFacingCarbohydratesSample,
+                    GroupedCarbohydratesResponse,
                     parse_obj_as(
-                        type_=ClientFacingGroupedTimeseriesResponseClientFacingCarbohydratesSample,  # type: ignore
+                        type_=GroupedCarbohydratesResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -2184,7 +2168,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureDeltaSample:
+    ) -> GroupedBodyTemperatureDeltaResponse:
         """
         Parameters
         ----------
@@ -2210,7 +2194,7 @@ class VitalsClient:
 
         Returns
         -------
-        ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureDeltaSample
+        GroupedBodyTemperatureDeltaResponse
             Successful Response
 
         Examples
@@ -2240,9 +2224,9 @@ class VitalsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureDeltaSample,
+                    GroupedBodyTemperatureDeltaResponse,
                     parse_obj_as(
-                        type_=ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureDeltaSample,  # type: ignore
+                        type_=GroupedBodyTemperatureDeltaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -2271,7 +2255,7 @@ class VitalsClient:
         provider: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureSample:
+    ) -> GroupedBodyTemperatureResponse:
         """
         Parameters
         ----------
@@ -2297,7 +2281,7 @@ class VitalsClient:
 
         Returns
         -------
-        ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureSample
+        GroupedBodyTemperatureResponse
             Successful Response
 
         Examples
@@ -2327,9 +2311,9 @@ class VitalsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureSample,
+                    GroupedBodyTemperatureResponse,
                     parse_obj_as(
-                        type_=ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureSample,  # type: ignore
+                        type_=GroupedBodyTemperatureResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -4877,7 +4861,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingHeartRateAlertSample:
+    ) -> GroupedHeartRateAlertResponse:
         """
         Parameters
         ----------
@@ -4903,7 +4887,7 @@ class AsyncVitalsClient:
 
         Returns
         -------
-        ClientFacingGroupedTimeseriesResponseClientFacingHeartRateAlertSample
+        GroupedHeartRateAlertResponse
             Successful Response
 
         Examples
@@ -4941,9 +4925,9 @@ class AsyncVitalsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    ClientFacingGroupedTimeseriesResponseClientFacingHeartRateAlertSample,
+                    GroupedHeartRateAlertResponse,
                     parse_obj_as(
-                        type_=ClientFacingGroupedTimeseriesResponseClientFacingHeartRateAlertSample,  # type: ignore
+                        type_=GroupedHeartRateAlertResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -4972,7 +4956,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingAFibBurdenSample:
+    ) -> GroupedAFibBurdenResponse:
         """
         Parameters
         ----------
@@ -4998,7 +4982,7 @@ class AsyncVitalsClient:
 
         Returns
         -------
-        ClientFacingGroupedTimeseriesResponseClientFacingAFibBurdenSample
+        GroupedAFibBurdenResponse
             Successful Response
 
         Examples
@@ -5036,9 +5020,9 @@ class AsyncVitalsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    ClientFacingGroupedTimeseriesResponseClientFacingAFibBurdenSample,
+                    GroupedAFibBurdenResponse,
                     parse_obj_as(
-                        type_=ClientFacingGroupedTimeseriesResponseClientFacingAFibBurdenSample,  # type: ignore
+                        type_=GroupedAFibBurdenResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -5067,7 +5051,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingWorkoutDurationSample:
+    ) -> GroupedWorkoutDurationResponse:
         """
         Parameters
         ----------
@@ -5093,7 +5077,7 @@ class AsyncVitalsClient:
 
         Returns
         -------
-        ClientFacingGroupedTimeseriesResponseClientFacingWorkoutDurationSample
+        GroupedWorkoutDurationResponse
             Successful Response
 
         Examples
@@ -5131,9 +5115,9 @@ class AsyncVitalsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    ClientFacingGroupedTimeseriesResponseClientFacingWorkoutDurationSample,
+                    GroupedWorkoutDurationResponse,
                     parse_obj_as(
-                        type_=ClientFacingGroupedTimeseriesResponseClientFacingWorkoutDurationSample,  # type: ignore
+                        type_=GroupedWorkoutDurationResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -6207,7 +6191,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingNoteSample:
+    ) -> GroupedNoteResponse:
         """
         Parameters
         ----------
@@ -6233,7 +6217,7 @@ class AsyncVitalsClient:
 
         Returns
         -------
-        ClientFacingGroupedTimeseriesResponseClientFacingNoteSample
+        GroupedNoteResponse
             Successful Response
 
         Examples
@@ -6271,9 +6255,9 @@ class AsyncVitalsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    ClientFacingGroupedTimeseriesResponseClientFacingNoteSample,
+                    GroupedNoteResponse,
                     parse_obj_as(
-                        type_=ClientFacingGroupedTimeseriesResponseClientFacingNoteSample,  # type: ignore
+                        type_=GroupedNoteResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -6302,7 +6286,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingInsulinInjectionSample:
+    ) -> GroupedInsulinInjectionResponse:
         """
         Parameters
         ----------
@@ -6328,7 +6312,7 @@ class AsyncVitalsClient:
 
         Returns
         -------
-        ClientFacingGroupedTimeseriesResponseClientFacingInsulinInjectionSample
+        GroupedInsulinInjectionResponse
             Successful Response
 
         Examples
@@ -6366,9 +6350,9 @@ class AsyncVitalsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    ClientFacingGroupedTimeseriesResponseClientFacingInsulinInjectionSample,
+                    GroupedInsulinInjectionResponse,
                     parse_obj_as(
-                        type_=ClientFacingGroupedTimeseriesResponseClientFacingInsulinInjectionSample,  # type: ignore
+                        type_=GroupedInsulinInjectionResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -7062,7 +7046,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingCarbohydratesSample:
+    ) -> GroupedCarbohydratesResponse:
         """
         Parameters
         ----------
@@ -7088,7 +7072,7 @@ class AsyncVitalsClient:
 
         Returns
         -------
-        ClientFacingGroupedTimeseriesResponseClientFacingCarbohydratesSample
+        GroupedCarbohydratesResponse
             Successful Response
 
         Examples
@@ -7126,9 +7110,9 @@ class AsyncVitalsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    ClientFacingGroupedTimeseriesResponseClientFacingCarbohydratesSample,
+                    GroupedCarbohydratesResponse,
                     parse_obj_as(
-                        type_=ClientFacingGroupedTimeseriesResponseClientFacingCarbohydratesSample,  # type: ignore
+                        type_=GroupedCarbohydratesResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -7157,7 +7141,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureDeltaSample:
+    ) -> GroupedBodyTemperatureDeltaResponse:
         """
         Parameters
         ----------
@@ -7183,7 +7167,7 @@ class AsyncVitalsClient:
 
         Returns
         -------
-        ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureDeltaSample
+        GroupedBodyTemperatureDeltaResponse
             Successful Response
 
         Examples
@@ -7221,9 +7205,9 @@ class AsyncVitalsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureDeltaSample,
+                    GroupedBodyTemperatureDeltaResponse,
                     parse_obj_as(
-                        type_=ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureDeltaSample,  # type: ignore
+                        type_=GroupedBodyTemperatureDeltaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -7252,7 +7236,7 @@ class AsyncVitalsClient:
         provider: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureSample:
+    ) -> GroupedBodyTemperatureResponse:
         """
         Parameters
         ----------
@@ -7278,7 +7262,7 @@ class AsyncVitalsClient:
 
         Returns
         -------
-        ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureSample
+        GroupedBodyTemperatureResponse
             Successful Response
 
         Examples
@@ -7316,9 +7300,9 @@ class AsyncVitalsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureSample,
+                    GroupedBodyTemperatureResponse,
                     parse_obj_as(
-                        type_=ClientFacingGroupedTimeseriesResponseClientFacingBodyTemperatureSample,  # type: ignore
+                        type_=GroupedBodyTemperatureResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

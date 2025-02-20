@@ -3,6 +3,7 @@
 from ..core.pydantic_utilities import UniversalBaseModel
 from .client_facing_provider import ClientFacingProvider
 import pydantic
+import datetime as dt
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import typing
 
@@ -13,7 +14,7 @@ class ConnectedSourceClientFacing(UniversalBaseModel):
     The provider of this connected source.
     """
 
-    created_on: str = pydantic.Field()
+    created_on: dt.datetime = pydantic.Field()
     """
     When your item is created
     """

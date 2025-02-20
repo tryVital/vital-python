@@ -9,7 +9,7 @@ import pydantic
 
 
 class ProfileInDb(UniversalBaseModel):
-    data: typing.Optional[typing.Any] = None
+    data: str
     user_id: str
     source_id: int
     priority_id: typing.Optional[int] = None

@@ -2,6 +2,7 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import pydantic
+import datetime as dt
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import typing
 
@@ -18,7 +19,7 @@ class FallbackTimeZone(UniversalBaseModel):
     Slug for designated source
     """
 
-    updated_at: str
+    updated_at: dt.datetime
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

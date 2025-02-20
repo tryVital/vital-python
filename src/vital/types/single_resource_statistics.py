@@ -3,14 +3,15 @@
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing
 from .last_attempt import LastAttempt
+import datetime as dt
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
 
 class SingleResourceStatistics(UniversalBaseModel):
     last_attempt: typing.Optional[LastAttempt] = None
-    oldest_data: typing.Optional[str] = None
-    newest_data: typing.Optional[str] = None
+    oldest_data: typing.Optional[dt.datetime] = None
+    newest_data: typing.Optional[dt.datetime] = None
     sent_count: typing.Optional[int] = None
 
     if IS_PYDANTIC_V2:

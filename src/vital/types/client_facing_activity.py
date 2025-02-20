@@ -2,6 +2,7 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import pydantic
+import datetime as dt
 import typing
 from .client_facing_source import ClientFacingSource
 from .client_facing_heart_rate import ClientFacingHeartRate
@@ -15,7 +16,7 @@ class ClientFacingActivity(UniversalBaseModel):
     """
 
     id: str
-    date: str = pydantic.Field()
+    date: dt.datetime = pydantic.Field()
     """
     Date of the specified record, formatted as ISO8601 datetime string in UTC 00:00. Deprecated in favour of calendar_date.
     """

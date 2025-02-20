@@ -2,6 +2,7 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import pydantic
+import datetime as dt
 import typing
 from .client_facing_connection_error_details import ClientFacingConnectionErrorDetails
 from .resource_availability import ResourceAvailability
@@ -24,7 +25,7 @@ class ClientFacingProviderWithStatus(UniversalBaseModel):
     URL for source logo
     """
 
-    created_on: str
+    created_on: dt.datetime
     status: str = pydantic.Field()
     """
     Status of source, either error or connected

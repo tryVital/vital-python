@@ -7,6 +7,7 @@ from .client_facing_patient_details_compatible import ClientFacingPatientDetails
 from .patient_address_compatible import PatientAddressCompatible
 from .client_facing_lab_test import ClientFacingLabTest
 from .client_facing_order_details import ClientFacingOrderDetails
+import datetime as dt
 from .client_facing_order_event import ClientFacingOrderEvent
 from .order_top_level_status import OrderTopLevelStatus
 from .client_facing_physician import ClientFacingPhysician
@@ -57,12 +58,12 @@ class ClientFacingOrder(UniversalBaseModel):
     Notes associated with the order
     """
 
-    created_at: str = pydantic.Field()
+    created_at: dt.datetime = pydantic.Field()
     """
     When your order was created
     """
 
-    updated_at: str = pydantic.Field()
+    updated_at: dt.datetime = pydantic.Field()
     """
     When your order was last updated.
     """

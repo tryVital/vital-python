@@ -4,6 +4,7 @@ from ..core.pydantic_utilities import UniversalBaseModel
 from .us_address import UsAddress
 from .lng_lat import LngLat
 import typing
+import datetime as dt
 import pydantic
 from .appointment_type import AppointmentType
 from .appointment_provider import AppointmentProvider
@@ -19,12 +20,12 @@ class ClientFacingAppointment(UniversalBaseModel):
     order_id: str
     address: UsAddress
     location: LngLat
-    start_at: typing.Optional[str] = pydantic.Field(default=None)
+    start_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     Time is in UTC
     """
 
-    end_at: typing.Optional[str] = pydantic.Field(default=None)
+    end_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     Time is in UTC
     """

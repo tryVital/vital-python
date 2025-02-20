@@ -3,6 +3,7 @@
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing
 from .result_type import ResultType
+import datetime as dt
 from .parent_biomarker_data import ParentBiomarkerData
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
@@ -19,7 +20,7 @@ class BiomarkerResult(UniversalBaseModel):
     result: str
     type: ResultType
     unit: typing.Optional[str] = None
-    timestamp: typing.Optional[str] = None
+    timestamp: typing.Optional[dt.datetime] = None
     notes: typing.Optional[str] = None
     min_range_value: typing.Optional[float] = None
     max_range_value: typing.Optional[float] = None

@@ -3,6 +3,8 @@
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing
 import pydantic
+from .client_facing_sample_grouping_keys import ClientFacingSampleGroupingKeys
+import datetime as dt
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -27,7 +29,8 @@ class ClientFacingStressLevelTimeseries(UniversalBaseModel):
     Measured in percentage (0-100).
     """
 
-    timestamp: str = pydantic.Field()
+    grouping: typing.Optional[ClientFacingSampleGroupingKeys] = None
+    timestamp: dt.datetime = pydantic.Field()
     """
     The timestamp of the measurement.
     """

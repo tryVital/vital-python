@@ -2,7 +2,9 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 from .responsible_relationship import ResponsibleRelationship
-from .person_details_output import PersonDetailsOutput
+from .vital_core_schemas_db_schemas_lab_test_insurance_person_details import (
+    VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails,
+)
 from .company_details import CompanyDetails
 import typing
 from .guarantor_details import GuarantorDetails
@@ -14,7 +16,7 @@ class ClientFacingInsurance(UniversalBaseModel):
     member_id: str
     payor_code: str
     relationship: ResponsibleRelationship
-    insured: PersonDetailsOutput
+    insured: VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails
     company: CompanyDetails
     group_id: typing.Optional[str] = None
     guarantor: typing.Optional[GuarantorDetails] = None

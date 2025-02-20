@@ -4,6 +4,7 @@ from ..core.pydantic_utilities import UniversalBaseModel
 import pydantic
 import typing
 from .client_facing_shipment import ClientFacingShipment
+import datetime as dt
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -24,8 +25,8 @@ class ClientFacingTestkitOrder(UniversalBaseModel):
     Shipment object
     """
 
-    created_at: str
-    updated_at: str
+    created_at: dt.datetime
+    updated_at: dt.datetime
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

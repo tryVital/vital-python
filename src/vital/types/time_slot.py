@@ -2,23 +2,24 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing
+import datetime as dt
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
 class TimeSlot(UniversalBaseModel):
     booking_key: typing.Optional[str] = None
-    start: str = pydantic.Field()
+    start: dt.datetime = pydantic.Field()
     """
     Time is in UTC
     """
 
-    end: str = pydantic.Field()
+    end: dt.datetime = pydantic.Field()
     """
     Time is in UTC
     """
 
-    expires_at: typing.Optional[str] = None
+    expires_at: typing.Optional[dt.datetime] = None
     price: float
     is_priority: bool
     num_appointments_available: int

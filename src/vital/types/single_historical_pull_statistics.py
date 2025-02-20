@@ -3,6 +3,7 @@
 from ..core.pydantic_utilities import UniversalBaseModel
 from .historical_pull_status import HistoricalPullStatus
 import typing
+import datetime as dt
 from .historical_pull_timeline import HistoricalPullTimeline
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
@@ -10,8 +11,8 @@ import pydantic
 
 class SingleHistoricalPullStatistics(UniversalBaseModel):
     status: HistoricalPullStatus
-    range_start: typing.Optional[str] = None
-    range_end: typing.Optional[str] = None
+    range_start: typing.Optional[dt.datetime] = None
+    range_end: typing.Optional[dt.datetime] = None
     timeline: HistoricalPullTimeline
     days_with_data: typing.Optional[int] = None
     release: str

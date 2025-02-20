@@ -2,6 +2,7 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 from .client_facing_connection_error_details_error_type import ClientFacingConnectionErrorDetailsErrorType
+import datetime as dt
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import typing
 import pydantic
@@ -10,7 +11,7 @@ import pydantic
 class ClientFacingConnectionErrorDetails(UniversalBaseModel):
     error_type: ClientFacingConnectionErrorDetailsErrorType
     error_message: str
-    errored_at: str
+    errored_at: dt.datetime
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
