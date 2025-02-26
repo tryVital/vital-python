@@ -96,6 +96,11 @@ class ClientFacingSleep(UniversalBaseModel):
     The average heart rate registered during the sleep period::beats per minute
     """
 
+    hr_resting: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Resting heart rate recorded during a sleep session::bpm
+    """
+
     efficiency: typing.Optional[float] = pydantic.Field(default=None)
     """
     Sleep efficiency is the percentage of the sleep period spent asleep (100% \* sleep.total / sleep.duration)::perc

@@ -3,8 +3,8 @@
 from ..core.pydantic_utilities import UniversalBaseModel
 from .lng_lat import LngLat
 from .us_address import UsAddress
-from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import typing
+from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
 
@@ -13,6 +13,7 @@ class AppointmentLocation(UniversalBaseModel):
     address: UsAddress
     code: str
     name: str
+    iana_timezone: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

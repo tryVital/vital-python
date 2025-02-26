@@ -23,6 +23,7 @@ class SleepColumnExprSleep(str, enum.Enum):
     HEART_RATE_MEAN = "heart_rate_mean"
     HEART_RATE_MAXIMUM = "heart_rate_maximum"
     HEART_RATE_DIP = "heart_rate_dip"
+    HEART_RATE_RESTING = "heart_rate_resting"
     EFFICIENCY = "efficiency"
     HRV_MEAN_RMSSD = "hrv_mean_rmssd"
     HRV_MEAN_SDNN = "hrv_mean_sdnn"
@@ -53,6 +54,7 @@ class SleepColumnExprSleep(str, enum.Enum):
         heart_rate_mean: typing.Callable[[], T_Result],
         heart_rate_maximum: typing.Callable[[], T_Result],
         heart_rate_dip: typing.Callable[[], T_Result],
+        heart_rate_resting: typing.Callable[[], T_Result],
         efficiency: typing.Callable[[], T_Result],
         hrv_mean_rmssd: typing.Callable[[], T_Result],
         hrv_mean_sdnn: typing.Callable[[], T_Result],
@@ -97,6 +99,8 @@ class SleepColumnExprSleep(str, enum.Enum):
             return heart_rate_maximum()
         if self is SleepColumnExprSleep.HEART_RATE_DIP:
             return heart_rate_dip()
+        if self is SleepColumnExprSleep.HEART_RATE_RESTING:
+            return heart_rate_resting()
         if self is SleepColumnExprSleep.EFFICIENCY:
             return efficiency()
         if self is SleepColumnExprSleep.HRV_MEAN_RMSSD:
