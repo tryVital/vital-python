@@ -51,6 +51,8 @@ class OrderStatus(str, enum.Enum):
     FAILED_TESTKIT_LOST = "failed.testkit.lost"
     CANCELLED_TESTKIT_CANCELLED = "cancelled.testkit.cancelled"
     CANCELLED_TESTKIT_DO_NOT_PROCESS = "cancelled.testkit.do_not_process"
+    COLLECTING_SAMPLE_TESTKIT_PROBLEM_IN_TRANSIT_CUSTOMER = "collecting_sample.testkit.problem_in_transit_customer"
+    COLLECTING_SAMPLE_TESTKIT_PROBLEM_IN_TRANSIT_LAB = "collecting_sample.testkit.problem_in_transit_lab"
 
     def visit(
         self,
@@ -92,6 +94,8 @@ class OrderStatus(str, enum.Enum):
         failed_testkit_lost: typing.Callable[[], T_Result],
         cancelled_testkit_cancelled: typing.Callable[[], T_Result],
         cancelled_testkit_do_not_process: typing.Callable[[], T_Result],
+        collecting_sample_testkit_problem_in_transit_customer: typing.Callable[[], T_Result],
+        collecting_sample_testkit_problem_in_transit_lab: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is OrderStatus.RECEIVED_WALK_IN_TEST_ORDERED:
             return received_walk_in_test_ordered()
@@ -169,3 +173,7 @@ class OrderStatus(str, enum.Enum):
             return cancelled_testkit_cancelled()
         if self is OrderStatus.CANCELLED_TESTKIT_DO_NOT_PROCESS:
             return cancelled_testkit_do_not_process()
+        if self is OrderStatus.COLLECTING_SAMPLE_TESTKIT_PROBLEM_IN_TRANSIT_CUSTOMER:
+            return collecting_sample_testkit_problem_in_transit_customer()
+        if self is OrderStatus.COLLECTING_SAMPLE_TESTKIT_PROBLEM_IN_TRANSIT_LAB:
+            return collecting_sample_testkit_problem_in_transit_lab()
