@@ -9,6 +9,7 @@ T_Result = typing.TypeVar("T_Result")
 class OrderStatus(str, enum.Enum):
     RECEIVED_WALK_IN_TEST_ORDERED = "received.walk_in_test.ordered"
     RECEIVED_WALK_IN_TEST_REQUISITION_CREATED = "received.walk_in_test.requisition_created"
+    RECEIVED_WALK_IN_TEST_REQUISITION_BYPASSED = "received.walk_in_test.requisition_bypassed"
     COMPLETED_WALK_IN_TEST_COMPLETED = "completed.walk_in_test.completed"
     SAMPLE_WITH_LAB_WALK_IN_TEST_PARTIAL_RESULTS = "sample_with_lab.walk_in_test.partial_results"
     FAILED_WALK_IN_TEST_SAMPLE_ERROR = "failed.walk_in_test.sample_error"
@@ -18,6 +19,7 @@ class OrderStatus(str, enum.Enum):
     COLLECTING_SAMPLE_WALK_IN_TEST_APPOINTMENT_CANCELLED = "collecting_sample.walk_in_test.appointment_cancelled"
     RECEIVED_AT_HOME_PHLEBOTOMY_ORDERED = "received.at_home_phlebotomy.ordered"
     RECEIVED_AT_HOME_PHLEBOTOMY_REQUISITION_CREATED = "received.at_home_phlebotomy.requisition_created"
+    RECEIVED_AT_HOME_PHLEBOTOMY_REQUISITION_BYPASSED = "received.at_home_phlebotomy.requisition_bypassed"
     COLLECTING_SAMPLE_AT_HOME_PHLEBOTOMY_APPOINTMENT_PENDING = (
         "collecting_sample.at_home_phlebotomy.appointment_pending"
     )
@@ -35,6 +37,7 @@ class OrderStatus(str, enum.Enum):
     RECEIVED_TESTKIT_ORDERED = "received.testkit.ordered"
     RECEIVED_TESTKIT_AWAITING_REGISTRATION = "received.testkit.awaiting_registration"
     RECEIVED_TESTKIT_REQUISITION_CREATED = "received.testkit.requisition_created"
+    RECEIVED_TESTKIT_REQUISITION_BYPASSED = "received.testkit.requisition_bypassed"
     RECEIVED_TESTKIT_REGISTERED = "received.testkit.registered"
     COLLECTING_SAMPLE_TESTKIT_TRANSIT_CUSTOMER = "collecting_sample.testkit.transit_customer"
     COLLECTING_SAMPLE_TESTKIT_OUT_FOR_DELIVERY = "collecting_sample.testkit.out_for_delivery"
@@ -53,6 +56,7 @@ class OrderStatus(str, enum.Enum):
         self,
         received_walk_in_test_ordered: typing.Callable[[], T_Result],
         received_walk_in_test_requisition_created: typing.Callable[[], T_Result],
+        received_walk_in_test_requisition_bypassed: typing.Callable[[], T_Result],
         completed_walk_in_test_completed: typing.Callable[[], T_Result],
         sample_with_lab_walk_in_test_partial_results: typing.Callable[[], T_Result],
         failed_walk_in_test_sample_error: typing.Callable[[], T_Result],
@@ -62,6 +66,7 @@ class OrderStatus(str, enum.Enum):
         collecting_sample_walk_in_test_appointment_cancelled: typing.Callable[[], T_Result],
         received_at_home_phlebotomy_ordered: typing.Callable[[], T_Result],
         received_at_home_phlebotomy_requisition_created: typing.Callable[[], T_Result],
+        received_at_home_phlebotomy_requisition_bypassed: typing.Callable[[], T_Result],
         collecting_sample_at_home_phlebotomy_appointment_pending: typing.Callable[[], T_Result],
         collecting_sample_at_home_phlebotomy_appointment_scheduled: typing.Callable[[], T_Result],
         collecting_sample_at_home_phlebotomy_draw_completed: typing.Callable[[], T_Result],
@@ -73,6 +78,7 @@ class OrderStatus(str, enum.Enum):
         received_testkit_ordered: typing.Callable[[], T_Result],
         received_testkit_awaiting_registration: typing.Callable[[], T_Result],
         received_testkit_requisition_created: typing.Callable[[], T_Result],
+        received_testkit_requisition_bypassed: typing.Callable[[], T_Result],
         received_testkit_registered: typing.Callable[[], T_Result],
         collecting_sample_testkit_transit_customer: typing.Callable[[], T_Result],
         collecting_sample_testkit_out_for_delivery: typing.Callable[[], T_Result],
@@ -91,6 +97,8 @@ class OrderStatus(str, enum.Enum):
             return received_walk_in_test_ordered()
         if self is OrderStatus.RECEIVED_WALK_IN_TEST_REQUISITION_CREATED:
             return received_walk_in_test_requisition_created()
+        if self is OrderStatus.RECEIVED_WALK_IN_TEST_REQUISITION_BYPASSED:
+            return received_walk_in_test_requisition_bypassed()
         if self is OrderStatus.COMPLETED_WALK_IN_TEST_COMPLETED:
             return completed_walk_in_test_completed()
         if self is OrderStatus.SAMPLE_WITH_LAB_WALK_IN_TEST_PARTIAL_RESULTS:
@@ -109,6 +117,8 @@ class OrderStatus(str, enum.Enum):
             return received_at_home_phlebotomy_ordered()
         if self is OrderStatus.RECEIVED_AT_HOME_PHLEBOTOMY_REQUISITION_CREATED:
             return received_at_home_phlebotomy_requisition_created()
+        if self is OrderStatus.RECEIVED_AT_HOME_PHLEBOTOMY_REQUISITION_BYPASSED:
+            return received_at_home_phlebotomy_requisition_bypassed()
         if self is OrderStatus.COLLECTING_SAMPLE_AT_HOME_PHLEBOTOMY_APPOINTMENT_PENDING:
             return collecting_sample_at_home_phlebotomy_appointment_pending()
         if self is OrderStatus.COLLECTING_SAMPLE_AT_HOME_PHLEBOTOMY_APPOINTMENT_SCHEDULED:
@@ -131,6 +141,8 @@ class OrderStatus(str, enum.Enum):
             return received_testkit_awaiting_registration()
         if self is OrderStatus.RECEIVED_TESTKIT_REQUISITION_CREATED:
             return received_testkit_requisition_created()
+        if self is OrderStatus.RECEIVED_TESTKIT_REQUISITION_BYPASSED:
+            return received_testkit_requisition_bypassed()
         if self is OrderStatus.RECEIVED_TESTKIT_REGISTERED:
             return received_testkit_registered()
         if self is OrderStatus.COLLECTING_SAMPLE_TESTKIT_TRANSIT_CUSTOMER:
