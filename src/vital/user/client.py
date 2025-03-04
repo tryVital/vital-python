@@ -131,10 +131,10 @@ class UserClient:
             Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
 
         ingestion_start : typing.Optional[str]
-            Starting bound for user data ingestion. Data older than this date will not be ingested.
+            Starting bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
 
         ingestion_end : typing.Optional[str]
-            Ending bound for user data ingestion. Data from this date or later will not be ingested and the connection will be deregistered.
+            Ending bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -494,10 +494,10 @@ class UserClient:
             Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
 
         ingestion_start : typing.Optional[str]
-            Starting bound for user data ingestion. Data older than this date will not be ingested.
+            Starting bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
 
         ingestion_end : typing.Optional[str]
-            Ending bound for user data ingestion. Data from this date or later will not be ingested and the connection will be deregistered.
+            Ending bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
 
         client_user_id : typing.Optional[str]
             A unique ID representing the end user. Typically this will be a user ID from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id.
@@ -1245,10 +1245,10 @@ class AsyncUserClient:
             Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
 
         ingestion_start : typing.Optional[str]
-            Starting bound for user data ingestion. Data older than this date will not be ingested.
+            Starting bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
 
         ingestion_end : typing.Optional[str]
-            Ending bound for user data ingestion. Data from this date or later will not be ingested and the connection will be deregistered.
+            Ending bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1658,10 +1658,10 @@ class AsyncUserClient:
             Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
 
         ingestion_start : typing.Optional[str]
-            Starting bound for user data ingestion. Data older than this date will not be ingested.
+            Starting bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
 
         ingestion_end : typing.Optional[str]
-            Ending bound for user data ingestion. Data from this date or later will not be ingested and the connection will be deregistered.
+            Ending bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
 
         client_user_id : typing.Optional[str]
             A unique ID representing the end user. Typically this will be a user ID from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id.

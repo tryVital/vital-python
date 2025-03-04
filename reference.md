@@ -8399,7 +8399,7 @@ client.user.create(
 <dl>
 <dd>
 
-**ingestion_start:** `typing.Optional[str]` — Starting bound for user data ingestion. Data older than this date will not be ingested.
+**ingestion_start:** `typing.Optional[str]` — Starting bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
     
 </dd>
 </dl>
@@ -8407,7 +8407,7 @@ client.user.create(
 <dl>
 <dd>
 
-**ingestion_end:** `typing.Optional[str]` — Ending bound for user data ingestion. Data from this date or later will not be ingested and the connection will be deregistered.
+**ingestion_end:** `typing.Optional[str]` — Ending bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
     
 </dd>
 </dl>
@@ -8804,7 +8804,7 @@ client.user.patch(
 <dl>
 <dd>
 
-**ingestion_start:** `typing.Optional[str]` — Starting bound for user data ingestion. Data older than this date will not be ingested.
+**ingestion_start:** `typing.Optional[str]` — Starting bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
     
 </dd>
 </dl>
@@ -8812,7 +8812,7 @@ client.user.patch(
 <dl>
 <dd>
 
-**ingestion_end:** `typing.Optional[str]` — Ending bound for user data ingestion. Data from this date or later will not be ingested and the connection will be deregistered.
+**ingestion_end:** `typing.Optional[str]` — Ending bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
     
 </dd>
 </dl>

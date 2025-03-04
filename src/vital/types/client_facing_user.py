@@ -49,12 +49,12 @@ class ClientFacingUser(UniversalBaseModel):
 
     ingestion_start: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Starting bound for user data ingestion. Data older than this date will not be ingested.
+    Starting bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
     """
 
     ingestion_end: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Ending bound for user data ingestion. Data from this date or later will not be ingested and the connection will be deregistered.
+    Ending bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
     """
 
     if IS_PYDANTIC_V2:
