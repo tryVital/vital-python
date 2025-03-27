@@ -52,9 +52,17 @@ from .client_facing_afib_burden_historical_pull_completed import ClientFacingAfi
 from .client_facing_api_key import ClientFacingApiKey
 from .client_facing_appointment import ClientFacingAppointment
 from .client_facing_appointment_cancellation_reason import ClientFacingAppointmentCancellationReason
+from .client_facing_appointment_changed import ClientFacingAppointmentChanged
+from .client_facing_appointment_changed_event_type import ClientFacingAppointmentChangedEventType
 from .client_facing_appointment_event import ClientFacingAppointmentEvent
 from .client_facing_at_home_phlebotomy_order import ClientFacingAtHomePhlebotomyOrder
 from .client_facing_at_home_phlebotomy_order_details import ClientFacingAtHomePhlebotomyOrderDetails
+from .client_facing_basal_body_temperature_changed import ClientFacingBasalBodyTemperatureChanged
+from .client_facing_basal_body_temperature_changed_event_type import ClientFacingBasalBodyTemperatureChangedEventType
+from .client_facing_basal_body_temperature_historical_pull_completed import (
+    ClientFacingBasalBodyTemperatureHistoricalPullCompleted,
+)
+from .client_facing_basal_body_temperature_sample import ClientFacingBasalBodyTemperatureSample
 from .client_facing_blood_oxygen_changed import ClientFacingBloodOxygenChanged
 from .client_facing_blood_oxygen_changed_event_type import ClientFacingBloodOxygenChangedEventType
 from .client_facing_blood_oxygen_historical_pull_completed import ClientFacingBloodOxygenHistoricalPullCompleted
@@ -106,10 +114,14 @@ from .client_facing_cholesterol_timeseries import ClientFacingCholesterolTimeser
 from .client_facing_connection_error_details import ClientFacingConnectionErrorDetails
 from .client_facing_connection_error_details_error_type import ClientFacingConnectionErrorDetailsErrorType
 from .client_facing_continuous_query_result_table_changed import ClientFacingContinuousQueryResultTableChanged
-from .client_facing_created_changed import ClientFacingCreatedChanged
-from .client_facing_created_changed_event_type import ClientFacingCreatedChangedEventType
 from .client_facing_critical_result import ClientFacingCriticalResult
 from .client_facing_critical_result_identified import ClientFacingCriticalResultIdentified
+from .client_facing_daylight_exposure_changed import ClientFacingDaylightExposureChanged
+from .client_facing_daylight_exposure_changed_event_type import ClientFacingDaylightExposureChangedEventType
+from .client_facing_daylight_exposure_historical_pull_completed import (
+    ClientFacingDaylightExposureHistoricalPullCompleted,
+)
+from .client_facing_daylight_exposure_sample import ClientFacingDaylightExposureSample
 from .client_facing_diagnosis_information import ClientFacingDiagnosisInformation
 from .client_facing_distance_changed import ClientFacingDistanceChanged
 from .client_facing_distance_changed_event_type import ClientFacingDistanceChangedEventType
@@ -134,6 +146,10 @@ from .client_facing_electrocardiogram_voltage_historical_pull_completed import (
     ClientFacingElectrocardiogramVoltageHistoricalPullCompleted,
 )
 from .client_facing_electrocardiogram_voltage_timeseries import ClientFacingElectrocardiogramVoltageTimeseries
+from .client_facing_fall_changed import ClientFacingFallChanged
+from .client_facing_fall_changed_event_type import ClientFacingFallChangedEventType
+from .client_facing_fall_historical_pull_completed import ClientFacingFallHistoricalPullCompleted
+from .client_facing_fall_sample import ClientFacingFallSample
 from .client_facing_fat_changed import ClientFacingFatChanged
 from .client_facing_fat_changed_event_type import ClientFacingFatChangedEventType
 from .client_facing_fat_historical_pull_completed import ClientFacingFatHistoricalPullCompleted
@@ -142,10 +158,28 @@ from .client_facing_floors_climbed_changed_event_type import ClientFacingFloorsC
 from .client_facing_floors_climbed_historical_pull_completed import ClientFacingFloorsClimbedHistoricalPullCompleted
 from .client_facing_floors_climbed_timeseries import ClientFacingFloorsClimbedTimeseries
 from .client_facing_food import ClientFacingFood
+from .client_facing_forced_expiratory_volume_1_changed import ClientFacingForcedExpiratoryVolume1Changed
+from .client_facing_forced_expiratory_volume_1_changed_event_type import (
+    ClientFacingForcedExpiratoryVolume1ChangedEventType,
+)
+from .client_facing_forced_expiratory_volume_1_historical_pull_completed import (
+    ClientFacingForcedExpiratoryVolume1HistoricalPullCompleted,
+)
+from .client_facing_forced_expiratory_volume_1_sample import ClientFacingForcedExpiratoryVolume1Sample
+from .client_facing_forced_vital_capacity_changed import ClientFacingForcedVitalCapacityChanged
+from .client_facing_forced_vital_capacity_changed_event_type import ClientFacingForcedVitalCapacityChangedEventType
+from .client_facing_forced_vital_capacity_historical_pull_completed import (
+    ClientFacingForcedVitalCapacityHistoricalPullCompleted,
+)
+from .client_facing_forced_vital_capacity_sample import ClientFacingForcedVitalCapacitySample
 from .client_facing_glucose_changed import ClientFacingGlucoseChanged
 from .client_facing_glucose_changed_event_type import ClientFacingGlucoseChangedEventType
 from .client_facing_glucose_historical_pull_completed import ClientFacingGlucoseHistoricalPullCompleted
 from .client_facing_glucose_timeseries import ClientFacingGlucoseTimeseries
+from .client_facing_handwashing_changed import ClientFacingHandwashingChanged
+from .client_facing_handwashing_changed_event_type import ClientFacingHandwashingChangedEventType
+from .client_facing_handwashing_historical_pull_completed import ClientFacingHandwashingHistoricalPullCompleted
+from .client_facing_handwashing_sample import ClientFacingHandwashingSample
 from .client_facing_heart_rate import ClientFacingHeartRate
 from .client_facing_heart_rate_alert_changed import ClientFacingHeartRateAlertChanged
 from .client_facing_heart_rate_alert_changed_event_type import ClientFacingHeartRateAlertChangedEventType
@@ -169,6 +203,10 @@ from .client_facing_igg_changed import ClientFacingIggChanged
 from .client_facing_igg_changed_event_type import ClientFacingIggChangedEventType
 from .client_facing_igg_historical_pull_completed import ClientFacingIggHistoricalPullCompleted
 from .client_facing_igg_timeseries import ClientFacingIggTimeseries
+from .client_facing_inhaler_usage_changed import ClientFacingInhalerUsageChanged
+from .client_facing_inhaler_usage_changed_event_type import ClientFacingInhalerUsageChangedEventType
+from .client_facing_inhaler_usage_historical_pull_completed import ClientFacingInhalerUsageHistoricalPullCompleted
+from .client_facing_inhaler_usage_sample import ClientFacingInhalerUsageSample
 from .client_facing_insulin_injection_changed import ClientFacingInsulinInjectionChanged
 from .client_facing_insulin_injection_changed_event_type import ClientFacingInsulinInjectionChangedEventType
 from .client_facing_insulin_injection_historical_pull_completed import (
@@ -206,6 +244,8 @@ from .client_facing_note_historical_pull_completed import ClientFacingNoteHistor
 from .client_facing_note_sample import ClientFacingNoteSample
 from .client_facing_note_sample_tags_item import ClientFacingNoteSampleTagsItem
 from .client_facing_order import ClientFacingOrder
+from .client_facing_order_changed import ClientFacingOrderChanged
+from .client_facing_order_changed_event_type import ClientFacingOrderChangedEventType
 from .client_facing_order_details import (
     ClientFacingOrderDetails,
     ClientFacingOrderDetails_AtHomePhlebotomy,
@@ -216,6 +256,14 @@ from .client_facing_order_event import ClientFacingOrderEvent
 from .client_facing_patient_details_compatible import ClientFacingPatientDetailsCompatible
 from .client_facing_payor_search_response import ClientFacingPayorSearchResponse
 from .client_facing_payor_search_response_deprecated import ClientFacingPayorSearchResponseDeprecated
+from .client_facing_peak_expiratory_flow_rate_changed import ClientFacingPeakExpiratoryFlowRateChanged
+from .client_facing_peak_expiratory_flow_rate_changed_event_type import (
+    ClientFacingPeakExpiratoryFlowRateChangedEventType,
+)
+from .client_facing_peak_expiratory_flow_rate_historical_pull_completed import (
+    ClientFacingPeakExpiratoryFlowRateHistoricalPullCompleted,
+)
+from .client_facing_peak_expiratory_flow_rate_sample import ClientFacingPeakExpiratoryFlowRateSample
 from .client_facing_physician import ClientFacingPhysician
 from .client_facing_profile import ClientFacingProfile
 from .client_facing_profile_changed import ClientFacingProfileChanged
@@ -236,6 +284,21 @@ from .client_facing_sample_grouping_keys import ClientFacingSampleGroupingKeys
 from .client_facing_shallow_workout_stream import ClientFacingShallowWorkoutStream
 from .client_facing_shipment import ClientFacingShipment
 from .client_facing_sleep import ClientFacingSleep
+from .client_facing_sleep_apnea_alert_changed import ClientFacingSleepApneaAlertChanged
+from .client_facing_sleep_apnea_alert_changed_event_type import ClientFacingSleepApneaAlertChangedEventType
+from .client_facing_sleep_apnea_alert_historical_pull_completed import (
+    ClientFacingSleepApneaAlertHistoricalPullCompleted,
+)
+from .client_facing_sleep_apnea_alert_sample import ClientFacingSleepApneaAlertSample
+from .client_facing_sleep_breathing_disturbance_changed import ClientFacingSleepBreathingDisturbanceChanged
+from .client_facing_sleep_breathing_disturbance_changed_event_type import (
+    ClientFacingSleepBreathingDisturbanceChangedEventType,
+)
+from .client_facing_sleep_breathing_disturbance_historical_pull_completed import (
+    ClientFacingSleepBreathingDisturbanceHistoricalPullCompleted,
+)
+from .client_facing_sleep_breathing_disturbance_sample import ClientFacingSleepBreathingDisturbanceSample
+from .client_facing_sleep_breathing_disturbance_sample_type import ClientFacingSleepBreathingDisturbanceSampleType
 from .client_facing_sleep_changed import ClientFacingSleepChanged
 from .client_facing_sleep_changed_event_type import ClientFacingSleepChangedEventType
 from .client_facing_sleep_cycle import ClientFacingSleepCycle
@@ -248,6 +311,14 @@ from .client_facing_sleep_historical_pull_completed import ClientFacingSleepHist
 from .client_facing_sleep_stream import ClientFacingSleepStream
 from .client_facing_source import ClientFacingSource
 from .client_facing_sport import ClientFacingSport
+from .client_facing_stand_duration_changed import ClientFacingStandDurationChanged
+from .client_facing_stand_duration_changed_event_type import ClientFacingStandDurationChangedEventType
+from .client_facing_stand_duration_historical_pull_completed import ClientFacingStandDurationHistoricalPullCompleted
+from .client_facing_stand_duration_sample import ClientFacingStandDurationSample
+from .client_facing_stand_hour_changed import ClientFacingStandHourChanged
+from .client_facing_stand_hour_changed_event_type import ClientFacingStandHourChangedEventType
+from .client_facing_stand_hour_historical_pull_completed import ClientFacingStandHourHistoricalPullCompleted
+from .client_facing_stand_hour_sample import ClientFacingStandHourSample
 from .client_facing_steps_changed import ClientFacingStepsChanged
 from .client_facing_steps_changed_event_type import ClientFacingStepsChangedEventType
 from .client_facing_steps_historical_pull_completed import ClientFacingStepsHistoricalPullCompleted
@@ -272,6 +343,10 @@ from .client_facing_test_kit_order_details import ClientFacingTestKitOrderDetail
 from .client_facing_testkit_order import ClientFacingTestkitOrder
 from .client_facing_user import ClientFacingUser
 from .client_facing_user_key import ClientFacingUserKey
+from .client_facing_uv_exposure_changed import ClientFacingUvExposureChanged
+from .client_facing_uv_exposure_changed_event_type import ClientFacingUvExposureChangedEventType
+from .client_facing_uv_exposure_historical_pull_completed import ClientFacingUvExposureHistoricalPullCompleted
+from .client_facing_uv_exposure_sample import ClientFacingUvExposureSample
 from .client_facing_vo_2_max_changed import ClientFacingVo2MaxChanged
 from .client_facing_vo_2_max_changed_event_type import ClientFacingVo2MaxChangedEventType
 from .client_facing_vo_2_max_historical_pull_completed import ClientFacingVo2MaxHistoricalPullCompleted
@@ -285,6 +360,10 @@ from .client_facing_water_timeseries import ClientFacingWaterTimeseries
 from .client_facing_weight_changed import ClientFacingWeightChanged
 from .client_facing_weight_changed_event_type import ClientFacingWeightChangedEventType
 from .client_facing_weight_historical_pull_completed import ClientFacingWeightHistoricalPullCompleted
+from .client_facing_wheelchair_push_changed import ClientFacingWheelchairPushChanged
+from .client_facing_wheelchair_push_changed_event_type import ClientFacingWheelchairPushChangedEventType
+from .client_facing_wheelchair_push_historical_pull_completed import ClientFacingWheelchairPushHistoricalPullCompleted
+from .client_facing_wheelchair_push_sample import ClientFacingWheelchairPushSample
 from .client_facing_workout import ClientFacingWorkout
 from .client_facing_workout_duration_changed import ClientFacingWorkoutDurationChanged
 from .client_facing_workout_duration_changed_event_type import ClientFacingWorkoutDurationChangedEventType
@@ -301,6 +380,7 @@ from .client_facing_workouts_historical_pull_completed import ClientFacingWorkou
 from .client_sleep_cycle_response import ClientSleepCycleResponse
 from .client_sleep_response import ClientSleepResponse
 from .client_user_id_conflict import ClientUserIdConflict
+from .client_user_id_conflict_response import ClientUserIdConflictResponse
 from .client_workout_response import ClientWorkoutResponse
 from .company_details import CompanyDetails
 from .connected_source_client_facing import ConnectedSourceClientFacing
@@ -338,6 +418,8 @@ from .group_key_column_expr import GroupKeyColumnExpr
 from .group_key_column_expr_group_key import GroupKeyColumnExprGroupKey
 from .grouped_a_fib_burden import GroupedAFibBurden
 from .grouped_a_fib_burden_response import GroupedAFibBurdenResponse
+from .grouped_basal_body_temperature import GroupedBasalBodyTemperature
+from .grouped_basal_body_temperature_response import GroupedBasalBodyTemperatureResponse
 from .grouped_blood_oxygen import GroupedBloodOxygen
 from .grouped_blood_oxygen_response import GroupedBloodOxygenResponse
 from .grouped_blood_pressure import GroupedBloodPressure
@@ -360,14 +442,24 @@ from .grouped_carbohydrates import GroupedCarbohydrates
 from .grouped_carbohydrates_response import GroupedCarbohydratesResponse
 from .grouped_cholesterol import GroupedCholesterol
 from .grouped_cholesterol_response import GroupedCholesterolResponse
+from .grouped_daylight_exposure import GroupedDaylightExposure
+from .grouped_daylight_exposure_response import GroupedDaylightExposureResponse
 from .grouped_distance import GroupedDistance
 from .grouped_distance_response import GroupedDistanceResponse
 from .grouped_electrocardiogram_voltage import GroupedElectrocardiogramVoltage
 from .grouped_electrocardiogram_voltage_response import GroupedElectrocardiogramVoltageResponse
+from .grouped_fall import GroupedFall
+from .grouped_fall_response import GroupedFallResponse
 from .grouped_floors_climbed import GroupedFloorsClimbed
 from .grouped_floors_climbed_response import GroupedFloorsClimbedResponse
+from .grouped_forced_expiratory_volume_1 import GroupedForcedExpiratoryVolume1
+from .grouped_forced_expiratory_volume_1_response import GroupedForcedExpiratoryVolume1Response
+from .grouped_forced_vital_capacity import GroupedForcedVitalCapacity
+from .grouped_forced_vital_capacity_response import GroupedForcedVitalCapacityResponse
 from .grouped_glucose import GroupedGlucose
 from .grouped_glucose_response import GroupedGlucoseResponse
+from .grouped_handwashing import GroupedHandwashing
+from .grouped_handwashing_response import GroupedHandwashingResponse
 from .grouped_heart_rate import GroupedHeartRate
 from .grouped_heart_rate_alert import GroupedHeartRateAlert
 from .grouped_heart_rate_alert_response import GroupedHeartRateAlertResponse
@@ -380,22 +472,38 @@ from .grouped_ige import GroupedIge
 from .grouped_ige_response import GroupedIgeResponse
 from .grouped_igg import GroupedIgg
 from .grouped_igg_response import GroupedIggResponse
+from .grouped_inhaler_usage import GroupedInhalerUsage
+from .grouped_inhaler_usage_response import GroupedInhalerUsageResponse
 from .grouped_insulin_injection import GroupedInsulinInjection
 from .grouped_insulin_injection_response import GroupedInsulinInjectionResponse
 from .grouped_mindfulness_minutes import GroupedMindfulnessMinutes
 from .grouped_mindfulness_minutes_response import GroupedMindfulnessMinutesResponse
 from .grouped_note import GroupedNote
 from .grouped_note_response import GroupedNoteResponse
+from .grouped_peak_expiratory_flow_rate import GroupedPeakExpiratoryFlowRate
+from .grouped_peak_expiratory_flow_rate_response import GroupedPeakExpiratoryFlowRateResponse
 from .grouped_respiratory_rate import GroupedRespiratoryRate
 from .grouped_respiratory_rate_response import GroupedRespiratoryRateResponse
+from .grouped_sleep_apnea_alert import GroupedSleepApneaAlert
+from .grouped_sleep_apnea_alert_response import GroupedSleepApneaAlertResponse
+from .grouped_sleep_breathing_disturbance import GroupedSleepBreathingDisturbance
+from .grouped_sleep_breathing_disturbance_response import GroupedSleepBreathingDisturbanceResponse
+from .grouped_stand_duration import GroupedStandDuration
+from .grouped_stand_duration_response import GroupedStandDurationResponse
+from .grouped_stand_hour import GroupedStandHour
+from .grouped_stand_hour_response import GroupedStandHourResponse
 from .grouped_steps import GroupedSteps
 from .grouped_steps_response import GroupedStepsResponse
 from .grouped_stress_level import GroupedStressLevel
 from .grouped_stress_level_response import GroupedStressLevelResponse
+from .grouped_uv_exposure import GroupedUvExposure
+from .grouped_uv_exposure_response import GroupedUvExposureResponse
 from .grouped_vo_2_max import GroupedVo2Max
 from .grouped_vo_2_max_response import GroupedVo2MaxResponse
 from .grouped_water import GroupedWater
 from .grouped_water_response import GroupedWaterResponse
+from .grouped_wheelchair_push import GroupedWheelchairPush
+from .grouped_wheelchair_push_response import GroupedWheelchairPushResponse
 from .grouped_workout_duration import GroupedWorkoutDuration
 from .grouped_workout_duration_response import GroupedWorkoutDurationResponse
 from .guarantor_details import GuarantorDetails
@@ -449,6 +557,7 @@ from .ovulation_test_entry_test_result import OvulationTestEntryTestResult
 from .paginated_users_response import PaginatedUsersResponse
 from .parent_biomarker_data import ParentBiomarkerData
 from .password_providers import PasswordProviders
+from .patient_address import PatientAddress
 from .patient_address_compatible import PatientAddressCompatible
 from .patient_address_with_validation import PatientAddressWithValidation
 from .patient_details_with_validation import PatientDetailsWithValidation
@@ -596,9 +705,15 @@ __all__ = [
     "ClientFacingApiKey",
     "ClientFacingAppointment",
     "ClientFacingAppointmentCancellationReason",
+    "ClientFacingAppointmentChanged",
+    "ClientFacingAppointmentChangedEventType",
     "ClientFacingAppointmentEvent",
     "ClientFacingAtHomePhlebotomyOrder",
     "ClientFacingAtHomePhlebotomyOrderDetails",
+    "ClientFacingBasalBodyTemperatureChanged",
+    "ClientFacingBasalBodyTemperatureChangedEventType",
+    "ClientFacingBasalBodyTemperatureHistoricalPullCompleted",
+    "ClientFacingBasalBodyTemperatureSample",
     "ClientFacingBloodOxygenChanged",
     "ClientFacingBloodOxygenChangedEventType",
     "ClientFacingBloodOxygenHistoricalPullCompleted",
@@ -646,10 +761,12 @@ __all__ = [
     "ClientFacingConnectionErrorDetails",
     "ClientFacingConnectionErrorDetailsErrorType",
     "ClientFacingContinuousQueryResultTableChanged",
-    "ClientFacingCreatedChanged",
-    "ClientFacingCreatedChangedEventType",
     "ClientFacingCriticalResult",
     "ClientFacingCriticalResultIdentified",
+    "ClientFacingDaylightExposureChanged",
+    "ClientFacingDaylightExposureChangedEventType",
+    "ClientFacingDaylightExposureHistoricalPullCompleted",
+    "ClientFacingDaylightExposureSample",
     "ClientFacingDiagnosisInformation",
     "ClientFacingDistanceChanged",
     "ClientFacingDistanceChangedEventType",
@@ -668,6 +785,10 @@ __all__ = [
     "ClientFacingElectrocardiogramVoltageChangedEventType",
     "ClientFacingElectrocardiogramVoltageHistoricalPullCompleted",
     "ClientFacingElectrocardiogramVoltageTimeseries",
+    "ClientFacingFallChanged",
+    "ClientFacingFallChangedEventType",
+    "ClientFacingFallHistoricalPullCompleted",
+    "ClientFacingFallSample",
     "ClientFacingFatChanged",
     "ClientFacingFatChangedEventType",
     "ClientFacingFatHistoricalPullCompleted",
@@ -676,10 +797,22 @@ __all__ = [
     "ClientFacingFloorsClimbedHistoricalPullCompleted",
     "ClientFacingFloorsClimbedTimeseries",
     "ClientFacingFood",
+    "ClientFacingForcedExpiratoryVolume1Changed",
+    "ClientFacingForcedExpiratoryVolume1ChangedEventType",
+    "ClientFacingForcedExpiratoryVolume1HistoricalPullCompleted",
+    "ClientFacingForcedExpiratoryVolume1Sample",
+    "ClientFacingForcedVitalCapacityChanged",
+    "ClientFacingForcedVitalCapacityChangedEventType",
+    "ClientFacingForcedVitalCapacityHistoricalPullCompleted",
+    "ClientFacingForcedVitalCapacitySample",
     "ClientFacingGlucoseChanged",
     "ClientFacingGlucoseChangedEventType",
     "ClientFacingGlucoseHistoricalPullCompleted",
     "ClientFacingGlucoseTimeseries",
+    "ClientFacingHandwashingChanged",
+    "ClientFacingHandwashingChangedEventType",
+    "ClientFacingHandwashingHistoricalPullCompleted",
+    "ClientFacingHandwashingSample",
     "ClientFacingHeartRate",
     "ClientFacingHeartRateAlertChanged",
     "ClientFacingHeartRateAlertChangedEventType",
@@ -703,6 +836,10 @@ __all__ = [
     "ClientFacingIggChangedEventType",
     "ClientFacingIggHistoricalPullCompleted",
     "ClientFacingIggTimeseries",
+    "ClientFacingInhalerUsageChanged",
+    "ClientFacingInhalerUsageChangedEventType",
+    "ClientFacingInhalerUsageHistoricalPullCompleted",
+    "ClientFacingInhalerUsageSample",
     "ClientFacingInsulinInjectionChanged",
     "ClientFacingInsulinInjectionChangedEventType",
     "ClientFacingInsulinInjectionHistoricalPullCompleted",
@@ -736,6 +873,8 @@ __all__ = [
     "ClientFacingNoteSample",
     "ClientFacingNoteSampleTagsItem",
     "ClientFacingOrder",
+    "ClientFacingOrderChanged",
+    "ClientFacingOrderChangedEventType",
     "ClientFacingOrderDetails",
     "ClientFacingOrderDetails_AtHomePhlebotomy",
     "ClientFacingOrderDetails_Testkit",
@@ -744,6 +883,10 @@ __all__ = [
     "ClientFacingPatientDetailsCompatible",
     "ClientFacingPayorSearchResponse",
     "ClientFacingPayorSearchResponseDeprecated",
+    "ClientFacingPeakExpiratoryFlowRateChanged",
+    "ClientFacingPeakExpiratoryFlowRateChangedEventType",
+    "ClientFacingPeakExpiratoryFlowRateHistoricalPullCompleted",
+    "ClientFacingPeakExpiratoryFlowRateSample",
     "ClientFacingPhysician",
     "ClientFacingProfile",
     "ClientFacingProfileChanged",
@@ -764,6 +907,15 @@ __all__ = [
     "ClientFacingShallowWorkoutStream",
     "ClientFacingShipment",
     "ClientFacingSleep",
+    "ClientFacingSleepApneaAlertChanged",
+    "ClientFacingSleepApneaAlertChangedEventType",
+    "ClientFacingSleepApneaAlertHistoricalPullCompleted",
+    "ClientFacingSleepApneaAlertSample",
+    "ClientFacingSleepBreathingDisturbanceChanged",
+    "ClientFacingSleepBreathingDisturbanceChangedEventType",
+    "ClientFacingSleepBreathingDisturbanceHistoricalPullCompleted",
+    "ClientFacingSleepBreathingDisturbanceSample",
+    "ClientFacingSleepBreathingDisturbanceSampleType",
     "ClientFacingSleepChanged",
     "ClientFacingSleepChangedEventType",
     "ClientFacingSleepCycle",
@@ -776,6 +928,14 @@ __all__ = [
     "ClientFacingSleepStream",
     "ClientFacingSource",
     "ClientFacingSport",
+    "ClientFacingStandDurationChanged",
+    "ClientFacingStandDurationChangedEventType",
+    "ClientFacingStandDurationHistoricalPullCompleted",
+    "ClientFacingStandDurationSample",
+    "ClientFacingStandHourChanged",
+    "ClientFacingStandHourChangedEventType",
+    "ClientFacingStandHourHistoricalPullCompleted",
+    "ClientFacingStandHourSample",
     "ClientFacingStepsChanged",
     "ClientFacingStepsChangedEventType",
     "ClientFacingStepsHistoricalPullCompleted",
@@ -800,6 +960,10 @@ __all__ = [
     "ClientFacingTestkitOrder",
     "ClientFacingUser",
     "ClientFacingUserKey",
+    "ClientFacingUvExposureChanged",
+    "ClientFacingUvExposureChangedEventType",
+    "ClientFacingUvExposureHistoricalPullCompleted",
+    "ClientFacingUvExposureSample",
     "ClientFacingVo2MaxChanged",
     "ClientFacingVo2MaxChangedEventType",
     "ClientFacingVo2MaxHistoricalPullCompleted",
@@ -813,6 +977,10 @@ __all__ = [
     "ClientFacingWeightChanged",
     "ClientFacingWeightChangedEventType",
     "ClientFacingWeightHistoricalPullCompleted",
+    "ClientFacingWheelchairPushChanged",
+    "ClientFacingWheelchairPushChangedEventType",
+    "ClientFacingWheelchairPushHistoricalPullCompleted",
+    "ClientFacingWheelchairPushSample",
     "ClientFacingWorkout",
     "ClientFacingWorkoutDurationChanged",
     "ClientFacingWorkoutDurationChangedEventType",
@@ -829,6 +997,7 @@ __all__ = [
     "ClientSleepCycleResponse",
     "ClientSleepResponse",
     "ClientUserIdConflict",
+    "ClientUserIdConflictResponse",
     "ClientWorkoutResponse",
     "CompanyDetails",
     "ConnectedSourceClientFacing",
@@ -866,6 +1035,8 @@ __all__ = [
     "GroupKeyColumnExprGroupKey",
     "GroupedAFibBurden",
     "GroupedAFibBurdenResponse",
+    "GroupedBasalBodyTemperature",
+    "GroupedBasalBodyTemperatureResponse",
     "GroupedBloodOxygen",
     "GroupedBloodOxygenResponse",
     "GroupedBloodPressure",
@@ -888,14 +1059,24 @@ __all__ = [
     "GroupedCarbohydratesResponse",
     "GroupedCholesterol",
     "GroupedCholesterolResponse",
+    "GroupedDaylightExposure",
+    "GroupedDaylightExposureResponse",
     "GroupedDistance",
     "GroupedDistanceResponse",
     "GroupedElectrocardiogramVoltage",
     "GroupedElectrocardiogramVoltageResponse",
+    "GroupedFall",
+    "GroupedFallResponse",
     "GroupedFloorsClimbed",
     "GroupedFloorsClimbedResponse",
+    "GroupedForcedExpiratoryVolume1",
+    "GroupedForcedExpiratoryVolume1Response",
+    "GroupedForcedVitalCapacity",
+    "GroupedForcedVitalCapacityResponse",
     "GroupedGlucose",
     "GroupedGlucoseResponse",
+    "GroupedHandwashing",
+    "GroupedHandwashingResponse",
     "GroupedHeartRate",
     "GroupedHeartRateAlert",
     "GroupedHeartRateAlertResponse",
@@ -908,22 +1089,38 @@ __all__ = [
     "GroupedIgeResponse",
     "GroupedIgg",
     "GroupedIggResponse",
+    "GroupedInhalerUsage",
+    "GroupedInhalerUsageResponse",
     "GroupedInsulinInjection",
     "GroupedInsulinInjectionResponse",
     "GroupedMindfulnessMinutes",
     "GroupedMindfulnessMinutesResponse",
     "GroupedNote",
     "GroupedNoteResponse",
+    "GroupedPeakExpiratoryFlowRate",
+    "GroupedPeakExpiratoryFlowRateResponse",
     "GroupedRespiratoryRate",
     "GroupedRespiratoryRateResponse",
+    "GroupedSleepApneaAlert",
+    "GroupedSleepApneaAlertResponse",
+    "GroupedSleepBreathingDisturbance",
+    "GroupedSleepBreathingDisturbanceResponse",
+    "GroupedStandDuration",
+    "GroupedStandDurationResponse",
+    "GroupedStandHour",
+    "GroupedStandHourResponse",
     "GroupedSteps",
     "GroupedStepsResponse",
     "GroupedStressLevel",
     "GroupedStressLevelResponse",
+    "GroupedUvExposure",
+    "GroupedUvExposureResponse",
     "GroupedVo2Max",
     "GroupedVo2MaxResponse",
     "GroupedWater",
     "GroupedWaterResponse",
+    "GroupedWheelchairPush",
+    "GroupedWheelchairPushResponse",
     "GroupedWorkoutDuration",
     "GroupedWorkoutDurationResponse",
     "GuarantorDetails",
@@ -977,6 +1174,7 @@ __all__ = [
     "PaginatedUsersResponse",
     "ParentBiomarkerData",
     "PasswordProviders",
+    "PatientAddress",
     "PatientAddressCompatible",
     "PatientAddressWithValidation",
     "PatientDetailsWithValidation",

@@ -91,6 +91,9 @@ class ClientFacingActivity(UniversalBaseModel):
     Heart rate daily summary.
     """
 
+    wheelchair_use: typing.Optional[bool] = None
+    wheelchair_push: typing.Optional[int] = None
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

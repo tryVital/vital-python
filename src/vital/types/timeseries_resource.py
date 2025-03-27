@@ -38,6 +38,20 @@ class TimeseriesResource(str, enum.Enum):
     MINDFULNESS_MINUTES = "mindfulness_minutes"
     AFIB_BURDEN = "afib_burden"
     HEART_RATE_ALERT = "heart_rate_alert"
+    STAND_HOUR = "stand_hour"
+    STAND_DURATION = "stand_duration"
+    SLEEP_APNEA_ALERT = "sleep_apnea_alert"
+    SLEEP_BREATHING_DISTURBANCE = "sleep_breathing_disturbance"
+    WHEELCHAIR_PUSH = "wheelchair_push"
+    FORCED_EXPIRATORY_VOLUME_1 = "forced_expiratory_volume_1"
+    FORCED_VITAL_CAPACITY = "forced_vital_capacity"
+    PEAK_EXPIRATORY_FLOW_RATE = "peak_expiratory_flow_rate"
+    INHALER_USAGE = "inhaler_usage"
+    FALL = "fall"
+    UV_EXPOSURE = "uv_exposure"
+    DAYLIGHT_EXPOSURE = "daylight_exposure"
+    HANDWASHING = "handwashing"
+    BASAL_BODY_TEMPERATURE = "basal_body_temperature"
     WORKOUT_DURATION = "workout_duration"
     INSULIN_INJECTION = "insulin_injection"
     CARBOHYDRATES = "carbohydrates"
@@ -76,6 +90,20 @@ class TimeseriesResource(str, enum.Enum):
         mindfulness_minutes: typing.Callable[[], T_Result],
         afib_burden: typing.Callable[[], T_Result],
         heart_rate_alert: typing.Callable[[], T_Result],
+        stand_hour: typing.Callable[[], T_Result],
+        stand_duration: typing.Callable[[], T_Result],
+        sleep_apnea_alert: typing.Callable[[], T_Result],
+        sleep_breathing_disturbance: typing.Callable[[], T_Result],
+        wheelchair_push: typing.Callable[[], T_Result],
+        forced_expiratory_volume_1: typing.Callable[[], T_Result],
+        forced_vital_capacity: typing.Callable[[], T_Result],
+        peak_expiratory_flow_rate: typing.Callable[[], T_Result],
+        inhaler_usage: typing.Callable[[], T_Result],
+        fall: typing.Callable[[], T_Result],
+        uv_exposure: typing.Callable[[], T_Result],
+        daylight_exposure: typing.Callable[[], T_Result],
+        handwashing: typing.Callable[[], T_Result],
+        basal_body_temperature: typing.Callable[[], T_Result],
         workout_duration: typing.Callable[[], T_Result],
         insulin_injection: typing.Callable[[], T_Result],
         carbohydrates: typing.Callable[[], T_Result],
@@ -143,6 +171,34 @@ class TimeseriesResource(str, enum.Enum):
             return afib_burden()
         if self is TimeseriesResource.HEART_RATE_ALERT:
             return heart_rate_alert()
+        if self is TimeseriesResource.STAND_HOUR:
+            return stand_hour()
+        if self is TimeseriesResource.STAND_DURATION:
+            return stand_duration()
+        if self is TimeseriesResource.SLEEP_APNEA_ALERT:
+            return sleep_apnea_alert()
+        if self is TimeseriesResource.SLEEP_BREATHING_DISTURBANCE:
+            return sleep_breathing_disturbance()
+        if self is TimeseriesResource.WHEELCHAIR_PUSH:
+            return wheelchair_push()
+        if self is TimeseriesResource.FORCED_EXPIRATORY_VOLUME_1:
+            return forced_expiratory_volume_1()
+        if self is TimeseriesResource.FORCED_VITAL_CAPACITY:
+            return forced_vital_capacity()
+        if self is TimeseriesResource.PEAK_EXPIRATORY_FLOW_RATE:
+            return peak_expiratory_flow_rate()
+        if self is TimeseriesResource.INHALER_USAGE:
+            return inhaler_usage()
+        if self is TimeseriesResource.FALL:
+            return fall()
+        if self is TimeseriesResource.UV_EXPOSURE:
+            return uv_exposure()
+        if self is TimeseriesResource.DAYLIGHT_EXPOSURE:
+            return daylight_exposure()
+        if self is TimeseriesResource.HANDWASHING:
+            return handwashing()
+        if self is TimeseriesResource.BASAL_BODY_TEMPERATURE:
+            return basal_body_temperature()
         if self is TimeseriesResource.WORKOUT_DURATION:
             return workout_duration()
         if self is TimeseriesResource.INSULIN_INJECTION:

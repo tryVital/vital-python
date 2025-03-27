@@ -6,7 +6,7 @@ import typing
 T_Result = typing.TypeVar("T_Result")
 
 
-class ClientFacingCreatedChangedEventType(str, enum.Enum):
+class ClientFacingAppointmentChangedEventType(str, enum.Enum):
     LABTEST_APPOINTMENT_CREATED = "labtest.appointment.created"
     LABTEST_APPOINTMENT_UPDATED = "labtest.appointment.updated"
 
@@ -15,7 +15,7 @@ class ClientFacingCreatedChangedEventType(str, enum.Enum):
         labtest_appointment_created: typing.Callable[[], T_Result],
         labtest_appointment_updated: typing.Callable[[], T_Result],
     ) -> T_Result:
-        if self is ClientFacingCreatedChangedEventType.LABTEST_APPOINTMENT_CREATED:
+        if self is ClientFacingAppointmentChangedEventType.LABTEST_APPOINTMENT_CREATED:
             return labtest_appointment_created()
-        if self is ClientFacingCreatedChangedEventType.LABTEST_APPOINTMENT_UPDATED:
+        if self is ClientFacingAppointmentChangedEventType.LABTEST_APPOINTMENT_UPDATED:
             return labtest_appointment_updated()

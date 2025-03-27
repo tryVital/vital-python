@@ -8,6 +8,7 @@ import pydantic
 
 class ContinuousQueryResultTableChanges(UniversalBaseModel):
     query_id: str
+    query_slug: str
     data: typing.Dict[str, typing.List[typing.Optional[typing.Any]]]
 
     if IS_PYDANTIC_V2:

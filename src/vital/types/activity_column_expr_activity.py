@@ -22,6 +22,9 @@ class ActivityColumnExprActivity(str, enum.Enum):
     HEART_RATE_MINIMUM = "heart_rate_minimum"
     HEART_RATE_MAXIMUM = "heart_rate_maximum"
     HEART_RATE_RESTING = "heart_rate_resting"
+    HEART_RATE_MEAN_WALKING = "heart_rate_mean_walking"
+    WHEELCHAIR_USE = "wheelchair_use"
+    WHEELCHAIR_PUSH = "wheelchair_push"
     SOURCE_TYPE = "source_type"
     SOURCE_PROVIDER = "source_provider"
     SOURCE_APP_ID = "source_app_id"
@@ -45,6 +48,9 @@ class ActivityColumnExprActivity(str, enum.Enum):
         heart_rate_minimum: typing.Callable[[], T_Result],
         heart_rate_maximum: typing.Callable[[], T_Result],
         heart_rate_resting: typing.Callable[[], T_Result],
+        heart_rate_mean_walking: typing.Callable[[], T_Result],
+        wheelchair_use: typing.Callable[[], T_Result],
+        wheelchair_push: typing.Callable[[], T_Result],
         source_type: typing.Callable[[], T_Result],
         source_provider: typing.Callable[[], T_Result],
         source_app_id: typing.Callable[[], T_Result],
@@ -81,6 +87,12 @@ class ActivityColumnExprActivity(str, enum.Enum):
             return heart_rate_maximum()
         if self is ActivityColumnExprActivity.HEART_RATE_RESTING:
             return heart_rate_resting()
+        if self is ActivityColumnExprActivity.HEART_RATE_MEAN_WALKING:
+            return heart_rate_mean_walking()
+        if self is ActivityColumnExprActivity.WHEELCHAIR_USE:
+            return wheelchair_use()
+        if self is ActivityColumnExprActivity.WHEELCHAIR_PUSH:
+            return wheelchair_push()
         if self is ActivityColumnExprActivity.SOURCE_TYPE:
             return source_type()
         if self is ActivityColumnExprActivity.SOURCE_PROVIDER:

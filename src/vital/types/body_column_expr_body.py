@@ -14,6 +14,9 @@ class BodyColumnExprBody(str, enum.Enum):
     MUSCLE_MASS_PERCENTAGE = "muscle_mass_percentage"
     VISCERAL_FAT_INDEX = "visceral_fat_index"
     BONE_MASS_PERCENTAGE = "bone_mass_percentage"
+    BODY_MASS_INDEX = "body_mass_index"
+    LEAN_BODY_MASS_KILOGRAM = "lean_body_mass_kilogram"
+    WAIST_CIRCUMFERENCE_CENTIMETER = "waist_circumference_centimeter"
     SOURCE_TYPE = "source_type"
     SOURCE_PROVIDER = "source_provider"
     SOURCE_APP_ID = "source_app_id"
@@ -28,6 +31,9 @@ class BodyColumnExprBody(str, enum.Enum):
         muscle_mass_percentage: typing.Callable[[], T_Result],
         visceral_fat_index: typing.Callable[[], T_Result],
         bone_mass_percentage: typing.Callable[[], T_Result],
+        body_mass_index: typing.Callable[[], T_Result],
+        lean_body_mass_kilogram: typing.Callable[[], T_Result],
+        waist_circumference_centimeter: typing.Callable[[], T_Result],
         source_type: typing.Callable[[], T_Result],
         source_provider: typing.Callable[[], T_Result],
         source_app_id: typing.Callable[[], T_Result],
@@ -47,6 +53,12 @@ class BodyColumnExprBody(str, enum.Enum):
             return visceral_fat_index()
         if self is BodyColumnExprBody.BONE_MASS_PERCENTAGE:
             return bone_mass_percentage()
+        if self is BodyColumnExprBody.BODY_MASS_INDEX:
+            return body_mass_index()
+        if self is BodyColumnExprBody.LEAN_BODY_MASS_KILOGRAM:
+            return lean_body_mass_kilogram()
+        if self is BodyColumnExprBody.WAIST_CIRCUMFERENCE_CENTIMETER:
+            return waist_circumference_centimeter()
         if self is BodyColumnExprBody.SOURCE_TYPE:
             return source_type()
         if self is BodyColumnExprBody.SOURCE_PROVIDER:

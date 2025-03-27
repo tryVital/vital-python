@@ -3,13 +3,27 @@
 from ..core.client_wrapper import SyncClientWrapper
 import typing
 from ..core.request_options import RequestOptions
-from ..types.grouped_heart_rate_alert_response import GroupedHeartRateAlertResponse
+from ..types.grouped_basal_body_temperature_response import GroupedBasalBodyTemperatureResponse
 from ..core.jsonable_encoder import jsonable_encoder
 from ..core.pydantic_utilities import parse_obj_as
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
+from ..types.grouped_handwashing_response import GroupedHandwashingResponse
+from ..types.grouped_daylight_exposure_response import GroupedDaylightExposureResponse
+from ..types.grouped_uv_exposure_response import GroupedUvExposureResponse
+from ..types.grouped_fall_response import GroupedFallResponse
+from ..types.grouped_inhaler_usage_response import GroupedInhalerUsageResponse
+from ..types.grouped_peak_expiratory_flow_rate_response import GroupedPeakExpiratoryFlowRateResponse
+from ..types.grouped_forced_vital_capacity_response import GroupedForcedVitalCapacityResponse
+from ..types.grouped_forced_expiratory_volume_1_response import GroupedForcedExpiratoryVolume1Response
+from ..types.grouped_wheelchair_push_response import GroupedWheelchairPushResponse
+from ..types.grouped_sleep_breathing_disturbance_response import GroupedSleepBreathingDisturbanceResponse
+from ..types.grouped_sleep_apnea_alert_response import GroupedSleepApneaAlertResponse
+from ..types.grouped_stand_duration_response import GroupedStandDurationResponse
+from ..types.grouped_stand_hour_response import GroupedStandHourResponse
+from ..types.grouped_heart_rate_alert_response import GroupedHeartRateAlertResponse
 from ..types.grouped_a_fib_burden_response import GroupedAFibBurdenResponse
 from ..types.grouped_workout_duration_response import GroupedWorkoutDurationResponse
 from ..types.grouped_vo_2_max_response import GroupedVo2MaxResponse
@@ -69,6 +83,1224 @@ from ..core.client_wrapper import AsyncClientWrapper
 class VitalsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
+
+    def basal_body_temperature_grouped(
+        self,
+        user_id: str,
+        *,
+        start_date: str,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GroupedBasalBodyTemperatureResponse:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        start_date : str
+            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+        cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        next_cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        provider : typing.Optional[str]
+            Provider oura/strava etc
+
+        end_date : typing.Optional[str]
+            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GroupedBasalBodyTemperatureResponse
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.basal_body_temperature_grouped(
+            user_id="user_id",
+            start_date="start_date",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v2/timeseries/{jsonable_encoder(user_id)}/basal_body_temperature/grouped",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "next_cursor": next_cursor,
+                "provider": provider,
+                "start_date": start_date,
+                "end_date": end_date,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    GroupedBasalBodyTemperatureResponse,
+                    parse_obj_as(
+                        type_=GroupedBasalBodyTemperatureResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def handwashing_grouped(
+        self,
+        user_id: str,
+        *,
+        start_date: str,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GroupedHandwashingResponse:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        start_date : str
+            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+        cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        next_cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        provider : typing.Optional[str]
+            Provider oura/strava etc
+
+        end_date : typing.Optional[str]
+            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GroupedHandwashingResponse
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.handwashing_grouped(
+            user_id="user_id",
+            start_date="start_date",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v2/timeseries/{jsonable_encoder(user_id)}/handwashing/grouped",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "next_cursor": next_cursor,
+                "provider": provider,
+                "start_date": start_date,
+                "end_date": end_date,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    GroupedHandwashingResponse,
+                    parse_obj_as(
+                        type_=GroupedHandwashingResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def daylight_exposure_grouped(
+        self,
+        user_id: str,
+        *,
+        start_date: str,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GroupedDaylightExposureResponse:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        start_date : str
+            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+        cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        next_cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        provider : typing.Optional[str]
+            Provider oura/strava etc
+
+        end_date : typing.Optional[str]
+            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GroupedDaylightExposureResponse
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.daylight_exposure_grouped(
+            user_id="user_id",
+            start_date="start_date",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v2/timeseries/{jsonable_encoder(user_id)}/daylight_exposure/grouped",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "next_cursor": next_cursor,
+                "provider": provider,
+                "start_date": start_date,
+                "end_date": end_date,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    GroupedDaylightExposureResponse,
+                    parse_obj_as(
+                        type_=GroupedDaylightExposureResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def uv_exposure_grouped(
+        self,
+        user_id: str,
+        *,
+        start_date: str,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GroupedUvExposureResponse:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        start_date : str
+            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+        cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        next_cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        provider : typing.Optional[str]
+            Provider oura/strava etc
+
+        end_date : typing.Optional[str]
+            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GroupedUvExposureResponse
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.uv_exposure_grouped(
+            user_id="user_id",
+            start_date="start_date",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v2/timeseries/{jsonable_encoder(user_id)}/uv_exposure/grouped",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "next_cursor": next_cursor,
+                "provider": provider,
+                "start_date": start_date,
+                "end_date": end_date,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    GroupedUvExposureResponse,
+                    parse_obj_as(
+                        type_=GroupedUvExposureResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def fall_grouped(
+        self,
+        user_id: str,
+        *,
+        start_date: str,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GroupedFallResponse:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        start_date : str
+            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+        cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        next_cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        provider : typing.Optional[str]
+            Provider oura/strava etc
+
+        end_date : typing.Optional[str]
+            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GroupedFallResponse
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.fall_grouped(
+            user_id="user_id",
+            start_date="start_date",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v2/timeseries/{jsonable_encoder(user_id)}/fall/grouped",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "next_cursor": next_cursor,
+                "provider": provider,
+                "start_date": start_date,
+                "end_date": end_date,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    GroupedFallResponse,
+                    parse_obj_as(
+                        type_=GroupedFallResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def inhaler_usage_grouped(
+        self,
+        user_id: str,
+        *,
+        start_date: str,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GroupedInhalerUsageResponse:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        start_date : str
+            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+        cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        next_cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        provider : typing.Optional[str]
+            Provider oura/strava etc
+
+        end_date : typing.Optional[str]
+            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GroupedInhalerUsageResponse
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.inhaler_usage_grouped(
+            user_id="user_id",
+            start_date="start_date",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v2/timeseries/{jsonable_encoder(user_id)}/inhaler_usage/grouped",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "next_cursor": next_cursor,
+                "provider": provider,
+                "start_date": start_date,
+                "end_date": end_date,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    GroupedInhalerUsageResponse,
+                    parse_obj_as(
+                        type_=GroupedInhalerUsageResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def peak_expiratory_flow_rate_grouped(
+        self,
+        user_id: str,
+        *,
+        start_date: str,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GroupedPeakExpiratoryFlowRateResponse:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        start_date : str
+            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+        cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        next_cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        provider : typing.Optional[str]
+            Provider oura/strava etc
+
+        end_date : typing.Optional[str]
+            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GroupedPeakExpiratoryFlowRateResponse
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.peak_expiratory_flow_rate_grouped(
+            user_id="user_id",
+            start_date="start_date",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v2/timeseries/{jsonable_encoder(user_id)}/peak_expiratory_flow_rate/grouped",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "next_cursor": next_cursor,
+                "provider": provider,
+                "start_date": start_date,
+                "end_date": end_date,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    GroupedPeakExpiratoryFlowRateResponse,
+                    parse_obj_as(
+                        type_=GroupedPeakExpiratoryFlowRateResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def forced_vital_capacity_grouped(
+        self,
+        user_id: str,
+        *,
+        start_date: str,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GroupedForcedVitalCapacityResponse:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        start_date : str
+            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+        cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        next_cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        provider : typing.Optional[str]
+            Provider oura/strava etc
+
+        end_date : typing.Optional[str]
+            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GroupedForcedVitalCapacityResponse
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.forced_vital_capacity_grouped(
+            user_id="user_id",
+            start_date="start_date",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v2/timeseries/{jsonable_encoder(user_id)}/forced_vital_capacity/grouped",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "next_cursor": next_cursor,
+                "provider": provider,
+                "start_date": start_date,
+                "end_date": end_date,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    GroupedForcedVitalCapacityResponse,
+                    parse_obj_as(
+                        type_=GroupedForcedVitalCapacityResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def forced_expiratory_volume_1_grouped(
+        self,
+        user_id: str,
+        *,
+        start_date: str,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GroupedForcedExpiratoryVolume1Response:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        start_date : str
+            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+        cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        next_cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        provider : typing.Optional[str]
+            Provider oura/strava etc
+
+        end_date : typing.Optional[str]
+            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GroupedForcedExpiratoryVolume1Response
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.forced_expiratory_volume_1_grouped(
+            user_id="user_id",
+            start_date="start_date",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v2/timeseries/{jsonable_encoder(user_id)}/forced_expiratory_volume_1/grouped",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "next_cursor": next_cursor,
+                "provider": provider,
+                "start_date": start_date,
+                "end_date": end_date,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    GroupedForcedExpiratoryVolume1Response,
+                    parse_obj_as(
+                        type_=GroupedForcedExpiratoryVolume1Response,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def wheelchair_push_grouped(
+        self,
+        user_id: str,
+        *,
+        start_date: str,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GroupedWheelchairPushResponse:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        start_date : str
+            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+        cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        next_cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        provider : typing.Optional[str]
+            Provider oura/strava etc
+
+        end_date : typing.Optional[str]
+            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GroupedWheelchairPushResponse
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.wheelchair_push_grouped(
+            user_id="user_id",
+            start_date="start_date",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v2/timeseries/{jsonable_encoder(user_id)}/wheelchair_push/grouped",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "next_cursor": next_cursor,
+                "provider": provider,
+                "start_date": start_date,
+                "end_date": end_date,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    GroupedWheelchairPushResponse,
+                    parse_obj_as(
+                        type_=GroupedWheelchairPushResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def sleep_breathing_disturbance_grouped(
+        self,
+        user_id: str,
+        *,
+        start_date: str,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GroupedSleepBreathingDisturbanceResponse:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        start_date : str
+            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+        cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        next_cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        provider : typing.Optional[str]
+            Provider oura/strava etc
+
+        end_date : typing.Optional[str]
+            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GroupedSleepBreathingDisturbanceResponse
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.sleep_breathing_disturbance_grouped(
+            user_id="user_id",
+            start_date="start_date",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v2/timeseries/{jsonable_encoder(user_id)}/sleep_breathing_disturbance/grouped",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "next_cursor": next_cursor,
+                "provider": provider,
+                "start_date": start_date,
+                "end_date": end_date,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    GroupedSleepBreathingDisturbanceResponse,
+                    parse_obj_as(
+                        type_=GroupedSleepBreathingDisturbanceResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def sleep_apnea_alert_grouped(
+        self,
+        user_id: str,
+        *,
+        start_date: str,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GroupedSleepApneaAlertResponse:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        start_date : str
+            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+        cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        next_cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        provider : typing.Optional[str]
+            Provider oura/strava etc
+
+        end_date : typing.Optional[str]
+            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GroupedSleepApneaAlertResponse
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.sleep_apnea_alert_grouped(
+            user_id="user_id",
+            start_date="start_date",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v2/timeseries/{jsonable_encoder(user_id)}/sleep_apnea_alert/grouped",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "next_cursor": next_cursor,
+                "provider": provider,
+                "start_date": start_date,
+                "end_date": end_date,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    GroupedSleepApneaAlertResponse,
+                    parse_obj_as(
+                        type_=GroupedSleepApneaAlertResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def stand_duration_grouped(
+        self,
+        user_id: str,
+        *,
+        start_date: str,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GroupedStandDurationResponse:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        start_date : str
+            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+        cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        next_cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        provider : typing.Optional[str]
+            Provider oura/strava etc
+
+        end_date : typing.Optional[str]
+            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GroupedStandDurationResponse
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.stand_duration_grouped(
+            user_id="user_id",
+            start_date="start_date",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v2/timeseries/{jsonable_encoder(user_id)}/stand_duration/grouped",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "next_cursor": next_cursor,
+                "provider": provider,
+                "start_date": start_date,
+                "end_date": end_date,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    GroupedStandDurationResponse,
+                    parse_obj_as(
+                        type_=GroupedStandDurationResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def stand_hour_grouped(
+        self,
+        user_id: str,
+        *,
+        start_date: str,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GroupedStandHourResponse:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        start_date : str
+            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+        cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        next_cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        provider : typing.Optional[str]
+            Provider oura/strava etc
+
+        end_date : typing.Optional[str]
+            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GroupedStandHourResponse
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.stand_hour_grouped(
+            user_id="user_id",
+            start_date="start_date",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v2/timeseries/{jsonable_encoder(user_id)}/stand_hour/grouped",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "next_cursor": next_cursor,
+                "provider": provider,
+                "start_date": start_date,
+                "end_date": end_date,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    GroupedStandHourResponse,
+                    parse_obj_as(
+                        type_=GroupedStandHourResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def heart_rate_alert_grouped(
         self,
@@ -4850,6 +6082,1336 @@ class VitalsClient:
 class AsyncVitalsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
+
+    async def basal_body_temperature_grouped(
+        self,
+        user_id: str,
+        *,
+        start_date: str,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GroupedBasalBodyTemperatureResponse:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        start_date : str
+            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+        cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        next_cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        provider : typing.Optional[str]
+            Provider oura/strava etc
+
+        end_date : typing.Optional[str]
+            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GroupedBasalBodyTemperatureResponse
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.vitals.basal_body_temperature_grouped(
+                user_id="user_id",
+                start_date="start_date",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v2/timeseries/{jsonable_encoder(user_id)}/basal_body_temperature/grouped",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "next_cursor": next_cursor,
+                "provider": provider,
+                "start_date": start_date,
+                "end_date": end_date,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    GroupedBasalBodyTemperatureResponse,
+                    parse_obj_as(
+                        type_=GroupedBasalBodyTemperatureResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def handwashing_grouped(
+        self,
+        user_id: str,
+        *,
+        start_date: str,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GroupedHandwashingResponse:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        start_date : str
+            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+        cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        next_cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        provider : typing.Optional[str]
+            Provider oura/strava etc
+
+        end_date : typing.Optional[str]
+            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GroupedHandwashingResponse
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.vitals.handwashing_grouped(
+                user_id="user_id",
+                start_date="start_date",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v2/timeseries/{jsonable_encoder(user_id)}/handwashing/grouped",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "next_cursor": next_cursor,
+                "provider": provider,
+                "start_date": start_date,
+                "end_date": end_date,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    GroupedHandwashingResponse,
+                    parse_obj_as(
+                        type_=GroupedHandwashingResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def daylight_exposure_grouped(
+        self,
+        user_id: str,
+        *,
+        start_date: str,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GroupedDaylightExposureResponse:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        start_date : str
+            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+        cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        next_cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        provider : typing.Optional[str]
+            Provider oura/strava etc
+
+        end_date : typing.Optional[str]
+            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GroupedDaylightExposureResponse
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.vitals.daylight_exposure_grouped(
+                user_id="user_id",
+                start_date="start_date",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v2/timeseries/{jsonable_encoder(user_id)}/daylight_exposure/grouped",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "next_cursor": next_cursor,
+                "provider": provider,
+                "start_date": start_date,
+                "end_date": end_date,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    GroupedDaylightExposureResponse,
+                    parse_obj_as(
+                        type_=GroupedDaylightExposureResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def uv_exposure_grouped(
+        self,
+        user_id: str,
+        *,
+        start_date: str,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GroupedUvExposureResponse:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        start_date : str
+            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+        cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        next_cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        provider : typing.Optional[str]
+            Provider oura/strava etc
+
+        end_date : typing.Optional[str]
+            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GroupedUvExposureResponse
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.vitals.uv_exposure_grouped(
+                user_id="user_id",
+                start_date="start_date",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v2/timeseries/{jsonable_encoder(user_id)}/uv_exposure/grouped",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "next_cursor": next_cursor,
+                "provider": provider,
+                "start_date": start_date,
+                "end_date": end_date,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    GroupedUvExposureResponse,
+                    parse_obj_as(
+                        type_=GroupedUvExposureResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def fall_grouped(
+        self,
+        user_id: str,
+        *,
+        start_date: str,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GroupedFallResponse:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        start_date : str
+            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+        cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        next_cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        provider : typing.Optional[str]
+            Provider oura/strava etc
+
+        end_date : typing.Optional[str]
+            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GroupedFallResponse
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.vitals.fall_grouped(
+                user_id="user_id",
+                start_date="start_date",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v2/timeseries/{jsonable_encoder(user_id)}/fall/grouped",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "next_cursor": next_cursor,
+                "provider": provider,
+                "start_date": start_date,
+                "end_date": end_date,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    GroupedFallResponse,
+                    parse_obj_as(
+                        type_=GroupedFallResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def inhaler_usage_grouped(
+        self,
+        user_id: str,
+        *,
+        start_date: str,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GroupedInhalerUsageResponse:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        start_date : str
+            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+        cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        next_cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        provider : typing.Optional[str]
+            Provider oura/strava etc
+
+        end_date : typing.Optional[str]
+            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GroupedInhalerUsageResponse
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.vitals.inhaler_usage_grouped(
+                user_id="user_id",
+                start_date="start_date",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v2/timeseries/{jsonable_encoder(user_id)}/inhaler_usage/grouped",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "next_cursor": next_cursor,
+                "provider": provider,
+                "start_date": start_date,
+                "end_date": end_date,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    GroupedInhalerUsageResponse,
+                    parse_obj_as(
+                        type_=GroupedInhalerUsageResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def peak_expiratory_flow_rate_grouped(
+        self,
+        user_id: str,
+        *,
+        start_date: str,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GroupedPeakExpiratoryFlowRateResponse:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        start_date : str
+            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+        cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        next_cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        provider : typing.Optional[str]
+            Provider oura/strava etc
+
+        end_date : typing.Optional[str]
+            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GroupedPeakExpiratoryFlowRateResponse
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.vitals.peak_expiratory_flow_rate_grouped(
+                user_id="user_id",
+                start_date="start_date",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v2/timeseries/{jsonable_encoder(user_id)}/peak_expiratory_flow_rate/grouped",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "next_cursor": next_cursor,
+                "provider": provider,
+                "start_date": start_date,
+                "end_date": end_date,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    GroupedPeakExpiratoryFlowRateResponse,
+                    parse_obj_as(
+                        type_=GroupedPeakExpiratoryFlowRateResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def forced_vital_capacity_grouped(
+        self,
+        user_id: str,
+        *,
+        start_date: str,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GroupedForcedVitalCapacityResponse:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        start_date : str
+            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+        cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        next_cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        provider : typing.Optional[str]
+            Provider oura/strava etc
+
+        end_date : typing.Optional[str]
+            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GroupedForcedVitalCapacityResponse
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.vitals.forced_vital_capacity_grouped(
+                user_id="user_id",
+                start_date="start_date",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v2/timeseries/{jsonable_encoder(user_id)}/forced_vital_capacity/grouped",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "next_cursor": next_cursor,
+                "provider": provider,
+                "start_date": start_date,
+                "end_date": end_date,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    GroupedForcedVitalCapacityResponse,
+                    parse_obj_as(
+                        type_=GroupedForcedVitalCapacityResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def forced_expiratory_volume_1_grouped(
+        self,
+        user_id: str,
+        *,
+        start_date: str,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GroupedForcedExpiratoryVolume1Response:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        start_date : str
+            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+        cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        next_cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        provider : typing.Optional[str]
+            Provider oura/strava etc
+
+        end_date : typing.Optional[str]
+            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GroupedForcedExpiratoryVolume1Response
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.vitals.forced_expiratory_volume_1_grouped(
+                user_id="user_id",
+                start_date="start_date",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v2/timeseries/{jsonable_encoder(user_id)}/forced_expiratory_volume_1/grouped",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "next_cursor": next_cursor,
+                "provider": provider,
+                "start_date": start_date,
+                "end_date": end_date,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    GroupedForcedExpiratoryVolume1Response,
+                    parse_obj_as(
+                        type_=GroupedForcedExpiratoryVolume1Response,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def wheelchair_push_grouped(
+        self,
+        user_id: str,
+        *,
+        start_date: str,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GroupedWheelchairPushResponse:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        start_date : str
+            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+        cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        next_cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        provider : typing.Optional[str]
+            Provider oura/strava etc
+
+        end_date : typing.Optional[str]
+            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GroupedWheelchairPushResponse
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.vitals.wheelchair_push_grouped(
+                user_id="user_id",
+                start_date="start_date",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v2/timeseries/{jsonable_encoder(user_id)}/wheelchair_push/grouped",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "next_cursor": next_cursor,
+                "provider": provider,
+                "start_date": start_date,
+                "end_date": end_date,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    GroupedWheelchairPushResponse,
+                    parse_obj_as(
+                        type_=GroupedWheelchairPushResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def sleep_breathing_disturbance_grouped(
+        self,
+        user_id: str,
+        *,
+        start_date: str,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GroupedSleepBreathingDisturbanceResponse:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        start_date : str
+            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+        cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        next_cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        provider : typing.Optional[str]
+            Provider oura/strava etc
+
+        end_date : typing.Optional[str]
+            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GroupedSleepBreathingDisturbanceResponse
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.vitals.sleep_breathing_disturbance_grouped(
+                user_id="user_id",
+                start_date="start_date",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v2/timeseries/{jsonable_encoder(user_id)}/sleep_breathing_disturbance/grouped",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "next_cursor": next_cursor,
+                "provider": provider,
+                "start_date": start_date,
+                "end_date": end_date,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    GroupedSleepBreathingDisturbanceResponse,
+                    parse_obj_as(
+                        type_=GroupedSleepBreathingDisturbanceResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def sleep_apnea_alert_grouped(
+        self,
+        user_id: str,
+        *,
+        start_date: str,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GroupedSleepApneaAlertResponse:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        start_date : str
+            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+        cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        next_cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        provider : typing.Optional[str]
+            Provider oura/strava etc
+
+        end_date : typing.Optional[str]
+            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GroupedSleepApneaAlertResponse
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.vitals.sleep_apnea_alert_grouped(
+                user_id="user_id",
+                start_date="start_date",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v2/timeseries/{jsonable_encoder(user_id)}/sleep_apnea_alert/grouped",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "next_cursor": next_cursor,
+                "provider": provider,
+                "start_date": start_date,
+                "end_date": end_date,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    GroupedSleepApneaAlertResponse,
+                    parse_obj_as(
+                        type_=GroupedSleepApneaAlertResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def stand_duration_grouped(
+        self,
+        user_id: str,
+        *,
+        start_date: str,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GroupedStandDurationResponse:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        start_date : str
+            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+        cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        next_cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        provider : typing.Optional[str]
+            Provider oura/strava etc
+
+        end_date : typing.Optional[str]
+            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GroupedStandDurationResponse
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.vitals.stand_duration_grouped(
+                user_id="user_id",
+                start_date="start_date",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v2/timeseries/{jsonable_encoder(user_id)}/stand_duration/grouped",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "next_cursor": next_cursor,
+                "provider": provider,
+                "start_date": start_date,
+                "end_date": end_date,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    GroupedStandDurationResponse,
+                    parse_obj_as(
+                        type_=GroupedStandDurationResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def stand_hour_grouped(
+        self,
+        user_id: str,
+        *,
+        start_date: str,
+        cursor: typing.Optional[str] = None,
+        next_cursor: typing.Optional[str] = None,
+        provider: typing.Optional[str] = None,
+        end_date: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GroupedStandHourResponse:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        start_date : str
+            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+        cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        next_cursor : typing.Optional[str]
+            The cursor for fetching the next page, or `null` to fetch the first page.
+
+        provider : typing.Optional[str]
+            Provider oura/strava etc
+
+        end_date : typing.Optional[str]
+            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GroupedStandHourResponse
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.vitals.stand_hour_grouped(
+                user_id="user_id",
+                start_date="start_date",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v2/timeseries/{jsonable_encoder(user_id)}/stand_hour/grouped",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "next_cursor": next_cursor,
+                "provider": provider,
+                "start_date": start_date,
+                "end_date": end_date,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    GroupedStandHourResponse,
+                    parse_obj_as(
+                        type_=GroupedStandHourResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def heart_rate_alert_grouped(
         self,

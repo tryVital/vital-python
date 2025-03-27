@@ -46,6 +46,7 @@ from ..types.billing import Billing
 from ..types.consent import Consent
 from ..types.ao_e_answer import AoEAnswer
 from ..types.post_order_response import PostOrderResponse
+from ..types.patient_address import PatientAddress
 from ..types.order_status import OrderStatus
 from .types.lab_tests_get_orders_request_order_key import LabTestsGetOrdersRequestOrderKey
 from .types.lab_tests_get_orders_request_order_direction import LabTestsGetOrdersRequestOrderDirection
@@ -2367,6 +2368,129 @@ class LabTestsClient:
                 "passthrough": passthrough,
                 "patient_details": patient_details,
                 "patient_address": patient_address,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    PostOrderResponse,
+                    parse_obj_as(
+                        type_=PostOrderResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def import_order(
+        self,
+        *,
+        user_id: str,
+        billing_type: Billing,
+        order_set: OrderSetRequest,
+        collection_method: LabTestCollectionMethod,
+        patient_details: PatientDetailsWithValidation,
+        patient_address: PatientAddress,
+        sample_id: str,
+        physician: typing.Optional[PhysicianCreateRequest] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PostOrderResponse:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        billing_type : Billing
+
+        order_set : OrderSetRequest
+
+        collection_method : LabTestCollectionMethod
+
+        patient_details : PatientDetailsWithValidation
+
+        patient_address : PatientAddress
+
+        sample_id : str
+
+        physician : typing.Optional[PhysicianCreateRequest]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PostOrderResponse
+            Successful Response
+
+        Examples
+        --------
+        import datetime
+
+        from vital import (
+            Billing,
+            Gender,
+            LabTestCollectionMethod,
+            OrderSetRequest,
+            PatientAddress,
+            PatientDetailsWithValidation,
+            Vital,
+        )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.import_order(
+            user_id="user_id",
+            billing_type=Billing.CLIENT_BILL,
+            order_set=OrderSetRequest(),
+            collection_method=LabTestCollectionMethod.TESTKIT,
+            patient_details=PatientDetailsWithValidation(
+                first_name="first_name",
+                last_name="last_name",
+                dob=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                gender=Gender.FEMALE,
+                phone_number="phone_number",
+                email="email",
+            ),
+            patient_address=PatientAddress(
+                receiver_name="receiver_name",
+                first_line="first_line",
+                city="city",
+                state="state",
+                zip="zip",
+                country="country",
+            ),
+            sample_id="sample_id",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v3/order/import",
+            method="POST",
+            json={
+                "user_id": user_id,
+                "billing_type": billing_type,
+                "order_set": order_set,
+                "collection_method": collection_method,
+                "physician": physician,
+                "patient_details": patient_details,
+                "patient_address": patient_address,
+                "sample_id": sample_id,
             },
             request_options=request_options,
             omit=OMIT,
@@ -5224,6 +5348,136 @@ class AsyncLabTestsClient:
                 "passthrough": passthrough,
                 "patient_details": patient_details,
                 "patient_address": patient_address,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    PostOrderResponse,
+                    parse_obj_as(
+                        type_=PostOrderResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def import_order(
+        self,
+        *,
+        user_id: str,
+        billing_type: Billing,
+        order_set: OrderSetRequest,
+        collection_method: LabTestCollectionMethod,
+        patient_details: PatientDetailsWithValidation,
+        patient_address: PatientAddress,
+        sample_id: str,
+        physician: typing.Optional[PhysicianCreateRequest] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PostOrderResponse:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        billing_type : Billing
+
+        order_set : OrderSetRequest
+
+        collection_method : LabTestCollectionMethod
+
+        patient_details : PatientDetailsWithValidation
+
+        patient_address : PatientAddress
+
+        sample_id : str
+
+        physician : typing.Optional[PhysicianCreateRequest]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PostOrderResponse
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+        import datetime
+
+        from vital import (
+            AsyncVital,
+            Billing,
+            Gender,
+            LabTestCollectionMethod,
+            OrderSetRequest,
+            PatientAddress,
+            PatientDetailsWithValidation,
+        )
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.lab_tests.import_order(
+                user_id="user_id",
+                billing_type=Billing.CLIENT_BILL,
+                order_set=OrderSetRequest(),
+                collection_method=LabTestCollectionMethod.TESTKIT,
+                patient_details=PatientDetailsWithValidation(
+                    first_name="first_name",
+                    last_name="last_name",
+                    dob=datetime.datetime.fromisoformat(
+                        "2024-01-15 09:30:00+00:00",
+                    ),
+                    gender=Gender.FEMALE,
+                    phone_number="phone_number",
+                    email="email",
+                ),
+                patient_address=PatientAddress(
+                    receiver_name="receiver_name",
+                    first_line="first_line",
+                    city="city",
+                    state="state",
+                    zip="zip",
+                    country="country",
+                ),
+                sample_id="sample_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "v3/order/import",
+            method="POST",
+            json={
+                "user_id": user_id,
+                "billing_type": billing_type,
+                "order_set": order_set,
+                "collection_method": collection_method,
+                "physician": physician,
+                "patient_details": patient_details,
+                "patient_address": patient_address,
+                "sample_id": sample_id,
             },
             request_options=request_options,
             omit=OMIT,

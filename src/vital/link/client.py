@@ -328,6 +328,7 @@ class LinkClient:
         redirect_url: typing.Optional[str] = OMIT,
         filter_on_providers: typing.Optional[typing.Sequence[Providers]] = OMIT,
         on_error: typing.Optional[typing.Literal["redirect"]] = OMIT,
+        on_close: typing.Optional[typing.Literal["redirect"]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LinkTokenExchangeResponse:
         """
@@ -350,6 +351,8 @@ class LinkClient:
         filter_on_providers : typing.Optional[typing.Sequence[Providers]]
 
         on_error : typing.Optional[typing.Literal["redirect"]]
+
+        on_close : typing.Optional[typing.Literal["redirect"]]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -379,6 +382,7 @@ class LinkClient:
                 "redirect_url": redirect_url,
                 "filter_on_providers": filter_on_providers,
                 "on_error": on_error,
+                "on_close": on_close,
             },
             request_options=request_options,
             omit=OMIT,
@@ -1667,6 +1671,7 @@ class AsyncLinkClient:
         redirect_url: typing.Optional[str] = OMIT,
         filter_on_providers: typing.Optional[typing.Sequence[Providers]] = OMIT,
         on_error: typing.Optional[typing.Literal["redirect"]] = OMIT,
+        on_close: typing.Optional[typing.Literal["redirect"]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LinkTokenExchangeResponse:
         """
@@ -1689,6 +1694,8 @@ class AsyncLinkClient:
         filter_on_providers : typing.Optional[typing.Sequence[Providers]]
 
         on_error : typing.Optional[typing.Literal["redirect"]]
+
+        on_close : typing.Optional[typing.Literal["redirect"]]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1726,6 +1733,7 @@ class AsyncLinkClient:
                 "redirect_url": redirect_url,
                 "filter_on_providers": filter_on_providers,
                 "on_error": on_error,
+                "on_close": on_close,
             },
             request_options=request_options,
             omit=OMIT,

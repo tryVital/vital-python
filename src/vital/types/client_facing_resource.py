@@ -48,6 +48,20 @@ class ClientFacingResource(str, enum.Enum):
     ELECTROCARDIOGRAM_VOLTAGE = "electrocardiogram_voltage"
     AFIB_BURDEN = "afib_burden"
     HEART_RATE_ALERT = "heart_rate_alert"
+    STAND_HOUR = "stand_hour"
+    STAND_DURATION = "stand_duration"
+    SLEEP_APNEA_ALERT = "sleep_apnea_alert"
+    SLEEP_BREATHING_DISTURBANCE = "sleep_breathing_disturbance"
+    WHEELCHAIR_PUSH = "wheelchair_push"
+    FORCED_EXPIRATORY_VOLUME_1 = "forced_expiratory_volume_1"
+    FORCED_VITAL_CAPACITY = "forced_vital_capacity"
+    PEAK_EXPIRATORY_FLOW_RATE = "peak_expiratory_flow_rate"
+    INHALER_USAGE = "inhaler_usage"
+    FALL = "fall"
+    UV_EXPOSURE = "uv_exposure"
+    DAYLIGHT_EXPOSURE = "daylight_exposure"
+    HANDWASHING = "handwashing"
+    BASAL_BODY_TEMPERATURE = "basal_body_temperature"
     WORKOUT_DURATION = "workout_duration"
     INSULIN_INJECTION = "insulin_injection"
     CARBOHYDRATES = "carbohydrates"
@@ -98,6 +112,20 @@ class ClientFacingResource(str, enum.Enum):
         electrocardiogram_voltage: typing.Callable[[], T_Result],
         afib_burden: typing.Callable[[], T_Result],
         heart_rate_alert: typing.Callable[[], T_Result],
+        stand_hour: typing.Callable[[], T_Result],
+        stand_duration: typing.Callable[[], T_Result],
+        sleep_apnea_alert: typing.Callable[[], T_Result],
+        sleep_breathing_disturbance: typing.Callable[[], T_Result],
+        wheelchair_push: typing.Callable[[], T_Result],
+        forced_expiratory_volume_1: typing.Callable[[], T_Result],
+        forced_vital_capacity: typing.Callable[[], T_Result],
+        peak_expiratory_flow_rate: typing.Callable[[], T_Result],
+        inhaler_usage: typing.Callable[[], T_Result],
+        fall: typing.Callable[[], T_Result],
+        uv_exposure: typing.Callable[[], T_Result],
+        daylight_exposure: typing.Callable[[], T_Result],
+        handwashing: typing.Callable[[], T_Result],
+        basal_body_temperature: typing.Callable[[], T_Result],
         workout_duration: typing.Callable[[], T_Result],
         insulin_injection: typing.Callable[[], T_Result],
         carbohydrates: typing.Callable[[], T_Result],
@@ -187,6 +215,34 @@ class ClientFacingResource(str, enum.Enum):
             return afib_burden()
         if self is ClientFacingResource.HEART_RATE_ALERT:
             return heart_rate_alert()
+        if self is ClientFacingResource.STAND_HOUR:
+            return stand_hour()
+        if self is ClientFacingResource.STAND_DURATION:
+            return stand_duration()
+        if self is ClientFacingResource.SLEEP_APNEA_ALERT:
+            return sleep_apnea_alert()
+        if self is ClientFacingResource.SLEEP_BREATHING_DISTURBANCE:
+            return sleep_breathing_disturbance()
+        if self is ClientFacingResource.WHEELCHAIR_PUSH:
+            return wheelchair_push()
+        if self is ClientFacingResource.FORCED_EXPIRATORY_VOLUME_1:
+            return forced_expiratory_volume_1()
+        if self is ClientFacingResource.FORCED_VITAL_CAPACITY:
+            return forced_vital_capacity()
+        if self is ClientFacingResource.PEAK_EXPIRATORY_FLOW_RATE:
+            return peak_expiratory_flow_rate()
+        if self is ClientFacingResource.INHALER_USAGE:
+            return inhaler_usage()
+        if self is ClientFacingResource.FALL:
+            return fall()
+        if self is ClientFacingResource.UV_EXPOSURE:
+            return uv_exposure()
+        if self is ClientFacingResource.DAYLIGHT_EXPOSURE:
+            return daylight_exposure()
+        if self is ClientFacingResource.HANDWASHING:
+            return handwashing()
+        if self is ClientFacingResource.BASAL_BODY_TEMPERATURE:
+            return basal_body_temperature()
         if self is ClientFacingResource.WORKOUT_DURATION:
             return workout_duration()
         if self is ClientFacingResource.INSULIN_INJECTION:

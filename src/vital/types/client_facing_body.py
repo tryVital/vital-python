@@ -55,6 +55,9 @@ class ClientFacingBody(UniversalBaseModel):
     Bone mass percentage in the body::perc
     """
 
+    body_mass_index: typing.Optional[float] = None
+    lean_body_mass_kilogram: typing.Optional[float] = None
+    waist_circumference_centimeter: typing.Optional[float] = None
     source: ClientFacingSource
 
     if IS_PYDANTIC_V2:

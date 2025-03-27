@@ -27,6 +27,22 @@ class ClientFacingSource(UniversalBaseModel):
     The identifier of the app which recorded this summary. This is only applicable to multi-source providers like Apple Health and Android Health Connect.
     """
 
+    sport: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    For workout stream timeseries, this is the standard sport slug of the workout with which the timeseries data are associated.
+    
+    For the `distance` timeseries, this is `wheelchair_pushing` if the user is a wheelchair user, or `null` otherwise.
+    
+    For all summary types and non-workout timeseries, this is always `null`.
+    """
+
+    workout_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    For workout stream timeseries, this is the workout ID with which the timeseries data are associated.
+    
+    For all other types, this is always `null`.
+    """
+
     name: typing.Optional[str] = pydantic.Field(default=None)
     """
     Deprecated. Subject to removal after 1 Jan 2024.

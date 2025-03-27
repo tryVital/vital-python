@@ -15,6 +15,8 @@ class ClientFacingProfile(UniversalBaseModel):
 
     id: str
     height: typing.Optional[int] = None
+    birth_date: typing.Optional[str] = None
+    wheelchair_use: typing.Optional[bool] = None
     source: ClientFacingSource
 
     if IS_PYDANTIC_V2:
