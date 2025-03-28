@@ -3057,6 +3057,297 @@ client.menstrual_cycle.get(
 </details>
 
 ## Vitals
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">waist_circumference_grouped</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.waist_circumference_grouped(
+    user_id="user_id",
+    start_date="start_date",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**start_date:** `str` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**next_cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider:** `typing.Optional[str]` — Provider oura/strava etc
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**end_date:** `typing.Optional[str]` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">lean_body_mass_grouped</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.lean_body_mass_grouped(
+    user_id="user_id",
+    start_date="start_date",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**start_date:** `str` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**next_cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider:** `typing.Optional[str]` — Provider oura/strava etc
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**end_date:** `typing.Optional[str]` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">body_mass_index_grouped</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.body_mass_index_grouped(
+    user_id="user_id",
+    start_date="start_date",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**start_date:** `str` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**next_cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider:** `typing.Optional[str]` — Provider oura/strava etc
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**end_date:** `typing.Optional[str]` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">basal_body_temperature_grouped</a>(...)</code></summary>
 <dl>
 <dd>

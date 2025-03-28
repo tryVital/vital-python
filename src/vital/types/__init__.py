@@ -76,6 +76,10 @@ from .client_facing_body_changed import ClientFacingBodyChanged
 from .client_facing_body_changed_event_type import ClientFacingBodyChangedEventType
 from .client_facing_body_fat_timeseries import ClientFacingBodyFatTimeseries
 from .client_facing_body_historical_pull_completed import ClientFacingBodyHistoricalPullCompleted
+from .client_facing_body_mass_index_changed import ClientFacingBodyMassIndexChanged
+from .client_facing_body_mass_index_changed_event_type import ClientFacingBodyMassIndexChangedEventType
+from .client_facing_body_mass_index_historical_pull_completed import ClientFacingBodyMassIndexHistoricalPullCompleted
+from .client_facing_body_mass_index_sample import ClientFacingBodyMassIndexSample
 from .client_facing_body_temperature_changed import ClientFacingBodyTemperatureChanged
 from .client_facing_body_temperature_changed_event_type import ClientFacingBodyTemperatureChangedEventType
 from .client_facing_body_temperature_delta_changed import ClientFacingBodyTemperatureDeltaChanged
@@ -219,6 +223,10 @@ from .client_facing_lab import ClientFacingLab
 from .client_facing_lab_location import ClientFacingLabLocation
 from .client_facing_lab_test import ClientFacingLabTest
 from .client_facing_labs import ClientFacingLabs
+from .client_facing_lean_body_mass_changed import ClientFacingLeanBodyMassChanged
+from .client_facing_lean_body_mass_changed_event_type import ClientFacingLeanBodyMassChangedEventType
+from .client_facing_lean_body_mass_historical_pull_completed import ClientFacingLeanBodyMassHistoricalPullCompleted
+from .client_facing_lean_body_mass_sample import ClientFacingLeanBodyMassSample
 from .client_facing_loinc import ClientFacingLoinc
 from .client_facing_marker import ClientFacingMarker
 from .client_facing_marker_complete import ClientFacingMarkerComplete
@@ -319,6 +327,7 @@ from .client_facing_stand_hour_changed import ClientFacingStandHourChanged
 from .client_facing_stand_hour_changed_event_type import ClientFacingStandHourChangedEventType
 from .client_facing_stand_hour_historical_pull_completed import ClientFacingStandHourHistoricalPullCompleted
 from .client_facing_stand_hour_sample import ClientFacingStandHourSample
+from .client_facing_stand_hour_sample_type import ClientFacingStandHourSampleType
 from .client_facing_steps_changed import ClientFacingStepsChanged
 from .client_facing_steps_changed_event_type import ClientFacingStepsChangedEventType
 from .client_facing_steps_historical_pull_completed import ClientFacingStepsHistoricalPullCompleted
@@ -351,6 +360,12 @@ from .client_facing_vo_2_max_changed import ClientFacingVo2MaxChanged
 from .client_facing_vo_2_max_changed_event_type import ClientFacingVo2MaxChangedEventType
 from .client_facing_vo_2_max_historical_pull_completed import ClientFacingVo2MaxHistoricalPullCompleted
 from .client_facing_vo_2_max_timeseries import ClientFacingVo2MaxTimeseries
+from .client_facing_waist_circumference_changed import ClientFacingWaistCircumferenceChanged
+from .client_facing_waist_circumference_changed_event_type import ClientFacingWaistCircumferenceChangedEventType
+from .client_facing_waist_circumference_historical_pull_completed import (
+    ClientFacingWaistCircumferenceHistoricalPullCompleted,
+)
+from .client_facing_waist_circumference_sample import ClientFacingWaistCircumferenceSample
 from .client_facing_walk_in_order_details import ClientFacingWalkInOrderDetails
 from .client_facing_walk_in_test_order import ClientFacingWalkInTestOrder
 from .client_facing_water_changed import ClientFacingWaterChanged
@@ -426,6 +441,8 @@ from .grouped_blood_pressure import GroupedBloodPressure
 from .grouped_blood_pressure_response import GroupedBloodPressureResponse
 from .grouped_body_fat import GroupedBodyFat
 from .grouped_body_fat_response import GroupedBodyFatResponse
+from .grouped_body_mass_index import GroupedBodyMassIndex
+from .grouped_body_mass_index_response import GroupedBodyMassIndexResponse
 from .grouped_body_temperature import GroupedBodyTemperature
 from .grouped_body_temperature_delta import GroupedBodyTemperatureDelta
 from .grouped_body_temperature_delta_response import GroupedBodyTemperatureDeltaResponse
@@ -476,6 +493,8 @@ from .grouped_inhaler_usage import GroupedInhalerUsage
 from .grouped_inhaler_usage_response import GroupedInhalerUsageResponse
 from .grouped_insulin_injection import GroupedInsulinInjection
 from .grouped_insulin_injection_response import GroupedInsulinInjectionResponse
+from .grouped_lean_body_mass import GroupedLeanBodyMass
+from .grouped_lean_body_mass_response import GroupedLeanBodyMassResponse
 from .grouped_mindfulness_minutes import GroupedMindfulnessMinutes
 from .grouped_mindfulness_minutes_response import GroupedMindfulnessMinutesResponse
 from .grouped_note import GroupedNote
@@ -500,6 +519,8 @@ from .grouped_uv_exposure import GroupedUvExposure
 from .grouped_uv_exposure_response import GroupedUvExposureResponse
 from .grouped_vo_2_max import GroupedVo2Max
 from .grouped_vo_2_max_response import GroupedVo2MaxResponse
+from .grouped_waist_circumference import GroupedWaistCircumference
+from .grouped_waist_circumference_response import GroupedWaistCircumferenceResponse
 from .grouped_water import GroupedWater
 from .grouped_water_response import GroupedWaterResponse
 from .grouped_wheelchair_push import GroupedWheelchairPush
@@ -727,6 +748,10 @@ __all__ = [
     "ClientFacingBodyChangedEventType",
     "ClientFacingBodyFatTimeseries",
     "ClientFacingBodyHistoricalPullCompleted",
+    "ClientFacingBodyMassIndexChanged",
+    "ClientFacingBodyMassIndexChangedEventType",
+    "ClientFacingBodyMassIndexHistoricalPullCompleted",
+    "ClientFacingBodyMassIndexSample",
     "ClientFacingBodyTemperatureChanged",
     "ClientFacingBodyTemperatureChangedEventType",
     "ClientFacingBodyTemperatureDeltaChanged",
@@ -850,6 +875,10 @@ __all__ = [
     "ClientFacingLabLocation",
     "ClientFacingLabTest",
     "ClientFacingLabs",
+    "ClientFacingLeanBodyMassChanged",
+    "ClientFacingLeanBodyMassChangedEventType",
+    "ClientFacingLeanBodyMassHistoricalPullCompleted",
+    "ClientFacingLeanBodyMassSample",
     "ClientFacingLoinc",
     "ClientFacingMarker",
     "ClientFacingMarkerComplete",
@@ -936,6 +965,7 @@ __all__ = [
     "ClientFacingStandHourChangedEventType",
     "ClientFacingStandHourHistoricalPullCompleted",
     "ClientFacingStandHourSample",
+    "ClientFacingStandHourSampleType",
     "ClientFacingStepsChanged",
     "ClientFacingStepsChangedEventType",
     "ClientFacingStepsHistoricalPullCompleted",
@@ -968,6 +998,10 @@ __all__ = [
     "ClientFacingVo2MaxChangedEventType",
     "ClientFacingVo2MaxHistoricalPullCompleted",
     "ClientFacingVo2MaxTimeseries",
+    "ClientFacingWaistCircumferenceChanged",
+    "ClientFacingWaistCircumferenceChangedEventType",
+    "ClientFacingWaistCircumferenceHistoricalPullCompleted",
+    "ClientFacingWaistCircumferenceSample",
     "ClientFacingWalkInOrderDetails",
     "ClientFacingWalkInTestOrder",
     "ClientFacingWaterChanged",
@@ -1043,6 +1077,8 @@ __all__ = [
     "GroupedBloodPressureResponse",
     "GroupedBodyFat",
     "GroupedBodyFatResponse",
+    "GroupedBodyMassIndex",
+    "GroupedBodyMassIndexResponse",
     "GroupedBodyTemperature",
     "GroupedBodyTemperatureDelta",
     "GroupedBodyTemperatureDeltaResponse",
@@ -1093,6 +1129,8 @@ __all__ = [
     "GroupedInhalerUsageResponse",
     "GroupedInsulinInjection",
     "GroupedInsulinInjectionResponse",
+    "GroupedLeanBodyMass",
+    "GroupedLeanBodyMassResponse",
     "GroupedMindfulnessMinutes",
     "GroupedMindfulnessMinutesResponse",
     "GroupedNote",
@@ -1117,6 +1155,8 @@ __all__ = [
     "GroupedUvExposureResponse",
     "GroupedVo2Max",
     "GroupedVo2MaxResponse",
+    "GroupedWaistCircumference",
+    "GroupedWaistCircumferenceResponse",
     "GroupedWater",
     "GroupedWaterResponse",
     "GroupedWheelchairPush",

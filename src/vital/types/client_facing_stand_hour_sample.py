@@ -3,6 +3,7 @@
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing
 import pydantic
+from .client_facing_stand_hour_sample_type import ClientFacingStandHourSampleType
 from .client_facing_sample_grouping_keys import ClientFacingSampleGroupingKeys
 import datetime as dt
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
@@ -19,11 +20,7 @@ class ClientFacingStandHourSample(UniversalBaseModel):
     Time zone UTC offset in seconds. Positive offset indicates east of UTC; negative offset indicates west of UTC; and null indicates the time zone information is unavailable at source.
     """
 
-    type: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The reading type of the measurement. This is applicable only to Cholesterol, IGG, IGE and InsulinInjection.
-    """
-
+    type: ClientFacingStandHourSampleType
     unit: typing.Literal["count"] = "count"
     grouping: typing.Optional[ClientFacingSampleGroupingKeys] = None
     timestamp: dt.datetime = pydantic.Field()
