@@ -3,7 +3,6 @@
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing
 import pydantic
-from .client_facing_sample_grouping_keys import ClientFacingSampleGroupingKeys
 import datetime as dt
 from .client_facing_body_temperature_delta_sample_sensor_location import (
     ClientFacingBodyTemperatureDeltaSampleSensorLocation,
@@ -28,7 +27,6 @@ class ClientFacingBodyTemperatureDeltaSample(UniversalBaseModel):
     """
 
     unit: typing.Literal["°C"] = "°C"
-    grouping: typing.Optional[ClientFacingSampleGroupingKeys] = None
     timestamp: dt.datetime = pydantic.Field()
     """
     Depracated. The start time (inclusive) of the interval.

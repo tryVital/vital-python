@@ -3,7 +3,6 @@
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing
 import pydantic
-from .client_facing_sample_grouping_keys import ClientFacingSampleGroupingKeys
 import datetime as dt
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
@@ -19,7 +18,7 @@ class ClientFacingElectrocardiogramVoltageTimeseries(UniversalBaseModel):
     Time zone UTC offset in seconds. Positive offset indicates east of UTC; negative offset indicates west of UTC; and null indicates the time zone information is unavailable at source.
     """
 
-    type: typing.Optional[str] = pydantic.Field(default=None)
+    type: str = pydantic.Field()
     """
     The lead of the measurement.
     """
@@ -29,7 +28,6 @@ class ClientFacingElectrocardiogramVoltageTimeseries(UniversalBaseModel):
     Measured in mV.
     """
 
-    grouping: typing.Optional[ClientFacingSampleGroupingKeys] = None
     timestamp: dt.datetime = pydantic.Field()
     """
     The timestamp of the measurement.

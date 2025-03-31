@@ -4,7 +4,6 @@ from ..core.pydantic_utilities import UniversalBaseModel
 import typing
 import pydantic
 from .client_facing_stand_hour_sample_type import ClientFacingStandHourSampleType
-from .client_facing_sample_grouping_keys import ClientFacingSampleGroupingKeys
 import datetime as dt
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
@@ -22,7 +21,6 @@ class ClientFacingStandHourSample(UniversalBaseModel):
 
     type: ClientFacingStandHourSampleType
     unit: typing.Literal["count"] = "count"
-    grouping: typing.Optional[ClientFacingSampleGroupingKeys] = None
     timestamp: dt.datetime = pydantic.Field()
     """
     Depracated. The start time (inclusive) of the interval.

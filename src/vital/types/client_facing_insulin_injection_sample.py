@@ -4,7 +4,6 @@ from ..core.pydantic_utilities import UniversalBaseModel
 import typing
 import pydantic
 from .client_facing_insulin_injection_sample_type import ClientFacingInsulinInjectionSampleType
-from .client_facing_sample_grouping_keys import ClientFacingSampleGroupingKeys
 import datetime as dt
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
@@ -26,7 +25,6 @@ class ClientFacingInsulinInjectionSample(UniversalBaseModel):
     """
 
     unit: typing.Literal["unit"] = "unit"
-    grouping: typing.Optional[ClientFacingSampleGroupingKeys] = None
     timestamp: dt.datetime = pydantic.Field()
     """
     Depracated. The start time (inclusive) of the interval.
