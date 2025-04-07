@@ -1293,9 +1293,8 @@ class LabTestsClient:
         GET information about an area with respect to lab-testing.
 
         Information returned:
-
-        - Whether a given zip code is served by our Phlebotomy network.
-        - List of Lab locations in the area.
+        * Whether a given zip code is served by our Phlebotomy network.
+        * List of Lab locations in the area.
 
         Parameters
         ----------
@@ -1519,17 +1518,6 @@ class LabTestsClient:
         ------
         typing.Iterator[bytes]
             PDF with results
-
-        Examples
-        --------
-        from vital import Vital
-
-        client = Vital(
-            api_key="YOUR_API_KEY",
-        )
-        client.lab_tests.get_result_pdf(
-            order_id="string",
-        )
         """
         with self._client_wrapper.httpx_client.stream(
             f"v3/order/{jsonable_encoder(order_id)}/result/pdf",
@@ -1702,23 +1690,6 @@ class LabTestsClient:
         ------
         typing.Iterator[bytes]
             PDF with labels
-
-        Examples
-        --------
-        import datetime
-
-        from vital import Vital
-
-        client = Vital(
-            api_key="YOUR_API_KEY",
-        )
-        client.lab_tests.get_labels_pdf(
-            order_id="string",
-            number_of_labels=1,
-            collection_date=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-        )
         """
         with self._client_wrapper.httpx_client.stream(
             f"v3/order/{jsonable_encoder(order_id)}/labels/pdf",
@@ -2154,17 +2125,6 @@ class LabTestsClient:
         ------
         typing.Iterator[bytes]
             PDF with requisition form
-
-        Examples
-        --------
-        from vital import Vital
-
-        client = Vital(
-            api_key="YOUR_API_KEY",
-        )
-        client.lab_tests.get_order_requistion_pdf(
-            order_id="string",
-        )
         """
         with self._client_wrapper.httpx_client.stream(
             f"v3/order/{jsonable_encoder(order_id)}/requisition/pdf",
@@ -4145,9 +4105,8 @@ class AsyncLabTestsClient:
         GET information about an area with respect to lab-testing.
 
         Information returned:
-
-        - Whether a given zip code is served by our Phlebotomy network.
-        - List of Lab locations in the area.
+        * Whether a given zip code is served by our Phlebotomy network.
+        * List of Lab locations in the area.
 
         Parameters
         ----------
@@ -4395,25 +4354,6 @@ class AsyncLabTestsClient:
         ------
         typing.AsyncIterator[bytes]
             PDF with results
-
-        Examples
-        --------
-        import asyncio
-
-        from vital import AsyncVital
-
-        client = AsyncVital(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.lab_tests.get_result_pdf(
-                order_id="string",
-            )
-
-
-        asyncio.run(main())
         """
         async with self._client_wrapper.httpx_client.stream(
             f"v3/order/{jsonable_encoder(order_id)}/result/pdf",
@@ -4602,30 +4542,6 @@ class AsyncLabTestsClient:
         ------
         typing.AsyncIterator[bytes]
             PDF with labels
-
-        Examples
-        --------
-        import asyncio
-        import datetime
-
-        from vital import AsyncVital
-
-        client = AsyncVital(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.lab_tests.get_labels_pdf(
-                order_id="string",
-                number_of_labels=1,
-                collection_date=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-            )
-
-
-        asyncio.run(main())
         """
         async with self._client_wrapper.httpx_client.stream(
             f"v3/order/{jsonable_encoder(order_id)}/labels/pdf",
@@ -5109,25 +5025,6 @@ class AsyncLabTestsClient:
         ------
         typing.AsyncIterator[bytes]
             PDF with requisition form
-
-        Examples
-        --------
-        import asyncio
-
-        from vital import AsyncVital
-
-        client = AsyncVital(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.lab_tests.get_order_requistion_pdf(
-                order_id="string",
-            )
-
-
-        asyncio.run(main())
         """
         async with self._client_wrapper.httpx_client.stream(
             f"v3/order/{jsonable_encoder(order_id)}/requisition/pdf",

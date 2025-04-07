@@ -20,6 +20,7 @@ class ClientFacingSleepCycle(UniversalBaseModel):
     stage_end_offset_second: typing.List[int]
     stage_type: typing.List[VitalSleepStage] = pydantic.Field()
     """
+    
     Sleep stage classification:
     `-1`: Unknown or unclassified sleep stage;
     `1`: Deep sleep;

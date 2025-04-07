@@ -13291,9 +13291,8 @@ client.lab_tests.get_phlebotomy_appointment(
 GET information about an area with respect to lab-testing.
 
 Information returned:
-
-- Whether a given zip code is served by our Phlebotomy network.
-- List of Lab locations in the area.
+* Whether a given zip code is served by our Phlebotomy network.
+* List of Lab locations in the area.
 </dd>
 </dl>
 </dd>
@@ -13504,76 +13503,6 @@ client.lab_tests.get_order_psc_info(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_result_pdf</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-This endpoint returns the lab results for the order.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.lab_tests.get_result_pdf(
-    order_id="string",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**order_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_result_metadata</a>(...)</code></summary>
 <dl>
 <dd>
@@ -13696,98 +13625,6 @@ client.lab_tests.get_result_raw(
 <dd>
 
 **order_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_labels_pdf</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-This endpoint returns the printed labels for the order.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-import datetime
-
-from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.lab_tests.get_labels_pdf(
-    order_id="string",
-    number_of_labels=1,
-    collection_date=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**order_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**collection_date:** `dt.datetime` — Collection date
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**number_of_labels:** `typing.Optional[int]` — Number of labels to generate
     
 </dd>
 </dl>
@@ -14172,76 +14009,6 @@ client = Vital(
 )
 client.lab_tests.get_psc_appointment(
     order_id="order_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**order_id:** `str` — Your Order ID.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_order_requistion_pdf</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-GET requisition pdf for an order
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.lab_tests.get_order_requistion_pdf(
-    order_id="string",
 )
 
 ```

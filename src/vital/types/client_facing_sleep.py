@@ -40,6 +40,7 @@ class ClientFacingSleep(UniversalBaseModel):
 
     type: SleepType = pydantic.Field()
     """
+    
     `long_sleep`: >=3 hours of sleep;
     `short_sleep`: <3 hours of sleep;
     `acknowledged_nap`: User-acknowledged naps, typically under 3 hours of sleep;
@@ -103,7 +104,7 @@ class ClientFacingSleep(UniversalBaseModel):
 
     efficiency: typing.Optional[float] = pydantic.Field(default=None)
     """
-    Sleep efficiency is the percentage of the sleep period spent asleep (100% \* sleep.total / sleep.duration)::perc
+    Sleep efficiency is the percentage of the sleep period spent asleep (100% * sleep.total / sleep.duration)::perc
     """
 
     latency: typing.Optional[int] = pydantic.Field(default=None)

@@ -29,6 +29,7 @@ class ClientFacingSource(UniversalBaseModel):
 
     sport: typing.Optional[str] = pydantic.Field(default=None)
     """
+    
     For workout stream timeseries, this is the standard sport slug of the workout with which the timeseries data are associated.
     
     For the `distance` timeseries, this is `wheelchair_pushing` if the user is a wheelchair user, or `null` otherwise.
@@ -38,6 +39,7 @@ class ClientFacingSource(UniversalBaseModel):
 
     workout_id: typing.Optional[str] = pydantic.Field(default=None)
     """
+    
     For workout stream timeseries, this is the workout ID with which the timeseries data are associated.
     
     For all other types, this is always `null`.

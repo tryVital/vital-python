@@ -14,30 +14,30 @@ class ConnectionRecipe(UniversalBaseModel):
 
     access_token: str = pydantic.Field()
     """
-    - OAuth 2.0 providers (Fitbit, etc): The latest Access Token.
-    - OAuth 1.0 providers (Garmin): The Access Token.
+    * OAuth 2.0 providers (Fitbit, etc): The latest Access Token.
+    * OAuth 1.0 providers (Garmin): The Access Token.
     """
 
     refresh_token: str = pydantic.Field()
     """
-    - OAuth 2.0 providers (Fitbit, etc): The latest Refresh Token.
-    - OAuth 1.0 providers (Garmin): The Token Secret.
+    * OAuth 2.0 providers (Fitbit, etc): The latest Refresh Token.
+    * OAuth 1.0 providers (Garmin): The Token Secret.
     """
 
     provider_id: str = pydantic.Field()
     """
     User ID of the data provider.
     
-    - Fitbit: 6-character Fitbit User ID
-    - Garmin: 36-character Garmin User ID
+    * Fitbit: 6-character Fitbit User ID 
+    * Garmin: 36-character Garmin User ID
     """
 
     expires_at: int = pydantic.Field()
     """
     Access token expiry date, in terms of UNIX epoch seconds.
     
-    - OAuth 2.0 providers (Fitbit, etc): The latest expiry date on your record.
-    - OAuth 1.0 providers (Garmin): Use the constant value `2147483647`.
+    * OAuth 2.0 providers (Fitbit, etc): The latest expiry date on your record.
+    * OAuth 1.0 providers (Garmin): Use the constant value `2147483647`.
     """
 
     oauth_scopes: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
@@ -45,8 +45,8 @@ class ConnectionRecipe(UniversalBaseModel):
     OAuth scopes of the data provider. Specify `null` if you do not
     have any scopes on record.
     
-    - Fitbit: Has scopes
-    - Garmin: No scope
+    * Fitbit: Has scopes
+    * Garmin: No scope
     """
 
     if IS_PYDANTIC_V2:
