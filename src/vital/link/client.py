@@ -2,15 +2,16 @@
 
 import typing
 from ..core.client_wrapper import SyncClientWrapper
-from ..types.o_auth_providers import OAuthProviders
-from ..types.connection_recipe import ConnectionRecipe
 from ..core.request_options import RequestOptions
-from ..types.bulk_import_connections_response import BulkImportConnectionsResponse
+from ..types.bulk_ops_response import BulkOpsResponse
 from ..core.pydantic_utilities import parse_obj_as
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
+from ..types.o_auth_providers import OAuthProviders
+from ..types.connection_recipe import ConnectionRecipe
+from ..types.bulk_import_connections_response import BulkImportConnectionsResponse
 from ..types.bulk_export_connections_response import BulkExportConnectionsResponse
 from ..types.providers import Providers
 from ..types.link_token_exchange_response import LinkTokenExchangeResponse
@@ -36,6 +37,63 @@ OMIT = typing.cast(typing.Any, ...)
 class LinkClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
+
+    def list_bulk_ops(
+        self, *, next_cursor: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
+    ) -> BulkOpsResponse:
+        """
+        Parameters
+        ----------
+        next_cursor : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        BulkOpsResponse
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.link.list_bulk_ops()
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v2/link/bulk_op",
+            method="GET",
+            params={
+                "next_cursor": next_cursor,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    BulkOpsResponse,
+                    parse_obj_as(
+                        type_=BulkOpsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def bulk_import(
         self,
@@ -1347,6 +1405,71 @@ class LinkClient:
 class AsyncLinkClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
+
+    async def list_bulk_ops(
+        self, *, next_cursor: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
+    ) -> BulkOpsResponse:
+        """
+        Parameters
+        ----------
+        next_cursor : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        BulkOpsResponse
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.link.list_bulk_ops()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "v2/link/bulk_op",
+            method="GET",
+            params={
+                "next_cursor": next_cursor,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    BulkOpsResponse,
+                    parse_obj_as(
+                        type_=BulkOpsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def bulk_import(
         self,

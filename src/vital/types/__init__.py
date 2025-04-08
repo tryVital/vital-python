@@ -36,6 +36,10 @@ from .body_column_expr_body import BodyColumnExprBody
 from .body_v_2_in_db import BodyV2InDb
 from .bulk_export_connections_response import BulkExportConnectionsResponse
 from .bulk_import_connections_response import BulkImportConnectionsResponse
+from .bulk_op import BulkOp
+from .bulk_op_status import BulkOpStatus
+from .bulk_op_type import BulkOpType
+from .bulk_ops_response import BulkOpsResponse
 from .cervical_mucus_entry import CervicalMucusEntry
 from .cervical_mucus_entry_quality import CervicalMucusEntryQuality
 from .chronotype_value_macro_expr import ChronotypeValueMacroExpr
@@ -710,6 +714,10 @@ __all__ = [
     "BodyV2InDb",
     "BulkExportConnectionsResponse",
     "BulkImportConnectionsResponse",
+    "BulkOp",
+    "BulkOpStatus",
+    "BulkOpType",
+    "BulkOpsResponse",
     "CervicalMucusEntry",
     "CervicalMucusEntryQuality",
     "ChronotypeValueMacroExpr",
