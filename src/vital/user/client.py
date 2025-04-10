@@ -25,6 +25,10 @@ from ..types.vital_core_schemas_db_schemas_lab_test_insurance_person_details imp
 from ..types.guarantor_details import GuarantorDetails
 from ..types.client_facing_insurance import ClientFacingInsurance
 from ..types.address import Address
+from ..types.race import Race
+from ..types.ethnicity import Ethnicity
+from ..types.sexual_orientation import SexualOrientation
+from ..types.gender_identity import GenderIdentity
 from ..types.providers import Providers
 from ..types.user_refresh_success_response import UserRefreshSuccessResponse
 from ..core.client_wrapper import AsyncClientWrapper
@@ -784,6 +788,11 @@ class UserClient:
         gender: str,
         dob: str,
         address: Address,
+        medical_proxy: typing.Optional[GuarantorDetails] = OMIT,
+        race: typing.Optional[Race] = OMIT,
+        ethnicity: typing.Optional[Ethnicity] = OMIT,
+        sexual_orientation: typing.Optional[SexualOrientation] = OMIT,
+        gender_identity: typing.Optional[GenderIdentity] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UserInfo:
         """
@@ -804,6 +813,16 @@ class UserClient:
         dob : str
 
         address : Address
+
+        medical_proxy : typing.Optional[GuarantorDetails]
+
+        race : typing.Optional[Race]
+
+        ethnicity : typing.Optional[Ethnicity]
+
+        sexual_orientation : typing.Optional[SexualOrientation]
+
+        gender_identity : typing.Optional[GenderIdentity]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -848,6 +867,11 @@ class UserClient:
                 "gender": gender,
                 "dob": dob,
                 "address": address,
+                "medical_proxy": medical_proxy,
+                "race": race,
+                "ethnicity": ethnicity,
+                "sexual_orientation": sexual_orientation,
+                "gender_identity": gender_identity,
             },
             request_options=request_options,
             omit=OMIT,
@@ -1980,6 +2004,11 @@ class AsyncUserClient:
         gender: str,
         dob: str,
         address: Address,
+        medical_proxy: typing.Optional[GuarantorDetails] = OMIT,
+        race: typing.Optional[Race] = OMIT,
+        ethnicity: typing.Optional[Ethnicity] = OMIT,
+        sexual_orientation: typing.Optional[SexualOrientation] = OMIT,
+        gender_identity: typing.Optional[GenderIdentity] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UserInfo:
         """
@@ -2000,6 +2029,16 @@ class AsyncUserClient:
         dob : str
 
         address : Address
+
+        medical_proxy : typing.Optional[GuarantorDetails]
+
+        race : typing.Optional[Race]
+
+        ethnicity : typing.Optional[Ethnicity]
+
+        sexual_orientation : typing.Optional[SexualOrientation]
+
+        gender_identity : typing.Optional[GenderIdentity]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2052,6 +2091,11 @@ class AsyncUserClient:
                 "gender": gender,
                 "dob": dob,
                 "address": address,
+                "medical_proxy": medical_proxy,
+                "race": race,
+                "ethnicity": ethnicity,
+                "sexual_orientation": sexual_orientation,
+                "gender_identity": gender_identity,
             },
             request_options=request_options,
             omit=OMIT,

@@ -115,6 +115,22 @@ client.link.bulk_import(
 <dl>
 <dd>
 
+**wait_for_completion:** `typing.Optional[bool]` 
+
+
+Whether or not the endpoint should wait for the Bulk Op to complete before responding.
+
+When `wait_for_completion` is enabled, the endpoint may respond 200 OK if the Bulk Op takes less than 20 seconds to complete.
+
+Otherwise, the endpoint always responds with 202 Created once the submitted data have been enqueued successfully. You can use
+the [List Bulk Ops](https://docs.tryvital.io/api-reference/link/list-bulk-ops) endpoint to inspect the progress of the Bulk Op.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -173,6 +189,22 @@ client.link.bulk_trigger_historical_pull(
 <dd>
 
 **provider:** `OAuthProviders` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**wait_for_completion:** `typing.Optional[bool]` 
+
+
+Whether or not the endpoint should wait for the Bulk Op to complete before responding.
+
+When `wait_for_completion` is enabled, the endpoint may respond 200 OK if the Bulk Op takes less than 20 seconds to complete.
+
+Otherwise, the endpoint always responds with 202 Created once the submitted data have been enqueued successfully. You can use
+the [List Bulk Ops](https://docs.tryvital.io/api-reference/link/list-bulk-ops) endpoint to inspect the progress of the Bulk Op.
     
 </dd>
 </dl>
@@ -10897,6 +10929,46 @@ client.user.upsert_user_info(
 <dd>
 
 **address:** `Address` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**medical_proxy:** `typing.Optional[GuarantorDetails]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**race:** `typing.Optional[Race]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ethnicity:** `typing.Optional[Ethnicity]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sexual_orientation:** `typing.Optional[SexualOrientation]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**gender_identity:** `typing.Optional[GenderIdentity]` 
     
 </dd>
 </dl>

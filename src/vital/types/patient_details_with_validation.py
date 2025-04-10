@@ -3,9 +3,14 @@
 from ..core.pydantic_utilities import UniversalBaseModel
 import datetime as dt
 from .gender import Gender
-from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import typing
+from .guarantor_details import GuarantorDetails
 import pydantic
+from .race import Race
+from .ethnicity import Ethnicity
+from .sexual_orientation import SexualOrientation
+from .gender_identity import GenderIdentity
+from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
 class PatientDetailsWithValidation(UniversalBaseModel):
@@ -19,6 +24,30 @@ class PatientDetailsWithValidation(UniversalBaseModel):
     gender: Gender
     phone_number: str
     email: str
+    medical_proxy: typing.Optional[GuarantorDetails] = pydantic.Field(default=None)
+    """
+    Parent/medical_proxy details. Required if patient is a minor.
+    """
+
+    race: typing.Optional[Race] = pydantic.Field(default=None)
+    """
+    If not provided, will be set to 'Not Specified'
+    """
+
+    ethnicity: typing.Optional[Ethnicity] = pydantic.Field(default=None)
+    """
+    If not provided, will be set to 'Not Specified'
+    """
+
+    sexual_orientation: typing.Optional[SexualOrientation] = pydantic.Field(default=None)
+    """
+    If not provided, will be set to 'Not Specified'
+    """
+
+    gender_identity: typing.Optional[GenderIdentity] = pydantic.Field(default=None)
+    """
+    If not provided, will be set to 'Not Specified'
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

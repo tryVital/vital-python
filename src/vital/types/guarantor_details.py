@@ -12,6 +12,8 @@ class GuarantorDetails(UniversalBaseModel):
     last_name: str
     address: Address
     phone_number: str
+    household_income: typing.Optional[int] = None
+    household_size: typing.Optional[int] = None
     email: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:

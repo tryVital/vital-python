@@ -100,6 +100,7 @@ class LinkClient:
         *,
         provider: OAuthProviders,
         connections: typing.Sequence[ConnectionRecipe],
+        wait_for_completion: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> BulkImportConnectionsResponse:
         """
@@ -108,6 +109,15 @@ class LinkClient:
         provider : OAuthProviders
 
         connections : typing.Sequence[ConnectionRecipe]
+
+        wait_for_completion : typing.Optional[bool]
+
+            Whether or not the endpoint should wait for the Bulk Op to complete before responding.
+
+            When `wait_for_completion` is enabled, the endpoint may respond 200 OK if the Bulk Op takes less than 20 seconds to complete.
+
+            Otherwise, the endpoint always responds with 202 Created once the submitted data have been enqueued successfully. You can use
+            the [List Bulk Ops](https://docs.tryvital.io/api-reference/link/list-bulk-ops) endpoint to inspect the progress of the Bulk Op.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -143,6 +153,7 @@ class LinkClient:
             json={
                 "provider": provider,
                 "connections": connections,
+                "wait_for_completion": wait_for_completion,
             },
             request_options=request_options,
             omit=OMIT,
@@ -176,6 +187,7 @@ class LinkClient:
         *,
         user_ids: typing.Sequence[str],
         provider: OAuthProviders,
+        wait_for_completion: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Optional[typing.Any]:
         """
@@ -184,6 +196,15 @@ class LinkClient:
         user_ids : typing.Sequence[str]
 
         provider : OAuthProviders
+
+        wait_for_completion : typing.Optional[bool]
+
+            Whether or not the endpoint should wait for the Bulk Op to complete before responding.
+
+            When `wait_for_completion` is enabled, the endpoint may respond 200 OK if the Bulk Op takes less than 20 seconds to complete.
+
+            Otherwise, the endpoint always responds with 202 Created once the submitted data have been enqueued successfully. You can use
+            the [List Bulk Ops](https://docs.tryvital.io/api-reference/link/list-bulk-ops) endpoint to inspect the progress of the Bulk Op.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -211,6 +232,7 @@ class LinkClient:
             json={
                 "user_ids": user_ids,
                 "provider": provider,
+                "wait_for_completion": wait_for_completion,
             },
             request_options=request_options,
             omit=OMIT,
@@ -1476,6 +1498,7 @@ class AsyncLinkClient:
         *,
         provider: OAuthProviders,
         connections: typing.Sequence[ConnectionRecipe],
+        wait_for_completion: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> BulkImportConnectionsResponse:
         """
@@ -1484,6 +1507,15 @@ class AsyncLinkClient:
         provider : OAuthProviders
 
         connections : typing.Sequence[ConnectionRecipe]
+
+        wait_for_completion : typing.Optional[bool]
+
+            Whether or not the endpoint should wait for the Bulk Op to complete before responding.
+
+            When `wait_for_completion` is enabled, the endpoint may respond 200 OK if the Bulk Op takes less than 20 seconds to complete.
+
+            Otherwise, the endpoint always responds with 202 Created once the submitted data have been enqueued successfully. You can use
+            the [List Bulk Ops](https://docs.tryvital.io/api-reference/link/list-bulk-ops) endpoint to inspect the progress of the Bulk Op.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1527,6 +1559,7 @@ class AsyncLinkClient:
             json={
                 "provider": provider,
                 "connections": connections,
+                "wait_for_completion": wait_for_completion,
             },
             request_options=request_options,
             omit=OMIT,
@@ -1560,6 +1593,7 @@ class AsyncLinkClient:
         *,
         user_ids: typing.Sequence[str],
         provider: OAuthProviders,
+        wait_for_completion: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Optional[typing.Any]:
         """
@@ -1568,6 +1602,15 @@ class AsyncLinkClient:
         user_ids : typing.Sequence[str]
 
         provider : OAuthProviders
+
+        wait_for_completion : typing.Optional[bool]
+
+            Whether or not the endpoint should wait for the Bulk Op to complete before responding.
+
+            When `wait_for_completion` is enabled, the endpoint may respond 200 OK if the Bulk Op takes less than 20 seconds to complete.
+
+            Otherwise, the endpoint always responds with 202 Created once the submitted data have been enqueued successfully. You can use
+            the [List Bulk Ops](https://docs.tryvital.io/api-reference/link/list-bulk-ops) endpoint to inspect the progress of the Bulk Op.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1603,6 +1646,7 @@ class AsyncLinkClient:
             json={
                 "user_ids": user_ids,
                 "provider": provider,
+                "wait_for_completion": wait_for_completion,
             },
             request_options=request_options,
             omit=OMIT,

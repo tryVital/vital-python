@@ -423,6 +423,7 @@ from .detected_deviation_entry_deviation import DetectedDeviationEntryDeviation
 from .device_v_2_in_db import DeviceV2InDb
 from .email_providers import EmailProviders
 from .energy import Energy
+from .ethnicity import Ethnicity
 from .event_destination_preferences import EventDestinationPreferences
 from .event_destination_preferences_enabled_item import EventDestinationPreferencesEnabledItem
 from .event_destination_preferences_preferred import EventDestinationPreferencesPreferred
@@ -431,6 +432,7 @@ from .fallback_birth_date import FallbackBirthDate
 from .fallback_time_zone import FallbackTimeZone
 from .fats import Fats
 from .gender import Gender
+from .gender_identity import GenderIdentity
 from .get_markers_response import GetMarkersResponse
 from .get_orders_response import GetOrdersResponse
 from .group_key_column_expr import GroupKeyColumnExpr
@@ -615,6 +617,7 @@ from .query_group_by_item import QueryGroupByItem
 from .query_select_item import QuerySelectItem
 from .question import Question
 from .question_type import QuestionType
+from .race import Race
 from .raw_activity import RawActivity
 from .raw_body import RawBody
 from .raw_devices import RawDevices
@@ -631,6 +634,7 @@ from .scope_requirements_grants import ScopeRequirementsGrants
 from .scope_requirements_str import ScopeRequirementsStr
 from .select import Select
 from .sexual_activity_entry import SexualActivityEntry
+from .sexual_orientation import SexualOrientation
 from .shipping_address import ShippingAddress
 from .shipping_address_with_validation import ShippingAddressWithValidation
 from .single_historical_pull_statistics import SingleHistoricalPullStatistics
@@ -1063,6 +1067,7 @@ __all__ = [
     "DeviceV2InDb",
     "EmailProviders",
     "Energy",
+    "Ethnicity",
     "EventDestinationPreferences",
     "EventDestinationPreferencesEnabledItem",
     "EventDestinationPreferencesPreferred",
@@ -1071,6 +1076,7 @@ __all__ = [
     "FallbackTimeZone",
     "Fats",
     "Gender",
+    "GenderIdentity",
     "GetMarkersResponse",
     "GetOrdersResponse",
     "GroupKeyColumnExpr",
@@ -1255,6 +1261,7 @@ __all__ = [
     "QuerySelectItem",
     "Question",
     "QuestionType",
+    "Race",
     "RawActivity",
     "RawBody",
     "RawDevices",
@@ -1271,6 +1278,7 @@ __all__ = [
     "ScopeRequirementsStr",
     "Select",
     "SexualActivityEntry",
+    "SexualOrientation",
     "ShippingAddress",
     "ShippingAddressWithValidation",
     "SingleHistoricalPullStatistics",
