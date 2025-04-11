@@ -401,6 +401,7 @@ from .client_sleep_response import ClientSleepResponse
 from .client_user_id_conflict import ClientUserIdConflict
 from .client_user_id_conflict_response import ClientUserIdConflictResponse
 from .client_workout_response import ClientWorkoutResponse
+from .clinical_information import ClinicalInformation
 from .company_details import CompanyDetails
 from .connected_source_client_facing import ConnectedSourceClientFacing
 from .connection_recipe import ConnectionRecipe
@@ -589,6 +590,7 @@ from .patient_address_compatible import PatientAddressCompatible
 from .patient_address_with_validation import PatientAddressWithValidation
 from .patient_details_with_validation import PatientDetailsWithValidation
 from .payor_code_external_provider import PayorCodeExternalProvider
+from .performing_laboratory import PerformingLaboratory
 from .period import Period
 from .period_unit import PeriodUnit
 from .phlebotomy_area_info import PhlebotomyAreaInfo
@@ -631,6 +633,10 @@ from .resend_webhook_response import ResendWebhookResponse
 from .resource_availability import ResourceAvailability
 from .responsible_relationship import ResponsibleRelationship
 from .result_type import ResultType
+from .sample_data import SampleData
+from .sample_data_date_collected import SampleDataDateCollected
+from .sample_data_date_received import SampleDataDateReceived
+from .sample_data_date_reported import SampleDataDateReported
 from .scope_requirements_grants import ScopeRequirementsGrants
 from .scope_requirements_str import ScopeRequirementsStr
 from .select import Select
@@ -667,6 +673,7 @@ from .user_refresh_success_response import UserRefreshSuccessResponse
 from .user_resources_response import UserResourcesResponse
 from .user_sign_in_token_response import UserSignInTokenResponse
 from .user_success_response import UserSuccessResponse
+from .utc_timestamp_with_timezone_offset import UtcTimestampWithTimezoneOffset
 from .validation_error import ValidationError
 from .validation_error_loc_item import ValidationErrorLocItem
 from .vital_core_schemas_db_schemas_lab_test_health_insurance_person_details import (
@@ -1046,6 +1053,7 @@ __all__ = [
     "ClientUserIdConflict",
     "ClientUserIdConflictResponse",
     "ClientWorkoutResponse",
+    "ClinicalInformation",
     "CompanyDetails",
     "ConnectedSourceClientFacing",
     "ConnectionRecipe",
@@ -1234,6 +1242,7 @@ __all__ = [
     "PatientAddressWithValidation",
     "PatientDetailsWithValidation",
     "PayorCodeExternalProvider",
+    "PerformingLaboratory",
     "Period",
     "PeriodUnit",
     "PhlebotomyAreaInfo",
@@ -1276,6 +1285,10 @@ __all__ = [
     "ResourceAvailability",
     "ResponsibleRelationship",
     "ResultType",
+    "SampleData",
+    "SampleDataDateCollected",
+    "SampleDataDateReceived",
+    "SampleDataDateReported",
     "ScopeRequirementsGrants",
     "ScopeRequirementsStr",
     "Select",
@@ -1312,6 +1325,7 @@ __all__ = [
     "UserResourcesResponse",
     "UserSignInTokenResponse",
     "UserSuccessResponse",
+    "UtcTimestampWithTimezoneOffset",
     "ValidationError",
     "ValidationErrorLocItem",
     "VitalCoreSchemasDbSchemasLabTestHealthInsurancePersonDetails",

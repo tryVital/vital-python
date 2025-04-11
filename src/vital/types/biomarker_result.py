@@ -31,6 +31,8 @@ class BiomarkerResult(UniversalBaseModel):
     loinc_slug: typing.Optional[str] = None
     provider_id: typing.Optional[str] = None
     source_markers: typing.Optional[typing.List[ParentBiomarkerData]] = None
+    performing_laboratory: typing.Optional[str] = None
+    source_sample_id: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
