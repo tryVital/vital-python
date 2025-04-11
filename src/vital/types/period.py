@@ -3,13 +3,16 @@
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing
 from .period_unit import PeriodUnit
-from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
+from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
 class Period(UniversalBaseModel):
     value: typing.Optional[int] = None
-    unit: PeriodUnit
+    unit: PeriodUnit = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

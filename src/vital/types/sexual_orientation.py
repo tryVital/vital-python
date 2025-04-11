@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class SexualOrientation(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     LESBIAN_GAY_OR_HOMOSEXUAL = "lesbian_gay_or_homosexual"
     HETEROSEXUAL_OR_STRAIGHT = "heterosexual_or_straight"
     BISEXUAL = "bisexual"

@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class HistoricalPullStatus(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     SUCCESS = "success"
     FAILURE = "failure"
     IN_PROGRESS = "in_progress"

@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class HomePregnancyTestEntryTestResult(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     NEGATIVE = "negative"
     POSITIVE = "positive"
     INDETERMINATE = "indeterminate"

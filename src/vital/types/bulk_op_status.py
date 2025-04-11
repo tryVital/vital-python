@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class BulkOpStatus(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     IN_PROGRESS = "in_progress"
     SUCCESS = "success"
     FAILURE = "failure"

@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class DemoProviders(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     APPLE_HEALTH_KIT = "apple_health_kit"
     FITBIT = "fitbit"
     FREESTYLE_LIBRE = "freestyle_libre"

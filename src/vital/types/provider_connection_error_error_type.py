@@ -6,7 +6,7 @@ import typing
 T_Result = typing.TypeVar("T_Result")
 
 
-class ClientFacingConnectionErrorDetailsErrorType(str, enum.Enum):
+class ProviderConnectionErrorErrorType(str, enum.Enum):
     """
     ℹ️ This enum is non-exhaustive.
     """
@@ -29,17 +29,17 @@ class ClientFacingConnectionErrorDetailsErrorType(str, enum.Enum):
         provider_credential_error: typing.Callable[[], T_Result],
         unknown: typing.Callable[[], T_Result],
     ) -> T_Result:
-        if self is ClientFacingConnectionErrorDetailsErrorType.TOKEN_REFRESH_FAILED:
+        if self is ProviderConnectionErrorErrorType.TOKEN_REFRESH_FAILED:
             return token_refresh_failed()
-        if self is ClientFacingConnectionErrorDetailsErrorType.WEBHOOK_REGISTRATION_FAILED:
+        if self is ProviderConnectionErrorErrorType.WEBHOOK_REGISTRATION_FAILED:
             return webhook_registration_failed()
-        if self is ClientFacingConnectionErrorDetailsErrorType.USER_NOT_FOUND:
+        if self is ProviderConnectionErrorErrorType.USER_NOT_FOUND:
             return user_not_found()
-        if self is ClientFacingConnectionErrorDetailsErrorType.DEREGISTERED_PER_PROVIDER:
+        if self is ProviderConnectionErrorErrorType.DEREGISTERED_PER_PROVIDER:
             return deregistered_per_provider()
-        if self is ClientFacingConnectionErrorDetailsErrorType.REQUIRED_SCOPES_NOT_GRANTED:
+        if self is ProviderConnectionErrorErrorType.REQUIRED_SCOPES_NOT_GRANTED:
             return required_scopes_not_granted()
-        if self is ClientFacingConnectionErrorDetailsErrorType.PROVIDER_CREDENTIAL_ERROR:
+        if self is ProviderConnectionErrorErrorType.PROVIDER_CREDENTIAL_ERROR:
             return provider_credential_error()
-        if self is ClientFacingConnectionErrorDetailsErrorType.UNKNOWN:
+        if self is ProviderConnectionErrorErrorType.UNKNOWN:
             return unknown()

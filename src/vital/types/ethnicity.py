@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class Ethnicity(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     HISPANIC = "hispanic"
     NON_HISPANIC = "non_hispanic"
     ASHKENAZI_JEWISH = "ashkenazi_jewish"

@@ -21,7 +21,7 @@ class ClientFacingInsulinInjectionSample(UniversalBaseModel):
 
     type: ClientFacingInsulinInjectionSampleType = pydantic.Field()
     """
-    Insulin type: rapid vs long acting
+    Insulin type: rapid vs long acting ℹ️ This enum is non-exhaustive.
     """
 
     unit: typing.Literal["unit"] = "unit"

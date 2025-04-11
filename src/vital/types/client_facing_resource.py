@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class ClientFacingResource(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     PROFILE = "profile"
     ACTIVITY = "activity"
     SLEEP = "sleep"

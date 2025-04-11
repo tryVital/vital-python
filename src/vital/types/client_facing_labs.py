@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class ClientFacingLabs(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     QUEST = "quest"
     LABCORP = "labcorp"
     BIOREFERENCE = "bioreference"

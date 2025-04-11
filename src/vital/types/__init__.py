@@ -602,6 +602,7 @@ from .post_order_response import PostOrderResponse
 from .profile_in_db import ProfileInDb
 from .provider_connection_created import ProviderConnectionCreated
 from .provider_connection_error import ProviderConnectionError
+from .provider_connection_error_error_type import ProviderConnectionErrorErrorType
 from .provider_link_response import ProviderLinkResponse
 from .provider_link_response_state import ProviderLinkResponseState
 from .provider_mfa_request import ProviderMfaRequest
@@ -1246,6 +1247,7 @@ __all__ = [
     "ProfileInDb",
     "ProviderConnectionCreated",
     "ProviderConnectionError",
+    "ProviderConnectionErrorErrorType",
     "ProviderLinkResponse",
     "ProviderLinkResponseState",
     "ProviderMfaRequest",

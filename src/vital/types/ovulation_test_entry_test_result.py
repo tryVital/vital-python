@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class OvulationTestEntryTestResult(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     NEGATIVE = "negative"
     POSITIVE = "positive"
     LUTEINIZING_HORMONE_SURGE = "luteinizing_hormone_surge"

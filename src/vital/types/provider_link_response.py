@@ -2,15 +2,19 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 from .provider_link_response_state import ProviderLinkResponseState
+import pydantic
 import typing
 from .provider_mfa_request import ProviderMfaRequest
 from .password_providers import PasswordProviders
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
-import pydantic
 
 
 class ProviderLinkResponse(UniversalBaseModel):
-    state: ProviderLinkResponseState
+    state: ProviderLinkResponseState = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     redirect_url: typing.Optional[str] = None
     error_type: typing.Optional[str] = None
     error: typing.Optional[str] = None

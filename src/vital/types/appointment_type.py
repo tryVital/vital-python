@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class AppointmentType(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     PHLEBOTOMY = "phlebotomy"
     PATIENT_SERVICE_CENTER = "patient_service_center"
 

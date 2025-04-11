@@ -2,14 +2,18 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 from .event_destination_preferences_preferred import EventDestinationPreferencesPreferred
+import pydantic
 import typing
 from .event_destination_preferences_enabled_item import EventDestinationPreferencesEnabledItem
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
-import pydantic
 
 
 class EventDestinationPreferences(UniversalBaseModel):
-    preferred: EventDestinationPreferencesPreferred
+    preferred: EventDestinationPreferencesPreferred = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     enabled: typing.List[EventDestinationPreferencesEnabledItem]
 
     if IS_PYDANTIC_V2:

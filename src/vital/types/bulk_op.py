@@ -2,17 +2,25 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 from .bulk_op_type import BulkOpType
+import pydantic
 from .bulk_op_status import BulkOpStatus
 from .providers import Providers
 import datetime as dt
 import typing
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
-import pydantic
 
 
 class BulkOp(UniversalBaseModel):
-    type: BulkOpType
-    status: BulkOpStatus
+    type: BulkOpType = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
+    status: BulkOpStatus = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     provider: Providers
     pending: int
     processed: int

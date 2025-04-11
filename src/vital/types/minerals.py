@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class Minerals(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     SODIUM = "sodium"
     POTASSIUM = "potassium"
     CALCIUM = "calcium"

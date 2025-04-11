@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class IndexColumnExprIndex(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     SLEEP = "sleep"
     ACTIVITY = "activity"
     WORKOUT = "workout"

@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class CervicalMucusEntryQuality(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     DRY = "dry"
     STICKY = "sticky"
     CREAMY = "creamy"

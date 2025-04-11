@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class LabTestGenerationMethodFilter(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     AUTO = "auto"
     MANUAL = "manual"
     ALL = "all"

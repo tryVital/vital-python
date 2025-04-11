@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class TimeseriesResource(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     CALORIES_ACTIVE = "calories_active"
     CALORIES_BASAL = "calories_basal"
     DISTANCE = "distance"

@@ -2,14 +2,17 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 from .detected_deviation_entry_deviation import DetectedDeviationEntryDeviation
+import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import typing
-import pydantic
 
 
 class DetectedDeviationEntry(UniversalBaseModel):
     date: str
-    deviation: DetectedDeviationEntryDeviation
+    deviation: DetectedDeviationEntryDeviation = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

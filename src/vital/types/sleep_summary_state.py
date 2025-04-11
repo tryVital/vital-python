@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class SleepSummaryState(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     TENTATIVE = "tentative"
     CONFIRMED = "confirmed"
 

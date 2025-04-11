@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class SleepColumnExprSleep(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     SESSION_START = "session_start"
     SESSION_END = "session_end"
     STATE = "state"

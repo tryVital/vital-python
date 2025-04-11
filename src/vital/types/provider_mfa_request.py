@@ -2,13 +2,17 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 from .provider_mfa_request_method import ProviderMfaRequestMethod
+import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import typing
-import pydantic
 
 
 class ProviderMfaRequest(UniversalBaseModel):
-    method: ProviderMfaRequestMethod
+    method: ProviderMfaRequestMethod = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     hint: str
 
     if IS_PYDANTIC_V2:

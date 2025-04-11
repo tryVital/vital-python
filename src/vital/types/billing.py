@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class Billing(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     CLIENT_BILL = "client_bill"
     COMMERCIAL_INSURANCE = "commercial_insurance"
     PATIENT_BILL_PASSTHROUGH = "patient_bill_passthrough"

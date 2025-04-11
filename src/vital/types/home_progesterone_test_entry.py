@@ -2,14 +2,17 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 from .home_progesterone_test_entry_test_result import HomeProgesteroneTestEntryTestResult
+import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import typing
-import pydantic
 
 
 class HomeProgesteroneTestEntry(UniversalBaseModel):
     date: str
-    test_result: HomeProgesteroneTestEntryTestResult
+    test_result: HomeProgesteroneTestEntryTestResult = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

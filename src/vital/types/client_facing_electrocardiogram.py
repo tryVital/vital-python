@@ -7,9 +7,9 @@ from .client_facing_electrocardiogram_classification import ClientFacingElectroc
 from .client_facing_electrocardiogram_inconclusive_cause import ClientFacingElectrocardiogramInconclusiveCause
 from .client_facing_electrocardiogram_source_provider import ClientFacingElectrocardiogramSourceProvider
 from .client_facing_electrocardiogram_source_type import ClientFacingElectrocardiogramSourceType
+import pydantic
 from .client_facing_source import ClientFacingSource
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
-import pydantic
 
 
 class ClientFacingElectrocardiogram(UniversalBaseModel):
@@ -24,7 +24,11 @@ class ClientFacingElectrocardiogram(UniversalBaseModel):
     algorithm_version: typing.Optional[str] = None
     time_zone: typing.Optional[str] = None
     source_provider: ClientFacingElectrocardiogramSourceProvider
-    source_type: ClientFacingElectrocardiogramSourceType
+    source_type: ClientFacingElectrocardiogramSourceType = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     source_app_id: typing.Optional[str] = None
     source_device_model: typing.Optional[str] = None
     user_id: str

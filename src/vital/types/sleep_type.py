@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class SleepType(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     LONG_SLEEP = "long_sleep"
     SHORT_SLEEP = "short_sleep"
     ACKNOWLEDGED_NAP = "acknowledged_nap"

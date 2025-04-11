@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class EventDestinationPreferencesPreferred(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     CLOUD_PUBSUB = "cloud_pubsub"
     RABBITMQ = "rabbitmq"
     SVIX = "svix"

@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class SourceType(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     APP = "app"
     BLE = "ble"
     DEVICE = "device"

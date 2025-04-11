@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class FailureType(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     QUANTITY_NOT_SUFFICIENT_FAILURE = "quantity_not_sufficient_failure"
     COLLECTION_PROCESS_FAILURE = "collection_process_failure"
     DROP_OFF_FAILURE = "drop_off_failure"

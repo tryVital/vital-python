@@ -19,7 +19,11 @@ class ClientFacingStandHourSample(UniversalBaseModel):
     Time zone UTC offset in seconds. Positive offset indicates east of UTC; negative offset indicates west of UTC; and null indicates the time zone information is unavailable at source.
     """
 
-    type: ClientFacingStandHourSampleType
+    type: ClientFacingStandHourSampleType = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     unit: typing.Literal["count"] = "count"
     timestamp: dt.datetime = pydantic.Field()
     """

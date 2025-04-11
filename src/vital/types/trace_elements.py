@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class TraceElements(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     CHROMIUM = "chromium"
     COPPER = "copper"
     IODINE = "iodine"

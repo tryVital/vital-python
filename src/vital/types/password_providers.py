@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class PasswordProviders(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     WHOOP = "whoop"
     RENPHO = "renpho"
     PELOTON = "peloton"

@@ -2,14 +2,17 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 from .menstrual_flow_entry_flow import MenstrualFlowEntryFlow
+import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import typing
-import pydantic
 
 
 class MenstrualFlowEntry(UniversalBaseModel):
     date: str
-    flow: MenstrualFlowEntryFlow
+    flow: MenstrualFlowEntryFlow = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class GenderIdentity(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     MALE = "male"
     FEMALE = "female"
     FEMALE_TO_MALE_FTM_TRANSGENDER_MALE_TRANS_MAN = "female_to_male_ftm_transgender_male_trans_man"

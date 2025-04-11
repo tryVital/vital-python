@@ -2,14 +2,18 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 from .client_facing_connection_error_details_error_type import ClientFacingConnectionErrorDetailsErrorType
+import pydantic
 import datetime as dt
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import typing
-import pydantic
 
 
 class ClientFacingConnectionErrorDetails(UniversalBaseModel):
-    error_type: ClientFacingConnectionErrorDetailsErrorType
+    error_type: ClientFacingConnectionErrorDetailsErrorType = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     error_message: str
     errored_at: dt.datetime
 

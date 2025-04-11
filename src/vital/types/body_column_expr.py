@@ -2,13 +2,16 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 from .body_column_expr_body import BodyColumnExprBody
+import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import typing
-import pydantic
 
 
 class BodyColumnExpr(UniversalBaseModel):
-    body: BodyColumnExprBody
+    body: BodyColumnExprBody = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

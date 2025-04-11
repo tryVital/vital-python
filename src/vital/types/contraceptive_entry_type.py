@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class ContraceptiveEntryType(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     UNSPECIFIED = "unspecified"
     IMPLANT = "implant"
     INJECTION = "injection"

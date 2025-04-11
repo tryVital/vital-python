@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class Race(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     AFRICAN_AMERICAN_OR_BLACK = "african_american_or_black"
     ASIAN = "asian"
     INDIGENOUS_NATIVE_AMERICAN_ALASKA_NATIVE = "indigenous_native_american_alaska_native"

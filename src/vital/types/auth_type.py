@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class AuthType(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     PASSWORD = "password"
     OAUTH = "oauth"
     EMAIL = "email"

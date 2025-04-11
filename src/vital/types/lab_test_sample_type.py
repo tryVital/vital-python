@@ -8,7 +8,7 @@ T_Result = typing.TypeVar("T_Result")
 
 class LabTestSampleType(str, enum.Enum):
     """
-    The type of sample used to perform a lab test.
+    The type of sample used to perform a lab test. ℹ️ This enum is non-exhaustive.
     """
 
     DRIED_BLOOD_SPOT = "dried_blood_spot"

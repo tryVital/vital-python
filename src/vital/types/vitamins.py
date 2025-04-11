@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class Vitamins(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     VITAMIN_A = "vitamin_a"
     VITAMIN_B_1 = "vitamin_b1"
     RIBOFLAVIN = "riboflavin"

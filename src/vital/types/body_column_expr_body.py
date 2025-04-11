@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class BodyColumnExprBody(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     MEASURED_AT = "measured_at"
     WEIGHT_KILOGRAM = "weight_kilogram"
     FAT_MASS_PERCENTAGE = "fat_mass_percentage"

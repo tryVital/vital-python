@@ -8,7 +8,7 @@ T_Result = typing.TypeVar("T_Result")
 
 class LabTestCollectionMethod(str, enum.Enum):
     """
-    The method used to perform a lab test.
+    The method used to perform a lab test. ℹ️ This enum is non-exhaustive.
     """
 
     TESTKIT = "testkit"

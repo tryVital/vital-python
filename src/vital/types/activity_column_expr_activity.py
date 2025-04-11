@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class ActivityColumnExprActivity(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     DATE = "date"
     CALORIES_TOTAL = "calories_total"
     CALORIES_ACTIVE = "calories_active"

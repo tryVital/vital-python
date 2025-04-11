@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class ClientFacingSleepCycleSourceType(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     UNKNOWN = "unknown"
     PHONE = "phone"
     WATCH = "watch"

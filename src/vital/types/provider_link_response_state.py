@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class ProviderLinkResponseState(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     SUCCESS = "success"
     ERROR = "error"
     PENDING_PROVIDER_MFA = "pending_provider_mfa"

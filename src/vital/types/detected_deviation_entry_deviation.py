@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class DetectedDeviationEntryDeviation(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     PERSISTENT_INTERMENSTRUAL_BLEEDING = "persistent_intermenstrual_bleeding"
     PROLONGED_MENSTRUAL_PERIODS = "prolonged_menstrual_periods"
     IRREGULAR_MENSTRUAL_CYCLES = "irregular_menstrual_cycles"

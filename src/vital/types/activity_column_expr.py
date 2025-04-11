@@ -2,13 +2,16 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 from .activity_column_expr_activity import ActivityColumnExprActivity
+import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import typing
-import pydantic
 
 
 class ActivityColumnExpr(UniversalBaseModel):
-    activity: ActivityColumnExprActivity
+    activity: ActivityColumnExprActivity = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

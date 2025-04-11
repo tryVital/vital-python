@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class AggregateExprFunc(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     MEAN = "mean"
     MIN = "min"
     MAX = "max"

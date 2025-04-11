@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class BulkOpType(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     LINK_BULK_IMPORT = "link_bulk_import"
     LINK_BULK_HISTORICAL_TRIGGER = "link_bulk_historical_trigger"
 

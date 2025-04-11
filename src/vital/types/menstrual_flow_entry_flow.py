@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class MenstrualFlowEntryFlow(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     UNSPECIFIED = "unspecified"
     NONE = "none"
     LIGHT = "light"
