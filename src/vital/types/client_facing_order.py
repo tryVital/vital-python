@@ -99,6 +99,10 @@ class ClientFacingOrder(UniversalBaseModel):
     passthrough: typing.Optional[str] = None
     billing_type: typing.Optional[Billing] = None
     icd_codes: typing.Optional[typing.List[str]] = None
+    has_abn: bool = pydantic.Field()
+    """
+    Defines whether the order has an Advanced Beneficiary Notice (ABN) form or not.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
