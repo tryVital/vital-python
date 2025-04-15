@@ -48,8 +48,10 @@ from ..types.ao_e_answer import AoEAnswer
 from ..types.post_order_response import PostOrderResponse
 from ..types.patient_address import PatientAddress
 from ..types.order_status import OrderStatus
+from ..types.order_low_level_status import OrderLowLevelStatus
 from .types.lab_tests_get_orders_request_order_key import LabTestsGetOrdersRequestOrderKey
 from .types.lab_tests_get_orders_request_order_direction import LabTestsGetOrdersRequestOrderDirection
+from ..types.order_activation_type import OrderActivationType
 from ..types.get_orders_response import GetOrdersResponse
 from ..core.client_wrapper import AsyncClientWrapper
 
@@ -2751,8 +2753,15 @@ class LabTestsClient:
         end_date: typing.Optional[dt.datetime] = None,
         updated_start_date: typing.Optional[dt.datetime] = None,
         updated_end_date: typing.Optional[dt.datetime] = None,
+        status: typing.Optional[typing.Union[OrderLowLevelStatus, typing.Sequence[OrderLowLevelStatus]]] = None,
         order_key: typing.Optional[LabTestsGetOrdersRequestOrderKey] = None,
         order_direction: typing.Optional[LabTestsGetOrdersRequestOrderDirection] = None,
+        order_type: typing.Optional[
+            typing.Union[LabTestCollectionMethod, typing.Sequence[LabTestCollectionMethod]]
+        ] = None,
+        order_activation_types: typing.Optional[
+            typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]
+        ] = None,
         user_id: typing.Optional[str] = None,
         patient_name: typing.Optional[str] = None,
         shipping_recipient_name: typing.Optional[str] = None,
@@ -2781,9 +2790,20 @@ class LabTestsClient:
         updated_end_date : typing.Optional[dt.datetime]
             Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
+        status : typing.Optional[typing.Union[OrderLowLevelStatus, typing.Sequence[OrderLowLevelStatus]]]
+            Filter by low level status.
+
         order_key : typing.Optional[LabTestsGetOrdersRequestOrderKey]
+            Order key to sort by.
 
         order_direction : typing.Optional[LabTestsGetOrdersRequestOrderDirection]
+            Order direction to sort by.
+
+        order_type : typing.Optional[typing.Union[LabTestCollectionMethod, typing.Sequence[LabTestCollectionMethod]]]
+            Filter by method used to perform the lab test.
+
+        order_activation_types : typing.Optional[typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]]
+            Filter by activation type.
 
         user_id : typing.Optional[str]
             Filter by user ID.
@@ -2829,8 +2849,11 @@ class LabTestsClient:
                 if updated_start_date is not None
                 else None,
                 "updated_end_date": serialize_datetime(updated_end_date) if updated_end_date is not None else None,
+                "status": status,
                 "order_key": order_key,
                 "order_direction": order_direction,
+                "order_type": order_type,
+                "order_activation_types": order_activation_types,
                 "user_id": user_id,
                 "patient_name": patient_name,
                 "shipping_recipient_name": shipping_recipient_name,
@@ -5825,8 +5848,15 @@ class AsyncLabTestsClient:
         end_date: typing.Optional[dt.datetime] = None,
         updated_start_date: typing.Optional[dt.datetime] = None,
         updated_end_date: typing.Optional[dt.datetime] = None,
+        status: typing.Optional[typing.Union[OrderLowLevelStatus, typing.Sequence[OrderLowLevelStatus]]] = None,
         order_key: typing.Optional[LabTestsGetOrdersRequestOrderKey] = None,
         order_direction: typing.Optional[LabTestsGetOrdersRequestOrderDirection] = None,
+        order_type: typing.Optional[
+            typing.Union[LabTestCollectionMethod, typing.Sequence[LabTestCollectionMethod]]
+        ] = None,
+        order_activation_types: typing.Optional[
+            typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]
+        ] = None,
         user_id: typing.Optional[str] = None,
         patient_name: typing.Optional[str] = None,
         shipping_recipient_name: typing.Optional[str] = None,
@@ -5855,9 +5885,20 @@ class AsyncLabTestsClient:
         updated_end_date : typing.Optional[dt.datetime]
             Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
+        status : typing.Optional[typing.Union[OrderLowLevelStatus, typing.Sequence[OrderLowLevelStatus]]]
+            Filter by low level status.
+
         order_key : typing.Optional[LabTestsGetOrdersRequestOrderKey]
+            Order key to sort by.
 
         order_direction : typing.Optional[LabTestsGetOrdersRequestOrderDirection]
+            Order direction to sort by.
+
+        order_type : typing.Optional[typing.Union[LabTestCollectionMethod, typing.Sequence[LabTestCollectionMethod]]]
+            Filter by method used to perform the lab test.
+
+        order_activation_types : typing.Optional[typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]]
+            Filter by activation type.
 
         user_id : typing.Optional[str]
             Filter by user ID.
@@ -5911,8 +5952,11 @@ class AsyncLabTestsClient:
                 if updated_start_date is not None
                 else None,
                 "updated_end_date": serialize_datetime(updated_end_date) if updated_end_date is not None else None,
+                "status": status,
                 "order_key": order_key,
                 "order_direction": order_direction,
+                "order_type": order_type,
+                "order_activation_types": order_activation_types,
                 "user_id": user_id,
                 "patient_name": patient_name,
                 "shipping_recipient_name": shipping_recipient_name,

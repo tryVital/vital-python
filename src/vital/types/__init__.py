@@ -577,6 +577,8 @@ from .micros import Micros
 from .minerals import Minerals
 from .missing_biomarker_result import MissingBiomarkerResult
 from .o_auth_providers import OAuthProviders
+from .order_activation_type import OrderActivationType
+from .order_low_level_status import OrderLowLevelStatus
 from .order_set_request import OrderSetRequest
 from .order_status import OrderStatus
 from .order_top_level_status import OrderTopLevelStatus
@@ -1229,6 +1231,8 @@ __all__ = [
     "Minerals",
     "MissingBiomarkerResult",
     "OAuthProviders",
+    "OrderActivationType",
+    "OrderLowLevelStatus",
     "OrderSetRequest",
     "OrderStatus",
     "OrderTopLevelStatus",

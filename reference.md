@@ -14855,7 +14855,9 @@ client.lab_tests.get_orders()
 <dl>
 <dd>
 
-**order_key:** `typing.Optional[LabTestsGetOrdersRequestOrderKey]` 
+**status:** `typing.Optional[
+    typing.Union[OrderLowLevelStatus, typing.Sequence[OrderLowLevelStatus]]
+]` — Filter by low level status.
     
 </dd>
 </dl>
@@ -14863,7 +14865,37 @@ client.lab_tests.get_orders()
 <dl>
 <dd>
 
-**order_direction:** `typing.Optional[LabTestsGetOrdersRequestOrderDirection]` 
+**order_key:** `typing.Optional[LabTestsGetOrdersRequestOrderKey]` — Order key to sort by.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_direction:** `typing.Optional[LabTestsGetOrdersRequestOrderDirection]` — Order direction to sort by.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_type:** `typing.Optional[
+    typing.Union[
+        LabTestCollectionMethod, typing.Sequence[LabTestCollectionMethod]
+    ]
+]` — Filter by method used to perform the lab test.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_activation_types:** `typing.Optional[
+    typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]
+]` — Filter by activation type.
     
 </dd>
 </dl>
