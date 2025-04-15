@@ -20,6 +20,8 @@ class WorkoutV2InDb(UniversalBaseModel):
     sport_id: int
     source: ClientFacingProvider
     sport: ClientFacingSport
+    created_at: typing.Optional[dt.datetime] = None
+    updated_at: typing.Optional[dt.datetime] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

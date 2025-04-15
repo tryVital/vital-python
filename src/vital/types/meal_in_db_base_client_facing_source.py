@@ -37,16 +37,8 @@ class MealInDbBaseClientFacingSource(UniversalBaseModel):
     micros: typing.Optional[Micros] = None
     data: typing.Optional[typing.Dict[str, ClientFacingFood]] = None
     source: ClientFacingSource
-    created_at: dt.datetime = pydantic.Field()
-    """
-    This value is identical to `timestamp`.
-    """
-
-    updated_at: dt.datetime = pydantic.Field()
-    """
-    This value is identical to `timestamp`.
-    """
-
+    created_at: dt.datetime
+    updated_at: dt.datetime
     source_app_id: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:
