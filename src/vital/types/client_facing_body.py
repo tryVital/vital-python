@@ -9,12 +9,12 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
 class ClientFacingBody(UniversalBaseModel):
+    id: str
     user_id: str = pydantic.Field()
     """
     User id returned by vital create user request. This id should be stored in your database against the user and used for all interactions with the vital api.
     """
 
-    id: str
     date: dt.datetime = pydantic.Field()
     """
     Date of the specified record, formatted as ISO8601 datetime string in UTC 00:00. Deprecated in favour of calendar_date.
@@ -59,6 +59,8 @@ class ClientFacingBody(UniversalBaseModel):
     lean_body_mass_kilogram: typing.Optional[float] = None
     waist_circumference_centimeter: typing.Optional[float] = None
     source: ClientFacingSource
+    created_at: dt.datetime
+    updated_at: dt.datetime
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
