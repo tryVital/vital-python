@@ -39,12 +39,18 @@ class LinkClient:
         self._client_wrapper = client_wrapper
 
     def list_bulk_ops(
-        self, *, next_cursor: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        next_cursor: typing.Optional[str] = None,
+        page_size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> BulkOpsResponse:
         """
         Parameters
         ----------
         next_cursor : typing.Optional[str]
+
+        page_size : typing.Optional[int]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -68,6 +74,7 @@ class LinkClient:
             method="GET",
             params={
                 "next_cursor": next_cursor,
+                "page_size": page_size,
             },
             request_options=request_options,
         )
@@ -1446,12 +1453,18 @@ class AsyncLinkClient:
         self._client_wrapper = client_wrapper
 
     async def list_bulk_ops(
-        self, *, next_cursor: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        next_cursor: typing.Optional[str] = None,
+        page_size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> BulkOpsResponse:
         """
         Parameters
         ----------
         next_cursor : typing.Optional[str]
+
+        page_size : typing.Optional[int]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1483,6 +1496,7 @@ class AsyncLinkClient:
             method="GET",
             params={
                 "next_cursor": next_cursor,
+                "page_size": page_size,
             },
             request_options=request_options,
         )

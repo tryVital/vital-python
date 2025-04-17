@@ -42,6 +42,14 @@ client.link.list_bulk_ops()
 <dl>
 <dd>
 
+**page_size:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
