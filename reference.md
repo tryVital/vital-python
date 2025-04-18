@@ -14296,8 +14296,6 @@ POST create new order
 <dd>
 
 ```python
-import datetime
-
 from vital import (
     Gender,
     PatientAddressWithValidation,
@@ -14313,9 +14311,7 @@ client.lab_tests.create_order(
     patient_details=PatientDetailsWithValidation(
         first_name="first_name",
         last_name="last_name",
-        dob=datetime.datetime.fromisoformat(
-            "2024-01-15 09:30:00+00:00",
-        ),
+        dob="dob",
         gender=Gender.FEMALE,
         phone_number="phone_number",
         email="email",
@@ -14488,8 +14484,6 @@ client.lab_tests.create_order(
 <dd>
 
 ```python
-import datetime
-
 from vital import (
     Billing,
     Gender,
@@ -14511,9 +14505,7 @@ client.lab_tests.import_order(
     patient_details=PatientDetailsWithValidation(
         first_name="first_name",
         last_name="last_name",
-        dob=datetime.datetime.fromisoformat(
-            "2024-01-15 09:30:00+00:00",
-        ),
+        dob="dob",
         gender=Gender.FEMALE,
         phone_number="phone_number",
         email="email",
@@ -14985,8 +14977,6 @@ client.lab_tests.get_orders()
 <dd>
 
 ```python
-import datetime
-
 from vital import (
     Gender,
     PatientAddressWithValidation,
@@ -15002,9 +14992,7 @@ client.testkit.register(
     patient_details=PatientDetailsWithValidation(
         first_name="first_name",
         last_name="last_name",
-        dob=datetime.datetime.fromisoformat(
-            "2024-01-15 09:30:00+00:00",
-        ),
+        dob="dob",
         gender=Gender.FEMALE,
         phone_number="phone_number",
         email="email",

@@ -65,8 +65,6 @@ class TestkitClient:
 
         Examples
         --------
-        import datetime
-
         from vital import (
             Gender,
             PatientAddressWithValidation,
@@ -82,9 +80,7 @@ class TestkitClient:
             patient_details=PatientDetailsWithValidation(
                 first_name="first_name",
                 last_name="last_name",
-                dob=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
+                dob="dob",
                 gender=Gender.FEMALE,
                 phone_number="phone_number",
                 email="email",
@@ -270,7 +266,6 @@ class AsyncTestkitClient:
         Examples
         --------
         import asyncio
-        import datetime
 
         from vital import (
             AsyncVital,
@@ -290,9 +285,7 @@ class AsyncTestkitClient:
                 patient_details=PatientDetailsWithValidation(
                     first_name="first_name",
                     last_name="last_name",
-                    dob=datetime.datetime.fromisoformat(
-                        "2024-01-15 09:30:00+00:00",
-                    ),
+                    dob="dob",
                     gender=Gender.FEMALE,
                     phone_number="phone_number",
                     email="email",

@@ -9,12 +9,13 @@ import pydantic
 
 
 class ProfileInDb(UniversalBaseModel):
-    data: str
+    id: str
+    data: typing.Optional[typing.Any] = None
     user_id: str
     source_id: int
     priority_id: typing.Optional[int] = None
-    id: str
     source: ClientFacingProvider
+    created_at: typing.Optional[dt.datetime] = None
     updated_at: typing.Optional[dt.datetime] = None
 
     if IS_PYDANTIC_V2:
