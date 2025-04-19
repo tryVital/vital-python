@@ -2,6 +2,7 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing
+import datetime as dt
 from .guarantor_details import GuarantorDetails
 import pydantic
 from .race import Race
@@ -14,7 +15,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2
 class ClientFacingPatientDetailsCompatible(UniversalBaseModel):
     first_name: typing.Optional[str] = None
     last_name: typing.Optional[str] = None
-    dob: str
+    dob: dt.datetime
     gender: str
     phone_number: typing.Optional[str] = None
     email: typing.Optional[str] = None
