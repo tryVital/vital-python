@@ -13,11 +13,17 @@ class PayorCodeExternalProvider(str, enum.Enum):
 
     CHANGE_HEALTHCARE = "change_healthcare"
     AVAILITY = "availity"
+    STEDI = "stedi"
 
     def visit(
-        self, change_healthcare: typing.Callable[[], T_Result], availity: typing.Callable[[], T_Result]
+        self,
+        change_healthcare: typing.Callable[[], T_Result],
+        availity: typing.Callable[[], T_Result],
+        stedi: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is PayorCodeExternalProvider.CHANGE_HEALTHCARE:
             return change_healthcare()
         if self is PayorCodeExternalProvider.AVAILITY:
             return availity()
+        if self is PayorCodeExternalProvider.STEDI:
+            return stedi()
