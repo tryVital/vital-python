@@ -59,6 +59,9 @@ class TimeseriesResource(str, enum.Enum):
     BODY_MASS_INDEX = "body_mass_index"
     LEAN_BODY_MASS = "lean_body_mass"
     WAIST_CIRCUMFERENCE = "waist_circumference"
+    HEART_RATE_RECOVERY_ONE_MINUTE = "heart_rate_recovery_one_minute"
+    WORKOUT_DISTANCE = "workout_distance"
+    WORKOUT_SWIMMING_STROKE = "workout_swimming_stroke"
     WORKOUT_DURATION = "workout_duration"
     INSULIN_INJECTION = "insulin_injection"
     CARBOHYDRATES = "carbohydrates"
@@ -114,6 +117,9 @@ class TimeseriesResource(str, enum.Enum):
         body_mass_index: typing.Callable[[], T_Result],
         lean_body_mass: typing.Callable[[], T_Result],
         waist_circumference: typing.Callable[[], T_Result],
+        heart_rate_recovery_one_minute: typing.Callable[[], T_Result],
+        workout_distance: typing.Callable[[], T_Result],
+        workout_swimming_stroke: typing.Callable[[], T_Result],
         workout_duration: typing.Callable[[], T_Result],
         insulin_injection: typing.Callable[[], T_Result],
         carbohydrates: typing.Callable[[], T_Result],
@@ -215,6 +221,12 @@ class TimeseriesResource(str, enum.Enum):
             return lean_body_mass()
         if self is TimeseriesResource.WAIST_CIRCUMFERENCE:
             return waist_circumference()
+        if self is TimeseriesResource.HEART_RATE_RECOVERY_ONE_MINUTE:
+            return heart_rate_recovery_one_minute()
+        if self is TimeseriesResource.WORKOUT_DISTANCE:
+            return workout_distance()
+        if self is TimeseriesResource.WORKOUT_SWIMMING_STROKE:
+            return workout_swimming_stroke()
         if self is TimeseriesResource.WORKOUT_DURATION:
             return workout_duration()
         if self is TimeseriesResource.INSULIN_INJECTION:

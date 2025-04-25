@@ -66,9 +66,12 @@ class ClientFacingResource(str, enum.Enum):
     DAYLIGHT_EXPOSURE = "daylight_exposure"
     HANDWASHING = "handwashing"
     BASAL_BODY_TEMPERATURE = "basal_body_temperature"
+    HEART_RATE_RECOVERY_ONE_MINUTE = "heart_rate_recovery_one_minute"
     BODY_MASS_INDEX = "body_mass_index"
     LEAN_BODY_MASS = "lean_body_mass"
     WAIST_CIRCUMFERENCE = "waist_circumference"
+    WORKOUT_DISTANCE = "workout_distance"
+    WORKOUT_SWIMMING_STROKE = "workout_swimming_stroke"
     WORKOUT_DURATION = "workout_duration"
     INSULIN_INJECTION = "insulin_injection"
     CARBOHYDRATES = "carbohydrates"
@@ -133,9 +136,12 @@ class ClientFacingResource(str, enum.Enum):
         daylight_exposure: typing.Callable[[], T_Result],
         handwashing: typing.Callable[[], T_Result],
         basal_body_temperature: typing.Callable[[], T_Result],
+        heart_rate_recovery_one_minute: typing.Callable[[], T_Result],
         body_mass_index: typing.Callable[[], T_Result],
         lean_body_mass: typing.Callable[[], T_Result],
         waist_circumference: typing.Callable[[], T_Result],
+        workout_distance: typing.Callable[[], T_Result],
+        workout_swimming_stroke: typing.Callable[[], T_Result],
         workout_duration: typing.Callable[[], T_Result],
         insulin_injection: typing.Callable[[], T_Result],
         carbohydrates: typing.Callable[[], T_Result],
@@ -253,12 +259,18 @@ class ClientFacingResource(str, enum.Enum):
             return handwashing()
         if self is ClientFacingResource.BASAL_BODY_TEMPERATURE:
             return basal_body_temperature()
+        if self is ClientFacingResource.HEART_RATE_RECOVERY_ONE_MINUTE:
+            return heart_rate_recovery_one_minute()
         if self is ClientFacingResource.BODY_MASS_INDEX:
             return body_mass_index()
         if self is ClientFacingResource.LEAN_BODY_MASS:
             return lean_body_mass()
         if self is ClientFacingResource.WAIST_CIRCUMFERENCE:
             return waist_circumference()
+        if self is ClientFacingResource.WORKOUT_DISTANCE:
+            return workout_distance()
+        if self is ClientFacingResource.WORKOUT_SWIMMING_STROKE:
+            return workout_swimming_stroke()
         if self is ClientFacingResource.WORKOUT_DURATION:
             return workout_duration()
         if self is ClientFacingResource.INSULIN_INJECTION:

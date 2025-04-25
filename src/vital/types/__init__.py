@@ -194,6 +194,14 @@ from .client_facing_heart_rate_alert_changed_event_type import ClientFacingHeart
 from .client_facing_heart_rate_alert_historical_pull_completed import ClientFacingHeartRateAlertHistoricalPullCompleted
 from .client_facing_heart_rate_alert_sample import ClientFacingHeartRateAlertSample
 from .client_facing_heart_rate_alert_sample_type import ClientFacingHeartRateAlertSampleType
+from .client_facing_heart_rate_recovery_one_minute_changed import ClientFacingHeartRateRecoveryOneMinuteChanged
+from .client_facing_heart_rate_recovery_one_minute_changed_event_type import (
+    ClientFacingHeartRateRecoveryOneMinuteChangedEventType,
+)
+from .client_facing_heart_rate_recovery_one_minute_historical_pull_completed import (
+    ClientFacingHeartRateRecoveryOneMinuteHistoricalPullCompleted,
+)
+from .client_facing_heart_rate_recovery_one_minute_sample import ClientFacingHeartRateRecoveryOneMinuteSample
 from .client_facing_heart_rate_timeseries import ClientFacingHeartRateTimeseries
 from .client_facing_heartrate_changed import ClientFacingHeartrateChanged
 from .client_facing_heartrate_changed_event_type import ClientFacingHeartrateChangedEventType
@@ -384,6 +392,10 @@ from .client_facing_wheelchair_push_changed_event_type import ClientFacingWheelc
 from .client_facing_wheelchair_push_historical_pull_completed import ClientFacingWheelchairPushHistoricalPullCompleted
 from .client_facing_wheelchair_push_sample import ClientFacingWheelchairPushSample
 from .client_facing_workout import ClientFacingWorkout
+from .client_facing_workout_distance_changed import ClientFacingWorkoutDistanceChanged
+from .client_facing_workout_distance_changed_event_type import ClientFacingWorkoutDistanceChangedEventType
+from .client_facing_workout_distance_historical_pull_completed import ClientFacingWorkoutDistanceHistoricalPullCompleted
+from .client_facing_workout_distance_sample import ClientFacingWorkoutDistanceSample
 from .client_facing_workout_duration_changed import ClientFacingWorkoutDurationChanged
 from .client_facing_workout_duration_changed_event_type import ClientFacingWorkoutDurationChangedEventType
 from .client_facing_workout_duration_historical_pull_completed import ClientFacingWorkoutDurationHistoricalPullCompleted
@@ -393,6 +405,12 @@ from .client_facing_workout_map import ClientFacingWorkoutMap
 from .client_facing_workout_stream_changed import ClientFacingWorkoutStreamChanged
 from .client_facing_workout_stream_changed_event_type import ClientFacingWorkoutStreamChangedEventType
 from .client_facing_workout_stream_historical_pull_completed import ClientFacingWorkoutStreamHistoricalPullCompleted
+from .client_facing_workout_swimming_stroke_changed import ClientFacingWorkoutSwimmingStrokeChanged
+from .client_facing_workout_swimming_stroke_changed_event_type import ClientFacingWorkoutSwimmingStrokeChangedEventType
+from .client_facing_workout_swimming_stroke_historical_pull_completed import (
+    ClientFacingWorkoutSwimmingStrokeHistoricalPullCompleted,
+)
+from .client_facing_workout_swimming_stroke_sample import ClientFacingWorkoutSwimmingStrokeSample
 from .client_facing_workouts_changed import ClientFacingWorkoutsChanged
 from .client_facing_workouts_changed_event_type import ClientFacingWorkoutsChangedEventType
 from .client_facing_workouts_historical_pull_completed import ClientFacingWorkoutsHistoricalPullCompleted
@@ -487,6 +505,8 @@ from .grouped_handwashing_response import GroupedHandwashingResponse
 from .grouped_heart_rate import GroupedHeartRate
 from .grouped_heart_rate_alert import GroupedHeartRateAlert
 from .grouped_heart_rate_alert_response import GroupedHeartRateAlertResponse
+from .grouped_heart_rate_recovery_one_minute import GroupedHeartRateRecoveryOneMinute
+from .grouped_heart_rate_recovery_one_minute_response import GroupedHeartRateRecoveryOneMinuteResponse
 from .grouped_heart_rate_response import GroupedHeartRateResponse
 from .grouped_hrv import GroupedHrv
 from .grouped_hrv_response import GroupedHrvResponse
@@ -532,8 +552,12 @@ from .grouped_water import GroupedWater
 from .grouped_water_response import GroupedWaterResponse
 from .grouped_wheelchair_push import GroupedWheelchairPush
 from .grouped_wheelchair_push_response import GroupedWheelchairPushResponse
+from .grouped_workout_distance import GroupedWorkoutDistance
+from .grouped_workout_distance_response import GroupedWorkoutDistanceResponse
 from .grouped_workout_duration import GroupedWorkoutDuration
 from .grouped_workout_duration_response import GroupedWorkoutDurationResponse
+from .grouped_workout_swimming_stroke import GroupedWorkoutSwimmingStroke
+from .grouped_workout_swimming_stroke_response import GroupedWorkoutSwimmingStrokeResponse
 from .guarantor_details import GuarantorDetails
 from .health_insurance_create_request import HealthInsuranceCreateRequest
 from .health_insurance_create_request_back_image import HealthInsuranceCreateRequestBackImage
@@ -866,6 +890,10 @@ __all__ = [
     "ClientFacingHeartRateAlertHistoricalPullCompleted",
     "ClientFacingHeartRateAlertSample",
     "ClientFacingHeartRateAlertSampleType",
+    "ClientFacingHeartRateRecoveryOneMinuteChanged",
+    "ClientFacingHeartRateRecoveryOneMinuteChangedEventType",
+    "ClientFacingHeartRateRecoveryOneMinuteHistoricalPullCompleted",
+    "ClientFacingHeartRateRecoveryOneMinuteSample",
     "ClientFacingHeartRateTimeseries",
     "ClientFacingHeartrateChanged",
     "ClientFacingHeartrateChangedEventType",
@@ -1038,6 +1066,10 @@ __all__ = [
     "ClientFacingWheelchairPushHistoricalPullCompleted",
     "ClientFacingWheelchairPushSample",
     "ClientFacingWorkout",
+    "ClientFacingWorkoutDistanceChanged",
+    "ClientFacingWorkoutDistanceChangedEventType",
+    "ClientFacingWorkoutDistanceHistoricalPullCompleted",
+    "ClientFacingWorkoutDistanceSample",
     "ClientFacingWorkoutDurationChanged",
     "ClientFacingWorkoutDurationChangedEventType",
     "ClientFacingWorkoutDurationHistoricalPullCompleted",
@@ -1047,6 +1079,10 @@ __all__ = [
     "ClientFacingWorkoutStreamChanged",
     "ClientFacingWorkoutStreamChangedEventType",
     "ClientFacingWorkoutStreamHistoricalPullCompleted",
+    "ClientFacingWorkoutSwimmingStrokeChanged",
+    "ClientFacingWorkoutSwimmingStrokeChangedEventType",
+    "ClientFacingWorkoutSwimmingStrokeHistoricalPullCompleted",
+    "ClientFacingWorkoutSwimmingStrokeSample",
     "ClientFacingWorkoutsChanged",
     "ClientFacingWorkoutsChangedEventType",
     "ClientFacingWorkoutsHistoricalPullCompleted",
@@ -1141,6 +1177,8 @@ __all__ = [
     "GroupedHeartRate",
     "GroupedHeartRateAlert",
     "GroupedHeartRateAlertResponse",
+    "GroupedHeartRateRecoveryOneMinute",
+    "GroupedHeartRateRecoveryOneMinuteResponse",
     "GroupedHeartRateResponse",
     "GroupedHrv",
     "GroupedHrvResponse",
@@ -1186,8 +1224,12 @@ __all__ = [
     "GroupedWaterResponse",
     "GroupedWheelchairPush",
     "GroupedWheelchairPushResponse",
+    "GroupedWorkoutDistance",
+    "GroupedWorkoutDistanceResponse",
     "GroupedWorkoutDuration",
     "GroupedWorkoutDurationResponse",
+    "GroupedWorkoutSwimmingStroke",
+    "GroupedWorkoutSwimmingStrokeResponse",
     "GuarantorDetails",
     "HealthInsuranceCreateRequest",
     "HealthInsuranceCreateRequestBackImage",
