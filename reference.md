@@ -14,10 +14,7 @@
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
+client = Vital(api_key="YOUR_API_KEY", )
 client.link.list_bulk_ops()
 
 ```
@@ -75,23 +72,11 @@ client.link.list_bulk_ops()
 <dd>
 
 ```python
-from vital import ConnectionRecipe, OAuthProviders, Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.link.bulk_import(
-    provider=OAuthProviders.OURA,
-    connections=[
-        ConnectionRecipe(
-            user_id="user_id",
-            access_token="access_token",
-            refresh_token="refresh_token",
-            provider_id="provider_id",
-            expires_at=1,
-        )
-    ],
-)
+from vital import Vital
+from vital import OAuthProviders
+from vital import ConnectionRecipe
+client = Vital(api_key="YOUR_API_KEY", )
+client.link.bulk_import(provider=OAuthProviders.OURA, connections=[ConnectionRecipe(user_id='user_id', access_token='access_token', refresh_token='refresh_token', provider_id='provider_id', expires_at=1, )], )
 
 ```
 </dd>
@@ -164,15 +149,10 @@ the [List Bulk Ops](https://docs.tryvital.io/api-reference/link/list-bulk-ops) e
 <dd>
 
 ```python
-from vital import OAuthProviders, Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.link.bulk_trigger_historical_pull(
-    user_ids=["user_ids"],
-    provider=OAuthProviders.OURA,
-)
+from vital import Vital
+from vital import OAuthProviders
+client = Vital(api_key="YOUR_API_KEY", )
+client.link.bulk_trigger_historical_pull(user_ids=['user_ids'], provider=OAuthProviders.OURA, )
 
 ```
 </dd>
@@ -245,14 +225,10 @@ the [List Bulk Ops](https://docs.tryvital.io/api-reference/link/list-bulk-ops) e
 <dd>
 
 ```python
-from vital import OAuthProviders, Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.link.bulk_export(
-    provider=OAuthProviders.OURA,
-)
+from vital import Vital
+from vital import OAuthProviders
+client = Vital(api_key="YOUR_API_KEY", )
+client.link.bulk_export(provider=OAuthProviders.OURA, )
 
 ```
 </dd>
@@ -317,15 +293,10 @@ client.link.bulk_export(
 <dd>
 
 ```python
-from vital import OAuthProviders, Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.link.bulk_pause(
-    user_ids=["user_ids"],
-    provider=OAuthProviders.OURA,
-)
+from vital import Vital
+from vital import OAuthProviders
+client = Vital(api_key="YOUR_API_KEY", )
+client.link.bulk_pause(user_ids=['user_ids'], provider=OAuthProviders.OURA, )
 
 ```
 </dd>
@@ -402,13 +373,8 @@ pass in your own custom redirect_url parameter.
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.link.token(
-    user_id="user_id",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.link.token(user_id='user_id', )
 
 ```
 </dd>
@@ -518,13 +484,8 @@ This has no effect on programmatic Vital Link API usage.
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.link.is_token_valid(
-    token="token",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.link.is_token_valid(token='token', )
 
 ```
 </dd>
@@ -588,13 +549,8 @@ Generate a token to invite a user of Vital mobile app to your team
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.link.code_create(
-    user_id="user_id",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.link.code_create(user_id='user_id', )
 
 ```
 </dd>
@@ -666,15 +622,10 @@ Start link token process
 <dd>
 
 ```python
-from vital import Providers, Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.link.start_connect(
-    link_token="link_token",
-    provider=Providers.OURA,
-)
+from vital import Vital
+from vital import Providers
+client = Vital(api_key="YOUR_API_KEY", )
+client.link.start_connect(link_token='link_token', provider=Providers.OURA, )
 
 ```
 </dd>
@@ -747,10 +698,7 @@ Check link token state - can be hit continuously used as heartbeat
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
+client = Vital(api_key="YOUR_API_KEY", )
 client.link.token_state()
 
 ```
@@ -814,16 +762,11 @@ Deprecated. Use `POST /v2/link/provider/email/{provider}` instead.
 <dd>
 
 ```python
-from vital import AuthType, Providers, Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.link.email_auth(
-    email="email",
-    provider=Providers.OURA,
-    auth_type=AuthType.PASSWORD,
-)
+from vital import Vital
+from vital import Providers
+from vital import AuthType
+client = Vital(api_key="YOUR_API_KEY", )
+client.link.email_auth(email='email', provider=Providers.OURA, auth_type=AuthType.PASSWORD, )
 
 ```
 </dd>
@@ -918,17 +861,11 @@ Deprecated. Use `POST /v2/link/provider/password/{provider}` instead.
 <dd>
 
 ```python
-from vital import AuthType, Providers, Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.link.password_auth(
-    username="username",
-    password="password",
-    provider=Providers.OURA,
-    auth_type=AuthType.PASSWORD,
-)
+from vital import Vital
+from vital import Providers
+from vital import AuthType
+client = Vital(api_key="YOUR_API_KEY", )
+client.link.password_auth(username='username', password='password', provider=Providers.OURA, auth_type=AuthType.PASSWORD, )
 
 ```
 </dd>
@@ -1023,14 +960,10 @@ This endpoint generates an OAuth link for oauth provider
 <dd>
 
 ```python
-from vital import OAuthProviders, Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.link.generate_oauth_link(
-    oauth_provider=OAuthProviders.OURA,
-)
+from vital import Vital
+from vital import OAuthProviders
+client = Vital(api_key="YOUR_API_KEY", )
+client.link.generate_oauth_link(oauth_provider=OAuthProviders.OURA, )
 
 ```
 </dd>
@@ -1101,16 +1034,10 @@ This connects auth providers that are password based.
 <dd>
 
 ```python
-from vital import PasswordProviders, Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.link.connect_password_provider(
-    provider=PasswordProviders.WHOOP,
-    username="username",
-    password="password",
-)
+from vital import Vital
+from vital import PasswordProviders
+client = Vital(api_key="YOUR_API_KEY", )
+client.link.connect_password_provider(provider=PasswordProviders.WHOOP, username='username', password='password', )
 
 ```
 </dd>
@@ -1205,15 +1132,10 @@ This connects auth providers that are password based.
 <dd>
 
 ```python
-from vital import PasswordProviders, Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.link.complete_password_provider_mfa(
-    provider=PasswordProviders.WHOOP,
-    mfa_code="mfa_code",
-)
+from vital import Vital
+from vital import PasswordProviders
+client = Vital(api_key="YOUR_API_KEY", )
+client.link.complete_password_provider_mfa(provider=PasswordProviders.WHOOP, mfa_code='mfa_code', )
 
 ```
 </dd>
@@ -1293,13 +1215,8 @@ This connects auth providers that are email based.
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.link.connect_email_auth_provider(
-    email="email",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.link.connect_email_auth_provider(email='email', )
 
 ```
 </dd>
@@ -1387,10 +1304,7 @@ GET List of all available providers given the generated link token.
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
+client = Vital(api_key="YOUR_API_KEY", )
 client.link.get_all_providers()
 
 ```
@@ -1440,15 +1354,10 @@ client.link.get_all_providers()
 <dd>
 
 ```python
-from vital import ManualProviders, Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.link.connect_manual_provider(
-    provider=ManualProviders.BEURER_BLE,
-    user_id="user_id",
-)
+from vital import Vital
+from vital import ManualProviders
+client = Vital(api_key="YOUR_API_KEY", )
+client.link.connect_manual_provider(provider=ManualProviders.BEURER_BLE, user_id='user_id', )
 
 ```
 </dd>
@@ -1527,15 +1436,10 @@ POST Connect the given Vital user to a demo provider.
 <dd>
 
 ```python
-from vital import DemoProviders, Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.link.connect_demo_provider(
-    user_id="user_id",
-    provider=DemoProviders.APPLE_HEALTH_KIT,
-)
+from vital import Vital
+from vital import DemoProviders
+client = Vital(api_key="YOUR_API_KEY", )
+client.link.connect_demo_provider(user_id='user_id', provider=DemoProviders.APPLE_HEALTH_KIT, )
 
 ```
 </dd>
@@ -1608,14 +1512,8 @@ Get electrocardiogram summary for user_id
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.electrocardiogram.get(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.electrocardiogram.get(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -1704,14 +1602,8 @@ Get sleep cycle for user_id
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.sleep_cycle.get(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.sleep_cycle.get(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -1800,13 +1692,8 @@ Get profile for user_id
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.profile.get(
-    user_id="user_id",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.profile.get(user_id='user_id', )
 
 ```
 </dd>
@@ -1878,13 +1765,8 @@ Get raw profile for user_id
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.profile.get_raw(
-    user_id="user_id",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.profile.get_raw(user_id='user_id', )
 
 ```
 </dd>
@@ -1957,13 +1839,8 @@ Get Devices for user_id
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.devices.get_raw(
-    user_id="user_id",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.devices.get_raw(user_id='user_id', )
 
 ```
 </dd>
@@ -2036,14 +1913,8 @@ Get activity summary for user_id
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.activity.get(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.activity.get(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -2131,14 +2002,8 @@ Get raw activity summary for user_id
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.activity.get_raw(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.activity.get_raw(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -2227,14 +2092,8 @@ Get workout summary for user_id
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.workouts.get(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.workouts.get(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -2322,14 +2181,8 @@ Get raw workout summary for user_id
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.workouts.get_raw(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.workouts.get_raw(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -2403,13 +2256,8 @@ client.workouts.get_raw(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.workouts.get_by_workout_id(
-    workout_id="workout_id",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.workouts.get_by_workout_id(workout_id='workout_id', )
 
 ```
 </dd>
@@ -2474,14 +2322,8 @@ Get sleep summary for user_id
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.sleep.get(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.sleep.get(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -2569,14 +2411,8 @@ Get sleep stream for user_id
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.sleep.get_stream(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.sleep.get_stream(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -2664,14 +2500,8 @@ Get raw sleep summary for user_id
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.sleep.get_raw(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.sleep.get_raw(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -2759,13 +2589,8 @@ Get Sleep stream for a user_id
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.sleep.get_stream_by_sleep_id(
-    sleep_id="sleep_id",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.sleep.get_stream_by_sleep_id(sleep_id='sleep_id', )
 
 ```
 </dd>
@@ -2830,14 +2655,8 @@ Get Body summary for user_id
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.body.get(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.body.get(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -2925,14 +2744,8 @@ Get raw Body summary for user_id
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.body.get_raw(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.body.get_raw(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -3021,14 +2834,8 @@ Get user's meals
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.meal.get(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.meal.get(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -3103,14 +2910,8 @@ client.meal.get(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.menstrual_cycle.get(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.menstrual_cycle.get(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -3185,14 +2986,8 @@ client.menstrual_cycle.get(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.workout_swimming_stroke_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.workout_swimming_stroke_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -3282,14 +3077,8 @@ client.vitals.workout_swimming_stroke_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.workout_distance_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.workout_distance_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -3379,14 +3168,8 @@ client.vitals.workout_distance_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.heart_rate_recovery_one_minute_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.heart_rate_recovery_one_minute_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -3476,14 +3259,8 @@ client.vitals.heart_rate_recovery_one_minute_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.waist_circumference_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.waist_circumference_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -3573,14 +3350,8 @@ client.vitals.waist_circumference_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.lean_body_mass_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.lean_body_mass_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -3670,14 +3441,8 @@ client.vitals.lean_body_mass_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.body_mass_index_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.body_mass_index_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -3767,14 +3532,8 @@ client.vitals.body_mass_index_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.basal_body_temperature_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.basal_body_temperature_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -3864,14 +3623,8 @@ client.vitals.basal_body_temperature_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.handwashing_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.handwashing_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -3961,14 +3714,8 @@ client.vitals.handwashing_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.daylight_exposure_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.daylight_exposure_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -4058,14 +3805,8 @@ client.vitals.daylight_exposure_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.uv_exposure_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.uv_exposure_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -4155,14 +3896,8 @@ client.vitals.uv_exposure_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.fall_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.fall_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -4252,14 +3987,8 @@ client.vitals.fall_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.inhaler_usage_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.inhaler_usage_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -4349,14 +4078,8 @@ client.vitals.inhaler_usage_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.peak_expiratory_flow_rate_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.peak_expiratory_flow_rate_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -4446,14 +4169,8 @@ client.vitals.peak_expiratory_flow_rate_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.forced_vital_capacity_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.forced_vital_capacity_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -4543,14 +4260,8 @@ client.vitals.forced_vital_capacity_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.forced_expiratory_volume_1_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.forced_expiratory_volume_1_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -4640,14 +4351,8 @@ client.vitals.forced_expiratory_volume_1_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.wheelchair_push_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.wheelchair_push_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -4737,14 +4442,8 @@ client.vitals.wheelchair_push_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.sleep_breathing_disturbance_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.sleep_breathing_disturbance_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -4834,14 +4533,8 @@ client.vitals.sleep_breathing_disturbance_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.sleep_apnea_alert_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.sleep_apnea_alert_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -4931,14 +4624,8 @@ client.vitals.sleep_apnea_alert_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.stand_duration_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.stand_duration_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -5028,14 +4715,8 @@ client.vitals.stand_duration_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.stand_hour_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.stand_hour_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -5125,14 +4806,8 @@ client.vitals.stand_hour_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.heart_rate_alert_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.heart_rate_alert_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -5222,14 +4897,8 @@ client.vitals.heart_rate_alert_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.afib_burden_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.afib_burden_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -5319,14 +4988,8 @@ client.vitals.afib_burden_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.workout_duration_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.workout_duration_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -5416,14 +5079,8 @@ client.vitals.workout_duration_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.vo_2_max_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.vo_2_max_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -5513,14 +5170,8 @@ client.vitals.vo_2_max_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.stress_level_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.stress_level_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -5610,14 +5261,8 @@ client.vitals.stress_level_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.mindfulness_minutes_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.mindfulness_minutes_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -5707,14 +5352,8 @@ client.vitals.mindfulness_minutes_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.caffeine_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.caffeine_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -5804,14 +5443,8 @@ client.vitals.caffeine_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.water_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.water_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -5901,14 +5534,8 @@ client.vitals.water_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.steps_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.steps_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -5998,14 +5625,8 @@ client.vitals.steps_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.floors_climbed_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.floors_climbed_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -6095,14 +5716,8 @@ client.vitals.floors_climbed_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.distance_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.distance_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -6192,14 +5807,8 @@ client.vitals.distance_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.calories_basal_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.calories_basal_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -6289,14 +5898,8 @@ client.vitals.calories_basal_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.calories_active_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.calories_active_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -6386,14 +5989,8 @@ client.vitals.calories_active_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.respiratory_rate_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.respiratory_rate_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -6483,14 +6080,8 @@ client.vitals.respiratory_rate_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.note_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.note_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -6580,14 +6171,8 @@ client.vitals.note_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.insulin_injection_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.insulin_injection_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -6677,14 +6262,8 @@ client.vitals.insulin_injection_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.ige_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.ige_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -6774,14 +6353,8 @@ client.vitals.ige_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.igg_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.igg_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -6871,14 +6444,8 @@ client.vitals.igg_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.hypnogram_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.hypnogram_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -6968,14 +6535,8 @@ client.vitals.hypnogram_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.hrv_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.hrv_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -7065,14 +6626,8 @@ client.vitals.hrv_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.heartrate_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.heartrate_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -7162,14 +6717,8 @@ client.vitals.heartrate_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.glucose_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.glucose_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -7259,14 +6808,8 @@ client.vitals.glucose_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.cholesterol_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.cholesterol_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -7356,14 +6899,8 @@ client.vitals.cholesterol_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.carbohydrates_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.carbohydrates_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -7453,14 +6990,8 @@ client.vitals.carbohydrates_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.body_temperature_delta_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.body_temperature_delta_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -7550,14 +7081,8 @@ client.vitals.body_temperature_delta_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.body_temperature_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.body_temperature_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -7647,14 +7172,8 @@ client.vitals.body_temperature_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.body_weight_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.body_weight_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -7744,14 +7263,8 @@ client.vitals.body_weight_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.body_fat_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.body_fat_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -7841,14 +7354,8 @@ client.vitals.body_fat_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.blood_oxygen_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.blood_oxygen_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -7938,14 +7445,8 @@ client.vitals.blood_oxygen_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.electrocardiogram_voltage_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.electrocardiogram_voltage_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -8035,14 +7536,8 @@ client.vitals.electrocardiogram_voltage_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.blood_pressure_grouped(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.blood_pressure_grouped(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -8132,14 +7627,8 @@ client.vitals.blood_pressure_grouped(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.vo_2_max(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.vo_2_max(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -8213,14 +7702,8 @@ client.vitals.vo_2_max(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.stress_level(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.stress_level(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -8294,14 +7777,8 @@ client.vitals.stress_level(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.mindfulness_minutes(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.mindfulness_minutes(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -8375,14 +7852,8 @@ client.vitals.mindfulness_minutes(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.caffeine(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.caffeine(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -8456,14 +7927,8 @@ client.vitals.caffeine(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.water(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.water(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -8537,14 +8002,8 @@ client.vitals.water(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.steps(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.steps(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -8618,14 +8077,8 @@ client.vitals.steps(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.floors_climbed(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.floors_climbed(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -8699,14 +8152,8 @@ client.vitals.floors_climbed(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.distance(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.distance(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -8780,14 +8227,8 @@ client.vitals.distance(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.calories_basal(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.calories_basal(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -8861,14 +8302,8 @@ client.vitals.calories_basal(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.calories_active(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.calories_active(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -8942,14 +8377,8 @@ client.vitals.calories_active(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.respiratory_rate(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.respiratory_rate(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -9023,14 +8452,8 @@ client.vitals.respiratory_rate(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.ige(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.ige(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -9104,14 +8527,8 @@ client.vitals.ige(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.igg(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.igg(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -9185,14 +8602,8 @@ client.vitals.igg(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.hypnogram(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.hypnogram(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -9266,14 +8677,8 @@ client.vitals.hypnogram(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.hrv(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.hrv(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -9347,14 +8752,8 @@ client.vitals.hrv(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.heartrate(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.heartrate(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -9428,14 +8827,8 @@ client.vitals.heartrate(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.glucose(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.glucose(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -9509,14 +8902,8 @@ client.vitals.glucose(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.cholesterol_triglycerides(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.cholesterol_triglycerides(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -9590,14 +8977,8 @@ client.vitals.cholesterol_triglycerides(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.cholesterol_total(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.cholesterol_total(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -9671,14 +9052,8 @@ client.vitals.cholesterol_total(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.cholesterol_ldl(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.cholesterol_ldl(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -9752,14 +9127,8 @@ client.vitals.cholesterol_ldl(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.cholesterol_hdl(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.cholesterol_hdl(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -9833,14 +9202,8 @@ client.vitals.cholesterol_hdl(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.cholesterol(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.cholesterol(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -9914,14 +9277,8 @@ client.vitals.cholesterol(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.body_weight(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.body_weight(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -9995,14 +9352,8 @@ client.vitals.body_weight(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.body_fat(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.body_fat(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -10076,14 +9427,8 @@ client.vitals.body_fat(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.blood_oxygen(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.blood_oxygen(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -10157,14 +9502,8 @@ client.vitals.blood_oxygen(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.electrocardiogram_voltage(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.electrocardiogram_voltage(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -10238,14 +9577,8 @@ client.vitals.electrocardiogram_voltage(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.vitals.blood_pressure(
-    user_id="user_id",
-    start_date="start_date",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.vitals.blood_pressure(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -10334,10 +9667,7 @@ GET All users for team.
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
+client = Vital(api_key="YOUR_API_KEY", )
 client.user.get_all()
 
 ```
@@ -10410,13 +9740,8 @@ POST Create a Vital user given a client_user_id and returns the user_id.
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.user.create(
-    client_user_id="client_user_id",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.user.create(client_user_id='client_user_id', )
 
 ```
 </dd>
@@ -10517,10 +9842,7 @@ GET metrics for team.
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
+client = Vital(api_key="YOUR_API_KEY", )
 client.user.get_team_metrics()
 
 ```
@@ -10563,13 +9885,8 @@ client.user.get_team_metrics()
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.user.get_user_sign_in_token(
-    user_id="user_id",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.user.get_user_sign_in_token(user_id='user_id', )
 
 ```
 </dd>
@@ -10633,13 +9950,8 @@ GET Users connected providers
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.user.get_connected_providers(
-    user_id="user_id",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.user.get_connected_providers(user_id='user_id', )
 
 ```
 </dd>
@@ -10703,13 +10015,8 @@ GET User details given the user_id.
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.user.get(
-    user_id="user_id",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.user.get(user_id='user_id', )
 
 ```
 </dd>
@@ -10759,13 +10066,8 @@ client.user.get(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.user.delete(
-    user_id="user_id",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.user.delete(user_id='user_id', )
 
 ```
 </dd>
@@ -10815,13 +10117,8 @@ client.user.delete(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.user.patch(
-    user_id="user_id",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.user.patch(user_id='user_id', )
 
 ```
 </dd>
@@ -10916,13 +10213,8 @@ client.user.patch(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.user.get_latest_user_info(
-    user_id="user_id",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.user.get_latest_user_info(user_id='user_id', )
 
 ```
 </dd>
@@ -10971,38 +10263,13 @@ client.user.get_latest_user_info(
 <dd>
 
 ```python
-from vital import (
-    Address,
-    Gender,
-    ResponsibleRelationship,
-    Vital,
-    VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails,
-)
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.user.create_insurance(
-    user_id="user_id",
-    payor_code="payor_code",
-    member_id="member_id",
-    relationship=ResponsibleRelationship.SELF,
-    insured=VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails(
-        first_name="first_name",
-        last_name="last_name",
-        gender=Gender.FEMALE,
-        address=Address(
-            first_line="first_line",
-            country="country",
-            zip="zip",
-            city="city",
-            state="state",
-        ),
-        dob="dob",
-        email="email",
-        phone_number="phone_number",
-    ),
-)
+from vital import Vital
+from vital import ResponsibleRelationship
+from vital import VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails
+from vital import Gender
+from vital import Address
+client = Vital(api_key="YOUR_API_KEY", )
+client.user.create_insurance(user_id='user_id', payor_code='payor_code', member_id='member_id', relationship=ResponsibleRelationship.SELF, insured=VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails(first_name='first_name', last_name='last_name', gender=Gender.FEMALE, address=Address(first_line='first_line', country='country', zip='zip', city='city', state='state', ), dob='dob', email='email', phone_number='phone_number', ), )
 
 ```
 </dd>
@@ -11100,13 +10367,8 @@ client.user.create_insurance(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.user.get_latest_insurance(
-    user_id="user_id",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.user.get_latest_insurance(user_id='user_id', )
 
 ```
 </dd>
@@ -11155,27 +10417,10 @@ client.user.get_latest_insurance(
 <dd>
 
 ```python
-from vital import Address, Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.user.upsert_user_info(
-    user_id="user_id",
-    first_name="first_name",
-    last_name="last_name",
-    email="email",
-    phone_number="phone_number",
-    gender="gender",
-    dob="dob",
-    address=Address(
-        first_line="first_line",
-        country="country",
-        zip="zip",
-        city="city",
-        state="state",
-    ),
-)
+from vital import Vital
+from vital import Address
+client = Vital(api_key="YOUR_API_KEY", )
+client.user.upsert_user_info(user_id='user_id', first_name='first_name', last_name='last_name', email='email', phone_number='phone_number', gender='gender', dob='dob', address=Address(first_line='first_line', country='country', zip='zip', city='city', state='state', ), )
 
 ```
 </dd>
@@ -11335,13 +10580,8 @@ GET user_id from client_user_id.
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.user.get_by_client_user_id(
-    client_user_id="client_user_id",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.user.get_by_client_user_id(client_user_id='client_user_id', )
 
 ```
 </dd>
@@ -11390,15 +10630,10 @@ client.user.get_by_client_user_id(
 <dd>
 
 ```python
-from vital import Providers, Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.user.deregister_provider(
-    user_id="user_id",
-    provider=Providers.OURA,
-)
+from vital import Vital
+from vital import Providers
+client = Vital(api_key="YOUR_API_KEY", )
+client.user.deregister_provider(user_id='user_id', provider=Providers.OURA, )
 
 ```
 </dd>
@@ -11456,10 +10691,7 @@ client.user.deregister_provider(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
+client = Vital(api_key="YOUR_API_KEY", )
 client.user.undo_delete()
 
 ```
@@ -11532,13 +10764,8 @@ Trigger a manual refresh for a specific user
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.user.refresh(
-    user_id="user_id",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.user.refresh(user_id='user_id', )
 
 ```
 </dd>
@@ -11611,10 +10838,7 @@ Post teams.
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
+client = Vital(api_key="YOUR_API_KEY", )
 client.team.get_link_config()
 
 ```
@@ -11679,13 +10903,8 @@ Get team.
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.team.get(
-    team_id="team_id",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.team.get(team_id='team_id', )
 
 ```
 </dd>
@@ -11749,10 +10968,7 @@ Search team users by user_id
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
+client = Vital(api_key="YOUR_API_KEY", )
 client.team.get_user_by_id()
 
 ```
@@ -11803,10 +11019,7 @@ client.team.get_user_by_id()
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
+client = Vital(api_key="YOUR_API_KEY", )
 client.team.get_svix_url()
 
 ```
@@ -11863,10 +11076,7 @@ GET source priorities.
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
+client = Vital(api_key="YOUR_API_KEY", )
 client.team.get_source_priorities()
 
 ```
@@ -11931,10 +11141,7 @@ Patch source priorities.
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
+client = Vital(api_key="YOUR_API_KEY", )
 client.team.update_source_priorities()
 
 ```
@@ -11977,13 +11184,8 @@ client.team.update_source_priorities()
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.team.get_physicians(
-    team_id="team_id",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.team.get_physicians(team_id='team_id', )
 
 ```
 </dd>
@@ -12048,10 +11250,7 @@ Get Provider list
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
+client = Vital(api_key="YOUR_API_KEY", )
 client.providers.get_all()
 
 ```
@@ -12103,10 +11302,7 @@ client.providers.get_all()
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
+client = Vital(api_key="YOUR_API_KEY", )
 client.introspect.get_user_resources()
 
 ```
@@ -12189,10 +11385,7 @@ client.introspect.get_user_resources()
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
+client = Vital(api_key="YOUR_API_KEY", )
 client.introspect.get_user_historical_pulls()
 
 ```
@@ -12290,10 +11483,7 @@ GET all the lab tests the team has access to.
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
+client = Vital(api_key="YOUR_API_KEY", )
 client.lab_tests.get()
 
 ```
@@ -12407,16 +11597,10 @@ client.lab_tests.get()
 <dd>
 
 ```python
-from vital import LabTestCollectionMethod, Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.lab_tests.create(
-    name="name",
-    method=LabTestCollectionMethod.TESTKIT,
-    description="description",
-)
+from vital import Vital
+from vital import LabTestCollectionMethod
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.create(name='name', method=LabTestCollectionMethod.TESTKIT, description='description', )
 
 ```
 </dd>
@@ -12520,13 +11704,8 @@ GET all the lab tests the team has access to.
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.lab_tests.get_by_id(
-    lab_test_id="lab_test_id",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.get_by_id(lab_test_id='lab_test_id', )
 
 ```
 </dd>
@@ -12576,13 +11755,8 @@ client.lab_tests.get_by_id(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.lab_tests.update_lab_test(
-    lab_test_id="lab_test_id",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.update_lab_test(lab_test_id='lab_test_id', )
 
 ```
 </dd>
@@ -12662,10 +11836,7 @@ GET all the markers for the given lab.
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
+client = Vital(api_key="YOUR_API_KEY", )
 client.lab_tests.get_markers()
 
 ```
@@ -12747,14 +11918,10 @@ client.lab_tests.get_markers()
 <dd>
 
 ```python
-from vital import OrderSetRequest, Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.lab_tests.get_markers_for_order_set(
-    request=OrderSetRequest(),
-)
+from vital import Vital
+from vital import OrderSetRequest
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.get_markers_for_order_set(request=OrderSetRequest(), )
 
 ```
 </dd>
@@ -12820,13 +11987,8 @@ client.lab_tests.get_markers_for_order_set(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.lab_tests.get_markers_for_lab_test(
-    lab_test_id="lab_test_id",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.get_markers_for_lab_test(lab_test_id='lab_test_id', )
 
 ```
 </dd>
@@ -12906,14 +12068,8 @@ GET a specific marker for the given lab and provider_id
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.lab_tests.get_markers_by_lab_and_provider_id(
-    provider_id="provider_id",
-    lab_id=1,
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.get_markers_by_lab_and_provider_id(provider_id='provider_id', lab_id=1, )
 
 ```
 </dd>
@@ -12985,10 +12141,7 @@ GET all the labs.
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
+client = Vital(api_key="YOUR_API_KEY", )
 client.lab_tests.get_labs()
 
 ```
@@ -13045,10 +12198,7 @@ GET lab tests the team has access to as a paginated list.
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
+client = Vital(api_key="YOUR_API_KEY", )
 client.lab_tests.get_paginated()
 
 ```
@@ -13193,19 +12343,10 @@ for the given address and order.
 <dd>
 
 ```python
-from vital import UsAddress, Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.lab_tests.get_phlebotomy_appointment_availability(
-    request=UsAddress(
-        first_line="first_line",
-        city="city",
-        state="state",
-        zip_code="zip_code",
-    ),
-)
+from vital import Vital
+from vital import UsAddress
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.get_phlebotomy_appointment_availability(request=UsAddress(first_line='first_line', city='city', state='state', zip_code='zip_code', ), )
 
 ```
 </dd>
@@ -13276,17 +12417,10 @@ Book an at-home phlebotomy appointment.
 <dd>
 
 ```python
-from vital import AppointmentBookingRequest, Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.lab_tests.book_phlebotomy_appointment(
-    order_id="order_id",
-    request=AppointmentBookingRequest(
-        booking_key="booking_key",
-    ),
-)
+from vital import Vital
+from vital import AppointmentBookingRequest
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.book_phlebotomy_appointment(order_id='order_id', request=AppointmentBookingRequest(booking_key='booking_key', ), )
 
 ```
 </dd>
@@ -13357,21 +12491,11 @@ Request an at-home phlebotomy appointment.
 <dd>
 
 ```python
-from vital import AppointmentProvider, UsAddress, Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.lab_tests.request_phlebotomy_appointment(
-    order_id="order_id",
-    address=UsAddress(
-        first_line="first_line",
-        city="city",
-        state="state",
-        zip_code="zip_code",
-    ),
-    provider=AppointmentProvider.GETLABS,
-)
+from vital import Vital
+from vital import UsAddress
+from vital import AppointmentProvider
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.request_phlebotomy_appointment(order_id='order_id', address=UsAddress(first_line='first_line', city='city', state='state', zip_code='zip_code', ), provider=AppointmentProvider.GETLABS, )
 
 ```
 </dd>
@@ -13450,17 +12574,10 @@ Reschedule a previously booked at-home phlebotomy appointment.
 <dd>
 
 ```python
-from vital import AppointmentRescheduleRequest, Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.lab_tests.reschedule_phlebotomy_appointment(
-    order_id="order_id",
-    request=AppointmentRescheduleRequest(
-        booking_key="booking_key",
-    ),
-)
+from vital import Vital
+from vital import AppointmentRescheduleRequest
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.reschedule_phlebotomy_appointment(order_id='order_id', request=AppointmentRescheduleRequest(booking_key='booking_key', ), )
 
 ```
 </dd>
@@ -13532,14 +12649,8 @@ Cancel a previously booked at-home phlebotomy appointment.
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.lab_tests.cancel_phlebotomy_appointment(
-    order_id="order_id",
-    cancellation_reason_id="cancellation_reason_id",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.cancel_phlebotomy_appointment(order_id='order_id', cancellation_reason_id='cancellation_reason_id', )
 
 ```
 </dd>
@@ -13619,10 +12730,7 @@ Get the list of reasons for cancelling an at-home phlebotomy appointment.
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
+client = Vital(api_key="YOUR_API_KEY", )
 client.lab_tests.get_phlebotomy_appointment_cancellation_reason()
 
 ```
@@ -13679,13 +12787,8 @@ Get the appointment associated with an order.
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.lab_tests.get_phlebotomy_appointment(
-    order_id="order_id",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.get_phlebotomy_appointment(order_id='order_id', )
 
 ```
 </dd>
@@ -13753,13 +12856,8 @@ Information returned:
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.lab_tests.get_area_info(
-    zip_code="zip_code",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.get_area_info(zip_code='zip_code', )
 
 ```
 </dd>
@@ -13825,14 +12923,8 @@ client.lab_tests.get_area_info(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.lab_tests.get_psc_info(
-    zip_code="zip_code",
-    lab_id=1,
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.get_psc_info(zip_code='zip_code', lab_id=1, )
 
 ```
 </dd>
@@ -13898,13 +12990,8 @@ client.lab_tests.get_psc_info(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.lab_tests.get_order_psc_info(
-    order_id="order_id",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.get_order_psc_info(order_id='order_id', )
 
 ```
 </dd>
@@ -13977,13 +13064,8 @@ provider and sample dates.
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.lab_tests.get_result_metadata(
-    order_id="order_id",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.get_result_metadata(order_id='order_id', )
 
 ```
 </dd>
@@ -14047,13 +13129,8 @@ Return both metadata and raw json test data
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.lab_tests.get_result_raw(
-    order_id="order_id",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.get_result_raw(order_id='order_id', )
 
 ```
 </dd>
@@ -14103,10 +13180,7 @@ client.lab_tests.get_result_raw(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
+client = Vital(api_key="YOUR_API_KEY", )
 client.lab_tests.get_psc_appointment_availability()
 
 ```
@@ -14180,17 +13254,10 @@ client.lab_tests.get_psc_appointment_availability()
 <dd>
 
 ```python
-from vital import AppointmentBookingRequest, Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.lab_tests.book_psc_appointment(
-    order_id="order_id",
-    request=AppointmentBookingRequest(
-        booking_key="booking_key",
-    ),
-)
+from vital import Vital
+from vital import AppointmentBookingRequest
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.book_psc_appointment(order_id='order_id', request=AppointmentBookingRequest(booking_key='booking_key', ), )
 
 ```
 </dd>
@@ -14247,17 +13314,10 @@ client.lab_tests.book_psc_appointment(
 <dd>
 
 ```python
-from vital import AppointmentRescheduleRequest, Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.lab_tests.reschedule_psc_appointment(
-    order_id="order_id",
-    request=AppointmentRescheduleRequest(
-        booking_key="booking_key",
-    ),
-)
+from vital import Vital
+from vital import AppointmentRescheduleRequest
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.reschedule_psc_appointment(order_id='order_id', request=AppointmentRescheduleRequest(booking_key='booking_key', ), )
 
 ```
 </dd>
@@ -14315,14 +13375,8 @@ client.lab_tests.reschedule_psc_appointment(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.lab_tests.cancel_psc_appointment(
-    order_id="order_id",
-    cancellation_reason_id="cancellationReasonId",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.cancel_psc_appointment(order_id='order_id', cancellation_reason_id='cancellationReasonId', )
 
 ```
 </dd>
@@ -14388,10 +13442,7 @@ client.lab_tests.cancel_psc_appointment(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
+client = Vital(api_key="YOUR_API_KEY", )
 client.lab_tests.get_psc_appointment_cancellation_reason()
 
 ```
@@ -14448,13 +13499,8 @@ Get the appointment associated with an order.
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.lab_tests.get_psc_appointment(
-    order_id="order_id",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.get_psc_appointment(order_id='order_id', )
 
 ```
 </dd>
@@ -14518,13 +13564,8 @@ GET individual order by ID.
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.lab_tests.get_order(
-    order_id="order_id",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.get_order(order_id='order_id', )
 
 ```
 </dd>
@@ -14587,34 +13628,12 @@ POST create new order
 <dd>
 
 ```python
-from vital import (
-    Gender,
-    PatientAddressWithValidation,
-    PatientDetailsWithValidation,
-    Vital,
-)
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.lab_tests.create_order(
-    user_id="user_id",
-    patient_details=PatientDetailsWithValidation(
-        first_name="first_name",
-        last_name="last_name",
-        dob="dob",
-        gender=Gender.FEMALE,
-        phone_number="phone_number",
-        email="email",
-    ),
-    patient_address=PatientAddressWithValidation(
-        first_line="first_line",
-        city="city",
-        state="state",
-        zip="zip",
-        country="country",
-    ),
-)
+from vital import Vital
+from vital import PatientDetailsWithValidation
+from vital import Gender
+from vital import PatientAddressWithValidation
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.create_order(user_id='user_id', patient_details=PatientDetailsWithValidation(first_name='first_name', last_name='last_name', dob='dob', gender=Gender.FEMALE, phone_number='phone_number', email='email', ), patient_address=PatientAddressWithValidation(first_line='first_line', city='city', state='state', zip='zip', country='country', ), )
 
 ```
 </dd>
@@ -14775,42 +13794,15 @@ client.lab_tests.create_order(
 <dd>
 
 ```python
-from vital import (
-    Billing,
-    Gender,
-    LabTestCollectionMethod,
-    OrderSetRequest,
-    PatientAddress,
-    PatientDetailsWithValidation,
-    Vital,
-)
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.lab_tests.import_order(
-    user_id="user_id",
-    billing_type=Billing.CLIENT_BILL,
-    order_set=OrderSetRequest(),
-    collection_method=LabTestCollectionMethod.TESTKIT,
-    patient_details=PatientDetailsWithValidation(
-        first_name="first_name",
-        last_name="last_name",
-        dob="dob",
-        gender=Gender.FEMALE,
-        phone_number="phone_number",
-        email="email",
-    ),
-    patient_address=PatientAddress(
-        receiver_name="receiver_name",
-        first_line="first_line",
-        city="city",
-        state="state",
-        zip="zip",
-        country="country",
-    ),
-    sample_id="sample_id",
-)
+from vital import Vital
+from vital import Billing
+from vital import OrderSetRequest
+from vital import LabTestCollectionMethod
+from vital import PatientDetailsWithValidation
+from vital import Gender
+from vital import PatientAddress
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.import_order(user_id='user_id', billing_type=Billing.CLIENT_BILL, order_set=OrderSetRequest(), collection_method=LabTestCollectionMethod.TESTKIT, patient_details=PatientDetailsWithValidation(first_name='first_name', last_name='last_name', dob='dob', gender=Gender.FEMALE, phone_number='phone_number', email='email', ), patient_address=PatientAddress(receiver_name='receiver_name', first_line='first_line', city='city', state='state', zip='zip', country='country', ), sample_id='sample_id', )
 
 ```
 </dd>
@@ -14930,13 +13922,8 @@ POST cancel order
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.lab_tests.cancel_order(
-    order_id="order_id",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.cancel_order(order_id='order_id', )
 
 ```
 </dd>
@@ -15000,13 +13987,8 @@ Get available test kits.
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.lab_tests.simulate_order_process(
-    order_id="order_id",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.simulate_order_process(order_id='order_id', )
 
 ```
 </dd>
@@ -15086,10 +14068,7 @@ GET many orders with filters.
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
+client = Vital(api_key="YOUR_API_KEY", )
 client.lab_tests.get_orders()
 
 ```
@@ -15146,9 +14125,7 @@ client.lab_tests.get_orders()
 <dl>
 <dd>
 
-**status:** `typing.Optional[
-    typing.Union[OrderLowLevelStatus, typing.Sequence[OrderLowLevelStatus]]
-]` — Filter by low level status.
+**status:** `typing.Optional[typing.Union[OrderLowLevelStatus, typing.Sequence[OrderLowLevelStatus]]]` — Filter by low level status.
     
 </dd>
 </dl>
@@ -15172,11 +14149,7 @@ client.lab_tests.get_orders()
 <dl>
 <dd>
 
-**order_type:** `typing.Optional[
-    typing.Union[
-        LabTestCollectionMethod, typing.Sequence[LabTestCollectionMethod]
-    ]
-]` — Filter by method used to perform the lab test.
+**order_type:** `typing.Optional[typing.Union[LabTestCollectionMethod, typing.Sequence[LabTestCollectionMethod]]]` — Filter by method used to perform the lab test.
     
 </dd>
 </dl>
@@ -15192,9 +14165,7 @@ client.lab_tests.get_orders()
 <dl>
 <dd>
 
-**order_activation_types:** `typing.Optional[
-    typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]
-]` — Filter by activation type.
+**order_activation_types:** `typing.Optional[typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]]` — Filter by activation type.
     
 </dd>
 </dl>
@@ -15276,34 +14247,12 @@ client.lab_tests.get_orders()
 <dd>
 
 ```python
-from vital import (
-    Gender,
-    PatientAddressWithValidation,
-    PatientDetailsWithValidation,
-    Vital,
-)
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.testkit.register(
-    sample_id="sample_id",
-    patient_details=PatientDetailsWithValidation(
-        first_name="first_name",
-        last_name="last_name",
-        dob="dob",
-        gender=Gender.FEMALE,
-        phone_number="phone_number",
-        email="email",
-    ),
-    patient_address=PatientAddressWithValidation(
-        first_line="first_line",
-        city="city",
-        state="state",
-        zip="zip",
-        country="country",
-    ),
-)
+from vital import Vital
+from vital import PatientDetailsWithValidation
+from vital import Gender
+from vital import PatientAddressWithValidation
+client = Vital(api_key="YOUR_API_KEY", )
+client.testkit.register(sample_id='sample_id', patient_details=PatientDetailsWithValidation(first_name='first_name', last_name='last_name', dob='dob', gender=Gender.FEMALE, phone_number='phone_number', email='email', ), patient_address=PatientAddressWithValidation(first_line='first_line', city='city', state='state', zip='zip', country='country', ), )
 
 ```
 </dd>
@@ -15414,24 +14363,10 @@ Creates an order for an unregistered testkit
 <dd>
 
 ```python
-from vital import ShippingAddressWithValidation, Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.testkit.create_order(
-    user_id="user_id",
-    lab_test_id="lab_test_id",
-    shipping_details=ShippingAddressWithValidation(
-        receiver_name="receiver_name",
-        first_line="first_line",
-        city="city",
-        state="state",
-        zip="zip",
-        country="country",
-        phone_number="phone_number",
-    ),
-)
+from vital import Vital
+from vital import ShippingAddressWithValidation
+client = Vital(api_key="YOUR_API_KEY", )
+client.testkit.create_order(user_id='user_id', lab_test_id='lab_test_id', shipping_details=ShippingAddressWithValidation(receiver_name='receiver_name', first_line='first_line', city='city', state='state', zip='zip', country='country', phone_number='phone_number', ), )
 
 ```
 </dd>
@@ -15520,10 +14455,7 @@ Replay a webhook for a given set of orders
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
+client = Vital(api_key="YOUR_API_KEY", )
 client.order.resend_events()
 
 ```
@@ -15591,10 +14523,7 @@ client.order.resend_events()
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
+client = Vital(api_key="YOUR_API_KEY", )
 client.insurance.search_get_payor_info()
 
 ```
@@ -15661,10 +14590,7 @@ client.insurance.search_get_payor_info()
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
+client = Vital(api_key="YOUR_API_KEY", )
 client.insurance.search_payor_info()
 
 ```
@@ -15731,13 +14657,8 @@ client.insurance.search_payor_info()
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.insurance.search_diagnosis(
-    diagnosis_query="diagnosis_query",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.insurance.search_diagnosis(diagnosis_query='diagnosis_query', )
 
 ```
 </dd>
@@ -15787,42 +14708,17 @@ client.insurance.search_diagnosis(
 <dd>
 
 ```python
-from vital import (
-    AggregateExpr,
-    AggregateExprFunc,
-    Period,
-    PeriodUnit,
-    Query,
-    RelativeTimeframe,
-    SleepColumnExpr,
-    SleepColumnExprSleep,
-    Vital,
-)
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.aggregate.query_one(
-    user_id="user_id",
-    timeframe=RelativeTimeframe(
-        anchor="anchor",
-        past=Period(
-            unit=PeriodUnit.MINUTE,
-        ),
-    ),
-    queries=[
-        Query(
-            select=[
-                AggregateExpr(
-                    arg=SleepColumnExpr(
-                        sleep=SleepColumnExprSleep.SESSION_START,
-                    ),
-                    func=AggregateExprFunc.MEAN,
-                )
-            ],
-        )
-    ],
-)
+from vital import Vital
+from vital import RelativeTimeframe
+from vital import Period
+from vital import PeriodUnit
+from vital import Query
+from vital import AggregateExpr
+from vital import SleepColumnExpr
+from vital import SleepColumnExprSleep
+from vital import AggregateExprFunc
+client = Vital(api_key="YOUR_API_KEY", )
+client.aggregate.query_one(user_id='user_id', timeframe=RelativeTimeframe(anchor='anchor', past=Period(unit=PeriodUnit.MINUTE, ), ), queries=[Query(select=[AggregateExpr(arg=SleepColumnExpr(sleep=SleepColumnExprSleep.SESSION_START, ), func=AggregateExprFunc.MEAN, )], )], )
 
 ```
 </dd>
@@ -15896,14 +14792,8 @@ client.aggregate.query_one(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.aggregate.get_result_table_for_continuous_query(
-    user_id="user_id",
-    query_id_or_slug="query_id_or_slug",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.aggregate.get_result_table_for_continuous_query(user_id='user_id', query_id_or_slug='query_id_or_slug', )
 
 ```
 </dd>
@@ -15961,14 +14851,8 @@ client.aggregate.get_result_table_for_continuous_query(
 
 ```python
 from vital import Vital
-
-client = Vital(
-    api_key="YOUR_API_KEY",
-)
-client.aggregate.get_task_history_for_continuous_query(
-    user_id="user_id",
-    query_id_or_slug="query_id_or_slug",
-)
+client = Vital(api_key="YOUR_API_KEY", )
+client.aggregate.get_task_history_for_continuous_query(user_id='user_id', query_id_or_slug='query_id_or_slug', )
 
 ```
 </dd>
