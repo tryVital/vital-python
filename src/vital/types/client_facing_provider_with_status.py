@@ -31,6 +31,17 @@ class ClientFacingProviderWithStatus(UniversalBaseModel):
     Status of source, either error or connected
     """
 
+    external_user_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    
+    The unique identifier of the associated external data provider user.
+    
+    * OAuth Providers: User unique identifier; provider-specific formats
+    * Password Providers: Username
+    * Email Providers: Email
+    * Junction Mobile SDK Providers: `null` (not available)
+    """
+
     error_details: typing.Optional[ClientFacingConnectionErrorDetails] = pydantic.Field(default=None)
     """
     Details of the terminal connection error — populated only when the status is `error`.

@@ -2751,6 +2751,7 @@ class LabTestsClient:
         order_type: typing.Optional[
             typing.Union[LabTestCollectionMethod, typing.Sequence[LabTestCollectionMethod]]
         ] = None,
+        is_critical: typing.Optional[bool] = None,
         order_activation_types: typing.Optional[
             typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]
         ] = None,
@@ -2793,6 +2794,9 @@ class LabTestsClient:
 
         order_type : typing.Optional[typing.Union[LabTestCollectionMethod, typing.Sequence[LabTestCollectionMethod]]]
             Filter by method used to perform the lab test.
+
+        is_critical : typing.Optional[bool]
+            Filter by critical order status.
 
         order_activation_types : typing.Optional[typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]]
             Filter by activation type.
@@ -2845,6 +2849,7 @@ class LabTestsClient:
                 "order_key": order_key,
                 "order_direction": order_direction,
                 "order_type": order_type,
+                "is_critical": is_critical,
                 "order_activation_types": order_activation_types,
                 "user_id": user_id,
                 "patient_name": patient_name,
@@ -5840,6 +5845,7 @@ class AsyncLabTestsClient:
         order_type: typing.Optional[
             typing.Union[LabTestCollectionMethod, typing.Sequence[LabTestCollectionMethod]]
         ] = None,
+        is_critical: typing.Optional[bool] = None,
         order_activation_types: typing.Optional[
             typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]
         ] = None,
@@ -5882,6 +5888,9 @@ class AsyncLabTestsClient:
 
         order_type : typing.Optional[typing.Union[LabTestCollectionMethod, typing.Sequence[LabTestCollectionMethod]]]
             Filter by method used to perform the lab test.
+
+        is_critical : typing.Optional[bool]
+            Filter by critical order status.
 
         order_activation_types : typing.Optional[typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]]
             Filter by activation type.
@@ -5942,6 +5951,7 @@ class AsyncLabTestsClient:
                 "order_key": order_key,
                 "order_direction": order_direction,
                 "order_type": order_type,
+                "is_critical": is_critical,
                 "order_activation_types": order_activation_types,
                 "user_id": user_id,
                 "patient_name": patient_name,

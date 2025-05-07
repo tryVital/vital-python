@@ -14,6 +14,7 @@ from ..types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..types.aggregation_result import AggregationResult
+from ..types.continuous_query_task_history_response import ContinuousQueryTaskHistoryResponse
 from ..core.client_wrapper import AsyncClientWrapper
 
 # this is used as the default value for optional parameters
@@ -173,6 +174,79 @@ class AggregateClient:
                     AggregationResult,
                     parse_obj_as(
                         type_=AggregationResult,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def get_task_history_for_continuous_query(
+        self,
+        user_id: str,
+        query_id_or_slug: str,
+        *,
+        next_cursor: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ContinuousQueryTaskHistoryResponse:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        query_id_or_slug : str
+
+        next_cursor : typing.Optional[str]
+
+        limit : typing.Optional[int]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ContinuousQueryTaskHistoryResponse
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.aggregate.get_task_history_for_continuous_query(
+            user_id="user_id",
+            query_id_or_slug="query_id_or_slug",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"aggregate/v1/user/{jsonable_encoder(user_id)}/continuous_query/{jsonable_encoder(query_id_or_slug)}/task_history",
+            method="GET",
+            params={
+                "next_cursor": next_cursor,
+                "limit": limit,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    ContinuousQueryTaskHistoryResponse,
+                    parse_obj_as(
+                        type_=ContinuousQueryTaskHistoryResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -361,6 +435,87 @@ class AsyncAggregateClient:
                     AggregationResult,
                     parse_obj_as(
                         type_=AggregationResult,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def get_task_history_for_continuous_query(
+        self,
+        user_id: str,
+        query_id_or_slug: str,
+        *,
+        next_cursor: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ContinuousQueryTaskHistoryResponse:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        query_id_or_slug : str
+
+        next_cursor : typing.Optional[str]
+
+        limit : typing.Optional[int]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ContinuousQueryTaskHistoryResponse
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.aggregate.get_task_history_for_continuous_query(
+                user_id="user_id",
+                query_id_or_slug="query_id_or_slug",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"aggregate/v1/user/{jsonable_encoder(user_id)}/continuous_query/{jsonable_encoder(query_id_or_slug)}/task_history",
+            method="GET",
+            params={
+                "next_cursor": next_cursor,
+                "limit": limit,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    ContinuousQueryTaskHistoryResponse,
+                    parse_obj_as(
+                        type_=ContinuousQueryTaskHistoryResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

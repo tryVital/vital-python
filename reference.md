@@ -15184,6 +15184,14 @@ client.lab_tests.get_orders()
 <dl>
 <dd>
 
+**is_critical:** `typing.Optional[bool]` — Filter by critical order status.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **order_activation_types:** `typing.Optional[
     typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]
 ]` — Filter by activation type.
@@ -15920,6 +15928,87 @@ client.aggregate.get_result_table_for_continuous_query(
 <dd>
 
 **query_id_or_slug:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.aggregate.<a href="src/vital/aggregate/client.py">get_task_history_for_continuous_query</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.aggregate.get_task_history_for_continuous_query(
+    user_id="user_id",
+    query_id_or_slug="query_id_or_slug",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**query_id_or_slug:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**next_cursor:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` 
     
 </dd>
 </dl>

@@ -426,6 +426,9 @@ from .connection_recipe import ConnectionRecipe
 from .consent import Consent
 from .consent_type import ConsentType
 from .continuous_query_result_table_changes import ContinuousQueryResultTableChanges
+from .continuous_query_task_history_entry import ContinuousQueryTaskHistoryEntry
+from .continuous_query_task_history_response import ContinuousQueryTaskHistoryResponse
+from .continuous_query_task_status import ContinuousQueryTaskStatus
 from .contraceptive_entry import ContraceptiveEntry
 from .contraceptive_entry_type import ContraceptiveEntryType
 from .date_part_expr import DatePartExpr
@@ -564,6 +567,8 @@ from .health_insurance_create_request_back_image import HealthInsuranceCreateReq
 from .health_insurance_create_request_front_image import HealthInsuranceCreateRequestFrontImage
 from .health_insurance_create_request_patient_signature_image import HealthInsuranceCreateRequestPatientSignatureImage
 from .historical_pull_completed import HistoricalPullCompleted
+from .historical_pull_non_retriable_error_details import HistoricalPullNonRetriableErrorDetails
+from .historical_pull_retriable_error_details import HistoricalPullRetriableErrorDetails
 from .historical_pull_status import HistoricalPullStatus
 from .historical_pull_timeline import HistoricalPullTimeline
 from .home_pregnancy_test_entry import HomePregnancyTestEntry
@@ -671,6 +676,7 @@ from .sexual_orientation import SexualOrientation
 from .shipping_address import ShippingAddress
 from .shipping_address_with_validation import ShippingAddressWithValidation
 from .single_historical_pull_statistics import SingleHistoricalPullStatistics
+from .single_historical_pull_statistics_error_details import SingleHistoricalPullStatisticsErrorDetails
 from .single_provider_historical_pull_response import SingleProviderHistoricalPullResponse
 from .single_resource_statistics import SingleResourceStatistics
 from .single_user_historical_pull_response import SingleUserHistoricalPullResponse
@@ -1098,6 +1104,9 @@ __all__ = [
     "Consent",
     "ConsentType",
     "ContinuousQueryResultTableChanges",
+    "ContinuousQueryTaskHistoryEntry",
+    "ContinuousQueryTaskHistoryResponse",
+    "ContinuousQueryTaskStatus",
     "ContraceptiveEntry",
     "ContraceptiveEntryType",
     "DatePartExpr",
@@ -1236,6 +1245,8 @@ __all__ = [
     "HealthInsuranceCreateRequestFrontImage",
     "HealthInsuranceCreateRequestPatientSignatureImage",
     "HistoricalPullCompleted",
+    "HistoricalPullNonRetriableErrorDetails",
+    "HistoricalPullRetriableErrorDetails",
     "HistoricalPullStatus",
     "HistoricalPullTimeline",
     "HomePregnancyTestEntry",
@@ -1343,6 +1354,7 @@ __all__ = [
     "ShippingAddress",
     "ShippingAddressWithValidation",
     "SingleHistoricalPullStatistics",
+    "SingleHistoricalPullStatisticsErrorDetails",
     "SingleProviderHistoricalPullResponse",
     "SingleResourceStatistics",
     "SingleUserHistoricalPullResponse",

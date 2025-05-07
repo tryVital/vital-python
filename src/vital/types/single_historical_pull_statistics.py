@@ -5,6 +5,7 @@ from .historical_pull_status import HistoricalPullStatus
 import typing
 import datetime as dt
 from .historical_pull_timeline import HistoricalPullTimeline
+from .single_historical_pull_statistics_error_details import SingleHistoricalPullStatisticsErrorDetails
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
@@ -17,6 +18,7 @@ class SingleHistoricalPullStatistics(UniversalBaseModel):
     days_with_data: typing.Optional[int] = None
     release: str
     trace_id: typing.Optional[str] = None
+    error_details: typing.Optional[SingleHistoricalPullStatisticsErrorDetails] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
