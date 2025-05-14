@@ -7,6 +7,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .client_facing_at_home_phlebotomy_order import ClientFacingAtHomePhlebotomyOrder
+from .client_facing_on_site_collection_order import ClientFacingOnSiteCollectionOrder
 from .client_facing_testkit_order import ClientFacingTestkitOrder
 from .client_facing_walk_in_test_order import ClientFacingWalkInTestOrder
 
@@ -53,6 +54,23 @@ class ClientFacingOrderDetails_AtHomePhlebotomy(UniversalBaseModel):
             extra = pydantic.Extra.allow
 
 
+class ClientFacingOrderDetails_OnSiteCollection(UniversalBaseModel):
+    type: typing.Literal["on_site_collection"] = "on_site_collection"
+    data: typing.Optional[ClientFacingOnSiteCollectionOrder] = None
+
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
+
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow
+
+
 ClientFacingOrderDetails = typing.Union[
-    ClientFacingOrderDetails_WalkInTest, ClientFacingOrderDetails_Testkit, ClientFacingOrderDetails_AtHomePhlebotomy
+    ClientFacingOrderDetails_WalkInTest,
+    ClientFacingOrderDetails_Testkit,
+    ClientFacingOrderDetails_AtHomePhlebotomy,
+    ClientFacingOrderDetails_OnSiteCollection,
 ]

@@ -14,12 +14,14 @@ class LabTestCollectionMethod(str, enum.Enum):
     TESTKIT = "testkit"
     WALK_IN_TEST = "walk_in_test"
     AT_HOME_PHLEBOTOMY = "at_home_phlebotomy"
+    ON_SITE_COLLECTION = "on_site_collection"
 
     def visit(
         self,
         testkit: typing.Callable[[], T_Result],
         walk_in_test: typing.Callable[[], T_Result],
         at_home_phlebotomy: typing.Callable[[], T_Result],
+        on_site_collection: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is LabTestCollectionMethod.TESTKIT:
             return testkit()
@@ -27,3 +29,5 @@ class LabTestCollectionMethod(str, enum.Enum):
             return walk_in_test()
         if self is LabTestCollectionMethod.AT_HOME_PHLEBOTOMY:
             return at_home_phlebotomy()
+        if self is LabTestCollectionMethod.ON_SITE_COLLECTION:
+            return on_site_collection()

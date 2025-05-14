@@ -57,6 +57,14 @@ class OrderStatus(str, enum.Enum):
     CANCELLED_TESTKIT_DO_NOT_PROCESS = "cancelled.testkit.do_not_process"
     COLLECTING_SAMPLE_TESTKIT_PROBLEM_IN_TRANSIT_CUSTOMER = "collecting_sample.testkit.problem_in_transit_customer"
     COLLECTING_SAMPLE_TESTKIT_PROBLEM_IN_TRANSIT_LAB = "collecting_sample.testkit.problem_in_transit_lab"
+    RECEIVED_ON_SITE_COLLECTION_ORDERED = "received.on_site_collection.ordered"
+    RECEIVED_ON_SITE_COLLECTION_REQUISITION_CREATED = "received.on_site_collection.requisition_created"
+    RECEIVED_ON_SITE_COLLECTION_REQUISITION_BYPASSED = "received.on_site_collection.requisition_bypassed"
+    SAMPLE_WITH_LAB_ON_SITE_COLLECTION_DRAW_COMPLETED = "sample_with_lab.on_site_collection.draw_completed"
+    COMPLETED_ON_SITE_COLLECTION_COMPLETED = "completed.on_site_collection.completed"
+    CANCELLED_ON_SITE_COLLECTION_CANCELLED = "cancelled.on_site_collection.cancelled"
+    SAMPLE_WITH_LAB_ON_SITE_COLLECTION_PARTIAL_RESULTS = "sample_with_lab.on_site_collection.partial_results"
+    FAILED_ON_SITE_COLLECTION_SAMPLE_ERROR = "failed.on_site_collection.sample_error"
 
     def visit(
         self,
@@ -100,6 +108,14 @@ class OrderStatus(str, enum.Enum):
         cancelled_testkit_do_not_process: typing.Callable[[], T_Result],
         collecting_sample_testkit_problem_in_transit_customer: typing.Callable[[], T_Result],
         collecting_sample_testkit_problem_in_transit_lab: typing.Callable[[], T_Result],
+        received_on_site_collection_ordered: typing.Callable[[], T_Result],
+        received_on_site_collection_requisition_created: typing.Callable[[], T_Result],
+        received_on_site_collection_requisition_bypassed: typing.Callable[[], T_Result],
+        sample_with_lab_on_site_collection_draw_completed: typing.Callable[[], T_Result],
+        completed_on_site_collection_completed: typing.Callable[[], T_Result],
+        cancelled_on_site_collection_cancelled: typing.Callable[[], T_Result],
+        sample_with_lab_on_site_collection_partial_results: typing.Callable[[], T_Result],
+        failed_on_site_collection_sample_error: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is OrderStatus.RECEIVED_WALK_IN_TEST_ORDERED:
             return received_walk_in_test_ordered()
@@ -181,3 +197,19 @@ class OrderStatus(str, enum.Enum):
             return collecting_sample_testkit_problem_in_transit_customer()
         if self is OrderStatus.COLLECTING_SAMPLE_TESTKIT_PROBLEM_IN_TRANSIT_LAB:
             return collecting_sample_testkit_problem_in_transit_lab()
+        if self is OrderStatus.RECEIVED_ON_SITE_COLLECTION_ORDERED:
+            return received_on_site_collection_ordered()
+        if self is OrderStatus.RECEIVED_ON_SITE_COLLECTION_REQUISITION_CREATED:
+            return received_on_site_collection_requisition_created()
+        if self is OrderStatus.RECEIVED_ON_SITE_COLLECTION_REQUISITION_BYPASSED:
+            return received_on_site_collection_requisition_bypassed()
+        if self is OrderStatus.SAMPLE_WITH_LAB_ON_SITE_COLLECTION_DRAW_COMPLETED:
+            return sample_with_lab_on_site_collection_draw_completed()
+        if self is OrderStatus.COMPLETED_ON_SITE_COLLECTION_COMPLETED:
+            return completed_on_site_collection_completed()
+        if self is OrderStatus.CANCELLED_ON_SITE_COLLECTION_CANCELLED:
+            return cancelled_on_site_collection_cancelled()
+        if self is OrderStatus.SAMPLE_WITH_LAB_ON_SITE_COLLECTION_PARTIAL_RESULTS:
+            return sample_with_lab_on_site_collection_partial_results()
+        if self is OrderStatus.FAILED_ON_SITE_COLLECTION_SAMPLE_ERROR:
+            return failed_on_site_collection_sample_error()

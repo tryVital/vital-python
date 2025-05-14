@@ -265,12 +265,15 @@ from .client_facing_note_changed_event_type import ClientFacingNoteChangedEventT
 from .client_facing_note_historical_pull_completed import ClientFacingNoteHistoricalPullCompleted
 from .client_facing_note_sample import ClientFacingNoteSample
 from .client_facing_note_sample_tags_item import ClientFacingNoteSampleTagsItem
+from .client_facing_on_site_collection_order import ClientFacingOnSiteCollectionOrder
+from .client_facing_on_site_collection_order_details import ClientFacingOnSiteCollectionOrderDetails
 from .client_facing_order import ClientFacingOrder
 from .client_facing_order_changed import ClientFacingOrderChanged
 from .client_facing_order_changed_event_type import ClientFacingOrderChangedEventType
 from .client_facing_order_details import (
     ClientFacingOrderDetails,
     ClientFacingOrderDetails_AtHomePhlebotomy,
+    ClientFacingOrderDetails_OnSiteCollection,
     ClientFacingOrderDetails_Testkit,
     ClientFacingOrderDetails_WalkInTest,
 )
@@ -959,11 +962,14 @@ __all__ = [
     "ClientFacingNoteHistoricalPullCompleted",
     "ClientFacingNoteSample",
     "ClientFacingNoteSampleTagsItem",
+    "ClientFacingOnSiteCollectionOrder",
+    "ClientFacingOnSiteCollectionOrderDetails",
     "ClientFacingOrder",
     "ClientFacingOrderChanged",
     "ClientFacingOrderChangedEventType",
     "ClientFacingOrderDetails",
     "ClientFacingOrderDetails_AtHomePhlebotomy",
+    "ClientFacingOrderDetails_OnSiteCollection",
     "ClientFacingOrderDetails_Testkit",
     "ClientFacingOrderDetails_WalkInTest",
     "ClientFacingOrderEvent",
