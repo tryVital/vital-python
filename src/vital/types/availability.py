@@ -13,9 +13,25 @@ class Availability(str, enum.Enum):
 
     AVAILABLE = "available"
     UNAVAILABLE = "unavailable"
+    _UNKNOWN = "__AVAILABILITY_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
 
-    def visit(self, available: typing.Callable[[], T_Result], unavailable: typing.Callable[[], T_Result]) -> T_Result:
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "Availability":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
+
+    def visit(
+        self,
+        available: typing.Callable[[], T_Result],
+        unavailable: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
+    ) -> T_Result:
         if self is Availability.AVAILABLE:
             return available()
         if self is Availability.UNAVAILABLE:
             return unavailable()
+        return _unknown_member(self._value_)

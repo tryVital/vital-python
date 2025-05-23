@@ -22,6 +22,16 @@ class PasswordProviders(str, enum.Enum):
     MY_FITNESS_PAL = "my_fitness_pal"
     KARDIA = "kardia"
     ABBOTT_LIBREVIEW = "abbott_libreview"
+    _UNKNOWN = "__PASSWORDPROVIDERS_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "PasswordProviders":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -36,6 +46,7 @@ class PasswordProviders(str, enum.Enum):
         my_fitness_pal: typing.Callable[[], T_Result],
         kardia: typing.Callable[[], T_Result],
         abbott_libreview: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is PasswordProviders.WHOOP:
             return whoop()
@@ -59,3 +70,4 @@ class PasswordProviders(str, enum.Enum):
             return kardia()
         if self is PasswordProviders.ABBOTT_LIBREVIEW:
             return abbott_libreview()
+        return _unknown_member(self._value_)

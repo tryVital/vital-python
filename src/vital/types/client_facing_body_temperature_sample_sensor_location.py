@@ -19,6 +19,16 @@ class ClientFacingBodyTemperatureSampleSensorLocation(str, enum.Enum):
     TEMPORAL_ARTERY = "temporal_artery"
     FOREHEAD = "forehead"
     WRIST = "wrist"
+    _UNKNOWN = "__CLIENTFACINGBODYTEMPERATURESAMPLESENSORLOCATION_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "ClientFacingBodyTemperatureSampleSensorLocation":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -34,6 +44,7 @@ class ClientFacingBodyTemperatureSampleSensorLocation(str, enum.Enum):
         temporal_artery: typing.Callable[[], T_Result],
         forehead: typing.Callable[[], T_Result],
         wrist: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is ClientFacingBodyTemperatureSampleSensorLocation.ARMPIT:
             return armpit()
@@ -59,3 +70,4 @@ class ClientFacingBodyTemperatureSampleSensorLocation(str, enum.Enum):
             return forehead()
         if self is ClientFacingBodyTemperatureSampleSensorLocation.WRIST:
             return wrist()
+        return _unknown_member(self._value_)

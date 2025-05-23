@@ -8,7 +8,20 @@ T_Result = typing.TypeVar("T_Result")
 
 class Select(str, enum.Enum):
     SELECT_ALL = "*"
+    _UNKNOWN = "__SELECT_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
 
-    def visit(self, select_all: typing.Callable[[], T_Result]) -> T_Result:
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "Select":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
+
+    def visit(
+        self, select_all: typing.Callable[[], T_Result], _unknown_member: typing.Callable[[str], T_Result]
+    ) -> T_Result:
         if self is Select.SELECT_ALL:
             return select_all()
+        return _unknown_member(self._value_)

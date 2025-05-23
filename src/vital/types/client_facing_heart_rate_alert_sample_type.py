@@ -14,12 +14,23 @@ class ClientFacingHeartRateAlertSampleType(str, enum.Enum):
     LOW_HEART_RATE = "low_heart_rate"
     HIGH_HEART_RATE = "high_heart_rate"
     IRREGULAR_RHYTHM = "irregular_rhythm"
+    _UNKNOWN = "__CLIENTFACINGHEARTRATEALERTSAMPLETYPE_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "ClientFacingHeartRateAlertSampleType":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
         low_heart_rate: typing.Callable[[], T_Result],
         high_heart_rate: typing.Callable[[], T_Result],
         irregular_rhythm: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is ClientFacingHeartRateAlertSampleType.LOW_HEART_RATE:
             return low_heart_rate()
@@ -27,3 +38,4 @@ class ClientFacingHeartRateAlertSampleType(str, enum.Enum):
             return high_heart_rate()
         if self is ClientFacingHeartRateAlertSampleType.IRREGULAR_RHYTHM:
             return irregular_rhythm()
+        return _unknown_member(self._value_)

@@ -22,6 +22,16 @@ class FailureType(str, enum.Enum):
     MISSING_RESULT_CALC_FAILURE = "missing_result_calc_failure"
     MISSING_DEMO_AOE_CALC_FAILURE = "missing_demo_aoe_calc_failure"
     INSUFFICIENT_VOLUME = "insufficient_volume"
+    _UNKNOWN = "__FAILURETYPE_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "FailureType":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -36,6 +46,7 @@ class FailureType(str, enum.Enum):
         missing_result_calc_failure: typing.Callable[[], T_Result],
         missing_demo_aoe_calc_failure: typing.Callable[[], T_Result],
         insufficient_volume: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is FailureType.QUANTITY_NOT_SUFFICIENT_FAILURE:
             return quantity_not_sufficient_failure()
@@ -59,3 +70,4 @@ class FailureType(str, enum.Enum):
             return missing_demo_aoe_calc_failure()
         if self is FailureType.INSUFFICIENT_VOLUME:
             return insufficient_volume()
+        return _unknown_member(self._value_)

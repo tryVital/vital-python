@@ -22,6 +22,16 @@ class Labs(str, enum.Enum):
     SANOCARDIO = "sanocardio"
     IHD = "ihd"
     NEXUS = "nexus"
+    _UNKNOWN = "__LABS_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "Labs":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -36,6 +46,7 @@ class Labs(str, enum.Enum):
         sanocardio: typing.Callable[[], T_Result],
         ihd: typing.Callable[[], T_Result],
         nexus: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is Labs.AYUMETRIX:
             return ayumetrix()
@@ -59,3 +70,4 @@ class Labs(str, enum.Enum):
             return ihd()
         if self is Labs.NEXUS:
             return nexus()
+        return _unknown_member(self._value_)

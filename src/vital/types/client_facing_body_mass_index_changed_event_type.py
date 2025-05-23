@@ -9,13 +9,25 @@ T_Result = typing.TypeVar("T_Result")
 class ClientFacingBodyMassIndexChangedEventType(str, enum.Enum):
     DAILY_DATA_BODY_MASS_INDEX_CREATED = "daily.data.body_mass_index.created"
     DAILY_DATA_BODY_MASS_INDEX_UPDATED = "daily.data.body_mass_index.updated"
+    _UNKNOWN = "__CLIENTFACINGBODYMASSINDEXCHANGEDEVENTTYPE_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "ClientFacingBodyMassIndexChangedEventType":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
         daily_data_body_mass_index_created: typing.Callable[[], T_Result],
         daily_data_body_mass_index_updated: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is ClientFacingBodyMassIndexChangedEventType.DAILY_DATA_BODY_MASS_INDEX_CREATED:
             return daily_data_body_mass_index_created()
         if self is ClientFacingBodyMassIndexChangedEventType.DAILY_DATA_BODY_MASS_INDEX_UPDATED:
             return daily_data_body_mass_index_updated()
+        return _unknown_member(self._value_)

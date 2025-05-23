@@ -15,6 +15,16 @@ class BulkOpStatus(str, enum.Enum):
     SUCCESS = "success"
     FAILURE = "failure"
     ABORTED = "aborted"
+    _UNKNOWN = "__BULKOPSTATUS_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "BulkOpStatus":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -22,6 +32,7 @@ class BulkOpStatus(str, enum.Enum):
         success: typing.Callable[[], T_Result],
         failure: typing.Callable[[], T_Result],
         aborted: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is BulkOpStatus.IN_PROGRESS:
             return in_progress()
@@ -31,3 +42,4 @@ class BulkOpStatus(str, enum.Enum):
             return failure()
         if self is BulkOpStatus.ABORTED:
             return aborted()
+        return _unknown_member(self._value_)

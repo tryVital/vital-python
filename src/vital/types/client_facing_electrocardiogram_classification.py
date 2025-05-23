@@ -10,12 +10,23 @@ class ClientFacingElectrocardiogramClassification(str, enum.Enum):
     SINUS_RHYTHM = "sinus_rhythm"
     ATRIAL_FIBRILLATION = "atrial_fibrillation"
     INCONCLUSIVE = "inconclusive"
+    _UNKNOWN = "__CLIENTFACINGELECTROCARDIOGRAMCLASSIFICATION_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "ClientFacingElectrocardiogramClassification":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
         sinus_rhythm: typing.Callable[[], T_Result],
         atrial_fibrillation: typing.Callable[[], T_Result],
         inconclusive: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is ClientFacingElectrocardiogramClassification.SINUS_RHYTHM:
             return sinus_rhythm()
@@ -23,3 +34,4 @@ class ClientFacingElectrocardiogramClassification(str, enum.Enum):
             return atrial_fibrillation()
         if self is ClientFacingElectrocardiogramClassification.INCONCLUSIVE:
             return inconclusive()
+        return _unknown_member(self._value_)

@@ -11,6 +11,16 @@ class ClientFacingNoteSampleTagsItem(str, enum.Enum):
     EXERCISE = "exercise"
     INSULIN_INJECTION = "insulin_injection"
     UNSPECIFIED = "unspecified"
+    _UNKNOWN = "__CLIENTFACINGNOTESAMPLETAGSITEM_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "ClientFacingNoteSampleTagsItem":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -18,6 +28,7 @@ class ClientFacingNoteSampleTagsItem(str, enum.Enum):
         exercise: typing.Callable[[], T_Result],
         insulin_injection: typing.Callable[[], T_Result],
         unspecified: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is ClientFacingNoteSampleTagsItem.FOOD:
             return food()
@@ -27,3 +38,4 @@ class ClientFacingNoteSampleTagsItem(str, enum.Enum):
             return insulin_injection()
         if self is ClientFacingNoteSampleTagsItem.UNSPECIFIED:
             return unspecified()
+        return _unknown_member(self._value_)

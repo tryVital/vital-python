@@ -14,12 +14,23 @@ class DelegatedFlowType(str, enum.Enum):
     ORDER_AND_RESULTS_WITH_CUSTOMER_PHYSICIAN_NETWORK = "order_and_results_with_customer_physician_network"
     ORDER_WITH_VITAL_PHYSICIAN_NETWORK = "order_with_vital_physician_network"
     ORDER_AND_RESULTS_WITH_VITAL_PHYSICIAN_NETWORK = "order_and_results_with_vital_physician_network"
+    _UNKNOWN = "__DELEGATEDFLOWTYPE_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "DelegatedFlowType":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
         order_and_results_with_customer_physician_network: typing.Callable[[], T_Result],
         order_with_vital_physician_network: typing.Callable[[], T_Result],
         order_and_results_with_vital_physician_network: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is DelegatedFlowType.ORDER_AND_RESULTS_WITH_CUSTOMER_PHYSICIAN_NETWORK:
             return order_and_results_with_customer_physician_network()
@@ -27,3 +38,4 @@ class DelegatedFlowType(str, enum.Enum):
             return order_with_vital_physician_network()
         if self is DelegatedFlowType.ORDER_AND_RESULTS_WITH_VITAL_PHYSICIAN_NETWORK:
             return order_and_results_with_vital_physician_network()
+        return _unknown_member(self._value_)

@@ -9,13 +9,25 @@ T_Result = typing.TypeVar("T_Result")
 class ClientFacingHeartRateAlertChangedEventType(str, enum.Enum):
     DAILY_DATA_HEART_RATE_ALERT_CREATED = "daily.data.heart_rate_alert.created"
     DAILY_DATA_HEART_RATE_ALERT_UPDATED = "daily.data.heart_rate_alert.updated"
+    _UNKNOWN = "__CLIENTFACINGHEARTRATEALERTCHANGEDEVENTTYPE_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "ClientFacingHeartRateAlertChangedEventType":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
         daily_data_heart_rate_alert_created: typing.Callable[[], T_Result],
         daily_data_heart_rate_alert_updated: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is ClientFacingHeartRateAlertChangedEventType.DAILY_DATA_HEART_RATE_ALERT_CREATED:
             return daily_data_heart_rate_alert_created()
         if self is ClientFacingHeartRateAlertChangedEventType.DAILY_DATA_HEART_RATE_ALERT_UPDATED:
             return daily_data_heart_rate_alert_updated()
+        return _unknown_member(self._value_)

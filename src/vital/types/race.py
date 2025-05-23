@@ -17,6 +17,16 @@ class Race(str, enum.Enum):
     OTHER = "other"
     PACIFIC_ISLANDER_OR_HAWAIIAN = "pacific_islander_or_hawaiian"
     WHITE_CAUCASIAN = "white_caucasian"
+    _UNKNOWN = "__RACE_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "Race":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -26,6 +36,7 @@ class Race(str, enum.Enum):
         other: typing.Callable[[], T_Result],
         pacific_islander_or_hawaiian: typing.Callable[[], T_Result],
         white_caucasian: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is Race.AFRICAN_AMERICAN_OR_BLACK:
             return african_american_or_black()
@@ -39,3 +50,4 @@ class Race(str, enum.Enum):
             return pacific_islander_or_hawaiian()
         if self is Race.WHITE_CAUCASIAN:
             return white_caucasian()
+        return _unknown_member(self._value_)

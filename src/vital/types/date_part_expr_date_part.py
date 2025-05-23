@@ -16,6 +16,16 @@ class DatePartExprDatePart(str, enum.Enum):
     WEEKDAY = "weekday"
     WEEK_OF_YEAR = "week_of_year"
     DAY_OF_YEAR = "day_of_year"
+    _UNKNOWN = "__DATEPARTEXPRDATEPART_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "DatePartExprDatePart":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -28,6 +38,7 @@ class DatePartExprDatePart(str, enum.Enum):
         weekday: typing.Callable[[], T_Result],
         week_of_year: typing.Callable[[], T_Result],
         day_of_year: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is DatePartExprDatePart.MINUTE:
             return minute()
@@ -47,3 +58,4 @@ class DatePartExprDatePart(str, enum.Enum):
             return week_of_year()
         if self is DatePartExprDatePart.DAY_OF_YEAR:
             return day_of_year()
+        return _unknown_member(self._value_)

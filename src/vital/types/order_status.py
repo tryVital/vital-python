@@ -65,6 +65,16 @@ class OrderStatus(str, enum.Enum):
     CANCELLED_ON_SITE_COLLECTION_CANCELLED = "cancelled.on_site_collection.cancelled"
     SAMPLE_WITH_LAB_ON_SITE_COLLECTION_PARTIAL_RESULTS = "sample_with_lab.on_site_collection.partial_results"
     FAILED_ON_SITE_COLLECTION_SAMPLE_ERROR = "failed.on_site_collection.sample_error"
+    _UNKNOWN = "__ORDERSTATUS_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "OrderStatus":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -116,6 +126,7 @@ class OrderStatus(str, enum.Enum):
         cancelled_on_site_collection_cancelled: typing.Callable[[], T_Result],
         sample_with_lab_on_site_collection_partial_results: typing.Callable[[], T_Result],
         failed_on_site_collection_sample_error: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is OrderStatus.RECEIVED_WALK_IN_TEST_ORDERED:
             return received_walk_in_test_ordered()
@@ -213,3 +224,4 @@ class OrderStatus(str, enum.Enum):
             return sample_with_lab_on_site_collection_partial_results()
         if self is OrderStatus.FAILED_ON_SITE_COLLECTION_SAMPLE_ERROR:
             return failed_on_site_collection_sample_error()
+        return _unknown_member(self._value_)

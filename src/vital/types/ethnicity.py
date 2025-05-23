@@ -15,6 +15,16 @@ class Ethnicity(str, enum.Enum):
     NON_HISPANIC = "non_hispanic"
     ASHKENAZI_JEWISH = "ashkenazi_jewish"
     OTHER = "other"
+    _UNKNOWN = "__ETHNICITY_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "Ethnicity":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -22,6 +32,7 @@ class Ethnicity(str, enum.Enum):
         non_hispanic: typing.Callable[[], T_Result],
         ashkenazi_jewish: typing.Callable[[], T_Result],
         other: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is Ethnicity.HISPANIC:
             return hispanic()
@@ -31,3 +42,4 @@ class Ethnicity(str, enum.Enum):
             return ashkenazi_jewish()
         if self is Ethnicity.OTHER:
             return other()
+        return _unknown_member(self._value_)

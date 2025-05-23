@@ -9,13 +9,25 @@ T_Result = typing.TypeVar("T_Result")
 class ClientFacingWheelchairPushChangedEventType(str, enum.Enum):
     DAILY_DATA_WHEELCHAIR_PUSH_CREATED = "daily.data.wheelchair_push.created"
     DAILY_DATA_WHEELCHAIR_PUSH_UPDATED = "daily.data.wheelchair_push.updated"
+    _UNKNOWN = "__CLIENTFACINGWHEELCHAIRPUSHCHANGEDEVENTTYPE_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "ClientFacingWheelchairPushChangedEventType":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
         daily_data_wheelchair_push_created: typing.Callable[[], T_Result],
         daily_data_wheelchair_push_updated: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is ClientFacingWheelchairPushChangedEventType.DAILY_DATA_WHEELCHAIR_PUSH_CREATED:
             return daily_data_wheelchair_push_created()
         if self is ClientFacingWheelchairPushChangedEventType.DAILY_DATA_WHEELCHAIR_PUSH_UPDATED:
             return daily_data_wheelchair_push_updated()
+        return _unknown_member(self._value_)

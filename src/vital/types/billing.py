@@ -15,6 +15,16 @@ class Billing(str, enum.Enum):
     COMMERCIAL_INSURANCE = "commercial_insurance"
     PATIENT_BILL_PASSTHROUGH = "patient_bill_passthrough"
     PATIENT_BILL = "patient_bill"
+    _UNKNOWN = "__BILLING_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "Billing":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -22,6 +32,7 @@ class Billing(str, enum.Enum):
         commercial_insurance: typing.Callable[[], T_Result],
         patient_bill_passthrough: typing.Callable[[], T_Result],
         patient_bill: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is Billing.CLIENT_BILL:
             return client_bill()
@@ -31,3 +42,4 @@ class Billing(str, enum.Enum):
             return patient_bill_passthrough()
         if self is Billing.PATIENT_BILL:
             return patient_bill()
+        return _unknown_member(self._value_)

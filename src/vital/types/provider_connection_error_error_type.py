@@ -18,6 +18,16 @@ class ProviderConnectionErrorErrorType(str, enum.Enum):
     REQUIRED_SCOPES_NOT_GRANTED = "required_scopes_not_granted"
     PROVIDER_CREDENTIAL_ERROR = "provider_credential_error"
     UNKNOWN = "unknown"
+    _UNKNOWN = "__PROVIDERCONNECTIONERRORERRORTYPE_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "ProviderConnectionErrorErrorType":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -28,6 +38,7 @@ class ProviderConnectionErrorErrorType(str, enum.Enum):
         required_scopes_not_granted: typing.Callable[[], T_Result],
         provider_credential_error: typing.Callable[[], T_Result],
         unknown: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is ProviderConnectionErrorErrorType.TOKEN_REFRESH_FAILED:
             return token_refresh_failed()
@@ -43,3 +54,4 @@ class ProviderConnectionErrorErrorType(str, enum.Enum):
             return provider_credential_error()
         if self is ProviderConnectionErrorErrorType.UNKNOWN:
             return unknown()
+        return _unknown_member(self._value_)

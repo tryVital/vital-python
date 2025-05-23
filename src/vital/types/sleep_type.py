@@ -15,6 +15,16 @@ class SleepType(str, enum.Enum):
     SHORT_SLEEP = "short_sleep"
     ACKNOWLEDGED_NAP = "acknowledged_nap"
     UNKNOWN = "unknown"
+    _UNKNOWN = "__SLEEPTYPE_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "SleepType":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -22,6 +32,7 @@ class SleepType(str, enum.Enum):
         short_sleep: typing.Callable[[], T_Result],
         acknowledged_nap: typing.Callable[[], T_Result],
         unknown: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is SleepType.LONG_SLEEP:
             return long_sleep()
@@ -31,3 +42,4 @@ class SleepType(str, enum.Enum):
             return acknowledged_nap()
         if self is SleepType.UNKNOWN:
             return unknown()
+        return _unknown_member(self._value_)

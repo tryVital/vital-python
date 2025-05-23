@@ -14,12 +14,23 @@ class HomeProgesteroneTestEntryTestResult(str, enum.Enum):
     NEGATIVE = "negative"
     POSITIVE = "positive"
     INDETERMINATE = "indeterminate"
+    _UNKNOWN = "__HOMEPROGESTERONETESTENTRYTESTRESULT_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "HomeProgesteroneTestEntryTestResult":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
         negative: typing.Callable[[], T_Result],
         positive: typing.Callable[[], T_Result],
         indeterminate: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is HomeProgesteroneTestEntryTestResult.NEGATIVE:
             return negative()
@@ -27,3 +38,4 @@ class HomeProgesteroneTestEntryTestResult(str, enum.Enum):
             return positive()
         if self is HomeProgesteroneTestEntryTestResult.INDETERMINATE:
             return indeterminate()
+        return _unknown_member(self._value_)

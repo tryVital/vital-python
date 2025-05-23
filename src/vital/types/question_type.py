@@ -15,6 +15,16 @@ class QuestionType(str, enum.Enum):
     TEXT = "text"
     NUMERIC = "numeric"
     MULTI_CHOICE = "multi_choice"
+    _UNKNOWN = "__QUESTIONTYPE_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "QuestionType":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -22,6 +32,7 @@ class QuestionType(str, enum.Enum):
         text: typing.Callable[[], T_Result],
         numeric: typing.Callable[[], T_Result],
         multi_choice: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is QuestionType.CHOICE:
             return choice()
@@ -31,3 +42,4 @@ class QuestionType(str, enum.Enum):
             return numeric()
         if self is QuestionType.MULTI_CHOICE:
             return multi_choice()
+        return _unknown_member(self._value_)

@@ -9,13 +9,25 @@ T_Result = typing.TypeVar("T_Result")
 class ClientFacingWaistCircumferenceChangedEventType(str, enum.Enum):
     DAILY_DATA_WAIST_CIRCUMFERENCE_CREATED = "daily.data.waist_circumference.created"
     DAILY_DATA_WAIST_CIRCUMFERENCE_UPDATED = "daily.data.waist_circumference.updated"
+    _UNKNOWN = "__CLIENTFACINGWAISTCIRCUMFERENCECHANGEDEVENTTYPE_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "ClientFacingWaistCircumferenceChangedEventType":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
         daily_data_waist_circumference_created: typing.Callable[[], T_Result],
         daily_data_waist_circumference_updated: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is ClientFacingWaistCircumferenceChangedEventType.DAILY_DATA_WAIST_CIRCUMFERENCE_CREATED:
             return daily_data_waist_circumference_created()
         if self is ClientFacingWaistCircumferenceChangedEventType.DAILY_DATA_WAIST_CIRCUMFERENCE_UPDATED:
             return daily_data_waist_circumference_updated()
+        return _unknown_member(self._value_)

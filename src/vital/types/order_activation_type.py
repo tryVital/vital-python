@@ -13,9 +13,25 @@ class OrderActivationType(str, enum.Enum):
 
     CURRENT = "current"
     SCHEDULED = "scheduled"
+    _UNKNOWN = "__ORDERACTIVATIONTYPE_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
 
-    def visit(self, current: typing.Callable[[], T_Result], scheduled: typing.Callable[[], T_Result]) -> T_Result:
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "OrderActivationType":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
+
+    def visit(
+        self,
+        current: typing.Callable[[], T_Result],
+        scheduled: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
+    ) -> T_Result:
         if self is OrderActivationType.CURRENT:
             return current()
         if self is OrderActivationType.SCHEDULED:
             return scheduled()
+        return _unknown_member(self._value_)

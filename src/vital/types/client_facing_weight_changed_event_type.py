@@ -9,13 +9,25 @@ T_Result = typing.TypeVar("T_Result")
 class ClientFacingWeightChangedEventType(str, enum.Enum):
     DAILY_DATA_WEIGHT_CREATED = "daily.data.weight.created"
     DAILY_DATA_WEIGHT_UPDATED = "daily.data.weight.updated"
+    _UNKNOWN = "__CLIENTFACINGWEIGHTCHANGEDEVENTTYPE_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "ClientFacingWeightChangedEventType":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
         daily_data_weight_created: typing.Callable[[], T_Result],
         daily_data_weight_updated: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is ClientFacingWeightChangedEventType.DAILY_DATA_WEIGHT_CREATED:
             return daily_data_weight_created()
         if self is ClientFacingWeightChangedEventType.DAILY_DATA_WEIGHT_UPDATED:
             return daily_data_weight_updated()
+        return _unknown_member(self._value_)

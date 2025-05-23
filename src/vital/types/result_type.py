@@ -14,12 +14,23 @@ class ResultType(str, enum.Enum):
     NUMERIC = "numeric"
     RANGE = "range"
     COMMENT = "comment"
+    _UNKNOWN = "__RESULTTYPE_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "ResultType":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
         numeric: typing.Callable[[], T_Result],
         range: typing.Callable[[], T_Result],
         comment: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is ResultType.NUMERIC:
             return numeric()
@@ -27,3 +38,4 @@ class ResultType(str, enum.Enum):
             return range()
         if self is ResultType.COMMENT:
             return comment()
+        return _unknown_member(self._value_)

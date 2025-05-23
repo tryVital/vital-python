@@ -20,6 +20,16 @@ class Minerals(str, enum.Enum):
     ZINC = "zinc"
     FLUORIDE = "fluoride"
     CHLORIDE = "chloride"
+    _UNKNOWN = "__MINERALS_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "Minerals":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -32,6 +42,7 @@ class Minerals(str, enum.Enum):
         zinc: typing.Callable[[], T_Result],
         fluoride: typing.Callable[[], T_Result],
         chloride: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is Minerals.SODIUM:
             return sodium()
@@ -51,3 +62,4 @@ class Minerals(str, enum.Enum):
             return fluoride()
         if self is Minerals.CHLORIDE:
             return chloride()
+        return _unknown_member(self._value_)

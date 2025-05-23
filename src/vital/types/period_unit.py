@@ -17,6 +17,16 @@ class PeriodUnit(str, enum.Enum):
     WEEK = "week"
     MONTH = "month"
     YEAR = "year"
+    _UNKNOWN = "__PERIODUNIT_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "PeriodUnit":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -26,6 +36,7 @@ class PeriodUnit(str, enum.Enum):
         week: typing.Callable[[], T_Result],
         month: typing.Callable[[], T_Result],
         year: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is PeriodUnit.MINUTE:
             return minute()
@@ -39,3 +50,4 @@ class PeriodUnit(str, enum.Enum):
             return month()
         if self is PeriodUnit.YEAR:
             return year()
+        return _unknown_member(self._value_)

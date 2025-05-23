@@ -9,13 +9,25 @@ T_Result = typing.TypeVar("T_Result")
 class ClientFacingForcedExpiratoryVolume1ChangedEventType(str, enum.Enum):
     DAILY_DATA_FORCED_EXPIRATORY_VOLUME_1_CREATED = "daily.data.forced_expiratory_volume_1.created"
     DAILY_DATA_FORCED_EXPIRATORY_VOLUME_1_UPDATED = "daily.data.forced_expiratory_volume_1.updated"
+    _UNKNOWN = "__CLIENTFACINGFORCEDEXPIRATORYVOLUME1CHANGEDEVENTTYPE_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "ClientFacingForcedExpiratoryVolume1ChangedEventType":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
         daily_data_forced_expiratory_volume_1_created: typing.Callable[[], T_Result],
         daily_data_forced_expiratory_volume_1_updated: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is ClientFacingForcedExpiratoryVolume1ChangedEventType.DAILY_DATA_FORCED_EXPIRATORY_VOLUME_1_CREATED:
             return daily_data_forced_expiratory_volume_1_created()
         if self is ClientFacingForcedExpiratoryVolume1ChangedEventType.DAILY_DATA_FORCED_EXPIRATORY_VOLUME_1_UPDATED:
             return daily_data_forced_expiratory_volume_1_updated()
+        return _unknown_member(self._value_)

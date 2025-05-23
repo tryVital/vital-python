@@ -60,6 +60,16 @@ class Region(str, enum.Enum):
     KR = "kr"
     PH = "ph"
     TW = "tw"
+    _UNKNOWN = "__REGION_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "Region":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -112,6 +122,7 @@ class Region(str, enum.Enum):
         kr: typing.Callable[[], T_Result],
         ph: typing.Callable[[], T_Result],
         tw: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is Region.US:
             return us()
@@ -211,3 +222,4 @@ class Region(str, enum.Enum):
             return ph()
         if self is Region.TW:
             return tw()
+        return _unknown_member(self._value_)

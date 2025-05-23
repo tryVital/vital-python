@@ -15,6 +15,16 @@ class DemoProviders(str, enum.Enum):
     FITBIT = "fitbit"
     FREESTYLE_LIBRE = "freestyle_libre"
     OURA = "oura"
+    _UNKNOWN = "__DEMOPROVIDERS_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "DemoProviders":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -22,6 +32,7 @@ class DemoProviders(str, enum.Enum):
         fitbit: typing.Callable[[], T_Result],
         freestyle_libre: typing.Callable[[], T_Result],
         oura: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is DemoProviders.APPLE_HEALTH_KIT:
             return apple_health_kit()
@@ -31,3 +42,4 @@ class DemoProviders(str, enum.Enum):
             return freestyle_libre()
         if self is DemoProviders.OURA:
             return oura()
+        return _unknown_member(self._value_)

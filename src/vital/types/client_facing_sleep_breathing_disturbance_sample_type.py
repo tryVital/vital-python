@@ -9,9 +9,25 @@ T_Result = typing.TypeVar("T_Result")
 class ClientFacingSleepBreathingDisturbanceSampleType(str, enum.Enum):
     ELEVATED = "elevated"
     NOT_ELEVATED = "not_elevated"
+    _UNKNOWN = "__CLIENTFACINGSLEEPBREATHINGDISTURBANCESAMPLETYPE_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
 
-    def visit(self, elevated: typing.Callable[[], T_Result], not_elevated: typing.Callable[[], T_Result]) -> T_Result:
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "ClientFacingSleepBreathingDisturbanceSampleType":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
+
+    def visit(
+        self,
+        elevated: typing.Callable[[], T_Result],
+        not_elevated: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
+    ) -> T_Result:
         if self is ClientFacingSleepBreathingDisturbanceSampleType.ELEVATED:
             return elevated()
         if self is ClientFacingSleepBreathingDisturbanceSampleType.NOT_ELEVATED:
             return not_elevated()
+        return _unknown_member(self._value_)

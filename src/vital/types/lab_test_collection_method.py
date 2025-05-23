@@ -15,6 +15,16 @@ class LabTestCollectionMethod(str, enum.Enum):
     WALK_IN_TEST = "walk_in_test"
     AT_HOME_PHLEBOTOMY = "at_home_phlebotomy"
     ON_SITE_COLLECTION = "on_site_collection"
+    _UNKNOWN = "__LABTESTCOLLECTIONMETHOD_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "LabTestCollectionMethod":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -22,6 +32,7 @@ class LabTestCollectionMethod(str, enum.Enum):
         walk_in_test: typing.Callable[[], T_Result],
         at_home_phlebotomy: typing.Callable[[], T_Result],
         on_site_collection: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is LabTestCollectionMethod.TESTKIT:
             return testkit()
@@ -31,3 +42,4 @@ class LabTestCollectionMethod(str, enum.Enum):
             return at_home_phlebotomy()
         if self is LabTestCollectionMethod.ON_SITE_COLLECTION:
             return on_site_collection()
+        return _unknown_member(self._value_)

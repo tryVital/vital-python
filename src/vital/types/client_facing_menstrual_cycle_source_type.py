@@ -24,6 +24,16 @@ class ClientFacingMenstrualCycleSourceType(str, enum.Enum):
     CHEST_STRAP = "chest_strap"
     RING = "ring"
     LAB = "lab"
+    _UNKNOWN = "__CLIENTFACINGMENSTRUALCYCLESOURCETYPE_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "ClientFacingMenstrualCycleSourceType":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -40,6 +50,7 @@ class ClientFacingMenstrualCycleSourceType(str, enum.Enum):
         chest_strap: typing.Callable[[], T_Result],
         ring: typing.Callable[[], T_Result],
         lab: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is ClientFacingMenstrualCycleSourceType.UNKNOWN:
             return unknown()
@@ -67,3 +78,4 @@ class ClientFacingMenstrualCycleSourceType(str, enum.Enum):
             return ring()
         if self is ClientFacingMenstrualCycleSourceType.LAB:
             return lab()
+        return _unknown_member(self._value_)

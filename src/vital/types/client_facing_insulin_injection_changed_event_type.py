@@ -9,13 +9,25 @@ T_Result = typing.TypeVar("T_Result")
 class ClientFacingInsulinInjectionChangedEventType(str, enum.Enum):
     DAILY_DATA_INSULIN_INJECTION_CREATED = "daily.data.insulin_injection.created"
     DAILY_DATA_INSULIN_INJECTION_UPDATED = "daily.data.insulin_injection.updated"
+    _UNKNOWN = "__CLIENTFACINGINSULININJECTIONCHANGEDEVENTTYPE_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "ClientFacingInsulinInjectionChangedEventType":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
         daily_data_insulin_injection_created: typing.Callable[[], T_Result],
         daily_data_insulin_injection_updated: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is ClientFacingInsulinInjectionChangedEventType.DAILY_DATA_INSULIN_INJECTION_CREATED:
             return daily_data_insulin_injection_created()
         if self is ClientFacingInsulinInjectionChangedEventType.DAILY_DATA_INSULIN_INJECTION_UPDATED:
             return daily_data_insulin_injection_updated()
+        return _unknown_member(self._value_)

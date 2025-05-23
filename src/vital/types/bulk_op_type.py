@@ -13,13 +13,25 @@ class BulkOpType(str, enum.Enum):
 
     LINK_BULK_IMPORT = "link_bulk_import"
     LINK_BULK_HISTORICAL_TRIGGER = "link_bulk_historical_trigger"
+    _UNKNOWN = "__BULKOPTYPE_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "BulkOpType":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
         link_bulk_import: typing.Callable[[], T_Result],
         link_bulk_historical_trigger: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is BulkOpType.LINK_BULK_IMPORT:
             return link_bulk_import()
         if self is BulkOpType.LINK_BULK_HISTORICAL_TRIGGER:
             return link_bulk_historical_trigger()
+        return _unknown_member(self._value_)

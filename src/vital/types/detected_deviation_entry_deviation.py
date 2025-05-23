@@ -15,6 +15,16 @@ class DetectedDeviationEntryDeviation(str, enum.Enum):
     PROLONGED_MENSTRUAL_PERIODS = "prolonged_menstrual_periods"
     IRREGULAR_MENSTRUAL_CYCLES = "irregular_menstrual_cycles"
     INFREQUENT_MENSTRUAL_CYCLES = "infrequent_menstrual_cycles"
+    _UNKNOWN = "__DETECTEDDEVIATIONENTRYDEVIATION_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "DetectedDeviationEntryDeviation":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -22,6 +32,7 @@ class DetectedDeviationEntryDeviation(str, enum.Enum):
         prolonged_menstrual_periods: typing.Callable[[], T_Result],
         irregular_menstrual_cycles: typing.Callable[[], T_Result],
         infrequent_menstrual_cycles: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is DetectedDeviationEntryDeviation.PERSISTENT_INTERMENSTRUAL_BLEEDING:
             return persistent_intermenstrual_bleeding()
@@ -31,3 +42,4 @@ class DetectedDeviationEntryDeviation(str, enum.Enum):
             return irregular_menstrual_cycles()
         if self is DetectedDeviationEntryDeviation.INFREQUENT_MENSTRUAL_CYCLES:
             return infrequent_menstrual_cycles()
+        return _unknown_member(self._value_)

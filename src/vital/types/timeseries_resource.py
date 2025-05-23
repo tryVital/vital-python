@@ -66,6 +66,16 @@ class TimeseriesResource(str, enum.Enum):
     INSULIN_INJECTION = "insulin_injection"
     CARBOHYDRATES = "carbohydrates"
     NOTE = "note"
+    _UNKNOWN = "__TIMESERIESRESOURCE_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "TimeseriesResource":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -124,6 +134,7 @@ class TimeseriesResource(str, enum.Enum):
         insulin_injection: typing.Callable[[], T_Result],
         carbohydrates: typing.Callable[[], T_Result],
         note: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is TimeseriesResource.CALORIES_ACTIVE:
             return calories_active()
@@ -235,3 +246,4 @@ class TimeseriesResource(str, enum.Enum):
             return carbohydrates()
         if self is TimeseriesResource.NOTE:
             return note()
+        return _unknown_member(self._value_)

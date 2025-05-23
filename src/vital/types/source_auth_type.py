@@ -18,6 +18,16 @@ class SourceAuthType(str, enum.Enum):
     EMAIL = "email"
     APP = "app"
     EMPTY = ""
+    _UNKNOWN = "__SOURCEAUTHTYPE_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "SourceAuthType":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -28,6 +38,7 @@ class SourceAuthType(str, enum.Enum):
         email: typing.Callable[[], T_Result],
         app: typing.Callable[[], T_Result],
         empty: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is SourceAuthType.OAUTH:
             return oauth()
@@ -43,3 +54,4 @@ class SourceAuthType(str, enum.Enum):
             return app()
         if self is SourceAuthType.EMPTY:
             return empty()
+        return _unknown_member(self._value_)

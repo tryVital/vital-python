@@ -34,6 +34,16 @@ class ActivityColumnExprActivity(str, enum.Enum):
     SOURCE_APP_ID = "source_app_id"
     TIME_ZONE = "time_zone"
     TIME_ZONE_OFFSET = "time_zone_offset"
+    _UNKNOWN = "__ACTIVITYCOLUMNEXPRACTIVITY_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "ActivityColumnExprActivity":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -60,6 +70,7 @@ class ActivityColumnExprActivity(str, enum.Enum):
         source_app_id: typing.Callable[[], T_Result],
         time_zone: typing.Callable[[], T_Result],
         time_zone_offset: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is ActivityColumnExprActivity.DATE:
             return date()
@@ -107,3 +118,4 @@ class ActivityColumnExprActivity(str, enum.Enum):
             return time_zone()
         if self is ActivityColumnExprActivity.TIME_ZONE_OFFSET:
             return time_zone_offset()
+        return _unknown_member(self._value_)

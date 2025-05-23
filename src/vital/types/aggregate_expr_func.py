@@ -20,6 +20,16 @@ class AggregateExprFunc(str, enum.Enum):
     STDDEV = "stddev"
     OLDEST = "oldest"
     NEWEST = "newest"
+    _UNKNOWN = "__AGGREGATEEXPRFUNC_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "AggregateExprFunc":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -32,6 +42,7 @@ class AggregateExprFunc(str, enum.Enum):
         stddev: typing.Callable[[], T_Result],
         oldest: typing.Callable[[], T_Result],
         newest: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is AggregateExprFunc.MEAN:
             return mean()
@@ -51,3 +62,4 @@ class AggregateExprFunc(str, enum.Enum):
             return oldest()
         if self is AggregateExprFunc.NEWEST:
             return newest()
+        return _unknown_member(self._value_)

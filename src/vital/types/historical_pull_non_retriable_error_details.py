@@ -14,12 +14,23 @@ class HistoricalPullNonRetriableErrorDetails(str, enum.Enum):
     NON_RETRIABLE_ERROR = "non_retriable_error"
     UNEXPECTED_ERROR = "unexpected_error"
     RETRY_QUOTA_EXHAUSTED = "retry_quota_exhausted"
+    _UNKNOWN = "__HISTORICALPULLNONRETRIABLEERRORDETAILS_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "HistoricalPullNonRetriableErrorDetails":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
         non_retriable_error: typing.Callable[[], T_Result],
         unexpected_error: typing.Callable[[], T_Result],
         retry_quota_exhausted: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is HistoricalPullNonRetriableErrorDetails.NON_RETRIABLE_ERROR:
             return non_retriable_error()
@@ -27,3 +38,4 @@ class HistoricalPullNonRetriableErrorDetails(str, enum.Enum):
             return unexpected_error()
         if self is HistoricalPullNonRetriableErrorDetails.RETRY_QUOTA_EXHAUSTED:
             return retry_quota_exhausted()
+        return _unknown_member(self._value_)

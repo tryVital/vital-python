@@ -24,6 +24,16 @@ class Vitamins(str, enum.Enum):
     VITAMIN_E = "vitamin_e"
     VITAMIN_K = "vitamin_k"
     FOLIC_ACID = "folic_acid"
+    _UNKNOWN = "__VITAMINS_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "Vitamins":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -40,6 +50,7 @@ class Vitamins(str, enum.Enum):
         vitamin_e: typing.Callable[[], T_Result],
         vitamin_k: typing.Callable[[], T_Result],
         folic_acid: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is Vitamins.VITAMIN_A:
             return vitamin_a()
@@ -67,3 +78,4 @@ class Vitamins(str, enum.Enum):
             return vitamin_k()
         if self is Vitamins.FOLIC_ACID:
             return folic_acid()
+        return _unknown_member(self._value_)

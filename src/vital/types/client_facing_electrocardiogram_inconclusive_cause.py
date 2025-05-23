@@ -10,12 +10,23 @@ class ClientFacingElectrocardiogramInconclusiveCause(str, enum.Enum):
     HIGH_HEART_RATE = "high_heart_rate"
     LOW_HEART_RATE = "low_heart_rate"
     POOR_READING = "poor_reading"
+    _UNKNOWN = "__CLIENTFACINGELECTROCARDIOGRAMINCONCLUSIVECAUSE_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "ClientFacingElectrocardiogramInconclusiveCause":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
         high_heart_rate: typing.Callable[[], T_Result],
         low_heart_rate: typing.Callable[[], T_Result],
         poor_reading: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is ClientFacingElectrocardiogramInconclusiveCause.HIGH_HEART_RATE:
             return high_heart_rate()
@@ -23,3 +34,4 @@ class ClientFacingElectrocardiogramInconclusiveCause(str, enum.Enum):
             return low_heart_rate()
         if self is ClientFacingElectrocardiogramInconclusiveCause.POOR_READING:
             return poor_reading()
+        return _unknown_member(self._value_)

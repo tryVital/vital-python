@@ -39,6 +39,16 @@ class SleepColumnExprSleep(str, enum.Enum):
     SOURCE_PROVIDER = "source_provider"
     SOURCE_APP_ID = "source_app_id"
     TIME_ZONE = "time_zone"
+    _UNKNOWN = "__SLEEPCOLUMNEXPRSLEEP_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "SleepColumnExprSleep":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -70,6 +80,7 @@ class SleepColumnExprSleep(str, enum.Enum):
         source_provider: typing.Callable[[], T_Result],
         source_app_id: typing.Callable[[], T_Result],
         time_zone: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is SleepColumnExprSleep.SESSION_START:
             return session_start()
@@ -127,3 +138,4 @@ class SleepColumnExprSleep(str, enum.Enum):
             return source_app_id()
         if self is SleepColumnExprSleep.TIME_ZONE:
             return time_zone()
+        return _unknown_member(self._value_)

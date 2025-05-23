@@ -16,6 +16,16 @@ class HistoricalPullStatus(str, enum.Enum):
     IN_PROGRESS = "in_progress"
     SCHEDULED = "scheduled"
     RETRYING = "retrying"
+    _UNKNOWN = "__HISTORICALPULLSTATUS_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "HistoricalPullStatus":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -24,6 +34,7 @@ class HistoricalPullStatus(str, enum.Enum):
         in_progress: typing.Callable[[], T_Result],
         scheduled: typing.Callable[[], T_Result],
         retrying: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is HistoricalPullStatus.SUCCESS:
             return success()
@@ -35,3 +46,4 @@ class HistoricalPullStatus(str, enum.Enum):
             return scheduled()
         if self is HistoricalPullStatus.RETRYING:
             return retrying()
+        return _unknown_member(self._value_)

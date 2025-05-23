@@ -16,6 +16,16 @@ class MenstrualFlowEntryFlow(str, enum.Enum):
     LIGHT = "light"
     MEDIUM = "medium"
     HEAVY = "heavy"
+    _UNKNOWN = "__MENSTRUALFLOWENTRYFLOW_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "MenstrualFlowEntryFlow":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -24,6 +34,7 @@ class MenstrualFlowEntryFlow(str, enum.Enum):
         light: typing.Callable[[], T_Result],
         medium: typing.Callable[[], T_Result],
         heavy: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is MenstrualFlowEntryFlow.UNSPECIFIED:
             return unspecified()
@@ -35,3 +46,4 @@ class MenstrualFlowEntryFlow(str, enum.Enum):
             return medium()
         if self is MenstrualFlowEntryFlow.HEAVY:
             return heavy()
+        return _unknown_member(self._value_)

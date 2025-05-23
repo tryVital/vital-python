@@ -17,6 +17,16 @@ class TraceElements(str, enum.Enum):
     MANGANESE = "manganese"
     MOLYBDENUM = "molybdenum"
     SELENIUM = "selenium"
+    _UNKNOWN = "__TRACEELEMENTS_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "TraceElements":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -26,6 +36,7 @@ class TraceElements(str, enum.Enum):
         manganese: typing.Callable[[], T_Result],
         molybdenum: typing.Callable[[], T_Result],
         selenium: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is TraceElements.CHROMIUM:
             return chromium()
@@ -39,3 +50,4 @@ class TraceElements(str, enum.Enum):
             return molybdenum()
         if self is TraceElements.SELENIUM:
             return selenium()
+        return _unknown_member(self._value_)

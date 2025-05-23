@@ -9,13 +9,25 @@ T_Result = typing.TypeVar("T_Result")
 class ClientFacingElectrocardiogramVoltageChangedEventType(str, enum.Enum):
     DAILY_DATA_ELECTROCARDIOGRAM_VOLTAGE_CREATED = "daily.data.electrocardiogram_voltage.created"
     DAILY_DATA_ELECTROCARDIOGRAM_VOLTAGE_UPDATED = "daily.data.electrocardiogram_voltage.updated"
+    _UNKNOWN = "__CLIENTFACINGELECTROCARDIOGRAMVOLTAGECHANGEDEVENTTYPE_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "ClientFacingElectrocardiogramVoltageChangedEventType":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
         daily_data_electrocardiogram_voltage_created: typing.Callable[[], T_Result],
         daily_data_electrocardiogram_voltage_updated: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is ClientFacingElectrocardiogramVoltageChangedEventType.DAILY_DATA_ELECTROCARDIOGRAM_VOLTAGE_CREATED:
             return daily_data_electrocardiogram_voltage_created()
         if self is ClientFacingElectrocardiogramVoltageChangedEventType.DAILY_DATA_ELECTROCARDIOGRAM_VOLTAGE_UPDATED:
             return daily_data_electrocardiogram_voltage_updated()
+        return _unknown_member(self._value_)

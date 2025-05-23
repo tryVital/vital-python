@@ -17,6 +17,16 @@ class ConsentType(str, enum.Enum):
     NOTICE_OF_PRIVACY_PRACTICES = "notice-of-privacy-practices"
     PRIVACY_POLICY = "privacy-policy"
     HIPAA_AUTHORIZATION = "hipaa-authorization"
+    _UNKNOWN = "__CONSENTTYPE_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "ConsentType":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -26,6 +36,7 @@ class ConsentType(str, enum.Enum):
         notice_of_privacy_practices: typing.Callable[[], T_Result],
         privacy_policy: typing.Callable[[], T_Result],
         hipaa_authorization: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is ConsentType.TERMS_OF_USE:
             return terms_of_use()
@@ -39,3 +50,4 @@ class ConsentType(str, enum.Enum):
             return privacy_policy()
         if self is ConsentType.HIPAA_AUTHORIZATION:
             return hipaa_authorization()
+        return _unknown_member(self._value_)

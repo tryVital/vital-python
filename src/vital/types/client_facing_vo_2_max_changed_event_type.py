@@ -9,13 +9,25 @@ T_Result = typing.TypeVar("T_Result")
 class ClientFacingVo2MaxChangedEventType(str, enum.Enum):
     DAILY_DATA_VO_2_MAX_CREATED = "daily.data.vo2_max.created"
     DAILY_DATA_VO_2_MAX_UPDATED = "daily.data.vo2_max.updated"
+    _UNKNOWN = "__CLIENTFACINGVO2MAXCHANGEDEVENTTYPE_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "ClientFacingVo2MaxChangedEventType":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
         daily_data_vo_2_max_created: typing.Callable[[], T_Result],
         daily_data_vo_2_max_updated: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is ClientFacingVo2MaxChangedEventType.DAILY_DATA_VO_2_MAX_CREATED:
             return daily_data_vo_2_max_created()
         if self is ClientFacingVo2MaxChangedEventType.DAILY_DATA_VO_2_MAX_UPDATED:
             return daily_data_vo_2_max_updated()
+        return _unknown_member(self._value_)

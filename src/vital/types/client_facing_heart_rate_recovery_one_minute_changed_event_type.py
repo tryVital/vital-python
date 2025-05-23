@@ -9,11 +9,22 @@ T_Result = typing.TypeVar("T_Result")
 class ClientFacingHeartRateRecoveryOneMinuteChangedEventType(str, enum.Enum):
     DAILY_DATA_HEART_RATE_RECOVERY_ONE_MINUTE_CREATED = "daily.data.heart_rate_recovery_one_minute.created"
     DAILY_DATA_HEART_RATE_RECOVERY_ONE_MINUTE_UPDATED = "daily.data.heart_rate_recovery_one_minute.updated"
+    _UNKNOWN = "__CLIENTFACINGHEARTRATERECOVERYONEMINUTECHANGEDEVENTTYPE_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "ClientFacingHeartRateRecoveryOneMinuteChangedEventType":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
         daily_data_heart_rate_recovery_one_minute_created: typing.Callable[[], T_Result],
         daily_data_heart_rate_recovery_one_minute_updated: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if (
             self
@@ -25,3 +36,4 @@ class ClientFacingHeartRateRecoveryOneMinuteChangedEventType(str, enum.Enum):
             is ClientFacingHeartRateRecoveryOneMinuteChangedEventType.DAILY_DATA_HEART_RATE_RECOVERY_ONE_MINUTE_UPDATED
         ):
             return daily_data_heart_rate_recovery_one_minute_updated()
+        return _unknown_member(self._value_)

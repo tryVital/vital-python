@@ -16,6 +16,16 @@ class LabTestSampleType(str, enum.Enum):
     SERUM = "serum"
     SALIVA = "saliva"
     URINE = "urine"
+    _UNKNOWN = "__LABTESTSAMPLETYPE_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "LabTestSampleType":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -24,6 +34,7 @@ class LabTestSampleType(str, enum.Enum):
         serum: typing.Callable[[], T_Result],
         saliva: typing.Callable[[], T_Result],
         urine: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is LabTestSampleType.DRIED_BLOOD_SPOT:
             return dried_blood_spot()
@@ -35,3 +46,4 @@ class LabTestSampleType(str, enum.Enum):
             return saliva()
         if self is LabTestSampleType.URINE:
             return urine()
+        return _unknown_member(self._value_)

@@ -9,13 +9,25 @@ T_Result = typing.TypeVar("T_Result")
 class ClientFacingProfileChangedEventType(str, enum.Enum):
     DAILY_DATA_PROFILE_CREATED = "daily.data.profile.created"
     DAILY_DATA_PROFILE_UPDATED = "daily.data.profile.updated"
+    _UNKNOWN = "__CLIENTFACINGPROFILECHANGEDEVENTTYPE_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "ClientFacingProfileChangedEventType":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
         daily_data_profile_created: typing.Callable[[], T_Result],
         daily_data_profile_updated: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is ClientFacingProfileChangedEventType.DAILY_DATA_PROFILE_CREATED:
             return daily_data_profile_created()
         if self is ClientFacingProfileChangedEventType.DAILY_DATA_PROFILE_UPDATED:
             return daily_data_profile_updated()
+        return _unknown_member(self._value_)

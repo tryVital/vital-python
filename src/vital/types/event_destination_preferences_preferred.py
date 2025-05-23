@@ -15,6 +15,16 @@ class EventDestinationPreferencesPreferred(str, enum.Enum):
     RABBITMQ = "rabbitmq"
     SVIX = "svix"
     AZURE_AMQP = "azure_amqp"
+    _UNKNOWN = "__EVENTDESTINATIONPREFERENCESPREFERRED_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "EventDestinationPreferencesPreferred":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -22,6 +32,7 @@ class EventDestinationPreferencesPreferred(str, enum.Enum):
         rabbitmq: typing.Callable[[], T_Result],
         svix: typing.Callable[[], T_Result],
         azure_amqp: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is EventDestinationPreferencesPreferred.CLOUD_PUBSUB:
             return cloud_pubsub()
@@ -31,3 +42,4 @@ class EventDestinationPreferencesPreferred(str, enum.Enum):
             return svix()
         if self is EventDestinationPreferencesPreferred.AZURE_AMQP:
             return azure_amqp()
+        return _unknown_member(self._value_)

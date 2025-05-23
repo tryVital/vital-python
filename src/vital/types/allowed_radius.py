@@ -15,6 +15,16 @@ class AllowedRadius(str, enum.Enum):
     TWENTY = "20"
     TWENTY_FIVE = "25"
     FIFTY = "50"
+    _UNKNOWN = "__ALLOWEDRADIUS_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "AllowedRadius":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -22,6 +32,7 @@ class AllowedRadius(str, enum.Enum):
         twenty: typing.Callable[[], T_Result],
         twenty_five: typing.Callable[[], T_Result],
         fifty: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is AllowedRadius.TEN:
             return ten()
@@ -31,3 +42,4 @@ class AllowedRadius(str, enum.Enum):
             return twenty_five()
         if self is AllowedRadius.FIFTY:
             return fifty()
+        return _unknown_member(self._value_)

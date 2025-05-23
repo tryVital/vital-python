@@ -35,6 +35,16 @@ class OrderLowLevelStatus(str, enum.Enum):
     PARTIAL_RESULTS = "partial_results"
     AWAITING_REGISTRATION = "awaiting_registration"
     REGISTERED = "registered"
+    _UNKNOWN = "__ORDERLOWLEVELSTATUS_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "OrderLowLevelStatus":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -62,6 +72,7 @@ class OrderLowLevelStatus(str, enum.Enum):
         partial_results: typing.Callable[[], T_Result],
         awaiting_registration: typing.Callable[[], T_Result],
         registered: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is OrderLowLevelStatus.ORDERED:
             return ordered()
@@ -111,3 +122,4 @@ class OrderLowLevelStatus(str, enum.Enum):
             return awaiting_registration()
         if self is OrderLowLevelStatus.REGISTERED:
             return registered()
+        return _unknown_member(self._value_)

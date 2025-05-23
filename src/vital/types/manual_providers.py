@@ -20,6 +20,16 @@ class ManualProviders(str, enum.Enum):
     APPLE_HEALTH_KIT = "apple_health_kit"
     MANUAL = "manual"
     HEALTH_CONNECT = "health_connect"
+    _UNKNOWN = "__MANUALPROVIDERS_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "ManualProviders":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -32,6 +42,7 @@ class ManualProviders(str, enum.Enum):
         apple_health_kit: typing.Callable[[], T_Result],
         manual: typing.Callable[[], T_Result],
         health_connect: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is ManualProviders.BEURER_BLE:
             return beurer_ble()
@@ -51,3 +62,4 @@ class ManualProviders(str, enum.Enum):
             return manual()
         if self is ManualProviders.HEALTH_CONNECT:
             return health_connect()
+        return _unknown_member(self._value_)

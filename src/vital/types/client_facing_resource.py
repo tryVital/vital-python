@@ -78,6 +78,16 @@ class ClientFacingResource(str, enum.Enum):
     NOTE = "note"
     SLEEP_STREAM = "sleep_stream"
     HYPNOGRAM = "hypnogram"
+    _UNKNOWN = "__CLIENTFACINGRESOURCE_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "ClientFacingResource":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -148,6 +158,7 @@ class ClientFacingResource(str, enum.Enum):
         note: typing.Callable[[], T_Result],
         sleep_stream: typing.Callable[[], T_Result],
         hypnogram: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is ClientFacingResource.PROFILE:
             return profile()
@@ -283,3 +294,4 @@ class ClientFacingResource(str, enum.Enum):
             return sleep_stream()
         if self is ClientFacingResource.HYPNOGRAM:
             return hypnogram()
+        return _unknown_member(self._value_)

@@ -16,6 +16,16 @@ class CervicalMucusEntryQuality(str, enum.Enum):
     CREAMY = "creamy"
     WATERY = "watery"
     EGG_WHITE = "egg_white"
+    _UNKNOWN = "__CERVICALMUCUSENTRYQUALITY_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "CervicalMucusEntryQuality":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -24,6 +34,7 @@ class CervicalMucusEntryQuality(str, enum.Enum):
         creamy: typing.Callable[[], T_Result],
         watery: typing.Callable[[], T_Result],
         egg_white: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is CervicalMucusEntryQuality.DRY:
             return dry()
@@ -35,3 +46,4 @@ class CervicalMucusEntryQuality(str, enum.Enum):
             return watery()
         if self is CervicalMucusEntryQuality.EGG_WHITE:
             return egg_white()
+        return _unknown_member(self._value_)

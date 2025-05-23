@@ -14,12 +14,23 @@ class LabTestGenerationMethodFilter(str, enum.Enum):
     AUTO = "auto"
     MANUAL = "manual"
     ALL = "all"
+    _UNKNOWN = "__LABTESTGENERATIONMETHODFILTER_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "LabTestGenerationMethodFilter":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
         auto: typing.Callable[[], T_Result],
         manual: typing.Callable[[], T_Result],
         all_: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is LabTestGenerationMethodFilter.AUTO:
             return auto()
@@ -27,3 +38,4 @@ class LabTestGenerationMethodFilter(str, enum.Enum):
             return manual()
         if self is LabTestGenerationMethodFilter.ALL:
             return all_()
+        return _unknown_member(self._value_)

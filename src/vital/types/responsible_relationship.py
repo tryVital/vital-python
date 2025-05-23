@@ -14,12 +14,23 @@ class ResponsibleRelationship(str, enum.Enum):
     SELF = "Self"
     SPOUSE = "Spouse"
     OTHER = "Other"
+    _UNKNOWN = "__RESPONSIBLERELATIONSHIP_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "ResponsibleRelationship":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
         self_: typing.Callable[[], T_Result],
         spouse: typing.Callable[[], T_Result],
         other: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is ResponsibleRelationship.SELF:
             return self_()
@@ -27,3 +38,4 @@ class ResponsibleRelationship(str, enum.Enum):
             return spouse()
         if self is ResponsibleRelationship.OTHER:
             return other()
+        return _unknown_member(self._value_)

@@ -17,6 +17,16 @@ class GenderIdentity(str, enum.Enum):
     MALE_TO_FEMALE_MTF_TRANSGENDER_FEMALE_TRANS_WOMAN = "male_to_female_mtf_transgender_female_trans_woman"
     GENDERQUEER = "genderqueer"
     OTHER = "other"
+    _UNKNOWN = "__GENDERIDENTITY_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "GenderIdentity":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -26,6 +36,7 @@ class GenderIdentity(str, enum.Enum):
         male_to_female_mtf_transgender_female_trans_woman: typing.Callable[[], T_Result],
         genderqueer: typing.Callable[[], T_Result],
         other: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is GenderIdentity.MALE:
             return male()
@@ -39,3 +50,4 @@ class GenderIdentity(str, enum.Enum):
             return genderqueer()
         if self is GenderIdentity.OTHER:
             return other()
+        return _unknown_member(self._value_)

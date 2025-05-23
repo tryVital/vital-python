@@ -16,6 +16,16 @@ class SexualOrientation(str, enum.Enum):
     BISEXUAL = "bisexual"
     DONT_KNOW = "dont_know"
     OTHER = "other"
+    _UNKNOWN = "__SEXUALORIENTATION_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "SexualOrientation":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -24,6 +34,7 @@ class SexualOrientation(str, enum.Enum):
         bisexual: typing.Callable[[], T_Result],
         dont_know: typing.Callable[[], T_Result],
         other: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is SexualOrientation.LESBIAN_GAY_OR_HOMOSEXUAL:
             return lesbian_gay_or_homosexual()
@@ -35,3 +46,4 @@ class SexualOrientation(str, enum.Enum):
             return dont_know()
         if self is SexualOrientation.OTHER:
             return other()
+        return _unknown_member(self._value_)

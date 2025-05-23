@@ -16,6 +16,16 @@ class IndexColumnExprIndex(str, enum.Enum):
     WORKOUT = "workout"
     BODY = "body"
     MEAL = "meal"
+    _UNKNOWN = "__INDEXCOLUMNEXPRINDEX_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "IndexColumnExprIndex":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
 
     def visit(
         self,
@@ -24,6 +34,7 @@ class IndexColumnExprIndex(str, enum.Enum):
         workout: typing.Callable[[], T_Result],
         body: typing.Callable[[], T_Result],
         meal: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is IndexColumnExprIndex.SLEEP:
             return sleep()
@@ -35,3 +46,4 @@ class IndexColumnExprIndex(str, enum.Enum):
             return body()
         if self is IndexColumnExprIndex.MEAL:
             return meal()
+        return _unknown_member(self._value_)
