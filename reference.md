@@ -14040,6 +14040,71 @@ client.lab_tests.simulate_order_process(order_id='order_id', )
 </dl>
 </details>
 
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">update_on_site_collection_order_draw_completed</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+PATCH update on site collection order when draw is completed
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.update_on_site_collection_order_draw_completed(order_id='order_id', )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**order_id:** `str` — Your Order ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_orders</a>(...)</code></summary>
 <dl>
 <dd>
@@ -14158,6 +14223,14 @@ client.lab_tests.get_orders()
 <dd>
 
 **is_critical:** `typing.Optional[bool]` — Filter by critical order status.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**interpretation:** `typing.Optional[Interpretation]` — Filter by result interpretation of the lab test.
     
 </dd>
 </dl>

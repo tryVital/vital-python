@@ -33,6 +33,7 @@ from ..types.get_markers_response import GetMarkersResponse
 from ..types.get_orders_response import GetOrdersResponse
 from ..types.health_insurance_create_request import HealthInsuranceCreateRequest
 from ..types.http_validation_error import HttpValidationError
+from ..types.interpretation import Interpretation
 from ..types.lab_results_metadata import LabResultsMetadata
 from ..types.lab_results_raw import LabResultsRaw
 from ..types.lab_test_collection_method import LabTestCollectionMethod
@@ -2472,6 +2473,56 @@ class RawLabTestsClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def update_on_site_collection_order_draw_completed(
+        self, order_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[PostOrderResponse]:
+        """
+        PATCH update on site collection order when draw is completed
+
+        Parameters
+        ----------
+        order_id : str
+            Your Order ID.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[PostOrderResponse]
+            Successful Response
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v3/order/{jsonable_encoder(order_id)}/draw_completed",
+            method="PATCH",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PostOrderResponse,
+                    parse_obj_as(
+                        type_=PostOrderResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
     def get_orders(
         self,
         *,
@@ -2487,6 +2538,7 @@ class RawLabTestsClient:
             typing.Union[LabTestCollectionMethod, typing.Sequence[LabTestCollectionMethod]]
         ] = None,
         is_critical: typing.Optional[bool] = None,
+        interpretation: typing.Optional[Interpretation] = None,
         order_activation_types: typing.Optional[
             typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]
         ] = None,
@@ -2533,6 +2585,9 @@ class RawLabTestsClient:
         is_critical : typing.Optional[bool]
             Filter by critical order status.
 
+        interpretation : typing.Optional[Interpretation]
+            Filter by result interpretation of the lab test.
+
         order_activation_types : typing.Optional[typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]]
             Filter by activation type.
 
@@ -2576,6 +2631,7 @@ class RawLabTestsClient:
                 "order_direction": order_direction,
                 "order_type": order_type,
                 "is_critical": is_critical,
+                "interpretation": interpretation,
                 "order_activation_types": order_activation_types,
                 "user_id": user_id,
                 "patient_name": patient_name,
@@ -5030,6 +5086,56 @@ class AsyncRawLabTestsClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    async def update_on_site_collection_order_draw_completed(
+        self, order_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[PostOrderResponse]:
+        """
+        PATCH update on site collection order when draw is completed
+
+        Parameters
+        ----------
+        order_id : str
+            Your Order ID.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[PostOrderResponse]
+            Successful Response
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v3/order/{jsonable_encoder(order_id)}/draw_completed",
+            method="PATCH",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PostOrderResponse,
+                    parse_obj_as(
+                        type_=PostOrderResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
     async def get_orders(
         self,
         *,
@@ -5045,6 +5151,7 @@ class AsyncRawLabTestsClient:
             typing.Union[LabTestCollectionMethod, typing.Sequence[LabTestCollectionMethod]]
         ] = None,
         is_critical: typing.Optional[bool] = None,
+        interpretation: typing.Optional[Interpretation] = None,
         order_activation_types: typing.Optional[
             typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]
         ] = None,
@@ -5091,6 +5198,9 @@ class AsyncRawLabTestsClient:
         is_critical : typing.Optional[bool]
             Filter by critical order status.
 
+        interpretation : typing.Optional[Interpretation]
+            Filter by result interpretation of the lab test.
+
         order_activation_types : typing.Optional[typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]]
             Filter by activation type.
 
@@ -5134,6 +5244,7 @@ class AsyncRawLabTestsClient:
                 "order_direction": order_direction,
                 "order_type": order_type,
                 "is_critical": is_critical,
+                "interpretation": interpretation,
                 "order_activation_types": order_activation_types,
                 "user_id": user_id,
                 "patient_name": patient_name,

@@ -25,7 +25,7 @@ class ClientFacingCriticalResult(UniversalBaseModel):
 
     interpretation: str = pydantic.Field()
     """
-    The results interpretation, can be either (normal, abnormal, critical).
+    The results interpretation, can be one of (normal, abnormal, critical).
     """
 
     team_id: str = pydantic.Field()

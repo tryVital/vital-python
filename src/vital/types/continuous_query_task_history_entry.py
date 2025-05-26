@@ -9,7 +9,6 @@ from .continuous_query_task_status import ContinuousQueryTaskStatus
 
 
 class ContinuousQueryTaskHistoryEntry(UniversalBaseModel):
-    tasker_todo_id: int
     query_id: str
     user_id: str
     status: ContinuousQueryTaskStatus

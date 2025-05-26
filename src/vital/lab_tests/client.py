@@ -24,6 +24,7 @@ from ..types.consent import Consent
 from ..types.get_markers_response import GetMarkersResponse
 from ..types.get_orders_response import GetOrdersResponse
 from ..types.health_insurance_create_request import HealthInsuranceCreateRequest
+from ..types.interpretation import Interpretation
 from ..types.lab_results_metadata import LabResultsMetadata
 from ..types.lab_results_raw import LabResultsRaw
 from ..types.lab_test_collection_method import LabTestCollectionMethod
@@ -1532,6 +1533,36 @@ class LabTestsClient:
         )
         return _response.data
 
+    def update_on_site_collection_order_draw_completed(
+        self, order_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> PostOrderResponse:
+        """
+        PATCH update on site collection order when draw is completed
+
+        Parameters
+        ----------
+        order_id : str
+            Your Order ID.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PostOrderResponse
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+        client = Vital(api_key="YOUR_API_KEY", )
+        client.lab_tests.update_on_site_collection_order_draw_completed(order_id='order_id', )
+        """
+        _response = self._raw_client.update_on_site_collection_order_draw_completed(
+            order_id, request_options=request_options
+        )
+        return _response.data
+
     def get_orders(
         self,
         *,
@@ -1547,6 +1578,7 @@ class LabTestsClient:
             typing.Union[LabTestCollectionMethod, typing.Sequence[LabTestCollectionMethod]]
         ] = None,
         is_critical: typing.Optional[bool] = None,
+        interpretation: typing.Optional[Interpretation] = None,
         order_activation_types: typing.Optional[
             typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]
         ] = None,
@@ -1593,6 +1625,9 @@ class LabTestsClient:
         is_critical : typing.Optional[bool]
             Filter by critical order status.
 
+        interpretation : typing.Optional[Interpretation]
+            Filter by result interpretation of the lab test.
+
         order_activation_types : typing.Optional[typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]]
             Filter by activation type.
 
@@ -1637,6 +1672,7 @@ class LabTestsClient:
             order_direction=order_direction,
             order_type=order_type,
             is_critical=is_critical,
+            interpretation=interpretation,
             order_activation_types=order_activation_types,
             user_id=user_id,
             patient_name=patient_name,
@@ -3243,6 +3279,39 @@ class AsyncLabTestsClient:
         )
         return _response.data
 
+    async def update_on_site_collection_order_draw_completed(
+        self, order_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> PostOrderResponse:
+        """
+        PATCH update on site collection order when draw is completed
+
+        Parameters
+        ----------
+        order_id : str
+            Your Order ID.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PostOrderResponse
+            Successful Response
+
+        Examples
+        --------
+        from vital import AsyncVital
+        import asyncio
+        client = AsyncVital(api_key="YOUR_API_KEY", )
+        async def main() -> None:
+            await client.lab_tests.update_on_site_collection_order_draw_completed(order_id='order_id', )
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.update_on_site_collection_order_draw_completed(
+            order_id, request_options=request_options
+        )
+        return _response.data
+
     async def get_orders(
         self,
         *,
@@ -3258,6 +3327,7 @@ class AsyncLabTestsClient:
             typing.Union[LabTestCollectionMethod, typing.Sequence[LabTestCollectionMethod]]
         ] = None,
         is_critical: typing.Optional[bool] = None,
+        interpretation: typing.Optional[Interpretation] = None,
         order_activation_types: typing.Optional[
             typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]
         ] = None,
@@ -3303,6 +3373,9 @@ class AsyncLabTestsClient:
 
         is_critical : typing.Optional[bool]
             Filter by critical order status.
+
+        interpretation : typing.Optional[Interpretation]
+            Filter by result interpretation of the lab test.
 
         order_activation_types : typing.Optional[typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]]
             Filter by activation type.
@@ -3351,6 +3424,7 @@ class AsyncLabTestsClient:
             order_direction=order_direction,
             order_type=order_type,
             is_critical=is_critical,
+            interpretation=interpretation,
             order_activation_types=order_activation_types,
             user_id=user_id,
             patient_name=patient_name,

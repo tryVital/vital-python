@@ -11,6 +11,7 @@ from .client_facing_order_details import ClientFacingOrderDetails
 from .client_facing_order_event import ClientFacingOrderEvent
 from .client_facing_patient_details_compatible import ClientFacingPatientDetailsCompatible
 from .client_facing_physician import ClientFacingPhysician
+from .interpretation import Interpretation
 from .order_top_level_status import OrderTopLevelStatus
 from .patient_address_compatible import PatientAddressCompatible
 from .shipping_address import ShippingAddress
@@ -102,6 +103,11 @@ class ClientFacingOrder(UniversalBaseModel):
     has_abn: bool = pydantic.Field()
     """
     Defines whether the order has an Advanced Beneficiary Notice (ABN) form or not.
+    """
+
+    interpretation: typing.Optional[Interpretation] = pydantic.Field(default=None)
+    """
+    Interpretation of the order result. Can be one of (normal, abnormal, critical).
     """
 
     if IS_PYDANTIC_V2:

@@ -584,6 +584,7 @@ from .http_validation_error import HttpValidationError
 from .index_column_expr import IndexColumnExpr
 from .index_column_expr_index import IndexColumnExprIndex
 from .intermenstrual_bleeding_entry import IntermenstrualBleedingEntry
+from .interpretation import Interpretation
 from .jpeg import Jpeg
 from .lab_location_metadata import LabLocationMetadata
 from .lab_results_metadata import LabResultsMetadata
@@ -1265,6 +1266,7 @@ __all__ = [
     "IndexColumnExpr",
     "IndexColumnExprIndex",
     "IntermenstrualBleedingEntry",
+    "Interpretation",
     "Jpeg",
     "LabLocationMetadata",
     "LabResultsMetadata",

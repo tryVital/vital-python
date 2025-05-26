@@ -48,6 +48,16 @@ class PatientDetailsWithValidation(UniversalBaseModel):
     If not provided, will be set to 'Not Specified'
     """
 
+    household_income: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Household income in USD. If not provided, will be set to None
+    """
+
+    household_size: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Household size. If not provided, will be set to None
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:
