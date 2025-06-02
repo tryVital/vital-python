@@ -39,6 +39,7 @@ class IntrospectClient:
         Parameters
         ----------
         user_id : typing.Optional[str]
+            Filter by user ID.
 
         provider : typing.Optional[Providers]
 
@@ -87,6 +88,7 @@ class IntrospectClient:
         Parameters
         ----------
         user_id : typing.Optional[str]
+            Filter by user ID.
 
         provider : typing.Optional[Providers]
 
@@ -151,6 +153,7 @@ class AsyncIntrospectClient:
         Parameters
         ----------
         user_id : typing.Optional[str]
+            Filter by user ID.
 
         provider : typing.Optional[Providers]
 
@@ -202,6 +205,7 @@ class AsyncIntrospectClient:
         Parameters
         ----------
         user_id : typing.Optional[str]
+            Filter by user ID.
 
         provider : typing.Optional[Providers]
 
