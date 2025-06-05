@@ -21,6 +21,8 @@ class ClientFacingMarkerComplete(UniversalBaseModel):
     price: typing.Optional[str] = None
     aoe: typing.Optional[AoE] = None
     a_la_carte_enabled: typing.Optional[bool] = None
+    common_tat_days: typing.Optional[int] = None
+    worst_case_tat_days: typing.Optional[int] = None
     expected_results: typing.List[ClientFacingResult]
 
     if IS_PYDANTIC_V2:

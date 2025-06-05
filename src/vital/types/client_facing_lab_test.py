@@ -82,6 +82,16 @@ class ClientFacingLabTest(UniversalBaseModel):
     Whether or not the lab test has collection instructions.
     """
 
+    common_tat_days: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    The common turnaround time in days for the lab test. This is the expected time for the lab to process the test and return results.
+    """
+
+    worst_case_tat_days: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    The worst-case turnaround time in days for the lab test. This is the maximum time the lab may take to process the test and return results.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

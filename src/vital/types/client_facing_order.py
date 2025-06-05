@@ -110,6 +110,16 @@ class ClientFacingOrder(UniversalBaseModel):
     Interpretation of the order result. Can be one of (normal, abnormal, critical).
     """
 
+    expected_result_by_date: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The common-case date by which the order result is expected to be available.
+    """
+
+    worst_case_result_by_date: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The latest date by which the order result is expected to be available.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:
