@@ -23,6 +23,11 @@ from ..types.source import Source
 from ..types.source_link import SourceLink
 from ..types.vital_token_created_response import VitalTokenCreatedResponse
 from .raw_client import AsyncRawLinkClient, RawLinkClient
+from .types.link_bulk_export_request_team_id import LinkBulkExportRequestTeamId
+from .types.link_bulk_import_request_team_id import LinkBulkImportRequestTeamId
+from .types.link_bulk_pause_request_team_id import LinkBulkPauseRequestTeamId
+from .types.link_bulk_trigger_historical_pull_request_team_id import LinkBulkTriggerHistoricalPullRequestTeamId
+from .types.link_list_bulk_ops_request_team_id import LinkListBulkOpsRequestTeamId
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -48,6 +53,7 @@ class LinkClient:
         *,
         next_cursor: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
+        team_id: typing.Optional[LinkListBulkOpsRequestTeamId] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> BulkOpsResponse:
         """
@@ -56,6 +62,8 @@ class LinkClient:
         next_cursor : typing.Optional[str]
 
         page_size : typing.Optional[int]
+
+        team_id : typing.Optional[LinkListBulkOpsRequestTeamId]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -72,7 +80,7 @@ class LinkClient:
         client.link.list_bulk_ops()
         """
         _response = self._raw_client.list_bulk_ops(
-            next_cursor=next_cursor, page_size=page_size, request_options=request_options
+            next_cursor=next_cursor, page_size=page_size, team_id=team_id, request_options=request_options
         )
         return _response.data
 
@@ -81,6 +89,7 @@ class LinkClient:
         *,
         provider: OAuthProviders,
         connections: typing.Sequence[ConnectionRecipe],
+        team_id: typing.Optional[LinkBulkImportRequestTeamId] = None,
         wait_for_completion: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> BulkImportConnectionsResponse:
@@ -90,6 +99,8 @@ class LinkClient:
         provider : OAuthProviders
 
         connections : typing.Sequence[ConnectionRecipe]
+
+        team_id : typing.Optional[LinkBulkImportRequestTeamId]
 
         wait_for_completion : typing.Optional[bool]
 
@@ -119,6 +130,7 @@ class LinkClient:
         _response = self._raw_client.bulk_import(
             provider=provider,
             connections=connections,
+            team_id=team_id,
             wait_for_completion=wait_for_completion,
             request_options=request_options,
         )
@@ -129,6 +141,7 @@ class LinkClient:
         *,
         user_ids: typing.Sequence[str],
         provider: OAuthProviders,
+        team_id: typing.Optional[LinkBulkTriggerHistoricalPullRequestTeamId] = None,
         wait_for_completion: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Optional[typing.Any]:
@@ -138,6 +151,8 @@ class LinkClient:
         user_ids : typing.Sequence[str]
 
         provider : OAuthProviders
+
+        team_id : typing.Optional[LinkBulkTriggerHistoricalPullRequestTeamId]
 
         wait_for_completion : typing.Optional[bool]
 
@@ -166,6 +181,7 @@ class LinkClient:
         _response = self._raw_client.bulk_trigger_historical_pull(
             user_ids=user_ids,
             provider=provider,
+            team_id=team_id,
             wait_for_completion=wait_for_completion,
             request_options=request_options,
         )
@@ -175,6 +191,7 @@ class LinkClient:
         self,
         *,
         provider: OAuthProviders,
+        team_id: typing.Optional[LinkBulkExportRequestTeamId] = None,
         user_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         next_token: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -183,6 +200,8 @@ class LinkClient:
         Parameters
         ----------
         provider : OAuthProviders
+
+        team_id : typing.Optional[LinkBulkExportRequestTeamId]
 
         user_ids : typing.Optional[typing.Sequence[str]]
 
@@ -204,7 +223,11 @@ class LinkClient:
         client.link.bulk_export(provider=OAuthProviders.OURA, )
         """
         _response = self._raw_client.bulk_export(
-            provider=provider, user_ids=user_ids, next_token=next_token, request_options=request_options
+            provider=provider,
+            team_id=team_id,
+            user_ids=user_ids,
+            next_token=next_token,
+            request_options=request_options,
         )
         return _response.data
 
@@ -213,6 +236,7 @@ class LinkClient:
         *,
         user_ids: typing.Sequence[str],
         provider: OAuthProviders,
+        team_id: typing.Optional[LinkBulkPauseRequestTeamId] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Optional[typing.Any]:
         """
@@ -221,6 +245,8 @@ class LinkClient:
         user_ids : typing.Sequence[str]
 
         provider : OAuthProviders
+
+        team_id : typing.Optional[LinkBulkPauseRequestTeamId]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -237,7 +263,9 @@ class LinkClient:
         client = Vital(api_key="YOUR_API_KEY", )
         client.link.bulk_pause(user_ids=['user_ids'], provider=OAuthProviders.OURA, )
         """
-        _response = self._raw_client.bulk_pause(user_ids=user_ids, provider=provider, request_options=request_options)
+        _response = self._raw_client.bulk_pause(
+            user_ids=user_ids, provider=provider, team_id=team_id, request_options=request_options
+        )
         return _response.data
 
     def token(
@@ -833,6 +861,7 @@ class AsyncLinkClient:
         *,
         next_cursor: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
+        team_id: typing.Optional[LinkListBulkOpsRequestTeamId] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> BulkOpsResponse:
         """
@@ -841,6 +870,8 @@ class AsyncLinkClient:
         next_cursor : typing.Optional[str]
 
         page_size : typing.Optional[int]
+
+        team_id : typing.Optional[LinkListBulkOpsRequestTeamId]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -860,7 +891,7 @@ class AsyncLinkClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.list_bulk_ops(
-            next_cursor=next_cursor, page_size=page_size, request_options=request_options
+            next_cursor=next_cursor, page_size=page_size, team_id=team_id, request_options=request_options
         )
         return _response.data
 
@@ -869,6 +900,7 @@ class AsyncLinkClient:
         *,
         provider: OAuthProviders,
         connections: typing.Sequence[ConnectionRecipe],
+        team_id: typing.Optional[LinkBulkImportRequestTeamId] = None,
         wait_for_completion: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> BulkImportConnectionsResponse:
@@ -878,6 +910,8 @@ class AsyncLinkClient:
         provider : OAuthProviders
 
         connections : typing.Sequence[ConnectionRecipe]
+
+        team_id : typing.Optional[LinkBulkImportRequestTeamId]
 
         wait_for_completion : typing.Optional[bool]
 
@@ -910,6 +944,7 @@ class AsyncLinkClient:
         _response = await self._raw_client.bulk_import(
             provider=provider,
             connections=connections,
+            team_id=team_id,
             wait_for_completion=wait_for_completion,
             request_options=request_options,
         )
@@ -920,6 +955,7 @@ class AsyncLinkClient:
         *,
         user_ids: typing.Sequence[str],
         provider: OAuthProviders,
+        team_id: typing.Optional[LinkBulkTriggerHistoricalPullRequestTeamId] = None,
         wait_for_completion: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Optional[typing.Any]:
@@ -929,6 +965,8 @@ class AsyncLinkClient:
         user_ids : typing.Sequence[str]
 
         provider : OAuthProviders
+
+        team_id : typing.Optional[LinkBulkTriggerHistoricalPullRequestTeamId]
 
         wait_for_completion : typing.Optional[bool]
 
@@ -960,6 +998,7 @@ class AsyncLinkClient:
         _response = await self._raw_client.bulk_trigger_historical_pull(
             user_ids=user_ids,
             provider=provider,
+            team_id=team_id,
             wait_for_completion=wait_for_completion,
             request_options=request_options,
         )
@@ -969,6 +1008,7 @@ class AsyncLinkClient:
         self,
         *,
         provider: OAuthProviders,
+        team_id: typing.Optional[LinkBulkExportRequestTeamId] = None,
         user_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         next_token: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -977,6 +1017,8 @@ class AsyncLinkClient:
         Parameters
         ----------
         provider : OAuthProviders
+
+        team_id : typing.Optional[LinkBulkExportRequestTeamId]
 
         user_ids : typing.Optional[typing.Sequence[str]]
 
@@ -1001,7 +1043,11 @@ class AsyncLinkClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.bulk_export(
-            provider=provider, user_ids=user_ids, next_token=next_token, request_options=request_options
+            provider=provider,
+            team_id=team_id,
+            user_ids=user_ids,
+            next_token=next_token,
+            request_options=request_options,
         )
         return _response.data
 
@@ -1010,6 +1056,7 @@ class AsyncLinkClient:
         *,
         user_ids: typing.Sequence[str],
         provider: OAuthProviders,
+        team_id: typing.Optional[LinkBulkPauseRequestTeamId] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Optional[typing.Any]:
         """
@@ -1018,6 +1065,8 @@ class AsyncLinkClient:
         user_ids : typing.Sequence[str]
 
         provider : OAuthProviders
+
+        team_id : typing.Optional[LinkBulkPauseRequestTeamId]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1038,7 +1087,7 @@ class AsyncLinkClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.bulk_pause(
-            user_ids=user_ids, provider=provider, request_options=request_options
+            user_ids=user_ids, provider=provider, team_id=team_id, request_options=request_options
         )
         return _response.data
 

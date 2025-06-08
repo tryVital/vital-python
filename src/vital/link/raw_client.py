@@ -30,6 +30,11 @@ from ..types.region import Region
 from ..types.source import Source
 from ..types.source_link import SourceLink
 from ..types.vital_token_created_response import VitalTokenCreatedResponse
+from .types.link_bulk_export_request_team_id import LinkBulkExportRequestTeamId
+from .types.link_bulk_import_request_team_id import LinkBulkImportRequestTeamId
+from .types.link_bulk_pause_request_team_id import LinkBulkPauseRequestTeamId
+from .types.link_bulk_trigger_historical_pull_request_team_id import LinkBulkTriggerHistoricalPullRequestTeamId
+from .types.link_list_bulk_ops_request_team_id import LinkListBulkOpsRequestTeamId
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -44,6 +49,7 @@ class RawLinkClient:
         *,
         next_cursor: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
+        team_id: typing.Optional[LinkListBulkOpsRequestTeamId] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[BulkOpsResponse]:
         """
@@ -52,6 +58,8 @@ class RawLinkClient:
         next_cursor : typing.Optional[str]
 
         page_size : typing.Optional[int]
+
+        team_id : typing.Optional[LinkListBulkOpsRequestTeamId]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -67,6 +75,7 @@ class RawLinkClient:
             params={
                 "next_cursor": next_cursor,
                 "page_size": page_size,
+                "team_id": team_id,
             },
             request_options=request_options,
         )
@@ -101,6 +110,7 @@ class RawLinkClient:
         *,
         provider: OAuthProviders,
         connections: typing.Sequence[ConnectionRecipe],
+        team_id: typing.Optional[LinkBulkImportRequestTeamId] = None,
         wait_for_completion: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[BulkImportConnectionsResponse]:
@@ -110,6 +120,8 @@ class RawLinkClient:
         provider : OAuthProviders
 
         connections : typing.Sequence[ConnectionRecipe]
+
+        team_id : typing.Optional[LinkBulkImportRequestTeamId]
 
         wait_for_completion : typing.Optional[bool]
 
@@ -131,6 +143,9 @@ class RawLinkClient:
         _response = self._client_wrapper.httpx_client.request(
             "v2/link/bulk_import",
             method="POST",
+            params={
+                "team_id": team_id,
+            },
             json={
                 "provider": provider,
                 "connections": connections,
@@ -173,6 +188,7 @@ class RawLinkClient:
         *,
         user_ids: typing.Sequence[str],
         provider: OAuthProviders,
+        team_id: typing.Optional[LinkBulkTriggerHistoricalPullRequestTeamId] = None,
         wait_for_completion: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.Optional[typing.Any]]:
@@ -182,6 +198,8 @@ class RawLinkClient:
         user_ids : typing.Sequence[str]
 
         provider : OAuthProviders
+
+        team_id : typing.Optional[LinkBulkTriggerHistoricalPullRequestTeamId]
 
         wait_for_completion : typing.Optional[bool]
 
@@ -203,6 +221,9 @@ class RawLinkClient:
         _response = self._client_wrapper.httpx_client.request(
             "v2/link/bulk_trigger_historical_pull",
             method="POST",
+            params={
+                "team_id": team_id,
+            },
             json={
                 "user_ids": user_ids,
                 "provider": provider,
@@ -244,6 +265,7 @@ class RawLinkClient:
         self,
         *,
         provider: OAuthProviders,
+        team_id: typing.Optional[LinkBulkExportRequestTeamId] = None,
         user_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         next_token: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -252,6 +274,8 @@ class RawLinkClient:
         Parameters
         ----------
         provider : OAuthProviders
+
+        team_id : typing.Optional[LinkBulkExportRequestTeamId]
 
         user_ids : typing.Optional[typing.Sequence[str]]
 
@@ -268,6 +292,9 @@ class RawLinkClient:
         _response = self._client_wrapper.httpx_client.request(
             "v2/link/bulk_export",
             method="POST",
+            params={
+                "team_id": team_id,
+            },
             json={
                 "user_ids": user_ids,
                 "provider": provider,
@@ -310,6 +337,7 @@ class RawLinkClient:
         *,
         user_ids: typing.Sequence[str],
         provider: OAuthProviders,
+        team_id: typing.Optional[LinkBulkPauseRequestTeamId] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.Optional[typing.Any]]:
         """
@@ -318,6 +346,8 @@ class RawLinkClient:
         user_ids : typing.Sequence[str]
 
         provider : OAuthProviders
+
+        team_id : typing.Optional[LinkBulkPauseRequestTeamId]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -330,6 +360,9 @@ class RawLinkClient:
         _response = self._client_wrapper.httpx_client.request(
             "v2/link/bulk_pause",
             method="POST",
+            params={
+                "team_id": team_id,
+            },
             json={
                 "user_ids": user_ids,
                 "provider": provider,
@@ -1303,6 +1336,7 @@ class AsyncRawLinkClient:
         *,
         next_cursor: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
+        team_id: typing.Optional[LinkListBulkOpsRequestTeamId] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[BulkOpsResponse]:
         """
@@ -1311,6 +1345,8 @@ class AsyncRawLinkClient:
         next_cursor : typing.Optional[str]
 
         page_size : typing.Optional[int]
+
+        team_id : typing.Optional[LinkListBulkOpsRequestTeamId]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1326,6 +1362,7 @@ class AsyncRawLinkClient:
             params={
                 "next_cursor": next_cursor,
                 "page_size": page_size,
+                "team_id": team_id,
             },
             request_options=request_options,
         )
@@ -1360,6 +1397,7 @@ class AsyncRawLinkClient:
         *,
         provider: OAuthProviders,
         connections: typing.Sequence[ConnectionRecipe],
+        team_id: typing.Optional[LinkBulkImportRequestTeamId] = None,
         wait_for_completion: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[BulkImportConnectionsResponse]:
@@ -1369,6 +1407,8 @@ class AsyncRawLinkClient:
         provider : OAuthProviders
 
         connections : typing.Sequence[ConnectionRecipe]
+
+        team_id : typing.Optional[LinkBulkImportRequestTeamId]
 
         wait_for_completion : typing.Optional[bool]
 
@@ -1390,6 +1430,9 @@ class AsyncRawLinkClient:
         _response = await self._client_wrapper.httpx_client.request(
             "v2/link/bulk_import",
             method="POST",
+            params={
+                "team_id": team_id,
+            },
             json={
                 "provider": provider,
                 "connections": connections,
@@ -1432,6 +1475,7 @@ class AsyncRawLinkClient:
         *,
         user_ids: typing.Sequence[str],
         provider: OAuthProviders,
+        team_id: typing.Optional[LinkBulkTriggerHistoricalPullRequestTeamId] = None,
         wait_for_completion: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.Optional[typing.Any]]:
@@ -1441,6 +1485,8 @@ class AsyncRawLinkClient:
         user_ids : typing.Sequence[str]
 
         provider : OAuthProviders
+
+        team_id : typing.Optional[LinkBulkTriggerHistoricalPullRequestTeamId]
 
         wait_for_completion : typing.Optional[bool]
 
@@ -1462,6 +1508,9 @@ class AsyncRawLinkClient:
         _response = await self._client_wrapper.httpx_client.request(
             "v2/link/bulk_trigger_historical_pull",
             method="POST",
+            params={
+                "team_id": team_id,
+            },
             json={
                 "user_ids": user_ids,
                 "provider": provider,
@@ -1503,6 +1552,7 @@ class AsyncRawLinkClient:
         self,
         *,
         provider: OAuthProviders,
+        team_id: typing.Optional[LinkBulkExportRequestTeamId] = None,
         user_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         next_token: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1511,6 +1561,8 @@ class AsyncRawLinkClient:
         Parameters
         ----------
         provider : OAuthProviders
+
+        team_id : typing.Optional[LinkBulkExportRequestTeamId]
 
         user_ids : typing.Optional[typing.Sequence[str]]
 
@@ -1527,6 +1579,9 @@ class AsyncRawLinkClient:
         _response = await self._client_wrapper.httpx_client.request(
             "v2/link/bulk_export",
             method="POST",
+            params={
+                "team_id": team_id,
+            },
             json={
                 "user_ids": user_ids,
                 "provider": provider,
@@ -1569,6 +1624,7 @@ class AsyncRawLinkClient:
         *,
         user_ids: typing.Sequence[str],
         provider: OAuthProviders,
+        team_id: typing.Optional[LinkBulkPauseRequestTeamId] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.Optional[typing.Any]]:
         """
@@ -1577,6 +1633,8 @@ class AsyncRawLinkClient:
         user_ids : typing.Sequence[str]
 
         provider : OAuthProviders
+
+        team_id : typing.Optional[LinkBulkPauseRequestTeamId]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1589,6 +1647,9 @@ class AsyncRawLinkClient:
         _response = await self._client_wrapper.httpx_client.request(
             "v2/link/bulk_pause",
             method="POST",
+            params={
+                "team_id": team_id,
+            },
             json={
                 "user_ids": user_ids,
                 "provider": provider,

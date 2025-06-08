@@ -47,6 +47,14 @@ client.link.list_bulk_ops()
 <dl>
 <dd>
 
+**team_id:** `typing.Optional[LinkListBulkOpsRequestTeamId]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -101,6 +109,14 @@ client.link.bulk_import(provider=OAuthProviders.OURA, connections=[ConnectionRec
 <dd>
 
 **connections:** `typing.Sequence[ConnectionRecipe]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**team_id:** `typing.Optional[LinkBulkImportRequestTeamId]` 
     
 </dd>
 </dl>
@@ -184,6 +200,14 @@ client.link.bulk_trigger_historical_pull(user_ids=['user_ids'], provider=OAuthPr
 <dl>
 <dd>
 
+**team_id:** `typing.Optional[LinkBulkTriggerHistoricalPullRequestTeamId]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **wait_for_completion:** `typing.Optional[bool]` 
 
 
@@ -245,6 +269,14 @@ client.link.bulk_export(provider=OAuthProviders.OURA, )
 <dd>
 
 **provider:** `OAuthProviders` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**team_id:** `typing.Optional[LinkBulkExportRequestTeamId]` 
     
 </dd>
 </dl>
@@ -321,6 +353,14 @@ client.link.bulk_pause(user_ids=['user_ids'], provider=OAuthProviders.OURA, )
 <dd>
 
 **provider:** `OAuthProviders` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**team_id:** `typing.Optional[LinkBulkPauseRequestTeamId]` 
     
 </dd>
 </dl>

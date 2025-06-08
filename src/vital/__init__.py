@@ -715,6 +715,13 @@ from .lab_tests import (
     LabTestsGetRequestOrderDirection,
     LabTestsGetRequestOrderKey,
 )
+from .link import (
+    LinkBulkExportRequestTeamId,
+    LinkBulkImportRequestTeamId,
+    LinkBulkPauseRequestTeamId,
+    LinkBulkTriggerHistoricalPullRequestTeamId,
+    LinkListBulkOpsRequestTeamId,
+)
 from .version import __version__
 
 __all__ = [
@@ -1278,6 +1285,11 @@ __all__ = [
     "Labs",
     "LastAttempt",
     "LibreConfig",
+    "LinkBulkExportRequestTeamId",
+    "LinkBulkImportRequestTeamId",
+    "LinkBulkPauseRequestTeamId",
+    "LinkBulkTriggerHistoricalPullRequestTeamId",
+    "LinkListBulkOpsRequestTeamId",
     "LinkTokenExchangeResponse",
     "LngLat",
     "Macros",
