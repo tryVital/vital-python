@@ -14,6 +14,7 @@ from ..types.client_facing_physician import ClientFacingPhysician
 from ..types.client_facing_team import ClientFacingTeam
 from ..types.client_facing_user import ClientFacingUser
 from ..types.http_validation_error import HttpValidationError
+from ..types.priority_resource import PriorityResource
 
 
 class RawTeamClient:
@@ -208,14 +209,17 @@ class RawTeamClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def get_source_priorities(
-        self, *, data_type: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        data_type: typing.Optional[PriorityResource] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.List[typing.Dict[str, typing.Optional[typing.Any]]]]:
         """
         GET source priorities.
 
         Parameters
         ----------
-        data_type : typing.Optional[str]
+        data_type : typing.Optional[PriorityResource]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -535,14 +539,17 @@ class AsyncRawTeamClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def get_source_priorities(
-        self, *, data_type: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        data_type: typing.Optional[PriorityResource] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.List[typing.Dict[str, typing.Optional[typing.Any]]]]:
         """
         GET source priorities.
 
         Parameters
         ----------
-        data_type : typing.Optional[str]
+        data_type : typing.Optional[PriorityResource]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

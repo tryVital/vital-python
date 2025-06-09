@@ -7,6 +7,7 @@ from ..core.request_options import RequestOptions
 from ..types.client_facing_physician import ClientFacingPhysician
 from ..types.client_facing_team import ClientFacingTeam
 from ..types.client_facing_user import ClientFacingUser
+from ..types.priority_resource import PriorityResource
 from .raw_client import AsyncRawTeamClient, RawTeamClient
 
 
@@ -128,14 +129,17 @@ class TeamClient:
         return _response.data
 
     def get_source_priorities(
-        self, *, data_type: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        data_type: typing.Optional[PriorityResource] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[typing.Dict[str, typing.Optional[typing.Any]]]:
         """
         GET source priorities.
 
         Parameters
         ----------
-        data_type : typing.Optional[str]
+        data_type : typing.Optional[PriorityResource]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -337,14 +341,17 @@ class AsyncTeamClient:
         return _response.data
 
     async def get_source_priorities(
-        self, *, data_type: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        data_type: typing.Optional[PriorityResource] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[typing.Dict[str, typing.Optional[typing.Any]]]:
         """
         GET source priorities.
 
         Parameters
         ----------
-        data_type : typing.Optional[str]
+        data_type : typing.Optional[PriorityResource]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

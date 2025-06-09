@@ -11133,7 +11133,7 @@ client.team.get_source_priorities()
 <dl>
 <dd>
 
-**data_type:** `typing.Optional[str]` 
+**data_type:** `typing.Optional[PriorityResource]` 
     
 </dd>
 </dl>

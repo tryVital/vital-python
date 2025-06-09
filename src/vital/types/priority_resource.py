@@ -6,48 +6,44 @@ import typing
 T_Result = typing.TypeVar("T_Result")
 
 
-class IndexColumnExprIndex(str, enum.Enum):
+class PriorityResource(str, enum.Enum):
     """
     ℹ️ This enum is non-exhaustive.
     """
 
-    SLEEP = "sleep"
+    WORKOUTS = "workouts"
     ACTIVITY = "activity"
-    WORKOUT = "workout"
+    SLEEP = "sleep"
     BODY = "body"
-    MEAL = "meal"
     TIMESERIES = "timeseries"
-    _UNKNOWN = "__INDEXCOLUMNEXPRINDEX_UNKNOWN__"
+    _UNKNOWN = "__PRIORITYRESOURCE_UNKNOWN__"
     """
     This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
     """
 
     @classmethod
-    def _missing_(cls, value: typing.Any) -> "IndexColumnExprIndex":
+    def _missing_(cls, value: typing.Any) -> "PriorityResource":
         unknown = cls._UNKNOWN
         unknown._value_ = value
         return unknown
 
     def visit(
         self,
-        sleep: typing.Callable[[], T_Result],
+        workouts: typing.Callable[[], T_Result],
         activity: typing.Callable[[], T_Result],
-        workout: typing.Callable[[], T_Result],
+        sleep: typing.Callable[[], T_Result],
         body: typing.Callable[[], T_Result],
-        meal: typing.Callable[[], T_Result],
         timeseries: typing.Callable[[], T_Result],
         _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
-        if self is IndexColumnExprIndex.SLEEP:
-            return sleep()
-        if self is IndexColumnExprIndex.ACTIVITY:
+        if self is PriorityResource.WORKOUTS:
+            return workouts()
+        if self is PriorityResource.ACTIVITY:
             return activity()
-        if self is IndexColumnExprIndex.WORKOUT:
-            return workout()
-        if self is IndexColumnExprIndex.BODY:
+        if self is PriorityResource.SLEEP:
+            return sleep()
+        if self is PriorityResource.BODY:
             return body()
-        if self is IndexColumnExprIndex.MEAL:
-            return meal()
-        if self is IndexColumnExprIndex.TIMESERIES:
+        if self is PriorityResource.TIMESERIES:
             return timeseries()
         return _unknown_member(self._value_)
