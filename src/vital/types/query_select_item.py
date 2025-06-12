@@ -11,9 +11,11 @@ from .discrete_timeseries_expr import DiscreteTimeseriesExpr
 from .group_key_column_expr import GroupKeyColumnExpr
 from .index_column_expr import IndexColumnExpr
 from .interval_timeseries_expr import IntervalTimeseriesExpr
+from .meal_column_expr import MealColumnExpr
 from .note_timeseries_expr import NoteTimeseriesExpr
 from .sleep_column_expr import SleepColumnExpr
 from .sleep_score_value_macro_expr import SleepScoreValueMacroExpr
+from .source_column_expr import SourceColumnExpr
 from .temperature_timeseries_expr import TemperatureTimeseriesExpr
 from .unrecognized_value_macro_expr import UnrecognizedValueMacroExpr
 from .workout_column_expr import WorkoutColumnExpr
@@ -26,7 +28,7 @@ QuerySelectItem = typing.Union[
     ActivityColumnExpr,
     WorkoutColumnExpr,
     BodyColumnExpr,
-    IndexColumnExpr,
+    MealColumnExpr,
     SleepScoreValueMacroExpr,
     ChronotypeValueMacroExpr,
     UnrecognizedValueMacroExpr,
@@ -36,4 +38,6 @@ QuerySelectItem = typing.Union[
     TemperatureTimeseriesExpr,
     WorkoutDurationTimeseriesExpr,
     NoteTimeseriesExpr,
+    IndexColumnExpr,
+    SourceColumnExpr,
 ]

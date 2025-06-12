@@ -611,6 +611,8 @@ from .lng_lat import LngLat
 from .macros import Macros
 from .manual_providers import ManualProviders
 from .marker_type import MarkerType
+from .meal_column_expr import MealColumnExpr
+from .meal_column_expr_meal import MealColumnExprMeal
 from .meal_in_db_base_client_facing_source import MealInDbBaseClientFacingSource
 from .menstrual_cycle_response import MenstrualCycleResponse
 from .menstrual_flow_entry import MenstrualFlowEntry
@@ -706,6 +708,8 @@ from .sleep_type import SleepType
 from .sleep_v_2_in_db import SleepV2InDb
 from .source import Source
 from .source_auth_type import SourceAuthType
+from .source_column_expr import SourceColumnExpr
+from .source_column_expr_source import SourceColumnExprSource
 from .source_link import SourceLink
 from .source_type import SourceType
 from .team_config import TeamConfig
@@ -1309,6 +1313,8 @@ __all__ = [
     "Macros",
     "ManualProviders",
     "MarkerType",
+    "MealColumnExpr",
+    "MealColumnExprMeal",
     "MealInDbBaseClientFacingSource",
     "MenstrualCycleResponse",
     "MenstrualFlowEntry",
@@ -1404,6 +1410,8 @@ __all__ = [
     "SleepV2InDb",
     "Source",
     "SourceAuthType",
+    "SourceColumnExpr",
+    "SourceColumnExprSource",
     "SourceLink",
     "SourceType",
     "TeamConfig",

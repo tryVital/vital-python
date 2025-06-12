@@ -9,6 +9,7 @@ from .chronotype_value_macro_expr import ChronotypeValueMacroExpr
 from .discrete_timeseries_expr import DiscreteTimeseriesExpr
 from .index_column_expr import IndexColumnExpr
 from .interval_timeseries_expr import IntervalTimeseriesExpr
+from .meal_column_expr import MealColumnExpr
 from .note_timeseries_expr import NoteTimeseriesExpr
 from .sleep_column_expr import SleepColumnExpr
 from .sleep_score_value_macro_expr import SleepScoreValueMacroExpr
@@ -22,7 +23,7 @@ AggregateExprArg = typing.Union[
     ActivityColumnExpr,
     WorkoutColumnExpr,
     BodyColumnExpr,
-    IndexColumnExpr,
+    MealColumnExpr,
     SleepScoreValueMacroExpr,
     ChronotypeValueMacroExpr,
     UnrecognizedValueMacroExpr,
@@ -32,4 +33,5 @@ AggregateExprArg = typing.Union[
     TemperatureTimeseriesExpr,
     WorkoutDurationTimeseriesExpr,
     NoteTimeseriesExpr,
+    IndexColumnExpr,
 ]

@@ -6,23 +6,19 @@ import typing
 T_Result = typing.TypeVar("T_Result")
 
 
-class NoteTimeseriesExprField(str, enum.Enum):
+class SourceColumnExprSource(str, enum.Enum):
     SOURCE_PROVIDER = "source_provider"
     SOURCE_TYPE = "source_type"
     SOURCE_APP_ID = "source_app_id"
     SOURCE_WORKOUT_ID = "source_workout_id"
     SOURCE_SPORT = "source_sport"
-    TIMEZONE_OFFSET = "timezone_offset"
-    TYPE = "type"
-    TAGS = "tags"
-    CONTENT = "content"
-    _UNKNOWN = "__NOTETIMESERIESEXPRFIELD_UNKNOWN__"
+    _UNKNOWN = "__SOURCECOLUMNEXPRSOURCE_UNKNOWN__"
     """
     This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
     """
 
     @classmethod
-    def _missing_(cls, value: typing.Any) -> "NoteTimeseriesExprField":
+    def _missing_(cls, value: typing.Any) -> "SourceColumnExprSource":
         unknown = cls._UNKNOWN
         unknown._value_ = value
         return unknown
@@ -34,28 +30,16 @@ class NoteTimeseriesExprField(str, enum.Enum):
         source_app_id: typing.Callable[[], T_Result],
         source_workout_id: typing.Callable[[], T_Result],
         source_sport: typing.Callable[[], T_Result],
-        timezone_offset: typing.Callable[[], T_Result],
-        type: typing.Callable[[], T_Result],
-        tags: typing.Callable[[], T_Result],
-        content: typing.Callable[[], T_Result],
         _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
-        if self is NoteTimeseriesExprField.SOURCE_PROVIDER:
+        if self is SourceColumnExprSource.SOURCE_PROVIDER:
             return source_provider()
-        if self is NoteTimeseriesExprField.SOURCE_TYPE:
+        if self is SourceColumnExprSource.SOURCE_TYPE:
             return source_type()
-        if self is NoteTimeseriesExprField.SOURCE_APP_ID:
+        if self is SourceColumnExprSource.SOURCE_APP_ID:
             return source_app_id()
-        if self is NoteTimeseriesExprField.SOURCE_WORKOUT_ID:
+        if self is SourceColumnExprSource.SOURCE_WORKOUT_ID:
             return source_workout_id()
-        if self is NoteTimeseriesExprField.SOURCE_SPORT:
+        if self is SourceColumnExprSource.SOURCE_SPORT:
             return source_sport()
-        if self is NoteTimeseriesExprField.TIMEZONE_OFFSET:
-            return timezone_offset()
-        if self is NoteTimeseriesExprField.TYPE:
-            return type()
-        if self is NoteTimeseriesExprField.TAGS:
-            return tags()
-        if self is NoteTimeseriesExprField.CONTENT:
-            return content()
         return _unknown_member(self._value_)

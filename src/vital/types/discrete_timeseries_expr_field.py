@@ -9,6 +9,7 @@ T_Result = typing.TypeVar("T_Result")
 class DiscreteTimeseriesExprField(str, enum.Enum):
     SOURCE_PROVIDER = "source_provider"
     SOURCE_TYPE = "source_type"
+    SOURCE_APP_ID = "source_app_id"
     SOURCE_WORKOUT_ID = "source_workout_id"
     SOURCE_SPORT = "source_sport"
     TIMEZONE_OFFSET = "timezone_offset"
@@ -29,6 +30,7 @@ class DiscreteTimeseriesExprField(str, enum.Enum):
         self,
         source_provider: typing.Callable[[], T_Result],
         source_type: typing.Callable[[], T_Result],
+        source_app_id: typing.Callable[[], T_Result],
         source_workout_id: typing.Callable[[], T_Result],
         source_sport: typing.Callable[[], T_Result],
         timezone_offset: typing.Callable[[], T_Result],
@@ -40,6 +42,8 @@ class DiscreteTimeseriesExprField(str, enum.Enum):
             return source_provider()
         if self is DiscreteTimeseriesExprField.SOURCE_TYPE:
             return source_type()
+        if self is DiscreteTimeseriesExprField.SOURCE_APP_ID:
+            return source_app_id()
         if self is DiscreteTimeseriesExprField.SOURCE_WORKOUT_ID:
             return source_workout_id()
         if self is DiscreteTimeseriesExprField.SOURCE_SPORT:

@@ -2,7 +2,40 @@
 
 import typing
 
+from .activity_column_expr import ActivityColumnExpr
+from .blood_pressure_timeseries_expr import BloodPressureTimeseriesExpr
+from .body_column_expr import BodyColumnExpr
+from .chronotype_value_macro_expr import ChronotypeValueMacroExpr
 from .date_part_expr import DatePartExpr
 from .date_trunc_expr import DateTruncExpr
+from .discrete_timeseries_expr import DiscreteTimeseriesExpr
+from .interval_timeseries_expr import IntervalTimeseriesExpr
+from .meal_column_expr import MealColumnExpr
+from .note_timeseries_expr import NoteTimeseriesExpr
+from .sleep_column_expr import SleepColumnExpr
+from .sleep_score_value_macro_expr import SleepScoreValueMacroExpr
+from .source_column_expr import SourceColumnExpr
+from .temperature_timeseries_expr import TemperatureTimeseriesExpr
+from .unrecognized_value_macro_expr import UnrecognizedValueMacroExpr
+from .workout_column_expr import WorkoutColumnExpr
+from .workout_duration_timeseries_expr import WorkoutDurationTimeseriesExpr
 
-QueryGroupByItem = typing.Union[DateTruncExpr, DatePartExpr]
+QueryGroupByItem = typing.Union[
+    DateTruncExpr,
+    DatePartExpr,
+    SleepColumnExpr,
+    ActivityColumnExpr,
+    WorkoutColumnExpr,
+    BodyColumnExpr,
+    MealColumnExpr,
+    SleepScoreValueMacroExpr,
+    ChronotypeValueMacroExpr,
+    UnrecognizedValueMacroExpr,
+    DiscreteTimeseriesExpr,
+    IntervalTimeseriesExpr,
+    BloodPressureTimeseriesExpr,
+    TemperatureTimeseriesExpr,
+    WorkoutDurationTimeseriesExpr,
+    NoteTimeseriesExpr,
+    SourceColumnExpr,
+]
