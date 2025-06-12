@@ -1329,8 +1329,6 @@ class LabTestsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PostOrderResponse:
         """
-        POST create new order
-
         Parameters
         ----------
         user_id : str
@@ -3063,8 +3061,6 @@ class AsyncLabTestsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PostOrderResponse:
         """
-        POST create new order
-
         Parameters
         ----------
         user_id : str

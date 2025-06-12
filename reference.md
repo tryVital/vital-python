@@ -13645,20 +13645,6 @@ client.lab_tests.get_order(order_id='order_id', )
 <dl>
 <dd>
 
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-POST create new order
-</dd>
-</dl>
-</dd>
-</dl>
-
 #### 🔌 Usage
 
 <dl>

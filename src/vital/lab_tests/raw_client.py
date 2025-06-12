@@ -2180,8 +2180,6 @@ class RawLabTestsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PostOrderResponse]:
         """
-        POST create new order
-
         Parameters
         ----------
         user_id : str
@@ -4793,8 +4791,6 @@ class AsyncRawLabTestsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PostOrderResponse]:
         """
-        POST create new order
-
         Parameters
         ----------
         user_id : str
