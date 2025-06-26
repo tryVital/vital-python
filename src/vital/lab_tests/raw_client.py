@@ -50,6 +50,7 @@ from ..types.patient_details_with_validation import PatientDetailsWithValidation
 from ..types.physician_create_request import PhysicianCreateRequest
 from ..types.post_order_response import PostOrderResponse
 from ..types.psc_info import PscInfo
+from ..types.simulation_flags import SimulationFlags
 from ..types.us_address import UsAddress
 from .types.lab_tests_get_orders_request_order_direction import LabTestsGetOrdersRequestOrderDirection
 from .types.lab_tests_get_orders_request_order_key import LabTestsGetOrdersRequestOrderKey
@@ -2415,6 +2416,7 @@ class RawLabTestsClient:
         *,
         final_status: typing.Optional[OrderStatus] = None,
         delay: typing.Optional[int] = None,
+        request: typing.Optional[SimulationFlags] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.Optional[typing.Any]]:
         """
@@ -2427,6 +2429,8 @@ class RawLabTestsClient:
         final_status : typing.Optional[OrderStatus]
 
         delay : typing.Optional[int]
+
+        request : typing.Optional[SimulationFlags]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2443,7 +2447,12 @@ class RawLabTestsClient:
                 "final_status": final_status,
                 "delay": delay,
             },
+            json=request,
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
+            omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:
@@ -5026,6 +5035,7 @@ class AsyncRawLabTestsClient:
         *,
         final_status: typing.Optional[OrderStatus] = None,
         delay: typing.Optional[int] = None,
+        request: typing.Optional[SimulationFlags] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.Optional[typing.Any]]:
         """
@@ -5038,6 +5048,8 @@ class AsyncRawLabTestsClient:
         final_status : typing.Optional[OrderStatus]
 
         delay : typing.Optional[int]
+
+        request : typing.Optional[SimulationFlags]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -5054,7 +5066,12 @@ class AsyncRawLabTestsClient:
                 "final_status": final_status,
                 "delay": delay,
             },
+            json=request,
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
+            omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:

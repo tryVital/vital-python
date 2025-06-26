@@ -41,6 +41,7 @@ from ..types.patient_details_with_validation import PatientDetailsWithValidation
 from ..types.physician_create_request import PhysicianCreateRequest
 from ..types.post_order_response import PostOrderResponse
 from ..types.psc_info import PscInfo
+from ..types.simulation_flags import SimulationFlags
 from ..types.us_address import UsAddress
 from .raw_client import AsyncRawLabTestsClient, RawLabTestsClient
 from .types.lab_tests_get_orders_request_order_direction import LabTestsGetOrdersRequestOrderDirection
@@ -1499,6 +1500,7 @@ class LabTestsClient:
         *,
         final_status: typing.Optional[OrderStatus] = None,
         delay: typing.Optional[int] = None,
+        request: typing.Optional[SimulationFlags] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Optional[typing.Any]:
         """
@@ -1511,6 +1513,8 @@ class LabTestsClient:
         final_status : typing.Optional[OrderStatus]
 
         delay : typing.Optional[int]
+
+        request : typing.Optional[SimulationFlags]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1527,7 +1531,7 @@ class LabTestsClient:
         client.lab_tests.simulate_order_process(order_id='order_id', )
         """
         _response = self._raw_client.simulate_order_process(
-            order_id, final_status=final_status, delay=delay, request_options=request_options
+            order_id, final_status=final_status, delay=delay, request=request, request_options=request_options
         )
         return _response.data
 
@@ -3240,6 +3244,7 @@ class AsyncLabTestsClient:
         *,
         final_status: typing.Optional[OrderStatus] = None,
         delay: typing.Optional[int] = None,
+        request: typing.Optional[SimulationFlags] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Optional[typing.Any]:
         """
@@ -3252,6 +3257,8 @@ class AsyncLabTestsClient:
         final_status : typing.Optional[OrderStatus]
 
         delay : typing.Optional[int]
+
+        request : typing.Optional[SimulationFlags]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -3271,7 +3278,7 @@ class AsyncLabTestsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.simulate_order_process(
-            order_id, final_status=final_status, delay=delay, request_options=request_options
+            order_id, final_status=final_status, delay=delay, request=request, request_options=request_options
         )
         return _response.data
 

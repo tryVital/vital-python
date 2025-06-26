@@ -43,7 +43,7 @@ class WorkoutColumnExprWorkout(str, enum.Enum):
     SOURCE_TYPE = "source_type"
     SOURCE_PROVIDER = "source_provider"
     SOURCE_APP_ID = "source_app_id"
-    SOURCE_WORKOUT_ID = "source_workout_id"
+    EXTERNAL_ID = "external_id"
     TIME_ZONE = "time_zone"
     _UNKNOWN = "__WORKOUTCOLUMNEXPRWORKOUT_UNKNOWN__"
     """
@@ -90,7 +90,7 @@ class WorkoutColumnExprWorkout(str, enum.Enum):
         source_type: typing.Callable[[], T_Result],
         source_provider: typing.Callable[[], T_Result],
         source_app_id: typing.Callable[[], T_Result],
-        source_workout_id: typing.Callable[[], T_Result],
+        external_id: typing.Callable[[], T_Result],
         time_zone: typing.Callable[[], T_Result],
         _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
@@ -158,8 +158,8 @@ class WorkoutColumnExprWorkout(str, enum.Enum):
             return source_provider()
         if self is WorkoutColumnExprWorkout.SOURCE_APP_ID:
             return source_app_id()
-        if self is WorkoutColumnExprWorkout.SOURCE_WORKOUT_ID:
-            return source_workout_id()
+        if self is WorkoutColumnExprWorkout.EXTERNAL_ID:
+            return external_id()
         if self is WorkoutColumnExprWorkout.TIME_ZONE:
             return time_zone()
         return _unknown_member(self._value_)

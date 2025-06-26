@@ -14054,6 +14054,14 @@ client.lab_tests.simulate_order_process(order_id='order_id', )
 <dl>
 <dd>
 
+**request:** `typing.Optional[SimulationFlags]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>

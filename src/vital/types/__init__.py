@@ -694,6 +694,7 @@ from .sexual_activity_entry import SexualActivityEntry
 from .sexual_orientation import SexualOrientation
 from .shipping_address import ShippingAddress
 from .shipping_address_with_validation import ShippingAddressWithValidation
+from .simulation_flags import SimulationFlags
 from .single_historical_pull_statistics import SingleHistoricalPullStatistics
 from .single_historical_pull_statistics_error_details import SingleHistoricalPullStatisticsErrorDetails
 from .single_provider_historical_pull_response import SingleProviderHistoricalPullResponse
@@ -1396,6 +1397,7 @@ __all__ = [
     "SexualOrientation",
     "ShippingAddress",
     "ShippingAddressWithValidation",
+    "SimulationFlags",
     "SingleHistoricalPullStatistics",
     "SingleHistoricalPullStatisticsErrorDetails",
     "SingleProviderHistoricalPullResponse",

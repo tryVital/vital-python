@@ -35,6 +35,7 @@ class ClientFacingAppointment(UniversalBaseModel):
     provider: AppointmentProvider
     status: AppointmentStatus
     provider_id: str
+    external_id: typing.Optional[str] = None
     can_reschedule: bool
     event_status: AppointmentEventStatus
     event_data: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
