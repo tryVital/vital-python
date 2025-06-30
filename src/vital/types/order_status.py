@@ -21,6 +21,7 @@ class OrderStatus(str, enum.Enum):
     COLLECTING_SAMPLE_WALK_IN_TEST_APPOINTMENT_PENDING = "collecting_sample.walk_in_test.appointment_pending"
     COLLECTING_SAMPLE_WALK_IN_TEST_APPOINTMENT_SCHEDULED = "collecting_sample.walk_in_test.appointment_scheduled"
     COLLECTING_SAMPLE_WALK_IN_TEST_APPOINTMENT_CANCELLED = "collecting_sample.walk_in_test.appointment_cancelled"
+    COLLECTING_SAMPLE_WALK_IN_TEST_REDRAW_AVAILABLE = "collecting_sample.walk_in_test.redraw_available"
     RECEIVED_AT_HOME_PHLEBOTOMY_ORDERED = "received.at_home_phlebotomy.ordered"
     RECEIVED_AT_HOME_PHLEBOTOMY_REQUISITION_CREATED = "received.at_home_phlebotomy.requisition_created"
     RECEIVED_AT_HOME_PHLEBOTOMY_REQUISITION_BYPASSED = "received.at_home_phlebotomy.requisition_bypassed"
@@ -88,6 +89,7 @@ class OrderStatus(str, enum.Enum):
         collecting_sample_walk_in_test_appointment_pending: typing.Callable[[], T_Result],
         collecting_sample_walk_in_test_appointment_scheduled: typing.Callable[[], T_Result],
         collecting_sample_walk_in_test_appointment_cancelled: typing.Callable[[], T_Result],
+        collecting_sample_walk_in_test_redraw_available: typing.Callable[[], T_Result],
         received_at_home_phlebotomy_ordered: typing.Callable[[], T_Result],
         received_at_home_phlebotomy_requisition_created: typing.Callable[[], T_Result],
         received_at_home_phlebotomy_requisition_bypassed: typing.Callable[[], T_Result],
@@ -148,6 +150,8 @@ class OrderStatus(str, enum.Enum):
             return collecting_sample_walk_in_test_appointment_scheduled()
         if self is OrderStatus.COLLECTING_SAMPLE_WALK_IN_TEST_APPOINTMENT_CANCELLED:
             return collecting_sample_walk_in_test_appointment_cancelled()
+        if self is OrderStatus.COLLECTING_SAMPLE_WALK_IN_TEST_REDRAW_AVAILABLE:
+            return collecting_sample_walk_in_test_redraw_available()
         if self is OrderStatus.RECEIVED_AT_HOME_PHLEBOTOMY_ORDERED:
             return received_at_home_phlebotomy_ordered()
         if self is OrderStatus.RECEIVED_AT_HOME_PHLEBOTOMY_REQUISITION_CREATED:
