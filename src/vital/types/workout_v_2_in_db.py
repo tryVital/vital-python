@@ -20,6 +20,7 @@ class WorkoutV2InDb(UniversalBaseModel):
     sport_id: int
     source: ClientFacingProvider
     sport: ClientFacingSport
+    source_device_id: typing.Optional[str] = None
     created_at: typing.Optional[dt.datetime] = None
     updated_at: typing.Optional[dt.datetime] = None
 
