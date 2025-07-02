@@ -58,6 +58,7 @@ class MealColumnExprMeal(str, enum.Enum):
     SOURCE_TYPE = "source_type"
     SOURCE_PROVIDER = "source_provider"
     SOURCE_APP_ID = "source_app_id"
+    SOURCE_DEVICE_ID = "source_device_id"
     _UNKNOWN = "__MEALCOLUMNEXPRMEAL_UNKNOWN__"
     """
     This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
@@ -118,6 +119,7 @@ class MealColumnExprMeal(str, enum.Enum):
         source_type: typing.Callable[[], T_Result],
         source_provider: typing.Callable[[], T_Result],
         source_app_id: typing.Callable[[], T_Result],
+        source_device_id: typing.Callable[[], T_Result],
         _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is MealColumnExprMeal.CALORIES:
@@ -214,4 +216,6 @@ class MealColumnExprMeal(str, enum.Enum):
             return source_provider()
         if self is MealColumnExprMeal.SOURCE_APP_ID:
             return source_app_id()
+        if self is MealColumnExprMeal.SOURCE_DEVICE_ID:
+            return source_device_id()
         return _unknown_member(self._value_)

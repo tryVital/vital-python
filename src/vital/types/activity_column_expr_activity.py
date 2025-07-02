@@ -32,6 +32,7 @@ class ActivityColumnExprActivity(str, enum.Enum):
     SOURCE_TYPE = "source_type"
     SOURCE_PROVIDER = "source_provider"
     SOURCE_APP_ID = "source_app_id"
+    SOURCE_DEVICE_ID = "source_device_id"
     TIME_ZONE = "time_zone"
     TIME_ZONE_OFFSET = "time_zone_offset"
     _UNKNOWN = "__ACTIVITYCOLUMNEXPRACTIVITY_UNKNOWN__"
@@ -68,6 +69,7 @@ class ActivityColumnExprActivity(str, enum.Enum):
         source_type: typing.Callable[[], T_Result],
         source_provider: typing.Callable[[], T_Result],
         source_app_id: typing.Callable[[], T_Result],
+        source_device_id: typing.Callable[[], T_Result],
         time_zone: typing.Callable[[], T_Result],
         time_zone_offset: typing.Callable[[], T_Result],
         _unknown_member: typing.Callable[[str], T_Result],
@@ -114,6 +116,8 @@ class ActivityColumnExprActivity(str, enum.Enum):
             return source_provider()
         if self is ActivityColumnExprActivity.SOURCE_APP_ID:
             return source_app_id()
+        if self is ActivityColumnExprActivity.SOURCE_DEVICE_ID:
+            return source_device_id()
         if self is ActivityColumnExprActivity.TIME_ZONE:
             return time_zone()
         if self is ActivityColumnExprActivity.TIME_ZONE_OFFSET:

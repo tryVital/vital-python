@@ -17,6 +17,7 @@ class ActivityV2InDb(UniversalBaseModel):
     priority_id: int
     id: str
     source: ClientFacingProvider
+    source_device_id: typing.Optional[str] = None
     created_at: typing.Optional[dt.datetime] = None
     updated_at: typing.Optional[dt.datetime] = None
 

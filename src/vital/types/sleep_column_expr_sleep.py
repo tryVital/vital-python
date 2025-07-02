@@ -38,6 +38,7 @@ class SleepColumnExprSleep(str, enum.Enum):
     SOURCE_TYPE = "source_type"
     SOURCE_PROVIDER = "source_provider"
     SOURCE_APP_ID = "source_app_id"
+    SOURCE_DEVICE_ID = "source_device_id"
     TIME_ZONE = "time_zone"
     _UNKNOWN = "__SLEEPCOLUMNEXPRSLEEP_UNKNOWN__"
     """
@@ -79,6 +80,7 @@ class SleepColumnExprSleep(str, enum.Enum):
         source_type: typing.Callable[[], T_Result],
         source_provider: typing.Callable[[], T_Result],
         source_app_id: typing.Callable[[], T_Result],
+        source_device_id: typing.Callable[[], T_Result],
         time_zone: typing.Callable[[], T_Result],
         _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
@@ -136,6 +138,8 @@ class SleepColumnExprSleep(str, enum.Enum):
             return source_provider()
         if self is SleepColumnExprSleep.SOURCE_APP_ID:
             return source_app_id()
+        if self is SleepColumnExprSleep.SOURCE_DEVICE_ID:
+            return source_device_id()
         if self is SleepColumnExprSleep.TIME_ZONE:
             return time_zone()
         return _unknown_member(self._value_)
