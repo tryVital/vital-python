@@ -22,6 +22,7 @@ class BiomarkerResult(UniversalBaseModel):
     unit: typing.Optional[str] = None
     timestamp: typing.Optional[dt.datetime] = None
     notes: typing.Optional[str] = None
+    reference_range: typing.Optional[str] = None
     min_range_value: typing.Optional[float] = None
     max_range_value: typing.Optional[float] = None
     is_above_max_range: typing.Optional[bool] = None
