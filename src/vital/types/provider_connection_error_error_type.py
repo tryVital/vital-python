@@ -17,6 +17,7 @@ class ProviderConnectionErrorErrorType(str, enum.Enum):
     DEREGISTERED_PER_PROVIDER = "deregistered_per_provider"
     REQUIRED_SCOPES_NOT_GRANTED = "required_scopes_not_granted"
     PROVIDER_CREDENTIAL_ERROR = "provider_credential_error"
+    PROVIDER_PASSWORD_EXPIRED = "provider_password_expired"
     UNKNOWN = "unknown"
     _UNKNOWN = "__PROVIDERCONNECTIONERRORERRORTYPE_UNKNOWN__"
     """
@@ -37,6 +38,7 @@ class ProviderConnectionErrorErrorType(str, enum.Enum):
         deregistered_per_provider: typing.Callable[[], T_Result],
         required_scopes_not_granted: typing.Callable[[], T_Result],
         provider_credential_error: typing.Callable[[], T_Result],
+        provider_password_expired: typing.Callable[[], T_Result],
         unknown: typing.Callable[[], T_Result],
         _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
@@ -52,6 +54,8 @@ class ProviderConnectionErrorErrorType(str, enum.Enum):
             return required_scopes_not_granted()
         if self is ProviderConnectionErrorErrorType.PROVIDER_CREDENTIAL_ERROR:
             return provider_credential_error()
+        if self is ProviderConnectionErrorErrorType.PROVIDER_PASSWORD_EXPIRED:
+            return provider_password_expired()
         if self is ProviderConnectionErrorErrorType.UNKNOWN:
             return unknown()
         return _unknown_member(self._value_)

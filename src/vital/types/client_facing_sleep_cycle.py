@@ -38,6 +38,7 @@ class ClientFacingSleepCycle(UniversalBaseModel):
     """
 
     source_app_id: typing.Optional[str] = None
+    source_device_id: typing.Optional[str] = None
     created_at: dt.datetime
     updated_at: dt.datetime
     user_id: str

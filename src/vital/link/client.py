@@ -630,6 +630,7 @@ class LinkClient:
         vital_link_token : typing.Optional[str]
 
         region : typing.Optional[Region]
+            Provider region to authenticate against. Only applicable to specific providers.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1479,6 +1480,7 @@ class AsyncLinkClient:
         vital_link_token : typing.Optional[str]
 
         region : typing.Optional[Region]
+            Provider region to authenticate against. Only applicable to specific providers.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

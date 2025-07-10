@@ -281,6 +281,7 @@ from .client_facing_order_details import (
 )
 from .client_facing_order_event import ClientFacingOrderEvent
 from .client_facing_patient_details_compatible import ClientFacingPatientDetailsCompatible
+from .client_facing_payor import ClientFacingPayor
 from .client_facing_payor_search_response import ClientFacingPayorSearchResponse
 from .client_facing_payor_search_response_deprecated import ClientFacingPayorSearchResponseDeprecated
 from .client_facing_peak_expiratory_flow_rate_changed import ClientFacingPeakExpiratoryFlowRateChanged
@@ -656,6 +657,7 @@ from .provider_connection_created import ProviderConnectionCreated
 from .provider_connection_error import ProviderConnectionError
 from .provider_connection_error_error_type import ProviderConnectionErrorErrorType
 from .provider_link_response import ProviderLinkResponse
+from .provider_link_response_error_type import ProviderLinkResponseErrorType
 from .provider_link_response_state import ProviderLinkResponseState
 from .provider_mfa_request import ProviderMfaRequest
 from .provider_mfa_request_method import ProviderMfaRequestMethod
@@ -998,6 +1000,7 @@ __all__ = [
     "ClientFacingOrderDetails_WalkInTest",
     "ClientFacingOrderEvent",
     "ClientFacingPatientDetailsCompatible",
+    "ClientFacingPayor",
     "ClientFacingPayorSearchResponse",
     "ClientFacingPayorSearchResponseDeprecated",
     "ClientFacingPeakExpiratoryFlowRateChanged",
@@ -1359,6 +1362,7 @@ __all__ = [
     "ProviderConnectionError",
     "ProviderConnectionErrorErrorType",
     "ProviderLinkResponse",
+    "ProviderLinkResponseErrorType",
     "ProviderLinkResponseState",
     "ProviderMfaRequest",
     "ProviderMfaRequestMethod",

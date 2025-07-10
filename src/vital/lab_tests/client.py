@@ -1265,7 +1265,7 @@ class LabTestsClient:
         self, order_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.Iterator[bytes]:
         """
-        GET requisition pdf for an order
+        GET ABN pdf for an order
 
         Parameters
         ----------
@@ -2994,7 +2994,7 @@ class AsyncLabTestsClient:
         self, order_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.AsyncIterator[bytes]:
         """
-        GET requisition pdf for an order
+        GET ABN pdf for an order
 
         Parameters
         ----------

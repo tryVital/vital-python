@@ -2061,7 +2061,7 @@ class RawLabTestsClient:
         self, order_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.Iterator[HttpResponse[typing.Iterator[bytes]]]:
         """
-        GET requisition pdf for an order
+        GET ABN pdf for an order
 
         Parameters
         ----------
@@ -4679,7 +4679,7 @@ class AsyncRawLabTestsClient:
         self, order_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.AsyncIterator[AsyncHttpResponse[typing.AsyncIterator[bytes]]]:
         """
-        GET requisition pdf for an order
+        GET ABN pdf for an order
 
         Parameters
         ----------

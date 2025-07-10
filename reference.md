@@ -1125,7 +1125,7 @@ client.link.connect_password_provider(provider=PasswordProviders.WHOOP, username
 <dl>
 <dd>
 
-**region:** `typing.Optional[Region]` 
+**region:** `typing.Optional[Region]` — Provider region to authenticate against. Only applicable to specific providers.
     
 </dd>
 </dl>
@@ -14782,6 +14782,83 @@ client.insurance.search_diagnosis(diagnosis_query='diagnosis_query', )
 <dd>
 
 **diagnosis_query:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Payor
+<details><summary><code>client.payor.<a href="src/vital/payor/client.py">create_payor</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+from vital import Address
+client = Vital(api_key="YOUR_API_KEY", )
+client.payor.create_payor(name='name', address=Address(first_line='first_line', country='country', zip='zip', city='city', state='state', ), )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**name:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**address:** `Address` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider:** `typing.Optional[PayorCodeExternalProvider]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider_payor_id:** `typing.Optional[str]` 
     
 </dd>
 </dl>

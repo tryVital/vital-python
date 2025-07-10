@@ -10,10 +10,13 @@ from .provider_mfa_request_method import ProviderMfaRequestMethod
 class ProviderMfaRequest(UniversalBaseModel):
     method: ProviderMfaRequestMethod = pydantic.Field()
     """
-    ℹ️ This enum is non-exhaustive.
+    The MFA method requested by the password provider to complete authentication. ℹ️ This enum is non-exhaustive.
     """
 
-    hint: str
+    hint: str = pydantic.Field()
+    """
+    The MFA hint provided by the password provider, e.g., the redacted phone number.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

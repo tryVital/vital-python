@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .password_providers import PasswordProviders
+from .provider_link_response_error_type import ProviderLinkResponseErrorType
 from .provider_link_response_state import ProviderLinkResponseState
 from .provider_mfa_request import ProviderMfaRequest
 
@@ -15,10 +16,26 @@ class ProviderLinkResponse(UniversalBaseModel):
     ℹ️ This enum is non-exhaustive.
     """
 
-    redirect_url: typing.Optional[str] = None
-    error_type: typing.Optional[str] = None
-    error: typing.Optional[str] = None
-    provider_mfa: typing.Optional[ProviderMfaRequest] = None
+    redirect_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The redirect URL you supplied when creating the Link Token (via `POST /v2/link/token`).
+    """
+
+    error_type: typing.Optional[ProviderLinkResponseErrorType] = pydantic.Field(default=None)
+    """
+    The Link Error Type. This field is populated only when state is `error`.
+    """
+
+    error: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    A developer-readable debug description of the Link Error. This field is populated only when state is `error`.
+    """
+
+    provider_mfa: typing.Optional[ProviderMfaRequest] = pydantic.Field(default=None)
+    """
+    The provider MFA request. This field is populated only when state is `pending_provider_mfa`.
+    """
+
     provider: PasswordProviders
     connected: bool
     provider_id: typing.Optional[str] = None

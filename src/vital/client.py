@@ -17,6 +17,7 @@ from .link.client import AsyncLinkClient, LinkClient
 from .meal.client import AsyncMealClient, MealClient
 from .menstrual_cycle.client import AsyncMenstrualCycleClient, MenstrualCycleClient
 from .order.client import AsyncOrderClient, OrderClient
+from .payor.client import AsyncPayorClient, PayorClient
 from .profile.client import AsyncProfileClient, ProfileClient
 from .providers.client import AsyncProvidersClient, ProvidersClient
 from .sleep.client import AsyncSleepClient, SleepClient
@@ -103,6 +104,7 @@ class Vital:
         self.testkit = TestkitClient(client_wrapper=self._client_wrapper)
         self.order = OrderClient(client_wrapper=self._client_wrapper)
         self.insurance = InsuranceClient(client_wrapper=self._client_wrapper)
+        self.payor = PayorClient(client_wrapper=self._client_wrapper)
         self.aggregate = AggregateClient(client_wrapper=self._client_wrapper)
 
 
@@ -181,6 +183,7 @@ class AsyncVital:
         self.testkit = AsyncTestkitClient(client_wrapper=self._client_wrapper)
         self.order = AsyncOrderClient(client_wrapper=self._client_wrapper)
         self.insurance = AsyncInsuranceClient(client_wrapper=self._client_wrapper)
+        self.payor = AsyncPayorClient(client_wrapper=self._client_wrapper)
         self.aggregate = AsyncAggregateClient(client_wrapper=self._client_wrapper)
 
 
