@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class DatePartExprDatePart(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     MINUTE = "minute"
     HOUR = "hour"
     DAY = "day"

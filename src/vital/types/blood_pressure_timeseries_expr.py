@@ -9,7 +9,10 @@ from .blood_pressure_timeseries_expr_field import BloodPressureTimeseriesExprFie
 
 class BloodPressureTimeseriesExpr(UniversalBaseModel):
     timeseries: typing.Literal["blood_pressure"] = "blood_pressure"
-    field: BloodPressureTimeseriesExprField
+    field: BloodPressureTimeseriesExprField = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

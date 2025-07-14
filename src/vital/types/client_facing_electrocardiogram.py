@@ -19,8 +19,16 @@ class ClientFacingElectrocardiogram(UniversalBaseModel):
     voltage_sample_count: int
     heart_rate_mean: typing.Optional[int] = None
     sampling_frequency_hz: typing.Optional[float] = None
-    classification: typing.Optional[ClientFacingElectrocardiogramClassification] = None
-    inconclusive_cause: typing.Optional[ClientFacingElectrocardiogramInconclusiveCause] = None
+    classification: typing.Optional[ClientFacingElectrocardiogramClassification] = pydantic.Field(default=None)
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
+    inconclusive_cause: typing.Optional[ClientFacingElectrocardiogramInconclusiveCause] = pydantic.Field(default=None)
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     algorithm_version: typing.Optional[str] = None
     time_zone: typing.Optional[str] = None
     source_provider: ClientFacingElectrocardiogramSourceProvider

@@ -19,7 +19,11 @@ class ClientFacingSleepBreathingDisturbanceSample(UniversalBaseModel):
     Time zone UTC offset in seconds. Positive offset indicates east of UTC; negative offset indicates west of UTC; and null indicates the time zone information is unavailable at source.
     """
 
-    type: typing.Optional[ClientFacingSleepBreathingDisturbanceSampleType] = None
+    type: typing.Optional[ClientFacingSleepBreathingDisturbanceSampleType] = pydantic.Field(default=None)
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     unit: typing.Literal["count"] = "count"
     timestamp: dt.datetime = pydantic.Field()
     """

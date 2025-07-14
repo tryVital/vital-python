@@ -6,6 +6,8 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .client_facing_source import ClientFacingSource
+from .gender import Gender
+from .sex import Sex
 
 
 class ClientFacingProfile(UniversalBaseModel):
@@ -18,6 +20,8 @@ class ClientFacingProfile(UniversalBaseModel):
     height: typing.Optional[int] = None
     birth_date: typing.Optional[str] = None
     wheelchair_use: typing.Optional[bool] = None
+    gender: typing.Optional[Gender] = None
+    sex: typing.Optional[Sex] = None
     source: ClientFacingSource
     created_at: dt.datetime
     updated_at: dt.datetime

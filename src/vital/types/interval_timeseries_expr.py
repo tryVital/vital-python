@@ -14,7 +14,10 @@ class IntervalTimeseriesExpr(UniversalBaseModel):
     ℹ️ This enum is non-exhaustive.
     """
 
-    field: IntervalTimeseriesExprField
+    field: IntervalTimeseriesExprField = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

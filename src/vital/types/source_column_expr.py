@@ -8,7 +8,10 @@ from .source_column_expr_source import SourceColumnExprSource
 
 
 class SourceColumnExpr(UniversalBaseModel):
-    source: SourceColumnExprSource
+    source: SourceColumnExprSource = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

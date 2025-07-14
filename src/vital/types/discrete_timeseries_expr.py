@@ -14,7 +14,10 @@ class DiscreteTimeseriesExpr(UniversalBaseModel):
     ℹ️ This enum is non-exhaustive.
     """
 
-    field: DiscreteTimeseriesExprField
+    field: DiscreteTimeseriesExprField = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

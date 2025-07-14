@@ -9,7 +9,10 @@ from .note_timeseries_expr_field import NoteTimeseriesExprField
 
 class NoteTimeseriesExpr(UniversalBaseModel):
     timeseries: typing.Literal["note"] = "note"
-    field: NoteTimeseriesExprField
+    field: NoteTimeseriesExprField = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

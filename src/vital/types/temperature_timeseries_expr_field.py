@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class TemperatureTimeseriesExprField(str, enum.Enum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     SOURCE_PROVIDER = "source_provider"
     SOURCE_TYPE = "source_type"
     SOURCE_APP_ID = "source_app_id"

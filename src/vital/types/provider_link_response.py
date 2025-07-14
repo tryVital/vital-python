@@ -23,7 +23,7 @@ class ProviderLinkResponse(UniversalBaseModel):
 
     error_type: typing.Optional[ProviderLinkResponseErrorType] = pydantic.Field(default=None)
     """
-    The Link Error Type. This field is populated only when state is `error`.
+    The Link Error Type. This field is populated only when state is `error`. ℹ️ This enum is non-exhaustive.
     """
 
     error: typing.Optional[str] = pydantic.Field(default=None)

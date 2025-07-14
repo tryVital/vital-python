@@ -9,7 +9,10 @@ from .workout_duration_timeseries_expr_field import WorkoutDurationTimeseriesExp
 
 class WorkoutDurationTimeseriesExpr(UniversalBaseModel):
     timeseries: typing.Literal["workout_duration"] = "workout_duration"
-    field: WorkoutDurationTimeseriesExprField
+    field: WorkoutDurationTimeseriesExprField = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

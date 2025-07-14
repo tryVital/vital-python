@@ -10,7 +10,10 @@ from .date_part_expr_date_part import DatePartExprDatePart
 
 class DatePartExpr(UniversalBaseModel):
     arg: DatePartExprArg
-    date_part: DatePartExprDatePart
+    date_part: DatePartExprDatePart = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

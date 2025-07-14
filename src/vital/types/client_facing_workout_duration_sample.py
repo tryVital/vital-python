@@ -47,7 +47,7 @@ class ClientFacingWorkoutDurationSample(UniversalBaseModel):
 
     intensity: typing.Optional[ClientFacingWorkoutDurationSampleIntensity] = pydantic.Field(default=None)
     """
-    Workout intensity.
+    Workout intensity. ℹ️ This enum is non-exhaustive.
     """
 
     if IS_PYDANTIC_V2:

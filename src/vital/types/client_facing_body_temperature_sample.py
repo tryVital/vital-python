@@ -47,7 +47,7 @@ class ClientFacingBodyTemperatureSample(UniversalBaseModel):
 
     sensor_location: typing.Optional[ClientFacingBodyTemperatureSampleSensorLocation] = pydantic.Field(default=None)
     """
-    Location of the temperature sensor.
+    Location of the temperature sensor. ℹ️ This enum is non-exhaustive.
     """
 
     if IS_PYDANTIC_V2:

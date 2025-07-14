@@ -692,6 +692,7 @@ from .sample_data_date_reported import SampleDataDateReported
 from .scope_requirements_grants import ScopeRequirementsGrants
 from .scope_requirements_str import ScopeRequirementsStr
 from .select import Select
+from .sex import Sex
 from .sexual_activity_entry import SexualActivityEntry
 from .sexual_orientation import SexualOrientation
 from .shipping_address import ShippingAddress
@@ -1397,6 +1398,7 @@ __all__ = [
     "ScopeRequirementsGrants",
     "ScopeRequirementsStr",
     "Select",
+    "Sex",
     "SexualActivityEntry",
     "SexualOrientation",
     "ShippingAddress",
