@@ -78,7 +78,7 @@ class ClientFacingActivity(UniversalBaseModel):
 
     time_zone: typing.Optional[str] = pydantic.Field(default=None)
     """
-    [DEPRECATED] The time zone full identifier for the data. Example: 'Europe/London'.
+    The IANA time zone identifier. Example: 'Europe/London'.
     """
 
     timezone_offset: typing.Optional[int] = pydantic.Field(default=None)
