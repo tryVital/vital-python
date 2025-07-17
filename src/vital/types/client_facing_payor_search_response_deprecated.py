@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .address import Address
+from .client_facing_payor_code_source import ClientFacingPayorCodeSource
 
 
 class ClientFacingPayorSearchResponseDeprecated(UniversalBaseModel):
@@ -26,6 +27,11 @@ class ClientFacingPayorSearchResponseDeprecated(UniversalBaseModel):
     org_address: Address = pydantic.Field()
     """
     Insurance business address returned for the insurance information.
+    """
+
+    source: ClientFacingPayorCodeSource = pydantic.Field()
+    """
+    The source of the payor, can be one of (platform, team).
     """
 
     if IS_PYDANTIC_V2:

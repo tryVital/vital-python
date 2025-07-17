@@ -110,6 +110,11 @@ class ClientFacingOrder(UniversalBaseModel):
     Interpretation of the order result. Can be one of (normal, abnormal, critical).
     """
 
+    has_missing_results: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Defines whether the order result has missing biomarkers.
+    """
+
     expected_result_by_date: typing.Optional[str] = pydantic.Field(default=None)
     """
     The common-case date by which the order result is expected to be available.

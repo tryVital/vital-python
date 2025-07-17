@@ -282,6 +282,7 @@ from .client_facing_order_details import (
 from .client_facing_order_event import ClientFacingOrderEvent
 from .client_facing_patient_details_compatible import ClientFacingPatientDetailsCompatible
 from .client_facing_payor import ClientFacingPayor
+from .client_facing_payor_code_source import ClientFacingPayorCodeSource
 from .client_facing_payor_search_response import ClientFacingPayorSearchResponse
 from .client_facing_payor_search_response_deprecated import ClientFacingPayorSearchResponseDeprecated
 from .client_facing_peak_expiratory_flow_rate_changed import ClientFacingPeakExpiratoryFlowRateChanged
@@ -1002,6 +1003,7 @@ __all__ = [
     "ClientFacingOrderEvent",
     "ClientFacingPatientDetailsCompatible",
     "ClientFacingPayor",
+    "ClientFacingPayorCodeSource",
     "ClientFacingPayorSearchResponse",
     "ClientFacingPayorSearchResponseDeprecated",
     "ClientFacingPeakExpiratoryFlowRateChanged",
