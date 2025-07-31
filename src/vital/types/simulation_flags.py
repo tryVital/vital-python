@@ -11,6 +11,7 @@ from .result_type import ResultType
 class SimulationFlags(UniversalBaseModel):
     interpretation: typing.Optional[Interpretation] = None
     result_types: typing.Optional[typing.List[ResultType]] = None
+    has_missing_results: typing.Optional[bool] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -27,6 +27,11 @@ class ClientFacingSource(UniversalBaseModel):
     The identifier of the app which recorded this summary. This is only applicable to multi-source providers like Apple Health and Android Health Connect.
     """
 
+    device_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The identifier of the device which recorded this summary.
+    """
+
     sport: typing.Optional[str] = pydantic.Field(default=None)
     """
     

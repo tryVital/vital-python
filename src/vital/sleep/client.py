@@ -69,50 +69,6 @@ class SleepClient:
         )
         return _response.data
 
-    def get_stream(
-        self,
-        user_id: str,
-        *,
-        start_date: str,
-        provider: typing.Optional[str] = None,
-        end_date: typing.Optional[str] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> ClientSleepResponse:
-        """
-        Get sleep stream for user_id
-
-        Parameters
-        ----------
-        user_id : str
-
-        start_date : str
-            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-
-        provider : typing.Optional[str]
-            Provider oura/strava etc
-
-        end_date : typing.Optional[str]
-            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ClientSleepResponse
-            Successful Response
-
-        Examples
-        --------
-        from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.sleep.get_stream(user_id='user_id', start_date='start_date', )
-        """
-        _response = self._raw_client.get_stream(
-            user_id, start_date=start_date, provider=provider, end_date=end_date, request_options=request_options
-        )
-        return _response.data
-
     def get_raw(
         self,
         user_id: str,
@@ -244,53 +200,6 @@ class AsyncSleepClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.get(
-            user_id, start_date=start_date, provider=provider, end_date=end_date, request_options=request_options
-        )
-        return _response.data
-
-    async def get_stream(
-        self,
-        user_id: str,
-        *,
-        start_date: str,
-        provider: typing.Optional[str] = None,
-        end_date: typing.Optional[str] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> ClientSleepResponse:
-        """
-        Get sleep stream for user_id
-
-        Parameters
-        ----------
-        user_id : str
-
-        start_date : str
-            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-
-        provider : typing.Optional[str]
-            Provider oura/strava etc
-
-        end_date : typing.Optional[str]
-            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ClientSleepResponse
-            Successful Response
-
-        Examples
-        --------
-        from vital import AsyncVital
-        import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
-        async def main() -> None:
-            await client.sleep.get_stream(user_id='user_id', start_date='start_date', )
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.get_stream(
             user_id, start_date=start_date, provider=provider, end_date=end_date, request_options=request_options
         )
         return _response.data
