@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .billing import Billing
+from .lab_location_capability import LabLocationCapability
 from .lab_location_metadata import LabLocationMetadata
 from .lng_lat import LngLat
 
@@ -15,6 +16,7 @@ class ClientFacingLabLocation(UniversalBaseModel):
     site_code: str
     supported_bill_types: typing.List[Billing]
     location: LngLat
+    capabilities: typing.List[LabLocationCapability]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

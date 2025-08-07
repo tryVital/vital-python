@@ -34,6 +34,7 @@ from ..types.get_orders_response import GetOrdersResponse
 from ..types.health_insurance_create_request import HealthInsuranceCreateRequest
 from ..types.http_validation_error import HttpValidationError
 from ..types.interpretation import Interpretation
+from ..types.lab_location_capability import LabLocationCapability
 from ..types.lab_results_metadata import LabResultsMetadata
 from ..types.lab_results_raw import LabResultsRaw
 from ..types.lab_test_collection_method import LabTestCollectionMethod
@@ -1275,6 +1276,9 @@ class RawLabTestsClient:
         zip_code: str,
         lab_id: int,
         radius: typing.Optional[AllowedRadius] = None,
+        capabilities: typing.Optional[
+            typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]
+        ] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PscInfo]:
         """
@@ -1288,6 +1292,9 @@ class RawLabTestsClient:
 
         radius : typing.Optional[AllowedRadius]
             Radius in which to search in miles
+
+        capabilities : typing.Optional[typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]]
+            Filter for only locations with certain capabilities
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1304,6 +1311,7 @@ class RawLabTestsClient:
                 "zip_code": zip_code,
                 "lab_id": lab_id,
                 "radius": radius,
+                "capabilities": capabilities,
             },
             request_options=request_options,
         )
@@ -1338,6 +1346,9 @@ class RawLabTestsClient:
         order_id: str,
         *,
         radius: typing.Optional[AllowedRadius] = None,
+        capabilities: typing.Optional[
+            typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]
+        ] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PscInfo]:
         """
@@ -1348,6 +1359,9 @@ class RawLabTestsClient:
 
         radius : typing.Optional[AllowedRadius]
             Radius in which to search in miles
+
+        capabilities : typing.Optional[typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]]
+            Filter for only locations with certain capabilities
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1362,6 +1376,7 @@ class RawLabTestsClient:
             method="GET",
             params={
                 "radius": radius,
+                "capabilities": capabilities,
             },
             request_options=request_options,
         )
@@ -3889,6 +3904,9 @@ class AsyncRawLabTestsClient:
         zip_code: str,
         lab_id: int,
         radius: typing.Optional[AllowedRadius] = None,
+        capabilities: typing.Optional[
+            typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]
+        ] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PscInfo]:
         """
@@ -3902,6 +3920,9 @@ class AsyncRawLabTestsClient:
 
         radius : typing.Optional[AllowedRadius]
             Radius in which to search in miles
+
+        capabilities : typing.Optional[typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]]
+            Filter for only locations with certain capabilities
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -3918,6 +3939,7 @@ class AsyncRawLabTestsClient:
                 "zip_code": zip_code,
                 "lab_id": lab_id,
                 "radius": radius,
+                "capabilities": capabilities,
             },
             request_options=request_options,
         )
@@ -3952,6 +3974,9 @@ class AsyncRawLabTestsClient:
         order_id: str,
         *,
         radius: typing.Optional[AllowedRadius] = None,
+        capabilities: typing.Optional[
+            typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]
+        ] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PscInfo]:
         """
@@ -3962,6 +3987,9 @@ class AsyncRawLabTestsClient:
 
         radius : typing.Optional[AllowedRadius]
             Radius in which to search in miles
+
+        capabilities : typing.Optional[typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]]
+            Filter for only locations with certain capabilities
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -3976,6 +4004,7 @@ class AsyncRawLabTestsClient:
             method="GET",
             params={
                 "radius": radius,
+                "capabilities": capabilities,
             },
             request_options=request_options,
         )

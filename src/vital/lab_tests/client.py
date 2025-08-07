@@ -25,6 +25,7 @@ from ..types.get_markers_response import GetMarkersResponse
 from ..types.get_orders_response import GetOrdersResponse
 from ..types.health_insurance_create_request import HealthInsuranceCreateRequest
 from ..types.interpretation import Interpretation
+from ..types.lab_location_capability import LabLocationCapability
 from ..types.lab_results_metadata import LabResultsMetadata
 from ..types.lab_results_raw import LabResultsRaw
 from ..types.lab_test_collection_method import LabTestCollectionMethod
@@ -835,6 +836,9 @@ class LabTestsClient:
         zip_code: str,
         lab_id: int,
         radius: typing.Optional[AllowedRadius] = None,
+        capabilities: typing.Optional[
+            typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]
+        ] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PscInfo:
         """
@@ -848,6 +852,9 @@ class LabTestsClient:
 
         radius : typing.Optional[AllowedRadius]
             Radius in which to search in miles
+
+        capabilities : typing.Optional[typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]]
+            Filter for only locations with certain capabilities
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -864,7 +871,7 @@ class LabTestsClient:
         client.lab_tests.get_psc_info(zip_code='zip_code', lab_id=1, )
         """
         _response = self._raw_client.get_psc_info(
-            zip_code=zip_code, lab_id=lab_id, radius=radius, request_options=request_options
+            zip_code=zip_code, lab_id=lab_id, radius=radius, capabilities=capabilities, request_options=request_options
         )
         return _response.data
 
@@ -873,6 +880,9 @@ class LabTestsClient:
         order_id: str,
         *,
         radius: typing.Optional[AllowedRadius] = None,
+        capabilities: typing.Optional[
+            typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]
+        ] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PscInfo:
         """
@@ -883,6 +893,9 @@ class LabTestsClient:
 
         radius : typing.Optional[AllowedRadius]
             Radius in which to search in miles
+
+        capabilities : typing.Optional[typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]]
+            Filter for only locations with certain capabilities
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -898,7 +911,9 @@ class LabTestsClient:
         client = Vital(api_key="YOUR_API_KEY", )
         client.lab_tests.get_order_psc_info(order_id='order_id', )
         """
-        _response = self._raw_client.get_order_psc_info(order_id, radius=radius, request_options=request_options)
+        _response = self._raw_client.get_order_psc_info(
+            order_id, radius=radius, capabilities=capabilities, request_options=request_options
+        )
         return _response.data
 
     def get_result_pdf(
@@ -2526,6 +2541,9 @@ class AsyncLabTestsClient:
         zip_code: str,
         lab_id: int,
         radius: typing.Optional[AllowedRadius] = None,
+        capabilities: typing.Optional[
+            typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]
+        ] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PscInfo:
         """
@@ -2539,6 +2557,9 @@ class AsyncLabTestsClient:
 
         radius : typing.Optional[AllowedRadius]
             Radius in which to search in miles
+
+        capabilities : typing.Optional[typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]]
+            Filter for only locations with certain capabilities
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2558,7 +2579,7 @@ class AsyncLabTestsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.get_psc_info(
-            zip_code=zip_code, lab_id=lab_id, radius=radius, request_options=request_options
+            zip_code=zip_code, lab_id=lab_id, radius=radius, capabilities=capabilities, request_options=request_options
         )
         return _response.data
 
@@ -2567,6 +2588,9 @@ class AsyncLabTestsClient:
         order_id: str,
         *,
         radius: typing.Optional[AllowedRadius] = None,
+        capabilities: typing.Optional[
+            typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]
+        ] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PscInfo:
         """
@@ -2577,6 +2601,9 @@ class AsyncLabTestsClient:
 
         radius : typing.Optional[AllowedRadius]
             Radius in which to search in miles
+
+        capabilities : typing.Optional[typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]]
+            Filter for only locations with certain capabilities
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2595,7 +2622,9 @@ class AsyncLabTestsClient:
             await client.lab_tests.get_order_psc_info(order_id='order_id', )
         asyncio.run(main())
         """
-        _response = await self._raw_client.get_order_psc_info(order_id, radius=radius, request_options=request_options)
+        _response = await self._raw_client.get_order_psc_info(
+            order_id, radius=radius, capabilities=capabilities, request_options=request_options
+        )
         return _response.data
 
     async def get_result_pdf(

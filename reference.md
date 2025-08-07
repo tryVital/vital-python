@@ -12915,6 +12915,14 @@ client.lab_tests.get_psc_info(zip_code='zip_code', lab_id=1, )
 <dl>
 <dd>
 
+**capabilities:** `typing.Optional[typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]]` — Filter for only locations with certain capabilities
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -12967,6 +12975,14 @@ client.lab_tests.get_order_psc_info(order_id='order_id', )
 <dd>
 
 **radius:** `typing.Optional[AllowedRadius]` — Radius in which to search in miles
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**capabilities:** `typing.Optional[typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]]` — Filter for only locations with certain capabilities
     
 </dd>
 </dl>

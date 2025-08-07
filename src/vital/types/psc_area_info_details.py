@@ -4,12 +4,14 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .lab_location_capability import LabLocationCapability
 
 
 class PscAreaInfoDetails(UniversalBaseModel):
     appointment_with_vital: bool
     within_radius: int
     radius: str
+    capabilities: typing.Optional[typing.List[LabLocationCapability]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

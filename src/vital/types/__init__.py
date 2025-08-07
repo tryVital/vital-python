@@ -596,6 +596,7 @@ from .interval_timeseries_expr import IntervalTimeseriesExpr
 from .interval_timeseries_expr_field import IntervalTimeseriesExprField
 from .interval_timeseries_expr_timeseries import IntervalTimeseriesExprTimeseries
 from .jpeg import Jpeg
+from .lab_location_capability import LabLocationCapability
 from .lab_location_metadata import LabLocationMetadata
 from .lab_results_metadata import LabResultsMetadata
 from .lab_results_raw import LabResultsRaw
@@ -1303,6 +1304,7 @@ __all__ = [
     "IntervalTimeseriesExprField",
     "IntervalTimeseriesExprTimeseries",
     "Jpeg",
+    "LabLocationCapability",
     "LabLocationMetadata",
     "LabResultsMetadata",
     "LabResultsRaw",
