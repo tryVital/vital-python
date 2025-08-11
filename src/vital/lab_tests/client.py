@@ -791,6 +791,7 @@ class LabTestsClient:
         zip_code: str,
         radius: typing.Optional[AllowedRadius] = None,
         lab: typing.Optional[ClientFacingLabs] = None,
+        labs: typing.Optional[typing.Union[ClientFacingLabs, typing.Sequence[ClientFacingLabs]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AreaInfo:
         """
@@ -811,6 +812,9 @@ class LabTestsClient:
         lab : typing.Optional[ClientFacingLabs]
             Lab to check for PSCs
 
+        labs : typing.Optional[typing.Union[ClientFacingLabs, typing.Sequence[ClientFacingLabs]]]
+            List of labs to check for PSCs
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -826,7 +830,7 @@ class LabTestsClient:
         client.lab_tests.get_area_info(zip_code='zip_code', )
         """
         _response = self._raw_client.get_area_info(
-            zip_code=zip_code, radius=radius, lab=lab, request_options=request_options
+            zip_code=zip_code, radius=radius, lab=lab, labs=labs, request_options=request_options
         )
         return _response.data
 
@@ -2493,6 +2497,7 @@ class AsyncLabTestsClient:
         zip_code: str,
         radius: typing.Optional[AllowedRadius] = None,
         lab: typing.Optional[ClientFacingLabs] = None,
+        labs: typing.Optional[typing.Union[ClientFacingLabs, typing.Sequence[ClientFacingLabs]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AreaInfo:
         """
@@ -2513,6 +2518,9 @@ class AsyncLabTestsClient:
         lab : typing.Optional[ClientFacingLabs]
             Lab to check for PSCs
 
+        labs : typing.Optional[typing.Union[ClientFacingLabs, typing.Sequence[ClientFacingLabs]]]
+            List of labs to check for PSCs
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -2531,7 +2539,7 @@ class AsyncLabTestsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.get_area_info(
-            zip_code=zip_code, radius=radius, lab=lab, request_options=request_options
+            zip_code=zip_code, radius=radius, lab=lab, labs=labs, request_options=request_options
         )
         return _response.data
 

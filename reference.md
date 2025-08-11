@@ -12848,6 +12848,14 @@ client.lab_tests.get_area_info(zip_code='zip_code', )
 <dl>
 <dd>
 
+**labs:** `typing.Optional[typing.Union[ClientFacingLabs, typing.Sequence[ClientFacingLabs]]]` — List of labs to check for PSCs
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>

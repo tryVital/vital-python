@@ -1206,6 +1206,7 @@ class RawLabTestsClient:
         zip_code: str,
         radius: typing.Optional[AllowedRadius] = None,
         lab: typing.Optional[ClientFacingLabs] = None,
+        labs: typing.Optional[typing.Union[ClientFacingLabs, typing.Sequence[ClientFacingLabs]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[AreaInfo]:
         """
@@ -1226,6 +1227,9 @@ class RawLabTestsClient:
         lab : typing.Optional[ClientFacingLabs]
             Lab to check for PSCs
 
+        labs : typing.Optional[typing.Union[ClientFacingLabs, typing.Sequence[ClientFacingLabs]]]
+            List of labs to check for PSCs
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1241,6 +1245,7 @@ class RawLabTestsClient:
                 "zip_code": zip_code,
                 "radius": radius,
                 "lab": lab,
+                "labs": labs,
             },
             request_options=request_options,
         )
@@ -3834,6 +3839,7 @@ class AsyncRawLabTestsClient:
         zip_code: str,
         radius: typing.Optional[AllowedRadius] = None,
         lab: typing.Optional[ClientFacingLabs] = None,
+        labs: typing.Optional[typing.Union[ClientFacingLabs, typing.Sequence[ClientFacingLabs]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[AreaInfo]:
         """
@@ -3854,6 +3860,9 @@ class AsyncRawLabTestsClient:
         lab : typing.Optional[ClientFacingLabs]
             Lab to check for PSCs
 
+        labs : typing.Optional[typing.Union[ClientFacingLabs, typing.Sequence[ClientFacingLabs]]]
+            List of labs to check for PSCs
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -3869,6 +3878,7 @@ class AsyncRawLabTestsClient:
                 "zip_code": zip_code,
                 "radius": radius,
                 "lab": lab,
+                "labs": labs,
             },
             request_options=request_options,
         )
