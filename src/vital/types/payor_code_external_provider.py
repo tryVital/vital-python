@@ -14,6 +14,8 @@ class PayorCodeExternalProvider(str, enum.Enum):
     CHANGE_HEALTHCARE = "change_healthcare"
     AVAILITY = "availity"
     STEDI = "stedi"
+    WAYSTAR = "waystar"
+    CLAIM_MD = "claim_md"
     _UNKNOWN = "__PAYORCODEEXTERNALPROVIDER_UNKNOWN__"
     """
     This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
@@ -30,6 +32,8 @@ class PayorCodeExternalProvider(str, enum.Enum):
         change_healthcare: typing.Callable[[], T_Result],
         availity: typing.Callable[[], T_Result],
         stedi: typing.Callable[[], T_Result],
+        waystar: typing.Callable[[], T_Result],
+        claim_md: typing.Callable[[], T_Result],
         _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is PayorCodeExternalProvider.CHANGE_HEALTHCARE:
@@ -38,4 +42,8 @@ class PayorCodeExternalProvider(str, enum.Enum):
             return availity()
         if self is PayorCodeExternalProvider.STEDI:
             return stedi()
+        if self is PayorCodeExternalProvider.WAYSTAR:
+            return waystar()
+        if self is PayorCodeExternalProvider.CLAIM_MD:
+            return claim_md()
         return _unknown_member(self._value_)
