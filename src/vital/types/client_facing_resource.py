@@ -30,6 +30,7 @@ class ClientFacingResource(str, enum.Enum):
     BLOOD_PRESSURE = "blood_pressure"
     CHOLESTEROL = "cholesterol"
     DEVICE = "device"
+    DEVICE_LEGACY = "device_legacy"
     WEIGHT = "weight"
     FAT = "fat"
     BODY_TEMPERATURE = "body_temperature"
@@ -110,6 +111,7 @@ class ClientFacingResource(str, enum.Enum):
         blood_pressure: typing.Callable[[], T_Result],
         cholesterol: typing.Callable[[], T_Result],
         device: typing.Callable[[], T_Result],
+        device_legacy: typing.Callable[[], T_Result],
         weight: typing.Callable[[], T_Result],
         fat: typing.Callable[[], T_Result],
         body_temperature: typing.Callable[[], T_Result],
@@ -198,6 +200,8 @@ class ClientFacingResource(str, enum.Enum):
             return cholesterol()
         if self is ClientFacingResource.DEVICE:
             return device()
+        if self is ClientFacingResource.DEVICE_LEGACY:
+            return device_legacy()
         if self is ClientFacingResource.WEIGHT:
             return weight()
         if self is ClientFacingResource.FAT:

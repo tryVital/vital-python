@@ -134,6 +134,10 @@ from .client_facing_daylight_exposure_historical_pull_completed import (
     ClientFacingDaylightExposureHistoricalPullCompleted,
 )
 from .client_facing_daylight_exposure_sample import ClientFacingDaylightExposureSample
+from .client_facing_device import ClientFacingDevice
+from .client_facing_device_changed import ClientFacingDeviceChanged
+from .client_facing_device_changed_event_type import ClientFacingDeviceChangedEventType
+from .client_facing_device_source_type import ClientFacingDeviceSourceType
 from .client_facing_diagnosis_information import ClientFacingDiagnosisInformation
 from .client_facing_distance_changed import ClientFacingDistanceChanged
 from .client_facing_distance_changed_event_type import ClientFacingDistanceChangedEventType
@@ -878,6 +882,10 @@ __all__ = [
     "ClientFacingDaylightExposureChangedEventType",
     "ClientFacingDaylightExposureHistoricalPullCompleted",
     "ClientFacingDaylightExposureSample",
+    "ClientFacingDevice",
+    "ClientFacingDeviceChanged",
+    "ClientFacingDeviceChangedEventType",
+    "ClientFacingDeviceSourceType",
     "ClientFacingDiagnosisInformation",
     "ClientFacingDistanceChanged",
     "ClientFacingDistanceChangedEventType",

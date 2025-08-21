@@ -5,6 +5,7 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.address import Address
+from ..types.client_facing_device import ClientFacingDevice
 from ..types.client_facing_insurance import ClientFacingInsurance
 from ..types.client_facing_provider_with_status import ClientFacingProviderWithStatus
 from ..types.client_facing_user import ClientFacingUser
@@ -629,6 +630,58 @@ class UserClient:
         client.user.refresh(user_id='user_id', )
         """
         _response = self._raw_client.refresh(user_id, timeout=timeout, request_options=request_options)
+        return _response.data
+
+    def get_devices(
+        self, user_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.List[ClientFacingDevice]:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[ClientFacingDevice]
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+        client = Vital(api_key="YOUR_API_KEY", )
+        client.user.get_devices(user_id='user_id', )
+        """
+        _response = self._raw_client.get_devices(user_id, request_options=request_options)
+        return _response.data
+
+    def get_device(
+        self, user_id: str, device_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ClientFacingDevice:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        device_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ClientFacingDevice
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+        client = Vital(api_key="YOUR_API_KEY", )
+        client.user.get_device(user_id='user_id', device_id='device_id', )
+        """
+        _response = self._raw_client.get_device(user_id, device_id, request_options=request_options)
         return _response.data
 
 
@@ -1280,4 +1333,62 @@ class AsyncUserClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.refresh(user_id, timeout=timeout, request_options=request_options)
+        return _response.data
+
+    async def get_devices(
+        self, user_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.List[ClientFacingDevice]:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[ClientFacingDevice]
+            Successful Response
+
+        Examples
+        --------
+        from vital import AsyncVital
+        import asyncio
+        client = AsyncVital(api_key="YOUR_API_KEY", )
+        async def main() -> None:
+            await client.user.get_devices(user_id='user_id', )
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_devices(user_id, request_options=request_options)
+        return _response.data
+
+    async def get_device(
+        self, user_id: str, device_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ClientFacingDevice:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        device_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ClientFacingDevice
+            Successful Response
+
+        Examples
+        --------
+        from vital import AsyncVital
+        import asyncio
+        client = AsyncVital(api_key="YOUR_API_KEY", )
+        async def main() -> None:
+            await client.user.get_device(user_id='user_id', device_id='device_id', )
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_device(user_id, device_id, request_options=request_options)
         return _response.data
