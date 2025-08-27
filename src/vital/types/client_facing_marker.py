@@ -22,6 +22,7 @@ class ClientFacingMarker(UniversalBaseModel):
     a_la_carte_enabled: typing.Optional[bool] = None
     common_tat_days: typing.Optional[int] = None
     worst_case_tat_days: typing.Optional[int] = None
+    is_orderable: typing.Optional[bool] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

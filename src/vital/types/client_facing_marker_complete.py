@@ -23,6 +23,7 @@ class ClientFacingMarkerComplete(UniversalBaseModel):
     a_la_carte_enabled: typing.Optional[bool] = None
     common_tat_days: typing.Optional[int] = None
     worst_case_tat_days: typing.Optional[int] = None
+    is_orderable: typing.Optional[bool] = None
     expected_results: typing.List[ClientFacingResult]
 
     if IS_PYDANTIC_V2:
