@@ -10,6 +10,7 @@ from .us_address import UsAddress
 
 class AppointmentLocation(UniversalBaseModel):
     location: LngLat
+    distance: typing.Optional[int] = None
     address: UsAddress
     code: str
     name: str

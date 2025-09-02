@@ -16,7 +16,11 @@ class BiomarkerResult(UniversalBaseModel):
 
     name: str
     slug: typing.Optional[str] = None
-    value: float
+    value: float = pydantic.Field()
+    """
+    Deprecated: Use 'result' (string) and `type` (enum) instead. 
+    """
+
     result: str
     type: ResultType
     unit: typing.Optional[str] = None
