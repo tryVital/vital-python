@@ -13,6 +13,7 @@ class AppointmentStatus(str, enum.Enum):
 
     CONFIRMED = "confirmed"
     PENDING = "pending"
+    RESERVED = "reserved"
     IN_PROGRESS = "in_progress"
     COMPLETED = "completed"
     CANCELLED = "cancelled"
@@ -31,6 +32,7 @@ class AppointmentStatus(str, enum.Enum):
         self,
         confirmed: typing.Callable[[], T_Result],
         pending: typing.Callable[[], T_Result],
+        reserved: typing.Callable[[], T_Result],
         in_progress: typing.Callable[[], T_Result],
         completed: typing.Callable[[], T_Result],
         cancelled: typing.Callable[[], T_Result],
@@ -40,6 +42,8 @@ class AppointmentStatus(str, enum.Enum):
             return confirmed()
         if self is AppointmentStatus.PENDING:
             return pending()
+        if self is AppointmentStatus.RESERVED:
+            return reserved()
         if self is AppointmentStatus.IN_PROGRESS:
             return in_progress()
         if self is AppointmentStatus.COMPLETED:
