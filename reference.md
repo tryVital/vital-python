@@ -1,4 +1,1285 @@
 # Reference
+## User
+<details><summary><code>client.user.<a href="src/vital/user/client.py">get_all</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+GET All users for team.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.user.get_all()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**offset:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="src/vital/user/client.py">create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+POST Create a Vital user given a client_user_id and returns the user_id.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.user.create(client_user_id='client_user_id', )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**client_user_id:** `str` — A unique ID representing the end user. Typically this will be a user ID from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fallback_time_zone:** `typing.Optional[str]` 
+
+
+    Fallback time zone of the user, in the form of a valid IANA tzdatabase identifier (e.g., `Europe/London` or `America/Los_Angeles`).
+    Used when pulling data from sources that are completely time zone agnostic (e.g., all time is relative to UTC clock, without any time zone attributions on data points).
+    
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fallback_birth_date:** `typing.Optional[str]` — Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ingestion_start:** `typing.Optional[str]` — Starting bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ingestion_end:** `typing.Optional[str]` — Ending bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="src/vital/user/client.py">get_team_metrics</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+GET metrics for team.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.user.get_team_metrics()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="src/vital/user/client.py">get_user_sign_in_token</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.user.get_user_sign_in_token(user_id='user_id', )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="src/vital/user/client.py">get_connected_providers</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+GET Users connected providers
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.user.get_connected_providers(user_id='user_id', )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="src/vital/user/client.py">get</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+GET User details given the user_id.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.user.get(user_id='user_id', )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="src/vital/user/client.py">delete</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.user.delete(user_id='user_id', )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="src/vital/user/client.py">patch</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.user.patch(user_id='user_id', )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fallback_time_zone:** `typing.Optional[str]` 
+
+
+    Fallback time zone of the user, in the form of a valid IANA tzdatabase identifier (e.g., `Europe/London` or `America/Los_Angeles`).
+    Used when pulling data from sources that are completely time zone agnostic (e.g., all time is relative to UTC clock, without any time zone attributions on data points).
+    
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fallback_birth_date:** `typing.Optional[str]` — Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ingestion_start:** `typing.Optional[str]` — Starting bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ingestion_end:** `typing.Optional[str]` — Ending bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client_user_id:** `typing.Optional[str]` — A unique ID representing the end user. Typically this will be a user ID from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="src/vital/user/client.py">get_latest_user_info</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.user.get_latest_user_info(user_id='user_id', )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="src/vital/user/client.py">create_insurance</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+from vital import ResponsibleRelationship
+from vital import VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails
+from vital import Gender
+from vital import Address
+client = Vital(api_key="YOUR_API_KEY", )
+client.user.create_insurance(user_id='user_id', payor_code='payor_code', member_id='member_id', relationship=ResponsibleRelationship.SELF, insured=VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails(first_name='first_name', last_name='last_name', gender=Gender.FEMALE, address=Address(first_line='first_line', country='country', zip='zip', city='city', state='state', ), dob='dob', email='email', phone_number='phone_number', ), )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payor_code:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**member_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**relationship:** `ResponsibleRelationship` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**insured:** `VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**group_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**guarantor:** `typing.Optional[GuarantorDetails]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="src/vital/user/client.py">get_latest_insurance</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.user.get_latest_insurance(user_id='user_id', )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="src/vital/user/client.py">upsert_user_info</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+from vital import Address
+client = Vital(api_key="YOUR_API_KEY", )
+client.user.upsert_user_info(user_id='user_id', first_name='first_name', last_name='last_name', email='email', phone_number='phone_number', gender='gender', dob='dob', address=Address(first_line='first_line', country='country', zip='zip', city='city', state='state', ), )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**first_name:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**last_name:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**email:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**phone_number:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**gender:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**dob:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**address:** `Address` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**medical_proxy:** `typing.Optional[GuarantorDetails]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**race:** `typing.Optional[Race]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ethnicity:** `typing.Optional[Ethnicity]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sexual_orientation:** `typing.Optional[SexualOrientation]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**gender_identity:** `typing.Optional[GenderIdentity]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="src/vital/user/client.py">get_by_client_user_id</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+GET user_id from client_user_id.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.user.get_by_client_user_id(client_user_id='client_user_id', )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**client_user_id:** `str` — A unique ID representing the end user. Typically this will be a user ID number from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="src/vital/user/client.py">deregister_provider</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+from vital import Providers
+client = Vital(api_key="YOUR_API_KEY", )
+client.user.deregister_provider(user_id='user_id', provider=Providers.OURA, )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider:** `Providers` — Provider slug. e.g., `oura`, `fitbit`, `garmin`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="src/vital/user/client.py">undo_delete</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.user.undo_delete()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `typing.Optional[str]` — User ID to undo deletion. Mutually exclusive with `client_user_id`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client_user_id:** `typing.Optional[str]` — Client User ID to undo deletion. Mutually exclusive with `user_id`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="src/vital/user/client.py">refresh</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Trigger a manual refresh for a specific user
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.user.refresh(user_id='user_id', )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**timeout:** `typing.Optional[float]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="src/vital/user/client.py">get_devices</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.user.get_devices(user_id='user_id', )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="src/vital/user/client.py">get_device</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.user.get_device(user_id='user_id', device_id='device_id', )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**device_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Link
 <details><summary><code>client.link.<a href="src/vital/link/client.py">list_bulk_ops</a>(...)</code></summary>
 <dl>
@@ -1523,1287 +2804,6 @@ client.link.connect_demo_provider(user_id='user_id', provider=DemoProviders.APPL
 </dl>
 </details>
 
-## User
-<details><summary><code>client.user.<a href="src/vital/user/client.py">get_all</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-GET All users for team.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.get_all()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**offset:** `typing.Optional[int]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**limit:** `typing.Optional[int]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.user.<a href="src/vital/user/client.py">create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-POST Create a Vital user given a client_user_id and returns the user_id.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.create(client_user_id='client_user_id', )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**client_user_id:** `str` — A unique ID representing the end user. Typically this will be a user ID from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**fallback_time_zone:** `typing.Optional[str]` 
-
-
-    Fallback time zone of the user, in the form of a valid IANA tzdatabase identifier (e.g., `Europe/London` or `America/Los_Angeles`).
-    Used when pulling data from sources that are completely time zone agnostic (e.g., all time is relative to UTC clock, without any time zone attributions on data points).
-    
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**fallback_birth_date:** `typing.Optional[str]` — Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**ingestion_start:** `typing.Optional[str]` — Starting bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**ingestion_end:** `typing.Optional[str]` — Ending bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.user.<a href="src/vital/user/client.py">get_team_metrics</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-GET metrics for team.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.get_team_metrics()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.user.<a href="src/vital/user/client.py">get_user_sign_in_token</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.get_user_sign_in_token(user_id='user_id', )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.user.<a href="src/vital/user/client.py">get_connected_providers</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-GET Users connected providers
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.get_connected_providers(user_id='user_id', )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.user.<a href="src/vital/user/client.py">get</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-GET User details given the user_id.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.get(user_id='user_id', )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.user.<a href="src/vital/user/client.py">delete</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.delete(user_id='user_id', )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.user.<a href="src/vital/user/client.py">patch</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.patch(user_id='user_id', )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**fallback_time_zone:** `typing.Optional[str]` 
-
-
-    Fallback time zone of the user, in the form of a valid IANA tzdatabase identifier (e.g., `Europe/London` or `America/Los_Angeles`).
-    Used when pulling data from sources that are completely time zone agnostic (e.g., all time is relative to UTC clock, without any time zone attributions on data points).
-    
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**fallback_birth_date:** `typing.Optional[str]` — Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**ingestion_start:** `typing.Optional[str]` — Starting bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**ingestion_end:** `typing.Optional[str]` — Ending bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**client_user_id:** `typing.Optional[str]` — A unique ID representing the end user. Typically this will be a user ID from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.user.<a href="src/vital/user/client.py">get_latest_user_info</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.get_latest_user_info(user_id='user_id', )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.user.<a href="src/vital/user/client.py">create_insurance</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-from vital import ResponsibleRelationship
-from vital import VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails
-from vital import Gender
-from vital import Address
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.create_insurance(user_id='user_id', payor_code='payor_code', member_id='member_id', relationship=ResponsibleRelationship.SELF, insured=VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails(first_name='first_name', last_name='last_name', gender=Gender.FEMALE, address=Address(first_line='first_line', country='country', zip='zip', city='city', state='state', ), dob='dob', email='email', phone_number='phone_number', ), )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**payor_code:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**member_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**relationship:** `ResponsibleRelationship` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**insured:** `VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**group_id:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**guarantor:** `typing.Optional[GuarantorDetails]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.user.<a href="src/vital/user/client.py">get_latest_insurance</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.get_latest_insurance(user_id='user_id', )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.user.<a href="src/vital/user/client.py">upsert_user_info</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-from vital import Address
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.upsert_user_info(user_id='user_id', first_name='first_name', last_name='last_name', email='email', phone_number='phone_number', gender='gender', dob='dob', address=Address(first_line='first_line', country='country', zip='zip', city='city', state='state', ), )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**first_name:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**last_name:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**email:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**phone_number:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**gender:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**dob:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**address:** `Address` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**medical_proxy:** `typing.Optional[GuarantorDetails]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**race:** `typing.Optional[Race]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**ethnicity:** `typing.Optional[Ethnicity]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**sexual_orientation:** `typing.Optional[SexualOrientation]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**gender_identity:** `typing.Optional[GenderIdentity]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.user.<a href="src/vital/user/client.py">get_by_client_user_id</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-GET user_id from client_user_id.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.get_by_client_user_id(client_user_id='client_user_id', )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**client_user_id:** `str` — A unique ID representing the end user. Typically this will be a user ID number from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.user.<a href="src/vital/user/client.py">deregister_provider</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-from vital import Providers
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.deregister_provider(user_id='user_id', provider=Providers.OURA, )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `Providers` — Provider slug. e.g., `oura`, `fitbit`, `garmin`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.user.<a href="src/vital/user/client.py">undo_delete</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.undo_delete()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `typing.Optional[str]` — User ID to undo deletion. Mutually exclusive with `client_user_id`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**client_user_id:** `typing.Optional[str]` — Client User ID to undo deletion. Mutually exclusive with `user_id`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.user.<a href="src/vital/user/client.py">refresh</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Trigger a manual refresh for a specific user
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.refresh(user_id='user_id', )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**timeout:** `typing.Optional[float]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.user.<a href="src/vital/user/client.py">get_devices</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.get_devices(user_id='user_id', )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.user.<a href="src/vital/user/client.py">get_device</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.get_device(user_id='user_id', device_id='device_id', )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**device_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 ## Providers
 <details><summary><code>client.providers.<a href="src/vital/providers/client.py">get_all</a>(...)</code></summary>
 <dl>
@@ -4270,7 +4270,7 @@ client.menstrual_cycle.get(user_id='user_id', start_date='start_date', )
 </details>
 
 ## LabTests
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_orders</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -4282,7 +4282,7 @@ client.menstrual_cycle.get(user_id='user_id', start_date='start_date', )
 <dl>
 <dd>
 
-GET many orders with filters.
+GET all the lab tests the team has access to.
 </dd>
 </dl>
 </dd>
@@ -4299,7 +4299,7 @@ GET many orders with filters.
 ```python
 from vital import Vital
 client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.get_orders()
+client.lab_tests.get()
 
 ```
 </dd>
@@ -4315,7 +4315,7 @@ client.lab_tests.get_orders()
 <dl>
 <dd>
 
-**search_input:** `typing.Optional[str]` — Search by order id, user id, patient name, shipping dob, or shipping recipient name.
+**generation_method:** `typing.Optional[LabTestGenerationMethodFilter]` — Filter on whether auto-generated lab tests created by Vital, manually created lab tests, or all lab tests should be returned.
     
 </dd>
 </dl>
@@ -4323,7 +4323,7 @@ client.lab_tests.get_orders()
 <dl>
 <dd>
 
-**start_date:** `typing.Optional[dt.datetime]` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+**lab_slug:** `typing.Optional[str]` — Filter by the slug of the lab for these lab tests.
     
 </dd>
 </dl>
@@ -4331,7 +4331,7 @@ client.lab_tests.get_orders()
 <dl>
 <dd>
 
-**end_date:** `typing.Optional[dt.datetime]` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+**collection_method:** `typing.Optional[LabTestCollectionMethod]` — Filter by the collection method for these lab tests.
     
 </dd>
 </dl>
@@ -4339,7 +4339,7 @@ client.lab_tests.get_orders()
 <dl>
 <dd>
 
-**updated_start_date:** `typing.Optional[dt.datetime]` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+**status:** `typing.Optional[LabTestStatus]` — Filter by the status of these lab tests.
     
 </dd>
 </dl>
@@ -4347,7 +4347,7 @@ client.lab_tests.get_orders()
 <dl>
 <dd>
 
-**updated_end_date:** `typing.Optional[dt.datetime]` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+**marker_ids:** `typing.Optional[typing.Union[int, typing.Sequence[int]]]` — Filter to only include lab tests containing these marker IDs.
     
 </dd>
 </dl>
@@ -4355,7 +4355,7 @@ client.lab_tests.get_orders()
 <dl>
 <dd>
 
-**status:** `typing.Optional[typing.Union[OrderLowLevelStatus, typing.Sequence[OrderLowLevelStatus]]]` — Filter by low level status.
+**provider_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter to only include lab tests containing these provider IDs.
     
 </dd>
 </dl>
@@ -4363,7 +4363,7 @@ client.lab_tests.get_orders()
 <dl>
 <dd>
 
-**order_key:** `typing.Optional[LabTestsGetOrdersRequestOrderKey]` — Order key to sort by.
+**name:** `typing.Optional[str]` — Filter by the name of the lab test (a case-insensitive substring search).
     
 </dd>
 </dl>
@@ -4371,7 +4371,7 @@ client.lab_tests.get_orders()
 <dl>
 <dd>
 
-**order_direction:** `typing.Optional[LabTestsGetOrdersRequestOrderDirection]` — Order direction to sort by.
+**order_key:** `typing.Optional[LabTestsGetRequestOrderKey]` 
     
 </dd>
 </dl>
@@ -4379,7 +4379,7 @@ client.lab_tests.get_orders()
 <dl>
 <dd>
 
-**order_type:** `typing.Optional[typing.Union[LabTestCollectionMethod, typing.Sequence[LabTestCollectionMethod]]]` — Filter by method used to perform the lab test.
+**order_direction:** `typing.Optional[LabTestsGetRequestOrderDirection]` 
     
 </dd>
 </dl>
@@ -4387,7 +4387,51 @@ client.lab_tests.get_orders()
 <dl>
 <dd>
 
-**is_critical:** `typing.Optional[bool]` — Filter by critical order status.
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+from vital import LabTestCollectionMethod
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.create(name='name', method=LabTestCollectionMethod.TESTKIT, description='description', )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**name:** `str` 
     
 </dd>
 </dl>
@@ -4395,7 +4439,7 @@ client.lab_tests.get_orders()
 <dl>
 <dd>
 
-**interpretation:** `typing.Optional[Interpretation]` — Filter by result interpretation of the lab test.
+**method:** `LabTestCollectionMethod` 
     
 </dd>
 </dl>
@@ -4403,7 +4447,7 @@ client.lab_tests.get_orders()
 <dl>
 <dd>
 
-**order_activation_types:** `typing.Optional[typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]]` — Filter by activation type.
+**description:** `str` 
     
 </dd>
 </dl>
@@ -4411,7 +4455,7 @@ client.lab_tests.get_orders()
 <dl>
 <dd>
 
-**user_id:** `typing.Optional[str]` — Filter by user ID.
+**marker_ids:** `typing.Optional[typing.Sequence[int]]` 
     
 </dd>
 </dl>
@@ -4419,7 +4463,7 @@ client.lab_tests.get_orders()
 <dl>
 <dd>
 
-**patient_name:** `typing.Optional[str]` — Filter by patient name.
+**provider_ids:** `typing.Optional[typing.Sequence[str]]` 
     
 </dd>
 </dl>
@@ -4427,7 +4471,7 @@ client.lab_tests.get_orders()
 <dl>
 <dd>
 
-**shipping_recipient_name:** `typing.Optional[str]` — Filter by shipping recipient name.
+**fasting:** `typing.Optional[bool]` 
     
 </dd>
 </dl>
@@ -4435,7 +4479,212 @@ client.lab_tests.get_orders()
 <dl>
 <dd>
 
-**order_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter by order ids.
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_by_id</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+GET all the lab tests the team has access to.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.get_by_id(lab_test_id='lab_test_id', )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**lab_test_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">update_lab_test</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.update_lab_test(lab_test_id='lab_test_id', )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**lab_test_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**active:** `typing.Optional[bool]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_markers</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+GET all the markers for the given lab.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.get_markers()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**lab_id:** `typing.Optional[typing.Union[int, typing.Sequence[int]]]` — The identifier Vital assigned to a lab partner.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — The name or test code of an individual biomarker or a panel.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**a_la_carte_enabled:** `typing.Optional[bool]` 
     
 </dd>
 </dl>
@@ -4455,6 +4704,271 @@ client.lab_tests.get_orders()
     
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_markers_for_order_set</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+from vital import OrderSetRequest
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.get_markers_for_order_set(request=OrderSetRequest(), )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `OrderSetRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**size:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_markers_for_lab_test</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.get_markers_for_lab_test(lab_test_id='lab_test_id', )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**lab_test_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**size:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_markers_by_lab_and_provider_id</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+GET a specific marker for the given lab and provider_id
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.get_markers_by_lab_and_provider_id(provider_id='provider_id', lab_id=1, )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**provider_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**lab_id:** `int` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_labs</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+GET all the labs.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.get_labs()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
 
 <dl>
 <dd>
@@ -6279,7 +6793,7 @@ client.lab_tests.update_on_site_collection_order_draw_completed(order_id='order_
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_orders</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -6291,7 +6805,7 @@ client.lab_tests.update_on_site_collection_order_draw_completed(order_id='order_
 <dl>
 <dd>
 
-GET all the lab tests the team has access to.
+GET many orders with filters.
 </dd>
 </dl>
 </dd>
@@ -6308,7 +6822,7 @@ GET all the lab tests the team has access to.
 ```python
 from vital import Vital
 client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.get()
+client.lab_tests.get_orders()
 
 ```
 </dd>
@@ -6324,7 +6838,7 @@ client.lab_tests.get()
 <dl>
 <dd>
 
-**generation_method:** `typing.Optional[LabTestGenerationMethodFilter]` — Filter on whether auto-generated lab tests created by Vital, manually created lab tests, or all lab tests should be returned.
+**search_input:** `typing.Optional[str]` — Search by order id, user id, patient name, shipping dob, or shipping recipient name.
     
 </dd>
 </dl>
@@ -6332,7 +6846,7 @@ client.lab_tests.get()
 <dl>
 <dd>
 
-**lab_slug:** `typing.Optional[str]` — Filter by the slug of the lab for these lab tests.
+**start_date:** `typing.Optional[dt.datetime]` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
     
 </dd>
 </dl>
@@ -6340,7 +6854,7 @@ client.lab_tests.get()
 <dl>
 <dd>
 
-**collection_method:** `typing.Optional[LabTestCollectionMethod]` — Filter by the collection method for these lab tests.
+**end_date:** `typing.Optional[dt.datetime]` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
     
 </dd>
 </dl>
@@ -6348,7 +6862,7 @@ client.lab_tests.get()
 <dl>
 <dd>
 
-**status:** `typing.Optional[LabTestStatus]` — Filter by the status of these lab tests.
+**updated_start_date:** `typing.Optional[dt.datetime]` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
     
 </dd>
 </dl>
@@ -6356,7 +6870,7 @@ client.lab_tests.get()
 <dl>
 <dd>
 
-**marker_ids:** `typing.Optional[typing.Union[int, typing.Sequence[int]]]` — Filter to only include lab tests containing these marker IDs.
+**updated_end_date:** `typing.Optional[dt.datetime]` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
     
 </dd>
 </dl>
@@ -6364,7 +6878,7 @@ client.lab_tests.get()
 <dl>
 <dd>
 
-**provider_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter to only include lab tests containing these provider IDs.
+**status:** `typing.Optional[typing.Union[OrderLowLevelStatus, typing.Sequence[OrderLowLevelStatus]]]` — Filter by low level status.
     
 </dd>
 </dl>
@@ -6372,7 +6886,7 @@ client.lab_tests.get()
 <dl>
 <dd>
 
-**name:** `typing.Optional[str]` — Filter by the name of the lab test (a case-insensitive substring search).
+**order_key:** `typing.Optional[LabTestsGetOrdersRequestOrderKey]` — Order key to sort by.
     
 </dd>
 </dl>
@@ -6380,7 +6894,7 @@ client.lab_tests.get()
 <dl>
 <dd>
 
-**order_key:** `typing.Optional[LabTestsGetRequestOrderKey]` 
+**order_direction:** `typing.Optional[LabTestsGetOrdersRequestOrderDirection]` — Order direction to sort by.
     
 </dd>
 </dl>
@@ -6388,7 +6902,7 @@ client.lab_tests.get()
 <dl>
 <dd>
 
-**order_direction:** `typing.Optional[LabTestsGetRequestOrderDirection]` 
+**order_type:** `typing.Optional[typing.Union[LabTestCollectionMethod, typing.Sequence[LabTestCollectionMethod]]]` — Filter by method used to perform the lab test.
     
 </dd>
 </dl>
@@ -6396,51 +6910,7 @@ client.lab_tests.get()
 <dl>
 <dd>
 
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-from vital import LabTestCollectionMethod
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.create(name='name', method=LabTestCollectionMethod.TESTKIT, description='description', )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**name:** `str` 
+**is_critical:** `typing.Optional[bool]` — Filter by critical order status.
     
 </dd>
 </dl>
@@ -6448,7 +6918,7 @@ client.lab_tests.create(name='name', method=LabTestCollectionMethod.TESTKIT, des
 <dl>
 <dd>
 
-**method:** `LabTestCollectionMethod` 
+**interpretation:** `typing.Optional[Interpretation]` — Filter by result interpretation of the lab test.
     
 </dd>
 </dl>
@@ -6456,7 +6926,7 @@ client.lab_tests.create(name='name', method=LabTestCollectionMethod.TESTKIT, des
 <dl>
 <dd>
 
-**description:** `str` 
+**order_activation_types:** `typing.Optional[typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]]` — Filter by activation type.
     
 </dd>
 </dl>
@@ -6464,7 +6934,7 @@ client.lab_tests.create(name='name', method=LabTestCollectionMethod.TESTKIT, des
 <dl>
 <dd>
 
-**marker_ids:** `typing.Optional[typing.Sequence[int]]` 
+**user_id:** `typing.Optional[str]` — Filter by user ID.
     
 </dd>
 </dl>
@@ -6472,7 +6942,7 @@ client.lab_tests.create(name='name', method=LabTestCollectionMethod.TESTKIT, des
 <dl>
 <dd>
 
-**provider_ids:** `typing.Optional[typing.Sequence[str]]` 
+**patient_name:** `typing.Optional[str]` — Filter by patient name.
     
 </dd>
 </dl>
@@ -6480,7 +6950,7 @@ client.lab_tests.create(name='name', method=LabTestCollectionMethod.TESTKIT, des
 <dl>
 <dd>
 
-**fasting:** `typing.Optional[bool]` 
+**shipping_recipient_name:** `typing.Optional[str]` — Filter by shipping recipient name.
     
 </dd>
 </dl>
@@ -6488,212 +6958,7 @@ client.lab_tests.create(name='name', method=LabTestCollectionMethod.TESTKIT, des
 <dl>
 <dd>
 
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_by_id</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-GET all the lab tests the team has access to.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.get_by_id(lab_test_id='lab_test_id', )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**lab_test_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">update_lab_test</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.update_lab_test(lab_test_id='lab_test_id', )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**lab_test_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**name:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**active:** `typing.Optional[bool]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_markers</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-GET all the markers for the given lab.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.get_markers()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**lab_id:** `typing.Optional[typing.Union[int, typing.Sequence[int]]]` — The identifier Vital assigned to a lab partner.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**name:** `typing.Optional[str]` — The name or test code of an individual biomarker or a panel.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**a_la_carte_enabled:** `typing.Optional[bool]` 
+**order_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter by order ids.
     
 </dd>
 </dl>
@@ -6713,271 +6978,6 @@ client.lab_tests.get_markers()
     
 </dd>
 </dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_markers_for_order_set</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-from vital import OrderSetRequest
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.get_markers_for_order_set(request=OrderSetRequest(), )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `OrderSetRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page:** `typing.Optional[int]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**size:** `typing.Optional[int]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_markers_for_lab_test</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.get_markers_for_lab_test(lab_test_id='lab_test_id', )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**lab_test_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page:** `typing.Optional[int]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**size:** `typing.Optional[int]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_markers_by_lab_and_provider_id</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-GET a specific marker for the given lab and provider_id
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.get_markers_by_lab_and_provider_id(provider_id='provider_id', lab_id=1, )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**provider_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**lab_id:** `int` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_labs</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-GET all the labs.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.get_labs()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
 
 <dl>
 <dd>
@@ -7120,281 +7120,6 @@ client.lab_tests.get_paginated()
 <dd>
 
 **order_direction:** `typing.Optional[LabTestsGetPaginatedRequestOrderDirection]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Testkit
-<details><summary><code>client.testkit.<a href="src/vital/testkit/client.py">register</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-from vital import PatientDetailsWithValidation
-from vital import Gender
-from vital import PatientAddressWithValidation
-client = Vital(api_key="YOUR_API_KEY", )
-client.testkit.register(sample_id='sample_id', patient_details=PatientDetailsWithValidation(first_name='first_name', last_name='last_name', dob='dob', gender=Gender.FEMALE, phone_number='phone_number', email='email', ), patient_address=PatientAddressWithValidation(first_line='first_line', city='city', state='state', zip='zip', country='country', ), )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**sample_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**patient_details:** `PatientDetailsWithValidation` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**patient_address:** `PatientAddressWithValidation` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**user_id:** `typing.Optional[str]` — The user ID of the patient.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**physician:** `typing.Optional[PhysicianCreateRequestBase]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**health_insurance:** `typing.Optional[HealthInsuranceCreateRequest]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**consents:** `typing.Optional[typing.Sequence[Consent]]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.testkit.<a href="src/vital/testkit/client.py">create_order</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates an order for an unregistered testkit
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-from vital import ShippingAddressWithValidation
-client = Vital(api_key="YOUR_API_KEY", )
-client.testkit.create_order(user_id='user_id', lab_test_id='lab_test_id', shipping_details=ShippingAddressWithValidation(receiver_name='receiver_name', first_line='first_line', city='city', state='state', zip='zip', country='country', phone_number='phone_number', ), )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**lab_test_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**shipping_details:** `ShippingAddressWithValidation` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**passthrough:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Order
-<details><summary><code>client.order.<a href="src/vital/order/client.py">resend_events</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Replay a webhook for a given set of orders
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.order.resend_events()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**order_ids:** `typing.Optional[typing.Sequence[str]]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**start_at:** `typing.Optional[dt.datetime]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_at:** `typing.Optional[dt.datetime]` 
     
 </dd>
 </dl>
@@ -7807,6 +7532,281 @@ client.team.get_physicians(team_id='team_id', )
 <dd>
 
 **team_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Testkit
+<details><summary><code>client.testkit.<a href="src/vital/testkit/client.py">register</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+from vital import PatientDetailsWithValidation
+from vital import Gender
+from vital import PatientAddressWithValidation
+client = Vital(api_key="YOUR_API_KEY", )
+client.testkit.register(sample_id='sample_id', patient_details=PatientDetailsWithValidation(first_name='first_name', last_name='last_name', dob='dob', gender=Gender.FEMALE, phone_number='phone_number', email='email', ), patient_address=PatientAddressWithValidation(first_line='first_line', city='city', state='state', zip='zip', country='country', ), )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sample_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**patient_details:** `PatientDetailsWithValidation` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**patient_address:** `PatientAddressWithValidation` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**user_id:** `typing.Optional[str]` — The user ID of the patient.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**physician:** `typing.Optional[PhysicianCreateRequestBase]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**health_insurance:** `typing.Optional[HealthInsuranceCreateRequest]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**consents:** `typing.Optional[typing.Sequence[Consent]]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.testkit.<a href="src/vital/testkit/client.py">create_order</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates an order for an unregistered testkit
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+from vital import ShippingAddressWithValidation
+client = Vital(api_key="YOUR_API_KEY", )
+client.testkit.create_order(user_id='user_id', lab_test_id='lab_test_id', shipping_details=ShippingAddressWithValidation(receiver_name='receiver_name', first_line='first_line', city='city', state='state', zip='zip', country='country', phone_number='phone_number', ), )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**lab_test_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**shipping_details:** `ShippingAddressWithValidation` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**passthrough:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Order
+<details><summary><code>client.order.<a href="src/vital/order/client.py">resend_events</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Replay a webhook for a given set of orders
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.order.resend_events()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**order_ids:** `typing.Optional[typing.Sequence[str]]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**start_at:** `typing.Optional[dt.datetime]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**end_at:** `typing.Optional[dt.datetime]` 
     
 </dd>
 </dl>
