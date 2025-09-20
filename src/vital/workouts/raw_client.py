@@ -20,6 +20,54 @@ class RawWorkoutsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
+    def get_by_workout_id(
+        self, workout_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[ClientFacingStream]:
+        """
+        Parameters
+        ----------
+        workout_id : str
+            The Vital ID for the workout
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[ClientFacingStream]
+            Successful Response
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v2/timeseries/workouts/{jsonable_encoder(workout_id)}/stream",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ClientFacingStream,
+                    parse_obj_as(
+                        type_=ClientFacingStream,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
     def get(
         self,
         user_id: str,
@@ -158,9 +206,14 @@ class RawWorkoutsClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def get_by_workout_id(
+
+class AsyncRawWorkoutsClient:
+    def __init__(self, *, client_wrapper: AsyncClientWrapper):
+        self._client_wrapper = client_wrapper
+
+    async def get_by_workout_id(
         self, workout_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[ClientFacingStream]:
+    ) -> AsyncHttpResponse[ClientFacingStream]:
         """
         Parameters
         ----------
@@ -172,10 +225,10 @@ class RawWorkoutsClient:
 
         Returns
         -------
-        HttpResponse[ClientFacingStream]
+        AsyncHttpResponse[ClientFacingStream]
             Successful Response
         """
-        _response = self._client_wrapper.httpx_client.request(
+        _response = await self._client_wrapper.httpx_client.request(
             f"v2/timeseries/workouts/{jsonable_encoder(workout_id)}/stream",
             method="GET",
             request_options=request_options,
@@ -189,7 +242,7 @@ class RawWorkoutsClient:
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                return AsyncHttpResponse(response=_response, data=_data)
             if _response.status_code == 422:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
@@ -205,11 +258,6 @@ class RawWorkoutsClient:
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-
-class AsyncRawWorkoutsClient:
-    def __init__(self, *, client_wrapper: AsyncClientWrapper):
-        self._client_wrapper = client_wrapper
 
     async def get(
         self,
@@ -329,54 +377,6 @@ class AsyncRawWorkoutsClient:
                     RawWorkout,
                     parse_obj_as(
                         type_=RawWorkout,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def get_by_workout_id(
-        self, workout_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[ClientFacingStream]:
-        """
-        Parameters
-        ----------
-        workout_id : str
-            The Vital ID for the workout
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[ClientFacingStream]
-            Successful Response
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v2/timeseries/workouts/{jsonable_encoder(workout_id)}/stream",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    ClientFacingStream,
-                    parse_obj_as(
-                        type_=ClientFacingStream,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

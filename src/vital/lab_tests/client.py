@@ -71,371 +71,6 @@ class LabTestsClient:
         """
         return self._raw_client
 
-    def get(
-        self,
-        *,
-        generation_method: typing.Optional[LabTestGenerationMethodFilter] = None,
-        lab_slug: typing.Optional[str] = None,
-        collection_method: typing.Optional[LabTestCollectionMethod] = None,
-        status: typing.Optional[LabTestStatus] = None,
-        marker_ids: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
-        provider_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        name: typing.Optional[str] = None,
-        order_key: typing.Optional[LabTestsGetRequestOrderKey] = None,
-        order_direction: typing.Optional[LabTestsGetRequestOrderDirection] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.List[ClientFacingLabTest]:
-        """
-        GET all the lab tests the team has access to.
-
-        Parameters
-        ----------
-        generation_method : typing.Optional[LabTestGenerationMethodFilter]
-            Filter on whether auto-generated lab tests created by Vital, manually created lab tests, or all lab tests should be returned.
-
-        lab_slug : typing.Optional[str]
-            Filter by the slug of the lab for these lab tests.
-
-        collection_method : typing.Optional[LabTestCollectionMethod]
-            Filter by the collection method for these lab tests.
-
-        status : typing.Optional[LabTestStatus]
-            Filter by the status of these lab tests.
-
-        marker_ids : typing.Optional[typing.Union[int, typing.Sequence[int]]]
-            Filter to only include lab tests containing these marker IDs.
-
-        provider_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Filter to only include lab tests containing these provider IDs.
-
-        name : typing.Optional[str]
-            Filter by the name of the lab test (a case-insensitive substring search).
-
-        order_key : typing.Optional[LabTestsGetRequestOrderKey]
-
-        order_direction : typing.Optional[LabTestsGetRequestOrderDirection]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        typing.List[ClientFacingLabTest]
-            Successful Response
-
-        Examples
-        --------
-        from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.get()
-        """
-        _response = self._raw_client.get(
-            generation_method=generation_method,
-            lab_slug=lab_slug,
-            collection_method=collection_method,
-            status=status,
-            marker_ids=marker_ids,
-            provider_ids=provider_ids,
-            name=name,
-            order_key=order_key,
-            order_direction=order_direction,
-            request_options=request_options,
-        )
-        return _response.data
-
-    def create(
-        self,
-        *,
-        name: str,
-        method: LabTestCollectionMethod,
-        description: str,
-        marker_ids: typing.Optional[typing.Sequence[int]] = OMIT,
-        provider_ids: typing.Optional[typing.Sequence[str]] = OMIT,
-        fasting: typing.Optional[bool] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> ClientFacingLabTest:
-        """
-        Parameters
-        ----------
-        name : str
-
-        method : LabTestCollectionMethod
-
-        description : str
-
-        marker_ids : typing.Optional[typing.Sequence[int]]
-
-        provider_ids : typing.Optional[typing.Sequence[str]]
-
-        fasting : typing.Optional[bool]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ClientFacingLabTest
-            Successful Response
-
-        Examples
-        --------
-        from vital import Vital
-        from vital import LabTestCollectionMethod
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.create(name='name', method=LabTestCollectionMethod.TESTKIT, description='description', )
-        """
-        _response = self._raw_client.create(
-            name=name,
-            method=method,
-            description=description,
-            marker_ids=marker_ids,
-            provider_ids=provider_ids,
-            fasting=fasting,
-            request_options=request_options,
-        )
-        return _response.data
-
-    def get_by_id(
-        self, lab_test_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> ClientFacingLabTest:
-        """
-        GET all the lab tests the team has access to.
-
-        Parameters
-        ----------
-        lab_test_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ClientFacingLabTest
-            Successful Response
-
-        Examples
-        --------
-        from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.get_by_id(lab_test_id='lab_test_id', )
-        """
-        _response = self._raw_client.get_by_id(lab_test_id, request_options=request_options)
-        return _response.data
-
-    def update_lab_test(
-        self,
-        lab_test_id: str,
-        *,
-        name: typing.Optional[str] = OMIT,
-        active: typing.Optional[bool] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> ClientFacingLabTest:
-        """
-        Parameters
-        ----------
-        lab_test_id : str
-
-        name : typing.Optional[str]
-
-        active : typing.Optional[bool]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ClientFacingLabTest
-            Successful Response
-
-        Examples
-        --------
-        from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.update_lab_test(lab_test_id='lab_test_id', )
-        """
-        _response = self._raw_client.update_lab_test(
-            lab_test_id, name=name, active=active, request_options=request_options
-        )
-        return _response.data
-
-    def get_markers(
-        self,
-        *,
-        lab_id: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
-        name: typing.Optional[str] = None,
-        a_la_carte_enabled: typing.Optional[bool] = None,
-        page: typing.Optional[int] = None,
-        size: typing.Optional[int] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> GetMarkersResponse:
-        """
-        GET all the markers for the given lab.
-
-        Parameters
-        ----------
-        lab_id : typing.Optional[typing.Union[int, typing.Sequence[int]]]
-            The identifier Vital assigned to a lab partner.
-
-        name : typing.Optional[str]
-            The name or test code of an individual biomarker or a panel.
-
-        a_la_carte_enabled : typing.Optional[bool]
-
-        page : typing.Optional[int]
-
-        size : typing.Optional[int]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        GetMarkersResponse
-            Successful Response
-
-        Examples
-        --------
-        from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.get_markers()
-        """
-        _response = self._raw_client.get_markers(
-            lab_id=lab_id,
-            name=name,
-            a_la_carte_enabled=a_la_carte_enabled,
-            page=page,
-            size=size,
-            request_options=request_options,
-        )
-        return _response.data
-
-    def get_markers_for_order_set(
-        self,
-        *,
-        request: OrderSetRequest,
-        page: typing.Optional[int] = None,
-        size: typing.Optional[int] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> GetMarkersResponse:
-        """
-        Parameters
-        ----------
-        request : OrderSetRequest
-
-        page : typing.Optional[int]
-
-        size : typing.Optional[int]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        GetMarkersResponse
-            Successful Response
-
-        Examples
-        --------
-        from vital import Vital
-        from vital import OrderSetRequest
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.get_markers_for_order_set(request=OrderSetRequest(), )
-        """
-        _response = self._raw_client.get_markers_for_order_set(
-            request=request, page=page, size=size, request_options=request_options
-        )
-        return _response.data
-
-    def get_markers_for_lab_test(
-        self,
-        lab_test_id: str,
-        *,
-        page: typing.Optional[int] = None,
-        size: typing.Optional[int] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> GetMarkersResponse:
-        """
-        Parameters
-        ----------
-        lab_test_id : str
-
-        page : typing.Optional[int]
-
-        size : typing.Optional[int]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        GetMarkersResponse
-            Successful Response
-
-        Examples
-        --------
-        from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.get_markers_for_lab_test(lab_test_id='lab_test_id', )
-        """
-        _response = self._raw_client.get_markers_for_lab_test(
-            lab_test_id, page=page, size=size, request_options=request_options
-        )
-        return _response.data
-
-    def get_markers_by_lab_and_provider_id(
-        self, provider_id: str, lab_id: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> ClientFacingMarker:
-        """
-        GET a specific marker for the given lab and provider_id
-
-        Parameters
-        ----------
-        provider_id : str
-
-        lab_id : int
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ClientFacingMarker
-            Successful Response
-
-        Examples
-        --------
-        from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.get_markers_by_lab_and_provider_id(provider_id='provider_id', lab_id=1, )
-        """
-        _response = self._raw_client.get_markers_by_lab_and_provider_id(
-            provider_id, lab_id, request_options=request_options
-        )
-        return _response.data
-
-    def get_labs(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[ClientFacingLab]:
-        """
-        GET all the labs.
-
-        Parameters
-        ----------
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        typing.List[ClientFacingLab]
-            Successful Response
-
-        Examples
-        --------
-        from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.get_labs()
-        """
-        _response = self._raw_client.get_labs(request_options=request_options)
-        return _response.data
-
     def get_phlebotomy_appointment_availability(
         self,
         *,
@@ -1602,6 +1237,371 @@ class LabTestsClient:
         )
         return _response.data
 
+    def get(
+        self,
+        *,
+        generation_method: typing.Optional[LabTestGenerationMethodFilter] = None,
+        lab_slug: typing.Optional[str] = None,
+        collection_method: typing.Optional[LabTestCollectionMethod] = None,
+        status: typing.Optional[LabTestStatus] = None,
+        marker_ids: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
+        provider_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        name: typing.Optional[str] = None,
+        order_key: typing.Optional[LabTestsGetRequestOrderKey] = None,
+        order_direction: typing.Optional[LabTestsGetRequestOrderDirection] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.List[ClientFacingLabTest]:
+        """
+        GET all the lab tests the team has access to.
+
+        Parameters
+        ----------
+        generation_method : typing.Optional[LabTestGenerationMethodFilter]
+            Filter on whether auto-generated lab tests created by Vital, manually created lab tests, or all lab tests should be returned.
+
+        lab_slug : typing.Optional[str]
+            Filter by the slug of the lab for these lab tests.
+
+        collection_method : typing.Optional[LabTestCollectionMethod]
+            Filter by the collection method for these lab tests.
+
+        status : typing.Optional[LabTestStatus]
+            Filter by the status of these lab tests.
+
+        marker_ids : typing.Optional[typing.Union[int, typing.Sequence[int]]]
+            Filter to only include lab tests containing these marker IDs.
+
+        provider_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Filter to only include lab tests containing these provider IDs.
+
+        name : typing.Optional[str]
+            Filter by the name of the lab test (a case-insensitive substring search).
+
+        order_key : typing.Optional[LabTestsGetRequestOrderKey]
+
+        order_direction : typing.Optional[LabTestsGetRequestOrderDirection]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[ClientFacingLabTest]
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+        client = Vital(api_key="YOUR_API_KEY", )
+        client.lab_tests.get()
+        """
+        _response = self._raw_client.get(
+            generation_method=generation_method,
+            lab_slug=lab_slug,
+            collection_method=collection_method,
+            status=status,
+            marker_ids=marker_ids,
+            provider_ids=provider_ids,
+            name=name,
+            order_key=order_key,
+            order_direction=order_direction,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def create(
+        self,
+        *,
+        name: str,
+        method: LabTestCollectionMethod,
+        description: str,
+        marker_ids: typing.Optional[typing.Sequence[int]] = OMIT,
+        provider_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        fasting: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ClientFacingLabTest:
+        """
+        Parameters
+        ----------
+        name : str
+
+        method : LabTestCollectionMethod
+
+        description : str
+
+        marker_ids : typing.Optional[typing.Sequence[int]]
+
+        provider_ids : typing.Optional[typing.Sequence[str]]
+
+        fasting : typing.Optional[bool]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ClientFacingLabTest
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+        from vital import LabTestCollectionMethod
+        client = Vital(api_key="YOUR_API_KEY", )
+        client.lab_tests.create(name='name', method=LabTestCollectionMethod.TESTKIT, description='description', )
+        """
+        _response = self._raw_client.create(
+            name=name,
+            method=method,
+            description=description,
+            marker_ids=marker_ids,
+            provider_ids=provider_ids,
+            fasting=fasting,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def get_by_id(
+        self, lab_test_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ClientFacingLabTest:
+        """
+        GET all the lab tests the team has access to.
+
+        Parameters
+        ----------
+        lab_test_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ClientFacingLabTest
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+        client = Vital(api_key="YOUR_API_KEY", )
+        client.lab_tests.get_by_id(lab_test_id='lab_test_id', )
+        """
+        _response = self._raw_client.get_by_id(lab_test_id, request_options=request_options)
+        return _response.data
+
+    def update_lab_test(
+        self,
+        lab_test_id: str,
+        *,
+        name: typing.Optional[str] = OMIT,
+        active: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ClientFacingLabTest:
+        """
+        Parameters
+        ----------
+        lab_test_id : str
+
+        name : typing.Optional[str]
+
+        active : typing.Optional[bool]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ClientFacingLabTest
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+        client = Vital(api_key="YOUR_API_KEY", )
+        client.lab_tests.update_lab_test(lab_test_id='lab_test_id', )
+        """
+        _response = self._raw_client.update_lab_test(
+            lab_test_id, name=name, active=active, request_options=request_options
+        )
+        return _response.data
+
+    def get_markers(
+        self,
+        *,
+        lab_id: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
+        name: typing.Optional[str] = None,
+        a_la_carte_enabled: typing.Optional[bool] = None,
+        page: typing.Optional[int] = None,
+        size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GetMarkersResponse:
+        """
+        GET all the markers for the given lab.
+
+        Parameters
+        ----------
+        lab_id : typing.Optional[typing.Union[int, typing.Sequence[int]]]
+            The identifier Vital assigned to a lab partner.
+
+        name : typing.Optional[str]
+            The name or test code of an individual biomarker or a panel.
+
+        a_la_carte_enabled : typing.Optional[bool]
+
+        page : typing.Optional[int]
+
+        size : typing.Optional[int]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetMarkersResponse
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+        client = Vital(api_key="YOUR_API_KEY", )
+        client.lab_tests.get_markers()
+        """
+        _response = self._raw_client.get_markers(
+            lab_id=lab_id,
+            name=name,
+            a_la_carte_enabled=a_la_carte_enabled,
+            page=page,
+            size=size,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def get_markers_for_order_set(
+        self,
+        *,
+        request: OrderSetRequest,
+        page: typing.Optional[int] = None,
+        size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GetMarkersResponse:
+        """
+        Parameters
+        ----------
+        request : OrderSetRequest
+
+        page : typing.Optional[int]
+
+        size : typing.Optional[int]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetMarkersResponse
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+        from vital import OrderSetRequest
+        client = Vital(api_key="YOUR_API_KEY", )
+        client.lab_tests.get_markers_for_order_set(request=OrderSetRequest(), )
+        """
+        _response = self._raw_client.get_markers_for_order_set(
+            request=request, page=page, size=size, request_options=request_options
+        )
+        return _response.data
+
+    def get_markers_for_lab_test(
+        self,
+        lab_test_id: str,
+        *,
+        page: typing.Optional[int] = None,
+        size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GetMarkersResponse:
+        """
+        Parameters
+        ----------
+        lab_test_id : str
+
+        page : typing.Optional[int]
+
+        size : typing.Optional[int]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetMarkersResponse
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+        client = Vital(api_key="YOUR_API_KEY", )
+        client.lab_tests.get_markers_for_lab_test(lab_test_id='lab_test_id', )
+        """
+        _response = self._raw_client.get_markers_for_lab_test(
+            lab_test_id, page=page, size=size, request_options=request_options
+        )
+        return _response.data
+
+    def get_markers_by_lab_and_provider_id(
+        self, provider_id: str, lab_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ClientFacingMarker:
+        """
+        GET a specific marker for the given lab and provider_id
+
+        Parameters
+        ----------
+        provider_id : str
+
+        lab_id : int
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ClientFacingMarker
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+        client = Vital(api_key="YOUR_API_KEY", )
+        client.lab_tests.get_markers_by_lab_and_provider_id(provider_id='provider_id', lab_id=1, )
+        """
+        _response = self._raw_client.get_markers_by_lab_and_provider_id(
+            provider_id, lab_id, request_options=request_options
+        )
+        return _response.data
+
+    def get_labs(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[ClientFacingLab]:
+        """
+        GET all the labs.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[ClientFacingLab]
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+        client = Vital(api_key="YOUR_API_KEY", )
+        client.lab_tests.get_labs()
+        """
+        _response = self._raw_client.get_labs(request_options=request_options)
+        return _response.data
+
     def get_paginated(
         self,
         *,
@@ -1720,400 +1720,6 @@ class AsyncLabTestsClient:
         AsyncRawLabTestsClient
         """
         return self._raw_client
-
-    async def get(
-        self,
-        *,
-        generation_method: typing.Optional[LabTestGenerationMethodFilter] = None,
-        lab_slug: typing.Optional[str] = None,
-        collection_method: typing.Optional[LabTestCollectionMethod] = None,
-        status: typing.Optional[LabTestStatus] = None,
-        marker_ids: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
-        provider_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        name: typing.Optional[str] = None,
-        order_key: typing.Optional[LabTestsGetRequestOrderKey] = None,
-        order_direction: typing.Optional[LabTestsGetRequestOrderDirection] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.List[ClientFacingLabTest]:
-        """
-        GET all the lab tests the team has access to.
-
-        Parameters
-        ----------
-        generation_method : typing.Optional[LabTestGenerationMethodFilter]
-            Filter on whether auto-generated lab tests created by Vital, manually created lab tests, or all lab tests should be returned.
-
-        lab_slug : typing.Optional[str]
-            Filter by the slug of the lab for these lab tests.
-
-        collection_method : typing.Optional[LabTestCollectionMethod]
-            Filter by the collection method for these lab tests.
-
-        status : typing.Optional[LabTestStatus]
-            Filter by the status of these lab tests.
-
-        marker_ids : typing.Optional[typing.Union[int, typing.Sequence[int]]]
-            Filter to only include lab tests containing these marker IDs.
-
-        provider_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Filter to only include lab tests containing these provider IDs.
-
-        name : typing.Optional[str]
-            Filter by the name of the lab test (a case-insensitive substring search).
-
-        order_key : typing.Optional[LabTestsGetRequestOrderKey]
-
-        order_direction : typing.Optional[LabTestsGetRequestOrderDirection]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        typing.List[ClientFacingLabTest]
-            Successful Response
-
-        Examples
-        --------
-        from vital import AsyncVital
-        import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
-        async def main() -> None:
-            await client.lab_tests.get()
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.get(
-            generation_method=generation_method,
-            lab_slug=lab_slug,
-            collection_method=collection_method,
-            status=status,
-            marker_ids=marker_ids,
-            provider_ids=provider_ids,
-            name=name,
-            order_key=order_key,
-            order_direction=order_direction,
-            request_options=request_options,
-        )
-        return _response.data
-
-    async def create(
-        self,
-        *,
-        name: str,
-        method: LabTestCollectionMethod,
-        description: str,
-        marker_ids: typing.Optional[typing.Sequence[int]] = OMIT,
-        provider_ids: typing.Optional[typing.Sequence[str]] = OMIT,
-        fasting: typing.Optional[bool] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> ClientFacingLabTest:
-        """
-        Parameters
-        ----------
-        name : str
-
-        method : LabTestCollectionMethod
-
-        description : str
-
-        marker_ids : typing.Optional[typing.Sequence[int]]
-
-        provider_ids : typing.Optional[typing.Sequence[str]]
-
-        fasting : typing.Optional[bool]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ClientFacingLabTest
-            Successful Response
-
-        Examples
-        --------
-        from vital import AsyncVital
-        from vital import LabTestCollectionMethod
-        import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
-        async def main() -> None:
-            await client.lab_tests.create(name='name', method=LabTestCollectionMethod.TESTKIT, description='description', )
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.create(
-            name=name,
-            method=method,
-            description=description,
-            marker_ids=marker_ids,
-            provider_ids=provider_ids,
-            fasting=fasting,
-            request_options=request_options,
-        )
-        return _response.data
-
-    async def get_by_id(
-        self, lab_test_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> ClientFacingLabTest:
-        """
-        GET all the lab tests the team has access to.
-
-        Parameters
-        ----------
-        lab_test_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ClientFacingLabTest
-            Successful Response
-
-        Examples
-        --------
-        from vital import AsyncVital
-        import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
-        async def main() -> None:
-            await client.lab_tests.get_by_id(lab_test_id='lab_test_id', )
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.get_by_id(lab_test_id, request_options=request_options)
-        return _response.data
-
-    async def update_lab_test(
-        self,
-        lab_test_id: str,
-        *,
-        name: typing.Optional[str] = OMIT,
-        active: typing.Optional[bool] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> ClientFacingLabTest:
-        """
-        Parameters
-        ----------
-        lab_test_id : str
-
-        name : typing.Optional[str]
-
-        active : typing.Optional[bool]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ClientFacingLabTest
-            Successful Response
-
-        Examples
-        --------
-        from vital import AsyncVital
-        import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
-        async def main() -> None:
-            await client.lab_tests.update_lab_test(lab_test_id='lab_test_id', )
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.update_lab_test(
-            lab_test_id, name=name, active=active, request_options=request_options
-        )
-        return _response.data
-
-    async def get_markers(
-        self,
-        *,
-        lab_id: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
-        name: typing.Optional[str] = None,
-        a_la_carte_enabled: typing.Optional[bool] = None,
-        page: typing.Optional[int] = None,
-        size: typing.Optional[int] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> GetMarkersResponse:
-        """
-        GET all the markers for the given lab.
-
-        Parameters
-        ----------
-        lab_id : typing.Optional[typing.Union[int, typing.Sequence[int]]]
-            The identifier Vital assigned to a lab partner.
-
-        name : typing.Optional[str]
-            The name or test code of an individual biomarker or a panel.
-
-        a_la_carte_enabled : typing.Optional[bool]
-
-        page : typing.Optional[int]
-
-        size : typing.Optional[int]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        GetMarkersResponse
-            Successful Response
-
-        Examples
-        --------
-        from vital import AsyncVital
-        import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
-        async def main() -> None:
-            await client.lab_tests.get_markers()
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.get_markers(
-            lab_id=lab_id,
-            name=name,
-            a_la_carte_enabled=a_la_carte_enabled,
-            page=page,
-            size=size,
-            request_options=request_options,
-        )
-        return _response.data
-
-    async def get_markers_for_order_set(
-        self,
-        *,
-        request: OrderSetRequest,
-        page: typing.Optional[int] = None,
-        size: typing.Optional[int] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> GetMarkersResponse:
-        """
-        Parameters
-        ----------
-        request : OrderSetRequest
-
-        page : typing.Optional[int]
-
-        size : typing.Optional[int]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        GetMarkersResponse
-            Successful Response
-
-        Examples
-        --------
-        from vital import AsyncVital
-        from vital import OrderSetRequest
-        import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
-        async def main() -> None:
-            await client.lab_tests.get_markers_for_order_set(request=OrderSetRequest(), )
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.get_markers_for_order_set(
-            request=request, page=page, size=size, request_options=request_options
-        )
-        return _response.data
-
-    async def get_markers_for_lab_test(
-        self,
-        lab_test_id: str,
-        *,
-        page: typing.Optional[int] = None,
-        size: typing.Optional[int] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> GetMarkersResponse:
-        """
-        Parameters
-        ----------
-        lab_test_id : str
-
-        page : typing.Optional[int]
-
-        size : typing.Optional[int]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        GetMarkersResponse
-            Successful Response
-
-        Examples
-        --------
-        from vital import AsyncVital
-        import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
-        async def main() -> None:
-            await client.lab_tests.get_markers_for_lab_test(lab_test_id='lab_test_id', )
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.get_markers_for_lab_test(
-            lab_test_id, page=page, size=size, request_options=request_options
-        )
-        return _response.data
-
-    async def get_markers_by_lab_and_provider_id(
-        self, provider_id: str, lab_id: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> ClientFacingMarker:
-        """
-        GET a specific marker for the given lab and provider_id
-
-        Parameters
-        ----------
-        provider_id : str
-
-        lab_id : int
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ClientFacingMarker
-            Successful Response
-
-        Examples
-        --------
-        from vital import AsyncVital
-        import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
-        async def main() -> None:
-            await client.lab_tests.get_markers_by_lab_and_provider_id(provider_id='provider_id', lab_id=1, )
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.get_markers_by_lab_and_provider_id(
-            provider_id, lab_id, request_options=request_options
-        )
-        return _response.data
-
-    async def get_labs(
-        self, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.List[ClientFacingLab]:
-        """
-        GET all the labs.
-
-        Parameters
-        ----------
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        typing.List[ClientFacingLab]
-            Successful Response
-
-        Examples
-        --------
-        from vital import AsyncVital
-        import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
-        async def main() -> None:
-            await client.lab_tests.get_labs()
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.get_labs(request_options=request_options)
-        return _response.data
 
     async def get_phlebotomy_appointment_availability(
         self,
@@ -3367,6 +2973,400 @@ class AsyncLabTestsClient:
             size=size,
             request_options=request_options,
         )
+        return _response.data
+
+    async def get(
+        self,
+        *,
+        generation_method: typing.Optional[LabTestGenerationMethodFilter] = None,
+        lab_slug: typing.Optional[str] = None,
+        collection_method: typing.Optional[LabTestCollectionMethod] = None,
+        status: typing.Optional[LabTestStatus] = None,
+        marker_ids: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
+        provider_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        name: typing.Optional[str] = None,
+        order_key: typing.Optional[LabTestsGetRequestOrderKey] = None,
+        order_direction: typing.Optional[LabTestsGetRequestOrderDirection] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.List[ClientFacingLabTest]:
+        """
+        GET all the lab tests the team has access to.
+
+        Parameters
+        ----------
+        generation_method : typing.Optional[LabTestGenerationMethodFilter]
+            Filter on whether auto-generated lab tests created by Vital, manually created lab tests, or all lab tests should be returned.
+
+        lab_slug : typing.Optional[str]
+            Filter by the slug of the lab for these lab tests.
+
+        collection_method : typing.Optional[LabTestCollectionMethod]
+            Filter by the collection method for these lab tests.
+
+        status : typing.Optional[LabTestStatus]
+            Filter by the status of these lab tests.
+
+        marker_ids : typing.Optional[typing.Union[int, typing.Sequence[int]]]
+            Filter to only include lab tests containing these marker IDs.
+
+        provider_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Filter to only include lab tests containing these provider IDs.
+
+        name : typing.Optional[str]
+            Filter by the name of the lab test (a case-insensitive substring search).
+
+        order_key : typing.Optional[LabTestsGetRequestOrderKey]
+
+        order_direction : typing.Optional[LabTestsGetRequestOrderDirection]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[ClientFacingLabTest]
+            Successful Response
+
+        Examples
+        --------
+        from vital import AsyncVital
+        import asyncio
+        client = AsyncVital(api_key="YOUR_API_KEY", )
+        async def main() -> None:
+            await client.lab_tests.get()
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get(
+            generation_method=generation_method,
+            lab_slug=lab_slug,
+            collection_method=collection_method,
+            status=status,
+            marker_ids=marker_ids,
+            provider_ids=provider_ids,
+            name=name,
+            order_key=order_key,
+            order_direction=order_direction,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def create(
+        self,
+        *,
+        name: str,
+        method: LabTestCollectionMethod,
+        description: str,
+        marker_ids: typing.Optional[typing.Sequence[int]] = OMIT,
+        provider_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        fasting: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ClientFacingLabTest:
+        """
+        Parameters
+        ----------
+        name : str
+
+        method : LabTestCollectionMethod
+
+        description : str
+
+        marker_ids : typing.Optional[typing.Sequence[int]]
+
+        provider_ids : typing.Optional[typing.Sequence[str]]
+
+        fasting : typing.Optional[bool]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ClientFacingLabTest
+            Successful Response
+
+        Examples
+        --------
+        from vital import AsyncVital
+        from vital import LabTestCollectionMethod
+        import asyncio
+        client = AsyncVital(api_key="YOUR_API_KEY", )
+        async def main() -> None:
+            await client.lab_tests.create(name='name', method=LabTestCollectionMethod.TESTKIT, description='description', )
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.create(
+            name=name,
+            method=method,
+            description=description,
+            marker_ids=marker_ids,
+            provider_ids=provider_ids,
+            fasting=fasting,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def get_by_id(
+        self, lab_test_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ClientFacingLabTest:
+        """
+        GET all the lab tests the team has access to.
+
+        Parameters
+        ----------
+        lab_test_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ClientFacingLabTest
+            Successful Response
+
+        Examples
+        --------
+        from vital import AsyncVital
+        import asyncio
+        client = AsyncVital(api_key="YOUR_API_KEY", )
+        async def main() -> None:
+            await client.lab_tests.get_by_id(lab_test_id='lab_test_id', )
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_by_id(lab_test_id, request_options=request_options)
+        return _response.data
+
+    async def update_lab_test(
+        self,
+        lab_test_id: str,
+        *,
+        name: typing.Optional[str] = OMIT,
+        active: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ClientFacingLabTest:
+        """
+        Parameters
+        ----------
+        lab_test_id : str
+
+        name : typing.Optional[str]
+
+        active : typing.Optional[bool]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ClientFacingLabTest
+            Successful Response
+
+        Examples
+        --------
+        from vital import AsyncVital
+        import asyncio
+        client = AsyncVital(api_key="YOUR_API_KEY", )
+        async def main() -> None:
+            await client.lab_tests.update_lab_test(lab_test_id='lab_test_id', )
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.update_lab_test(
+            lab_test_id, name=name, active=active, request_options=request_options
+        )
+        return _response.data
+
+    async def get_markers(
+        self,
+        *,
+        lab_id: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
+        name: typing.Optional[str] = None,
+        a_la_carte_enabled: typing.Optional[bool] = None,
+        page: typing.Optional[int] = None,
+        size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GetMarkersResponse:
+        """
+        GET all the markers for the given lab.
+
+        Parameters
+        ----------
+        lab_id : typing.Optional[typing.Union[int, typing.Sequence[int]]]
+            The identifier Vital assigned to a lab partner.
+
+        name : typing.Optional[str]
+            The name or test code of an individual biomarker or a panel.
+
+        a_la_carte_enabled : typing.Optional[bool]
+
+        page : typing.Optional[int]
+
+        size : typing.Optional[int]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetMarkersResponse
+            Successful Response
+
+        Examples
+        --------
+        from vital import AsyncVital
+        import asyncio
+        client = AsyncVital(api_key="YOUR_API_KEY", )
+        async def main() -> None:
+            await client.lab_tests.get_markers()
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_markers(
+            lab_id=lab_id,
+            name=name,
+            a_la_carte_enabled=a_la_carte_enabled,
+            page=page,
+            size=size,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def get_markers_for_order_set(
+        self,
+        *,
+        request: OrderSetRequest,
+        page: typing.Optional[int] = None,
+        size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GetMarkersResponse:
+        """
+        Parameters
+        ----------
+        request : OrderSetRequest
+
+        page : typing.Optional[int]
+
+        size : typing.Optional[int]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetMarkersResponse
+            Successful Response
+
+        Examples
+        --------
+        from vital import AsyncVital
+        from vital import OrderSetRequest
+        import asyncio
+        client = AsyncVital(api_key="YOUR_API_KEY", )
+        async def main() -> None:
+            await client.lab_tests.get_markers_for_order_set(request=OrderSetRequest(), )
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_markers_for_order_set(
+            request=request, page=page, size=size, request_options=request_options
+        )
+        return _response.data
+
+    async def get_markers_for_lab_test(
+        self,
+        lab_test_id: str,
+        *,
+        page: typing.Optional[int] = None,
+        size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GetMarkersResponse:
+        """
+        Parameters
+        ----------
+        lab_test_id : str
+
+        page : typing.Optional[int]
+
+        size : typing.Optional[int]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetMarkersResponse
+            Successful Response
+
+        Examples
+        --------
+        from vital import AsyncVital
+        import asyncio
+        client = AsyncVital(api_key="YOUR_API_KEY", )
+        async def main() -> None:
+            await client.lab_tests.get_markers_for_lab_test(lab_test_id='lab_test_id', )
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_markers_for_lab_test(
+            lab_test_id, page=page, size=size, request_options=request_options
+        )
+        return _response.data
+
+    async def get_markers_by_lab_and_provider_id(
+        self, provider_id: str, lab_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ClientFacingMarker:
+        """
+        GET a specific marker for the given lab and provider_id
+
+        Parameters
+        ----------
+        provider_id : str
+
+        lab_id : int
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ClientFacingMarker
+            Successful Response
+
+        Examples
+        --------
+        from vital import AsyncVital
+        import asyncio
+        client = AsyncVital(api_key="YOUR_API_KEY", )
+        async def main() -> None:
+            await client.lab_tests.get_markers_by_lab_and_provider_id(provider_id='provider_id', lab_id=1, )
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_markers_by_lab_and_provider_id(
+            provider_id, lab_id, request_options=request_options
+        )
+        return _response.data
+
+    async def get_labs(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.List[ClientFacingLab]:
+        """
+        GET all the labs.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[ClientFacingLab]
+            Successful Response
+
+        Examples
+        --------
+        from vital import AsyncVital
+        import asyncio
+        client = AsyncVital(api_key="YOUR_API_KEY", )
+        async def main() -> None:
+            await client.lab_tests.get_labs()
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_labs(request_options=request_options)
         return _response.data
 
     async def get_paginated(

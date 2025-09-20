@@ -25,6 +25,34 @@ class SleepClient:
         """
         return self._raw_client
 
+    def get_stream_by_sleep_id(
+        self, sleep_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ClientFacingSleepStream:
+        """
+        Get Sleep stream for a user_id
+
+        Parameters
+        ----------
+        sleep_id : str
+            The Vital Sleep ID
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ClientFacingSleepStream
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+        client = Vital(api_key="YOUR_API_KEY", )
+        client.sleep.get_stream_by_sleep_id(sleep_id='sleep_id', )
+        """
+        _response = self._raw_client.get_stream_by_sleep_id(sleep_id, request_options=request_options)
+        return _response.data
+
     def get(
         self,
         user_id: str,
@@ -113,7 +141,23 @@ class SleepClient:
         )
         return _response.data
 
-    def get_stream_by_sleep_id(
+
+class AsyncSleepClient:
+    def __init__(self, *, client_wrapper: AsyncClientWrapper):
+        self._raw_client = AsyncRawSleepClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> AsyncRawSleepClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        AsyncRawSleepClient
+        """
+        return self._raw_client
+
+    async def get_stream_by_sleep_id(
         self, sleep_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> ClientFacingSleepStream:
         """
@@ -134,28 +178,15 @@ class SleepClient:
 
         Examples
         --------
-        from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.sleep.get_stream_by_sleep_id(sleep_id='sleep_id', )
+        from vital import AsyncVital
+        import asyncio
+        client = AsyncVital(api_key="YOUR_API_KEY", )
+        async def main() -> None:
+            await client.sleep.get_stream_by_sleep_id(sleep_id='sleep_id', )
+        asyncio.run(main())
         """
-        _response = self._raw_client.get_stream_by_sleep_id(sleep_id, request_options=request_options)
+        _response = await self._raw_client.get_stream_by_sleep_id(sleep_id, request_options=request_options)
         return _response.data
-
-
-class AsyncSleepClient:
-    def __init__(self, *, client_wrapper: AsyncClientWrapper):
-        self._raw_client = AsyncRawSleepClient(client_wrapper=client_wrapper)
-
-    @property
-    def with_raw_response(self) -> AsyncRawSleepClient:
-        """
-        Retrieves a raw implementation of this client that returns raw responses.
-
-        Returns
-        -------
-        AsyncRawSleepClient
-        """
-        return self._raw_client
 
     async def get(
         self,
@@ -249,35 +280,4 @@ class AsyncSleepClient:
         _response = await self._raw_client.get_raw(
             user_id, start_date=start_date, provider=provider, end_date=end_date, request_options=request_options
         )
-        return _response.data
-
-    async def get_stream_by_sleep_id(
-        self, sleep_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> ClientFacingSleepStream:
-        """
-        Get Sleep stream for a user_id
-
-        Parameters
-        ----------
-        sleep_id : str
-            The Vital Sleep ID
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ClientFacingSleepStream
-            Successful Response
-
-        Examples
-        --------
-        from vital import AsyncVital
-        import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
-        async def main() -> None:
-            await client.sleep.get_stream_by_sleep_id(sleep_id='sleep_id', )
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.get_stream_by_sleep_id(sleep_id, request_options=request_options)
         return _response.data
