@@ -1280,388 +1280,8 @@ client.user.get_device(user_id='user_id', device_id='device_id', )
 </dl>
 </details>
 
-## Link
-<details><summary><code>client.link.<a href="src/vital/link/client.py">list_bulk_ops</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.link.list_bulk_ops()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**next_cursor:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**team_id:** `typing.Optional[LinkListBulkOpsRequestTeamId]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.link.<a href="src/vital/link/client.py">bulk_import</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-from vital import OAuthProviders
-from vital import ConnectionRecipe
-client = Vital(api_key="YOUR_API_KEY", )
-client.link.bulk_import(provider=OAuthProviders.OURA, connections=[ConnectionRecipe(user_id='user_id', access_token='access_token', refresh_token='refresh_token', provider_id='provider_id', expires_at=1, )], )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**provider:** `OAuthProviders` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**connections:** `typing.Sequence[ConnectionRecipe]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**team_id:** `typing.Optional[LinkBulkImportRequestTeamId]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**wait_for_completion:** `typing.Optional[bool]` 
-
-
-Whether or not the endpoint should wait for the Bulk Op to complete before responding.
-
-When `wait_for_completion` is enabled, the endpoint may respond 200 OK if the Bulk Op takes less than 20 seconds to complete.
-
-Otherwise, the endpoint always responds with 202 Created once the submitted data have been enqueued successfully. You can use
-the [List Bulk Ops](https://docs.tryvital.io/api-reference/link/list-bulk-ops) endpoint to inspect the progress of the Bulk Op.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.link.<a href="src/vital/link/client.py">bulk_trigger_historical_pull</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-from vital import OAuthProviders
-client = Vital(api_key="YOUR_API_KEY", )
-client.link.bulk_trigger_historical_pull(user_ids=['user_ids'], provider=OAuthProviders.OURA, )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_ids:** `typing.Sequence[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `OAuthProviders` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**team_id:** `typing.Optional[LinkBulkTriggerHistoricalPullRequestTeamId]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**wait_for_completion:** `typing.Optional[bool]` 
-
-
-Whether or not the endpoint should wait for the Bulk Op to complete before responding.
-
-When `wait_for_completion` is enabled, the endpoint may respond 200 OK if the Bulk Op takes less than 20 seconds to complete.
-
-Otherwise, the endpoint always responds with 202 Created once the submitted data have been enqueued successfully. You can use
-the [List Bulk Ops](https://docs.tryvital.io/api-reference/link/list-bulk-ops) endpoint to inspect the progress of the Bulk Op.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.link.<a href="src/vital/link/client.py">bulk_export</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-from vital import OAuthProviders
-client = Vital(api_key="YOUR_API_KEY", )
-client.link.bulk_export(provider=OAuthProviders.OURA, )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**provider:** `OAuthProviders` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**team_id:** `typing.Optional[LinkBulkExportRequestTeamId]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**user_ids:** `typing.Optional[typing.Sequence[str]]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**next_token:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.link.<a href="src/vital/link/client.py">bulk_pause</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-from vital import OAuthProviders
-client = Vital(api_key="YOUR_API_KEY", )
-client.link.bulk_pause(user_ids=['user_ids'], provider=OAuthProviders.OURA, )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_ids:** `typing.Sequence[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `OAuthProviders` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**team_id:** `typing.Optional[LinkBulkPauseRequestTeamId]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.link.<a href="src/vital/link/client.py">token</a>(...)</code></summary>
+## Team
+<details><summary><code>client.team.<a href="src/vital/team/client.py">get_link_config</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -1673,12 +1293,7 @@ client.link.bulk_pause(user_ids=['user_ids'], provider=OAuthProviders.OURA, )
 <dl>
 <dd>
 
-Endpoint to generate a user link token, to be used throughout the vital
-link process. The vital link token is a one time use token, that
-expires after 10 minutes. If you would like vital-link widget to launch
-with a specific provider, pass in a provider in the body. If you would
-like to redirect to a custom url after successful or error connection,
-pass in your own custom redirect_url parameter.
+Post teams.
 </dd>
 </dl>
 </dd>
@@ -1695,332 +1310,7 @@ pass in your own custom redirect_url parameter.
 ```python
 from vital import Vital
 client = Vital(api_key="YOUR_API_KEY", )
-client.link.token(user_id='user_id', )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `str` — User id returned by vital create user request. This id should be stored in your database against the user and used for all interactions with the vital api.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `typing.Optional[Providers]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**redirect_url:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**filter_on_providers:** `typing.Optional[typing.Sequence[Providers]]` 
-
-An allowlist of providers dictating what Vital Link Widget should show to the end user.
-If unspecified, all linkable providers are shown.
-
-This has no effect on programmatic Vital Link API usage.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**on_error:** `typing.Optional[typing.Literal["redirect"]]` 
-
-By default, Vital Link Widget input forms for password and email providers have in-built error handling.
-
-Specifying `on_error=redirect` disables this Vital Link Widget UI behaviour — it would
-instead redirect to your `redirect_url`, with Link Error parameters injected.
-
-This has no effect on OAuth providers — they always redirect to your `redirect_url`. This also has
-no effect on programmatic Vital Link API usage.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**on_close:** `typing.Optional[typing.Literal["redirect"]]` 
-
-By default, Vital Link Widget closes the window or tab when the user taps the Close button.
-
-Specifying `on_close=redirect` would change the Close button behaviour to redirect to your `redirect_url`
-with the `user_cancelled` error specified.
-
-This has no effect on programmatic Vital Link API usage.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.link.<a href="src/vital/link/client.py">is_token_valid</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.link.is_token_valid(token='token', )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**token:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.link.<a href="src/vital/link/client.py">code_create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Generate a token to invite a user of Vital mobile app to your team
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.link.code_create(user_id='user_id', )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expires_at:** `typing.Optional[dt.datetime]` — When the link code should expire. Defaults to server time plus 1 hour.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.link.<a href="src/vital/link/client.py">start_connect</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-REQUEST_SOURCE: VITAL-LINK
-Start link token process
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-from vital import Providers
-client = Vital(api_key="YOUR_API_KEY", )
-client.link.start_connect(link_token='link_token', provider=Providers.OURA, )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**link_token:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `Providers` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.link.<a href="src/vital/link/client.py">token_state</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-REQUEST_SOURCE: VITAL-LINK
-Check link token state - can be hit continuously used as heartbeat
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.link.token_state()
+client.team.get_link_config()
 
 ```
 </dd>
@@ -2056,7 +1346,7 @@ client.link.token_state()
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">email_auth</a>(...)</code></summary>
+<details><summary><code>client.team.<a href="src/vital/team/client.py">get</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2068,7 +1358,7 @@ client.link.token_state()
 <dl>
 <dd>
 
-Deprecated. Use `POST /v2/link/provider/email/{provider}` instead.
+Get team.
 </dd>
 </dl>
 </dd>
@@ -2084,10 +1374,8 @@ Deprecated. Use `POST /v2/link/provider/email/{provider}` instead.
 
 ```python
 from vital import Vital
-from vital import Providers
-from vital import AuthType
 client = Vital(api_key="YOUR_API_KEY", )
-client.link.email_auth(email='email', provider=Providers.OURA, auth_type=AuthType.PASSWORD, )
+client.team.get(team_id='team_id', )
 
 ```
 </dd>
@@ -2103,39 +1391,7 @@ client.link.email_auth(email='email', provider=Providers.OURA, auth_type=AuthTyp
 <dl>
 <dd>
 
-**email:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `Providers` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**auth_type:** `AuthType` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**vital_link_token:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**region:** `typing.Optional[Region]` 
+**team_id:** `str` 
     
 </dd>
 </dl>
@@ -2155,7 +1411,7 @@ client.link.email_auth(email='email', provider=Providers.OURA, auth_type=AuthTyp
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">password_auth</a>(...)</code></summary>
+<details><summary><code>client.team.<a href="src/vital/team/client.py">get_user_by_id</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2167,7 +1423,7 @@ client.link.email_auth(email='email', provider=Providers.OURA, auth_type=AuthTyp
 <dl>
 <dd>
 
-Deprecated. Use `POST /v2/link/provider/password/{provider}` instead.
+Search team users by user_id
 </dd>
 </dl>
 </dd>
@@ -2183,10 +1439,8 @@ Deprecated. Use `POST /v2/link/provider/password/{provider}` instead.
 
 ```python
 from vital import Vital
-from vital import Providers
-from vital import AuthType
 client = Vital(api_key="YOUR_API_KEY", )
-client.link.password_auth(username='username', password='password', provider=Providers.OURA, auth_type=AuthType.PASSWORD, )
+client.team.get_user_by_id()
 
 ```
 </dd>
@@ -2202,39 +1456,7 @@ client.link.password_auth(username='username', password='password', provider=Pro
 <dl>
 <dd>
 
-**username:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**password:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `Providers` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**auth_type:** `AuthType` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**vital_link_token:** `typing.Optional[str]` 
+**query_id:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -2254,23 +1476,9 @@ client.link.password_auth(username='username', password='password', provider=Pro
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">generate_oauth_link</a>(...)</code></summary>
+<details><summary><code>client.team.<a href="src/vital/team/client.py">get_svix_url</a>()</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-This endpoint generates an OAuth link for oauth provider
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -2282,9 +1490,8 @@ This endpoint generates an OAuth link for oauth provider
 
 ```python
 from vital import Vital
-from vital import OAuthProviders
 client = Vital(api_key="YOUR_API_KEY", )
-client.link.generate_oauth_link(oauth_provider=OAuthProviders.OURA, )
+client.team.get_svix_url()
 
 ```
 </dd>
@@ -2300,15 +1507,64 @@ client.link.generate_oauth_link(oauth_provider=OAuthProviders.OURA, )
 <dl>
 <dd>
 
-**oauth_provider:** `OAuthProviders` 
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
 </dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.team.<a href="src/vital/team/client.py">get_source_priorities</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
 
 <dl>
 <dd>
 
-**vital_link_token:** `typing.Optional[str]` 
+<dl>
+<dd>
+
+GET source priorities.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.team.get_source_priorities()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**data_type:** `typing.Optional[PriorityResource]` 
     
 </dd>
 </dl>
@@ -2328,7 +1584,7 @@ client.link.generate_oauth_link(oauth_provider=OAuthProviders.OURA, )
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">connect_password_provider</a>(...)</code></summary>
+<details><summary><code>client.team.<a href="src/vital/team/client.py">update_source_priorities</a>()</code></summary>
 <dl>
 <dd>
 
@@ -2340,7 +1596,7 @@ client.link.generate_oauth_link(oauth_provider=OAuthProviders.OURA, )
 <dl>
 <dd>
 
-This connects auth providers that are password based.
+Patch source priorities.
 </dd>
 </dl>
 </dd>
@@ -2356,9 +1612,8 @@ This connects auth providers that are password based.
 
 ```python
 from vital import Vital
-from vital import PasswordProviders
 client = Vital(api_key="YOUR_API_KEY", )
-client.link.connect_password_provider(provider=PasswordProviders.WHOOP, username='username', password='password', )
+client.team.update_source_priorities()
 
 ```
 </dd>
@@ -2374,39 +1629,50 @@ client.link.connect_password_provider(provider=PasswordProviders.WHOOP, username
 <dl>
 <dd>
 
-**provider:** `PasswordProviders` 
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
 </dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.team.<a href="src/vital/team/client.py">get_physicians</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
 
 <dl>
 <dd>
 
-**username:** `str` — Username for provider
-    
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.team.get_physicians(team_id='team_id', )
+
+```
 </dd>
 </dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
 
 <dl>
 <dd>
 
-**password:** `str` — Password for provider
-    
-</dd>
-</dl>
-
 <dl>
 <dd>
 
-**vital_link_token:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**region:** `typing.Optional[Region]` — Provider region to authenticate against. Only applicable to specific providers.
+**team_id:** `str` 
     
 </dd>
 </dl>
@@ -2426,7 +1692,8 @@ client.link.connect_password_provider(provider=PasswordProviders.WHOOP, username
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">complete_password_provider_mfa</a>(...)</code></summary>
+## Providers
+<details><summary><code>client.providers.<a href="src/vital/providers/client.py">get_all</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2438,89 +1705,7 @@ client.link.connect_password_provider(provider=PasswordProviders.WHOOP, username
 <dl>
 <dd>
 
-This connects auth providers that are password based.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-from vital import PasswordProviders
-client = Vital(api_key="YOUR_API_KEY", )
-client.link.complete_password_provider_mfa(provider=PasswordProviders.WHOOP, mfa_code='mfa_code', )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**provider:** `PasswordProviders` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**mfa_code:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**vital_link_token:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.link.<a href="src/vital/link/client.py">connect_email_auth_provider</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-This connects auth providers that are email based.
+Get Provider list
 </dd>
 </dl>
 </dd>
@@ -2537,7 +1722,7 @@ This connects auth providers that are email based.
 ```python
 from vital import Vital
 client = Vital(api_key="YOUR_API_KEY", )
-client.link.connect_email_auth_provider(email='email', )
+client.providers.get_all()
 
 ```
 </dd>
@@ -2553,238 +1738,7 @@ client.link.connect_email_auth_provider(email='email', )
 <dl>
 <dd>
 
-**email:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**vital_link_token:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**email_provider_auth_link_provider:** `typing.Optional[Providers]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**region:** `typing.Optional[Region]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.link.<a href="src/vital/link/client.py">get_all_providers</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-GET List of all available providers given the generated link token.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.link.get_all_providers()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**vital_link_token:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.link.<a href="src/vital/link/client.py">connect_manual_provider</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-from vital import ManualProviders
-client = Vital(api_key="YOUR_API_KEY", )
-client.link.connect_manual_provider(provider=ManualProviders.BEURER_BLE, user_id='user_id', )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**provider:** `ManualProviders` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**user_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider_id:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.link.<a href="src/vital/link/client.py">connect_demo_provider</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-POST Connect the given Vital user to a demo provider.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-from vital import DemoProviders
-client = Vital(api_key="YOUR_API_KEY", )
-client.link.connect_demo_provider(user_id='user_id', provider=DemoProviders.APPLE_HEALTH_KIT, )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `str` — Vital user ID
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `DemoProviders` — Demo provider. For more information, please check out our docs (https://docs.tryvital.io/wearables/providers/test_data)
+**source_type:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -9945,8 +8899,388 @@ client.vitals.blood_pressure(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-## Electrocardiogram
-<details><summary><code>client.electrocardiogram.<a href="src/vital/electrocardiogram/client.py">get</a>(...)</code></summary>
+## Link
+<details><summary><code>client.link.<a href="src/vital/link/client.py">list_bulk_ops</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.link.list_bulk_ops()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**next_cursor:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**team_id:** `typing.Optional[LinkListBulkOpsRequestTeamId]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.link.<a href="src/vital/link/client.py">bulk_import</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+from vital import OAuthProviders
+from vital import ConnectionRecipe
+client = Vital(api_key="YOUR_API_KEY", )
+client.link.bulk_import(provider=OAuthProviders.OURA, connections=[ConnectionRecipe(user_id='user_id', access_token='access_token', refresh_token='refresh_token', provider_id='provider_id', expires_at=1, )], )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**provider:** `OAuthProviders` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**connections:** `typing.Sequence[ConnectionRecipe]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**team_id:** `typing.Optional[LinkBulkImportRequestTeamId]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**wait_for_completion:** `typing.Optional[bool]` 
+
+
+Whether or not the endpoint should wait for the Bulk Op to complete before responding.
+
+When `wait_for_completion` is enabled, the endpoint may respond 200 OK if the Bulk Op takes less than 20 seconds to complete.
+
+Otherwise, the endpoint always responds with 202 Created once the submitted data have been enqueued successfully. You can use
+the [List Bulk Ops](https://docs.tryvital.io/api-reference/link/list-bulk-ops) endpoint to inspect the progress of the Bulk Op.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.link.<a href="src/vital/link/client.py">bulk_trigger_historical_pull</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+from vital import OAuthProviders
+client = Vital(api_key="YOUR_API_KEY", )
+client.link.bulk_trigger_historical_pull(user_ids=['user_ids'], provider=OAuthProviders.OURA, )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_ids:** `typing.Sequence[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider:** `OAuthProviders` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**team_id:** `typing.Optional[LinkBulkTriggerHistoricalPullRequestTeamId]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**wait_for_completion:** `typing.Optional[bool]` 
+
+
+Whether or not the endpoint should wait for the Bulk Op to complete before responding.
+
+When `wait_for_completion` is enabled, the endpoint may respond 200 OK if the Bulk Op takes less than 20 seconds to complete.
+
+Otherwise, the endpoint always responds with 202 Created once the submitted data have been enqueued successfully. You can use
+the [List Bulk Ops](https://docs.tryvital.io/api-reference/link/list-bulk-ops) endpoint to inspect the progress of the Bulk Op.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.link.<a href="src/vital/link/client.py">bulk_export</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+from vital import OAuthProviders
+client = Vital(api_key="YOUR_API_KEY", )
+client.link.bulk_export(provider=OAuthProviders.OURA, )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**provider:** `OAuthProviders` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**team_id:** `typing.Optional[LinkBulkExportRequestTeamId]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**user_ids:** `typing.Optional[typing.Sequence[str]]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**next_token:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.link.<a href="src/vital/link/client.py">bulk_pause</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+from vital import OAuthProviders
+client = Vital(api_key="YOUR_API_KEY", )
+client.link.bulk_pause(user_ids=['user_ids'], provider=OAuthProviders.OURA, )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_ids:** `typing.Sequence[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider:** `OAuthProviders` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**team_id:** `typing.Optional[LinkBulkPauseRequestTeamId]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.link.<a href="src/vital/link/client.py">token</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -9958,7 +9292,12 @@ client.vitals.blood_pressure(user_id='user_id', start_date='start_date', )
 <dl>
 <dd>
 
-Get electrocardiogram summary for user_id
+Endpoint to generate a user link token, to be used throughout the vital
+link process. The vital link token is a one time use token, that
+expires after 10 minutes. If you would like vital-link widget to launch
+with a specific provider, pass in a provider in the body. If you would
+like to redirect to a custom url after successful or error connection,
+pass in your own custom redirect_url parameter.
 </dd>
 </dl>
 </dd>
@@ -9975,7 +9314,183 @@ Get electrocardiogram summary for user_id
 ```python
 from vital import Vital
 client = Vital(api_key="YOUR_API_KEY", )
-client.electrocardiogram.get(user_id='user_id', start_date='start_date', )
+client.link.token(user_id='user_id', )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` — User id returned by vital create user request. This id should be stored in your database against the user and used for all interactions with the vital api.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider:** `typing.Optional[Providers]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**redirect_url:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**filter_on_providers:** `typing.Optional[typing.Sequence[Providers]]` 
+
+An allowlist of providers dictating what Vital Link Widget should show to the end user.
+If unspecified, all linkable providers are shown.
+
+This has no effect on programmatic Vital Link API usage.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**on_error:** `typing.Optional[typing.Literal["redirect"]]` 
+
+By default, Vital Link Widget input forms for password and email providers have in-built error handling.
+
+Specifying `on_error=redirect` disables this Vital Link Widget UI behaviour — it would
+instead redirect to your `redirect_url`, with Link Error parameters injected.
+
+This has no effect on OAuth providers — they always redirect to your `redirect_url`. This also has
+no effect on programmatic Vital Link API usage.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**on_close:** `typing.Optional[typing.Literal["redirect"]]` 
+
+By default, Vital Link Widget closes the window or tab when the user taps the Close button.
+
+Specifying `on_close=redirect` would change the Close button behaviour to redirect to your `redirect_url`
+with the `user_cancelled` error specified.
+
+This has no effect on programmatic Vital Link API usage.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.link.<a href="src/vital/link/client.py">is_token_valid</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.link.is_token_valid(token='token', )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**token:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.link.<a href="src/vital/link/client.py">code_create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Generate a token to invite a user of Vital mobile app to your team
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.link.code_create(user_id='user_id', )
 
 ```
 </dd>
@@ -9999,23 +9514,7 @@ client.electrocardiogram.get(user_id='user_id', start_date='start_date', )
 <dl>
 <dd>
 
-**start_date:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_date:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `typing.Optional[str]` — Provider oura/strava etc
+**expires_at:** `typing.Optional[dt.datetime]` — When the link code should expire. Defaults to server time plus 1 hour.
     
 </dd>
 </dl>
@@ -10035,8 +9534,7 @@ client.electrocardiogram.get(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-## SleepCycle
-<details><summary><code>client.sleep_cycle.<a href="src/vital/sleep_cycle/client.py">get</a>(...)</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">start_connect</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -10048,7 +9546,83 @@ client.electrocardiogram.get(user_id='user_id', start_date='start_date', )
 <dl>
 <dd>
 
-Get sleep cycle for user_id
+REQUEST_SOURCE: VITAL-LINK
+Start link token process
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+from vital import Providers
+client = Vital(api_key="YOUR_API_KEY", )
+client.link.start_connect(link_token='link_token', provider=Providers.OURA, )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**link_token:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider:** `Providers` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.link.<a href="src/vital/link/client.py">token_state</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+REQUEST_SOURCE: VITAL-LINK
+Check link token state - can be hit continuously used as heartbeat
 </dd>
 </dl>
 </dd>
@@ -10065,7 +9639,7 @@ Get sleep cycle for user_id
 ```python
 from vital import Vital
 client = Vital(api_key="YOUR_API_KEY", )
-client.sleep_cycle.get(user_id='user_id', start_date='start_date', )
+client.link.token_state()
 
 ```
 </dd>
@@ -10077,6 +9651,672 @@ client.sleep_cycle.get(user_id='user_id', start_date='start_date', )
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**vital_link_token:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.link.<a href="src/vital/link/client.py">email_auth</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deprecated. Use `POST /v2/link/provider/email/{provider}` instead.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+from vital import Providers
+from vital import AuthType
+client = Vital(api_key="YOUR_API_KEY", )
+client.link.email_auth(email='email', provider=Providers.OURA, auth_type=AuthType.PASSWORD, )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**email:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider:** `Providers` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**auth_type:** `AuthType` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**vital_link_token:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**region:** `typing.Optional[Region]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.link.<a href="src/vital/link/client.py">password_auth</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deprecated. Use `POST /v2/link/provider/password/{provider}` instead.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+from vital import Providers
+from vital import AuthType
+client = Vital(api_key="YOUR_API_KEY", )
+client.link.password_auth(username='username', password='password', provider=Providers.OURA, auth_type=AuthType.PASSWORD, )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**username:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**password:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider:** `Providers` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**auth_type:** `AuthType` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**vital_link_token:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.link.<a href="src/vital/link/client.py">generate_oauth_link</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+This endpoint generates an OAuth link for oauth provider
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+from vital import OAuthProviders
+client = Vital(api_key="YOUR_API_KEY", )
+client.link.generate_oauth_link(oauth_provider=OAuthProviders.OURA, )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**oauth_provider:** `OAuthProviders` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**vital_link_token:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.link.<a href="src/vital/link/client.py">connect_password_provider</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+This connects auth providers that are password based.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+from vital import PasswordProviders
+client = Vital(api_key="YOUR_API_KEY", )
+client.link.connect_password_provider(provider=PasswordProviders.WHOOP, username='username', password='password', )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**provider:** `PasswordProviders` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**username:** `str` — Username for provider
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**password:** `str` — Password for provider
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**vital_link_token:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**region:** `typing.Optional[Region]` — Provider region to authenticate against. Only applicable to specific providers.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.link.<a href="src/vital/link/client.py">complete_password_provider_mfa</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+This connects auth providers that are password based.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+from vital import PasswordProviders
+client = Vital(api_key="YOUR_API_KEY", )
+client.link.complete_password_provider_mfa(provider=PasswordProviders.WHOOP, mfa_code='mfa_code', )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**provider:** `PasswordProviders` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**mfa_code:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**vital_link_token:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.link.<a href="src/vital/link/client.py">connect_email_auth_provider</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+This connects auth providers that are email based.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.link.connect_email_auth_provider(email='email', )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**email:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**vital_link_token:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**email_provider_auth_link_provider:** `typing.Optional[Providers]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**region:** `typing.Optional[Region]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.link.<a href="src/vital/link/client.py">get_all_providers</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+GET List of all available providers given the generated link token.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.link.get_all_providers()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**vital_link_token:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.link.<a href="src/vital/link/client.py">connect_manual_provider</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+from vital import ManualProviders
+client = Vital(api_key="YOUR_API_KEY", )
+client.link.connect_manual_provider(provider=ManualProviders.BEURER_BLE, user_id='user_id', )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**provider:** `ManualProviders` 
+    
+</dd>
+</dl>
 
 <dl>
 <dd>
@@ -10089,23 +10329,7 @@ client.sleep_cycle.get(user_id='user_id', start_date='start_date', )
 <dl>
 <dd>
 
-**start_date:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_date:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `typing.Optional[str]` — Provider oura/strava etc
+**provider_id:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -10125,8 +10349,7 @@ client.sleep_cycle.get(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-## Profile
-<details><summary><code>client.profile.<a href="src/vital/profile/client.py">get</a>(...)</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">connect_demo_provider</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -10138,7 +10361,7 @@ client.sleep_cycle.get(user_id='user_id', start_date='start_date', )
 <dl>
 <dd>
 
-Get profile for user_id
+POST Connect the given Vital user to a demo provider.
 </dd>
 </dl>
 </dd>
@@ -10154,8 +10377,9 @@ Get profile for user_id
 
 ```python
 from vital import Vital
+from vital import DemoProviders
 client = Vital(api_key="YOUR_API_KEY", )
-client.profile.get(user_id='user_id', )
+client.link.connect_demo_provider(user_id='user_id', provider=DemoProviders.APPLE_HEALTH_KIT, )
 
 ```
 </dd>
@@ -10171,7 +10395,7 @@ client.profile.get(user_id='user_id', )
 <dl>
 <dd>
 
-**user_id:** `str` 
+**user_id:** `str` — Vital user ID
     
 </dd>
 </dl>
@@ -10179,744 +10403,7 @@ client.profile.get(user_id='user_id', )
 <dl>
 <dd>
 
-**provider:** `typing.Optional[str]` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.profile.<a href="src/vital/profile/client.py">get_raw</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get raw profile for user_id
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.profile.get_raw(user_id='user_id', )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `typing.Optional[str]` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Devices
-<details><summary><code>client.devices.<a href="src/vital/devices/client.py">get_raw</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get Devices for user_id
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.devices.get_raw(user_id='user_id', )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `typing.Optional[str]` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Activity
-<details><summary><code>client.activity.<a href="src/vital/activity/client.py">get</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get activity summary for user_id
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.activity.get(user_id='user_id', start_date='start_date', )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**start_date:** `str` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `typing.Optional[str]` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_date:** `typing.Optional[str]` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.activity.<a href="src/vital/activity/client.py">get_raw</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get raw activity summary for user_id
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.activity.get_raw(user_id='user_id', start_date='start_date', )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**start_date:** `str` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `typing.Optional[str]` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_date:** `typing.Optional[str]` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Body
-<details><summary><code>client.body.<a href="src/vital/body/client.py">get</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get Body summary for user_id
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.body.get(user_id='user_id', start_date='start_date', )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**start_date:** `str` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `typing.Optional[str]` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_date:** `typing.Optional[str]` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.body.<a href="src/vital/body/client.py">get_raw</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get raw Body summary for user_id
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.body.get_raw(user_id='user_id', start_date='start_date', )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**start_date:** `str` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `typing.Optional[str]` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_date:** `typing.Optional[str]` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Meal
-<details><summary><code>client.meal.<a href="src/vital/meal/client.py">get</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get user's meals
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.meal.get(user_id='user_id', start_date='start_date', )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**start_date:** `str` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `typing.Optional[str]` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_date:** `typing.Optional[str]` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## MenstrualCycle
-<details><summary><code>client.menstrual_cycle.<a href="src/vital/menstrual_cycle/client.py">get</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.menstrual_cycle.get(user_id='user_id', start_date='start_date', )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**start_date:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `typing.Optional[str]` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_date:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Providers
-<details><summary><code>client.providers.<a href="src/vital/providers/client.py">get_all</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get Provider list
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.providers.get_all()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**source_type:** `typing.Optional[str]` 
+**provider:** `DemoProviders` — Demo provider. For more information, please check out our docs (https://docs.tryvital.io/wearables/providers/test_data)
     
 </dd>
 </dl>
@@ -13806,8 +13293,8 @@ client.lab_tests.get_paginated()
 </dl>
 </details>
 
-## Team
-<details><summary><code>client.team.<a href="src/vital/team/client.py">get_link_config</a>(...)</code></summary>
+## Electrocardiogram
+<details><summary><code>client.electrocardiogram.<a href="src/vital/electrocardiogram/client.py">get</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -13819,7 +13306,7 @@ client.lab_tests.get_paginated()
 <dl>
 <dd>
 
-Post teams.
+Get electrocardiogram summary for user_id
 </dd>
 </dl>
 </dd>
@@ -13836,7 +13323,7 @@ Post teams.
 ```python
 from vital import Vital
 client = Vital(api_key="YOUR_API_KEY", )
-client.team.get_link_config()
+client.electrocardiogram.get(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -13852,7 +13339,31 @@ client.team.get_link_config()
 <dl>
 <dd>
 
-**vital_link_token:** `typing.Optional[str]` 
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**start_date:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**end_date:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider:** `typing.Optional[str]` — Provider oura/strava etc
     
 </dd>
 </dl>
@@ -13872,7 +13383,8 @@ client.team.get_link_config()
 </dl>
 </details>
 
-<details><summary><code>client.team.<a href="src/vital/team/client.py">get</a>(...)</code></summary>
+## SleepCycle
+<details><summary><code>client.sleep_cycle.<a href="src/vital/sleep_cycle/client.py">get</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -13884,7 +13396,7 @@ client.team.get_link_config()
 <dl>
 <dd>
 
-Get team.
+Get sleep cycle for user_id
 </dd>
 </dl>
 </dd>
@@ -13901,7 +13413,7 @@ Get team.
 ```python
 from vital import Vital
 client = Vital(api_key="YOUR_API_KEY", )
-client.team.get(team_id='team_id', )
+client.sleep_cycle.get(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -13917,7 +13429,31 @@ client.team.get(team_id='team_id', )
 <dl>
 <dd>
 
-**team_id:** `str` 
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**start_date:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**end_date:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider:** `typing.Optional[str]` — Provider oura/strava etc
     
 </dd>
 </dl>
@@ -13937,7 +13473,8 @@ client.team.get(team_id='team_id', )
 </dl>
 </details>
 
-<details><summary><code>client.team.<a href="src/vital/team/client.py">get_user_by_id</a>(...)</code></summary>
+## Profile
+<details><summary><code>client.profile.<a href="src/vital/profile/client.py">get</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -13949,7 +13486,7 @@ client.team.get(team_id='team_id', )
 <dl>
 <dd>
 
-Search team users by user_id
+Get profile for user_id
 </dd>
 </dl>
 </dd>
@@ -13966,7 +13503,7 @@ Search team users by user_id
 ```python
 from vital import Vital
 client = Vital(api_key="YOUR_API_KEY", )
-client.team.get_user_by_id()
+client.profile.get(user_id='user_id', )
 
 ```
 </dd>
@@ -13982,7 +13519,15 @@ client.team.get_user_by_id()
 <dl>
 <dd>
 
-**query_id:** `typing.Optional[str]` 
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider:** `typing.Optional[str]` — Provider oura/strava etc
     
 </dd>
 </dl>
@@ -14002,50 +13547,7 @@ client.team.get_user_by_id()
 </dl>
 </details>
 
-<details><summary><code>client.team.<a href="src/vital/team/client.py">get_svix_url</a>()</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.team.get_svix_url()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.team.<a href="src/vital/team/client.py">get_source_priorities</a>(...)</code></summary>
+<details><summary><code>client.profile.<a href="src/vital/profile/client.py">get_raw</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -14057,7 +13559,7 @@ client.team.get_svix_url()
 <dl>
 <dd>
 
-GET source priorities.
+Get raw profile for user_id
 </dd>
 </dl>
 </dd>
@@ -14074,7 +13576,7 @@ GET source priorities.
 ```python
 from vital import Vital
 client = Vital(api_key="YOUR_API_KEY", )
-client.team.get_source_priorities()
+client.profile.get_raw(user_id='user_id', )
 
 ```
 </dd>
@@ -14090,7 +13592,15 @@ client.team.get_source_priorities()
 <dl>
 <dd>
 
-**data_type:** `typing.Optional[PriorityResource]` 
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider:** `typing.Optional[str]` — Provider oura/strava etc
     
 </dd>
 </dl>
@@ -14110,7 +13620,8 @@ client.team.get_source_priorities()
 </dl>
 </details>
 
-<details><summary><code>client.team.<a href="src/vital/team/client.py">update_source_priorities</a>()</code></summary>
+## Devices
+<details><summary><code>client.devices.<a href="src/vital/devices/client.py">get_raw</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -14122,7 +13633,7 @@ client.team.get_source_priorities()
 <dl>
 <dd>
 
-Patch source priorities.
+Get Devices for user_id
 </dd>
 </dl>
 </dd>
@@ -14139,7 +13650,7 @@ Patch source priorities.
 ```python
 from vital import Vital
 client = Vital(api_key="YOUR_API_KEY", )
-client.team.update_source_priorities()
+client.devices.get_raw(user_id='user_id', )
 
 ```
 </dd>
@@ -14151,6 +13662,22 @@ client.team.update_source_priorities()
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider:** `typing.Optional[str]` — Provider oura/strava etc
+    
+</dd>
+</dl>
 
 <dl>
 <dd>
@@ -14167,9 +13694,24 @@ client.team.update_source_priorities()
 </dl>
 </details>
 
-<details><summary><code>client.team.<a href="src/vital/team/client.py">get_physicians</a>(...)</code></summary>
+## Activity
+<details><summary><code>client.activity.<a href="src/vital/activity/client.py">get</a>(...)</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get activity summary for user_id
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -14182,7 +13724,7 @@ client.team.update_source_priorities()
 ```python
 from vital import Vital
 client = Vital(api_key="YOUR_API_KEY", )
-client.team.get_physicians(team_id='team_id', )
+client.activity.get(user_id='user_id', start_date='start_date', )
 
 ```
 </dd>
@@ -14198,7 +13740,465 @@ client.team.get_physicians(team_id='team_id', )
 <dl>
 <dd>
 
-**team_id:** `str` 
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**start_date:** `str` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider:** `typing.Optional[str]` — Provider oura/strava etc
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**end_date:** `typing.Optional[str]` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.activity.<a href="src/vital/activity/client.py">get_raw</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get raw activity summary for user_id
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.activity.get_raw(user_id='user_id', start_date='start_date', )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**start_date:** `str` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider:** `typing.Optional[str]` — Provider oura/strava etc
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**end_date:** `typing.Optional[str]` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Body
+<details><summary><code>client.body.<a href="src/vital/body/client.py">get</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get Body summary for user_id
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.body.get(user_id='user_id', start_date='start_date', )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**start_date:** `str` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider:** `typing.Optional[str]` — Provider oura/strava etc
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**end_date:** `typing.Optional[str]` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.body.<a href="src/vital/body/client.py">get_raw</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get raw Body summary for user_id
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.body.get_raw(user_id='user_id', start_date='start_date', )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**start_date:** `str` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider:** `typing.Optional[str]` — Provider oura/strava etc
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**end_date:** `typing.Optional[str]` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Meal
+<details><summary><code>client.meal.<a href="src/vital/meal/client.py">get</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get user's meals
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.meal.get(user_id='user_id', start_date='start_date', )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**start_date:** `str` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider:** `typing.Optional[str]` — Provider oura/strava etc
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**end_date:** `typing.Optional[str]` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## MenstrualCycle
+<details><summary><code>client.menstrual_cycle.<a href="src/vital/menstrual_cycle/client.py">get</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.menstrual_cycle.get(user_id='user_id', start_date='start_date', )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**start_date:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider:** `typing.Optional[str]` — Provider oura/strava etc
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**end_date:** `typing.Optional[str]` 
     
 </dd>
 </dl>
