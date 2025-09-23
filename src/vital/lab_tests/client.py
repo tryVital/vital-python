@@ -1686,8 +1686,6 @@ class LabTestsClient:
         self, lab_test_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.Iterator[bytes]:
         """
-        GET collection instructions for a lab test
-
         Parameters
         ----------
         lab_test_id : str
@@ -3456,8 +3454,6 @@ class AsyncLabTestsClient:
         self, lab_test_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.AsyncIterator[bytes]:
         """
-        GET collection instructions for a lab test
-
         Parameters
         ----------
         lab_test_id : str

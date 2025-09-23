@@ -27,9 +27,11 @@ from .appointment_service_type import AppointmentServiceType
 from .appointment_status import AppointmentStatus
 from .appointment_type import AppointmentType
 from .area_info import AreaInfo
+from .asleep_at_value_macro_expr import AsleepAtValueMacroExpr
 from .attempt_status import AttemptStatus
 from .auth_type import AuthType
 from .availability import Availability
+from .awake_at_value_macro_expr import AwakeAtValueMacroExpr
 from .basal_body_temperature_entry import BasalBodyTemperatureEntry
 from .billing import Billing
 from .biomarker_result import BiomarkerResult
@@ -783,9 +785,11 @@ __all__ = [
     "AppointmentStatus",
     "AppointmentType",
     "AreaInfo",
+    "AsleepAtValueMacroExpr",
     "AttemptStatus",
     "AuthType",
     "Availability",
+    "AwakeAtValueMacroExpr",
     "BasalBodyTemperatureEntry",
     "Billing",
     "BiomarkerResult",

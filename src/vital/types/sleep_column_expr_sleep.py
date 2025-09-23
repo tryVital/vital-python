@@ -11,6 +11,7 @@ class SleepColumnExprSleep(str, enum.Enum):
     ℹ️ This enum is non-exhaustive.
     """
 
+    ID = "id"
     SESSION_START = "session_start"
     SESSION_END = "session_end"
     STATE = "state"
@@ -53,6 +54,7 @@ class SleepColumnExprSleep(str, enum.Enum):
 
     def visit(
         self,
+        id: typing.Callable[[], T_Result],
         session_start: typing.Callable[[], T_Result],
         session_end: typing.Callable[[], T_Result],
         state: typing.Callable[[], T_Result],
@@ -84,6 +86,8 @@ class SleepColumnExprSleep(str, enum.Enum):
         time_zone: typing.Callable[[], T_Result],
         _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
+        if self is SleepColumnExprSleep.ID:
+            return id()
         if self is SleepColumnExprSleep.SESSION_START:
             return session_start()
         if self is SleepColumnExprSleep.SESSION_END:

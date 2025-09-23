@@ -3,6 +3,8 @@
 import typing
 
 from .activity_column_expr import ActivityColumnExpr
+from .asleep_at_value_macro_expr import AsleepAtValueMacroExpr
+from .awake_at_value_macro_expr import AwakeAtValueMacroExpr
 from .blood_pressure_timeseries_expr import BloodPressureTimeseriesExpr
 from .body_column_expr import BodyColumnExpr
 from .chronotype_value_macro_expr import ChronotypeValueMacroExpr
@@ -26,6 +28,8 @@ AggregateExprArg = typing.Union[
     MealColumnExpr,
     SleepScoreValueMacroExpr,
     ChronotypeValueMacroExpr,
+    AsleepAtValueMacroExpr,
+    AwakeAtValueMacroExpr,
     UnrecognizedValueMacroExpr,
     DiscreteTimeseriesExpr,
     IntervalTimeseriesExpr,
