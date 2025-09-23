@@ -25,6 +25,32 @@ class WorkoutsClient:
         """
         return self._raw_client
 
+    def get_by_workout_id(
+        self, workout_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ClientFacingStream:
+        """
+        Parameters
+        ----------
+        workout_id : str
+            The Vital ID for the workout
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ClientFacingStream
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+        client = Vital(api_key="YOUR_API_KEY", )
+        client.workouts.get_by_workout_id(workout_id='workout_id', )
+        """
+        _response = self._raw_client.get_by_workout_id(workout_id, request_options=request_options)
+        return _response.data
+
     def get(
         self,
         user_id: str,
@@ -113,7 +139,23 @@ class WorkoutsClient:
         )
         return _response.data
 
-    def get_by_workout_id(
+
+class AsyncWorkoutsClient:
+    def __init__(self, *, client_wrapper: AsyncClientWrapper):
+        self._raw_client = AsyncRawWorkoutsClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> AsyncRawWorkoutsClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        AsyncRawWorkoutsClient
+        """
+        return self._raw_client
+
+    async def get_by_workout_id(
         self, workout_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> ClientFacingStream:
         """
@@ -132,28 +174,15 @@ class WorkoutsClient:
 
         Examples
         --------
-        from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.workouts.get_by_workout_id(workout_id='workout_id', )
+        from vital import AsyncVital
+        import asyncio
+        client = AsyncVital(api_key="YOUR_API_KEY", )
+        async def main() -> None:
+            await client.workouts.get_by_workout_id(workout_id='workout_id', )
+        asyncio.run(main())
         """
-        _response = self._raw_client.get_by_workout_id(workout_id, request_options=request_options)
+        _response = await self._raw_client.get_by_workout_id(workout_id, request_options=request_options)
         return _response.data
-
-
-class AsyncWorkoutsClient:
-    def __init__(self, *, client_wrapper: AsyncClientWrapper):
-        self._raw_client = AsyncRawWorkoutsClient(client_wrapper=client_wrapper)
-
-    @property
-    def with_raw_response(self) -> AsyncRawWorkoutsClient:
-        """
-        Retrieves a raw implementation of this client that returns raw responses.
-
-        Returns
-        -------
-        AsyncRawWorkoutsClient
-        """
-        return self._raw_client
 
     async def get(
         self,
@@ -247,33 +276,4 @@ class AsyncWorkoutsClient:
         _response = await self._raw_client.get_raw(
             user_id, start_date=start_date, provider=provider, end_date=end_date, request_options=request_options
         )
-        return _response.data
-
-    async def get_by_workout_id(
-        self, workout_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> ClientFacingStream:
-        """
-        Parameters
-        ----------
-        workout_id : str
-            The Vital ID for the workout
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ClientFacingStream
-            Successful Response
-
-        Examples
-        --------
-        from vital import AsyncVital
-        import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
-        async def main() -> None:
-            await client.workouts.get_by_workout_id(workout_id='workout_id', )
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.get_by_workout_id(workout_id, request_options=request_options)
         return _response.data
