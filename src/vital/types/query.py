@@ -11,6 +11,14 @@ from .query_select_item import QuerySelectItem
 class Query(UniversalBaseModel):
     select: typing.List[QuerySelectItem]
     group_by: typing.Optional[typing.List[QueryGroupByItem]] = None
+    where: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    A WHERE clause filtering the input data. If a GROUP BY clause is present, filtering happens prior to GROUP BY evaluation.
+    
+    WHERE clause uses SQL Expression syntax to describe the filtering criteria:
+    * Available operators: `>`, `>=`, `<`, `<=`, `=`, `!=`, `NOT`, `AND` and `OR`.
+    * Parentheses is supported.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
