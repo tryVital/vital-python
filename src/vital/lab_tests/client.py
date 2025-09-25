@@ -387,7 +387,7 @@ class LabTestsClient:
             Lab ID to check for PSCs
 
         radius : typing.Optional[AllowedRadius]
-            Radius in which to search in miles
+            Radius in which to search in miles. Note that we limit to 30 PSCs.
 
         capabilities : typing.Optional[typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]]
             Filter for only locations with certain capabilities
@@ -2061,7 +2061,7 @@ class AsyncLabTestsClient:
             Lab ID to check for PSCs
 
         radius : typing.Optional[AllowedRadius]
-            Radius in which to search in miles
+            Radius in which to search in miles. Note that we limit to 30 PSCs.
 
         capabilities : typing.Optional[typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]]
             Filter for only locations with certain capabilities
