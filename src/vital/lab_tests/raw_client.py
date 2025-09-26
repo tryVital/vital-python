@@ -1462,6 +1462,7 @@ class RawLabTestsClient:
         user_id: str,
         patient_details: PatientDetailsWithValidation,
         patient_address: PatientAddressWithValidation,
+        idempotency_key: typing.Optional[str] = None,
         lab_test_id: typing.Optional[str] = OMIT,
         order_set: typing.Optional[OrderSetRequest] = OMIT,
         collection_method: typing.Optional[LabTestCollectionMethod] = OMIT,
@@ -1484,6 +1485,8 @@ class RawLabTestsClient:
         patient_details : PatientDetailsWithValidation
 
         patient_address : PatientAddressWithValidation
+
+        idempotency_key : typing.Optional[str]
 
         lab_test_id : typing.Optional[str]
 
@@ -1541,6 +1544,7 @@ class RawLabTestsClient:
             },
             headers={
                 "content-type": "application/json",
+                "X-Idempotency-Key": str(idempotency_key) if idempotency_key is not None else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -4097,6 +4101,7 @@ class AsyncRawLabTestsClient:
         user_id: str,
         patient_details: PatientDetailsWithValidation,
         patient_address: PatientAddressWithValidation,
+        idempotency_key: typing.Optional[str] = None,
         lab_test_id: typing.Optional[str] = OMIT,
         order_set: typing.Optional[OrderSetRequest] = OMIT,
         collection_method: typing.Optional[LabTestCollectionMethod] = OMIT,
@@ -4119,6 +4124,8 @@ class AsyncRawLabTestsClient:
         patient_details : PatientDetailsWithValidation
 
         patient_address : PatientAddressWithValidation
+
+        idempotency_key : typing.Optional[str]
 
         lab_test_id : typing.Optional[str]
 
@@ -4176,6 +4183,7 @@ class AsyncRawLabTestsClient:
             },
             headers={
                 "content-type": "application/json",
+                "X-Idempotency-Key": str(idempotency_key) if idempotency_key is not None else None,
             },
             request_options=request_options,
             omit=OMIT,
