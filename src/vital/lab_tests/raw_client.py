@@ -68,6 +68,151 @@ class RawLabTestsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
+    def get_orders(
+        self,
+        *,
+        search_input: typing.Optional[str] = None,
+        start_date: typing.Optional[dt.datetime] = None,
+        end_date: typing.Optional[dt.datetime] = None,
+        updated_start_date: typing.Optional[dt.datetime] = None,
+        updated_end_date: typing.Optional[dt.datetime] = None,
+        status: typing.Optional[typing.Union[OrderLowLevelStatus, typing.Sequence[OrderLowLevelStatus]]] = None,
+        order_key: typing.Optional[LabTestsGetOrdersRequestOrderKey] = None,
+        order_direction: typing.Optional[LabTestsGetOrdersRequestOrderDirection] = None,
+        order_type: typing.Optional[
+            typing.Union[LabTestCollectionMethod, typing.Sequence[LabTestCollectionMethod]]
+        ] = None,
+        is_critical: typing.Optional[bool] = None,
+        interpretation: typing.Optional[Interpretation] = None,
+        order_activation_types: typing.Optional[
+            typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]
+        ] = None,
+        user_id: typing.Optional[str] = None,
+        patient_name: typing.Optional[str] = None,
+        shipping_recipient_name: typing.Optional[str] = None,
+        order_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        page: typing.Optional[int] = None,
+        size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[GetOrdersResponse]:
+        """
+        GET many orders with filters.
+
+        Parameters
+        ----------
+        search_input : typing.Optional[str]
+            Search by order id, user id, patient name, shipping dob, or shipping recipient name.
+
+        start_date : typing.Optional[dt.datetime]
+            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+        end_date : typing.Optional[dt.datetime]
+            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+
+        updated_start_date : typing.Optional[dt.datetime]
+            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+        updated_end_date : typing.Optional[dt.datetime]
+            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+
+        status : typing.Optional[typing.Union[OrderLowLevelStatus, typing.Sequence[OrderLowLevelStatus]]]
+            Filter by low level status.
+
+        order_key : typing.Optional[LabTestsGetOrdersRequestOrderKey]
+            Order key to sort by.
+
+        order_direction : typing.Optional[LabTestsGetOrdersRequestOrderDirection]
+            Order direction to sort by.
+
+        order_type : typing.Optional[typing.Union[LabTestCollectionMethod, typing.Sequence[LabTestCollectionMethod]]]
+            Filter by method used to perform the lab test.
+
+        is_critical : typing.Optional[bool]
+            Filter by critical order status.
+
+        interpretation : typing.Optional[Interpretation]
+            Filter by result interpretation of the lab test.
+
+        order_activation_types : typing.Optional[typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]]
+            Filter by activation type.
+
+        user_id : typing.Optional[str]
+            Filter by user ID.
+
+        patient_name : typing.Optional[str]
+            Filter by patient name.
+
+        shipping_recipient_name : typing.Optional[str]
+            Filter by shipping recipient name.
+
+        order_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Filter by order ids.
+
+        page : typing.Optional[int]
+
+        size : typing.Optional[int]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[GetOrdersResponse]
+            Successful Response
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v3/orders",
+            method="GET",
+            params={
+                "search_input": search_input,
+                "start_date": serialize_datetime(start_date) if start_date is not None else None,
+                "end_date": serialize_datetime(end_date) if end_date is not None else None,
+                "updated_start_date": serialize_datetime(updated_start_date)
+                if updated_start_date is not None
+                else None,
+                "updated_end_date": serialize_datetime(updated_end_date) if updated_end_date is not None else None,
+                "status": status,
+                "order_key": order_key,
+                "order_direction": order_direction,
+                "order_type": order_type,
+                "is_critical": is_critical,
+                "interpretation": interpretation,
+                "order_activation_types": order_activation_types,
+                "user_id": user_id,
+                "patient_name": patient_name,
+                "shipping_recipient_name": shipping_recipient_name,
+                "order_ids": order_ids,
+                "page": page,
+                "size": size,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    GetOrdersResponse,
+                    parse_obj_as(
+                        type_=GetOrdersResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
     def get_phlebotomy_appointment_availability(
         self,
         *,
@@ -2552,7 +2697,12 @@ class RawLabTestsClient:
 
             yield stream()
 
-    def get_orders(
+
+class AsyncRawLabTestsClient:
+    def __init__(self, *, client_wrapper: AsyncClientWrapper):
+        self._client_wrapper = client_wrapper
+
+    async def get_orders(
         self,
         *,
         search_input: typing.Optional[str] = None,
@@ -2578,7 +2728,7 @@ class RawLabTestsClient:
         page: typing.Optional[int] = None,
         size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[GetOrdersResponse]:
+    ) -> AsyncHttpResponse[GetOrdersResponse]:
         """
         GET many orders with filters.
 
@@ -2641,10 +2791,10 @@ class RawLabTestsClient:
 
         Returns
         -------
-        HttpResponse[GetOrdersResponse]
+        AsyncHttpResponse[GetOrdersResponse]
             Successful Response
         """
-        _response = self._client_wrapper.httpx_client.request(
+        _response = await self._client_wrapper.httpx_client.request(
             "v3/orders",
             method="GET",
             params={
@@ -2680,7 +2830,7 @@ class RawLabTestsClient:
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                return AsyncHttpResponse(response=_response, data=_data)
             if _response.status_code == 422:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
@@ -2696,11 +2846,6 @@ class RawLabTestsClient:
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-
-class AsyncRawLabTestsClient:
-    def __init__(self, *, client_wrapper: AsyncClientWrapper):
-        self._client_wrapper = client_wrapper
 
     async def get_phlebotomy_appointment_availability(
         self,
@@ -5191,148 +5336,3 @@ class AsyncRawLabTestsClient:
                 raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
             yield await stream()
-
-    async def get_orders(
-        self,
-        *,
-        search_input: typing.Optional[str] = None,
-        start_date: typing.Optional[dt.datetime] = None,
-        end_date: typing.Optional[dt.datetime] = None,
-        updated_start_date: typing.Optional[dt.datetime] = None,
-        updated_end_date: typing.Optional[dt.datetime] = None,
-        status: typing.Optional[typing.Union[OrderLowLevelStatus, typing.Sequence[OrderLowLevelStatus]]] = None,
-        order_key: typing.Optional[LabTestsGetOrdersRequestOrderKey] = None,
-        order_direction: typing.Optional[LabTestsGetOrdersRequestOrderDirection] = None,
-        order_type: typing.Optional[
-            typing.Union[LabTestCollectionMethod, typing.Sequence[LabTestCollectionMethod]]
-        ] = None,
-        is_critical: typing.Optional[bool] = None,
-        interpretation: typing.Optional[Interpretation] = None,
-        order_activation_types: typing.Optional[
-            typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]
-        ] = None,
-        user_id: typing.Optional[str] = None,
-        patient_name: typing.Optional[str] = None,
-        shipping_recipient_name: typing.Optional[str] = None,
-        order_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        page: typing.Optional[int] = None,
-        size: typing.Optional[int] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[GetOrdersResponse]:
-        """
-        GET many orders with filters.
-
-        Parameters
-        ----------
-        search_input : typing.Optional[str]
-            Search by order id, user id, patient name, shipping dob, or shipping recipient name.
-
-        start_date : typing.Optional[dt.datetime]
-            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-
-        end_date : typing.Optional[dt.datetime]
-            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-
-        updated_start_date : typing.Optional[dt.datetime]
-            Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-
-        updated_end_date : typing.Optional[dt.datetime]
-            Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-
-        status : typing.Optional[typing.Union[OrderLowLevelStatus, typing.Sequence[OrderLowLevelStatus]]]
-            Filter by low level status.
-
-        order_key : typing.Optional[LabTestsGetOrdersRequestOrderKey]
-            Order key to sort by.
-
-        order_direction : typing.Optional[LabTestsGetOrdersRequestOrderDirection]
-            Order direction to sort by.
-
-        order_type : typing.Optional[typing.Union[LabTestCollectionMethod, typing.Sequence[LabTestCollectionMethod]]]
-            Filter by method used to perform the lab test.
-
-        is_critical : typing.Optional[bool]
-            Filter by critical order status.
-
-        interpretation : typing.Optional[Interpretation]
-            Filter by result interpretation of the lab test.
-
-        order_activation_types : typing.Optional[typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]]
-            Filter by activation type.
-
-        user_id : typing.Optional[str]
-            Filter by user ID.
-
-        patient_name : typing.Optional[str]
-            Filter by patient name.
-
-        shipping_recipient_name : typing.Optional[str]
-            Filter by shipping recipient name.
-
-        order_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Filter by order ids.
-
-        page : typing.Optional[int]
-
-        size : typing.Optional[int]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[GetOrdersResponse]
-            Successful Response
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "v3/orders",
-            method="GET",
-            params={
-                "search_input": search_input,
-                "start_date": serialize_datetime(start_date) if start_date is not None else None,
-                "end_date": serialize_datetime(end_date) if end_date is not None else None,
-                "updated_start_date": serialize_datetime(updated_start_date)
-                if updated_start_date is not None
-                else None,
-                "updated_end_date": serialize_datetime(updated_end_date) if updated_end_date is not None else None,
-                "status": status,
-                "order_key": order_key,
-                "order_direction": order_direction,
-                "order_type": order_type,
-                "is_critical": is_critical,
-                "interpretation": interpretation,
-                "order_activation_types": order_activation_types,
-                "user_id": user_id,
-                "patient_name": patient_name,
-                "shipping_recipient_name": shipping_recipient_name,
-                "order_ids": order_ids,
-                "page": page,
-                "size": size,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    GetOrdersResponse,
-                    parse_obj_as(
-                        type_=GetOrdersResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
