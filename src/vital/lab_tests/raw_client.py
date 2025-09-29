@@ -68,6 +68,728 @@ class RawLabTestsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
+    def get(
+        self,
+        *,
+        generation_method: typing.Optional[LabTestGenerationMethodFilter] = None,
+        lab_slug: typing.Optional[str] = None,
+        collection_method: typing.Optional[LabTestCollectionMethod] = None,
+        status: typing.Optional[LabTestStatus] = None,
+        marker_ids: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
+        provider_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        name: typing.Optional[str] = None,
+        order_key: typing.Optional[LabTestsGetRequestOrderKey] = None,
+        order_direction: typing.Optional[LabTestsGetRequestOrderDirection] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[typing.List[ClientFacingLabTest]]:
+        """
+        GET all the lab tests the team has access to.
+
+        Parameters
+        ----------
+        generation_method : typing.Optional[LabTestGenerationMethodFilter]
+            Filter on whether auto-generated lab tests created by Vital, manually created lab tests, or all lab tests should be returned.
+
+        lab_slug : typing.Optional[str]
+            Filter by the slug of the lab for these lab tests.
+
+        collection_method : typing.Optional[LabTestCollectionMethod]
+            Filter by the collection method for these lab tests.
+
+        status : typing.Optional[LabTestStatus]
+            Filter by the status of these lab tests.
+
+        marker_ids : typing.Optional[typing.Union[int, typing.Sequence[int]]]
+            Filter to only include lab tests containing these marker IDs.
+
+        provider_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Filter to only include lab tests containing these provider IDs.
+
+        name : typing.Optional[str]
+            Filter by the name of the lab test (a case-insensitive substring search).
+
+        order_key : typing.Optional[LabTestsGetRequestOrderKey]
+
+        order_direction : typing.Optional[LabTestsGetRequestOrderDirection]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[typing.List[ClientFacingLabTest]]
+            Successful Response
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v3/lab_tests",
+            method="GET",
+            params={
+                "generation_method": generation_method,
+                "lab_slug": lab_slug,
+                "collection_method": collection_method,
+                "status": status,
+                "marker_ids": marker_ids,
+                "provider_ids": provider_ids,
+                "name": name,
+                "order_key": order_key,
+                "order_direction": order_direction,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    typing.List[ClientFacingLabTest],
+                    parse_obj_as(
+                        type_=typing.List[ClientFacingLabTest],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def create(
+        self,
+        *,
+        name: str,
+        method: LabTestCollectionMethod,
+        description: str,
+        marker_ids: typing.Optional[typing.Sequence[int]] = OMIT,
+        provider_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        fasting: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[ClientFacingLabTest]:
+        """
+        Parameters
+        ----------
+        name : str
+
+        method : LabTestCollectionMethod
+
+        description : str
+
+        marker_ids : typing.Optional[typing.Sequence[int]]
+
+        provider_ids : typing.Optional[typing.Sequence[str]]
+
+        fasting : typing.Optional[bool]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[ClientFacingLabTest]
+            Successful Response
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v3/lab_tests",
+            method="POST",
+            json={
+                "marker_ids": marker_ids,
+                "provider_ids": provider_ids,
+                "name": name,
+                "method": method,
+                "description": description,
+                "fasting": fasting,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ClientFacingLabTest,
+                    parse_obj_as(
+                        type_=ClientFacingLabTest,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def get_by_id(
+        self, lab_test_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[ClientFacingLabTest]:
+        """
+        GET all the lab tests the team has access to.
+
+        Parameters
+        ----------
+        lab_test_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[ClientFacingLabTest]
+            Successful Response
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v3/lab_tests/{jsonable_encoder(lab_test_id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ClientFacingLabTest,
+                    parse_obj_as(
+                        type_=ClientFacingLabTest,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def update_lab_test(
+        self,
+        lab_test_id: str,
+        *,
+        name: typing.Optional[str] = OMIT,
+        active: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[ClientFacingLabTest]:
+        """
+        Parameters
+        ----------
+        lab_test_id : str
+
+        name : typing.Optional[str]
+
+        active : typing.Optional[bool]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[ClientFacingLabTest]
+            Successful Response
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v3/lab_tests/{jsonable_encoder(lab_test_id)}",
+            method="PATCH",
+            json={
+                "name": name,
+                "active": active,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ClientFacingLabTest,
+                    parse_obj_as(
+                        type_=ClientFacingLabTest,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def get_markers(
+        self,
+        *,
+        lab_id: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
+        name: typing.Optional[str] = None,
+        a_la_carte_enabled: typing.Optional[bool] = None,
+        page: typing.Optional[int] = None,
+        size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[GetMarkersResponse]:
+        """
+        GET all the markers for the given lab.
+
+        Parameters
+        ----------
+        lab_id : typing.Optional[typing.Union[int, typing.Sequence[int]]]
+            The identifier Vital assigned to a lab partner.
+
+        name : typing.Optional[str]
+            The name or test code of an individual biomarker or a panel.
+
+        a_la_carte_enabled : typing.Optional[bool]
+
+        page : typing.Optional[int]
+
+        size : typing.Optional[int]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[GetMarkersResponse]
+            Successful Response
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v3/lab_tests/markers",
+            method="GET",
+            params={
+                "lab_id": lab_id,
+                "name": name,
+                "a_la_carte_enabled": a_la_carte_enabled,
+                "page": page,
+                "size": size,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    GetMarkersResponse,
+                    parse_obj_as(
+                        type_=GetMarkersResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def get_markers_for_order_set(
+        self,
+        *,
+        request: OrderSetRequest,
+        page: typing.Optional[int] = None,
+        size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[GetMarkersResponse]:
+        """
+        Parameters
+        ----------
+        request : OrderSetRequest
+
+        page : typing.Optional[int]
+
+        size : typing.Optional[int]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[GetMarkersResponse]
+            Successful Response
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v3/lab_tests/list_order_set_markers",
+            method="POST",
+            params={
+                "page": page,
+                "size": size,
+            },
+            json=request,
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    GetMarkersResponse,
+                    parse_obj_as(
+                        type_=GetMarkersResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def get_markers_for_lab_test(
+        self,
+        lab_test_id: str,
+        *,
+        page: typing.Optional[int] = None,
+        size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[GetMarkersResponse]:
+        """
+        Parameters
+        ----------
+        lab_test_id : str
+
+        page : typing.Optional[int]
+
+        size : typing.Optional[int]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[GetMarkersResponse]
+            Successful Response
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v3/lab_tests/{jsonable_encoder(lab_test_id)}/markers",
+            method="GET",
+            params={
+                "page": page,
+                "size": size,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    GetMarkersResponse,
+                    parse_obj_as(
+                        type_=GetMarkersResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def get_markers_by_lab_and_provider_id(
+        self, provider_id: str, lab_id: int, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[ClientFacingMarker]:
+        """
+        GET a specific marker for the given lab and provider_id
+
+        Parameters
+        ----------
+        provider_id : str
+
+        lab_id : int
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[ClientFacingMarker]
+            Successful Response
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v3/lab_tests/{jsonable_encoder(lab_id)}/markers/{jsonable_encoder(provider_id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ClientFacingMarker,
+                    parse_obj_as(
+                        type_=ClientFacingMarker,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def get_labs(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[typing.List[ClientFacingLab]]:
+        """
+        GET all the labs.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[typing.List[ClientFacingLab]]
+            Successful Response
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v3/lab_tests/labs",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    typing.List[ClientFacingLab],
+                    parse_obj_as(
+                        type_=typing.List[ClientFacingLab],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def get_paginated(
+        self,
+        *,
+        lab_test_limit: typing.Optional[int] = None,
+        next_cursor: typing.Optional[str] = None,
+        generation_method: typing.Optional[LabTestGenerationMethodFilter] = None,
+        lab_slug: typing.Optional[str] = None,
+        collection_method: typing.Optional[LabTestCollectionMethod] = None,
+        status: typing.Optional[LabTestStatus] = None,
+        marker_ids: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
+        provider_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        name: typing.Optional[str] = None,
+        order_key: typing.Optional[LabTestsGetPaginatedRequestOrderKey] = None,
+        order_direction: typing.Optional[LabTestsGetPaginatedRequestOrderDirection] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[LabTestResourcesResponse]:
+        """
+        GET lab tests the team has access to as a paginated list.
+
+        Parameters
+        ----------
+        lab_test_limit : typing.Optional[int]
+
+        next_cursor : typing.Optional[str]
+
+        generation_method : typing.Optional[LabTestGenerationMethodFilter]
+            Filter on whether auto-generated lab tests created by Vital, manually created lab tests, or all lab tests should be returned.
+
+        lab_slug : typing.Optional[str]
+            Filter by the slug of the lab for these lab tests.
+
+        collection_method : typing.Optional[LabTestCollectionMethod]
+            Filter by the collection method for these lab tests.
+
+        status : typing.Optional[LabTestStatus]
+            Filter by the status of these lab tests.
+
+        marker_ids : typing.Optional[typing.Union[int, typing.Sequence[int]]]
+            Filter to only include lab tests containing these marker IDs.
+
+        provider_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Filter to only include lab tests containing these provider IDs.
+
+        name : typing.Optional[str]
+            Filter by the name of the lab test (a case-insensitive substring search).
+
+        order_key : typing.Optional[LabTestsGetPaginatedRequestOrderKey]
+
+        order_direction : typing.Optional[LabTestsGetPaginatedRequestOrderDirection]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[LabTestResourcesResponse]
+            Successful Response
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v3/lab_test",
+            method="GET",
+            params={
+                "lab_test_limit": lab_test_limit,
+                "next_cursor": next_cursor,
+                "generation_method": generation_method,
+                "lab_slug": lab_slug,
+                "collection_method": collection_method,
+                "status": status,
+                "marker_ids": marker_ids,
+                "provider_ids": provider_ids,
+                "name": name,
+                "order_key": order_key,
+                "order_direction": order_direction,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    LabTestResourcesResponse,
+                    parse_obj_as(
+                        type_=LabTestResourcesResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    @contextlib.contextmanager
+    def get_lab_test_collection_instruction_pdf(
+        self, lab_test_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Iterator[HttpResponse[typing.Iterator[bytes]]]:
+        """
+        Parameters
+        ----------
+        lab_test_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration. You can pass in configuration such as `chunk_size`, and more to customize the request and response.
+
+        Returns
+        -------
+        typing.Iterator[HttpResponse[typing.Iterator[bytes]]]
+            PDF with collection instructions
+        """
+        with self._client_wrapper.httpx_client.stream(
+            f"v3/lab_test/{jsonable_encoder(lab_test_id)}/collection_instruction_pdf",
+            method="GET",
+            request_options=request_options,
+        ) as _response:
+
+            def stream() -> HttpResponse[typing.Iterator[bytes]]:
+                try:
+                    if 200 <= _response.status_code < 300:
+                        _chunk_size = request_options.get("chunk_size", None) if request_options is not None else None
+                        return HttpResponse(
+                            response=_response, data=(_chunk for _chunk in _response.iter_bytes(chunk_size=_chunk_size))
+                        )
+                    _response.read()
+                    if _response.status_code == 422:
+                        raise UnprocessableEntityError(
+                            headers=dict(_response.headers),
+                            body=typing.cast(
+                                HttpValidationError,
+                                parse_obj_as(
+                                    type_=HttpValidationError,  # type: ignore
+                                    object_=_response.json(),
+                                ),
+                            ),
+                        )
+                    _response_json = _response.json()
+                except JSONDecodeError:
+                    raise ApiError(
+                        status_code=_response.status_code, headers=dict(_response.headers), body=_response.text
+                    )
+                raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+            yield stream()
+
     def get_orders(
         self,
         *,
@@ -1975,7 +2697,12 @@ class RawLabTestsClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def get(
+
+class AsyncRawLabTestsClient:
+    def __init__(self, *, client_wrapper: AsyncClientWrapper):
+        self._client_wrapper = client_wrapper
+
+    async def get(
         self,
         *,
         generation_method: typing.Optional[LabTestGenerationMethodFilter] = None,
@@ -1988,7 +2715,7 @@ class RawLabTestsClient:
         order_key: typing.Optional[LabTestsGetRequestOrderKey] = None,
         order_direction: typing.Optional[LabTestsGetRequestOrderDirection] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[typing.List[ClientFacingLabTest]]:
+    ) -> AsyncHttpResponse[typing.List[ClientFacingLabTest]]:
         """
         GET all the lab tests the team has access to.
 
@@ -2024,10 +2751,10 @@ class RawLabTestsClient:
 
         Returns
         -------
-        HttpResponse[typing.List[ClientFacingLabTest]]
+        AsyncHttpResponse[typing.List[ClientFacingLabTest]]
             Successful Response
         """
-        _response = self._client_wrapper.httpx_client.request(
+        _response = await self._client_wrapper.httpx_client.request(
             "v3/lab_tests",
             method="GET",
             params={
@@ -2052,7 +2779,7 @@ class RawLabTestsClient:
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                return AsyncHttpResponse(response=_response, data=_data)
             if _response.status_code == 422:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
@@ -2069,7 +2796,7 @@ class RawLabTestsClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def create(
+    async def create(
         self,
         *,
         name: str,
@@ -2079,7 +2806,7 @@ class RawLabTestsClient:
         provider_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         fasting: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[ClientFacingLabTest]:
+    ) -> AsyncHttpResponse[ClientFacingLabTest]:
         """
         Parameters
         ----------
@@ -2100,10 +2827,10 @@ class RawLabTestsClient:
 
         Returns
         -------
-        HttpResponse[ClientFacingLabTest]
+        AsyncHttpResponse[ClientFacingLabTest]
             Successful Response
         """
-        _response = self._client_wrapper.httpx_client.request(
+        _response = await self._client_wrapper.httpx_client.request(
             "v3/lab_tests",
             method="POST",
             json={
@@ -2129,7 +2856,7 @@ class RawLabTestsClient:
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                return AsyncHttpResponse(response=_response, data=_data)
             if _response.status_code == 422:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
@@ -2146,9 +2873,9 @@ class RawLabTestsClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def get_by_id(
+    async def get_by_id(
         self, lab_test_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[ClientFacingLabTest]:
+    ) -> AsyncHttpResponse[ClientFacingLabTest]:
         """
         GET all the lab tests the team has access to.
 
@@ -2161,10 +2888,10 @@ class RawLabTestsClient:
 
         Returns
         -------
-        HttpResponse[ClientFacingLabTest]
+        AsyncHttpResponse[ClientFacingLabTest]
             Successful Response
         """
-        _response = self._client_wrapper.httpx_client.request(
+        _response = await self._client_wrapper.httpx_client.request(
             f"v3/lab_tests/{jsonable_encoder(lab_test_id)}",
             method="GET",
             request_options=request_options,
@@ -2178,7 +2905,7 @@ class RawLabTestsClient:
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                return AsyncHttpResponse(response=_response, data=_data)
             if _response.status_code == 422:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
@@ -2195,14 +2922,14 @@ class RawLabTestsClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def update_lab_test(
+    async def update_lab_test(
         self,
         lab_test_id: str,
         *,
         name: typing.Optional[str] = OMIT,
         active: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[ClientFacingLabTest]:
+    ) -> AsyncHttpResponse[ClientFacingLabTest]:
         """
         Parameters
         ----------
@@ -2217,10 +2944,10 @@ class RawLabTestsClient:
 
         Returns
         -------
-        HttpResponse[ClientFacingLabTest]
+        AsyncHttpResponse[ClientFacingLabTest]
             Successful Response
         """
-        _response = self._client_wrapper.httpx_client.request(
+        _response = await self._client_wrapper.httpx_client.request(
             f"v3/lab_tests/{jsonable_encoder(lab_test_id)}",
             method="PATCH",
             json={
@@ -2242,7 +2969,7 @@ class RawLabTestsClient:
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                return AsyncHttpResponse(response=_response, data=_data)
             if _response.status_code == 422:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
@@ -2259,7 +2986,7 @@ class RawLabTestsClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def get_markers(
+    async def get_markers(
         self,
         *,
         lab_id: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
@@ -2268,7 +2995,7 @@ class RawLabTestsClient:
         page: typing.Optional[int] = None,
         size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[GetMarkersResponse]:
+    ) -> AsyncHttpResponse[GetMarkersResponse]:
         """
         GET all the markers for the given lab.
 
@@ -2291,10 +3018,10 @@ class RawLabTestsClient:
 
         Returns
         -------
-        HttpResponse[GetMarkersResponse]
+        AsyncHttpResponse[GetMarkersResponse]
             Successful Response
         """
-        _response = self._client_wrapper.httpx_client.request(
+        _response = await self._client_wrapper.httpx_client.request(
             "v3/lab_tests/markers",
             method="GET",
             params={
@@ -2315,7 +3042,7 @@ class RawLabTestsClient:
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                return AsyncHttpResponse(response=_response, data=_data)
             if _response.status_code == 422:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
@@ -2332,14 +3059,14 @@ class RawLabTestsClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def get_markers_for_order_set(
+    async def get_markers_for_order_set(
         self,
         *,
         request: OrderSetRequest,
         page: typing.Optional[int] = None,
         size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[GetMarkersResponse]:
+    ) -> AsyncHttpResponse[GetMarkersResponse]:
         """
         Parameters
         ----------
@@ -2354,10 +3081,10 @@ class RawLabTestsClient:
 
         Returns
         -------
-        HttpResponse[GetMarkersResponse]
+        AsyncHttpResponse[GetMarkersResponse]
             Successful Response
         """
-        _response = self._client_wrapper.httpx_client.request(
+        _response = await self._client_wrapper.httpx_client.request(
             "v3/lab_tests/list_order_set_markers",
             method="POST",
             params={
@@ -2380,7 +3107,7 @@ class RawLabTestsClient:
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                return AsyncHttpResponse(response=_response, data=_data)
             if _response.status_code == 422:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
@@ -2397,14 +3124,14 @@ class RawLabTestsClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def get_markers_for_lab_test(
+    async def get_markers_for_lab_test(
         self,
         lab_test_id: str,
         *,
         page: typing.Optional[int] = None,
         size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[GetMarkersResponse]:
+    ) -> AsyncHttpResponse[GetMarkersResponse]:
         """
         Parameters
         ----------
@@ -2419,10 +3146,10 @@ class RawLabTestsClient:
 
         Returns
         -------
-        HttpResponse[GetMarkersResponse]
+        AsyncHttpResponse[GetMarkersResponse]
             Successful Response
         """
-        _response = self._client_wrapper.httpx_client.request(
+        _response = await self._client_wrapper.httpx_client.request(
             f"v3/lab_tests/{jsonable_encoder(lab_test_id)}/markers",
             method="GET",
             params={
@@ -2440,7 +3167,7 @@ class RawLabTestsClient:
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                return AsyncHttpResponse(response=_response, data=_data)
             if _response.status_code == 422:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
@@ -2457,9 +3184,9 @@ class RawLabTestsClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def get_markers_by_lab_and_provider_id(
+    async def get_markers_by_lab_and_provider_id(
         self, provider_id: str, lab_id: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[ClientFacingMarker]:
+    ) -> AsyncHttpResponse[ClientFacingMarker]:
         """
         GET a specific marker for the given lab and provider_id
 
@@ -2474,10 +3201,10 @@ class RawLabTestsClient:
 
         Returns
         -------
-        HttpResponse[ClientFacingMarker]
+        AsyncHttpResponse[ClientFacingMarker]
             Successful Response
         """
-        _response = self._client_wrapper.httpx_client.request(
+        _response = await self._client_wrapper.httpx_client.request(
             f"v3/lab_tests/{jsonable_encoder(lab_id)}/markers/{jsonable_encoder(provider_id)}",
             method="GET",
             request_options=request_options,
@@ -2491,7 +3218,7 @@ class RawLabTestsClient:
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                return AsyncHttpResponse(response=_response, data=_data)
             if _response.status_code == 422:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
@@ -2508,9 +3235,9 @@ class RawLabTestsClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def get_labs(
+    async def get_labs(
         self, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[typing.List[ClientFacingLab]]:
+    ) -> AsyncHttpResponse[typing.List[ClientFacingLab]]:
         """
         GET all the labs.
 
@@ -2521,10 +3248,10 @@ class RawLabTestsClient:
 
         Returns
         -------
-        HttpResponse[typing.List[ClientFacingLab]]
+        AsyncHttpResponse[typing.List[ClientFacingLab]]
             Successful Response
         """
-        _response = self._client_wrapper.httpx_client.request(
+        _response = await self._client_wrapper.httpx_client.request(
             "v3/lab_tests/labs",
             method="GET",
             request_options=request_options,
@@ -2538,13 +3265,13 @@ class RawLabTestsClient:
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                return AsyncHttpResponse(response=_response, data=_data)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def get_paginated(
+    async def get_paginated(
         self,
         *,
         lab_test_limit: typing.Optional[int] = None,
@@ -2559,7 +3286,7 @@ class RawLabTestsClient:
         order_key: typing.Optional[LabTestsGetPaginatedRequestOrderKey] = None,
         order_direction: typing.Optional[LabTestsGetPaginatedRequestOrderDirection] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[LabTestResourcesResponse]:
+    ) -> AsyncHttpResponse[LabTestResourcesResponse]:
         """
         GET lab tests the team has access to as a paginated list.
 
@@ -2599,10 +3326,10 @@ class RawLabTestsClient:
 
         Returns
         -------
-        HttpResponse[LabTestResourcesResponse]
+        AsyncHttpResponse[LabTestResourcesResponse]
             Successful Response
         """
-        _response = self._client_wrapper.httpx_client.request(
+        _response = await self._client_wrapper.httpx_client.request(
             "v3/lab_test",
             method="GET",
             params={
@@ -2629,7 +3356,7 @@ class RawLabTestsClient:
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                return AsyncHttpResponse(response=_response, data=_data)
             if _response.status_code == 422:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
@@ -2646,10 +3373,10 @@ class RawLabTestsClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    @contextlib.contextmanager
-    def get_lab_test_collection_instruction_pdf(
+    @contextlib.asynccontextmanager
+    async def get_lab_test_collection_instruction_pdf(
         self, lab_test_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.Iterator[HttpResponse[typing.Iterator[bytes]]]:
+    ) -> typing.AsyncIterator[AsyncHttpResponse[typing.AsyncIterator[bytes]]]:
         """
         Parameters
         ----------
@@ -2660,23 +3387,24 @@ class RawLabTestsClient:
 
         Returns
         -------
-        typing.Iterator[HttpResponse[typing.Iterator[bytes]]]
+        typing.AsyncIterator[AsyncHttpResponse[typing.AsyncIterator[bytes]]]
             PDF with collection instructions
         """
-        with self._client_wrapper.httpx_client.stream(
+        async with self._client_wrapper.httpx_client.stream(
             f"v3/lab_test/{jsonable_encoder(lab_test_id)}/collection_instruction_pdf",
             method="GET",
             request_options=request_options,
         ) as _response:
 
-            def stream() -> HttpResponse[typing.Iterator[bytes]]:
+            async def stream() -> AsyncHttpResponse[typing.AsyncIterator[bytes]]:
                 try:
                     if 200 <= _response.status_code < 300:
                         _chunk_size = request_options.get("chunk_size", None) if request_options is not None else None
-                        return HttpResponse(
-                            response=_response, data=(_chunk for _chunk in _response.iter_bytes(chunk_size=_chunk_size))
+                        return AsyncHttpResponse(
+                            response=_response,
+                            data=(_chunk async for _chunk in _response.aiter_bytes(chunk_size=_chunk_size)),
                         )
-                    _response.read()
+                    await _response.aread()
                     if _response.status_code == 422:
                         raise UnprocessableEntityError(
                             headers=dict(_response.headers),
@@ -2695,12 +3423,7 @@ class RawLabTestsClient:
                     )
                 raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-            yield stream()
-
-
-class AsyncRawLabTestsClient:
-    def __init__(self, *, client_wrapper: AsyncClientWrapper):
-        self._client_wrapper = client_wrapper
+            yield await stream()
 
     async def get_orders(
         self,
@@ -4613,726 +5336,3 @@ class AsyncRawLabTestsClient:
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def get(
-        self,
-        *,
-        generation_method: typing.Optional[LabTestGenerationMethodFilter] = None,
-        lab_slug: typing.Optional[str] = None,
-        collection_method: typing.Optional[LabTestCollectionMethod] = None,
-        status: typing.Optional[LabTestStatus] = None,
-        marker_ids: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
-        provider_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        name: typing.Optional[str] = None,
-        order_key: typing.Optional[LabTestsGetRequestOrderKey] = None,
-        order_direction: typing.Optional[LabTestsGetRequestOrderDirection] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[typing.List[ClientFacingLabTest]]:
-        """
-        GET all the lab tests the team has access to.
-
-        Parameters
-        ----------
-        generation_method : typing.Optional[LabTestGenerationMethodFilter]
-            Filter on whether auto-generated lab tests created by Vital, manually created lab tests, or all lab tests should be returned.
-
-        lab_slug : typing.Optional[str]
-            Filter by the slug of the lab for these lab tests.
-
-        collection_method : typing.Optional[LabTestCollectionMethod]
-            Filter by the collection method for these lab tests.
-
-        status : typing.Optional[LabTestStatus]
-            Filter by the status of these lab tests.
-
-        marker_ids : typing.Optional[typing.Union[int, typing.Sequence[int]]]
-            Filter to only include lab tests containing these marker IDs.
-
-        provider_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Filter to only include lab tests containing these provider IDs.
-
-        name : typing.Optional[str]
-            Filter by the name of the lab test (a case-insensitive substring search).
-
-        order_key : typing.Optional[LabTestsGetRequestOrderKey]
-
-        order_direction : typing.Optional[LabTestsGetRequestOrderDirection]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[typing.List[ClientFacingLabTest]]
-            Successful Response
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "v3/lab_tests",
-            method="GET",
-            params={
-                "generation_method": generation_method,
-                "lab_slug": lab_slug,
-                "collection_method": collection_method,
-                "status": status,
-                "marker_ids": marker_ids,
-                "provider_ids": provider_ids,
-                "name": name,
-                "order_key": order_key,
-                "order_direction": order_direction,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.List[ClientFacingLabTest],
-                    parse_obj_as(
-                        type_=typing.List[ClientFacingLabTest],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def create(
-        self,
-        *,
-        name: str,
-        method: LabTestCollectionMethod,
-        description: str,
-        marker_ids: typing.Optional[typing.Sequence[int]] = OMIT,
-        provider_ids: typing.Optional[typing.Sequence[str]] = OMIT,
-        fasting: typing.Optional[bool] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[ClientFacingLabTest]:
-        """
-        Parameters
-        ----------
-        name : str
-
-        method : LabTestCollectionMethod
-
-        description : str
-
-        marker_ids : typing.Optional[typing.Sequence[int]]
-
-        provider_ids : typing.Optional[typing.Sequence[str]]
-
-        fasting : typing.Optional[bool]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[ClientFacingLabTest]
-            Successful Response
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "v3/lab_tests",
-            method="POST",
-            json={
-                "marker_ids": marker_ids,
-                "provider_ids": provider_ids,
-                "name": name,
-                "method": method,
-                "description": description,
-                "fasting": fasting,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    ClientFacingLabTest,
-                    parse_obj_as(
-                        type_=ClientFacingLabTest,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def get_by_id(
-        self, lab_test_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[ClientFacingLabTest]:
-        """
-        GET all the lab tests the team has access to.
-
-        Parameters
-        ----------
-        lab_test_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[ClientFacingLabTest]
-            Successful Response
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v3/lab_tests/{jsonable_encoder(lab_test_id)}",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    ClientFacingLabTest,
-                    parse_obj_as(
-                        type_=ClientFacingLabTest,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def update_lab_test(
-        self,
-        lab_test_id: str,
-        *,
-        name: typing.Optional[str] = OMIT,
-        active: typing.Optional[bool] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[ClientFacingLabTest]:
-        """
-        Parameters
-        ----------
-        lab_test_id : str
-
-        name : typing.Optional[str]
-
-        active : typing.Optional[bool]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[ClientFacingLabTest]
-            Successful Response
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v3/lab_tests/{jsonable_encoder(lab_test_id)}",
-            method="PATCH",
-            json={
-                "name": name,
-                "active": active,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    ClientFacingLabTest,
-                    parse_obj_as(
-                        type_=ClientFacingLabTest,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def get_markers(
-        self,
-        *,
-        lab_id: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
-        name: typing.Optional[str] = None,
-        a_la_carte_enabled: typing.Optional[bool] = None,
-        page: typing.Optional[int] = None,
-        size: typing.Optional[int] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[GetMarkersResponse]:
-        """
-        GET all the markers for the given lab.
-
-        Parameters
-        ----------
-        lab_id : typing.Optional[typing.Union[int, typing.Sequence[int]]]
-            The identifier Vital assigned to a lab partner.
-
-        name : typing.Optional[str]
-            The name or test code of an individual biomarker or a panel.
-
-        a_la_carte_enabled : typing.Optional[bool]
-
-        page : typing.Optional[int]
-
-        size : typing.Optional[int]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[GetMarkersResponse]
-            Successful Response
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "v3/lab_tests/markers",
-            method="GET",
-            params={
-                "lab_id": lab_id,
-                "name": name,
-                "a_la_carte_enabled": a_la_carte_enabled,
-                "page": page,
-                "size": size,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    GetMarkersResponse,
-                    parse_obj_as(
-                        type_=GetMarkersResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def get_markers_for_order_set(
-        self,
-        *,
-        request: OrderSetRequest,
-        page: typing.Optional[int] = None,
-        size: typing.Optional[int] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[GetMarkersResponse]:
-        """
-        Parameters
-        ----------
-        request : OrderSetRequest
-
-        page : typing.Optional[int]
-
-        size : typing.Optional[int]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[GetMarkersResponse]
-            Successful Response
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "v3/lab_tests/list_order_set_markers",
-            method="POST",
-            params={
-                "page": page,
-                "size": size,
-            },
-            json=request,
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    GetMarkersResponse,
-                    parse_obj_as(
-                        type_=GetMarkersResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def get_markers_for_lab_test(
-        self,
-        lab_test_id: str,
-        *,
-        page: typing.Optional[int] = None,
-        size: typing.Optional[int] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[GetMarkersResponse]:
-        """
-        Parameters
-        ----------
-        lab_test_id : str
-
-        page : typing.Optional[int]
-
-        size : typing.Optional[int]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[GetMarkersResponse]
-            Successful Response
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v3/lab_tests/{jsonable_encoder(lab_test_id)}/markers",
-            method="GET",
-            params={
-                "page": page,
-                "size": size,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    GetMarkersResponse,
-                    parse_obj_as(
-                        type_=GetMarkersResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def get_markers_by_lab_and_provider_id(
-        self, provider_id: str, lab_id: int, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[ClientFacingMarker]:
-        """
-        GET a specific marker for the given lab and provider_id
-
-        Parameters
-        ----------
-        provider_id : str
-
-        lab_id : int
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[ClientFacingMarker]
-            Successful Response
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v3/lab_tests/{jsonable_encoder(lab_id)}/markers/{jsonable_encoder(provider_id)}",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    ClientFacingMarker,
-                    parse_obj_as(
-                        type_=ClientFacingMarker,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def get_labs(
-        self, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[typing.List[ClientFacingLab]]:
-        """
-        GET all the labs.
-
-        Parameters
-        ----------
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[typing.List[ClientFacingLab]]
-            Successful Response
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "v3/lab_tests/labs",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.List[ClientFacingLab],
-                    parse_obj_as(
-                        type_=typing.List[ClientFacingLab],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def get_paginated(
-        self,
-        *,
-        lab_test_limit: typing.Optional[int] = None,
-        next_cursor: typing.Optional[str] = None,
-        generation_method: typing.Optional[LabTestGenerationMethodFilter] = None,
-        lab_slug: typing.Optional[str] = None,
-        collection_method: typing.Optional[LabTestCollectionMethod] = None,
-        status: typing.Optional[LabTestStatus] = None,
-        marker_ids: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
-        provider_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        name: typing.Optional[str] = None,
-        order_key: typing.Optional[LabTestsGetPaginatedRequestOrderKey] = None,
-        order_direction: typing.Optional[LabTestsGetPaginatedRequestOrderDirection] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[LabTestResourcesResponse]:
-        """
-        GET lab tests the team has access to as a paginated list.
-
-        Parameters
-        ----------
-        lab_test_limit : typing.Optional[int]
-
-        next_cursor : typing.Optional[str]
-
-        generation_method : typing.Optional[LabTestGenerationMethodFilter]
-            Filter on whether auto-generated lab tests created by Vital, manually created lab tests, or all lab tests should be returned.
-
-        lab_slug : typing.Optional[str]
-            Filter by the slug of the lab for these lab tests.
-
-        collection_method : typing.Optional[LabTestCollectionMethod]
-            Filter by the collection method for these lab tests.
-
-        status : typing.Optional[LabTestStatus]
-            Filter by the status of these lab tests.
-
-        marker_ids : typing.Optional[typing.Union[int, typing.Sequence[int]]]
-            Filter to only include lab tests containing these marker IDs.
-
-        provider_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Filter to only include lab tests containing these provider IDs.
-
-        name : typing.Optional[str]
-            Filter by the name of the lab test (a case-insensitive substring search).
-
-        order_key : typing.Optional[LabTestsGetPaginatedRequestOrderKey]
-
-        order_direction : typing.Optional[LabTestsGetPaginatedRequestOrderDirection]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[LabTestResourcesResponse]
-            Successful Response
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "v3/lab_test",
-            method="GET",
-            params={
-                "lab_test_limit": lab_test_limit,
-                "next_cursor": next_cursor,
-                "generation_method": generation_method,
-                "lab_slug": lab_slug,
-                "collection_method": collection_method,
-                "status": status,
-                "marker_ids": marker_ids,
-                "provider_ids": provider_ids,
-                "name": name,
-                "order_key": order_key,
-                "order_direction": order_direction,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    LabTestResourcesResponse,
-                    parse_obj_as(
-                        type_=LabTestResourcesResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    @contextlib.asynccontextmanager
-    async def get_lab_test_collection_instruction_pdf(
-        self, lab_test_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.AsyncIterator[AsyncHttpResponse[typing.AsyncIterator[bytes]]]:
-        """
-        Parameters
-        ----------
-        lab_test_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration. You can pass in configuration such as `chunk_size`, and more to customize the request and response.
-
-        Returns
-        -------
-        typing.AsyncIterator[AsyncHttpResponse[typing.AsyncIterator[bytes]]]
-            PDF with collection instructions
-        """
-        async with self._client_wrapper.httpx_client.stream(
-            f"v3/lab_test/{jsonable_encoder(lab_test_id)}/collection_instruction_pdf",
-            method="GET",
-            request_options=request_options,
-        ) as _response:
-
-            async def stream() -> AsyncHttpResponse[typing.AsyncIterator[bytes]]:
-                try:
-                    if 200 <= _response.status_code < 300:
-                        _chunk_size = request_options.get("chunk_size", None) if request_options is not None else None
-                        return AsyncHttpResponse(
-                            response=_response,
-                            data=(_chunk async for _chunk in _response.aiter_bytes(chunk_size=_chunk_size)),
-                        )
-                    await _response.aread()
-                    if _response.status_code == 422:
-                        raise UnprocessableEntityError(
-                            headers=dict(_response.headers),
-                            body=typing.cast(
-                                HttpValidationError,
-                                parse_obj_as(
-                                    type_=HttpValidationError,  # type: ignore
-                                    object_=_response.json(),
-                                ),
-                            ),
-                        )
-                    _response_json = _response.json()
-                except JSONDecodeError:
-                    raise ApiError(
-                        status_code=_response.status_code, headers=dict(_response.headers), body=_response.text
-                    )
-                raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-            yield await stream()
