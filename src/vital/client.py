@@ -85,9 +85,9 @@ class Vital:
             timeout=_defaulted_timeout,
         )
         self.user = UserClient(client_wrapper=self._client_wrapper)
-        self.team = TeamClient(client_wrapper=self._client_wrapper)
         self.link = LinkClient(client_wrapper=self._client_wrapper)
         self.providers = ProvidersClient(client_wrapper=self._client_wrapper)
+        self.team = TeamClient(client_wrapper=self._client_wrapper)
         self.electrocardiogram = ElectrocardiogramClient(client_wrapper=self._client_wrapper)
         self.sleep_cycle = SleepCycleClient(client_wrapper=self._client_wrapper)
         self.profile = ProfileClient(client_wrapper=self._client_wrapper)
@@ -164,9 +164,9 @@ class AsyncVital:
             timeout=_defaulted_timeout,
         )
         self.user = AsyncUserClient(client_wrapper=self._client_wrapper)
-        self.team = AsyncTeamClient(client_wrapper=self._client_wrapper)
         self.link = AsyncLinkClient(client_wrapper=self._client_wrapper)
         self.providers = AsyncProvidersClient(client_wrapper=self._client_wrapper)
+        self.team = AsyncTeamClient(client_wrapper=self._client_wrapper)
         self.electrocardiogram = AsyncElectrocardiogramClient(client_wrapper=self._client_wrapper)
         self.sleep_cycle = AsyncSleepCycleClient(client_wrapper=self._client_wrapper)
         self.profile = AsyncProfileClient(client_wrapper=self._client_wrapper)
