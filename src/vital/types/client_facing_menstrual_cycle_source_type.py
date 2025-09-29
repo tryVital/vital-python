@@ -25,6 +25,7 @@ class ClientFacingMenstrualCycleSourceType(str, enum.Enum):
     RING = "ring"
     LAB = "lab"
     EXERCISE_MACHINE = "exercise_machine"
+    EARPHONE = "earphone"
     _UNKNOWN = "__CLIENTFACINGMENSTRUALCYCLESOURCETYPE_UNKNOWN__"
     """
     This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
@@ -52,6 +53,7 @@ class ClientFacingMenstrualCycleSourceType(str, enum.Enum):
         ring: typing.Callable[[], T_Result],
         lab: typing.Callable[[], T_Result],
         exercise_machine: typing.Callable[[], T_Result],
+        earphone: typing.Callable[[], T_Result],
         _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is ClientFacingMenstrualCycleSourceType.UNKNOWN:
@@ -82,4 +84,6 @@ class ClientFacingMenstrualCycleSourceType(str, enum.Enum):
             return lab()
         if self is ClientFacingMenstrualCycleSourceType.EXERCISE_MACHINE:
             return exercise_machine()
+        if self is ClientFacingMenstrualCycleSourceType.EARPHONE:
+            return earphone()
         return _unknown_member(self._value_)

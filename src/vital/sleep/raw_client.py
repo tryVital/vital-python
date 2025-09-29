@@ -20,56 +20,6 @@ class RawSleepClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def get_stream_by_sleep_id(
-        self, sleep_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[ClientFacingSleepStream]:
-        """
-        Get Sleep stream for a user_id
-
-        Parameters
-        ----------
-        sleep_id : str
-            The Vital Sleep ID
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[ClientFacingSleepStream]
-            Successful Response
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v2/timeseries/sleep/{jsonable_encoder(sleep_id)}/stream",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    ClientFacingSleepStream,
-                    parse_obj_as(
-                        type_=ClientFacingSleepStream,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
     def get(
         self,
         user_id: str,
@@ -208,14 +158,9 @@ class RawSleepClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-
-class AsyncRawSleepClient:
-    def __init__(self, *, client_wrapper: AsyncClientWrapper):
-        self._client_wrapper = client_wrapper
-
-    async def get_stream_by_sleep_id(
+    def get_stream_by_sleep_id(
         self, sleep_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[ClientFacingSleepStream]:
+    ) -> HttpResponse[ClientFacingSleepStream]:
         """
         Get Sleep stream for a user_id
 
@@ -229,10 +174,10 @@ class AsyncRawSleepClient:
 
         Returns
         -------
-        AsyncHttpResponse[ClientFacingSleepStream]
+        HttpResponse[ClientFacingSleepStream]
             Successful Response
         """
-        _response = await self._client_wrapper.httpx_client.request(
+        _response = self._client_wrapper.httpx_client.request(
             f"v2/timeseries/sleep/{jsonable_encoder(sleep_id)}/stream",
             method="GET",
             request_options=request_options,
@@ -246,7 +191,7 @@ class AsyncRawSleepClient:
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                return HttpResponse(response=_response, data=_data)
             if _response.status_code == 422:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
@@ -262,6 +207,11 @@ class AsyncRawSleepClient:
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+
+class AsyncRawSleepClient:
+    def __init__(self, *, client_wrapper: AsyncClientWrapper):
+        self._client_wrapper = client_wrapper
 
     async def get(
         self,
@@ -381,6 +331,56 @@ class AsyncRawSleepClient:
                     RawSleep,
                     parse_obj_as(
                         type_=RawSleep,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def get_stream_by_sleep_id(
+        self, sleep_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[ClientFacingSleepStream]:
+        """
+        Get Sleep stream for a user_id
+
+        Parameters
+        ----------
+        sleep_id : str
+            The Vital Sleep ID
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[ClientFacingSleepStream]
+            Successful Response
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v2/timeseries/sleep/{jsonable_encoder(sleep_id)}/stream",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ClientFacingSleepStream,
+                    parse_obj_as(
+                        type_=ClientFacingSleepStream,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
