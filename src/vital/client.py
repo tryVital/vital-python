@@ -84,8 +84,8 @@ class Vital:
             else httpx.Client(timeout=_defaulted_timeout),
             timeout=_defaulted_timeout,
         )
-        self.providers = ProvidersClient(client_wrapper=self._client_wrapper)
         self.user = UserClient(client_wrapper=self._client_wrapper)
+        self.providers = ProvidersClient(client_wrapper=self._client_wrapper)
         self.link = LinkClient(client_wrapper=self._client_wrapper)
         self.electrocardiogram = ElectrocardiogramClient(client_wrapper=self._client_wrapper)
         self.sleep_cycle = SleepCycleClient(client_wrapper=self._client_wrapper)
@@ -163,8 +163,8 @@ class AsyncVital:
             else httpx.AsyncClient(timeout=_defaulted_timeout),
             timeout=_defaulted_timeout,
         )
-        self.providers = AsyncProvidersClient(client_wrapper=self._client_wrapper)
         self.user = AsyncUserClient(client_wrapper=self._client_wrapper)
+        self.providers = AsyncProvidersClient(client_wrapper=self._client_wrapper)
         self.link = AsyncLinkClient(client_wrapper=self._client_wrapper)
         self.electrocardiogram = AsyncElectrocardiogramClient(client_wrapper=self._client_wrapper)
         self.sleep_cycle = AsyncSleepCycleClient(client_wrapper=self._client_wrapper)
