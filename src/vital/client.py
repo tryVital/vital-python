@@ -84,6 +84,7 @@ class Vital:
             else httpx.Client(timeout=_defaulted_timeout),
             timeout=_defaulted_timeout,
         )
+        self.user = UserClient(client_wrapper=self._client_wrapper)
         self.providers = ProvidersClient(client_wrapper=self._client_wrapper)
         self.link = LinkClient(client_wrapper=self._client_wrapper)
         self.electrocardiogram = ElectrocardiogramClient(client_wrapper=self._client_wrapper)
@@ -97,7 +98,6 @@ class Vital:
         self.meal = MealClient(client_wrapper=self._client_wrapper)
         self.menstrual_cycle = MenstrualCycleClient(client_wrapper=self._client_wrapper)
         self.vitals = VitalsClient(client_wrapper=self._client_wrapper)
-        self.user = UserClient(client_wrapper=self._client_wrapper)
         self.team = TeamClient(client_wrapper=self._client_wrapper)
         self.introspect = IntrospectClient(client_wrapper=self._client_wrapper)
         self.lab_tests = LabTestsClient(client_wrapper=self._client_wrapper)
@@ -163,6 +163,7 @@ class AsyncVital:
             else httpx.AsyncClient(timeout=_defaulted_timeout),
             timeout=_defaulted_timeout,
         )
+        self.user = AsyncUserClient(client_wrapper=self._client_wrapper)
         self.providers = AsyncProvidersClient(client_wrapper=self._client_wrapper)
         self.link = AsyncLinkClient(client_wrapper=self._client_wrapper)
         self.electrocardiogram = AsyncElectrocardiogramClient(client_wrapper=self._client_wrapper)
@@ -176,7 +177,6 @@ class AsyncVital:
         self.meal = AsyncMealClient(client_wrapper=self._client_wrapper)
         self.menstrual_cycle = AsyncMenstrualCycleClient(client_wrapper=self._client_wrapper)
         self.vitals = AsyncVitalsClient(client_wrapper=self._client_wrapper)
-        self.user = AsyncUserClient(client_wrapper=self._client_wrapper)
         self.team = AsyncTeamClient(client_wrapper=self._client_wrapper)
         self.introspect = AsyncIntrospectClient(client_wrapper=self._client_wrapper)
         self.lab_tests = AsyncLabTestsClient(client_wrapper=self._client_wrapper)
