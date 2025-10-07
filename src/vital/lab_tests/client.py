@@ -196,7 +196,11 @@ class LabTestsClient:
         return _response.data
 
     def get_by_id(
-        self, lab_test_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        lab_test_id: str,
+        *,
+        lab_account_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingLabTest:
         """
         GET all the lab tests the team has access to.
@@ -204,6 +208,9 @@ class LabTestsClient:
         Parameters
         ----------
         lab_test_id : str
+
+        lab_account_id : typing.Optional[str]
+            The lab account ID. This lab account is used to determine the availability of markers and lab tests.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -219,7 +226,9 @@ class LabTestsClient:
         client = Vital(api_key="YOUR_API_KEY", )
         client.lab_tests.get_by_id(lab_test_id='lab_test_id', )
         """
-        _response = self._raw_client.get_by_id(lab_test_id, request_options=request_options)
+        _response = self._raw_client.get_by_id(
+            lab_test_id, lab_account_id=lab_account_id, request_options=request_options
+        )
         return _response.data
 
     def update_lab_test(
@@ -264,6 +273,7 @@ class LabTestsClient:
         lab_id: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
         name: typing.Optional[str] = None,
         a_la_carte_enabled: typing.Optional[bool] = None,
+        lab_account_id: typing.Optional[str] = None,
         page: typing.Optional[int] = None,
         size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -280,6 +290,9 @@ class LabTestsClient:
             The name or test code of an individual biomarker or a panel.
 
         a_la_carte_enabled : typing.Optional[bool]
+
+        lab_account_id : typing.Optional[str]
+            The lab account ID. This lab account is used to determine the availability of markers and lab tests.
 
         page : typing.Optional[int]
 
@@ -303,6 +316,7 @@ class LabTestsClient:
             lab_id=lab_id,
             name=name,
             a_la_carte_enabled=a_la_carte_enabled,
+            lab_account_id=lab_account_id,
             page=page,
             size=size,
             request_options=request_options,
@@ -350,6 +364,7 @@ class LabTestsClient:
         self,
         lab_test_id: str,
         *,
+        lab_account_id: typing.Optional[str] = None,
         page: typing.Optional[int] = None,
         size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -358,6 +373,9 @@ class LabTestsClient:
         Parameters
         ----------
         lab_test_id : str
+
+        lab_account_id : typing.Optional[str]
+            The lab account ID. This lab account is used to determine the availability of markers and lab tests.
 
         page : typing.Optional[int]
 
@@ -378,12 +396,17 @@ class LabTestsClient:
         client.lab_tests.get_markers_for_lab_test(lab_test_id='lab_test_id', )
         """
         _response = self._raw_client.get_markers_for_lab_test(
-            lab_test_id, page=page, size=size, request_options=request_options
+            lab_test_id, lab_account_id=lab_account_id, page=page, size=size, request_options=request_options
         )
         return _response.data
 
     def get_markers_by_lab_and_provider_id(
-        self, provider_id: str, lab_id: int, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        provider_id: str,
+        lab_id: int,
+        *,
+        lab_account_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingMarker:
         """
         GET a specific marker for the given lab and provider_id
@@ -393,6 +416,9 @@ class LabTestsClient:
         provider_id : str
 
         lab_id : int
+
+        lab_account_id : typing.Optional[str]
+            The lab account ID. This lab account is used to determine the availability of markers and lab tests.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -409,7 +435,7 @@ class LabTestsClient:
         client.lab_tests.get_markers_by_lab_and_provider_id(provider_id='provider_id', lab_id=1, )
         """
         _response = self._raw_client.get_markers_by_lab_and_provider_id(
-            provider_id, lab_id, request_options=request_options
+            provider_id, lab_id, lab_account_id=lab_account_id, request_options=request_options
         )
         return _response.data
 
@@ -911,6 +937,7 @@ class LabTestsClient:
         radius: typing.Optional[AllowedRadius] = None,
         lab: typing.Optional[ClientFacingLabs] = None,
         labs: typing.Optional[typing.Union[ClientFacingLabs, typing.Sequence[ClientFacingLabs]]] = None,
+        lab_account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AreaInfo:
         """
@@ -934,6 +961,9 @@ class LabTestsClient:
         labs : typing.Optional[typing.Union[ClientFacingLabs, typing.Sequence[ClientFacingLabs]]]
             List of labs to check for PSCs
 
+        lab_account_id : typing.Optional[str]
+            Lab Account ID to use for availability checks
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -949,7 +979,12 @@ class LabTestsClient:
         client.lab_tests.get_area_info(zip_code='zip_code', )
         """
         _response = self._raw_client.get_area_info(
-            zip_code=zip_code, radius=radius, lab=lab, labs=labs, request_options=request_options
+            zip_code=zip_code,
+            radius=radius,
+            lab=lab,
+            labs=labs,
+            lab_account_id=lab_account_id,
+            request_options=request_options,
         )
         return _response.data
 
@@ -962,6 +997,7 @@ class LabTestsClient:
         capabilities: typing.Optional[
             typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]
         ] = None,
+        lab_account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PscInfo:
         """
@@ -979,6 +1015,9 @@ class LabTestsClient:
         capabilities : typing.Optional[typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]]
             Filter for only locations with certain capabilities
 
+        lab_account_id : typing.Optional[str]
+            Lab Account ID to use for availability checks
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -994,7 +1033,12 @@ class LabTestsClient:
         client.lab_tests.get_psc_info(zip_code='zip_code', lab_id=1, )
         """
         _response = self._raw_client.get_psc_info(
-            zip_code=zip_code, lab_id=lab_id, radius=radius, capabilities=capabilities, request_options=request_options
+            zip_code=zip_code,
+            lab_id=lab_id,
+            radius=radius,
+            capabilities=capabilities,
+            lab_account_id=lab_account_id,
+            request_options=request_options,
         )
         return _response.data
 
@@ -1466,6 +1510,7 @@ class LabTestsClient:
         activate_by: typing.Optional[str] = OMIT,
         aoe_answers: typing.Optional[typing.Sequence[AoEAnswer]] = OMIT,
         passthrough: typing.Optional[str] = OMIT,
+        lab_account_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PostOrderResponse:
         """
@@ -1505,6 +1550,8 @@ class LabTestsClient:
 
         passthrough : typing.Optional[str]
 
+        lab_account_id : typing.Optional[str]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1539,6 +1586,7 @@ class LabTestsClient:
             activate_by=activate_by,
             aoe_answers=aoe_answers,
             passthrough=passthrough,
+            lab_account_id=lab_account_id,
             request_options=request_options,
         )
         return _response.data
@@ -1554,6 +1602,7 @@ class LabTestsClient:
         patient_address: PatientAddress,
         sample_id: str,
         physician: typing.Optional[PhysicianCreateRequest] = OMIT,
+        lab_account_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PostOrderResponse:
         """
@@ -1574,6 +1623,8 @@ class LabTestsClient:
         sample_id : str
 
         physician : typing.Optional[PhysicianCreateRequest]
+
+        lab_account_id : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1604,6 +1655,7 @@ class LabTestsClient:
             patient_address=patient_address,
             sample_id=sample_id,
             physician=physician,
+            lab_account_id=lab_account_id,
             request_options=request_options,
         )
         return _response.data
@@ -1854,7 +1906,11 @@ class AsyncLabTestsClient:
         return _response.data
 
     async def get_by_id(
-        self, lab_test_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        lab_test_id: str,
+        *,
+        lab_account_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingLabTest:
         """
         GET all the lab tests the team has access to.
@@ -1862,6 +1918,9 @@ class AsyncLabTestsClient:
         Parameters
         ----------
         lab_test_id : str
+
+        lab_account_id : typing.Optional[str]
+            The lab account ID. This lab account is used to determine the availability of markers and lab tests.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1880,7 +1939,9 @@ class AsyncLabTestsClient:
             await client.lab_tests.get_by_id(lab_test_id='lab_test_id', )
         asyncio.run(main())
         """
-        _response = await self._raw_client.get_by_id(lab_test_id, request_options=request_options)
+        _response = await self._raw_client.get_by_id(
+            lab_test_id, lab_account_id=lab_account_id, request_options=request_options
+        )
         return _response.data
 
     async def update_lab_test(
@@ -1928,6 +1989,7 @@ class AsyncLabTestsClient:
         lab_id: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
         name: typing.Optional[str] = None,
         a_la_carte_enabled: typing.Optional[bool] = None,
+        lab_account_id: typing.Optional[str] = None,
         page: typing.Optional[int] = None,
         size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1944,6 +2006,9 @@ class AsyncLabTestsClient:
             The name or test code of an individual biomarker or a panel.
 
         a_la_carte_enabled : typing.Optional[bool]
+
+        lab_account_id : typing.Optional[str]
+            The lab account ID. This lab account is used to determine the availability of markers and lab tests.
 
         page : typing.Optional[int]
 
@@ -1970,6 +2035,7 @@ class AsyncLabTestsClient:
             lab_id=lab_id,
             name=name,
             a_la_carte_enabled=a_la_carte_enabled,
+            lab_account_id=lab_account_id,
             page=page,
             size=size,
             request_options=request_options,
@@ -2020,6 +2086,7 @@ class AsyncLabTestsClient:
         self,
         lab_test_id: str,
         *,
+        lab_account_id: typing.Optional[str] = None,
         page: typing.Optional[int] = None,
         size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -2028,6 +2095,9 @@ class AsyncLabTestsClient:
         Parameters
         ----------
         lab_test_id : str
+
+        lab_account_id : typing.Optional[str]
+            The lab account ID. This lab account is used to determine the availability of markers and lab tests.
 
         page : typing.Optional[int]
 
@@ -2051,12 +2121,17 @@ class AsyncLabTestsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.get_markers_for_lab_test(
-            lab_test_id, page=page, size=size, request_options=request_options
+            lab_test_id, lab_account_id=lab_account_id, page=page, size=size, request_options=request_options
         )
         return _response.data
 
     async def get_markers_by_lab_and_provider_id(
-        self, provider_id: str, lab_id: int, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        provider_id: str,
+        lab_id: int,
+        *,
+        lab_account_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingMarker:
         """
         GET a specific marker for the given lab and provider_id
@@ -2066,6 +2141,9 @@ class AsyncLabTestsClient:
         provider_id : str
 
         lab_id : int
+
+        lab_account_id : typing.Optional[str]
+            The lab account ID. This lab account is used to determine the availability of markers and lab tests.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2085,7 +2163,7 @@ class AsyncLabTestsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.get_markers_by_lab_and_provider_id(
-            provider_id, lab_id, request_options=request_options
+            provider_id, lab_id, lab_account_id=lab_account_id, request_options=request_options
         )
         return _response.data
 
@@ -2622,6 +2700,7 @@ class AsyncLabTestsClient:
         radius: typing.Optional[AllowedRadius] = None,
         lab: typing.Optional[ClientFacingLabs] = None,
         labs: typing.Optional[typing.Union[ClientFacingLabs, typing.Sequence[ClientFacingLabs]]] = None,
+        lab_account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AreaInfo:
         """
@@ -2645,6 +2724,9 @@ class AsyncLabTestsClient:
         labs : typing.Optional[typing.Union[ClientFacingLabs, typing.Sequence[ClientFacingLabs]]]
             List of labs to check for PSCs
 
+        lab_account_id : typing.Optional[str]
+            Lab Account ID to use for availability checks
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -2663,7 +2745,12 @@ class AsyncLabTestsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.get_area_info(
-            zip_code=zip_code, radius=radius, lab=lab, labs=labs, request_options=request_options
+            zip_code=zip_code,
+            radius=radius,
+            lab=lab,
+            labs=labs,
+            lab_account_id=lab_account_id,
+            request_options=request_options,
         )
         return _response.data
 
@@ -2676,6 +2763,7 @@ class AsyncLabTestsClient:
         capabilities: typing.Optional[
             typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]
         ] = None,
+        lab_account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PscInfo:
         """
@@ -2692,6 +2780,9 @@ class AsyncLabTestsClient:
 
         capabilities : typing.Optional[typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]]
             Filter for only locations with certain capabilities
+
+        lab_account_id : typing.Optional[str]
+            Lab Account ID to use for availability checks
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2711,7 +2802,12 @@ class AsyncLabTestsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.get_psc_info(
-            zip_code=zip_code, lab_id=lab_id, radius=radius, capabilities=capabilities, request_options=request_options
+            zip_code=zip_code,
+            lab_id=lab_id,
+            radius=radius,
+            capabilities=capabilities,
+            lab_account_id=lab_account_id,
+            request_options=request_options,
         )
         return _response.data
 
@@ -3224,6 +3320,7 @@ class AsyncLabTestsClient:
         activate_by: typing.Optional[str] = OMIT,
         aoe_answers: typing.Optional[typing.Sequence[AoEAnswer]] = OMIT,
         passthrough: typing.Optional[str] = OMIT,
+        lab_account_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PostOrderResponse:
         """
@@ -3263,6 +3360,8 @@ class AsyncLabTestsClient:
 
         passthrough : typing.Optional[str]
 
+        lab_account_id : typing.Optional[str]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -3300,6 +3399,7 @@ class AsyncLabTestsClient:
             activate_by=activate_by,
             aoe_answers=aoe_answers,
             passthrough=passthrough,
+            lab_account_id=lab_account_id,
             request_options=request_options,
         )
         return _response.data
@@ -3315,6 +3415,7 @@ class AsyncLabTestsClient:
         patient_address: PatientAddress,
         sample_id: str,
         physician: typing.Optional[PhysicianCreateRequest] = OMIT,
+        lab_account_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PostOrderResponse:
         """
@@ -3335,6 +3436,8 @@ class AsyncLabTestsClient:
         sample_id : str
 
         physician : typing.Optional[PhysicianCreateRequest]
+
+        lab_account_id : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -3368,6 +3471,7 @@ class AsyncLabTestsClient:
             patient_address=patient_address,
             sample_id=sample_id,
             physician=physician,
+            lab_account_id=lab_account_id,
             request_options=request_options,
         )
         return _response.data

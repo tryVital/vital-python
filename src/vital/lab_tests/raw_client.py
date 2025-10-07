@@ -240,7 +240,11 @@ class RawLabTestsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def get_by_id(
-        self, lab_test_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        lab_test_id: str,
+        *,
+        lab_account_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ClientFacingLabTest]:
         """
         GET all the lab tests the team has access to.
@@ -248,6 +252,9 @@ class RawLabTestsClient:
         Parameters
         ----------
         lab_test_id : str
+
+        lab_account_id : typing.Optional[str]
+            The lab account ID. This lab account is used to determine the availability of markers and lab tests.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -260,6 +267,9 @@ class RawLabTestsClient:
         _response = self._client_wrapper.httpx_client.request(
             f"v3/lab_tests/{jsonable_encoder(lab_test_id)}",
             method="GET",
+            params={
+                "lab_account_id": lab_account_id,
+            },
             request_options=request_options,
         )
         try:
@@ -358,6 +368,7 @@ class RawLabTestsClient:
         lab_id: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
         name: typing.Optional[str] = None,
         a_la_carte_enabled: typing.Optional[bool] = None,
+        lab_account_id: typing.Optional[str] = None,
         page: typing.Optional[int] = None,
         size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -374,6 +385,9 @@ class RawLabTestsClient:
             The name or test code of an individual biomarker or a panel.
 
         a_la_carte_enabled : typing.Optional[bool]
+
+        lab_account_id : typing.Optional[str]
+            The lab account ID. This lab account is used to determine the availability of markers and lab tests.
 
         page : typing.Optional[int]
 
@@ -394,6 +408,7 @@ class RawLabTestsClient:
                 "lab_id": lab_id,
                 "name": name,
                 "a_la_carte_enabled": a_la_carte_enabled,
+                "lab_account_id": lab_account_id,
                 "page": page,
                 "size": size,
             },
@@ -494,6 +509,7 @@ class RawLabTestsClient:
         self,
         lab_test_id: str,
         *,
+        lab_account_id: typing.Optional[str] = None,
         page: typing.Optional[int] = None,
         size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -502,6 +518,9 @@ class RawLabTestsClient:
         Parameters
         ----------
         lab_test_id : str
+
+        lab_account_id : typing.Optional[str]
+            The lab account ID. This lab account is used to determine the availability of markers and lab tests.
 
         page : typing.Optional[int]
 
@@ -519,6 +538,7 @@ class RawLabTestsClient:
             f"v3/lab_tests/{jsonable_encoder(lab_test_id)}/markers",
             method="GET",
             params={
+                "lab_account_id": lab_account_id,
                 "page": page,
                 "size": size,
             },
@@ -551,7 +571,12 @@ class RawLabTestsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def get_markers_by_lab_and_provider_id(
-        self, provider_id: str, lab_id: int, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        provider_id: str,
+        lab_id: int,
+        *,
+        lab_account_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ClientFacingMarker]:
         """
         GET a specific marker for the given lab and provider_id
@@ -561,6 +586,9 @@ class RawLabTestsClient:
         provider_id : str
 
         lab_id : int
+
+        lab_account_id : typing.Optional[str]
+            The lab account ID. This lab account is used to determine the availability of markers and lab tests.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -573,6 +601,9 @@ class RawLabTestsClient:
         _response = self._client_wrapper.httpx_client.request(
             f"v3/lab_tests/{jsonable_encoder(lab_id)}/markers/{jsonable_encoder(provider_id)}",
             method="GET",
+            params={
+                "lab_account_id": lab_account_id,
+            },
             request_options=request_options,
         )
         try:
@@ -1350,6 +1381,7 @@ class RawLabTestsClient:
         radius: typing.Optional[AllowedRadius] = None,
         lab: typing.Optional[ClientFacingLabs] = None,
         labs: typing.Optional[typing.Union[ClientFacingLabs, typing.Sequence[ClientFacingLabs]]] = None,
+        lab_account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[AreaInfo]:
         """
@@ -1373,6 +1405,9 @@ class RawLabTestsClient:
         labs : typing.Optional[typing.Union[ClientFacingLabs, typing.Sequence[ClientFacingLabs]]]
             List of labs to check for PSCs
 
+        lab_account_id : typing.Optional[str]
+            Lab Account ID to use for availability checks
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1389,6 +1424,7 @@ class RawLabTestsClient:
                 "radius": radius,
                 "lab": lab,
                 "labs": labs,
+                "lab_account_id": lab_account_id,
             },
             request_options=request_options,
         )
@@ -1427,6 +1463,7 @@ class RawLabTestsClient:
         capabilities: typing.Optional[
             typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]
         ] = None,
+        lab_account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PscInfo]:
         """
@@ -1444,6 +1481,9 @@ class RawLabTestsClient:
         capabilities : typing.Optional[typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]]
             Filter for only locations with certain capabilities
 
+        lab_account_id : typing.Optional[str]
+            Lab Account ID to use for availability checks
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1460,6 +1500,7 @@ class RawLabTestsClient:
                 "lab_id": lab_id,
                 "radius": radius,
                 "capabilities": capabilities,
+                "lab_account_id": lab_account_id,
             },
             request_options=request_options,
         )
@@ -2342,6 +2383,7 @@ class RawLabTestsClient:
         activate_by: typing.Optional[str] = OMIT,
         aoe_answers: typing.Optional[typing.Sequence[AoEAnswer]] = OMIT,
         passthrough: typing.Optional[str] = OMIT,
+        lab_account_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PostOrderResponse]:
         """
@@ -2381,6 +2423,8 @@ class RawLabTestsClient:
 
         passthrough : typing.Optional[str]
 
+        lab_account_id : typing.Optional[str]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -2406,6 +2450,7 @@ class RawLabTestsClient:
                 "activate_by": activate_by,
                 "aoe_answers": aoe_answers,
                 "passthrough": passthrough,
+                "lab_account_id": lab_account_id,
                 "patient_details": patient_details,
                 "patient_address": patient_address,
             },
@@ -2453,6 +2498,7 @@ class RawLabTestsClient:
         patient_address: PatientAddress,
         sample_id: str,
         physician: typing.Optional[PhysicianCreateRequest] = OMIT,
+        lab_account_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PostOrderResponse]:
         """
@@ -2474,6 +2520,8 @@ class RawLabTestsClient:
 
         physician : typing.Optional[PhysicianCreateRequest]
 
+        lab_account_id : typing.Optional[str]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -2494,6 +2542,7 @@ class RawLabTestsClient:
                 "patient_details": patient_details,
                 "patient_address": patient_address,
                 "sample_id": sample_id,
+                "lab_account_id": lab_account_id,
             },
             headers={
                 "content-type": "application/json",
@@ -2874,7 +2923,11 @@ class AsyncRawLabTestsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def get_by_id(
-        self, lab_test_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        lab_test_id: str,
+        *,
+        lab_account_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ClientFacingLabTest]:
         """
         GET all the lab tests the team has access to.
@@ -2882,6 +2935,9 @@ class AsyncRawLabTestsClient:
         Parameters
         ----------
         lab_test_id : str
+
+        lab_account_id : typing.Optional[str]
+            The lab account ID. This lab account is used to determine the availability of markers and lab tests.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2894,6 +2950,9 @@ class AsyncRawLabTestsClient:
         _response = await self._client_wrapper.httpx_client.request(
             f"v3/lab_tests/{jsonable_encoder(lab_test_id)}",
             method="GET",
+            params={
+                "lab_account_id": lab_account_id,
+            },
             request_options=request_options,
         )
         try:
@@ -2992,6 +3051,7 @@ class AsyncRawLabTestsClient:
         lab_id: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
         name: typing.Optional[str] = None,
         a_la_carte_enabled: typing.Optional[bool] = None,
+        lab_account_id: typing.Optional[str] = None,
         page: typing.Optional[int] = None,
         size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -3008,6 +3068,9 @@ class AsyncRawLabTestsClient:
             The name or test code of an individual biomarker or a panel.
 
         a_la_carte_enabled : typing.Optional[bool]
+
+        lab_account_id : typing.Optional[str]
+            The lab account ID. This lab account is used to determine the availability of markers and lab tests.
 
         page : typing.Optional[int]
 
@@ -3028,6 +3091,7 @@ class AsyncRawLabTestsClient:
                 "lab_id": lab_id,
                 "name": name,
                 "a_la_carte_enabled": a_la_carte_enabled,
+                "lab_account_id": lab_account_id,
                 "page": page,
                 "size": size,
             },
@@ -3128,6 +3192,7 @@ class AsyncRawLabTestsClient:
         self,
         lab_test_id: str,
         *,
+        lab_account_id: typing.Optional[str] = None,
         page: typing.Optional[int] = None,
         size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -3136,6 +3201,9 @@ class AsyncRawLabTestsClient:
         Parameters
         ----------
         lab_test_id : str
+
+        lab_account_id : typing.Optional[str]
+            The lab account ID. This lab account is used to determine the availability of markers and lab tests.
 
         page : typing.Optional[int]
 
@@ -3153,6 +3221,7 @@ class AsyncRawLabTestsClient:
             f"v3/lab_tests/{jsonable_encoder(lab_test_id)}/markers",
             method="GET",
             params={
+                "lab_account_id": lab_account_id,
                 "page": page,
                 "size": size,
             },
@@ -3185,7 +3254,12 @@ class AsyncRawLabTestsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def get_markers_by_lab_and_provider_id(
-        self, provider_id: str, lab_id: int, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        provider_id: str,
+        lab_id: int,
+        *,
+        lab_account_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ClientFacingMarker]:
         """
         GET a specific marker for the given lab and provider_id
@@ -3195,6 +3269,9 @@ class AsyncRawLabTestsClient:
         provider_id : str
 
         lab_id : int
+
+        lab_account_id : typing.Optional[str]
+            The lab account ID. This lab account is used to determine the availability of markers and lab tests.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -3207,6 +3284,9 @@ class AsyncRawLabTestsClient:
         _response = await self._client_wrapper.httpx_client.request(
             f"v3/lab_tests/{jsonable_encoder(lab_id)}/markers/{jsonable_encoder(provider_id)}",
             method="GET",
+            params={
+                "lab_account_id": lab_account_id,
+            },
             request_options=request_options,
         )
         try:
@@ -3985,6 +4065,7 @@ class AsyncRawLabTestsClient:
         radius: typing.Optional[AllowedRadius] = None,
         lab: typing.Optional[ClientFacingLabs] = None,
         labs: typing.Optional[typing.Union[ClientFacingLabs, typing.Sequence[ClientFacingLabs]]] = None,
+        lab_account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[AreaInfo]:
         """
@@ -4008,6 +4089,9 @@ class AsyncRawLabTestsClient:
         labs : typing.Optional[typing.Union[ClientFacingLabs, typing.Sequence[ClientFacingLabs]]]
             List of labs to check for PSCs
 
+        lab_account_id : typing.Optional[str]
+            Lab Account ID to use for availability checks
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -4024,6 +4108,7 @@ class AsyncRawLabTestsClient:
                 "radius": radius,
                 "lab": lab,
                 "labs": labs,
+                "lab_account_id": lab_account_id,
             },
             request_options=request_options,
         )
@@ -4062,6 +4147,7 @@ class AsyncRawLabTestsClient:
         capabilities: typing.Optional[
             typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]
         ] = None,
+        lab_account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PscInfo]:
         """
@@ -4079,6 +4165,9 @@ class AsyncRawLabTestsClient:
         capabilities : typing.Optional[typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]]
             Filter for only locations with certain capabilities
 
+        lab_account_id : typing.Optional[str]
+            Lab Account ID to use for availability checks
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -4095,6 +4184,7 @@ class AsyncRawLabTestsClient:
                 "lab_id": lab_id,
                 "radius": radius,
                 "capabilities": capabilities,
+                "lab_account_id": lab_account_id,
             },
             request_options=request_options,
         )
@@ -4982,6 +5072,7 @@ class AsyncRawLabTestsClient:
         activate_by: typing.Optional[str] = OMIT,
         aoe_answers: typing.Optional[typing.Sequence[AoEAnswer]] = OMIT,
         passthrough: typing.Optional[str] = OMIT,
+        lab_account_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PostOrderResponse]:
         """
@@ -5021,6 +5112,8 @@ class AsyncRawLabTestsClient:
 
         passthrough : typing.Optional[str]
 
+        lab_account_id : typing.Optional[str]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -5046,6 +5139,7 @@ class AsyncRawLabTestsClient:
                 "activate_by": activate_by,
                 "aoe_answers": aoe_answers,
                 "passthrough": passthrough,
+                "lab_account_id": lab_account_id,
                 "patient_details": patient_details,
                 "patient_address": patient_address,
             },
@@ -5093,6 +5187,7 @@ class AsyncRawLabTestsClient:
         patient_address: PatientAddress,
         sample_id: str,
         physician: typing.Optional[PhysicianCreateRequest] = OMIT,
+        lab_account_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PostOrderResponse]:
         """
@@ -5114,6 +5209,8 @@ class AsyncRawLabTestsClient:
 
         physician : typing.Optional[PhysicianCreateRequest]
 
+        lab_account_id : typing.Optional[str]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -5134,6 +5231,7 @@ class AsyncRawLabTestsClient:
                 "patient_details": patient_details,
                 "patient_address": patient_address,
                 "sample_id": sample_id,
+                "lab_account_id": lab_account_id,
             },
             headers={
                 "content-type": "application/json",

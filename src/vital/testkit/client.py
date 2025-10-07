@@ -98,6 +98,7 @@ class TestkitClient:
         lab_test_id: str,
         shipping_details: ShippingAddressWithValidation,
         passthrough: typing.Optional[str] = OMIT,
+        lab_account_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PostOrderResponse:
         """
@@ -112,6 +113,8 @@ class TestkitClient:
         shipping_details : ShippingAddressWithValidation
 
         passthrough : typing.Optional[str]
+
+        lab_account_id : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -133,6 +136,7 @@ class TestkitClient:
             lab_test_id=lab_test_id,
             shipping_details=shipping_details,
             passthrough=passthrough,
+            lab_account_id=lab_account_id,
             request_options=request_options,
         )
         return _response.data
@@ -222,6 +226,7 @@ class AsyncTestkitClient:
         lab_test_id: str,
         shipping_details: ShippingAddressWithValidation,
         passthrough: typing.Optional[str] = OMIT,
+        lab_account_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PostOrderResponse:
         """
@@ -236,6 +241,8 @@ class AsyncTestkitClient:
         shipping_details : ShippingAddressWithValidation
 
         passthrough : typing.Optional[str]
+
+        lab_account_id : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -260,6 +267,7 @@ class AsyncTestkitClient:
             lab_test_id=lab_test_id,
             shipping_details=shipping_details,
             passthrough=passthrough,
+            lab_account_id=lab_account_id,
             request_options=request_options,
         )
         return _response.data

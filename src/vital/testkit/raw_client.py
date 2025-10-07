@@ -115,6 +115,7 @@ class RawTestkitClient:
         lab_test_id: str,
         shipping_details: ShippingAddressWithValidation,
         passthrough: typing.Optional[str] = OMIT,
+        lab_account_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PostOrderResponse]:
         """
@@ -129,6 +130,8 @@ class RawTestkitClient:
         shipping_details : ShippingAddressWithValidation
 
         passthrough : typing.Optional[str]
+
+        lab_account_id : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -146,6 +149,7 @@ class RawTestkitClient:
                 "lab_test_id": lab_test_id,
                 "shipping_details": shipping_details,
                 "passthrough": passthrough,
+                "lab_account_id": lab_account_id,
             },
             headers={
                 "content-type": "application/json",
@@ -273,6 +277,7 @@ class AsyncRawTestkitClient:
         lab_test_id: str,
         shipping_details: ShippingAddressWithValidation,
         passthrough: typing.Optional[str] = OMIT,
+        lab_account_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PostOrderResponse]:
         """
@@ -287,6 +292,8 @@ class AsyncRawTestkitClient:
         shipping_details : ShippingAddressWithValidation
 
         passthrough : typing.Optional[str]
+
+        lab_account_id : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -304,6 +311,7 @@ class AsyncRawTestkitClient:
                 "lab_test_id": lab_test_id,
                 "shipping_details": shipping_details,
                 "passthrough": passthrough,
+                "lab_account_id": lab_account_id,
             },
             headers={
                 "content-type": "application/json",

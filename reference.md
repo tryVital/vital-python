@@ -1,4 +1,70 @@
 # Reference
+## Providers
+<details><summary><code>client.providers.<a href="src/vital/providers/client.py">get_all</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get Provider list
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.providers.get_all()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**source_type:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## User
 <details><summary><code>client.user.<a href="src/vital/user/client.py">get_all</a>(...)</code></summary>
 <dl>
@@ -1261,72 +1327,6 @@ client.user.get_device(user_id='user_id', device_id='device_id', )
 <dd>
 
 **device_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Providers
-<details><summary><code>client.providers.<a href="src/vital/providers/client.py">get_all</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get Provider list
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.providers.get_all()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**source_type:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -11790,6 +11790,14 @@ client.lab_tests.get_by_id(lab_test_id='lab_test_id', )
 <dl>
 <dd>
 
+**lab_account_id:** `typing.Optional[str]` — The lab account ID. This lab account is used to determine the availability of markers and lab tests.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -11938,6 +11946,14 @@ client.lab_tests.get_markers()
 <dl>
 <dd>
 
+**lab_account_id:** `typing.Optional[str]` — The lab account ID. This lab account is used to determine the availability of markers and lab tests.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **page:** `typing.Optional[int]` 
     
 </dd>
@@ -12073,6 +12089,14 @@ client.lab_tests.get_markers_for_lab_test(lab_test_id='lab_test_id', )
 <dl>
 <dd>
 
+**lab_account_id:** `typing.Optional[str]` — The lab account ID. This lab account is used to determine the availability of markers and lab tests.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **page:** `typing.Optional[int]` 
     
 </dd>
@@ -12155,6 +12179,14 @@ client.lab_tests.get_markers_by_lab_and_provider_id(provider_id='provider_id', l
 <dd>
 
 **lab_id:** `int` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**lab_account_id:** `typing.Optional[str]` — The lab account ID. This lab account is used to determine the availability of markers and lab tests.
     
 </dd>
 </dl>
@@ -13167,6 +13199,14 @@ client.lab_tests.get_area_info(zip_code='zip_code', )
 <dl>
 <dd>
 
+**lab_account_id:** `typing.Optional[str]` — Lab Account ID to use for availability checks
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -13235,6 +13275,14 @@ client.lab_tests.get_psc_info(zip_code='zip_code', lab_id=1, )
 <dd>
 
 **capabilities:** `typing.Optional[typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]]` — Filter for only locations with certain capabilities
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**lab_account_id:** `typing.Optional[str]` — Lab Account ID to use for availability checks
     
 </dd>
 </dl>
@@ -14049,6 +14097,14 @@ client.lab_tests.create_order(user_id='user_id', patient_details=PatientDetailsW
 <dl>
 <dd>
 
+**lab_account_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -14155,6 +14211,14 @@ client.lab_tests.import_order(user_id='user_id', billing_type=Billing.CLIENT_BIL
 <dd>
 
 **physician:** `typing.Optional[PhysicianCreateRequest]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**lab_account_id:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -14567,6 +14631,14 @@ client.testkit.create_order(user_id='user_id', lab_test_id='lab_test_id', shippi
 <dd>
 
 **passthrough:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**lab_account_id:** `typing.Optional[str]` 
     
 </dd>
 </dl>
