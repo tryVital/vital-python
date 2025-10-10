@@ -15,6 +15,8 @@ class TeamConfig(UniversalBaseModel):
     provider_raw_data: typing.Optional[bool] = None
     reject_duplicate_connection: typing.Optional[bool] = None
     sdk_per_device_activity_timeseries: typing.Optional[bool] = None
+    partial_webhooks_enabled: typing.Optional[bool] = None
+    minor_ordering_enabled: typing.Optional[bool] = None
     eds_preferences: typing.Optional[EventDestinationPreferences] = None
     event_type_prefixes: typing.Optional[typing.List[str]] = None
 

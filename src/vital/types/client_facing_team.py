@@ -35,6 +35,7 @@ class ClientFacingTeam(UniversalBaseModel):
     lab_tests_patient_email_communication_enabled: bool
     logo_url: typing.Optional[str] = None
     delegated_flow: DelegatedFlowType
+    critical_result_notification_email: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
