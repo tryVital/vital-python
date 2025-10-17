@@ -21,7 +21,7 @@ class ClientFacingHeartRateAlertSample(UniversalBaseModel):
 
     type: ClientFacingHeartRateAlertSampleType = pydantic.Field()
     """
-    ℹ️ This enum is non-exhaustive.
+    The type of heart rate alert. ℹ️ This enum is non-exhaustive.
     """
 
     unit: typing.Literal["count"] = "count"

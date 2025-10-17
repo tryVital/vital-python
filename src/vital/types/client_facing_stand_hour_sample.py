@@ -21,7 +21,7 @@ class ClientFacingStandHourSample(UniversalBaseModel):
 
     type: ClientFacingStandHourSampleType = pydantic.Field()
     """
-    ℹ️ This enum is non-exhaustive.
+    The type of stand hour. ℹ️ This enum is non-exhaustive.
     """
 
     unit: typing.Literal["count"] = "count"

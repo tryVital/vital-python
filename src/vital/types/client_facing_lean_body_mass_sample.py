@@ -20,7 +20,7 @@ class ClientFacingLeanBodyMassSample(UniversalBaseModel):
 
     type: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The reading type of the measurement. This is applicable only to Cholesterol, IGG, IGE and InsulinInjection.
+    Type is always null for this resource.
     """
 
     unit: typing.Literal["kg"] = "kg"

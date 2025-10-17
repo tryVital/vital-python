@@ -8,7 +8,7 @@ T_Result = typing.TypeVar("T_Result")
 
 class ClientFacingHeartRateAlertSampleType(str, enum.Enum):
     """
-    ℹ️ This enum is non-exhaustive.
+    The type of heart rate alert. ℹ️ This enum is non-exhaustive.
     """
 
     LOW_HEART_RATE = "low_heart_rate"

@@ -21,7 +21,7 @@ class ClientFacingSleepBreathingDisturbanceSample(UniversalBaseModel):
 
     type: typing.Optional[ClientFacingSleepBreathingDisturbanceSampleType] = pydantic.Field(default=None)
     """
-    ℹ️ This enum is non-exhaustive.
+    The type of sleep breathing disturbance. ℹ️ This enum is non-exhaustive.
     """
 
     unit: typing.Literal["count"] = "count"
