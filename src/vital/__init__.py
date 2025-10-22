@@ -403,6 +403,7 @@ from .types import (
     ContinuousQueryTaskStatus,
     ContraceptiveEntry,
     ContraceptiveEntryType,
+    CreateUserPortalUrlResponse,
     DatePartExpr,
     DatePartExprArg,
     DatePartExprDatePart,
@@ -755,6 +756,7 @@ from .link import (
     LinkBulkTriggerHistoricalPullRequestTeamId,
     LinkListBulkOpsRequestTeamId,
 )
+from .user import CreateUserPortalUrlBodyContext
 from .version import __version__
 
 __all__ = [
@@ -1160,6 +1162,8 @@ __all__ = [
     "ContinuousQueryTaskStatus",
     "ContraceptiveEntry",
     "ContraceptiveEntryType",
+    "CreateUserPortalUrlBodyContext",
+    "CreateUserPortalUrlResponse",
     "DatePartExpr",
     "DatePartExprArg",
     "DatePartExprDatePart",

@@ -446,6 +446,7 @@ from .continuous_query_task_history_response import ContinuousQueryTaskHistoryRe
 from .continuous_query_task_status import ContinuousQueryTaskStatus
 from .contraceptive_entry import ContraceptiveEntry
 from .contraceptive_entry_type import ContraceptiveEntryType
+from .create_user_portal_url_response import CreateUserPortalUrlResponse
 from .date_part_expr import DatePartExpr
 from .date_part_expr_arg import DatePartExprArg
 from .date_part_expr_date_part import DatePartExprDatePart
@@ -1160,6 +1161,7 @@ __all__ = [
     "ContinuousQueryTaskStatus",
     "ContraceptiveEntry",
     "ContraceptiveEntryType",
+    "CreateUserPortalUrlResponse",
     "DatePartExpr",
     "DatePartExprArg",
     "DatePartExprDatePart",

@@ -2,6 +2,6 @@
 
 # isort: skip_file
 
-from .types import CreateUserPortalUrlBodyContext
+from .create_user_portal_url_body_context import CreateUserPortalUrlBodyContext
 
 __all__ = ["CreateUserPortalUrlBodyContext"]

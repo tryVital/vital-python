@@ -9822,57 +9822,6 @@ client.user.get_team_metrics()
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/vital/user/client.py">get_user_sign_in_token</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.get_user_sign_in_token(user_id='user_id', )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.user.<a href="src/vital/user/client.py">get_connected_providers</a>(...)</code></summary>
 <dl>
 <dd>
@@ -9919,218 +9868,6 @@ client.user.get_connected_providers(user_id='user_id', )
 <dd>
 
 **user_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.user.<a href="src/vital/user/client.py">get</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-GET User details given the user_id.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.get(user_id='user_id', )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.user.<a href="src/vital/user/client.py">delete</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.delete(user_id='user_id', )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.user.<a href="src/vital/user/client.py">patch</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.patch(user_id='user_id', )
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**fallback_time_zone:** `typing.Optional[str]` 
-
-
-    Fallback time zone of the user, in the form of a valid IANA tzdatabase identifier (e.g., `Europe/London` or `America/Los_Angeles`).
-    Used when pulling data from sources that are completely time zone agnostic (e.g., all time is relative to UTC clock, without any time zone attributions on data points).
-    
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**fallback_birth_date:** `typing.Optional[str]` — Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**ingestion_start:** `typing.Optional[str]` — Starting bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**ingestion_end:** `typing.Optional[str]` — Ending bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**client_user_id:** `typing.Optional[str]` — A unique ID representing the end user. Typically this will be a user ID from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id.
     
 </dd>
 </dl>
@@ -10628,6 +10365,204 @@ client.user.deregister_provider(user_id='user_id', provider=Providers.OURA, )
 </dl>
 </details>
 
+<details><summary><code>client.user.<a href="src/vital/user/client.py">get</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.user.get(user_id='user_id', )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="src/vital/user/client.py">delete</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.user.delete(user_id='user_id', )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="src/vital/user/client.py">patch</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.user.patch(user_id='user_id', )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fallback_time_zone:** `typing.Optional[str]` 
+
+
+    Fallback time zone of the user, in the form of a valid IANA tzdatabase identifier (e.g., `Europe/London` or `America/Los_Angeles`).
+    Used when pulling data from sources that are completely time zone agnostic (e.g., all time is relative to UTC clock, without any time zone attributions on data points).
+    
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fallback_birth_date:** `typing.Optional[str]` — Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ingestion_start:** `typing.Optional[str]` — Starting bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ingestion_end:** `typing.Optional[str]` — Ending bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client_user_id:** `typing.Optional[str]` — A unique ID representing the end user. Typically this will be a user ID from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.user.<a href="src/vital/user/client.py">undo_delete</a>(...)</code></summary>
 <dl>
 <dd>
@@ -10851,6 +10786,133 @@ client.user.get_device(user_id='user_id', device_id='device_id', )
 <dd>
 
 **device_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="src/vital/user/client.py">get_user_sign_in_token</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.user.get_user_sign_in_token(user_id='user_id', )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="src/vital/user/client.py">create_portal_url</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+from vital.user import CreateUserPortalUrlBodyContext
+client = Vital(api_key="YOUR_API_KEY", )
+client.user.create_portal_url(user_id='user_id', context=CreateUserPortalUrlBodyContext.LAUNCH, )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**context:** `CreateUserPortalUrlBodyContext` 
+
+`launch`: Generates a short-lived (minutes) portal URL that is intended for launching a user from your
+authenticated web context directly into the Junction User Portal. This URL is not suitable for asynchronous
+communications due to its verbosity as well as short-lived nature.
+
+`communications`: Generates a long-lived (weeks) but shortened portal URL that is suitable for Emails, SMS
+messages and other communication channels. Users may be asked to verify their identity with Email and SMS
+authentication, e.g., when they open a short link on a new device. ℹ️ This enum is non-exhaustive.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_id:** `typing.Optional[str]` — If specified, the generated URL will deeplink to the specified Order.
     
 </dd>
 </dl>

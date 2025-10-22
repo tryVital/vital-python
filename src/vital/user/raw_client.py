@@ -17,6 +17,7 @@ from ..types.client_facing_insurance import ClientFacingInsurance
 from ..types.client_facing_provider_with_status import ClientFacingProviderWithStatus
 from ..types.client_facing_user import ClientFacingUser
 from ..types.client_facing_user_key import ClientFacingUserKey
+from ..types.create_user_portal_url_response import CreateUserPortalUrlResponse
 from ..types.ethnicity import Ethnicity
 from ..types.gender_identity import GenderIdentity
 from ..types.guarantor_details import GuarantorDetails
@@ -34,6 +35,7 @@ from ..types.user_success_response import UserSuccessResponse
 from ..types.vital_core_schemas_db_schemas_lab_test_insurance_person_details import (
     VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails,
 )
+from .types.create_user_portal_url_body_context import CreateUserPortalUrlBodyContext
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -232,53 +234,6 @@ class RawUserClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def get_user_sign_in_token(
-        self, user_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[UserSignInTokenResponse]:
-        """
-        Parameters
-        ----------
-        user_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[UserSignInTokenResponse]
-            Successful Response
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v2/user/{jsonable_encoder(user_id)}/sign_in_token",
-            method="POST",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    UserSignInTokenResponse,
-                    parse_obj_as(
-                        type_=UserSignInTokenResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
     def get_connected_providers(
         self, user_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[typing.Dict[str, typing.List[ClientFacingProviderWithStatus]]]:
@@ -312,178 +267,6 @@ class RawUserClient:
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def get(
-        self, user_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[ClientFacingUser]:
-        """
-        GET User details given the user_id.
-
-        Parameters
-        ----------
-        user_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[ClientFacingUser]
-            Successful Response
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v2/user/{jsonable_encoder(user_id)}",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    ClientFacingUser,
-                    parse_obj_as(
-                        type_=ClientFacingUser,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def delete(
-        self, user_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[UserSuccessResponse]:
-        """
-        Parameters
-        ----------
-        user_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[UserSuccessResponse]
-            Successful Response
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v2/user/{jsonable_encoder(user_id)}",
-            method="DELETE",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    UserSuccessResponse,
-                    parse_obj_as(
-                        type_=UserSuccessResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def patch(
-        self,
-        user_id: str,
-        *,
-        fallback_time_zone: typing.Optional[str] = OMIT,
-        fallback_birth_date: typing.Optional[str] = OMIT,
-        ingestion_start: typing.Optional[str] = OMIT,
-        ingestion_end: typing.Optional[str] = OMIT,
-        client_user_id: typing.Optional[str] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[None]:
-        """
-        Parameters
-        ----------
-        user_id : str
-
-        fallback_time_zone : typing.Optional[str]
-
-                Fallback time zone of the user, in the form of a valid IANA tzdatabase identifier (e.g., `Europe/London` or `America/Los_Angeles`).
-                Used when pulling data from sources that are completely time zone agnostic (e.g., all time is relative to UTC clock, without any time zone attributions on data points).
-
-
-        fallback_birth_date : typing.Optional[str]
-            Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
-
-        ingestion_start : typing.Optional[str]
-            Starting bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
-
-        ingestion_end : typing.Optional[str]
-            Ending bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
-
-        client_user_id : typing.Optional[str]
-            A unique ID representing the end user. Typically this will be a user ID from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[None]
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v2/user/{jsonable_encoder(user_id)}",
-            method="PATCH",
-            json={
-                "fallback_time_zone": fallback_time_zone,
-                "fallback_birth_date": fallback_birth_date,
-                "ingestion_start": ingestion_start,
-                "ingestion_end": ingestion_end,
-                "client_user_id": client_user_id,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return HttpResponse(response=_response, data=None)
             if _response.status_code == 422:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
@@ -878,6 +661,176 @@ class RawUserClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def get(
+        self, user_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[ClientFacingUser]:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[ClientFacingUser]
+            Successful Response
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v2/user/{jsonable_encoder(user_id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ClientFacingUser,
+                    parse_obj_as(
+                        type_=ClientFacingUser,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def delete(
+        self, user_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[UserSuccessResponse]:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[UserSuccessResponse]
+            Successful Response
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v2/user/{jsonable_encoder(user_id)}",
+            method="DELETE",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    UserSuccessResponse,
+                    parse_obj_as(
+                        type_=UserSuccessResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def patch(
+        self,
+        user_id: str,
+        *,
+        fallback_time_zone: typing.Optional[str] = OMIT,
+        fallback_birth_date: typing.Optional[str] = OMIT,
+        ingestion_start: typing.Optional[str] = OMIT,
+        ingestion_end: typing.Optional[str] = OMIT,
+        client_user_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[None]:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        fallback_time_zone : typing.Optional[str]
+
+                Fallback time zone of the user, in the form of a valid IANA tzdatabase identifier (e.g., `Europe/London` or `America/Los_Angeles`).
+                Used when pulling data from sources that are completely time zone agnostic (e.g., all time is relative to UTC clock, without any time zone attributions on data points).
+
+
+        fallback_birth_date : typing.Optional[str]
+            Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
+
+        ingestion_start : typing.Optional[str]
+            Starting bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
+
+        ingestion_end : typing.Optional[str]
+            Ending bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
+
+        client_user_id : typing.Optional[str]
+            A unique ID representing the end user. Typically this will be a user ID from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[None]
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v2/user/{jsonable_encoder(user_id)}",
+            method="PATCH",
+            json={
+                "fallback_time_zone": fallback_time_zone,
+                "fallback_birth_date": fallback_birth_date,
+                "ingestion_start": ingestion_start,
+                "ingestion_end": ingestion_end,
+                "client_user_id": client_user_id,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return HttpResponse(response=_response, data=None)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
     def undo_delete(
         self,
         *,
@@ -1102,6 +1055,125 @@ class RawUserClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def get_user_sign_in_token(
+        self, user_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[UserSignInTokenResponse]:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[UserSignInTokenResponse]
+            Successful Response
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v2/user/{jsonable_encoder(user_id)}/sign_in_token",
+            method="POST",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    UserSignInTokenResponse,
+                    parse_obj_as(
+                        type_=UserSignInTokenResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def create_portal_url(
+        self,
+        user_id: str,
+        *,
+        context: CreateUserPortalUrlBodyContext,
+        order_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[CreateUserPortalUrlResponse]:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        context : CreateUserPortalUrlBodyContext
+            `launch`: Generates a short-lived (minutes) portal URL that is intended for launching a user from your
+            authenticated web context directly into the Junction User Portal. This URL is not suitable for asynchronous
+            communications due to its verbosity as well as short-lived nature.
+
+            `communications`: Generates a long-lived (weeks) but shortened portal URL that is suitable for Emails, SMS
+            messages and other communication channels. Users may be asked to verify their identity with Email and SMS
+            authentication, e.g., when they open a short link on a new device. ℹ️ This enum is non-exhaustive.
+
+        order_id : typing.Optional[str]
+            If specified, the generated URL will deeplink to the specified Order.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[CreateUserPortalUrlResponse]
+            Successful Response
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v2/user/{jsonable_encoder(user_id)}/create_portal_url",
+            method="POST",
+            json={
+                "context": context,
+                "order_id": order_id,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    CreateUserPortalUrlResponse,
+                    parse_obj_as(
+                        type_=CreateUserPortalUrlResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
 
 class AsyncRawUserClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -1296,53 +1368,6 @@ class AsyncRawUserClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    async def get_user_sign_in_token(
-        self, user_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[UserSignInTokenResponse]:
-        """
-        Parameters
-        ----------
-        user_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[UserSignInTokenResponse]
-            Successful Response
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v2/user/{jsonable_encoder(user_id)}/sign_in_token",
-            method="POST",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    UserSignInTokenResponse,
-                    parse_obj_as(
-                        type_=UserSignInTokenResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
     async def get_connected_providers(
         self, user_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[typing.Dict[str, typing.List[ClientFacingProviderWithStatus]]]:
@@ -1376,178 +1401,6 @@ class AsyncRawUserClient:
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def get(
-        self, user_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[ClientFacingUser]:
-        """
-        GET User details given the user_id.
-
-        Parameters
-        ----------
-        user_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[ClientFacingUser]
-            Successful Response
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v2/user/{jsonable_encoder(user_id)}",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    ClientFacingUser,
-                    parse_obj_as(
-                        type_=ClientFacingUser,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def delete(
-        self, user_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[UserSuccessResponse]:
-        """
-        Parameters
-        ----------
-        user_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[UserSuccessResponse]
-            Successful Response
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v2/user/{jsonable_encoder(user_id)}",
-            method="DELETE",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    UserSuccessResponse,
-                    parse_obj_as(
-                        type_=UserSuccessResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def patch(
-        self,
-        user_id: str,
-        *,
-        fallback_time_zone: typing.Optional[str] = OMIT,
-        fallback_birth_date: typing.Optional[str] = OMIT,
-        ingestion_start: typing.Optional[str] = OMIT,
-        ingestion_end: typing.Optional[str] = OMIT,
-        client_user_id: typing.Optional[str] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[None]:
-        """
-        Parameters
-        ----------
-        user_id : str
-
-        fallback_time_zone : typing.Optional[str]
-
-                Fallback time zone of the user, in the form of a valid IANA tzdatabase identifier (e.g., `Europe/London` or `America/Los_Angeles`).
-                Used when pulling data from sources that are completely time zone agnostic (e.g., all time is relative to UTC clock, without any time zone attributions on data points).
-
-
-        fallback_birth_date : typing.Optional[str]
-            Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
-
-        ingestion_start : typing.Optional[str]
-            Starting bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
-
-        ingestion_end : typing.Optional[str]
-            Ending bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
-
-        client_user_id : typing.Optional[str]
-            A unique ID representing the end user. Typically this will be a user ID from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[None]
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v2/user/{jsonable_encoder(user_id)}",
-            method="PATCH",
-            json={
-                "fallback_time_zone": fallback_time_zone,
-                "fallback_birth_date": fallback_birth_date,
-                "ingestion_start": ingestion_start,
-                "ingestion_end": ingestion_end,
-                "client_user_id": client_user_id,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return AsyncHttpResponse(response=_response, data=None)
             if _response.status_code == 422:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
@@ -1942,6 +1795,176 @@ class AsyncRawUserClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    async def get(
+        self, user_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[ClientFacingUser]:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[ClientFacingUser]
+            Successful Response
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v2/user/{jsonable_encoder(user_id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ClientFacingUser,
+                    parse_obj_as(
+                        type_=ClientFacingUser,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def delete(
+        self, user_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[UserSuccessResponse]:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[UserSuccessResponse]
+            Successful Response
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v2/user/{jsonable_encoder(user_id)}",
+            method="DELETE",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    UserSuccessResponse,
+                    parse_obj_as(
+                        type_=UserSuccessResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def patch(
+        self,
+        user_id: str,
+        *,
+        fallback_time_zone: typing.Optional[str] = OMIT,
+        fallback_birth_date: typing.Optional[str] = OMIT,
+        ingestion_start: typing.Optional[str] = OMIT,
+        ingestion_end: typing.Optional[str] = OMIT,
+        client_user_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[None]:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        fallback_time_zone : typing.Optional[str]
+
+                Fallback time zone of the user, in the form of a valid IANA tzdatabase identifier (e.g., `Europe/London` or `America/Los_Angeles`).
+                Used when pulling data from sources that are completely time zone agnostic (e.g., all time is relative to UTC clock, without any time zone attributions on data points).
+
+
+        fallback_birth_date : typing.Optional[str]
+            Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
+
+        ingestion_start : typing.Optional[str]
+            Starting bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
+
+        ingestion_end : typing.Optional[str]
+            Ending bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
+
+        client_user_id : typing.Optional[str]
+            A unique ID representing the end user. Typically this will be a user ID from your application. Personally identifiable information, such as an email address or phone number, should not be used in the client_user_id.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[None]
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v2/user/{jsonable_encoder(user_id)}",
+            method="PATCH",
+            json={
+                "fallback_time_zone": fallback_time_zone,
+                "fallback_birth_date": fallback_birth_date,
+                "ingestion_start": ingestion_start,
+                "ingestion_end": ingestion_end,
+                "client_user_id": client_user_id,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return AsyncHttpResponse(response=_response, data=None)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
     async def undo_delete(
         self,
         *,
@@ -2146,6 +2169,125 @@ class AsyncRawUserClient:
                     ClientFacingDevice,
                     parse_obj_as(
                         type_=ClientFacingDevice,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def get_user_sign_in_token(
+        self, user_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[UserSignInTokenResponse]:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[UserSignInTokenResponse]
+            Successful Response
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v2/user/{jsonable_encoder(user_id)}/sign_in_token",
+            method="POST",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    UserSignInTokenResponse,
+                    parse_obj_as(
+                        type_=UserSignInTokenResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def create_portal_url(
+        self,
+        user_id: str,
+        *,
+        context: CreateUserPortalUrlBodyContext,
+        order_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[CreateUserPortalUrlResponse]:
+        """
+        Parameters
+        ----------
+        user_id : str
+
+        context : CreateUserPortalUrlBodyContext
+            `launch`: Generates a short-lived (minutes) portal URL that is intended for launching a user from your
+            authenticated web context directly into the Junction User Portal. This URL is not suitable for asynchronous
+            communications due to its verbosity as well as short-lived nature.
+
+            `communications`: Generates a long-lived (weeks) but shortened portal URL that is suitable for Emails, SMS
+            messages and other communication channels. Users may be asked to verify their identity with Email and SMS
+            authentication, e.g., when they open a short link on a new device. ℹ️ This enum is non-exhaustive.
+
+        order_id : typing.Optional[str]
+            If specified, the generated URL will deeplink to the specified Order.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[CreateUserPortalUrlResponse]
+            Successful Response
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v2/user/{jsonable_encoder(user_id)}/create_portal_url",
+            method="POST",
+            json={
+                "context": context,
+                "order_id": order_id,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    CreateUserPortalUrlResponse,
+                    parse_obj_as(
+                        type_=CreateUserPortalUrlResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
