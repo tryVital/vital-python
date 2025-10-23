@@ -12,6 +12,7 @@ from ..core.http_response import AsyncHttpResponse, HttpResponse
 from ..core.jsonable_encoder import jsonable_encoder
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
+from ..errors.not_found_error import NotFoundError
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.allowed_radius import AllowedRadius
 from ..types.ao_e_answer import AoEAnswer
@@ -41,6 +42,7 @@ from ..types.lab_test_collection_method import LabTestCollectionMethod
 from ..types.lab_test_generation_method_filter import LabTestGenerationMethodFilter
 from ..types.lab_test_resources_response import LabTestResourcesResponse
 from ..types.lab_test_status import LabTestStatus
+from ..types.not_found_error_body import NotFoundErrorBody
 from ..types.order_activation_type import OrderActivationType
 from ..types.order_low_level_status import OrderLowLevelStatus
 from ..types.order_set_request import OrderSetRequest
@@ -1869,6 +1871,17 @@ class RawLabTestsClient:
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        NotFoundErrorBody,
+                        parse_obj_as(
+                            type_=NotFoundErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 422:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
@@ -4555,6 +4568,17 @@ class AsyncRawLabTestsClient:
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        NotFoundErrorBody,
+                        parse_obj_as(
+                            type_=NotFoundErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 422:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),

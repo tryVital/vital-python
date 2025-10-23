@@ -588,6 +588,7 @@ from .types import (
     Micros,
     Minerals,
     MissingBiomarkerResult,
+    NotFoundErrorBody,
     NoteTimeseriesExpr,
     NoteTimeseriesExprField,
     OAuthProviders,
@@ -713,7 +714,7 @@ from .types import (
     WorkoutDurationTimeseriesExprField,
     WorkoutV2InDb,
 )
-from .errors import BadRequestError, UnprocessableEntityError
+from .errors import BadRequestError, NotFoundError, UnprocessableEntityError
 from . import (
     activity,
     aggregate,
@@ -1359,6 +1360,8 @@ __all__ = [
     "Micros",
     "Minerals",
     "MissingBiomarkerResult",
+    "NotFoundError",
+    "NotFoundErrorBody",
     "NoteTimeseriesExpr",
     "NoteTimeseriesExprField",
     "OAuthProviders",

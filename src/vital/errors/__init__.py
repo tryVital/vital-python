@@ -3,6 +3,7 @@
 # isort: skip_file
 
 from .bad_request_error import BadRequestError
+from .not_found_error import NotFoundError
 from .unprocessable_entity_error import UnprocessableEntityError
 
-__all__ = ["BadRequestError", "UnprocessableEntityError"]
+__all__ = ["BadRequestError", "NotFoundError", "UnprocessableEntityError"]

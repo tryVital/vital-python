@@ -631,6 +631,7 @@ from .metrics_result import MetricsResult
 from .micros import Micros
 from .minerals import Minerals
 from .missing_biomarker_result import MissingBiomarkerResult
+from .not_found_error_body import NotFoundErrorBody
 from .note_timeseries_expr import NoteTimeseriesExpr
 from .note_timeseries_expr_field import NoteTimeseriesExprField
 from .o_auth_providers import OAuthProviders
@@ -1346,6 +1347,7 @@ __all__ = [
     "Micros",
     "Minerals",
     "MissingBiomarkerResult",
+    "NotFoundErrorBody",
     "NoteTimeseriesExpr",
     "NoteTimeseriesExprField",
     "OAuthProviders",
