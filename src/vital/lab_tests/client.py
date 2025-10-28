@@ -1511,6 +1511,7 @@ class LabTestsClient:
         aoe_answers: typing.Optional[typing.Sequence[AoEAnswer]] = OMIT,
         passthrough: typing.Optional[str] = OMIT,
         lab_account_id: typing.Optional[str] = OMIT,
+        creator_member_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PostOrderResponse:
         """
@@ -1552,6 +1553,8 @@ class LabTestsClient:
 
         lab_account_id : typing.Optional[str]
 
+        creator_member_id : typing.Optional[str]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1587,6 +1590,7 @@ class LabTestsClient:
             aoe_answers=aoe_answers,
             passthrough=passthrough,
             lab_account_id=lab_account_id,
+            creator_member_id=creator_member_id,
             request_options=request_options,
         )
         return _response.data
@@ -3321,6 +3325,7 @@ class AsyncLabTestsClient:
         aoe_answers: typing.Optional[typing.Sequence[AoEAnswer]] = OMIT,
         passthrough: typing.Optional[str] = OMIT,
         lab_account_id: typing.Optional[str] = OMIT,
+        creator_member_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PostOrderResponse:
         """
@@ -3362,6 +3367,8 @@ class AsyncLabTestsClient:
 
         lab_account_id : typing.Optional[str]
 
+        creator_member_id : typing.Optional[str]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -3400,6 +3407,7 @@ class AsyncLabTestsClient:
             aoe_answers=aoe_answers,
             passthrough=passthrough,
             lab_account_id=lab_account_id,
+            creator_member_id=creator_member_id,
             request_options=request_options,
         )
         return _response.data

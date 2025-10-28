@@ -14167,6 +14167,14 @@ client.lab_tests.create_order(user_id='user_id', patient_details=PatientDetailsW
 <dl>
 <dd>
 
+**creator_member_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
