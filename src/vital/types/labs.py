@@ -22,6 +22,7 @@ class Labs(str, enum.Enum):
     SANOCARDIO = "sanocardio"
     IHD = "ihd"
     NEXUS = "nexus"
+    MY_UTI = "my_uti"
     _UNKNOWN = "__LABS_UNKNOWN__"
     """
     This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
@@ -46,6 +47,7 @@ class Labs(str, enum.Enum):
         sanocardio: typing.Callable[[], T_Result],
         ihd: typing.Callable[[], T_Result],
         nexus: typing.Callable[[], T_Result],
+        my_uti: typing.Callable[[], T_Result],
         _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is Labs.AYUMETRIX:
@@ -70,4 +72,6 @@ class Labs(str, enum.Enum):
             return ihd()
         if self is Labs.NEXUS:
             return nexus()
+        if self is Labs.MY_UTI:
+            return my_uti()
         return _unknown_member(self._value_)
