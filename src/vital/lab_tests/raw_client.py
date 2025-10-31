@@ -55,6 +55,7 @@ from ..types.post_order_response import PostOrderResponse
 from ..types.psc_info import PscInfo
 from ..types.simulation_flags import SimulationFlags
 from ..types.us_address import UsAddress
+from ..types.validate_icd_codes_response import ValidateIcdCodesResponse
 from .types.lab_tests_get_orders_request_order_direction import LabTestsGetOrdersRequestOrderDirection
 from .types.lab_tests_get_orders_request_order_key import LabTestsGetOrdersRequestOrderKey
 from .types.lab_tests_get_paginated_request_order_direction import LabTestsGetPaginatedRequestOrderDirection
@@ -2384,6 +2385,7 @@ class RawLabTestsClient:
         patient_details: PatientDetailsWithValidation,
         patient_address: PatientAddressWithValidation,
         idempotency_key: typing.Optional[str] = None,
+        idempotency_error: typing.Optional[typing.Literal["no-cache"]] = None,
         lab_test_id: typing.Optional[str] = OMIT,
         order_set: typing.Optional[OrderSetRequest] = OMIT,
         collection_method: typing.Optional[LabTestCollectionMethod] = OMIT,
@@ -2410,6 +2412,8 @@ class RawLabTestsClient:
         patient_address : PatientAddressWithValidation
 
         idempotency_key : typing.Optional[str]
+
+        idempotency_error : typing.Optional[typing.Literal["no-cache"]]
 
         lab_test_id : typing.Optional[str]
 
@@ -2474,6 +2478,7 @@ class RawLabTestsClient:
             headers={
                 "content-type": "application/json",
                 "X-Idempotency-Key": str(idempotency_key) if idempotency_key is not None else None,
+                "X-Idempotency-Error": str(idempotency_error) if idempotency_error is not None else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -2743,6 +2748,60 @@ class RawLabTestsClient:
                     PostOrderResponse,
                     parse_obj_as(
                         type_=PostOrderResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def validate_icd_codes(
+        self, *, codes: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[ValidateIcdCodesResponse]:
+        """
+        Parameters
+        ----------
+        codes : typing.Sequence[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[ValidateIcdCodesResponse]
+            Successful Response
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v3/insurance/validate_icd_codes",
+            method="POST",
+            json={
+                "codes": codes,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ValidateIcdCodesResponse,
+                    parse_obj_as(
+                        type_=ValidateIcdCodesResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -5088,6 +5147,7 @@ class AsyncRawLabTestsClient:
         patient_details: PatientDetailsWithValidation,
         patient_address: PatientAddressWithValidation,
         idempotency_key: typing.Optional[str] = None,
+        idempotency_error: typing.Optional[typing.Literal["no-cache"]] = None,
         lab_test_id: typing.Optional[str] = OMIT,
         order_set: typing.Optional[OrderSetRequest] = OMIT,
         collection_method: typing.Optional[LabTestCollectionMethod] = OMIT,
@@ -5114,6 +5174,8 @@ class AsyncRawLabTestsClient:
         patient_address : PatientAddressWithValidation
 
         idempotency_key : typing.Optional[str]
+
+        idempotency_error : typing.Optional[typing.Literal["no-cache"]]
 
         lab_test_id : typing.Optional[str]
 
@@ -5178,6 +5240,7 @@ class AsyncRawLabTestsClient:
             headers={
                 "content-type": "application/json",
                 "X-Idempotency-Key": str(idempotency_key) if idempotency_key is not None else None,
+                "X-Idempotency-Error": str(idempotency_error) if idempotency_error is not None else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -5447,6 +5510,60 @@ class AsyncRawLabTestsClient:
                     PostOrderResponse,
                     parse_obj_as(
                         type_=PostOrderResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def validate_icd_codes(
+        self, *, codes: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[ValidateIcdCodesResponse]:
+        """
+        Parameters
+        ----------
+        codes : typing.Sequence[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[ValidateIcdCodesResponse]
+            Successful Response
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "v3/insurance/validate_icd_codes",
+            method="POST",
+            json={
+                "codes": codes,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ValidateIcdCodesResponse,
+                    parse_obj_as(
+                        type_=ValidateIcdCodesResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

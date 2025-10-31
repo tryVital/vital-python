@@ -14063,6 +14063,14 @@ client.lab_tests.create_order(user_id='user_id', patient_details=PatientDetailsW
 <dl>
 <dd>
 
+**idempotency_error:** `typing.Optional[typing.Literal["no-cache"]]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **lab_test_id:** `typing.Optional[str]` 
     
 </dd>
@@ -14508,6 +14516,57 @@ client.lab_tests.update_on_site_collection_order_draw_completed(order_id='order_
 <dd>
 
 **order_id:** `str` — Your Order ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">validate_icd_codes</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.validate_icd_codes(codes=['codes'], )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**codes:** `typing.Sequence[str]` 
     
 </dd>
 </dl>

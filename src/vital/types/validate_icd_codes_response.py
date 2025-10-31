@@ -4,20 +4,15 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .icd_excludes_violation import IcdExcludesViolation
+from .icd_excludes_warning import IcdExcludesWarning
 
 
-class ClientFacingDiagnosisInformation(UniversalBaseModel):
-    diagnosis_code: str = pydantic.Field()
-    """
-    Diagnosis code for insurance information.
-    """
-
-    description: str = pydantic.Field()
-    """
-    Diagnosis description insurance information.
-    """
-
-    is_secondary: typing.Optional[bool] = None
+class ValidateIcdCodesResponse(UniversalBaseModel):
+    valid: bool
+    errors: typing.List[str]
+    violations: typing.List[IcdExcludesViolation]
+    warnings: typing.List[IcdExcludesWarning]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

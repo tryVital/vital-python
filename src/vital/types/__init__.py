@@ -595,6 +595,8 @@ from .home_pregnancy_test_entry_test_result import HomePregnancyTestEntryTestRes
 from .home_progesterone_test_entry import HomeProgesteroneTestEntry
 from .home_progesterone_test_entry_test_result import HomeProgesteroneTestEntryTestResult
 from .http_validation_error import HttpValidationError
+from .icd_excludes_violation import IcdExcludesViolation
+from .icd_excludes_warning import IcdExcludesWarning
 from .index_column_expr import IndexColumnExpr
 from .index_column_expr_index import IndexColumnExprIndex
 from .intermenstrual_bleeding_entry import IntermenstrualBleedingEntry
@@ -744,6 +746,7 @@ from .user_resources_response import UserResourcesResponse
 from .user_sign_in_token_response import UserSignInTokenResponse
 from .user_success_response import UserSuccessResponse
 from .utc_timestamp_with_timezone_offset import UtcTimestampWithTimezoneOffset
+from .validate_icd_codes_response import ValidateIcdCodesResponse
 from .validation_error import ValidationError
 from .validation_error_loc_item import ValidationErrorLocItem
 from .vital_core_schemas_db_schemas_lab_test_health_insurance_person_details import (
@@ -1311,6 +1314,8 @@ __all__ = [
     "HomeProgesteroneTestEntry",
     "HomeProgesteroneTestEntryTestResult",
     "HttpValidationError",
+    "IcdExcludesViolation",
+    "IcdExcludesWarning",
     "IndexColumnExpr",
     "IndexColumnExprIndex",
     "IntermenstrualBleedingEntry",
@@ -1460,6 +1465,7 @@ __all__ = [
     "UserSignInTokenResponse",
     "UserSuccessResponse",
     "UtcTimestampWithTimezoneOffset",
+    "ValidateIcdCodesResponse",
     "ValidationError",
     "ValidationErrorLocItem",
     "VitalCoreSchemasDbSchemasLabTestHealthInsurancePersonDetails",

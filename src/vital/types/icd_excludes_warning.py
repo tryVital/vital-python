@@ -6,18 +6,10 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class ClientFacingDiagnosisInformation(UniversalBaseModel):
-    diagnosis_code: str = pydantic.Field()
-    """
-    Diagnosis code for insurance information.
-    """
-
-    description: str = pydantic.Field()
-    """
-    Diagnosis description insurance information.
-    """
-
-    is_secondary: typing.Optional[bool] = None
+class IcdExcludesWarning(UniversalBaseModel):
+    code: str
+    overlaps_with: str
+    type: str
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

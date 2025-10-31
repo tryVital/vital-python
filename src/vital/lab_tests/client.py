@@ -44,6 +44,7 @@ from ..types.post_order_response import PostOrderResponse
 from ..types.psc_info import PscInfo
 from ..types.simulation_flags import SimulationFlags
 from ..types.us_address import UsAddress
+from ..types.validate_icd_codes_response import ValidateIcdCodesResponse
 from .raw_client import AsyncRawLabTestsClient, RawLabTestsClient
 from .types.lab_tests_get_orders_request_order_direction import LabTestsGetOrdersRequestOrderDirection
 from .types.lab_tests_get_orders_request_order_key import LabTestsGetOrdersRequestOrderKey
@@ -1498,6 +1499,7 @@ class LabTestsClient:
         patient_details: PatientDetailsWithValidation,
         patient_address: PatientAddressWithValidation,
         idempotency_key: typing.Optional[str] = None,
+        idempotency_error: typing.Optional[typing.Literal["no-cache"]] = None,
         lab_test_id: typing.Optional[str] = OMIT,
         order_set: typing.Optional[OrderSetRequest] = OMIT,
         collection_method: typing.Optional[LabTestCollectionMethod] = OMIT,
@@ -1524,6 +1526,8 @@ class LabTestsClient:
         patient_address : PatientAddressWithValidation
 
         idempotency_key : typing.Optional[str]
+
+        idempotency_error : typing.Optional[typing.Literal["no-cache"]]
 
         lab_test_id : typing.Optional[str]
 
@@ -1577,6 +1581,7 @@ class LabTestsClient:
             patient_details=patient_details,
             patient_address=patient_address,
             idempotency_key=idempotency_key,
+            idempotency_error=idempotency_error,
             lab_test_id=lab_test_id,
             order_set=order_set,
             collection_method=collection_method,
@@ -1761,6 +1766,31 @@ class LabTestsClient:
         _response = self._raw_client.update_on_site_collection_order_draw_completed(
             order_id, request_options=request_options
         )
+        return _response.data
+
+    def validate_icd_codes(
+        self, *, codes: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
+    ) -> ValidateIcdCodesResponse:
+        """
+        Parameters
+        ----------
+        codes : typing.Sequence[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ValidateIcdCodesResponse
+            Successful Response
+
+        Examples
+        --------
+        from vital import Vital
+        client = Vital(api_key="YOUR_API_KEY", )
+        client.lab_tests.validate_icd_codes(codes=['codes'], )
+        """
+        _response = self._raw_client.validate_icd_codes(codes=codes, request_options=request_options)
         return _response.data
 
 
@@ -3312,6 +3342,7 @@ class AsyncLabTestsClient:
         patient_details: PatientDetailsWithValidation,
         patient_address: PatientAddressWithValidation,
         idempotency_key: typing.Optional[str] = None,
+        idempotency_error: typing.Optional[typing.Literal["no-cache"]] = None,
         lab_test_id: typing.Optional[str] = OMIT,
         order_set: typing.Optional[OrderSetRequest] = OMIT,
         collection_method: typing.Optional[LabTestCollectionMethod] = OMIT,
@@ -3338,6 +3369,8 @@ class AsyncLabTestsClient:
         patient_address : PatientAddressWithValidation
 
         idempotency_key : typing.Optional[str]
+
+        idempotency_error : typing.Optional[typing.Literal["no-cache"]]
 
         lab_test_id : typing.Optional[str]
 
@@ -3394,6 +3427,7 @@ class AsyncLabTestsClient:
             patient_details=patient_details,
             patient_address=patient_address,
             idempotency_key=idempotency_key,
+            idempotency_error=idempotency_error,
             lab_test_id=lab_test_id,
             order_set=order_set,
             collection_method=collection_method,
@@ -3590,4 +3624,32 @@ class AsyncLabTestsClient:
         _response = await self._raw_client.update_on_site_collection_order_draw_completed(
             order_id, request_options=request_options
         )
+        return _response.data
+
+    async def validate_icd_codes(
+        self, *, codes: typing.Sequence[str], request_options: typing.Optional[RequestOptions] = None
+    ) -> ValidateIcdCodesResponse:
+        """
+        Parameters
+        ----------
+        codes : typing.Sequence[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ValidateIcdCodesResponse
+            Successful Response
+
+        Examples
+        --------
+        from vital import AsyncVital
+        import asyncio
+        client = AsyncVital(api_key="YOUR_API_KEY", )
+        async def main() -> None:
+            await client.lab_tests.validate_icd_codes(codes=['codes'], )
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.validate_icd_codes(codes=codes, request_options=request_options)
         return _response.data
