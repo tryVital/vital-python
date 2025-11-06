@@ -48,6 +48,7 @@ class Providers(str, enum.Enum):
     ULTRAHUMAN = "ultrahuman"
     MY_FITNESS_PAL_V_2 = "my_fitness_pal_v2"
     MAP_MY_FITNESS = "map_my_fitness"
+    RUNKEEPER = "runkeeper"
     _UNKNOWN = "__PROVIDERS_UNKNOWN__"
     """
     This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
@@ -98,6 +99,7 @@ class Providers(str, enum.Enum):
         ultrahuman: typing.Callable[[], T_Result],
         my_fitness_pal_v_2: typing.Callable[[], T_Result],
         map_my_fitness: typing.Callable[[], T_Result],
+        runkeeper: typing.Callable[[], T_Result],
         _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is Providers.OURA:
@@ -174,4 +176,6 @@ class Providers(str, enum.Enum):
             return my_fitness_pal_v_2()
         if self is Providers.MAP_MY_FITNESS:
             return map_my_fitness()
+        if self is Providers.RUNKEEPER:
+            return runkeeper()
         return _unknown_member(self._value_)
