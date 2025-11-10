@@ -4,11 +4,18 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .grouped_body_temperature_delta import GroupedBodyTemperatureDelta
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_body_temperature_delta_sample import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingBodyTemperatureDeltaSample,
+)
 
 
 class GroupedBodyTemperatureDeltaResponse(UniversalBaseModel):
-    groups: typing.Dict[str, typing.List[GroupedBodyTemperatureDelta]] = pydantic.Field()
+    groups: typing.Dict[
+        str,
+        typing.List[
+            VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingBodyTemperatureDeltaSample
+        ],
+    ] = pydantic.Field()
     """
     For each matching provider or lab, a list of grouped timeseries values.
     """

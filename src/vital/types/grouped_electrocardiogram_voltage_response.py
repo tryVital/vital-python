@@ -4,11 +4,18 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .grouped_electrocardiogram_voltage import GroupedElectrocardiogramVoltage
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_electrocardiogram_voltage_timeseries import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingElectrocardiogramVoltageTimeseries,
+)
 
 
 class GroupedElectrocardiogramVoltageResponse(UniversalBaseModel):
-    groups: typing.Dict[str, typing.List[GroupedElectrocardiogramVoltage]] = pydantic.Field()
+    groups: typing.Dict[
+        str,
+        typing.List[
+            VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingElectrocardiogramVoltageTimeseries
+        ],
+    ] = pydantic.Field()
     """
     For each matching provider or lab, a list of grouped timeseries values.
     """

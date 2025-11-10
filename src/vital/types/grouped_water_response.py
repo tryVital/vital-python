@@ -4,11 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .grouped_water import GroupedWater
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_water_timeseries import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingWaterTimeseries,
+)
 
 
 class GroupedWaterResponse(UniversalBaseModel):
-    groups: typing.Dict[str, typing.List[GroupedWater]] = pydantic.Field()
+    groups: typing.Dict[
+        str,
+        typing.List[VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingWaterTimeseries],
+    ] = pydantic.Field()
     """
     For each matching provider or lab, a list of grouped timeseries values.
     """

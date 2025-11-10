@@ -4,11 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .grouped_a_fib_burden import GroupedAFibBurden
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_a_fib_burden_sample import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingAFibBurdenSample,
+)
 
 
 class GroupedAFibBurdenResponse(UniversalBaseModel):
-    groups: typing.Dict[str, typing.List[GroupedAFibBurden]] = pydantic.Field()
+    groups: typing.Dict[
+        str,
+        typing.List[VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingAFibBurdenSample],
+    ] = pydantic.Field()
     """
     For each matching provider or lab, a list of grouped timeseries values.
     """

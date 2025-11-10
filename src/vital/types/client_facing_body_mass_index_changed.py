@@ -5,7 +5,9 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .client_facing_body_mass_index_changed_event_type import ClientFacingBodyMassIndexChangedEventType
-from .grouped_body_mass_index import GroupedBodyMassIndex
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_body_mass_index_sample import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingBodyMassIndexSample,
+)
 
 
 class ClientFacingBodyMassIndexChanged(UniversalBaseModel):
@@ -13,7 +15,7 @@ class ClientFacingBodyMassIndexChanged(UniversalBaseModel):
     user_id: str
     client_user_id: str
     team_id: str
-    data: GroupedBodyMassIndex
+    data: VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingBodyMassIndexSample
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

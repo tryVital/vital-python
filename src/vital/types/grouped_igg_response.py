@@ -4,11 +4,15 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .grouped_igg import GroupedIgg
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_igg_timeseries import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingIggTimeseries,
+)
 
 
 class GroupedIggResponse(UniversalBaseModel):
-    groups: typing.Dict[str, typing.List[GroupedIgg]] = pydantic.Field()
+    groups: typing.Dict[
+        str, typing.List[VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingIggTimeseries]
+    ] = pydantic.Field()
     """
     For each matching provider or lab, a list of grouped timeseries values.
     """

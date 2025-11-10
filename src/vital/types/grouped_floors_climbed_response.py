@@ -4,11 +4,18 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .grouped_floors_climbed import GroupedFloorsClimbed
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_floors_climbed_timeseries import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingFloorsClimbedTimeseries,
+)
 
 
 class GroupedFloorsClimbedResponse(UniversalBaseModel):
-    groups: typing.Dict[str, typing.List[GroupedFloorsClimbed]] = pydantic.Field()
+    groups: typing.Dict[
+        str,
+        typing.List[
+            VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingFloorsClimbedTimeseries
+        ],
+    ] = pydantic.Field()
     """
     For each matching provider or lab, a list of grouped timeseries values.
     """

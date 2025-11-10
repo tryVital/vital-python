@@ -5,7 +5,9 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .client_facing_caffeine_changed_event_type import ClientFacingCaffeineChangedEventType
-from .grouped_caffeine import GroupedCaffeine
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_caffeine_timeseries import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingCaffeineTimeseries,
+)
 
 
 class ClientFacingCaffeineChanged(UniversalBaseModel):
@@ -13,7 +15,7 @@ class ClientFacingCaffeineChanged(UniversalBaseModel):
     user_id: str
     client_user_id: str
     team_id: str
-    data: GroupedCaffeine
+    data: VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingCaffeineTimeseries
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

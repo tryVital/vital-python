@@ -4,11 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .grouped_vo_2_max import GroupedVo2Max
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_vo_2_max_timeseries import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingVo2MaxTimeseries,
+)
 
 
 class GroupedVo2MaxResponse(UniversalBaseModel):
-    groups: typing.Dict[str, typing.List[GroupedVo2Max]] = pydantic.Field()
+    groups: typing.Dict[
+        str,
+        typing.List[VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingVo2MaxTimeseries],
+    ] = pydantic.Field()
     """
     For each matching provider or lab, a list of grouped timeseries values.
     """

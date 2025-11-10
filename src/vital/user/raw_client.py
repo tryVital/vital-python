@@ -11,7 +11,6 @@ from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
 from ..errors.bad_request_error import BadRequestError
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
-from ..types.address import Address
 from ..types.client_facing_device import ClientFacingDevice
 from ..types.client_facing_insurance import ClientFacingInsurance
 from ..types.client_facing_provider_with_status import ClientFacingProviderWithStatus
@@ -32,6 +31,9 @@ from ..types.user_info import UserInfo
 from ..types.user_refresh_success_response import UserRefreshSuccessResponse
 from ..types.user_sign_in_token_response import UserSignInTokenResponse
 from ..types.user_success_response import UserSuccessResponse
+from ..types.vital_core_schemas_db_schemas_lab_test_health_insurance_address import (
+    VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress,
+)
 from ..types.vital_core_schemas_db_schemas_lab_test_insurance_person_details import (
     VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails,
 )
@@ -467,7 +469,7 @@ class RawUserClient:
         phone_number: str,
         gender: str,
         dob: str,
-        address: Address,
+        address: VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress,
         medical_proxy: typing.Optional[GuarantorDetails] = OMIT,
         race: typing.Optional[Race] = OMIT,
         ethnicity: typing.Optional[Ethnicity] = OMIT,
@@ -492,7 +494,7 @@ class RawUserClient:
 
         dob : str
 
-        address : Address
+        address : VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress
 
         medical_proxy : typing.Optional[GuarantorDetails]
 
@@ -1601,7 +1603,7 @@ class AsyncRawUserClient:
         phone_number: str,
         gender: str,
         dob: str,
-        address: Address,
+        address: VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress,
         medical_proxy: typing.Optional[GuarantorDetails] = OMIT,
         race: typing.Optional[Race] = OMIT,
         ethnicity: typing.Optional[Ethnicity] = OMIT,
@@ -1626,7 +1628,7 @@ class AsyncRawUserClient:
 
         dob : str
 
-        address : Address
+        address : VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress
 
         medical_proxy : typing.Optional[GuarantorDetails]
 

@@ -4,11 +4,18 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .grouped_stand_duration import GroupedStandDuration
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_stand_duration_sample import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingStandDurationSample,
+)
 
 
 class GroupedStandDurationResponse(UniversalBaseModel):
-    groups: typing.Dict[str, typing.List[GroupedStandDuration]] = pydantic.Field()
+    groups: typing.Dict[
+        str,
+        typing.List[
+            VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingStandDurationSample
+        ],
+    ] = pydantic.Field()
     """
     For each matching provider or lab, a list of grouped timeseries values.
     """

@@ -5,7 +5,9 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .client_facing_note_changed_event_type import ClientFacingNoteChangedEventType
-from .grouped_note import GroupedNote
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_note_sample import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingNoteSample,
+)
 
 
 class ClientFacingNoteChanged(UniversalBaseModel):
@@ -13,7 +15,7 @@ class ClientFacingNoteChanged(UniversalBaseModel):
     user_id: str
     client_user_id: str
     team_id: str
-    data: GroupedNote
+    data: VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingNoteSample
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

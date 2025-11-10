@@ -4,11 +4,18 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .grouped_peak_expiratory_flow_rate import GroupedPeakExpiratoryFlowRate
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_peak_expiratory_flow_rate_sample import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingPeakExpiratoryFlowRateSample,
+)
 
 
 class GroupedPeakExpiratoryFlowRateResponse(UniversalBaseModel):
-    groups: typing.Dict[str, typing.List[GroupedPeakExpiratoryFlowRate]] = pydantic.Field()
+    groups: typing.Dict[
+        str,
+        typing.List[
+            VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingPeakExpiratoryFlowRateSample
+        ],
+    ] = pydantic.Field()
     """
     For each matching provider or lab, a list of grouped timeseries values.
     """

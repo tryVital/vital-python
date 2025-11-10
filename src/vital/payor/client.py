@@ -4,9 +4,11 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
-from ..types.address import Address
 from ..types.client_facing_payor import ClientFacingPayor
 from ..types.payor_code_external_provider import PayorCodeExternalProvider
+from ..types.vital_core_schemas_db_schemas_lab_test_health_insurance_address import (
+    VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress,
+)
 from .raw_client import AsyncRawPayorClient, RawPayorClient
 
 # this is used as the default value for optional parameters
@@ -32,7 +34,7 @@ class PayorClient:
         self,
         *,
         name: str,
-        address: Address,
+        address: VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress,
         provider: typing.Optional[PayorCodeExternalProvider] = OMIT,
         provider_payor_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -42,7 +44,7 @@ class PayorClient:
         ----------
         name : str
 
-        address : Address
+        address : VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress
 
         provider : typing.Optional[PayorCodeExternalProvider]
 
@@ -59,9 +61,9 @@ class PayorClient:
         Examples
         --------
         from vital import Vital
-        from vital import Address
+        from vital import VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress
         client = Vital(api_key="YOUR_API_KEY", )
-        client.payor.create_payor(name='name', address=Address(first_line='first_line', country='country', zip='zip', city='city', state='state', ), )
+        client.payor.create_payor(name='name', address=VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress(first_line='first_line', country='country', zip='zip', city='city', state='state', ), )
         """
         _response = self._raw_client.create_payor(
             name=name,
@@ -92,7 +94,7 @@ class AsyncPayorClient:
         self,
         *,
         name: str,
-        address: Address,
+        address: VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress,
         provider: typing.Optional[PayorCodeExternalProvider] = OMIT,
         provider_payor_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -102,7 +104,7 @@ class AsyncPayorClient:
         ----------
         name : str
 
-        address : Address
+        address : VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress
 
         provider : typing.Optional[PayorCodeExternalProvider]
 
@@ -119,11 +121,11 @@ class AsyncPayorClient:
         Examples
         --------
         from vital import AsyncVital
-        from vital import Address
+        from vital import VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress
         import asyncio
         client = AsyncVital(api_key="YOUR_API_KEY", )
         async def main() -> None:
-            await client.payor.create_payor(name='name', address=Address(first_line='first_line', country='country', zip='zip', city='city', state='state', ), )
+            await client.payor.create_payor(name='name', address=VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress(first_line='first_line', country='country', zip='zip', city='city', state='state', ), )
         asyncio.run(main())
         """
         _response = await self._raw_client.create_payor(

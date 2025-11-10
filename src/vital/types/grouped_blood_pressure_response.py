@@ -4,11 +4,18 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .grouped_blood_pressure import GroupedBloodPressure
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_blood_pressure_timeseries import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingBloodPressureTimeseries,
+)
 
 
 class GroupedBloodPressureResponse(UniversalBaseModel):
-    groups: typing.Dict[str, typing.List[GroupedBloodPressure]] = pydantic.Field()
+    groups: typing.Dict[
+        str,
+        typing.List[
+            VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingBloodPressureTimeseries
+        ],
+    ] = pydantic.Field()
     """
     For each matching provider or lab, a list of grouped timeseries values.
     """

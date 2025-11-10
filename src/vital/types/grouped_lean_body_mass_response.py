@@ -4,11 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .grouped_lean_body_mass import GroupedLeanBodyMass
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_lean_body_mass_sample import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingLeanBodyMassSample,
+)
 
 
 class GroupedLeanBodyMassResponse(UniversalBaseModel):
-    groups: typing.Dict[str, typing.List[GroupedLeanBodyMass]] = pydantic.Field()
+    groups: typing.Dict[
+        str,
+        typing.List[VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingLeanBodyMassSample],
+    ] = pydantic.Field()
     """
     For each matching provider or lab, a list of grouped timeseries values.
     """

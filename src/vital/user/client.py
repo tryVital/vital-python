@@ -4,7 +4,6 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
-from ..types.address import Address
 from ..types.client_facing_device import ClientFacingDevice
 from ..types.client_facing_insurance import ClientFacingInsurance
 from ..types.client_facing_provider_with_status import ClientFacingProviderWithStatus
@@ -24,6 +23,9 @@ from ..types.user_info import UserInfo
 from ..types.user_refresh_success_response import UserRefreshSuccessResponse
 from ..types.user_sign_in_token_response import UserSignInTokenResponse
 from ..types.user_success_response import UserSuccessResponse
+from ..types.vital_core_schemas_db_schemas_lab_test_health_insurance_address import (
+    VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress,
+)
 from ..types.vital_core_schemas_db_schemas_lab_test_insurance_person_details import (
     VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails,
 )
@@ -257,9 +259,9 @@ class UserClient:
         from vital import ResponsibleRelationship
         from vital import VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails
         from vital import Gender
-        from vital import Address
+        from vital import VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress
         client = Vital(api_key="YOUR_API_KEY", )
-        client.user.create_insurance(user_id='user_id', payor_code='payor_code', member_id='member_id', relationship=ResponsibleRelationship.SELF, insured=VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails(first_name='first_name', last_name='last_name', gender=Gender.FEMALE, address=Address(first_line='first_line', country='country', zip='zip', city='city', state='state', ), dob='dob', email='email', phone_number='phone_number', ), )
+        client.user.create_insurance(user_id='user_id', payor_code='payor_code', member_id='member_id', relationship=ResponsibleRelationship.SELF, insured=VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails(first_name='first_name', last_name='last_name', gender=Gender.FEMALE, address=VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress(first_line='first_line', country='country', zip='zip', city='city', state='state', ), dob='dob', email='email', phone_number='phone_number', ), )
         """
         _response = self._raw_client.create_insurance(
             user_id,
@@ -308,7 +310,7 @@ class UserClient:
         phone_number: str,
         gender: str,
         dob: str,
-        address: Address,
+        address: VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress,
         medical_proxy: typing.Optional[GuarantorDetails] = OMIT,
         race: typing.Optional[Race] = OMIT,
         ethnicity: typing.Optional[Ethnicity] = OMIT,
@@ -333,7 +335,7 @@ class UserClient:
 
         dob : str
 
-        address : Address
+        address : VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress
 
         medical_proxy : typing.Optional[GuarantorDetails]
 
@@ -356,9 +358,9 @@ class UserClient:
         Examples
         --------
         from vital import Vital
-        from vital import Address
+        from vital import VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress
         client = Vital(api_key="YOUR_API_KEY", )
-        client.user.upsert_user_info(user_id='user_id', first_name='first_name', last_name='last_name', email='email', phone_number='phone_number', gender='gender', dob='dob', address=Address(first_line='first_line', country='country', zip='zip', city='city', state='state', ), )
+        client.user.upsert_user_info(user_id='user_id', first_name='first_name', last_name='last_name', email='email', phone_number='phone_number', gender='gender', dob='dob', address=VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress(first_line='first_line', country='country', zip='zip', city='city', state='state', ), )
         """
         _response = self._raw_client.upsert_user_info(
             user_id,
@@ -968,11 +970,11 @@ class AsyncUserClient:
         from vital import ResponsibleRelationship
         from vital import VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails
         from vital import Gender
-        from vital import Address
+        from vital import VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress
         import asyncio
         client = AsyncVital(api_key="YOUR_API_KEY", )
         async def main() -> None:
-            await client.user.create_insurance(user_id='user_id', payor_code='payor_code', member_id='member_id', relationship=ResponsibleRelationship.SELF, insured=VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails(first_name='first_name', last_name='last_name', gender=Gender.FEMALE, address=Address(first_line='first_line', country='country', zip='zip', city='city', state='state', ), dob='dob', email='email', phone_number='phone_number', ), )
+            await client.user.create_insurance(user_id='user_id', payor_code='payor_code', member_id='member_id', relationship=ResponsibleRelationship.SELF, insured=VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails(first_name='first_name', last_name='last_name', gender=Gender.FEMALE, address=VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress(first_line='first_line', country='country', zip='zip', city='city', state='state', ), dob='dob', email='email', phone_number='phone_number', ), )
         asyncio.run(main())
         """
         _response = await self._raw_client.create_insurance(
@@ -1025,7 +1027,7 @@ class AsyncUserClient:
         phone_number: str,
         gender: str,
         dob: str,
-        address: Address,
+        address: VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress,
         medical_proxy: typing.Optional[GuarantorDetails] = OMIT,
         race: typing.Optional[Race] = OMIT,
         ethnicity: typing.Optional[Ethnicity] = OMIT,
@@ -1050,7 +1052,7 @@ class AsyncUserClient:
 
         dob : str
 
-        address : Address
+        address : VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress
 
         medical_proxy : typing.Optional[GuarantorDetails]
 
@@ -1073,11 +1075,11 @@ class AsyncUserClient:
         Examples
         --------
         from vital import AsyncVital
-        from vital import Address
+        from vital import VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress
         import asyncio
         client = AsyncVital(api_key="YOUR_API_KEY", )
         async def main() -> None:
-            await client.user.upsert_user_info(user_id='user_id', first_name='first_name', last_name='last_name', email='email', phone_number='phone_number', gender='gender', dob='dob', address=Address(first_line='first_line', country='country', zip='zip', city='city', state='state', ), )
+            await client.user.upsert_user_info(user_id='user_id', first_name='first_name', last_name='last_name', email='email', phone_number='phone_number', gender='gender', dob='dob', address=VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress(first_line='first_line', country='country', zip='zip', city='city', state='state', ), )
         asyncio.run(main())
         """
         _response = await self._raw_client.upsert_user_info(

@@ -9955,9 +9955,9 @@ from vital import Vital
 from vital import ResponsibleRelationship
 from vital import VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails
 from vital import Gender
-from vital import Address
+from vital import VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress
 client = Vital(api_key="YOUR_API_KEY", )
-client.user.create_insurance(user_id='user_id', payor_code='payor_code', member_id='member_id', relationship=ResponsibleRelationship.SELF, insured=VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails(first_name='first_name', last_name='last_name', gender=Gender.FEMALE, address=Address(first_line='first_line', country='country', zip='zip', city='city', state='state', ), dob='dob', email='email', phone_number='phone_number', ), )
+client.user.create_insurance(user_id='user_id', payor_code='payor_code', member_id='member_id', relationship=ResponsibleRelationship.SELF, insured=VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails(first_name='first_name', last_name='last_name', gender=Gender.FEMALE, address=VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress(first_line='first_line', country='country', zip='zip', city='city', state='state', ), dob='dob', email='email', phone_number='phone_number', ), )
 
 ```
 </dd>
@@ -10106,9 +10106,9 @@ client.user.get_latest_insurance(user_id='user_id', )
 
 ```python
 from vital import Vital
-from vital import Address
+from vital import VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress
 client = Vital(api_key="YOUR_API_KEY", )
-client.user.upsert_user_info(user_id='user_id', first_name='first_name', last_name='last_name', email='email', phone_number='phone_number', gender='gender', dob='dob', address=Address(first_line='first_line', country='country', zip='zip', city='city', state='state', ), )
+client.user.upsert_user_info(user_id='user_id', first_name='first_name', last_name='last_name', email='email', phone_number='phone_number', gender='gender', dob='dob', address=VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress(first_line='first_line', country='country', zip='zip', city='city', state='state', ), )
 
 ```
 </dd>
@@ -10180,7 +10180,7 @@ client.user.upsert_user_info(user_id='user_id', first_name='first_name', last_na
 <dl>
 <dd>
 
-**address:** `Address` 
+**address:** `VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress` 
     
 </dd>
 </dl>
@@ -15070,9 +15070,9 @@ client.insurance.search_diagnosis(diagnosis_query='diagnosis_query', )
 
 ```python
 from vital import Vital
-from vital import Address
+from vital import VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress
 client = Vital(api_key="YOUR_API_KEY", )
-client.payor.create_payor(name='name', address=Address(first_line='first_line', country='country', zip='zip', city='city', state='state', ), )
+client.payor.create_payor(name='name', address=VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress(first_line='first_line', country='country', zip='zip', city='city', state='state', ), )
 
 ```
 </dd>
@@ -15096,7 +15096,7 @@ client.payor.create_payor(name='name', address=Address(first_line='first_line', 
 <dl>
 <dd>
 
-**address:** `Address` 
+**address:** `VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress` 
     
 </dd>
 </dl>

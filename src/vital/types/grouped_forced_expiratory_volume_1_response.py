@@ -4,11 +4,18 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .grouped_forced_expiratory_volume_1 import GroupedForcedExpiratoryVolume1
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_forced_expiratory_volume_1_sample import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingForcedExpiratoryVolume1Sample,
+)
 
 
 class GroupedForcedExpiratoryVolume1Response(UniversalBaseModel):
-    groups: typing.Dict[str, typing.List[GroupedForcedExpiratoryVolume1]] = pydantic.Field()
+    groups: typing.Dict[
+        str,
+        typing.List[
+            VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingForcedExpiratoryVolume1Sample
+        ],
+    ] = pydantic.Field()
     """
     For each matching provider or lab, a list of grouped timeseries values.
     """

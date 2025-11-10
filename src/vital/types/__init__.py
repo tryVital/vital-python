@@ -6,7 +6,6 @@ from .activity_column_expr import ActivityColumnExpr
 from .activity_column_expr_activity import ActivityColumnExprActivity
 from .activity_v_2_in_db import ActivityV2InDb
 from .add_on_order import AddOnOrder
-from .address import Address
 from .aggregate_expr import AggregateExpr
 from .aggregate_expr_arg import AggregateExprArg
 from .aggregate_expr_func import AggregateExprFunc
@@ -478,107 +477,57 @@ from .get_markers_response import GetMarkersResponse
 from .get_orders_response import GetOrdersResponse
 from .group_key_column_expr import GroupKeyColumnExpr
 from .group_key_column_expr_group_key import GroupKeyColumnExprGroupKey
-from .grouped_a_fib_burden import GroupedAFibBurden
 from .grouped_a_fib_burden_response import GroupedAFibBurdenResponse
-from .grouped_basal_body_temperature import GroupedBasalBodyTemperature
 from .grouped_basal_body_temperature_response import GroupedBasalBodyTemperatureResponse
-from .grouped_blood_oxygen import GroupedBloodOxygen
 from .grouped_blood_oxygen_response import GroupedBloodOxygenResponse
-from .grouped_blood_pressure import GroupedBloodPressure
 from .grouped_blood_pressure_response import GroupedBloodPressureResponse
-from .grouped_body_fat import GroupedBodyFat
 from .grouped_body_fat_response import GroupedBodyFatResponse
-from .grouped_body_mass_index import GroupedBodyMassIndex
 from .grouped_body_mass_index_response import GroupedBodyMassIndexResponse
-from .grouped_body_temperature import GroupedBodyTemperature
-from .grouped_body_temperature_delta import GroupedBodyTemperatureDelta
 from .grouped_body_temperature_delta_response import GroupedBodyTemperatureDeltaResponse
 from .grouped_body_temperature_response import GroupedBodyTemperatureResponse
-from .grouped_body_weight import GroupedBodyWeight
 from .grouped_body_weight_response import GroupedBodyWeightResponse
-from .grouped_caffeine import GroupedCaffeine
 from .grouped_caffeine_response import GroupedCaffeineResponse
-from .grouped_calories_active import GroupedCaloriesActive
 from .grouped_calories_active_response import GroupedCaloriesActiveResponse
-from .grouped_calories_basal import GroupedCaloriesBasal
 from .grouped_calories_basal_response import GroupedCaloriesBasalResponse
-from .grouped_carbohydrates import GroupedCarbohydrates
 from .grouped_carbohydrates_response import GroupedCarbohydratesResponse
-from .grouped_cholesterol import GroupedCholesterol
 from .grouped_cholesterol_response import GroupedCholesterolResponse
-from .grouped_daylight_exposure import GroupedDaylightExposure
 from .grouped_daylight_exposure_response import GroupedDaylightExposureResponse
-from .grouped_distance import GroupedDistance
 from .grouped_distance_response import GroupedDistanceResponse
-from .grouped_electrocardiogram_voltage import GroupedElectrocardiogramVoltage
 from .grouped_electrocardiogram_voltage_response import GroupedElectrocardiogramVoltageResponse
-from .grouped_fall import GroupedFall
 from .grouped_fall_response import GroupedFallResponse
-from .grouped_floors_climbed import GroupedFloorsClimbed
 from .grouped_floors_climbed_response import GroupedFloorsClimbedResponse
-from .grouped_forced_expiratory_volume_1 import GroupedForcedExpiratoryVolume1
 from .grouped_forced_expiratory_volume_1_response import GroupedForcedExpiratoryVolume1Response
-from .grouped_forced_vital_capacity import GroupedForcedVitalCapacity
 from .grouped_forced_vital_capacity_response import GroupedForcedVitalCapacityResponse
-from .grouped_glucose import GroupedGlucose
 from .grouped_glucose_response import GroupedGlucoseResponse
-from .grouped_handwashing import GroupedHandwashing
 from .grouped_handwashing_response import GroupedHandwashingResponse
-from .grouped_heart_rate import GroupedHeartRate
-from .grouped_heart_rate_alert import GroupedHeartRateAlert
 from .grouped_heart_rate_alert_response import GroupedHeartRateAlertResponse
-from .grouped_heart_rate_recovery_one_minute import GroupedHeartRateRecoveryOneMinute
 from .grouped_heart_rate_recovery_one_minute_response import GroupedHeartRateRecoveryOneMinuteResponse
 from .grouped_heart_rate_response import GroupedHeartRateResponse
-from .grouped_hrv import GroupedHrv
 from .grouped_hrv_response import GroupedHrvResponse
 from .grouped_hypnogram import GroupedHypnogram
 from .grouped_hypnogram_response import GroupedHypnogramResponse
-from .grouped_ige import GroupedIge
 from .grouped_ige_response import GroupedIgeResponse
-from .grouped_igg import GroupedIgg
 from .grouped_igg_response import GroupedIggResponse
-from .grouped_inhaler_usage import GroupedInhalerUsage
 from .grouped_inhaler_usage_response import GroupedInhalerUsageResponse
-from .grouped_insulin_injection import GroupedInsulinInjection
 from .grouped_insulin_injection_response import GroupedInsulinInjectionResponse
-from .grouped_lean_body_mass import GroupedLeanBodyMass
 from .grouped_lean_body_mass_response import GroupedLeanBodyMassResponse
-from .grouped_mindfulness_minutes import GroupedMindfulnessMinutes
 from .grouped_mindfulness_minutes_response import GroupedMindfulnessMinutesResponse
-from .grouped_note import GroupedNote
 from .grouped_note_response import GroupedNoteResponse
-from .grouped_peak_expiratory_flow_rate import GroupedPeakExpiratoryFlowRate
 from .grouped_peak_expiratory_flow_rate_response import GroupedPeakExpiratoryFlowRateResponse
-from .grouped_respiratory_rate import GroupedRespiratoryRate
 from .grouped_respiratory_rate_response import GroupedRespiratoryRateResponse
-from .grouped_sleep_apnea_alert import GroupedSleepApneaAlert
 from .grouped_sleep_apnea_alert_response import GroupedSleepApneaAlertResponse
-from .grouped_sleep_breathing_disturbance import GroupedSleepBreathingDisturbance
 from .grouped_sleep_breathing_disturbance_response import GroupedSleepBreathingDisturbanceResponse
-from .grouped_stand_duration import GroupedStandDuration
 from .grouped_stand_duration_response import GroupedStandDurationResponse
-from .grouped_stand_hour import GroupedStandHour
 from .grouped_stand_hour_response import GroupedStandHourResponse
-from .grouped_steps import GroupedSteps
 from .grouped_steps_response import GroupedStepsResponse
-from .grouped_stress_level import GroupedStressLevel
 from .grouped_stress_level_response import GroupedStressLevelResponse
-from .grouped_uv_exposure import GroupedUvExposure
 from .grouped_uv_exposure_response import GroupedUvExposureResponse
-from .grouped_vo_2_max import GroupedVo2Max
 from .grouped_vo_2_max_response import GroupedVo2MaxResponse
-from .grouped_waist_circumference import GroupedWaistCircumference
 from .grouped_waist_circumference_response import GroupedWaistCircumferenceResponse
-from .grouped_water import GroupedWater
 from .grouped_water_response import GroupedWaterResponse
-from .grouped_wheelchair_push import GroupedWheelchairPush
 from .grouped_wheelchair_push_response import GroupedWheelchairPushResponse
-from .grouped_workout_distance import GroupedWorkoutDistance
 from .grouped_workout_distance_response import GroupedWorkoutDistanceResponse
-from .grouped_workout_duration import GroupedWorkoutDuration
 from .grouped_workout_duration_response import GroupedWorkoutDurationResponse
-from .grouped_workout_swimming_stroke import GroupedWorkoutSwimmingStroke
 from .grouped_workout_swimming_stroke_response import GroupedWorkoutSwimmingStrokeResponse
 from .guarantor_details import GuarantorDetails
 from .health_insurance_create_request import HealthInsuranceCreateRequest
@@ -749,11 +698,164 @@ from .utc_timestamp_with_timezone_offset import UtcTimestampWithTimezoneOffset
 from .validate_icd_codes_response import ValidateIcdCodesResponse
 from .validation_error import ValidationError
 from .validation_error_loc_item import ValidationErrorLocItem
+from .vital_core_schemas_db_schemas_lab_test_health_insurance_address import (
+    VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress,
+)
 from .vital_core_schemas_db_schemas_lab_test_health_insurance_person_details import (
     VitalCoreSchemasDbSchemasLabTestHealthInsurancePersonDetails,
 )
 from .vital_core_schemas_db_schemas_lab_test_insurance_person_details import (
     VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_a_fib_burden_sample import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingAFibBurdenSample,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_basal_body_temperature_sample import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingBasalBodyTemperatureSample,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_blood_oxygen_timeseries import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingBloodOxygenTimeseries,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_blood_pressure_timeseries import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingBloodPressureTimeseries,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_body_fat_timeseries import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingBodyFatTimeseries,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_body_mass_index_sample import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingBodyMassIndexSample,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_body_temperature_delta_sample import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingBodyTemperatureDeltaSample,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_body_temperature_sample import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingBodyTemperatureSample,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_body_weight_timeseries import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingBodyWeightTimeseries,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_caffeine_timeseries import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingCaffeineTimeseries,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_calories_active_timeseries import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingCaloriesActiveTimeseries,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_calories_basal_timeseries import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingCaloriesBasalTimeseries,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_carbohydrates_sample import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingCarbohydratesSample,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_cholesterol_timeseries import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingCholesterolTimeseries,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_daylight_exposure_sample import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingDaylightExposureSample,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_distance_timeseries import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingDistanceTimeseries,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_electrocardiogram_voltage_timeseries import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingElectrocardiogramVoltageTimeseries,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_fall_sample import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingFallSample,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_floors_climbed_timeseries import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingFloorsClimbedTimeseries,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_forced_expiratory_volume_1_sample import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingForcedExpiratoryVolume1Sample,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_forced_vital_capacity_sample import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingForcedVitalCapacitySample,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_glucose_timeseries import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingGlucoseTimeseries,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_handwashing_sample import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingHandwashingSample,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_heart_rate_alert_sample import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingHeartRateAlertSample,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_heart_rate_recovery_one_minute_sample import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingHeartRateRecoveryOneMinuteSample,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_heart_rate_timeseries import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingHeartRateTimeseries,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_hrv_timeseries import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingHrvTimeseries,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_ige_timeseries import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingIgeTimeseries,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_igg_timeseries import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingIggTimeseries,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_inhaler_usage_sample import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingInhalerUsageSample,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_insulin_injection_sample import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingInsulinInjectionSample,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_lean_body_mass_sample import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingLeanBodyMassSample,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_mindfulness_minutes_timeseries import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingMindfulnessMinutesTimeseries,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_note_sample import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingNoteSample,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_peak_expiratory_flow_rate_sample import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingPeakExpiratoryFlowRateSample,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_respiratory_rate_timeseries import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingRespiratoryRateTimeseries,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_sleep_apnea_alert_sample import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingSleepApneaAlertSample,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_sleep_breathing_disturbance_sample import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingSleepBreathingDisturbanceSample,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_stand_duration_sample import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingStandDurationSample,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_stand_hour_sample import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingStandHourSample,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_steps_timeseries import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingStepsTimeseries,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_stress_level_timeseries import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingStressLevelTimeseries,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_uv_exposure_sample import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingUvExposureSample,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_vo_2_max_timeseries import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingVo2MaxTimeseries,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_waist_circumference_sample import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingWaistCircumferenceSample,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_water_timeseries import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingWaterTimeseries,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_wheelchair_push_sample import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingWheelchairPushSample,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_workout_distance_sample import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingWorkoutDistanceSample,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_workout_duration_sample import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingWorkoutDurationSample,
+)
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_workout_swimming_stroke_sample import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingWorkoutSwimmingStrokeSample,
 )
 from .vital_sleep_stage import VitalSleepStage
 from .vital_token_created_response import VitalTokenCreatedResponse
@@ -769,7 +871,6 @@ __all__ = [
     "ActivityColumnExprActivity",
     "ActivityV2InDb",
     "AddOnOrder",
-    "Address",
     "AggregateExpr",
     "AggregateExprArg",
     "AggregateExprFunc",
@@ -1197,107 +1298,57 @@ __all__ = [
     "GetOrdersResponse",
     "GroupKeyColumnExpr",
     "GroupKeyColumnExprGroupKey",
-    "GroupedAFibBurden",
     "GroupedAFibBurdenResponse",
-    "GroupedBasalBodyTemperature",
     "GroupedBasalBodyTemperatureResponse",
-    "GroupedBloodOxygen",
     "GroupedBloodOxygenResponse",
-    "GroupedBloodPressure",
     "GroupedBloodPressureResponse",
-    "GroupedBodyFat",
     "GroupedBodyFatResponse",
-    "GroupedBodyMassIndex",
     "GroupedBodyMassIndexResponse",
-    "GroupedBodyTemperature",
-    "GroupedBodyTemperatureDelta",
     "GroupedBodyTemperatureDeltaResponse",
     "GroupedBodyTemperatureResponse",
-    "GroupedBodyWeight",
     "GroupedBodyWeightResponse",
-    "GroupedCaffeine",
     "GroupedCaffeineResponse",
-    "GroupedCaloriesActive",
     "GroupedCaloriesActiveResponse",
-    "GroupedCaloriesBasal",
     "GroupedCaloriesBasalResponse",
-    "GroupedCarbohydrates",
     "GroupedCarbohydratesResponse",
-    "GroupedCholesterol",
     "GroupedCholesterolResponse",
-    "GroupedDaylightExposure",
     "GroupedDaylightExposureResponse",
-    "GroupedDistance",
     "GroupedDistanceResponse",
-    "GroupedElectrocardiogramVoltage",
     "GroupedElectrocardiogramVoltageResponse",
-    "GroupedFall",
     "GroupedFallResponse",
-    "GroupedFloorsClimbed",
     "GroupedFloorsClimbedResponse",
-    "GroupedForcedExpiratoryVolume1",
     "GroupedForcedExpiratoryVolume1Response",
-    "GroupedForcedVitalCapacity",
     "GroupedForcedVitalCapacityResponse",
-    "GroupedGlucose",
     "GroupedGlucoseResponse",
-    "GroupedHandwashing",
     "GroupedHandwashingResponse",
-    "GroupedHeartRate",
-    "GroupedHeartRateAlert",
     "GroupedHeartRateAlertResponse",
-    "GroupedHeartRateRecoveryOneMinute",
     "GroupedHeartRateRecoveryOneMinuteResponse",
     "GroupedHeartRateResponse",
-    "GroupedHrv",
     "GroupedHrvResponse",
     "GroupedHypnogram",
     "GroupedHypnogramResponse",
-    "GroupedIge",
     "GroupedIgeResponse",
-    "GroupedIgg",
     "GroupedIggResponse",
-    "GroupedInhalerUsage",
     "GroupedInhalerUsageResponse",
-    "GroupedInsulinInjection",
     "GroupedInsulinInjectionResponse",
-    "GroupedLeanBodyMass",
     "GroupedLeanBodyMassResponse",
-    "GroupedMindfulnessMinutes",
     "GroupedMindfulnessMinutesResponse",
-    "GroupedNote",
     "GroupedNoteResponse",
-    "GroupedPeakExpiratoryFlowRate",
     "GroupedPeakExpiratoryFlowRateResponse",
-    "GroupedRespiratoryRate",
     "GroupedRespiratoryRateResponse",
-    "GroupedSleepApneaAlert",
     "GroupedSleepApneaAlertResponse",
-    "GroupedSleepBreathingDisturbance",
     "GroupedSleepBreathingDisturbanceResponse",
-    "GroupedStandDuration",
     "GroupedStandDurationResponse",
-    "GroupedStandHour",
     "GroupedStandHourResponse",
-    "GroupedSteps",
     "GroupedStepsResponse",
-    "GroupedStressLevel",
     "GroupedStressLevelResponse",
-    "GroupedUvExposure",
     "GroupedUvExposureResponse",
-    "GroupedVo2Max",
     "GroupedVo2MaxResponse",
-    "GroupedWaistCircumference",
     "GroupedWaistCircumferenceResponse",
-    "GroupedWater",
     "GroupedWaterResponse",
-    "GroupedWheelchairPush",
     "GroupedWheelchairPushResponse",
-    "GroupedWorkoutDistance",
     "GroupedWorkoutDistanceResponse",
-    "GroupedWorkoutDuration",
     "GroupedWorkoutDurationResponse",
-    "GroupedWorkoutSwimmingStroke",
     "GroupedWorkoutSwimmingStrokeResponse",
     "GuarantorDetails",
     "HealthInsuranceCreateRequest",
@@ -1468,8 +1519,59 @@ __all__ = [
     "ValidateIcdCodesResponse",
     "ValidationError",
     "ValidationErrorLocItem",
+    "VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress",
     "VitalCoreSchemasDbSchemasLabTestHealthInsurancePersonDetails",
     "VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingAFibBurdenSample",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingBasalBodyTemperatureSample",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingBloodOxygenTimeseries",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingBloodPressureTimeseries",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingBodyFatTimeseries",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingBodyMassIndexSample",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingBodyTemperatureDeltaSample",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingBodyTemperatureSample",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingBodyWeightTimeseries",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingCaffeineTimeseries",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingCaloriesActiveTimeseries",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingCaloriesBasalTimeseries",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingCarbohydratesSample",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingCholesterolTimeseries",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingDaylightExposureSample",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingDistanceTimeseries",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingElectrocardiogramVoltageTimeseries",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingFallSample",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingFloorsClimbedTimeseries",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingForcedExpiratoryVolume1Sample",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingForcedVitalCapacitySample",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingGlucoseTimeseries",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingHandwashingSample",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingHeartRateAlertSample",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingHeartRateRecoveryOneMinuteSample",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingHeartRateTimeseries",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingHrvTimeseries",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingIgeTimeseries",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingIggTimeseries",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingInhalerUsageSample",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingInsulinInjectionSample",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingLeanBodyMassSample",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingMindfulnessMinutesTimeseries",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingNoteSample",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingPeakExpiratoryFlowRateSample",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingRespiratoryRateTimeseries",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingSleepApneaAlertSample",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingSleepBreathingDisturbanceSample",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingStandDurationSample",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingStandHourSample",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingStepsTimeseries",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingStressLevelTimeseries",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingUvExposureSample",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingVo2MaxTimeseries",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingWaistCircumferenceSample",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingWaterTimeseries",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingWheelchairPushSample",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingWorkoutDistanceSample",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingWorkoutDurationSample",
+    "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingWorkoutSwimmingStrokeSample",
     "VitalSleepStage",
     "VitalTokenCreatedResponse",
     "Vitamins",

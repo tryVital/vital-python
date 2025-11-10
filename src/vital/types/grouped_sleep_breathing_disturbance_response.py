@@ -4,11 +4,18 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .grouped_sleep_breathing_disturbance import GroupedSleepBreathingDisturbance
+from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_sleep_breathing_disturbance_sample import (
+    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingSleepBreathingDisturbanceSample,
+)
 
 
 class GroupedSleepBreathingDisturbanceResponse(UniversalBaseModel):
-    groups: typing.Dict[str, typing.List[GroupedSleepBreathingDisturbance]] = pydantic.Field()
+    groups: typing.Dict[
+        str,
+        typing.List[
+            VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingSleepBreathingDisturbanceSample
+        ],
+    ] = pydantic.Field()
     """
     For each matching provider or lab, a list of grouped timeseries values.
     """
