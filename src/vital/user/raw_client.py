@@ -31,8 +31,8 @@ from ..types.user_info import UserInfo
 from ..types.user_refresh_success_response import UserRefreshSuccessResponse
 from ..types.user_sign_in_token_response import UserSignInTokenResponse
 from ..types.user_success_response import UserSuccessResponse
-from ..types.vital_core_schemas_db_schemas_lab_test_health_insurance_address import (
-    VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress,
+from ..types.vital_core_schemas_db_schemas_lab_test_insurance_address import (
+    VitalCoreSchemasDbSchemasLabTestInsuranceAddress,
 )
 from ..types.vital_core_schemas_db_schemas_lab_test_insurance_person_details import (
     VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails,
@@ -469,7 +469,7 @@ class RawUserClient:
         phone_number: str,
         gender: str,
         dob: str,
-        address: VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress,
+        address: VitalCoreSchemasDbSchemasLabTestInsuranceAddress,
         medical_proxy: typing.Optional[GuarantorDetails] = OMIT,
         race: typing.Optional[Race] = OMIT,
         ethnicity: typing.Optional[Ethnicity] = OMIT,
@@ -494,7 +494,7 @@ class RawUserClient:
 
         dob : str
 
-        address : VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress
+        address : VitalCoreSchemasDbSchemasLabTestInsuranceAddress
 
         medical_proxy : typing.Optional[GuarantorDetails]
 
@@ -1603,7 +1603,7 @@ class AsyncRawUserClient:
         phone_number: str,
         gender: str,
         dob: str,
-        address: VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress,
+        address: VitalCoreSchemasDbSchemasLabTestInsuranceAddress,
         medical_proxy: typing.Optional[GuarantorDetails] = OMIT,
         race: typing.Optional[Race] = OMIT,
         ethnicity: typing.Optional[Ethnicity] = OMIT,
@@ -1628,7 +1628,7 @@ class AsyncRawUserClient:
 
         dob : str
 
-        address : VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress
+        address : VitalCoreSchemasDbSchemasLabTestInsuranceAddress
 
         medical_proxy : typing.Optional[GuarantorDetails]
 

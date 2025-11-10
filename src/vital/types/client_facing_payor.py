@@ -5,9 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .client_facing_payor_code_source import ClientFacingPayorCodeSource
-from .vital_core_schemas_db_schemas_lab_test_health_insurance_address import (
-    VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress,
-)
+from .vital_core_schemas_db_schemas_lab_test_insurance_address import VitalCoreSchemasDbSchemasLabTestInsuranceAddress
 
 
 class ClientFacingPayor(UniversalBaseModel):
@@ -26,7 +24,7 @@ class ClientFacingPayor(UniversalBaseModel):
     Insurance name aliases returned for the insurance information.
     """
 
-    org_address: VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress = pydantic.Field()
+    org_address: VitalCoreSchemasDbSchemasLabTestInsuranceAddress = pydantic.Field()
     """
     Insurance business address returned for the insurance information.
     """

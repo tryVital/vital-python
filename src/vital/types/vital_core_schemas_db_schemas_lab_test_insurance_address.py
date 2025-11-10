@@ -6,7 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress(UniversalBaseModel):
+class VitalCoreSchemasDbSchemasLabTestInsuranceAddress(UniversalBaseModel):
     first_line: str
     second_line: typing.Optional[str] = None
     country: str

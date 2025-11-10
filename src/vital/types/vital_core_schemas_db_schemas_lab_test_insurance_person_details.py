@@ -5,16 +5,14 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .gender import Gender
-from .vital_core_schemas_db_schemas_lab_test_health_insurance_address import (
-    VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress,
-)
+from .vital_core_schemas_db_schemas_lab_test_insurance_address import VitalCoreSchemasDbSchemasLabTestInsuranceAddress
 
 
 class VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails(UniversalBaseModel):
     first_name: str
     last_name: str
     gender: Gender
-    address: VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress
+    address: VitalCoreSchemasDbSchemasLabTestInsuranceAddress
     dob: str
     email: str
     phone_number: str

@@ -9,9 +9,7 @@ from .gender_identity import GenderIdentity
 from .guarantor_details import GuarantorDetails
 from .race import Race
 from .sexual_orientation import SexualOrientation
-from .vital_core_schemas_db_schemas_lab_test_health_insurance_address import (
-    VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress,
-)
+from .vital_core_schemas_db_schemas_lab_test_insurance_address import VitalCoreSchemasDbSchemasLabTestInsuranceAddress
 
 
 class UserInfo(UniversalBaseModel):
@@ -21,7 +19,7 @@ class UserInfo(UniversalBaseModel):
     phone_number: str
     gender: str
     dob: str
-    address: VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress
+    address: VitalCoreSchemasDbSchemasLabTestInsuranceAddress
     medical_proxy: typing.Optional[GuarantorDetails] = None
     race: typing.Optional[Race] = None
     ethnicity: typing.Optional[Ethnicity] = None

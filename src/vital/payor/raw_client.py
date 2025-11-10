@@ -12,8 +12,8 @@ from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.client_facing_payor import ClientFacingPayor
 from ..types.http_validation_error import HttpValidationError
 from ..types.payor_code_external_provider import PayorCodeExternalProvider
-from ..types.vital_core_schemas_db_schemas_lab_test_health_insurance_address import (
-    VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress,
+from ..types.vital_core_schemas_db_schemas_lab_test_insurance_address import (
+    VitalCoreSchemasDbSchemasLabTestInsuranceAddress,
 )
 
 # this is used as the default value for optional parameters
@@ -28,7 +28,7 @@ class RawPayorClient:
         self,
         *,
         name: str,
-        address: VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress,
+        address: VitalCoreSchemasDbSchemasLabTestInsuranceAddress,
         provider: typing.Optional[PayorCodeExternalProvider] = OMIT,
         provider_payor_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -38,7 +38,7 @@ class RawPayorClient:
         ----------
         name : str
 
-        address : VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress
+        address : VitalCoreSchemasDbSchemasLabTestInsuranceAddress
 
         provider : typing.Optional[PayorCodeExternalProvider]
 
@@ -102,7 +102,7 @@ class AsyncRawPayorClient:
         self,
         *,
         name: str,
-        address: VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress,
+        address: VitalCoreSchemasDbSchemasLabTestInsuranceAddress,
         provider: typing.Optional[PayorCodeExternalProvider] = OMIT,
         provider_payor_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -112,7 +112,7 @@ class AsyncRawPayorClient:
         ----------
         name : str
 
-        address : VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress
+        address : VitalCoreSchemasDbSchemasLabTestInsuranceAddress
 
         provider : typing.Optional[PayorCodeExternalProvider]
 

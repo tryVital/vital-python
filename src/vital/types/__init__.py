@@ -698,12 +698,10 @@ from .utc_timestamp_with_timezone_offset import UtcTimestampWithTimezoneOffset
 from .validate_icd_codes_response import ValidateIcdCodesResponse
 from .validation_error import ValidationError
 from .validation_error_loc_item import ValidationErrorLocItem
-from .vital_core_schemas_db_schemas_lab_test_health_insurance_address import (
-    VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress,
-)
 from .vital_core_schemas_db_schemas_lab_test_health_insurance_person_details import (
     VitalCoreSchemasDbSchemasLabTestHealthInsurancePersonDetails,
 )
+from .vital_core_schemas_db_schemas_lab_test_insurance_address import VitalCoreSchemasDbSchemasLabTestInsuranceAddress
 from .vital_core_schemas_db_schemas_lab_test_insurance_person_details import (
     VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails,
 )
@@ -1519,8 +1517,8 @@ __all__ = [
     "ValidateIcdCodesResponse",
     "ValidationError",
     "ValidationErrorLocItem",
-    "VitalCoreSchemasDbSchemasLabTestHealthInsuranceAddress",
     "VitalCoreSchemasDbSchemasLabTestHealthInsurancePersonDetails",
+    "VitalCoreSchemasDbSchemasLabTestInsuranceAddress",
     "VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails",
     "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingAFibBurdenSample",
     "VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingBasalBodyTemperatureSample",
