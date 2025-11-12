@@ -4,16 +4,11 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_distance_timeseries import (
-    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingDistanceTimeseries,
-)
+from .grouped_distance import GroupedDistance
 
 
 class GroupedDistanceResponse(UniversalBaseModel):
-    groups: typing.Dict[
-        str,
-        typing.List[VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingDistanceTimeseries],
-    ] = pydantic.Field()
+    groups: typing.Dict[str, typing.List[GroupedDistance]] = pydantic.Field()
     """
     For each matching provider or lab, a list of grouped timeseries values.
     """

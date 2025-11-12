@@ -4,13 +4,13 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .vital_core_schemas_db_schemas_lab_test_insurance_address import VitalCoreSchemasDbSchemasLabTestInsuranceAddress
+from .address import Address
 
 
 class GuarantorDetails(UniversalBaseModel):
     first_name: str
     last_name: str
-    address: VitalCoreSchemasDbSchemasLabTestInsuranceAddress
+    address: Address
     phone_number: str
     household_income: typing.Optional[int] = None
     household_size: typing.Optional[int] = None

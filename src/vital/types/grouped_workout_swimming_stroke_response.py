@@ -4,18 +4,11 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_workout_swimming_stroke_sample import (
-    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingWorkoutSwimmingStrokeSample,
-)
+from .grouped_workout_swimming_stroke import GroupedWorkoutSwimmingStroke
 
 
 class GroupedWorkoutSwimmingStrokeResponse(UniversalBaseModel):
-    groups: typing.Dict[
-        str,
-        typing.List[
-            VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingWorkoutSwimmingStrokeSample
-        ],
-    ] = pydantic.Field()
+    groups: typing.Dict[str, typing.List[GroupedWorkoutSwimmingStroke]] = pydantic.Field()
     """
     For each matching provider or lab, a list of grouped timeseries values.
     """

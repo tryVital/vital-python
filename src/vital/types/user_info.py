@@ -4,12 +4,12 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .address import Address
 from .ethnicity import Ethnicity
 from .gender_identity import GenderIdentity
 from .guarantor_details import GuarantorDetails
 from .race import Race
 from .sexual_orientation import SexualOrientation
-from .vital_core_schemas_db_schemas_lab_test_insurance_address import VitalCoreSchemasDbSchemasLabTestInsuranceAddress
 
 
 class UserInfo(UniversalBaseModel):
@@ -19,7 +19,7 @@ class UserInfo(UniversalBaseModel):
     phone_number: str
     gender: str
     dob: str
-    address: VitalCoreSchemasDbSchemasLabTestInsuranceAddress
+    address: Address
     medical_proxy: typing.Optional[GuarantorDetails] = None
     race: typing.Optional[Race] = None
     ethnicity: typing.Optional[Ethnicity] = None

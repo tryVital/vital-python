@@ -5,9 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .client_facing_hrv_changed_event_type import ClientFacingHrvChangedEventType
-from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_hrv_timeseries import (
-    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingHrvTimeseries,
-)
+from .grouped_hrv import GroupedHrv
 
 
 class ClientFacingHrvChanged(UniversalBaseModel):
@@ -15,7 +13,7 @@ class ClientFacingHrvChanged(UniversalBaseModel):
     user_id: str
     client_user_id: str
     team_id: str
-    data: VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingHrvTimeseries
+    data: GroupedHrv
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -4,16 +4,11 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_caffeine_timeseries import (
-    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingCaffeineTimeseries,
-)
+from .grouped_caffeine import GroupedCaffeine
 
 
 class GroupedCaffeineResponse(UniversalBaseModel):
-    groups: typing.Dict[
-        str,
-        typing.List[VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingCaffeineTimeseries],
-    ] = pydantic.Field()
+    groups: typing.Dict[str, typing.List[GroupedCaffeine]] = pydantic.Field()
     """
     For each matching provider or lab, a list of grouped timeseries values.
     """

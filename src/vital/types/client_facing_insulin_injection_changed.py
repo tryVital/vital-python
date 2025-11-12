@@ -5,9 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .client_facing_insulin_injection_changed_event_type import ClientFacingInsulinInjectionChangedEventType
-from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_insulin_injection_sample import (
-    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingInsulinInjectionSample,
-)
+from .grouped_insulin_injection import GroupedInsulinInjection
 
 
 class ClientFacingInsulinInjectionChanged(UniversalBaseModel):
@@ -15,7 +13,7 @@ class ClientFacingInsulinInjectionChanged(UniversalBaseModel):
     user_id: str
     client_user_id: str
     team_id: str
-    data: VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingInsulinInjectionSample
+    data: GroupedInsulinInjection
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

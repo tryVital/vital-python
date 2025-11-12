@@ -4,18 +4,11 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_wheelchair_push_sample import (
-    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingWheelchairPushSample,
-)
+from .grouped_wheelchair_push import GroupedWheelchairPush
 
 
 class GroupedWheelchairPushResponse(UniversalBaseModel):
-    groups: typing.Dict[
-        str,
-        typing.List[
-            VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingWheelchairPushSample
-        ],
-    ] = pydantic.Field()
+    groups: typing.Dict[str, typing.List[GroupedWheelchairPush]] = pydantic.Field()
     """
     For each matching provider or lab, a list of grouped timeseries values.
     """

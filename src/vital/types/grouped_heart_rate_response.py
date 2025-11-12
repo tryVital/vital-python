@@ -4,18 +4,11 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_heart_rate_timeseries import (
-    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingHeartRateTimeseries,
-)
+from .grouped_heart_rate import GroupedHeartRate
 
 
 class GroupedHeartRateResponse(UniversalBaseModel):
-    groups: typing.Dict[
-        str,
-        typing.List[
-            VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingHeartRateTimeseries
-        ],
-    ] = pydantic.Field()
+    groups: typing.Dict[str, typing.List[GroupedHeartRate]] = pydantic.Field()
     """
     For each matching provider or lab, a list of grouped timeseries values.
     """

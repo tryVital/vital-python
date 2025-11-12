@@ -4,18 +4,11 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_forced_vital_capacity_sample import (
-    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingForcedVitalCapacitySample,
-)
+from .grouped_forced_vital_capacity import GroupedForcedVitalCapacity
 
 
 class GroupedForcedVitalCapacityResponse(UniversalBaseModel):
-    groups: typing.Dict[
-        str,
-        typing.List[
-            VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingForcedVitalCapacitySample
-        ],
-    ] = pydantic.Field()
+    groups: typing.Dict[str, typing.List[GroupedForcedVitalCapacity]] = pydantic.Field()
     """
     For each matching provider or lab, a list of grouped timeseries values.
     """

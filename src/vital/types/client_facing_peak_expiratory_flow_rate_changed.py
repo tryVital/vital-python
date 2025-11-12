@@ -7,9 +7,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .client_facing_peak_expiratory_flow_rate_changed_event_type import (
     ClientFacingPeakExpiratoryFlowRateChangedEventType,
 )
-from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_peak_expiratory_flow_rate_sample import (
-    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingPeakExpiratoryFlowRateSample,
-)
+from .grouped_peak_expiratory_flow_rate import GroupedPeakExpiratoryFlowRate
 
 
 class ClientFacingPeakExpiratoryFlowRateChanged(UniversalBaseModel):
@@ -17,7 +15,7 @@ class ClientFacingPeakExpiratoryFlowRateChanged(UniversalBaseModel):
     user_id: str
     client_user_id: str
     team_id: str
-    data: VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingPeakExpiratoryFlowRateSample
+    data: GroupedPeakExpiratoryFlowRate
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

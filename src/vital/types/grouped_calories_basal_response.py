@@ -4,18 +4,11 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_calories_basal_timeseries import (
-    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingCaloriesBasalTimeseries,
-)
+from .grouped_calories_basal import GroupedCaloriesBasal
 
 
 class GroupedCaloriesBasalResponse(UniversalBaseModel):
-    groups: typing.Dict[
-        str,
-        typing.List[
-            VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingCaloriesBasalTimeseries
-        ],
-    ] = pydantic.Field()
+    groups: typing.Dict[str, typing.List[GroupedCaloriesBasal]] = pydantic.Field()
     """
     For each matching provider or lab, a list of grouped timeseries values.
     """

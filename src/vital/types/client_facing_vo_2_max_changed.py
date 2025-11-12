@@ -5,9 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .client_facing_vo_2_max_changed_event_type import ClientFacingVo2MaxChangedEventType
-from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_vo_2_max_timeseries import (
-    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingVo2MaxTimeseries,
-)
+from .grouped_vo_2_max import GroupedVo2Max
 
 
 class ClientFacingVo2MaxChanged(UniversalBaseModel):
@@ -15,7 +13,7 @@ class ClientFacingVo2MaxChanged(UniversalBaseModel):
     user_id: str
     client_user_id: str
     team_id: str
-    data: VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingVo2MaxTimeseries
+    data: GroupedVo2Max
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

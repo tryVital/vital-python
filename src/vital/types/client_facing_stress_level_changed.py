@@ -5,9 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .client_facing_stress_level_changed_event_type import ClientFacingStressLevelChangedEventType
-from .vital_core_schemas_response_schemas_timeseries_client_facing_timeseries_group_client_facing_stress_level_timeseries import (
-    VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingStressLevelTimeseries,
-)
+from .grouped_stress_level import GroupedStressLevel
 
 
 class ClientFacingStressLevelChanged(UniversalBaseModel):
@@ -15,7 +13,7 @@ class ClientFacingStressLevelChanged(UniversalBaseModel):
     user_id: str
     client_user_id: str
     team_id: str
-    data: VitalCoreSchemasResponseSchemasTimeseriesClientFacingTimeseriesGroupClientFacingStressLevelTimeseries
+    data: GroupedStressLevel
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

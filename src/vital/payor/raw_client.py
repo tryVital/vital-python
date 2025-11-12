@@ -9,12 +9,10 @@ from ..core.http_response import AsyncHttpResponse, HttpResponse
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
+from ..types.address import Address
 from ..types.client_facing_payor import ClientFacingPayor
 from ..types.http_validation_error import HttpValidationError
 from ..types.payor_code_external_provider import PayorCodeExternalProvider
-from ..types.vital_core_schemas_db_schemas_lab_test_insurance_address import (
-    VitalCoreSchemasDbSchemasLabTestInsuranceAddress,
-)
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -28,7 +26,7 @@ class RawPayorClient:
         self,
         *,
         name: str,
-        address: VitalCoreSchemasDbSchemasLabTestInsuranceAddress,
+        address: Address,
         provider: typing.Optional[PayorCodeExternalProvider] = OMIT,
         provider_payor_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -38,7 +36,7 @@ class RawPayorClient:
         ----------
         name : str
 
-        address : VitalCoreSchemasDbSchemasLabTestInsuranceAddress
+        address : Address
 
         provider : typing.Optional[PayorCodeExternalProvider]
 
@@ -102,7 +100,7 @@ class AsyncRawPayorClient:
         self,
         *,
         name: str,
-        address: VitalCoreSchemasDbSchemasLabTestInsuranceAddress,
+        address: Address,
         provider: typing.Optional[PayorCodeExternalProvider] = OMIT,
         provider_payor_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -112,7 +110,7 @@ class AsyncRawPayorClient:
         ----------
         name : str
 
-        address : VitalCoreSchemasDbSchemasLabTestInsuranceAddress
+        address : Address
 
         provider : typing.Optional[PayorCodeExternalProvider]
 
