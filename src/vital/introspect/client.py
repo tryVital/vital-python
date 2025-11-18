@@ -8,6 +8,7 @@ from ..types.providers import Providers
 from ..types.user_historical_pulls_response import UserHistoricalPullsResponse
 from ..types.user_resources_response import UserResourcesResponse
 from .raw_client import AsyncRawIntrospectClient, RawIntrospectClient
+from .types.get_user_historical_pulls_introspect_request_provider import GetUserHistoricalPullsIntrospectRequestProvider
 
 
 class IntrospectClient:
@@ -78,7 +79,7 @@ class IntrospectClient:
         self,
         *,
         user_id: typing.Optional[str] = None,
-        provider: typing.Optional[Providers] = None,
+        provider: typing.Optional[GetUserHistoricalPullsIntrospectRequestProvider] = None,
         user_limit: typing.Optional[int] = None,
         cursor: typing.Optional[str] = None,
         next_cursor: typing.Optional[str] = None,
@@ -90,7 +91,7 @@ class IntrospectClient:
         user_id : typing.Optional[str]
             Filter by user ID.
 
-        provider : typing.Optional[Providers]
+        provider : typing.Optional[GetUserHistoricalPullsIntrospectRequestProvider]
 
         user_limit : typing.Optional[int]
 
@@ -195,7 +196,7 @@ class AsyncIntrospectClient:
         self,
         *,
         user_id: typing.Optional[str] = None,
-        provider: typing.Optional[Providers] = None,
+        provider: typing.Optional[GetUserHistoricalPullsIntrospectRequestProvider] = None,
         user_limit: typing.Optional[int] = None,
         cursor: typing.Optional[str] = None,
         next_cursor: typing.Optional[str] = None,
@@ -207,7 +208,7 @@ class AsyncIntrospectClient:
         user_id : typing.Optional[str]
             Filter by user ID.
 
-        provider : typing.Optional[Providers]
+        provider : typing.Optional[GetUserHistoricalPullsIntrospectRequestProvider]
 
         user_limit : typing.Optional[int]
 

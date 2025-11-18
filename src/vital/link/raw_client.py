@@ -30,11 +30,11 @@ from ..types.region import Region
 from ..types.source import Source
 from ..types.source_link import SourceLink
 from ..types.vital_token_created_response import VitalTokenCreatedResponse
-from .types.link_bulk_export_request_team_id import LinkBulkExportRequestTeamId
-from .types.link_bulk_import_request_team_id import LinkBulkImportRequestTeamId
-from .types.link_bulk_pause_request_team_id import LinkBulkPauseRequestTeamId
-from .types.link_bulk_trigger_historical_pull_request_team_id import LinkBulkTriggerHistoricalPullRequestTeamId
-from .types.link_list_bulk_ops_request_team_id import LinkListBulkOpsRequestTeamId
+from .types.bulk_export_link_request_team_id import BulkExportLinkRequestTeamId
+from .types.bulk_import_link_request_team_id import BulkImportLinkRequestTeamId
+from .types.bulk_pause_link_request_team_id import BulkPauseLinkRequestTeamId
+from .types.bulk_trigger_historical_pull_link_request_team_id import BulkTriggerHistoricalPullLinkRequestTeamId
+from .types.list_bulk_ops_link_request_team_id import ListBulkOpsLinkRequestTeamId
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -49,7 +49,7 @@ class RawLinkClient:
         *,
         next_cursor: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
-        team_id: typing.Optional[LinkListBulkOpsRequestTeamId] = None,
+        team_id: typing.Optional[ListBulkOpsLinkRequestTeamId] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[BulkOpsResponse]:
         """
@@ -59,7 +59,7 @@ class RawLinkClient:
 
         page_size : typing.Optional[int]
 
-        team_id : typing.Optional[LinkListBulkOpsRequestTeamId]
+        team_id : typing.Optional[ListBulkOpsLinkRequestTeamId]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -110,7 +110,7 @@ class RawLinkClient:
         *,
         provider: OAuthProviders,
         connections: typing.Sequence[ConnectionRecipe],
-        team_id: typing.Optional[LinkBulkImportRequestTeamId] = None,
+        team_id: typing.Optional[BulkImportLinkRequestTeamId] = None,
         wait_for_completion: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[BulkImportConnectionsResponse]:
@@ -121,7 +121,7 @@ class RawLinkClient:
 
         connections : typing.Sequence[ConnectionRecipe]
 
-        team_id : typing.Optional[LinkBulkImportRequestTeamId]
+        team_id : typing.Optional[BulkImportLinkRequestTeamId]
 
         wait_for_completion : typing.Optional[bool]
 
@@ -188,7 +188,7 @@ class RawLinkClient:
         *,
         user_ids: typing.Sequence[str],
         provider: OAuthProviders,
-        team_id: typing.Optional[LinkBulkTriggerHistoricalPullRequestTeamId] = None,
+        team_id: typing.Optional[BulkTriggerHistoricalPullLinkRequestTeamId] = None,
         wait_for_completion: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.Optional[typing.Any]]:
@@ -199,7 +199,7 @@ class RawLinkClient:
 
         provider : OAuthProviders
 
-        team_id : typing.Optional[LinkBulkTriggerHistoricalPullRequestTeamId]
+        team_id : typing.Optional[BulkTriggerHistoricalPullLinkRequestTeamId]
 
         wait_for_completion : typing.Optional[bool]
 
@@ -265,7 +265,7 @@ class RawLinkClient:
         self,
         *,
         provider: OAuthProviders,
-        team_id: typing.Optional[LinkBulkExportRequestTeamId] = None,
+        team_id: typing.Optional[BulkExportLinkRequestTeamId] = None,
         user_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         next_token: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -275,7 +275,7 @@ class RawLinkClient:
         ----------
         provider : OAuthProviders
 
-        team_id : typing.Optional[LinkBulkExportRequestTeamId]
+        team_id : typing.Optional[BulkExportLinkRequestTeamId]
 
         user_ids : typing.Optional[typing.Sequence[str]]
 
@@ -337,7 +337,7 @@ class RawLinkClient:
         *,
         user_ids: typing.Sequence[str],
         provider: OAuthProviders,
-        team_id: typing.Optional[LinkBulkPauseRequestTeamId] = None,
+        team_id: typing.Optional[BulkPauseLinkRequestTeamId] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.Optional[typing.Any]]:
         """
@@ -347,7 +347,7 @@ class RawLinkClient:
 
         provider : OAuthProviders
 
-        team_id : typing.Optional[LinkBulkPauseRequestTeamId]
+        team_id : typing.Optional[BulkPauseLinkRequestTeamId]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1337,7 +1337,7 @@ class AsyncRawLinkClient:
         *,
         next_cursor: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
-        team_id: typing.Optional[LinkListBulkOpsRequestTeamId] = None,
+        team_id: typing.Optional[ListBulkOpsLinkRequestTeamId] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[BulkOpsResponse]:
         """
@@ -1347,7 +1347,7 @@ class AsyncRawLinkClient:
 
         page_size : typing.Optional[int]
 
-        team_id : typing.Optional[LinkListBulkOpsRequestTeamId]
+        team_id : typing.Optional[ListBulkOpsLinkRequestTeamId]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1398,7 +1398,7 @@ class AsyncRawLinkClient:
         *,
         provider: OAuthProviders,
         connections: typing.Sequence[ConnectionRecipe],
-        team_id: typing.Optional[LinkBulkImportRequestTeamId] = None,
+        team_id: typing.Optional[BulkImportLinkRequestTeamId] = None,
         wait_for_completion: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[BulkImportConnectionsResponse]:
@@ -1409,7 +1409,7 @@ class AsyncRawLinkClient:
 
         connections : typing.Sequence[ConnectionRecipe]
 
-        team_id : typing.Optional[LinkBulkImportRequestTeamId]
+        team_id : typing.Optional[BulkImportLinkRequestTeamId]
 
         wait_for_completion : typing.Optional[bool]
 
@@ -1476,7 +1476,7 @@ class AsyncRawLinkClient:
         *,
         user_ids: typing.Sequence[str],
         provider: OAuthProviders,
-        team_id: typing.Optional[LinkBulkTriggerHistoricalPullRequestTeamId] = None,
+        team_id: typing.Optional[BulkTriggerHistoricalPullLinkRequestTeamId] = None,
         wait_for_completion: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.Optional[typing.Any]]:
@@ -1487,7 +1487,7 @@ class AsyncRawLinkClient:
 
         provider : OAuthProviders
 
-        team_id : typing.Optional[LinkBulkTriggerHistoricalPullRequestTeamId]
+        team_id : typing.Optional[BulkTriggerHistoricalPullLinkRequestTeamId]
 
         wait_for_completion : typing.Optional[bool]
 
@@ -1553,7 +1553,7 @@ class AsyncRawLinkClient:
         self,
         *,
         provider: OAuthProviders,
-        team_id: typing.Optional[LinkBulkExportRequestTeamId] = None,
+        team_id: typing.Optional[BulkExportLinkRequestTeamId] = None,
         user_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         next_token: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1563,7 +1563,7 @@ class AsyncRawLinkClient:
         ----------
         provider : OAuthProviders
 
-        team_id : typing.Optional[LinkBulkExportRequestTeamId]
+        team_id : typing.Optional[BulkExportLinkRequestTeamId]
 
         user_ids : typing.Optional[typing.Sequence[str]]
 
@@ -1625,7 +1625,7 @@ class AsyncRawLinkClient:
         *,
         user_ids: typing.Sequence[str],
         provider: OAuthProviders,
-        team_id: typing.Optional[LinkBulkPauseRequestTeamId] = None,
+        team_id: typing.Optional[BulkPauseLinkRequestTeamId] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.Optional[typing.Any]]:
         """
@@ -1635,7 +1635,7 @@ class AsyncRawLinkClient:
 
         provider : OAuthProviders
 
-        team_id : typing.Optional[LinkBulkPauseRequestTeamId]
+        team_id : typing.Optional[BulkPauseLinkRequestTeamId]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

@@ -8,7 +8,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class FallbackBirthDate(UniversalBaseModel):
-    value: str = pydantic.Field()
+    value: dt.date = pydantic.Field()
     """
     Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
     """

@@ -23,7 +23,7 @@ class ClientFacingSleep(UniversalBaseModel):
     Date of the specified record, formatted as ISO8601 datetime string in UTC 00:00. Deprecated in favour of calendar_date.
     """
 
-    calendar_date: str = pydantic.Field()
+    calendar_date: dt.date = pydantic.Field()
     """
     Date of the sleep summary in the YYYY-mm-dd format. This generally matches the sleep end date.
     """

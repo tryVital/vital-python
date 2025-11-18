@@ -49,12 +49,12 @@ class ClientFacingUser(UniversalBaseModel):
     Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
     """
 
-    ingestion_start: typing.Optional[str] = pydantic.Field(default=None)
+    ingestion_start: typing.Optional[dt.date] = pydantic.Field(default=None)
     """
     Starting bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
     """
 
-    ingestion_end: typing.Optional[str] = pydantic.Field(default=None)
+    ingestion_end: typing.Optional[dt.date] = pydantic.Field(default=None)
     """
     Ending bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
     """

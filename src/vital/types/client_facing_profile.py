@@ -18,7 +18,7 @@ class ClientFacingProfile(UniversalBaseModel):
     """
 
     height: typing.Optional[int] = None
-    birth_date: typing.Optional[str] = None
+    birth_date: typing.Optional[dt.date] = None
     wheelchair_use: typing.Optional[bool] = None
     gender: typing.Optional[Gender] = None
     sex: typing.Optional[Sex] = None

@@ -47,7 +47,7 @@ client.link.list_bulk_ops()
 <dl>
 <dd>
 
-**team_id:** `typing.Optional[LinkListBulkOpsRequestTeamId]` 
+**team_id:** `typing.Optional[ListBulkOpsLinkRequestTeamId]` 
     
 </dd>
 </dl>
@@ -116,7 +116,7 @@ client.link.bulk_import(provider=OAuthProviders.OURA, connections=[ConnectionRec
 <dl>
 <dd>
 
-**team_id:** `typing.Optional[LinkBulkImportRequestTeamId]` 
+**team_id:** `typing.Optional[BulkImportLinkRequestTeamId]` 
     
 </dd>
 </dl>
@@ -200,7 +200,7 @@ client.link.bulk_trigger_historical_pull(user_ids=['user_ids'], provider=OAuthPr
 <dl>
 <dd>
 
-**team_id:** `typing.Optional[LinkBulkTriggerHistoricalPullRequestTeamId]` 
+**team_id:** `typing.Optional[BulkTriggerHistoricalPullLinkRequestTeamId]` 
     
 </dd>
 </dl>
@@ -276,7 +276,7 @@ client.link.bulk_export(provider=OAuthProviders.OURA, )
 <dl>
 <dd>
 
-**team_id:** `typing.Optional[LinkBulkExportRequestTeamId]` 
+**team_id:** `typing.Optional[BulkExportLinkRequestTeamId]` 
     
 </dd>
 </dl>
@@ -360,7 +360,7 @@ client.link.bulk_pause(user_ids=['user_ids'], provider=OAuthProviders.OURA, )
 <dl>
 <dd>
 
-**team_id:** `typing.Optional[LinkBulkPauseRequestTeamId]` 
+**team_id:** `typing.Optional[BulkPauseLinkRequestTeamId]` 
     
 </dd>
 </dl>
@@ -1552,8 +1552,9 @@ Get electrocardiogram summary for user_id
 
 ```python
 from vital import Vital
+import datetime
 client = Vital(api_key="YOUR_API_KEY", )
-client.electrocardiogram.get(user_id='user_id', start_date='start_date', )
+client.electrocardiogram.get(user_id='user_id', start_date=datetime.date.fromisoformat("2023-01-15", ), )
 
 ```
 </dd>
@@ -1577,7 +1578,7 @@ client.electrocardiogram.get(user_id='user_id', start_date='start_date', )
 <dl>
 <dd>
 
-**start_date:** `str` 
+**start_date:** `dt.date` 
     
 </dd>
 </dl>
@@ -1585,7 +1586,7 @@ client.electrocardiogram.get(user_id='user_id', start_date='start_date', )
 <dl>
 <dd>
 
-**end_date:** `typing.Optional[str]` 
+**end_date:** `typing.Optional[dt.date]` 
     
 </dd>
 </dl>
@@ -1642,8 +1643,9 @@ Get sleep cycle for user_id
 
 ```python
 from vital import Vital
+import datetime
 client = Vital(api_key="YOUR_API_KEY", )
-client.sleep_cycle.get(user_id='user_id', start_date='start_date', )
+client.sleep_cycle.get(user_id='user_id', start_date=datetime.date.fromisoformat("2023-01-15", ), )
 
 ```
 </dd>
@@ -1667,7 +1669,7 @@ client.sleep_cycle.get(user_id='user_id', start_date='start_date', )
 <dl>
 <dd>
 
-**start_date:** `str` 
+**start_date:** `dt.date` 
     
 </dd>
 </dl>
@@ -1675,7 +1677,7 @@ client.sleep_cycle.get(user_id='user_id', start_date='start_date', )
 <dl>
 <dd>
 
-**end_date:** `typing.Optional[str]` 
+**end_date:** `typing.Optional[dt.date]` 
     
 </dd>
 </dl>
@@ -2861,8 +2863,9 @@ client.meal.get(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
+import datetime
 client = Vital(api_key="YOUR_API_KEY", )
-client.menstrual_cycle.get(user_id='user_id', start_date='start_date', )
+client.menstrual_cycle.get(user_id='user_id', start_date=datetime.date.fromisoformat("2023-01-15", ), )
 
 ```
 </dd>
@@ -2886,7 +2889,7 @@ client.menstrual_cycle.get(user_id='user_id', start_date='start_date', )
 <dl>
 <dd>
 
-**start_date:** `str` 
+**start_date:** `dt.date` 
     
 </dd>
 </dl>
@@ -2902,7 +2905,7 @@ client.menstrual_cycle.get(user_id='user_id', start_date='start_date', )
 <dl>
 <dd>
 
-**end_date:** `typing.Optional[str]` 
+**end_date:** `typing.Optional[dt.date]` 
     
 </dd>
 </dl>
@@ -9729,7 +9732,7 @@ client.user.create(client_user_id='client_user_id', )
 <dl>
 <dd>
 
-**fallback_birth_date:** `typing.Optional[str]` — Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
+**fallback_birth_date:** `typing.Optional[dt.date]` — Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
     
 </dd>
 </dl>
@@ -9737,7 +9740,7 @@ client.user.create(client_user_id='client_user_id', )
 <dl>
 <dd>
 
-**ingestion_start:** `typing.Optional[str]` — Starting bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
+**ingestion_start:** `typing.Optional[dt.date]` — Starting bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
     
 </dd>
 </dl>
@@ -9745,7 +9748,7 @@ client.user.create(client_user_id='client_user_id', )
 <dl>
 <dd>
 
-**ingestion_end:** `typing.Optional[str]` — Ending bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
+**ingestion_end:** `typing.Optional[dt.date]` — Ending bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
     
 </dd>
 </dl>
@@ -9956,8 +9959,9 @@ from vital import ResponsibleRelationship
 from vital import VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails
 from vital import Gender
 from vital import Address
+import datetime
 client = Vital(api_key="YOUR_API_KEY", )
-client.user.create_insurance(user_id='user_id', payor_code='payor_code', member_id='member_id', relationship=ResponsibleRelationship.SELF, insured=VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails(first_name='first_name', last_name='last_name', gender=Gender.FEMALE, address=Address(first_line='first_line', country='country', zip='zip', city='city', state='state', ), dob='dob', email='email', phone_number='phone_number', ), )
+client.user.create_insurance(user_id='user_id', payor_code='payor_code', member_id='member_id', relationship=ResponsibleRelationship.SELF, insured=VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails(first_name='first_name', last_name='last_name', gender=Gender.FEMALE, address=Address(first_line='first_line', country='country', zip='zip', city='city', state='state', ), dob=datetime.date.fromisoformat("2023-01-15", ), email='email', phone_number='phone_number', ), )
 
 ```
 </dd>
@@ -10106,9 +10110,10 @@ client.user.get_latest_insurance(user_id='user_id', )
 
 ```python
 from vital import Vital
+import datetime
 from vital import Address
 client = Vital(api_key="YOUR_API_KEY", )
-client.user.upsert_user_info(user_id='user_id', first_name='first_name', last_name='last_name', email='email', phone_number='phone_number', gender='gender', dob='dob', address=Address(first_line='first_line', country='country', zip='zip', city='city', state='state', ), )
+client.user.upsert_user_info(user_id='user_id', first_name='first_name', last_name='last_name', email='email', phone_number='phone_number', gender='gender', dob=datetime.date.fromisoformat("2023-01-15", ), address=Address(first_line='first_line', country='country', zip='zip', city='city', state='state', ), )
 
 ```
 </dd>
@@ -10172,7 +10177,7 @@ client.user.upsert_user_info(user_id='user_id', first_name='first_name', last_na
 <dl>
 <dd>
 
-**dob:** `str` 
+**dob:** `dt.date` 
     
 </dd>
 </dl>
@@ -10519,7 +10524,7 @@ client.user.patch(user_id='user_id', )
 <dl>
 <dd>
 
-**fallback_birth_date:** `typing.Optional[str]` — Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
+**fallback_birth_date:** `typing.Optional[dt.date]` — Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
     
 </dd>
 </dl>
@@ -10527,7 +10532,7 @@ client.user.patch(user_id='user_id', )
 <dl>
 <dd>
 
-**ingestion_start:** `typing.Optional[str]` — Starting bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
+**ingestion_start:** `typing.Optional[dt.date]` — Starting bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
     
 </dd>
 </dl>
@@ -10535,7 +10540,7 @@ client.user.patch(user_id='user_id', )
 <dl>
 <dd>
 
-**ingestion_end:** `typing.Optional[str]` — Ending bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
+**ingestion_end:** `typing.Optional[dt.date]` — Ending bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
     
 </dd>
 </dl>
@@ -11533,7 +11538,7 @@ client.introspect.get_user_historical_pulls()
 <dl>
 <dd>
 
-**provider:** `typing.Optional[Providers]` 
+**provider:** `typing.Optional[GetUserHistoricalPullsIntrospectRequestProvider]` 
     
 </dd>
 </dl>
@@ -11655,7 +11660,7 @@ client.lab_tests.get()
 <dl>
 <dd>
 
-**marker_ids:** `typing.Optional[typing.Union[int, typing.Sequence[int]]]` — Filter to only include lab tests containing these marker IDs.
+**marker_ids:** `typing.Optional[typing.Sequence[int]]` — Filter to only include lab tests containing these marker IDs.
     
 </dd>
 </dl>
@@ -11663,7 +11668,7 @@ client.lab_tests.get()
 <dl>
 <dd>
 
-**provider_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter to only include lab tests containing these provider IDs.
+**provider_ids:** `typing.Optional[typing.Sequence[str]]` — Filter to only include lab tests containing these provider IDs.
     
 </dd>
 </dl>
@@ -11679,7 +11684,7 @@ client.lab_tests.get()
 <dl>
 <dd>
 
-**order_key:** `typing.Optional[LabTestsGetRequestOrderKey]` 
+**order_key:** `typing.Optional[GetLabTestsRequestOrderKey]` 
     
 </dd>
 </dl>
@@ -11687,7 +11692,7 @@ client.lab_tests.get()
 <dl>
 <dd>
 
-**order_direction:** `typing.Optional[LabTestsGetRequestOrderDirection]` 
+**order_direction:** `typing.Optional[GetLabTestsRequestOrderDirection]` 
     
 </dd>
 </dl>
@@ -11984,7 +11989,7 @@ client.lab_tests.get_markers()
 <dl>
 <dd>
 
-**lab_id:** `typing.Optional[typing.Union[int, typing.Sequence[int]]]` — The identifier Vital assigned to a lab partner.
+**lab_id:** `typing.Optional[typing.Sequence[int]]` — The identifier Vital assigned to a lab partner.
     
 </dd>
 </dl>
@@ -12216,7 +12221,7 @@ GET a specific marker for the given lab and provider_id
 ```python
 from vital import Vital
 client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.get_markers_by_lab_and_provider_id(provider_id='provider_id', lab_id=1, )
+client.lab_tests.get_markers_by_lab_and_provider_id(lab_id=1, provider_id='provider_id', )
 
 ```
 </dd>
@@ -12232,7 +12237,7 @@ client.lab_tests.get_markers_by_lab_and_provider_id(provider_id='provider_id', l
 <dl>
 <dd>
 
-**provider_id:** `str` 
+**lab_id:** `int` 
     
 </dd>
 </dl>
@@ -12240,7 +12245,7 @@ client.lab_tests.get_markers_by_lab_and_provider_id(provider_id='provider_id', l
 <dl>
 <dd>
 
-**lab_id:** `int` 
+**provider_id:** `str` 
     
 </dd>
 </dl>
@@ -12418,7 +12423,7 @@ client.lab_tests.get_paginated()
 <dl>
 <dd>
 
-**marker_ids:** `typing.Optional[typing.Union[int, typing.Sequence[int]]]` — Filter to only include lab tests containing these marker IDs.
+**marker_ids:** `typing.Optional[typing.Sequence[int]]` — Filter to only include lab tests containing these marker IDs.
     
 </dd>
 </dl>
@@ -12426,7 +12431,7 @@ client.lab_tests.get_paginated()
 <dl>
 <dd>
 
-**provider_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter to only include lab tests containing these provider IDs.
+**provider_ids:** `typing.Optional[typing.Sequence[str]]` — Filter to only include lab tests containing these provider IDs.
     
 </dd>
 </dl>
@@ -12442,7 +12447,7 @@ client.lab_tests.get_paginated()
 <dl>
 <dd>
 
-**order_key:** `typing.Optional[LabTestsGetPaginatedRequestOrderKey]` 
+**order_key:** `typing.Optional[GetPaginatedLabTestsRequestOrderKey]` 
     
 </dd>
 </dl>
@@ -12450,7 +12455,7 @@ client.lab_tests.get_paginated()
 <dl>
 <dd>
 
-**order_direction:** `typing.Optional[LabTestsGetPaginatedRequestOrderDirection]` 
+**order_direction:** `typing.Optional[GetPaginatedLabTestsRequestOrderDirection]` 
     
 </dd>
 </dl>
@@ -12459,6 +12464,57 @@ client.lab_tests.get_paginated()
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_lab_test_collection_instruction_pdf</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.get_lab_test_collection_instruction_pdf(lab_test_id='lab_test_id', )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**lab_test_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration. You can pass in configuration such as `chunk_size`, and more to customize the request and response.
     
 </dd>
 </dl>
@@ -12555,7 +12611,7 @@ client.lab_tests.get_orders()
 <dl>
 <dd>
 
-**status:** `typing.Optional[typing.Union[OrderLowLevelStatus, typing.Sequence[OrderLowLevelStatus]]]` — Filter by low level status.
+**status:** `typing.Optional[typing.Sequence[OrderLowLevelStatus]]` — Filter by low level status.
     
 </dd>
 </dl>
@@ -12563,7 +12619,7 @@ client.lab_tests.get_orders()
 <dl>
 <dd>
 
-**order_key:** `typing.Optional[LabTestsGetOrdersRequestOrderKey]` — Order key to sort by.
+**order_key:** `typing.Optional[GetOrdersLabTestsRequestOrderKey]` — Order key to sort by.
     
 </dd>
 </dl>
@@ -12571,7 +12627,7 @@ client.lab_tests.get_orders()
 <dl>
 <dd>
 
-**order_direction:** `typing.Optional[LabTestsGetOrdersRequestOrderDirection]` — Order direction to sort by.
+**order_direction:** `typing.Optional[GetOrdersLabTestsRequestOrderDirection]` — Order direction to sort by.
     
 </dd>
 </dl>
@@ -12579,7 +12635,7 @@ client.lab_tests.get_orders()
 <dl>
 <dd>
 
-**order_type:** `typing.Optional[typing.Union[LabTestCollectionMethod, typing.Sequence[LabTestCollectionMethod]]]` — Filter by method used to perform the lab test.
+**order_type:** `typing.Optional[typing.Sequence[LabTestCollectionMethod]]` — Filter by method used to perform the lab test.
     
 </dd>
 </dl>
@@ -12603,7 +12659,7 @@ client.lab_tests.get_orders()
 <dl>
 <dd>
 
-**order_activation_types:** `typing.Optional[typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]]` — Filter by activation type.
+**order_activation_types:** `typing.Optional[typing.Sequence[OrderActivationType]]` — Filter by activation type.
     
 </dd>
 </dl>
@@ -12635,7 +12691,7 @@ client.lab_tests.get_orders()
 <dl>
 <dd>
 
-**order_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter by order ids.
+**order_ids:** `typing.Optional[typing.Sequence[str]]` — Filter by order ids.
     
 </dd>
 </dl>
@@ -12726,7 +12782,7 @@ client.lab_tests.get_phlebotomy_appointment_availability(request=UsAddress(first
 <dl>
 <dd>
 
-**start_date:** `typing.Optional[str]` — Start date for appointment availability
+**start_date:** `typing.Optional[dt.date]` — Start date for appointment availability
     
 </dd>
 </dl>
@@ -13253,7 +13309,7 @@ client.lab_tests.get_area_info(zip_code='zip_code', )
 <dl>
 <dd>
 
-**labs:** `typing.Optional[typing.Union[ClientFacingLabs, typing.Sequence[ClientFacingLabs]]]` — List of labs to check for PSCs
+**labs:** `typing.Optional[typing.Sequence[ClientFacingLabs]]` — List of labs to check for PSCs
     
 </dd>
 </dl>
@@ -13336,7 +13392,7 @@ client.lab_tests.get_psc_info(zip_code='zip_code', lab_id=1, )
 <dl>
 <dd>
 
-**capabilities:** `typing.Optional[typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]]` — Filter for only locations with certain capabilities
+**capabilities:** `typing.Optional[typing.Sequence[LabLocationCapability]]` — Filter for only locations with certain capabilities
     
 </dd>
 </dl>
@@ -13411,7 +13467,7 @@ client.lab_tests.get_order_psc_info(order_id='order_id', )
 <dl>
 <dd>
 
-**capabilities:** `typing.Optional[typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]]` — Filter for only locations with certain capabilities
+**capabilities:** `typing.Optional[typing.Sequence[LabLocationCapability]]` — Filter for only locations with certain capabilities
     
 </dd>
 </dl>
@@ -13420,6 +13476,71 @@ client.lab_tests.get_order_psc_info(order_id='order_id', )
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_result_pdf</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+This endpoint returns the lab results for the order.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.get_result_pdf(order_id='order_id', )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**order_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration. You can pass in configuration such as `chunk_size`, and more to customize the request and response.
     
 </dd>
 </dl>
@@ -13562,6 +13683,88 @@ client.lab_tests.get_result_raw(order_id='order_id', )
 </dl>
 </details>
 
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_labels_pdf</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+This endpoint returns the printed labels for the order.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+import datetime
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.get_labels_pdf(order_id='order_id', collection_date=datetime.datetime.fromisoformat("2024-01-15 09:30:00+00:00", ), )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**order_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**collection_date:** `dt.datetime` — Collection date
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**number_of_labels:** `typing.Optional[int]` — Number of labels to generate
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration. You can pass in configuration such as `chunk_size`, and more to customize the request and response.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_psc_appointment_availability</a>(...)</code></summary>
 <dl>
 <dd>
@@ -13593,7 +13796,7 @@ client.lab_tests.get_psc_appointment_availability()
 <dl>
 <dd>
 
-**start_date:** `typing.Optional[str]` — Start date for appointment availability
+**start_date:** `typing.Optional[dt.date]` — Start date for appointment availability
     
 </dd>
 </dl>
@@ -13601,7 +13804,7 @@ client.lab_tests.get_psc_appointment_availability()
 <dl>
 <dd>
 
-**site_codes:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — List of site codes to fetch availability for
+**site_codes:** `typing.Optional[typing.Sequence[str]]` — List of site codes to fetch availability for
     
 </dd>
 </dl>
@@ -13932,6 +14135,201 @@ client.lab_tests.get_psc_appointment(order_id='order_id', )
 </dl>
 </details>
 
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_order_collection_instruction_pdf</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+GET collection instructions for an order
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.get_order_collection_instruction_pdf(order_id='order_id', )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**order_id:** `str` — Your Order ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration. You can pass in configuration such as `chunk_size`, and more to customize the request and response.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_order_requistion_pdf</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+GET requisition pdf for an order
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.get_order_requistion_pdf(order_id='order_id', )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**order_id:** `str` — Your Order ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration. You can pass in configuration such as `chunk_size`, and more to customize the request and response.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_order_abn_pdf</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+GET ABN pdf for an order
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+client = Vital(api_key="YOUR_API_KEY", )
+client.lab_tests.get_order_abn_pdf(order_id='order_id', )
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**order_id:** `str` — Your Order ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration. You can pass in configuration such as `chunk_size`, and more to customize the request and response.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_order</a>(...)</code></summary>
 <dl>
 <dd>
@@ -14012,10 +14410,11 @@ client.lab_tests.get_order(order_id='order_id', )
 ```python
 from vital import Vital
 from vital import PatientDetailsWithValidation
+import datetime
 from vital import Gender
 from vital import PatientAddressWithValidation
 client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.create_order(user_id='user_id', patient_details=PatientDetailsWithValidation(first_name='first_name', last_name='last_name', dob='dob', gender=Gender.FEMALE, phone_number='phone_number', email='email', ), patient_address=PatientAddressWithValidation(first_line='first_line', city='city', state='state', zip='zip', country='country', ), )
+client.lab_tests.create_order(user_id='user_id', patient_details=PatientDetailsWithValidation(first_name='first_name', last_name='last_name', dob=datetime.date.fromisoformat("2023-01-15", ), gender=Gender.FEMALE, phone_number='phone_number', email='email', ), patient_address=PatientAddressWithValidation(first_line='first_line', city='city', state='state', zip='zip', country='country', ), )
 
 ```
 </dd>
@@ -14143,7 +14542,7 @@ client.lab_tests.create_order(user_id='user_id', patient_details=PatientDetailsW
 <dl>
 <dd>
 
-**activate_by:** `typing.Optional[str]` — Schedule an Order to be processed in a future date.
+**activate_by:** `typing.Optional[dt.date]` — Schedule an Order to be processed in a future date.
     
 </dd>
 </dl>
@@ -14213,10 +14612,11 @@ from vital import Billing
 from vital import OrderSetRequest
 from vital import LabTestCollectionMethod
 from vital import PatientDetailsWithValidation
+import datetime
 from vital import Gender
 from vital import PatientAddress
 client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.import_order(user_id='user_id', billing_type=Billing.CLIENT_BILL, order_set=OrderSetRequest(), collection_method=LabTestCollectionMethod.TESTKIT, patient_details=PatientDetailsWithValidation(first_name='first_name', last_name='last_name', dob='dob', gender=Gender.FEMALE, phone_number='phone_number', email='email', ), patient_address=PatientAddress(receiver_name='receiver_name', first_line='first_line', city='city', state='state', zip='zip', country='country', ), sample_id='sample_id', )
+client.lab_tests.import_order(user_id='user_id', billing_type=Billing.CLIENT_BILL, order_set=OrderSetRequest(), collection_method=LabTestCollectionMethod.TESTKIT, patient_details=PatientDetailsWithValidation(first_name='first_name', last_name='last_name', dob=datetime.date.fromisoformat("2023-01-15", ), gender=Gender.FEMALE, phone_number='phone_number', email='email', ), patient_address=PatientAddress(receiver_name='receiver_name', first_line='first_line', city='city', state='state', zip='zip', country='country', ), sample_id='sample_id', )
 
 ```
 </dd>
@@ -14409,8 +14809,9 @@ Get available test kits.
 
 ```python
 from vital import Vital
+from vital import SimulationFlags
 client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.simulate_order_process(order_id='order_id', )
+client.lab_tests.simulate_order_process(order_id='order_id', request=SimulationFlags(), )
 
 ```
 </dd>
@@ -14602,10 +15003,11 @@ client.lab_tests.validate_icd_codes(codes=['codes'], )
 ```python
 from vital import Vital
 from vital import PatientDetailsWithValidation
+import datetime
 from vital import Gender
 from vital import PatientAddressWithValidation
 client = Vital(api_key="YOUR_API_KEY", )
-client.testkit.register(sample_id='sample_id', patient_details=PatientDetailsWithValidation(first_name='first_name', last_name='last_name', dob='dob', gender=Gender.FEMALE, phone_number='phone_number', email='email', ), patient_address=PatientAddressWithValidation(first_line='first_line', city='city', state='state', zip='zip', country='country', ), )
+client.testkit.register(sample_id='sample_id', patient_details=PatientDetailsWithValidation(first_name='first_name', last_name='last_name', dob=datetime.date.fromisoformat("2023-01-15", ), gender=Gender.FEMALE, phone_number='phone_number', email='email', ), patient_address=PatientAddressWithValidation(first_line='first_line', city='city', state='state', zip='zip', country='country', ), )
 
 ```
 </dd>
@@ -15148,6 +15550,7 @@ client.payor.create_payor(name='name', address=Address(first_line='first_line', 
 ```python
 from vital import Vital
 from vital import RelativeTimeframe
+import datetime
 from vital import Period
 from vital import PeriodUnit
 from vital import Query
@@ -15156,7 +15559,7 @@ from vital import SleepColumnExpr
 from vital import SleepColumnExprSleep
 from vital import AggregateExprFunc
 client = Vital(api_key="YOUR_API_KEY", )
-client.aggregate.query_one(user_id='user_id', timeframe=RelativeTimeframe(anchor='anchor', past=Period(unit=PeriodUnit.MINUTE, ), ), queries=[Query(select=[AggregateExpr(arg=SleepColumnExpr(sleep=SleepColumnExprSleep.ID, ), func=AggregateExprFunc.MEAN, )], )], )
+client.aggregate.query_one(user_id='user_id', timeframe=RelativeTimeframe(anchor=datetime.date.fromisoformat("2023-01-15", ), past=Period(unit=PeriodUnit.MINUTE, ), ), queries=[Query(select=[AggregateExpr(arg=SleepColumnExpr(sleep=SleepColumnExprSleep.ID, ), func=AggregateExprFunc.MEAN, )], )], )
 
 ```
 </dd>

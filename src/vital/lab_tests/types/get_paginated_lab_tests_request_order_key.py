@@ -6,17 +6,17 @@ import typing
 T_Result = typing.TypeVar("T_Result")
 
 
-class LabTestsGetRequestOrderKey(str, enum.Enum):
+class GetPaginatedLabTestsRequestOrderKey(str, enum.Enum):
     PRICE = "price"
     CREATED_AT = "created_at"
     UPDATED_AT = "updated_at"
-    _UNKNOWN = "__LABTESTSGETREQUESTORDERKEY_UNKNOWN__"
+    _UNKNOWN = "__GETPAGINATEDLABTESTSREQUESTORDERKEY_UNKNOWN__"
     """
     This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
     """
 
     @classmethod
-    def _missing_(cls, value: typing.Any) -> "LabTestsGetRequestOrderKey":
+    def _missing_(cls, value: typing.Any) -> "GetPaginatedLabTestsRequestOrderKey":
         unknown = cls._UNKNOWN
         unknown._value_ = value
         return unknown
@@ -28,10 +28,10 @@ class LabTestsGetRequestOrderKey(str, enum.Enum):
         updated_at: typing.Callable[[], T_Result],
         _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
-        if self is LabTestsGetRequestOrderKey.PRICE:
+        if self is GetPaginatedLabTestsRequestOrderKey.PRICE:
             return price()
-        if self is LabTestsGetRequestOrderKey.CREATED_AT:
+        if self is GetPaginatedLabTestsRequestOrderKey.CREATED_AT:
             return created_at()
-        if self is LabTestsGetRequestOrderKey.UPDATED_AT:
+        if self is GetPaginatedLabTestsRequestOrderKey.UPDATED_AT:
             return updated_at()
         return _unknown_member(self._value_)

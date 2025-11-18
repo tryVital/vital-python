@@ -22,9 +22,9 @@ from .sexual_activity_entry import SexualActivityEntry
 
 class ClientFacingMenstrualCycle(UniversalBaseModel):
     id: str
-    period_start: str
-    period_end: typing.Optional[str] = None
-    cycle_end: typing.Optional[str] = None
+    period_start: dt.date
+    period_end: typing.Optional[dt.date] = None
+    cycle_end: typing.Optional[dt.date] = None
     is_predicted: typing.Optional[bool] = None
     menstrual_flow: typing.Optional[typing.List[MenstrualFlowEntry]] = None
     cervical_mucus: typing.Optional[typing.List[CervicalMucusEntry]] = None

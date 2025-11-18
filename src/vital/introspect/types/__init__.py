@@ -2,6 +2,6 @@
 
 # isort: skip_file
 
-from .types import GetUserHistoricalPullsIntrospectRequestProvider
+from .get_user_historical_pulls_introspect_request_provider import GetUserHistoricalPullsIntrospectRequestProvider
 
 __all__ = ["GetUserHistoricalPullsIntrospectRequestProvider"]

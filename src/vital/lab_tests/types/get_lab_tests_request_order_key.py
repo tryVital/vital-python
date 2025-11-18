@@ -6,32 +6,32 @@ import typing
 T_Result = typing.TypeVar("T_Result")
 
 
-class LabTestsGetOrdersRequestOrderKey(str, enum.Enum):
+class GetLabTestsRequestOrderKey(str, enum.Enum):
+    PRICE = "price"
     CREATED_AT = "created_at"
-    PATIENT_NAME = "patient_name"
-    LAST_STATUS = "last_status"
-    _UNKNOWN = "__LABTESTSGETORDERSREQUESTORDERKEY_UNKNOWN__"
+    UPDATED_AT = "updated_at"
+    _UNKNOWN = "__GETLABTESTSREQUESTORDERKEY_UNKNOWN__"
     """
     This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
     """
 
     @classmethod
-    def _missing_(cls, value: typing.Any) -> "LabTestsGetOrdersRequestOrderKey":
+    def _missing_(cls, value: typing.Any) -> "GetLabTestsRequestOrderKey":
         unknown = cls._UNKNOWN
         unknown._value_ = value
         return unknown
 
     def visit(
         self,
+        price: typing.Callable[[], T_Result],
         created_at: typing.Callable[[], T_Result],
-        patient_name: typing.Callable[[], T_Result],
-        last_status: typing.Callable[[], T_Result],
+        updated_at: typing.Callable[[], T_Result],
         _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
-        if self is LabTestsGetOrdersRequestOrderKey.CREATED_AT:
+        if self is GetLabTestsRequestOrderKey.PRICE:
+            return price()
+        if self is GetLabTestsRequestOrderKey.CREATED_AT:
             return created_at()
-        if self is LabTestsGetOrdersRequestOrderKey.PATIENT_NAME:
-            return patient_name()
-        if self is LabTestsGetOrdersRequestOrderKey.LAST_STATUS:
-            return last_status()
+        if self is GetLabTestsRequestOrderKey.UPDATED_AT:
+            return updated_at()
         return _unknown_member(self._value_)

@@ -3,19 +3,19 @@
 # isort: skip_file
 
 from .types import (
-    LabTestsGetOrdersRequestOrderDirection,
-    LabTestsGetOrdersRequestOrderKey,
-    LabTestsGetPaginatedRequestOrderDirection,
-    LabTestsGetPaginatedRequestOrderKey,
-    LabTestsGetRequestOrderDirection,
-    LabTestsGetRequestOrderKey,
+    GetLabTestsRequestOrderDirection,
+    GetLabTestsRequestOrderKey,
+    GetOrdersLabTestsRequestOrderDirection,
+    GetOrdersLabTestsRequestOrderKey,
+    GetPaginatedLabTestsRequestOrderDirection,
+    GetPaginatedLabTestsRequestOrderKey,
 )
 
 __all__ = [
-    "LabTestsGetOrdersRequestOrderDirection",
-    "LabTestsGetOrdersRequestOrderKey",
-    "LabTestsGetPaginatedRequestOrderDirection",
-    "LabTestsGetPaginatedRequestOrderKey",
-    "LabTestsGetRequestOrderDirection",
-    "LabTestsGetRequestOrderKey",
+    "GetLabTestsRequestOrderDirection",
+    "GetLabTestsRequestOrderKey",
+    "GetOrdersLabTestsRequestOrderDirection",
+    "GetOrdersLabTestsRequestOrderKey",
+    "GetPaginatedLabTestsRequestOrderDirection",
+    "GetPaginatedLabTestsRequestOrderKey",
 ]

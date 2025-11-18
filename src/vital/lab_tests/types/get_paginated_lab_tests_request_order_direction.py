@@ -6,16 +6,16 @@ import typing
 T_Result = typing.TypeVar("T_Result")
 
 
-class LabTestsGetRequestOrderDirection(str, enum.Enum):
+class GetPaginatedLabTestsRequestOrderDirection(str, enum.Enum):
     ASC = "asc"
     DESC = "desc"
-    _UNKNOWN = "__LABTESTSGETREQUESTORDERDIRECTION_UNKNOWN__"
+    _UNKNOWN = "__GETPAGINATEDLABTESTSREQUESTORDERDIRECTION_UNKNOWN__"
     """
     This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
     """
 
     @classmethod
-    def _missing_(cls, value: typing.Any) -> "LabTestsGetRequestOrderDirection":
+    def _missing_(cls, value: typing.Any) -> "GetPaginatedLabTestsRequestOrderDirection":
         unknown = cls._UNKNOWN
         unknown._value_ = value
         return unknown
@@ -26,8 +26,8 @@ class LabTestsGetRequestOrderDirection(str, enum.Enum):
         desc: typing.Callable[[], T_Result],
         _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
-        if self is LabTestsGetRequestOrderDirection.ASC:
+        if self is GetPaginatedLabTestsRequestOrderDirection.ASC:
             return asc()
-        if self is LabTestsGetRequestOrderDirection.DESC:
+        if self is GetPaginatedLabTestsRequestOrderDirection.DESC:
             return desc()
         return _unknown_member(self._value_)

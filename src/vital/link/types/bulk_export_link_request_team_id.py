@@ -6,15 +6,15 @@ import typing
 T_Result = typing.TypeVar("T_Result")
 
 
-class LinkBulkExportRequestTeamId(str, enum.Enum):
+class BulkExportLinkRequestTeamId(str, enum.Enum):
     INFER_FROM_CONTEXT = "infer_from_context"
-    _UNKNOWN = "__LINKBULKEXPORTREQUESTTEAMID_UNKNOWN__"
+    _UNKNOWN = "__BULKEXPORTLINKREQUESTTEAMID_UNKNOWN__"
     """
     This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
     """
 
     @classmethod
-    def _missing_(cls, value: typing.Any) -> "LinkBulkExportRequestTeamId":
+    def _missing_(cls, value: typing.Any) -> "BulkExportLinkRequestTeamId":
         unknown = cls._UNKNOWN
         unknown._value_ = value
         return unknown
@@ -22,6 +22,6 @@ class LinkBulkExportRequestTeamId(str, enum.Enum):
     def visit(
         self, infer_from_context: typing.Callable[[], T_Result], _unknown_member: typing.Callable[[str], T_Result]
     ) -> T_Result:
-        if self is LinkBulkExportRequestTeamId.INFER_FROM_CONTEXT:
+        if self is BulkExportLinkRequestTeamId.INFER_FROM_CONTEXT:
             return infer_from_context()
         return _unknown_member(self._value_)

@@ -74,10 +74,11 @@ class TestkitClient:
         --------
         from vital import Vital
         from vital import PatientDetailsWithValidation
+        import datetime
         from vital import Gender
         from vital import PatientAddressWithValidation
         client = Vital(api_key="YOUR_API_KEY", )
-        client.testkit.register(sample_id='sample_id', patient_details=PatientDetailsWithValidation(first_name='first_name', last_name='last_name', dob='dob', gender=Gender.FEMALE, phone_number='phone_number', email='email', ), patient_address=PatientAddressWithValidation(first_line='first_line', city='city', state='state', zip='zip', country='country', ), )
+        client.testkit.register(sample_id='sample_id', patient_details=PatientDetailsWithValidation(first_name='first_name', last_name='last_name', dob=datetime.date.fromisoformat("2023-01-15", ), gender=Gender.FEMALE, phone_number='phone_number', email='email', ), patient_address=PatientAddressWithValidation(first_line='first_line', city='city', state='state', zip='zip', country='country', ), )
         """
         _response = self._raw_client.register(
             sample_id=sample_id,
@@ -199,12 +200,13 @@ class AsyncTestkitClient:
         --------
         from vital import AsyncVital
         from vital import PatientDetailsWithValidation
+        import datetime
         from vital import Gender
         from vital import PatientAddressWithValidation
         import asyncio
         client = AsyncVital(api_key="YOUR_API_KEY", )
         async def main() -> None:
-            await client.testkit.register(sample_id='sample_id', patient_details=PatientDetailsWithValidation(first_name='first_name', last_name='last_name', dob='dob', gender=Gender.FEMALE, phone_number='phone_number', email='email', ), patient_address=PatientAddressWithValidation(first_line='first_line', city='city', state='state', zip='zip', country='country', ), )
+            await client.testkit.register(sample_id='sample_id', patient_details=PatientDetailsWithValidation(first_name='first_name', last_name='last_name', dob=datetime.date.fromisoformat("2023-01-15", ), gender=Gender.FEMALE, phone_number='phone_number', email='email', ), patient_address=PatientAddressWithValidation(first_line='first_line', city='city', state='state', zip='zip', country='country', ), )
         asyncio.run(main())
         """
         _response = await self._raw_client.register(

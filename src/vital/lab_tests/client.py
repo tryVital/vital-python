@@ -46,12 +46,12 @@ from ..types.simulation_flags import SimulationFlags
 from ..types.us_address import UsAddress
 from ..types.validate_icd_codes_response import ValidateIcdCodesResponse
 from .raw_client import AsyncRawLabTestsClient, RawLabTestsClient
-from .types.lab_tests_get_orders_request_order_direction import LabTestsGetOrdersRequestOrderDirection
-from .types.lab_tests_get_orders_request_order_key import LabTestsGetOrdersRequestOrderKey
-from .types.lab_tests_get_paginated_request_order_direction import LabTestsGetPaginatedRequestOrderDirection
-from .types.lab_tests_get_paginated_request_order_key import LabTestsGetPaginatedRequestOrderKey
-from .types.lab_tests_get_request_order_direction import LabTestsGetRequestOrderDirection
-from .types.lab_tests_get_request_order_key import LabTestsGetRequestOrderKey
+from .types.get_lab_tests_request_order_direction import GetLabTestsRequestOrderDirection
+from .types.get_lab_tests_request_order_key import GetLabTestsRequestOrderKey
+from .types.get_orders_lab_tests_request_order_direction import GetOrdersLabTestsRequestOrderDirection
+from .types.get_orders_lab_tests_request_order_key import GetOrdersLabTestsRequestOrderKey
+from .types.get_paginated_lab_tests_request_order_direction import GetPaginatedLabTestsRequestOrderDirection
+from .types.get_paginated_lab_tests_request_order_key import GetPaginatedLabTestsRequestOrderKey
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -79,11 +79,11 @@ class LabTestsClient:
         lab_slug: typing.Optional[str] = None,
         collection_method: typing.Optional[LabTestCollectionMethod] = None,
         status: typing.Optional[LabTestStatus] = None,
-        marker_ids: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
-        provider_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        marker_ids: typing.Optional[typing.Sequence[int]] = None,
+        provider_ids: typing.Optional[typing.Sequence[str]] = None,
         name: typing.Optional[str] = None,
-        order_key: typing.Optional[LabTestsGetRequestOrderKey] = None,
-        order_direction: typing.Optional[LabTestsGetRequestOrderDirection] = None,
+        order_key: typing.Optional[GetLabTestsRequestOrderKey] = None,
+        order_direction: typing.Optional[GetLabTestsRequestOrderDirection] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingLabTest]:
         """
@@ -103,18 +103,18 @@ class LabTestsClient:
         status : typing.Optional[LabTestStatus]
             Filter by the status of these lab tests.
 
-        marker_ids : typing.Optional[typing.Union[int, typing.Sequence[int]]]
+        marker_ids : typing.Optional[typing.Sequence[int]]
             Filter to only include lab tests containing these marker IDs.
 
-        provider_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        provider_ids : typing.Optional[typing.Sequence[str]]
             Filter to only include lab tests containing these provider IDs.
 
         name : typing.Optional[str]
             Filter by the name of the lab test (a case-insensitive substring search).
 
-        order_key : typing.Optional[LabTestsGetRequestOrderKey]
+        order_key : typing.Optional[GetLabTestsRequestOrderKey]
 
-        order_direction : typing.Optional[LabTestsGetRequestOrderDirection]
+        order_direction : typing.Optional[GetLabTestsRequestOrderDirection]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -271,7 +271,7 @@ class LabTestsClient:
     def get_markers(
         self,
         *,
-        lab_id: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
+        lab_id: typing.Optional[typing.Sequence[int]] = None,
         name: typing.Optional[str] = None,
         a_la_carte_enabled: typing.Optional[bool] = None,
         lab_account_id: typing.Optional[str] = None,
@@ -284,7 +284,7 @@ class LabTestsClient:
 
         Parameters
         ----------
-        lab_id : typing.Optional[typing.Union[int, typing.Sequence[int]]]
+        lab_id : typing.Optional[typing.Sequence[int]]
             The identifier Vital assigned to a lab partner.
 
         name : typing.Optional[str]
@@ -403,8 +403,8 @@ class LabTestsClient:
 
     def get_markers_by_lab_and_provider_id(
         self,
-        provider_id: str,
         lab_id: int,
+        provider_id: str,
         *,
         lab_account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -414,9 +414,9 @@ class LabTestsClient:
 
         Parameters
         ----------
-        provider_id : str
-
         lab_id : int
+
+        provider_id : str
 
         lab_account_id : typing.Optional[str]
             The lab account ID. This lab account is used to determine the availability of markers and lab tests.
@@ -433,10 +433,10 @@ class LabTestsClient:
         --------
         from vital import Vital
         client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.get_markers_by_lab_and_provider_id(provider_id='provider_id', lab_id=1, )
+        client.lab_tests.get_markers_by_lab_and_provider_id(lab_id=1, provider_id='provider_id', )
         """
         _response = self._raw_client.get_markers_by_lab_and_provider_id(
-            provider_id, lab_id, lab_account_id=lab_account_id, request_options=request_options
+            lab_id, provider_id, lab_account_id=lab_account_id, request_options=request_options
         )
         return _response.data
 
@@ -472,11 +472,11 @@ class LabTestsClient:
         lab_slug: typing.Optional[str] = None,
         collection_method: typing.Optional[LabTestCollectionMethod] = None,
         status: typing.Optional[LabTestStatus] = None,
-        marker_ids: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
-        provider_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        marker_ids: typing.Optional[typing.Sequence[int]] = None,
+        provider_ids: typing.Optional[typing.Sequence[str]] = None,
         name: typing.Optional[str] = None,
-        order_key: typing.Optional[LabTestsGetPaginatedRequestOrderKey] = None,
-        order_direction: typing.Optional[LabTestsGetPaginatedRequestOrderDirection] = None,
+        order_key: typing.Optional[GetPaginatedLabTestsRequestOrderKey] = None,
+        order_direction: typing.Optional[GetPaginatedLabTestsRequestOrderDirection] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LabTestResourcesResponse:
         """
@@ -500,18 +500,18 @@ class LabTestsClient:
         status : typing.Optional[LabTestStatus]
             Filter by the status of these lab tests.
 
-        marker_ids : typing.Optional[typing.Union[int, typing.Sequence[int]]]
+        marker_ids : typing.Optional[typing.Sequence[int]]
             Filter to only include lab tests containing these marker IDs.
 
-        provider_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        provider_ids : typing.Optional[typing.Sequence[str]]
             Filter to only include lab tests containing these provider IDs.
 
         name : typing.Optional[str]
             Filter by the name of the lab test (a case-insensitive substring search).
 
-        order_key : typing.Optional[LabTestsGetPaginatedRequestOrderKey]
+        order_key : typing.Optional[GetPaginatedLabTestsRequestOrderKey]
 
-        order_direction : typing.Optional[LabTestsGetPaginatedRequestOrderDirection]
+        order_direction : typing.Optional[GetPaginatedLabTestsRequestOrderDirection]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -558,6 +558,12 @@ class LabTestsClient:
         -------
         typing.Iterator[bytes]
             PDF with collection instructions
+
+        Examples
+        --------
+        from vital import Vital
+        client = Vital(api_key="YOUR_API_KEY", )
+        client.lab_tests.get_lab_test_collection_instruction_pdf(lab_test_id='lab_test_id', )
         """
         with self._raw_client.get_lab_test_collection_instruction_pdf(
             lab_test_id, request_options=request_options
@@ -572,21 +578,17 @@ class LabTestsClient:
         end_date: typing.Optional[dt.datetime] = None,
         updated_start_date: typing.Optional[dt.datetime] = None,
         updated_end_date: typing.Optional[dt.datetime] = None,
-        status: typing.Optional[typing.Union[OrderLowLevelStatus, typing.Sequence[OrderLowLevelStatus]]] = None,
-        order_key: typing.Optional[LabTestsGetOrdersRequestOrderKey] = None,
-        order_direction: typing.Optional[LabTestsGetOrdersRequestOrderDirection] = None,
-        order_type: typing.Optional[
-            typing.Union[LabTestCollectionMethod, typing.Sequence[LabTestCollectionMethod]]
-        ] = None,
+        status: typing.Optional[typing.Sequence[OrderLowLevelStatus]] = None,
+        order_key: typing.Optional[GetOrdersLabTestsRequestOrderKey] = None,
+        order_direction: typing.Optional[GetOrdersLabTestsRequestOrderDirection] = None,
+        order_type: typing.Optional[typing.Sequence[LabTestCollectionMethod]] = None,
         is_critical: typing.Optional[bool] = None,
         interpretation: typing.Optional[Interpretation] = None,
-        order_activation_types: typing.Optional[
-            typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]
-        ] = None,
+        order_activation_types: typing.Optional[typing.Sequence[OrderActivationType]] = None,
         user_id: typing.Optional[str] = None,
         patient_name: typing.Optional[str] = None,
         shipping_recipient_name: typing.Optional[str] = None,
-        order_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        order_ids: typing.Optional[typing.Sequence[str]] = None,
         page: typing.Optional[int] = None,
         size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -611,16 +613,16 @@ class LabTestsClient:
         updated_end_date : typing.Optional[dt.datetime]
             Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
-        status : typing.Optional[typing.Union[OrderLowLevelStatus, typing.Sequence[OrderLowLevelStatus]]]
+        status : typing.Optional[typing.Sequence[OrderLowLevelStatus]]
             Filter by low level status.
 
-        order_key : typing.Optional[LabTestsGetOrdersRequestOrderKey]
+        order_key : typing.Optional[GetOrdersLabTestsRequestOrderKey]
             Order key to sort by.
 
-        order_direction : typing.Optional[LabTestsGetOrdersRequestOrderDirection]
+        order_direction : typing.Optional[GetOrdersLabTestsRequestOrderDirection]
             Order direction to sort by.
 
-        order_type : typing.Optional[typing.Union[LabTestCollectionMethod, typing.Sequence[LabTestCollectionMethod]]]
+        order_type : typing.Optional[typing.Sequence[LabTestCollectionMethod]]
             Filter by method used to perform the lab test.
 
         is_critical : typing.Optional[bool]
@@ -629,7 +631,7 @@ class LabTestsClient:
         interpretation : typing.Optional[Interpretation]
             Filter by result interpretation of the lab test.
 
-        order_activation_types : typing.Optional[typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]]
+        order_activation_types : typing.Optional[typing.Sequence[OrderActivationType]]
             Filter by activation type.
 
         user_id : typing.Optional[str]
@@ -641,7 +643,7 @@ class LabTestsClient:
         shipping_recipient_name : typing.Optional[str]
             Filter by shipping recipient name.
 
-        order_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        order_ids : typing.Optional[typing.Sequence[str]]
             Filter by order ids.
 
         page : typing.Optional[int]
@@ -689,7 +691,7 @@ class LabTestsClient:
         self,
         *,
         request: UsAddress,
-        start_date: typing.Optional[str] = None,
+        start_date: typing.Optional[dt.date] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AppointmentAvailabilitySlots:
         """
@@ -700,7 +702,7 @@ class LabTestsClient:
         ----------
         request : UsAddress
 
-        start_date : typing.Optional[str]
+        start_date : typing.Optional[dt.date]
             Start date for appointment availability
 
         request_options : typing.Optional[RequestOptions]
@@ -937,7 +939,7 @@ class LabTestsClient:
         zip_code: str,
         radius: typing.Optional[AllowedRadius] = None,
         lab: typing.Optional[ClientFacingLabs] = None,
-        labs: typing.Optional[typing.Union[ClientFacingLabs, typing.Sequence[ClientFacingLabs]]] = None,
+        labs: typing.Optional[typing.Sequence[ClientFacingLabs]] = None,
         lab_account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AreaInfo:
@@ -959,7 +961,7 @@ class LabTestsClient:
         lab : typing.Optional[ClientFacingLabs]
             Lab to check for PSCs
 
-        labs : typing.Optional[typing.Union[ClientFacingLabs, typing.Sequence[ClientFacingLabs]]]
+        labs : typing.Optional[typing.Sequence[ClientFacingLabs]]
             List of labs to check for PSCs
 
         lab_account_id : typing.Optional[str]
@@ -995,9 +997,7 @@ class LabTestsClient:
         zip_code: str,
         lab_id: int,
         radius: typing.Optional[AllowedRadius] = None,
-        capabilities: typing.Optional[
-            typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]
-        ] = None,
+        capabilities: typing.Optional[typing.Sequence[LabLocationCapability]] = None,
         lab_account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PscInfo:
@@ -1013,7 +1013,7 @@ class LabTestsClient:
         radius : typing.Optional[AllowedRadius]
             Radius in which to search in miles. Note that we limit to 30 PSCs.
 
-        capabilities : typing.Optional[typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]]
+        capabilities : typing.Optional[typing.Sequence[LabLocationCapability]]
             Filter for only locations with certain capabilities
 
         lab_account_id : typing.Optional[str]
@@ -1048,9 +1048,7 @@ class LabTestsClient:
         order_id: str,
         *,
         radius: typing.Optional[AllowedRadius] = None,
-        capabilities: typing.Optional[
-            typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]
-        ] = None,
+        capabilities: typing.Optional[typing.Sequence[LabLocationCapability]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PscInfo:
         """
@@ -1062,7 +1060,7 @@ class LabTestsClient:
         radius : typing.Optional[AllowedRadius]
             Radius in which to search in miles
 
-        capabilities : typing.Optional[typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]]
+        capabilities : typing.Optional[typing.Sequence[LabLocationCapability]]
             Filter for only locations with certain capabilities
 
         request_options : typing.Optional[RequestOptions]
@@ -1101,6 +1099,12 @@ class LabTestsClient:
         -------
         typing.Iterator[bytes]
             PDF with results
+
+        Examples
+        --------
+        from vital import Vital
+        client = Vital(api_key="YOUR_API_KEY", )
+        client.lab_tests.get_result_pdf(order_id='order_id', )
         """
         with self._raw_client.get_result_pdf(order_id, request_options=request_options) as r:
             yield from r.data
@@ -1188,6 +1192,13 @@ class LabTestsClient:
         -------
         typing.Iterator[bytes]
             PDF with labels
+
+        Examples
+        --------
+        from vital import Vital
+        import datetime
+        client = Vital(api_key="YOUR_API_KEY", )
+        client.lab_tests.get_labels_pdf(order_id='order_id', collection_date=datetime.datetime.fromisoformat("2024-01-15 09:30:00+00:00", ), )
         """
         with self._raw_client.get_labels_pdf(
             order_id,
@@ -1200,8 +1211,8 @@ class LabTestsClient:
     def get_psc_appointment_availability(
         self,
         *,
-        start_date: typing.Optional[str] = None,
-        site_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        start_date: typing.Optional[dt.date] = None,
+        site_codes: typing.Optional[typing.Sequence[str]] = None,
         zip_code: typing.Optional[str] = None,
         radius: typing.Optional[AllowedRadius] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1209,10 +1220,10 @@ class LabTestsClient:
         """
         Parameters
         ----------
-        start_date : typing.Optional[str]
+        start_date : typing.Optional[dt.date]
             Start date for appointment availability
 
-        site_codes : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        site_codes : typing.Optional[typing.Sequence[str]]
             List of site codes to fetch availability for
 
         zip_code : typing.Optional[str]
@@ -1418,6 +1429,12 @@ class LabTestsClient:
         -------
         typing.Iterator[bytes]
             PDF with collection instructions
+
+        Examples
+        --------
+        from vital import Vital
+        client = Vital(api_key="YOUR_API_KEY", )
+        client.lab_tests.get_order_collection_instruction_pdf(order_id='order_id', )
         """
         with self._raw_client.get_order_collection_instruction_pdf(order_id, request_options=request_options) as r:
             yield from r.data
@@ -1440,6 +1457,12 @@ class LabTestsClient:
         -------
         typing.Iterator[bytes]
             PDF with requisition form
+
+        Examples
+        --------
+        from vital import Vital
+        client = Vital(api_key="YOUR_API_KEY", )
+        client.lab_tests.get_order_requistion_pdf(order_id='order_id', )
         """
         with self._raw_client.get_order_requistion_pdf(order_id, request_options=request_options) as r:
             yield from r.data
@@ -1462,6 +1485,12 @@ class LabTestsClient:
         -------
         typing.Iterator[bytes]
             PDF with ABN form
+
+        Examples
+        --------
+        from vital import Vital
+        client = Vital(api_key="YOUR_API_KEY", )
+        client.lab_tests.get_order_abn_pdf(order_id='order_id', )
         """
         with self._raw_client.get_order_abn_pdf(order_id, request_options=request_options) as r:
             yield from r.data
@@ -1509,7 +1538,7 @@ class LabTestsClient:
         billing_type: typing.Optional[Billing] = OMIT,
         icd_codes: typing.Optional[typing.Sequence[str]] = OMIT,
         consents: typing.Optional[typing.Sequence[Consent]] = OMIT,
-        activate_by: typing.Optional[str] = OMIT,
+        activate_by: typing.Optional[dt.date] = OMIT,
         aoe_answers: typing.Optional[typing.Sequence[AoEAnswer]] = OMIT,
         passthrough: typing.Optional[str] = OMIT,
         lab_account_id: typing.Optional[str] = OMIT,
@@ -1548,7 +1577,7 @@ class LabTestsClient:
 
         consents : typing.Optional[typing.Sequence[Consent]]
 
-        activate_by : typing.Optional[str]
+        activate_by : typing.Optional[dt.date]
             Schedule an Order to be processed in a future date.
 
         aoe_answers : typing.Optional[typing.Sequence[AoEAnswer]]
@@ -1571,10 +1600,11 @@ class LabTestsClient:
         --------
         from vital import Vital
         from vital import PatientDetailsWithValidation
+        import datetime
         from vital import Gender
         from vital import PatientAddressWithValidation
         client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.create_order(user_id='user_id', patient_details=PatientDetailsWithValidation(first_name='first_name', last_name='last_name', dob='dob', gender=Gender.FEMALE, phone_number='phone_number', email='email', ), patient_address=PatientAddressWithValidation(first_line='first_line', city='city', state='state', zip='zip', country='country', ), )
+        client.lab_tests.create_order(user_id='user_id', patient_details=PatientDetailsWithValidation(first_name='first_name', last_name='last_name', dob=datetime.date.fromisoformat("2023-01-15", ), gender=Gender.FEMALE, phone_number='phone_number', email='email', ), patient_address=PatientAddressWithValidation(first_line='first_line', city='city', state='state', zip='zip', country='country', ), )
         """
         _response = self._raw_client.create_order(
             user_id=user_id,
@@ -1650,10 +1680,11 @@ class LabTestsClient:
         from vital import OrderSetRequest
         from vital import LabTestCollectionMethod
         from vital import PatientDetailsWithValidation
+        import datetime
         from vital import Gender
         from vital import PatientAddress
         client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.import_order(user_id='user_id', billing_type=Billing.CLIENT_BILL, order_set=OrderSetRequest(), collection_method=LabTestCollectionMethod.TESTKIT, patient_details=PatientDetailsWithValidation(first_name='first_name', last_name='last_name', dob='dob', gender=Gender.FEMALE, phone_number='phone_number', email='email', ), patient_address=PatientAddress(receiver_name='receiver_name', first_line='first_line', city='city', state='state', zip='zip', country='country', ), sample_id='sample_id', )
+        client.lab_tests.import_order(user_id='user_id', billing_type=Billing.CLIENT_BILL, order_set=OrderSetRequest(), collection_method=LabTestCollectionMethod.TESTKIT, patient_details=PatientDetailsWithValidation(first_name='first_name', last_name='last_name', dob=datetime.date.fromisoformat("2023-01-15", ), gender=Gender.FEMALE, phone_number='phone_number', email='email', ), patient_address=PatientAddress(receiver_name='receiver_name', first_line='first_line', city='city', state='state', zip='zip', country='country', ), sample_id='sample_id', )
         """
         _response = self._raw_client.import_order(
             user_id=user_id,
@@ -1730,8 +1761,9 @@ class LabTestsClient:
         Examples
         --------
         from vital import Vital
+        from vital import SimulationFlags
         client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.simulate_order_process(order_id='order_id', )
+        client.lab_tests.simulate_order_process(order_id='order_id', request=SimulationFlags(), )
         """
         _response = self._raw_client.simulate_order_process(
             order_id, final_status=final_status, delay=delay, request=request, request_options=request_options
@@ -1816,11 +1848,11 @@ class AsyncLabTestsClient:
         lab_slug: typing.Optional[str] = None,
         collection_method: typing.Optional[LabTestCollectionMethod] = None,
         status: typing.Optional[LabTestStatus] = None,
-        marker_ids: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
-        provider_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        marker_ids: typing.Optional[typing.Sequence[int]] = None,
+        provider_ids: typing.Optional[typing.Sequence[str]] = None,
         name: typing.Optional[str] = None,
-        order_key: typing.Optional[LabTestsGetRequestOrderKey] = None,
-        order_direction: typing.Optional[LabTestsGetRequestOrderDirection] = None,
+        order_key: typing.Optional[GetLabTestsRequestOrderKey] = None,
+        order_direction: typing.Optional[GetLabTestsRequestOrderDirection] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingLabTest]:
         """
@@ -1840,18 +1872,18 @@ class AsyncLabTestsClient:
         status : typing.Optional[LabTestStatus]
             Filter by the status of these lab tests.
 
-        marker_ids : typing.Optional[typing.Union[int, typing.Sequence[int]]]
+        marker_ids : typing.Optional[typing.Sequence[int]]
             Filter to only include lab tests containing these marker IDs.
 
-        provider_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        provider_ids : typing.Optional[typing.Sequence[str]]
             Filter to only include lab tests containing these provider IDs.
 
         name : typing.Optional[str]
             Filter by the name of the lab test (a case-insensitive substring search).
 
-        order_key : typing.Optional[LabTestsGetRequestOrderKey]
+        order_key : typing.Optional[GetLabTestsRequestOrderKey]
 
-        order_direction : typing.Optional[LabTestsGetRequestOrderDirection]
+        order_direction : typing.Optional[GetLabTestsRequestOrderDirection]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2020,7 +2052,7 @@ class AsyncLabTestsClient:
     async def get_markers(
         self,
         *,
-        lab_id: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
+        lab_id: typing.Optional[typing.Sequence[int]] = None,
         name: typing.Optional[str] = None,
         a_la_carte_enabled: typing.Optional[bool] = None,
         lab_account_id: typing.Optional[str] = None,
@@ -2033,7 +2065,7 @@ class AsyncLabTestsClient:
 
         Parameters
         ----------
-        lab_id : typing.Optional[typing.Union[int, typing.Sequence[int]]]
+        lab_id : typing.Optional[typing.Sequence[int]]
             The identifier Vital assigned to a lab partner.
 
         name : typing.Optional[str]
@@ -2161,8 +2193,8 @@ class AsyncLabTestsClient:
 
     async def get_markers_by_lab_and_provider_id(
         self,
-        provider_id: str,
         lab_id: int,
+        provider_id: str,
         *,
         lab_account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -2172,9 +2204,9 @@ class AsyncLabTestsClient:
 
         Parameters
         ----------
-        provider_id : str
-
         lab_id : int
+
+        provider_id : str
 
         lab_account_id : typing.Optional[str]
             The lab account ID. This lab account is used to determine the availability of markers and lab tests.
@@ -2193,11 +2225,11 @@ class AsyncLabTestsClient:
         import asyncio
         client = AsyncVital(api_key="YOUR_API_KEY", )
         async def main() -> None:
-            await client.lab_tests.get_markers_by_lab_and_provider_id(provider_id='provider_id', lab_id=1, )
+            await client.lab_tests.get_markers_by_lab_and_provider_id(lab_id=1, provider_id='provider_id', )
         asyncio.run(main())
         """
         _response = await self._raw_client.get_markers_by_lab_and_provider_id(
-            provider_id, lab_id, lab_account_id=lab_account_id, request_options=request_options
+            lab_id, provider_id, lab_account_id=lab_account_id, request_options=request_options
         )
         return _response.data
 
@@ -2238,11 +2270,11 @@ class AsyncLabTestsClient:
         lab_slug: typing.Optional[str] = None,
         collection_method: typing.Optional[LabTestCollectionMethod] = None,
         status: typing.Optional[LabTestStatus] = None,
-        marker_ids: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
-        provider_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        marker_ids: typing.Optional[typing.Sequence[int]] = None,
+        provider_ids: typing.Optional[typing.Sequence[str]] = None,
         name: typing.Optional[str] = None,
-        order_key: typing.Optional[LabTestsGetPaginatedRequestOrderKey] = None,
-        order_direction: typing.Optional[LabTestsGetPaginatedRequestOrderDirection] = None,
+        order_key: typing.Optional[GetPaginatedLabTestsRequestOrderKey] = None,
+        order_direction: typing.Optional[GetPaginatedLabTestsRequestOrderDirection] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LabTestResourcesResponse:
         """
@@ -2266,18 +2298,18 @@ class AsyncLabTestsClient:
         status : typing.Optional[LabTestStatus]
             Filter by the status of these lab tests.
 
-        marker_ids : typing.Optional[typing.Union[int, typing.Sequence[int]]]
+        marker_ids : typing.Optional[typing.Sequence[int]]
             Filter to only include lab tests containing these marker IDs.
 
-        provider_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        provider_ids : typing.Optional[typing.Sequence[str]]
             Filter to only include lab tests containing these provider IDs.
 
         name : typing.Optional[str]
             Filter by the name of the lab test (a case-insensitive substring search).
 
-        order_key : typing.Optional[LabTestsGetPaginatedRequestOrderKey]
+        order_key : typing.Optional[GetPaginatedLabTestsRequestOrderKey]
 
-        order_direction : typing.Optional[LabTestsGetPaginatedRequestOrderDirection]
+        order_direction : typing.Optional[GetPaginatedLabTestsRequestOrderDirection]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2327,6 +2359,15 @@ class AsyncLabTestsClient:
         -------
         typing.AsyncIterator[bytes]
             PDF with collection instructions
+
+        Examples
+        --------
+        from vital import AsyncVital
+        import asyncio
+        client = AsyncVital(api_key="YOUR_API_KEY", )
+        async def main() -> None:
+            await client.lab_tests.get_lab_test_collection_instruction_pdf(lab_test_id='lab_test_id', )
+        asyncio.run(main())
         """
         async with self._raw_client.get_lab_test_collection_instruction_pdf(
             lab_test_id, request_options=request_options
@@ -2342,21 +2383,17 @@ class AsyncLabTestsClient:
         end_date: typing.Optional[dt.datetime] = None,
         updated_start_date: typing.Optional[dt.datetime] = None,
         updated_end_date: typing.Optional[dt.datetime] = None,
-        status: typing.Optional[typing.Union[OrderLowLevelStatus, typing.Sequence[OrderLowLevelStatus]]] = None,
-        order_key: typing.Optional[LabTestsGetOrdersRequestOrderKey] = None,
-        order_direction: typing.Optional[LabTestsGetOrdersRequestOrderDirection] = None,
-        order_type: typing.Optional[
-            typing.Union[LabTestCollectionMethod, typing.Sequence[LabTestCollectionMethod]]
-        ] = None,
+        status: typing.Optional[typing.Sequence[OrderLowLevelStatus]] = None,
+        order_key: typing.Optional[GetOrdersLabTestsRequestOrderKey] = None,
+        order_direction: typing.Optional[GetOrdersLabTestsRequestOrderDirection] = None,
+        order_type: typing.Optional[typing.Sequence[LabTestCollectionMethod]] = None,
         is_critical: typing.Optional[bool] = None,
         interpretation: typing.Optional[Interpretation] = None,
-        order_activation_types: typing.Optional[
-            typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]
-        ] = None,
+        order_activation_types: typing.Optional[typing.Sequence[OrderActivationType]] = None,
         user_id: typing.Optional[str] = None,
         patient_name: typing.Optional[str] = None,
         shipping_recipient_name: typing.Optional[str] = None,
-        order_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        order_ids: typing.Optional[typing.Sequence[str]] = None,
         page: typing.Optional[int] = None,
         size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -2381,16 +2418,16 @@ class AsyncLabTestsClient:
         updated_end_date : typing.Optional[dt.datetime]
             Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
-        status : typing.Optional[typing.Union[OrderLowLevelStatus, typing.Sequence[OrderLowLevelStatus]]]
+        status : typing.Optional[typing.Sequence[OrderLowLevelStatus]]
             Filter by low level status.
 
-        order_key : typing.Optional[LabTestsGetOrdersRequestOrderKey]
+        order_key : typing.Optional[GetOrdersLabTestsRequestOrderKey]
             Order key to sort by.
 
-        order_direction : typing.Optional[LabTestsGetOrdersRequestOrderDirection]
+        order_direction : typing.Optional[GetOrdersLabTestsRequestOrderDirection]
             Order direction to sort by.
 
-        order_type : typing.Optional[typing.Union[LabTestCollectionMethod, typing.Sequence[LabTestCollectionMethod]]]
+        order_type : typing.Optional[typing.Sequence[LabTestCollectionMethod]]
             Filter by method used to perform the lab test.
 
         is_critical : typing.Optional[bool]
@@ -2399,7 +2436,7 @@ class AsyncLabTestsClient:
         interpretation : typing.Optional[Interpretation]
             Filter by result interpretation of the lab test.
 
-        order_activation_types : typing.Optional[typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]]
+        order_activation_types : typing.Optional[typing.Sequence[OrderActivationType]]
             Filter by activation type.
 
         user_id : typing.Optional[str]
@@ -2411,7 +2448,7 @@ class AsyncLabTestsClient:
         shipping_recipient_name : typing.Optional[str]
             Filter by shipping recipient name.
 
-        order_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        order_ids : typing.Optional[typing.Sequence[str]]
             Filter by order ids.
 
         page : typing.Optional[int]
@@ -2462,7 +2499,7 @@ class AsyncLabTestsClient:
         self,
         *,
         request: UsAddress,
-        start_date: typing.Optional[str] = None,
+        start_date: typing.Optional[dt.date] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AppointmentAvailabilitySlots:
         """
@@ -2473,7 +2510,7 @@ class AsyncLabTestsClient:
         ----------
         request : UsAddress
 
-        start_date : typing.Optional[str]
+        start_date : typing.Optional[dt.date]
             Start date for appointment availability
 
         request_options : typing.Optional[RequestOptions]
@@ -2733,7 +2770,7 @@ class AsyncLabTestsClient:
         zip_code: str,
         radius: typing.Optional[AllowedRadius] = None,
         lab: typing.Optional[ClientFacingLabs] = None,
-        labs: typing.Optional[typing.Union[ClientFacingLabs, typing.Sequence[ClientFacingLabs]]] = None,
+        labs: typing.Optional[typing.Sequence[ClientFacingLabs]] = None,
         lab_account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AreaInfo:
@@ -2755,7 +2792,7 @@ class AsyncLabTestsClient:
         lab : typing.Optional[ClientFacingLabs]
             Lab to check for PSCs
 
-        labs : typing.Optional[typing.Union[ClientFacingLabs, typing.Sequence[ClientFacingLabs]]]
+        labs : typing.Optional[typing.Sequence[ClientFacingLabs]]
             List of labs to check for PSCs
 
         lab_account_id : typing.Optional[str]
@@ -2794,9 +2831,7 @@ class AsyncLabTestsClient:
         zip_code: str,
         lab_id: int,
         radius: typing.Optional[AllowedRadius] = None,
-        capabilities: typing.Optional[
-            typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]
-        ] = None,
+        capabilities: typing.Optional[typing.Sequence[LabLocationCapability]] = None,
         lab_account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PscInfo:
@@ -2812,7 +2847,7 @@ class AsyncLabTestsClient:
         radius : typing.Optional[AllowedRadius]
             Radius in which to search in miles. Note that we limit to 30 PSCs.
 
-        capabilities : typing.Optional[typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]]
+        capabilities : typing.Optional[typing.Sequence[LabLocationCapability]]
             Filter for only locations with certain capabilities
 
         lab_account_id : typing.Optional[str]
@@ -2850,9 +2885,7 @@ class AsyncLabTestsClient:
         order_id: str,
         *,
         radius: typing.Optional[AllowedRadius] = None,
-        capabilities: typing.Optional[
-            typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]
-        ] = None,
+        capabilities: typing.Optional[typing.Sequence[LabLocationCapability]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PscInfo:
         """
@@ -2864,7 +2897,7 @@ class AsyncLabTestsClient:
         radius : typing.Optional[AllowedRadius]
             Radius in which to search in miles
 
-        capabilities : typing.Optional[typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]]
+        capabilities : typing.Optional[typing.Sequence[LabLocationCapability]]
             Filter for only locations with certain capabilities
 
         request_options : typing.Optional[RequestOptions]
@@ -2906,6 +2939,15 @@ class AsyncLabTestsClient:
         -------
         typing.AsyncIterator[bytes]
             PDF with results
+
+        Examples
+        --------
+        from vital import AsyncVital
+        import asyncio
+        client = AsyncVital(api_key="YOUR_API_KEY", )
+        async def main() -> None:
+            await client.lab_tests.get_result_pdf(order_id='order_id', )
+        asyncio.run(main())
         """
         async with self._raw_client.get_result_pdf(order_id, request_options=request_options) as r:
             async for data in r.data:
@@ -3000,6 +3042,16 @@ class AsyncLabTestsClient:
         -------
         typing.AsyncIterator[bytes]
             PDF with labels
+
+        Examples
+        --------
+        from vital import AsyncVital
+        import datetime
+        import asyncio
+        client = AsyncVital(api_key="YOUR_API_KEY", )
+        async def main() -> None:
+            await client.lab_tests.get_labels_pdf(order_id='order_id', collection_date=datetime.datetime.fromisoformat("2024-01-15 09:30:00+00:00", ), )
+        asyncio.run(main())
         """
         async with self._raw_client.get_labels_pdf(
             order_id,
@@ -3013,8 +3065,8 @@ class AsyncLabTestsClient:
     async def get_psc_appointment_availability(
         self,
         *,
-        start_date: typing.Optional[str] = None,
-        site_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        start_date: typing.Optional[dt.date] = None,
+        site_codes: typing.Optional[typing.Sequence[str]] = None,
         zip_code: typing.Optional[str] = None,
         radius: typing.Optional[AllowedRadius] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -3022,10 +3074,10 @@ class AsyncLabTestsClient:
         """
         Parameters
         ----------
-        start_date : typing.Optional[str]
+        start_date : typing.Optional[dt.date]
             Start date for appointment availability
 
-        site_codes : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        site_codes : typing.Optional[typing.Sequence[str]]
             List of site codes to fetch availability for
 
         zip_code : typing.Optional[str]
@@ -3251,6 +3303,15 @@ class AsyncLabTestsClient:
         -------
         typing.AsyncIterator[bytes]
             PDF with collection instructions
+
+        Examples
+        --------
+        from vital import AsyncVital
+        import asyncio
+        client = AsyncVital(api_key="YOUR_API_KEY", )
+        async def main() -> None:
+            await client.lab_tests.get_order_collection_instruction_pdf(order_id='order_id', )
+        asyncio.run(main())
         """
         async with self._raw_client.get_order_collection_instruction_pdf(
             order_id, request_options=request_options
@@ -3276,6 +3337,15 @@ class AsyncLabTestsClient:
         -------
         typing.AsyncIterator[bytes]
             PDF with requisition form
+
+        Examples
+        --------
+        from vital import AsyncVital
+        import asyncio
+        client = AsyncVital(api_key="YOUR_API_KEY", )
+        async def main() -> None:
+            await client.lab_tests.get_order_requistion_pdf(order_id='order_id', )
+        asyncio.run(main())
         """
         async with self._raw_client.get_order_requistion_pdf(order_id, request_options=request_options) as r:
             async for data in r.data:
@@ -3299,6 +3369,15 @@ class AsyncLabTestsClient:
         -------
         typing.AsyncIterator[bytes]
             PDF with ABN form
+
+        Examples
+        --------
+        from vital import AsyncVital
+        import asyncio
+        client = AsyncVital(api_key="YOUR_API_KEY", )
+        async def main() -> None:
+            await client.lab_tests.get_order_abn_pdf(order_id='order_id', )
+        asyncio.run(main())
         """
         async with self._raw_client.get_order_abn_pdf(order_id, request_options=request_options) as r:
             async for data in r.data:
@@ -3352,7 +3431,7 @@ class AsyncLabTestsClient:
         billing_type: typing.Optional[Billing] = OMIT,
         icd_codes: typing.Optional[typing.Sequence[str]] = OMIT,
         consents: typing.Optional[typing.Sequence[Consent]] = OMIT,
-        activate_by: typing.Optional[str] = OMIT,
+        activate_by: typing.Optional[dt.date] = OMIT,
         aoe_answers: typing.Optional[typing.Sequence[AoEAnswer]] = OMIT,
         passthrough: typing.Optional[str] = OMIT,
         lab_account_id: typing.Optional[str] = OMIT,
@@ -3391,7 +3470,7 @@ class AsyncLabTestsClient:
 
         consents : typing.Optional[typing.Sequence[Consent]]
 
-        activate_by : typing.Optional[str]
+        activate_by : typing.Optional[dt.date]
             Schedule an Order to be processed in a future date.
 
         aoe_answers : typing.Optional[typing.Sequence[AoEAnswer]]
@@ -3414,12 +3493,13 @@ class AsyncLabTestsClient:
         --------
         from vital import AsyncVital
         from vital import PatientDetailsWithValidation
+        import datetime
         from vital import Gender
         from vital import PatientAddressWithValidation
         import asyncio
         client = AsyncVital(api_key="YOUR_API_KEY", )
         async def main() -> None:
-            await client.lab_tests.create_order(user_id='user_id', patient_details=PatientDetailsWithValidation(first_name='first_name', last_name='last_name', dob='dob', gender=Gender.FEMALE, phone_number='phone_number', email='email', ), patient_address=PatientAddressWithValidation(first_line='first_line', city='city', state='state', zip='zip', country='country', ), )
+            await client.lab_tests.create_order(user_id='user_id', patient_details=PatientDetailsWithValidation(first_name='first_name', last_name='last_name', dob=datetime.date.fromisoformat("2023-01-15", ), gender=Gender.FEMALE, phone_number='phone_number', email='email', ), patient_address=PatientAddressWithValidation(first_line='first_line', city='city', state='state', zip='zip', country='country', ), )
         asyncio.run(main())
         """
         _response = await self._raw_client.create_order(
@@ -3496,12 +3576,13 @@ class AsyncLabTestsClient:
         from vital import OrderSetRequest
         from vital import LabTestCollectionMethod
         from vital import PatientDetailsWithValidation
+        import datetime
         from vital import Gender
         from vital import PatientAddress
         import asyncio
         client = AsyncVital(api_key="YOUR_API_KEY", )
         async def main() -> None:
-            await client.lab_tests.import_order(user_id='user_id', billing_type=Billing.CLIENT_BILL, order_set=OrderSetRequest(), collection_method=LabTestCollectionMethod.TESTKIT, patient_details=PatientDetailsWithValidation(first_name='first_name', last_name='last_name', dob='dob', gender=Gender.FEMALE, phone_number='phone_number', email='email', ), patient_address=PatientAddress(receiver_name='receiver_name', first_line='first_line', city='city', state='state', zip='zip', country='country', ), sample_id='sample_id', )
+            await client.lab_tests.import_order(user_id='user_id', billing_type=Billing.CLIENT_BILL, order_set=OrderSetRequest(), collection_method=LabTestCollectionMethod.TESTKIT, patient_details=PatientDetailsWithValidation(first_name='first_name', last_name='last_name', dob=datetime.date.fromisoformat("2023-01-15", ), gender=Gender.FEMALE, phone_number='phone_number', email='email', ), patient_address=PatientAddress(receiver_name='receiver_name', first_line='first_line', city='city', state='state', zip='zip', country='country', ), sample_id='sample_id', )
         asyncio.run(main())
         """
         _response = await self._raw_client.import_order(
@@ -3582,10 +3663,11 @@ class AsyncLabTestsClient:
         Examples
         --------
         from vital import AsyncVital
+        from vital import SimulationFlags
         import asyncio
         client = AsyncVital(api_key="YOUR_API_KEY", )
         async def main() -> None:
-            await client.lab_tests.simulate_order_process(order_id='order_id', )
+            await client.lab_tests.simulate_order_process(order_id='order_id', request=SimulationFlags(), )
         asyncio.run(main())
         """
         _response = await self._raw_client.simulate_order_process(

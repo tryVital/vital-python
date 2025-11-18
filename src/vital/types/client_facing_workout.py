@@ -42,7 +42,7 @@ class ClientFacingWorkout(UniversalBaseModel):
     Distance travelled during workout::meters
     """
 
-    calendar_date: str = pydantic.Field()
+    calendar_date: dt.date = pydantic.Field()
     """
     Date of the workout summary in the YYYY-mm-dd format. This generally matches the workout start date.
     """

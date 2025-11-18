@@ -3,17 +3,17 @@
 # isort: skip_file
 
 from .types import (
-    LinkBulkExportRequestTeamId,
-    LinkBulkImportRequestTeamId,
-    LinkBulkPauseRequestTeamId,
-    LinkBulkTriggerHistoricalPullRequestTeamId,
-    LinkListBulkOpsRequestTeamId,
+    BulkExportLinkRequestTeamId,
+    BulkImportLinkRequestTeamId,
+    BulkPauseLinkRequestTeamId,
+    BulkTriggerHistoricalPullLinkRequestTeamId,
+    ListBulkOpsLinkRequestTeamId,
 )
 
 __all__ = [
-    "LinkBulkExportRequestTeamId",
-    "LinkBulkImportRequestTeamId",
-    "LinkBulkPauseRequestTeamId",
-    "LinkBulkTriggerHistoricalPullRequestTeamId",
-    "LinkListBulkOpsRequestTeamId",
+    "BulkExportLinkRequestTeamId",
+    "BulkImportLinkRequestTeamId",
+    "BulkPauseLinkRequestTeamId",
+    "BulkTriggerHistoricalPullLinkRequestTeamId",
+    "ListBulkOpsLinkRequestTeamId",
 ]

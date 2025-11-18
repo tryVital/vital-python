@@ -2,16 +2,16 @@
 
 # isort: skip_file
 
-from .link_bulk_export_request_team_id import LinkBulkExportRequestTeamId
-from .link_bulk_import_request_team_id import LinkBulkImportRequestTeamId
-from .link_bulk_pause_request_team_id import LinkBulkPauseRequestTeamId
-from .link_bulk_trigger_historical_pull_request_team_id import LinkBulkTriggerHistoricalPullRequestTeamId
-from .link_list_bulk_ops_request_team_id import LinkListBulkOpsRequestTeamId
+from .bulk_export_link_request_team_id import BulkExportLinkRequestTeamId
+from .bulk_import_link_request_team_id import BulkImportLinkRequestTeamId
+from .bulk_pause_link_request_team_id import BulkPauseLinkRequestTeamId
+from .bulk_trigger_historical_pull_link_request_team_id import BulkTriggerHistoricalPullLinkRequestTeamId
+from .list_bulk_ops_link_request_team_id import ListBulkOpsLinkRequestTeamId
 
 __all__ = [
-    "LinkBulkExportRequestTeamId",
-    "LinkBulkImportRequestTeamId",
-    "LinkBulkPauseRequestTeamId",
-    "LinkBulkTriggerHistoricalPullRequestTeamId",
-    "LinkListBulkOpsRequestTeamId",
+    "BulkExportLinkRequestTeamId",
+    "BulkImportLinkRequestTeamId",
+    "BulkPauseLinkRequestTeamId",
+    "BulkTriggerHistoricalPullLinkRequestTeamId",
+    "ListBulkOpsLinkRequestTeamId",
 ]

@@ -63,6 +63,7 @@ class AggregateClient:
         --------
         from vital import Vital
         from vital import RelativeTimeframe
+        import datetime
         from vital import Period
         from vital import PeriodUnit
         from vital import Query
@@ -71,7 +72,7 @@ class AggregateClient:
         from vital import SleepColumnExprSleep
         from vital import AggregateExprFunc
         client = Vital(api_key="YOUR_API_KEY", )
-        client.aggregate.query_one(user_id='user_id', timeframe=RelativeTimeframe(anchor='anchor', past=Period(unit=PeriodUnit.MINUTE, ), ), queries=[Query(select=[AggregateExpr(arg=SleepColumnExpr(sleep=SleepColumnExprSleep.ID, ), func=AggregateExprFunc.MEAN, )], )], )
+        client.aggregate.query_one(user_id='user_id', timeframe=RelativeTimeframe(anchor=datetime.date.fromisoformat("2023-01-15", ), past=Period(unit=PeriodUnit.MINUTE, ), ), queries=[Query(select=[AggregateExpr(arg=SleepColumnExpr(sleep=SleepColumnExprSleep.ID, ), func=AggregateExprFunc.MEAN, )], )], )
         """
         _response = self._raw_client.query_one(
             user_id, timeframe=timeframe, queries=queries, config=config, request_options=request_options
@@ -194,6 +195,7 @@ class AsyncAggregateClient:
         --------
         from vital import AsyncVital
         from vital import RelativeTimeframe
+        import datetime
         from vital import Period
         from vital import PeriodUnit
         from vital import Query
@@ -204,7 +206,7 @@ class AsyncAggregateClient:
         import asyncio
         client = AsyncVital(api_key="YOUR_API_KEY", )
         async def main() -> None:
-            await client.aggregate.query_one(user_id='user_id', timeframe=RelativeTimeframe(anchor='anchor', past=Period(unit=PeriodUnit.MINUTE, ), ), queries=[Query(select=[AggregateExpr(arg=SleepColumnExpr(sleep=SleepColumnExprSleep.ID, ), func=AggregateExprFunc.MEAN, )], )], )
+            await client.aggregate.query_one(user_id='user_id', timeframe=RelativeTimeframe(anchor=datetime.date.fromisoformat("2023-01-15", ), past=Period(unit=PeriodUnit.MINUTE, ), ), queries=[Query(select=[AggregateExpr(arg=SleepColumnExpr(sleep=SleepColumnExprSleep.ID, ), func=AggregateExprFunc.MEAN, )], )], )
         asyncio.run(main())
         """
         _response = await self._raw_client.query_one(
