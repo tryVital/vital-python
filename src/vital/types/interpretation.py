@@ -14,6 +14,7 @@ class Interpretation(str, enum.Enum):
     NORMAL = "normal"
     ABNORMAL = "abnormal"
     CRITICAL = "critical"
+    UNKNOWN = "unknown"
     _UNKNOWN = "__INTERPRETATION_UNKNOWN__"
     """
     This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
@@ -30,6 +31,7 @@ class Interpretation(str, enum.Enum):
         normal: typing.Callable[[], T_Result],
         abnormal: typing.Callable[[], T_Result],
         critical: typing.Callable[[], T_Result],
+        unknown: typing.Callable[[], T_Result],
         _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is Interpretation.NORMAL:
@@ -38,4 +40,6 @@ class Interpretation(str, enum.Enum):
             return abnormal()
         if self is Interpretation.CRITICAL:
             return critical()
+        if self is Interpretation.UNKNOWN:
+            return unknown()
         return _unknown_member(self._value_)

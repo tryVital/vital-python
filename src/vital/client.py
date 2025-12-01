@@ -12,6 +12,7 @@ from .electrocardiogram.client import AsyncElectrocardiogramClient, Electrocardi
 from .environment import VitalEnvironment
 from .insurance.client import AsyncInsuranceClient, InsuranceClient
 from .introspect.client import AsyncIntrospectClient, IntrospectClient
+from .lab_report.client import AsyncLabReportClient, LabReportClient
 from .lab_tests.client import AsyncLabTestsClient, LabTestsClient
 from .link.client import AsyncLinkClient, LinkClient
 from .meal.client import AsyncMealClient, MealClient
@@ -105,6 +106,7 @@ class Vital:
         self.order = OrderClient(client_wrapper=self._client_wrapper)
         self.insurance = InsuranceClient(client_wrapper=self._client_wrapper)
         self.payor = PayorClient(client_wrapper=self._client_wrapper)
+        self.lab_report = LabReportClient(client_wrapper=self._client_wrapper)
         self.aggregate = AggregateClient(client_wrapper=self._client_wrapper)
 
 
@@ -184,6 +186,7 @@ class AsyncVital:
         self.order = AsyncOrderClient(client_wrapper=self._client_wrapper)
         self.insurance = AsyncInsuranceClient(client_wrapper=self._client_wrapper)
         self.payor = AsyncPayorClient(client_wrapper=self._client_wrapper)
+        self.lab_report = AsyncLabReportClient(client_wrapper=self._client_wrapper)
         self.aggregate = AsyncAggregateClient(client_wrapper=self._client_wrapper)
 
 

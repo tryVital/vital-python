@@ -607,6 +607,8 @@ from .interval_timeseries_expr_timeseries import IntervalTimeseriesExprTimeserie
 from .jpeg import Jpeg
 from .lab_location_capability import LabLocationCapability
 from .lab_location_metadata import LabLocationMetadata
+from .lab_report_result import LabReportResult
+from .lab_report_result_type import LabReportResultType
 from .lab_results_metadata import LabResultsMetadata
 from .lab_results_raw import LabResultsRaw
 from .lab_results_raw_results import LabResultsRawResults
@@ -620,6 +622,7 @@ from .last_attempt import LastAttempt
 from .libre_config import LibreConfig
 from .link_token_exchange_response import LinkTokenExchangeResponse
 from .lng_lat import LngLat
+from .loinc_match import LoincMatch
 from .macros import Macros
 from .manual_providers import ManualProviders
 from .marker_type import MarkerType
@@ -646,6 +649,9 @@ from .ovulation_test_entry import OvulationTestEntry
 from .ovulation_test_entry_test_result import OvulationTestEntryTestResult
 from .paginated_users_response import PaginatedUsersResponse
 from .parent_biomarker_data import ParentBiomarkerData
+from .parsed_lab_report_data import ParsedLabReportData
+from .parsing_job import ParsingJob
+from .parsing_job_status import ParsingJobStatus
 from .password_providers import PasswordProviders
 from .patient_address import PatientAddress
 from .patient_address_compatible import PatientAddressCompatible
@@ -696,6 +702,7 @@ from .relative_timeframe import RelativeTimeframe
 from .resend_webhook_response import ResendWebhookResponse
 from .resource_availability import ResourceAvailability
 from .responsible_relationship import ResponsibleRelationship
+from .result_metadata import ResultMetadata
 from .result_type import ResultType
 from .sample_data import SampleData
 from .sample_data_date_collected import SampleDataDateCollected
@@ -1326,6 +1333,8 @@ __all__ = [
     "Jpeg",
     "LabLocationCapability",
     "LabLocationMetadata",
+    "LabReportResult",
+    "LabReportResultType",
     "LabResultsMetadata",
     "LabResultsRaw",
     "LabResultsRawResults",
@@ -1339,6 +1348,7 @@ __all__ = [
     "LibreConfig",
     "LinkTokenExchangeResponse",
     "LngLat",
+    "LoincMatch",
     "Macros",
     "ManualProviders",
     "MarkerType",
@@ -1365,6 +1375,9 @@ __all__ = [
     "OvulationTestEntryTestResult",
     "PaginatedUsersResponse",
     "ParentBiomarkerData",
+    "ParsedLabReportData",
+    "ParsingJob",
+    "ParsingJobStatus",
     "PasswordProviders",
     "PatientAddress",
     "PatientAddressCompatible",
@@ -1415,6 +1428,7 @@ __all__ = [
     "ResendWebhookResponse",
     "ResourceAvailability",
     "ResponsibleRelationship",
+    "ResultMetadata",
     "ResultType",
     "SampleData",
     "SampleDataDateCollected",
