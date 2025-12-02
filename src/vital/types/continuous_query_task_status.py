@@ -8,7 +8,7 @@ T_Result = typing.TypeVar("T_Result")
 
 class ContinuousQueryTaskStatus(str, enum.Enum):
     """
-    This has to match the `continuous_query_task_status` enum type in postgres. ℹ️ This enum is non-exhaustive.
+    ℹ️ This enum is non-exhaustive.
     """
 
     SCHEDULED = "scheduled"
