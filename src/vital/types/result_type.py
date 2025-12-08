@@ -14,6 +14,7 @@ class ResultType(str, enum.Enum):
     NUMERIC = "numeric"
     RANGE = "range"
     COMMENT = "comment"
+    CODED_VALUE = "coded_value"
     _UNKNOWN = "__RESULTTYPE_UNKNOWN__"
     """
     This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
@@ -30,6 +31,7 @@ class ResultType(str, enum.Enum):
         numeric: typing.Callable[[], T_Result],
         range: typing.Callable[[], T_Result],
         comment: typing.Callable[[], T_Result],
+        coded_value: typing.Callable[[], T_Result],
         _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is ResultType.NUMERIC:
@@ -38,4 +40,6 @@ class ResultType(str, enum.Enum):
             return range()
         if self is ResultType.COMMENT:
             return comment()
+        if self is ResultType.CODED_VALUE:
+            return coded_value()
         return _unknown_member(self._value_)
