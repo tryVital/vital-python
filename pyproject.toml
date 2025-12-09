@@ -3,7 +3,7 @@ name = "vital"
 
 [tool.poetry]
 name = "vital"
-version = "2.1.521"
+version = "2.1.522"
 description = ""
 readme = "README.md"
 authors = []
