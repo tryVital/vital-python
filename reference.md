@@ -15565,7 +15565,7 @@ and starts the ParseLabReport. Returns a generated job_id.
 ```python
 from vital import Vital
 client = Vital(api_key="YOUR_API_KEY", )
-client.lab_report.parser_create_job()
+client.lab_report.parser_create_job(user_id='user_id', )
 
 ```
 </dd>
@@ -15583,6 +15583,14 @@ client.lab_report.parser_create_job()
 
 **file:** `from __future__ import annotations
 core.File` — See core.File for more documentation
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
     
 </dd>
 </dl>

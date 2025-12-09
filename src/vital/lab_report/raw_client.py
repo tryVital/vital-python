@@ -26,6 +26,7 @@ class RawLabReportClient:
         self,
         *,
         file: core.File,
+        user_id: str,
         needs_human_review: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ParsingJob]:
@@ -37,6 +38,8 @@ class RawLabReportClient:
         ----------
         file : core.File
             See core.File for more documentation
+
+        user_id : str
 
         needs_human_review : typing.Optional[bool]
 
@@ -52,6 +55,7 @@ class RawLabReportClient:
             "lab_report/v1/parser/job",
             method="POST",
             data={
+                "user_id": user_id,
                 "needs_human_review": needs_human_review,
             },
             files={
@@ -150,6 +154,7 @@ class AsyncRawLabReportClient:
         self,
         *,
         file: core.File,
+        user_id: str,
         needs_human_review: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ParsingJob]:
@@ -161,6 +166,8 @@ class AsyncRawLabReportClient:
         ----------
         file : core.File
             See core.File for more documentation
+
+        user_id : str
 
         needs_human_review : typing.Optional[bool]
 
@@ -176,6 +183,7 @@ class AsyncRawLabReportClient:
             "lab_report/v1/parser/job",
             method="POST",
             data={
+                "user_id": user_id,
                 "needs_human_review": needs_human_review,
             },
             files={
