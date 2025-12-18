@@ -16,6 +16,7 @@ class IndexColumnExprIndex(str, enum.Enum):
     WORKOUT = "workout"
     BODY = "body"
     MEAL = "meal"
+    PROFILE = "profile"
     TIMESERIES = "timeseries"
     _UNKNOWN = "__INDEXCOLUMNEXPRINDEX_UNKNOWN__"
     """
@@ -35,6 +36,7 @@ class IndexColumnExprIndex(str, enum.Enum):
         workout: typing.Callable[[], T_Result],
         body: typing.Callable[[], T_Result],
         meal: typing.Callable[[], T_Result],
+        profile: typing.Callable[[], T_Result],
         timeseries: typing.Callable[[], T_Result],
         _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
@@ -48,6 +50,8 @@ class IndexColumnExprIndex(str, enum.Enum):
             return body()
         if self is IndexColumnExprIndex.MEAL:
             return meal()
+        if self is IndexColumnExprIndex.PROFILE:
+            return profile()
         if self is IndexColumnExprIndex.TIMESERIES:
             return timeseries()
         return _unknown_member(self._value_)

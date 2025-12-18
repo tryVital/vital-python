@@ -670,6 +670,8 @@ from .placeholder import Placeholder
 from .png import Png
 from .post_order_response import PostOrderResponse
 from .priority_resource import PriorityResource
+from .profile_column_expr import ProfileColumnExpr
+from .profile_column_expr_profile import ProfileColumnExprProfile
 from .profile_in_db import ProfileInDb
 from .provider_connection_created import ProviderConnectionCreated
 from .provider_connection_error import ProviderConnectionError
@@ -1396,6 +1398,8 @@ __all__ = [
     "Png",
     "PostOrderResponse",
     "PriorityResource",
+    "ProfileColumnExpr",
+    "ProfileColumnExprProfile",
     "ProfileInDb",
     "ProviderConnectionCreated",
     "ProviderConnectionError",
