@@ -30,11 +30,11 @@ from ..types.region import Region
 from ..types.source import Source
 from ..types.source_link import SourceLink
 from ..types.vital_token_created_response import VitalTokenCreatedResponse
-from .types.bulk_export_link_request_team_id import BulkExportLinkRequestTeamId
-from .types.bulk_import_link_request_team_id import BulkImportLinkRequestTeamId
-from .types.bulk_pause_link_request_team_id import BulkPauseLinkRequestTeamId
-from .types.bulk_trigger_historical_pull_link_request_team_id import BulkTriggerHistoricalPullLinkRequestTeamId
-from .types.list_bulk_ops_link_request_team_id import ListBulkOpsLinkRequestTeamId
+from .types.link_bulk_export_request_team_id import LinkBulkExportRequestTeamId
+from .types.link_bulk_import_request_team_id import LinkBulkImportRequestTeamId
+from .types.link_bulk_pause_request_team_id import LinkBulkPauseRequestTeamId
+from .types.link_bulk_trigger_historical_pull_request_team_id import LinkBulkTriggerHistoricalPullRequestTeamId
+from .types.link_list_bulk_ops_request_team_id import LinkListBulkOpsRequestTeamId
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -49,7 +49,7 @@ class RawLinkClient:
         *,
         next_cursor: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
-        team_id: typing.Optional[ListBulkOpsLinkRequestTeamId] = None,
+        team_id: typing.Optional[LinkListBulkOpsRequestTeamId] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[BulkOpsResponse]:
         """
@@ -59,7 +59,7 @@ class RawLinkClient:
 
         page_size : typing.Optional[int]
 
-        team_id : typing.Optional[ListBulkOpsLinkRequestTeamId]
+        team_id : typing.Optional[LinkListBulkOpsRequestTeamId]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -110,7 +110,7 @@ class RawLinkClient:
         *,
         provider: OAuthProviders,
         connections: typing.Sequence[ConnectionRecipe],
-        team_id: typing.Optional[BulkImportLinkRequestTeamId] = None,
+        team_id: typing.Optional[LinkBulkImportRequestTeamId] = None,
         wait_for_completion: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[BulkImportConnectionsResponse]:
@@ -121,7 +121,7 @@ class RawLinkClient:
 
         connections : typing.Sequence[ConnectionRecipe]
 
-        team_id : typing.Optional[BulkImportLinkRequestTeamId]
+        team_id : typing.Optional[LinkBulkImportRequestTeamId]
 
         wait_for_completion : typing.Optional[bool]
 
@@ -188,10 +188,10 @@ class RawLinkClient:
         *,
         user_ids: typing.Sequence[str],
         provider: OAuthProviders,
-        team_id: typing.Optional[BulkTriggerHistoricalPullLinkRequestTeamId] = None,
+        team_id: typing.Optional[LinkBulkTriggerHistoricalPullRequestTeamId] = None,
         wait_for_completion: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[typing.Optional[typing.Any]]:
+    ) -> HttpResponse[typing.Any]:
         """
         Parameters
         ----------
@@ -199,7 +199,7 @@ class RawLinkClient:
 
         provider : OAuthProviders
 
-        team_id : typing.Optional[BulkTriggerHistoricalPullLinkRequestTeamId]
+        team_id : typing.Optional[LinkBulkTriggerHistoricalPullRequestTeamId]
 
         wait_for_completion : typing.Optional[bool]
 
@@ -215,7 +215,7 @@ class RawLinkClient:
 
         Returns
         -------
-        HttpResponse[typing.Optional[typing.Any]]
+        HttpResponse[typing.Any]
             Successful Response
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -236,11 +236,13 @@ class RawLinkClient:
             omit=OMIT,
         )
         try:
+            if _response is None or not _response.text.strip():
+                return HttpResponse(response=_response, data=None)
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    typing.Optional[typing.Any],
+                    typing.Any,
                     parse_obj_as(
-                        type_=typing.Optional[typing.Any],  # type: ignore
+                        type_=typing.Any,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -265,7 +267,7 @@ class RawLinkClient:
         self,
         *,
         provider: OAuthProviders,
-        team_id: typing.Optional[BulkExportLinkRequestTeamId] = None,
+        team_id: typing.Optional[LinkBulkExportRequestTeamId] = None,
         user_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         next_token: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -275,7 +277,7 @@ class RawLinkClient:
         ----------
         provider : OAuthProviders
 
-        team_id : typing.Optional[BulkExportLinkRequestTeamId]
+        team_id : typing.Optional[LinkBulkExportRequestTeamId]
 
         user_ids : typing.Optional[typing.Sequence[str]]
 
@@ -337,9 +339,9 @@ class RawLinkClient:
         *,
         user_ids: typing.Sequence[str],
         provider: OAuthProviders,
-        team_id: typing.Optional[BulkPauseLinkRequestTeamId] = None,
+        team_id: typing.Optional[LinkBulkPauseRequestTeamId] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[typing.Optional[typing.Any]]:
+    ) -> HttpResponse[typing.Any]:
         """
         Parameters
         ----------
@@ -347,14 +349,14 @@ class RawLinkClient:
 
         provider : OAuthProviders
 
-        team_id : typing.Optional[BulkPauseLinkRequestTeamId]
+        team_id : typing.Optional[LinkBulkPauseRequestTeamId]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[typing.Optional[typing.Any]]
+        HttpResponse[typing.Any]
             Successful Response
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -374,11 +376,13 @@ class RawLinkClient:
             omit=OMIT,
         )
         try:
+            if _response is None or not _response.text.strip():
+                return HttpResponse(response=_response, data=None)
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    typing.Optional[typing.Any],
+                    typing.Any,
                     parse_obj_as(
-                        type_=typing.Optional[typing.Any],  # type: ignore
+                        type_=typing.Any,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -503,7 +507,7 @@ class RawLinkClient:
 
     def is_token_valid(
         self, *, token: str, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[typing.Dict[str, typing.Optional[typing.Any]]]:
+    ) -> HttpResponse[typing.Dict[str, typing.Any]]:
         """
         Parameters
         ----------
@@ -514,7 +518,7 @@ class RawLinkClient:
 
         Returns
         -------
-        HttpResponse[typing.Dict[str, typing.Optional[typing.Any]]]
+        HttpResponse[typing.Dict[str, typing.Any]]
             Successful Response
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -532,9 +536,9 @@ class RawLinkClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    typing.Dict[str, typing.Optional[typing.Any]],
+                    typing.Dict[str, typing.Any],
                     parse_obj_as(
-                        type_=typing.Dict[str, typing.Optional[typing.Any]],  # type: ignore
+                        type_=typing.Dict[str, typing.Any],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -617,7 +621,7 @@ class RawLinkClient:
 
     def start_connect(
         self, *, link_token: str, provider: Providers, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[typing.Dict[str, typing.Optional[typing.Any]]]:
+    ) -> HttpResponse[typing.Dict[str, typing.Any]]:
         """
         REQUEST_SOURCE: VITAL-LINK
         Start link token process
@@ -633,7 +637,7 @@ class RawLinkClient:
 
         Returns
         -------
-        HttpResponse[typing.Dict[str, typing.Optional[typing.Any]]]
+        HttpResponse[typing.Dict[str, typing.Any]]
             Successful Response
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -652,9 +656,9 @@ class RawLinkClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    typing.Dict[str, typing.Optional[typing.Any]],
+                    typing.Dict[str, typing.Any],
                     parse_obj_as(
-                        type_=typing.Dict[str, typing.Optional[typing.Any]],  # type: ignore
+                        type_=typing.Dict[str, typing.Any],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -677,7 +681,7 @@ class RawLinkClient:
 
     def token_state(
         self, *, vital_link_token: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[typing.Dict[str, typing.Optional[typing.Any]]]:
+    ) -> HttpResponse[typing.Dict[str, typing.Any]]:
         """
         REQUEST_SOURCE: VITAL-LINK
         Check link token state - can be hit continuously used as heartbeat
@@ -691,7 +695,7 @@ class RawLinkClient:
 
         Returns
         -------
-        HttpResponse[typing.Dict[str, typing.Optional[typing.Any]]]
+        HttpResponse[typing.Dict[str, typing.Any]]
             Successful Response
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -705,9 +709,9 @@ class RawLinkClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    typing.Dict[str, typing.Optional[typing.Any]],
+                    typing.Dict[str, typing.Any],
                     parse_obj_as(
-                        type_=typing.Dict[str, typing.Optional[typing.Any]],  # type: ignore
+                        type_=typing.Dict[str, typing.Any],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -737,7 +741,7 @@ class RawLinkClient:
         vital_link_token: typing.Optional[str] = None,
         region: typing.Optional[Region] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[typing.Optional[typing.Any]]:
+    ) -> HttpResponse[typing.Any]:
         """
         Deprecated. Use `POST /v2/link/provider/email/{provider}` instead.
 
@@ -758,7 +762,7 @@ class RawLinkClient:
 
         Returns
         -------
-        HttpResponse[typing.Optional[typing.Any]]
+        HttpResponse[typing.Any]
             Successful Response
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -778,11 +782,13 @@ class RawLinkClient:
             omit=OMIT,
         )
         try:
+            if _response is None or not _response.text.strip():
+                return HttpResponse(response=_response, data=None)
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    typing.Optional[typing.Any],
+                    typing.Any,
                     parse_obj_as(
-                        type_=typing.Optional[typing.Any],  # type: ignore
+                        type_=typing.Any,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -812,7 +818,7 @@ class RawLinkClient:
         auth_type: AuthType,
         vital_link_token: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[typing.Optional[typing.Any]]:
+    ) -> HttpResponse[typing.Any]:
         """
         Deprecated. Use `POST /v2/link/provider/password/{provider}` instead.
 
@@ -833,7 +839,7 @@ class RawLinkClient:
 
         Returns
         -------
-        HttpResponse[typing.Optional[typing.Any]]
+        HttpResponse[typing.Any]
             Successful Response
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -853,11 +859,13 @@ class RawLinkClient:
             omit=OMIT,
         )
         try:
+            if _response is None or not _response.text.strip():
+                return HttpResponse(response=_response, data=None)
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    typing.Optional[typing.Any],
+                    typing.Any,
                     parse_obj_as(
-                        type_=typing.Optional[typing.Any],  # type: ignore
+                        type_=typing.Any,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1087,7 +1095,7 @@ class RawLinkClient:
         email_provider_auth_link_provider: typing.Optional[Providers] = OMIT,
         region: typing.Optional[Region] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[typing.Optional[typing.Any]]:
+    ) -> HttpResponse[typing.Any]:
         """
         This connects auth providers that are email based.
 
@@ -1106,7 +1114,7 @@ class RawLinkClient:
 
         Returns
         -------
-        HttpResponse[typing.Optional[typing.Any]]
+        HttpResponse[typing.Any]
             Successful Response
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -1125,11 +1133,13 @@ class RawLinkClient:
             omit=OMIT,
         )
         try:
+            if _response is None or not _response.text.strip():
+                return HttpResponse(response=_response, data=None)
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    typing.Optional[typing.Any],
+                    typing.Any,
                     parse_obj_as(
-                        type_=typing.Optional[typing.Any],  # type: ignore
+                        type_=typing.Any,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1337,7 +1347,7 @@ class AsyncRawLinkClient:
         *,
         next_cursor: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
-        team_id: typing.Optional[ListBulkOpsLinkRequestTeamId] = None,
+        team_id: typing.Optional[LinkListBulkOpsRequestTeamId] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[BulkOpsResponse]:
         """
@@ -1347,7 +1357,7 @@ class AsyncRawLinkClient:
 
         page_size : typing.Optional[int]
 
-        team_id : typing.Optional[ListBulkOpsLinkRequestTeamId]
+        team_id : typing.Optional[LinkListBulkOpsRequestTeamId]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1398,7 +1408,7 @@ class AsyncRawLinkClient:
         *,
         provider: OAuthProviders,
         connections: typing.Sequence[ConnectionRecipe],
-        team_id: typing.Optional[BulkImportLinkRequestTeamId] = None,
+        team_id: typing.Optional[LinkBulkImportRequestTeamId] = None,
         wait_for_completion: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[BulkImportConnectionsResponse]:
@@ -1409,7 +1419,7 @@ class AsyncRawLinkClient:
 
         connections : typing.Sequence[ConnectionRecipe]
 
-        team_id : typing.Optional[BulkImportLinkRequestTeamId]
+        team_id : typing.Optional[LinkBulkImportRequestTeamId]
 
         wait_for_completion : typing.Optional[bool]
 
@@ -1476,10 +1486,10 @@ class AsyncRawLinkClient:
         *,
         user_ids: typing.Sequence[str],
         provider: OAuthProviders,
-        team_id: typing.Optional[BulkTriggerHistoricalPullLinkRequestTeamId] = None,
+        team_id: typing.Optional[LinkBulkTriggerHistoricalPullRequestTeamId] = None,
         wait_for_completion: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[typing.Optional[typing.Any]]:
+    ) -> AsyncHttpResponse[typing.Any]:
         """
         Parameters
         ----------
@@ -1487,7 +1497,7 @@ class AsyncRawLinkClient:
 
         provider : OAuthProviders
 
-        team_id : typing.Optional[BulkTriggerHistoricalPullLinkRequestTeamId]
+        team_id : typing.Optional[LinkBulkTriggerHistoricalPullRequestTeamId]
 
         wait_for_completion : typing.Optional[bool]
 
@@ -1503,7 +1513,7 @@ class AsyncRawLinkClient:
 
         Returns
         -------
-        AsyncHttpResponse[typing.Optional[typing.Any]]
+        AsyncHttpResponse[typing.Any]
             Successful Response
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -1524,11 +1534,13 @@ class AsyncRawLinkClient:
             omit=OMIT,
         )
         try:
+            if _response is None or not _response.text.strip():
+                return AsyncHttpResponse(response=_response, data=None)
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    typing.Optional[typing.Any],
+                    typing.Any,
                     parse_obj_as(
-                        type_=typing.Optional[typing.Any],  # type: ignore
+                        type_=typing.Any,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1553,7 +1565,7 @@ class AsyncRawLinkClient:
         self,
         *,
         provider: OAuthProviders,
-        team_id: typing.Optional[BulkExportLinkRequestTeamId] = None,
+        team_id: typing.Optional[LinkBulkExportRequestTeamId] = None,
         user_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         next_token: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1563,7 +1575,7 @@ class AsyncRawLinkClient:
         ----------
         provider : OAuthProviders
 
-        team_id : typing.Optional[BulkExportLinkRequestTeamId]
+        team_id : typing.Optional[LinkBulkExportRequestTeamId]
 
         user_ids : typing.Optional[typing.Sequence[str]]
 
@@ -1625,9 +1637,9 @@ class AsyncRawLinkClient:
         *,
         user_ids: typing.Sequence[str],
         provider: OAuthProviders,
-        team_id: typing.Optional[BulkPauseLinkRequestTeamId] = None,
+        team_id: typing.Optional[LinkBulkPauseRequestTeamId] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[typing.Optional[typing.Any]]:
+    ) -> AsyncHttpResponse[typing.Any]:
         """
         Parameters
         ----------
@@ -1635,14 +1647,14 @@ class AsyncRawLinkClient:
 
         provider : OAuthProviders
 
-        team_id : typing.Optional[BulkPauseLinkRequestTeamId]
+        team_id : typing.Optional[LinkBulkPauseRequestTeamId]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[typing.Optional[typing.Any]]
+        AsyncHttpResponse[typing.Any]
             Successful Response
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -1662,11 +1674,13 @@ class AsyncRawLinkClient:
             omit=OMIT,
         )
         try:
+            if _response is None or not _response.text.strip():
+                return AsyncHttpResponse(response=_response, data=None)
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    typing.Optional[typing.Any],
+                    typing.Any,
                     parse_obj_as(
-                        type_=typing.Optional[typing.Any],  # type: ignore
+                        type_=typing.Any,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1791,7 +1805,7 @@ class AsyncRawLinkClient:
 
     async def is_token_valid(
         self, *, token: str, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[typing.Dict[str, typing.Optional[typing.Any]]]:
+    ) -> AsyncHttpResponse[typing.Dict[str, typing.Any]]:
         """
         Parameters
         ----------
@@ -1802,7 +1816,7 @@ class AsyncRawLinkClient:
 
         Returns
         -------
-        AsyncHttpResponse[typing.Dict[str, typing.Optional[typing.Any]]]
+        AsyncHttpResponse[typing.Dict[str, typing.Any]]
             Successful Response
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -1820,9 +1834,9 @@ class AsyncRawLinkClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    typing.Dict[str, typing.Optional[typing.Any]],
+                    typing.Dict[str, typing.Any],
                     parse_obj_as(
-                        type_=typing.Dict[str, typing.Optional[typing.Any]],  # type: ignore
+                        type_=typing.Dict[str, typing.Any],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1905,7 +1919,7 @@ class AsyncRawLinkClient:
 
     async def start_connect(
         self, *, link_token: str, provider: Providers, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[typing.Dict[str, typing.Optional[typing.Any]]]:
+    ) -> AsyncHttpResponse[typing.Dict[str, typing.Any]]:
         """
         REQUEST_SOURCE: VITAL-LINK
         Start link token process
@@ -1921,7 +1935,7 @@ class AsyncRawLinkClient:
 
         Returns
         -------
-        AsyncHttpResponse[typing.Dict[str, typing.Optional[typing.Any]]]
+        AsyncHttpResponse[typing.Dict[str, typing.Any]]
             Successful Response
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -1940,9 +1954,9 @@ class AsyncRawLinkClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    typing.Dict[str, typing.Optional[typing.Any]],
+                    typing.Dict[str, typing.Any],
                     parse_obj_as(
-                        type_=typing.Dict[str, typing.Optional[typing.Any]],  # type: ignore
+                        type_=typing.Dict[str, typing.Any],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1965,7 +1979,7 @@ class AsyncRawLinkClient:
 
     async def token_state(
         self, *, vital_link_token: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[typing.Dict[str, typing.Optional[typing.Any]]]:
+    ) -> AsyncHttpResponse[typing.Dict[str, typing.Any]]:
         """
         REQUEST_SOURCE: VITAL-LINK
         Check link token state - can be hit continuously used as heartbeat
@@ -1979,7 +1993,7 @@ class AsyncRawLinkClient:
 
         Returns
         -------
-        AsyncHttpResponse[typing.Dict[str, typing.Optional[typing.Any]]]
+        AsyncHttpResponse[typing.Dict[str, typing.Any]]
             Successful Response
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -1993,9 +2007,9 @@ class AsyncRawLinkClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    typing.Dict[str, typing.Optional[typing.Any]],
+                    typing.Dict[str, typing.Any],
                     parse_obj_as(
-                        type_=typing.Dict[str, typing.Optional[typing.Any]],  # type: ignore
+                        type_=typing.Dict[str, typing.Any],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -2025,7 +2039,7 @@ class AsyncRawLinkClient:
         vital_link_token: typing.Optional[str] = None,
         region: typing.Optional[Region] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[typing.Optional[typing.Any]]:
+    ) -> AsyncHttpResponse[typing.Any]:
         """
         Deprecated. Use `POST /v2/link/provider/email/{provider}` instead.
 
@@ -2046,7 +2060,7 @@ class AsyncRawLinkClient:
 
         Returns
         -------
-        AsyncHttpResponse[typing.Optional[typing.Any]]
+        AsyncHttpResponse[typing.Any]
             Successful Response
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -2066,11 +2080,13 @@ class AsyncRawLinkClient:
             omit=OMIT,
         )
         try:
+            if _response is None or not _response.text.strip():
+                return AsyncHttpResponse(response=_response, data=None)
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    typing.Optional[typing.Any],
+                    typing.Any,
                     parse_obj_as(
-                        type_=typing.Optional[typing.Any],  # type: ignore
+                        type_=typing.Any,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -2100,7 +2116,7 @@ class AsyncRawLinkClient:
         auth_type: AuthType,
         vital_link_token: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[typing.Optional[typing.Any]]:
+    ) -> AsyncHttpResponse[typing.Any]:
         """
         Deprecated. Use `POST /v2/link/provider/password/{provider}` instead.
 
@@ -2121,7 +2137,7 @@ class AsyncRawLinkClient:
 
         Returns
         -------
-        AsyncHttpResponse[typing.Optional[typing.Any]]
+        AsyncHttpResponse[typing.Any]
             Successful Response
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -2141,11 +2157,13 @@ class AsyncRawLinkClient:
             omit=OMIT,
         )
         try:
+            if _response is None or not _response.text.strip():
+                return AsyncHttpResponse(response=_response, data=None)
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    typing.Optional[typing.Any],
+                    typing.Any,
                     parse_obj_as(
-                        type_=typing.Optional[typing.Any],  # type: ignore
+                        type_=typing.Any,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -2375,7 +2393,7 @@ class AsyncRawLinkClient:
         email_provider_auth_link_provider: typing.Optional[Providers] = OMIT,
         region: typing.Optional[Region] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[typing.Optional[typing.Any]]:
+    ) -> AsyncHttpResponse[typing.Any]:
         """
         This connects auth providers that are email based.
 
@@ -2394,7 +2412,7 @@ class AsyncRawLinkClient:
 
         Returns
         -------
-        AsyncHttpResponse[typing.Optional[typing.Any]]
+        AsyncHttpResponse[typing.Any]
             Successful Response
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -2413,11 +2431,13 @@ class AsyncRawLinkClient:
             omit=OMIT,
         )
         try:
+            if _response is None or not _response.text.strip():
+                return AsyncHttpResponse(response=_response, data=None)
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    typing.Optional[typing.Any],
+                    typing.Any,
                     parse_obj_as(
-                        type_=typing.Optional[typing.Any],  # type: ignore
+                        type_=typing.Any,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

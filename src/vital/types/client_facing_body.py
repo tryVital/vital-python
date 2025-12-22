@@ -20,7 +20,7 @@ class ClientFacingBody(UniversalBaseModel):
     Date of the specified record, formatted as ISO8601 datetime string in UTC 00:00. Deprecated in favour of calendar_date.
     """
 
-    calendar_date: dt.date = pydantic.Field()
+    calendar_date: str = pydantic.Field()
     """
     Date of the summary in the YYYY-mm-dd format.
     """

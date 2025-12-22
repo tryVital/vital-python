@@ -1,6 +1,6 @@
 # Reference
 ## Link
-<details><summary><code>client.link.<a href="src/vital/link/client.py">list_bulk_ops</a>(...)</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">list_bulk_ops</a>(...) -> AsyncHttpResponse[BulkOpsResponse]</code></summary>
 <dl>
 <dd>
 
@@ -14,8 +14,16 @@
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.link.list_bulk_ops()
+from vital.link import LinkListBulkOpsRequestTeamId
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.link.list_bulk_ops(
+    next_cursor="next_cursor",
+    page_size=1,
+    team_id=LinkListBulkOpsRequestTeamId.INFER_FROM_CONTEXT,
+)
 
 ```
 </dd>
@@ -47,7 +55,7 @@ client.link.list_bulk_ops()
 <dl>
 <dd>
 
-**team_id:** `typing.Optional[ListBulkOpsLinkRequestTeamId]` 
+**team_id:** `typing.Optional[LinkListBulkOpsRequestTeamId]` 
     
 </dd>
 </dl>
@@ -67,7 +75,7 @@ client.link.list_bulk_ops()
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">bulk_import</a>(...)</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">bulk_import</a>(...) -> AsyncHttpResponse[BulkImportConnectionsResponse]</code></summary>
 <dl>
 <dd>
 
@@ -80,11 +88,25 @@ client.link.list_bulk_ops()
 <dd>
 
 ```python
-from vital import Vital
-from vital import OAuthProviders
-from vital import ConnectionRecipe
-client = Vital(api_key="YOUR_API_KEY", )
-client.link.bulk_import(provider=OAuthProviders.OURA, connections=[ConnectionRecipe(user_id='user_id', access_token='access_token', refresh_token='refresh_token', provider_id='provider_id', expires_at=1, )], )
+from vital import ConnectionRecipe, OAuthProviders, Vital
+from vital.link import LinkBulkImportRequestTeamId
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.link.bulk_import(
+    team_id=LinkBulkImportRequestTeamId.INFER_FROM_CONTEXT,
+    provider=OAuthProviders.OURA,
+    connections=[
+        ConnectionRecipe(
+            user_id="user_id",
+            access_token="access_token",
+            refresh_token="refresh_token",
+            provider_id="provider_id",
+            expires_at=1,
+        )
+    ],
+)
 
 ```
 </dd>
@@ -116,7 +138,7 @@ client.link.bulk_import(provider=OAuthProviders.OURA, connections=[ConnectionRec
 <dl>
 <dd>
 
-**team_id:** `typing.Optional[BulkImportLinkRequestTeamId]` 
+**team_id:** `typing.Optional[LinkBulkImportRequestTeamId]` 
     
 </dd>
 </dl>
@@ -152,7 +174,7 @@ the [List Bulk Ops](https://docs.tryvital.io/api-reference/link/list-bulk-ops) e
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">bulk_trigger_historical_pull</a>(...)</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">bulk_trigger_historical_pull</a>(...) -> AsyncHttpResponse[typing.Any]</code></summary>
 <dl>
 <dd>
 
@@ -165,10 +187,17 @@ the [List Bulk Ops](https://docs.tryvital.io/api-reference/link/list-bulk-ops) e
 <dd>
 
 ```python
-from vital import Vital
-from vital import OAuthProviders
-client = Vital(api_key="YOUR_API_KEY", )
-client.link.bulk_trigger_historical_pull(user_ids=['user_ids'], provider=OAuthProviders.OURA, )
+from vital import OAuthProviders, Vital
+from vital.link import LinkBulkTriggerHistoricalPullRequestTeamId
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.link.bulk_trigger_historical_pull(
+    team_id=LinkBulkTriggerHistoricalPullRequestTeamId.INFER_FROM_CONTEXT,
+    user_ids=["user_ids"],
+    provider=OAuthProviders.OURA,
+)
 
 ```
 </dd>
@@ -200,7 +229,7 @@ client.link.bulk_trigger_historical_pull(user_ids=['user_ids'], provider=OAuthPr
 <dl>
 <dd>
 
-**team_id:** `typing.Optional[BulkTriggerHistoricalPullLinkRequestTeamId]` 
+**team_id:** `typing.Optional[LinkBulkTriggerHistoricalPullRequestTeamId]` 
     
 </dd>
 </dl>
@@ -236,7 +265,7 @@ the [List Bulk Ops](https://docs.tryvital.io/api-reference/link/list-bulk-ops) e
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">bulk_export</a>(...)</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">bulk_export</a>(...) -> AsyncHttpResponse[BulkExportConnectionsResponse]</code></summary>
 <dl>
 <dd>
 
@@ -249,10 +278,16 @@ the [List Bulk Ops](https://docs.tryvital.io/api-reference/link/list-bulk-ops) e
 <dd>
 
 ```python
-from vital import Vital
-from vital import OAuthProviders
-client = Vital(api_key="YOUR_API_KEY", )
-client.link.bulk_export(provider=OAuthProviders.OURA, )
+from vital import OAuthProviders, Vital
+from vital.link import LinkBulkExportRequestTeamId
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.link.bulk_export(
+    team_id=LinkBulkExportRequestTeamId.INFER_FROM_CONTEXT,
+    provider=OAuthProviders.OURA,
+)
 
 ```
 </dd>
@@ -276,7 +311,7 @@ client.link.bulk_export(provider=OAuthProviders.OURA, )
 <dl>
 <dd>
 
-**team_id:** `typing.Optional[BulkExportLinkRequestTeamId]` 
+**team_id:** `typing.Optional[LinkBulkExportRequestTeamId]` 
     
 </dd>
 </dl>
@@ -312,7 +347,7 @@ client.link.bulk_export(provider=OAuthProviders.OURA, )
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">bulk_pause</a>(...)</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">bulk_pause</a>(...) -> AsyncHttpResponse[typing.Any]</code></summary>
 <dl>
 <dd>
 
@@ -325,10 +360,17 @@ client.link.bulk_export(provider=OAuthProviders.OURA, )
 <dd>
 
 ```python
-from vital import Vital
-from vital import OAuthProviders
-client = Vital(api_key="YOUR_API_KEY", )
-client.link.bulk_pause(user_ids=['user_ids'], provider=OAuthProviders.OURA, )
+from vital import OAuthProviders, Vital
+from vital.link import LinkBulkPauseRequestTeamId
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.link.bulk_pause(
+    team_id=LinkBulkPauseRequestTeamId.INFER_FROM_CONTEXT,
+    user_ids=["user_ids"],
+    provider=OAuthProviders.OURA,
+)
 
 ```
 </dd>
@@ -360,7 +402,7 @@ client.link.bulk_pause(user_ids=['user_ids'], provider=OAuthProviders.OURA, )
 <dl>
 <dd>
 
-**team_id:** `typing.Optional[BulkPauseLinkRequestTeamId]` 
+**team_id:** `typing.Optional[LinkBulkPauseRequestTeamId]` 
     
 </dd>
 </dl>
@@ -380,7 +422,7 @@ client.link.bulk_pause(user_ids=['user_ids'], provider=OAuthProviders.OURA, )
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">token</a>(...)</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">token</a>(...) -> AsyncHttpResponse[LinkTokenExchangeResponse]</code></summary>
 <dl>
 <dd>
 
@@ -413,8 +455,13 @@ pass in your own custom redirect_url parameter.
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.link.token(user_id='user_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.link.token(
+    user_id="user_id",
+)
 
 ```
 </dd>
@@ -510,7 +557,7 @@ This has no effect on programmatic Vital Link API usage.
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">is_token_valid</a>(...)</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">is_token_valid</a>(...) -> AsyncHttpResponse[typing.Dict[str, typing.Any]]</code></summary>
 <dl>
 <dd>
 
@@ -524,8 +571,13 @@ This has no effect on programmatic Vital Link API usage.
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.link.is_token_valid(token='token', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.link.is_token_valid(
+    token="token",
+)
 
 ```
 </dd>
@@ -561,7 +613,7 @@ client.link.is_token_valid(token='token', )
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">code_create</a>(...)</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">code_create</a>(...) -> AsyncHttpResponse[VitalTokenCreatedResponse]</code></summary>
 <dl>
 <dd>
 
@@ -588,9 +640,19 @@ Generate a token to invite a user of Vital mobile app to your team
 <dd>
 
 ```python
+import datetime
+
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.link.code_create(user_id='user_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.link.code_create(
+    user_id="user_id",
+    expires_at=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+)
 
 ```
 </dd>
@@ -634,7 +696,7 @@ client.link.code_create(user_id='user_id', )
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">start_connect</a>(...)</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">start_connect</a>(...) -> AsyncHttpResponse[typing.Dict[str, typing.Any]]</code></summary>
 <dl>
 <dd>
 
@@ -662,10 +724,15 @@ Start link token process
 <dd>
 
 ```python
-from vital import Vital
-from vital import Providers
-client = Vital(api_key="YOUR_API_KEY", )
-client.link.start_connect(link_token='link_token', provider=Providers.OURA, )
+from vital import Providers, Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.link.start_connect(
+    link_token="link_token",
+    provider=Providers.OURA,
+)
 
 ```
 </dd>
@@ -709,7 +776,7 @@ client.link.start_connect(link_token='link_token', provider=Providers.OURA, )
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">token_state</a>(...)</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">token_state</a>(...) -> AsyncHttpResponse[typing.Dict[str, typing.Any]]</code></summary>
 <dl>
 <dd>
 
@@ -738,8 +805,13 @@ Check link token state - can be hit continuously used as heartbeat
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.link.token_state()
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.link.token_state(
+    vital_link_token="x-vital-link-token",
+)
 
 ```
 </dd>
@@ -775,7 +847,7 @@ client.link.token_state()
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">email_auth</a>(...)</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">email_auth</a>(...) -> AsyncHttpResponse[typing.Any]</code></summary>
 <dl>
 <dd>
 
@@ -802,11 +874,17 @@ Deprecated. Use `POST /v2/link/provider/email/{provider}` instead.
 <dd>
 
 ```python
-from vital import Vital
-from vital import Providers
-from vital import AuthType
-client = Vital(api_key="YOUR_API_KEY", )
-client.link.email_auth(email='email', provider=Providers.OURA, auth_type=AuthType.PASSWORD, )
+from vital import AuthType, Providers, Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.link.email_auth(
+    vital_link_token="x-vital-link-token",
+    email="email",
+    provider=Providers.OURA,
+    auth_type=AuthType.PASSWORD,
+)
 
 ```
 </dd>
@@ -874,7 +952,7 @@ client.link.email_auth(email='email', provider=Providers.OURA, auth_type=AuthTyp
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">password_auth</a>(...)</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">password_auth</a>(...) -> AsyncHttpResponse[typing.Any]</code></summary>
 <dl>
 <dd>
 
@@ -901,11 +979,18 @@ Deprecated. Use `POST /v2/link/provider/password/{provider}` instead.
 <dd>
 
 ```python
-from vital import Vital
-from vital import Providers
-from vital import AuthType
-client = Vital(api_key="YOUR_API_KEY", )
-client.link.password_auth(username='username', password='password', provider=Providers.OURA, auth_type=AuthType.PASSWORD, )
+from vital import AuthType, Providers, Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.link.password_auth(
+    vital_link_token="x-vital-link-token",
+    username="username",
+    password="password",
+    provider=Providers.OURA,
+    auth_type=AuthType.PASSWORD,
+)
 
 ```
 </dd>
@@ -973,7 +1058,7 @@ client.link.password_auth(username='username', password='password', provider=Pro
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">generate_oauth_link</a>(...)</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">generate_oauth_link</a>(...) -> AsyncHttpResponse[Source]</code></summary>
 <dl>
 <dd>
 
@@ -1000,10 +1085,15 @@ This endpoint generates an OAuth link for oauth provider
 <dd>
 
 ```python
-from vital import Vital
-from vital import OAuthProviders
-client = Vital(api_key="YOUR_API_KEY", )
-client.link.generate_oauth_link(oauth_provider=OAuthProviders.OURA, )
+from vital import OAuthProviders, Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.link.generate_oauth_link(
+    oauth_provider=OAuthProviders.OURA,
+    vital_link_token="x-vital-link-token",
+)
 
 ```
 </dd>
@@ -1047,7 +1137,7 @@ client.link.generate_oauth_link(oauth_provider=OAuthProviders.OURA, )
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">connect_password_provider</a>(...)</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">connect_password_provider</a>(...) -> AsyncHttpResponse[ProviderLinkResponse]</code></summary>
 <dl>
 <dd>
 
@@ -1074,10 +1164,17 @@ This connects auth providers that are password based.
 <dd>
 
 ```python
-from vital import Vital
-from vital import PasswordProviders
-client = Vital(api_key="YOUR_API_KEY", )
-client.link.connect_password_provider(provider=PasswordProviders.WHOOP, username='username', password='password', )
+from vital import PasswordProviders, Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.link.connect_password_provider(
+    provider=PasswordProviders.WHOOP,
+    vital_link_token="x-vital-link-token",
+    username="username",
+    password="password",
+)
 
 ```
 </dd>
@@ -1145,7 +1242,7 @@ client.link.connect_password_provider(provider=PasswordProviders.WHOOP, username
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">complete_password_provider_mfa</a>(...)</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">complete_password_provider_mfa</a>(...) -> AsyncHttpResponse[ProviderLinkResponse]</code></summary>
 <dl>
 <dd>
 
@@ -1172,10 +1269,16 @@ This connects auth providers that are password based.
 <dd>
 
 ```python
-from vital import Vital
-from vital import PasswordProviders
-client = Vital(api_key="YOUR_API_KEY", )
-client.link.complete_password_provider_mfa(provider=PasswordProviders.WHOOP, mfa_code='mfa_code', )
+from vital import PasswordProviders, Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.link.complete_password_provider_mfa(
+    provider=PasswordProviders.WHOOP,
+    vital_link_token="x-vital-link-token",
+    mfa_code="mfa_code",
+)
 
 ```
 </dd>
@@ -1227,7 +1330,7 @@ client.link.complete_password_provider_mfa(provider=PasswordProviders.WHOOP, mfa
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">connect_email_auth_provider</a>(...)</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">connect_email_auth_provider</a>(...) -> AsyncHttpResponse[typing.Any]</code></summary>
 <dl>
 <dd>
 
@@ -1255,8 +1358,14 @@ This connects auth providers that are email based.
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.link.connect_email_auth_provider(email='email', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.link.connect_email_auth_provider(
+    vital_link_token="x-vital-link-token",
+    email="email",
+)
 
 ```
 </dd>
@@ -1316,7 +1425,7 @@ client.link.connect_email_auth_provider(email='email', )
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">get_all_providers</a>(...)</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">get_all_providers</a>(...) -> AsyncHttpResponse[typing.List[SourceLink]]</code></summary>
 <dl>
 <dd>
 
@@ -1344,8 +1453,13 @@ GET List of all available providers given the generated link token.
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.link.get_all_providers()
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.link.get_all_providers(
+    vital_link_token="x-vital-link-token",
+)
 
 ```
 </dd>
@@ -1381,7 +1495,7 @@ client.link.get_all_providers()
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">connect_manual_provider</a>(...)</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">connect_manual_provider</a>(...) -> AsyncHttpResponse[typing.Dict[str, bool]]</code></summary>
 <dl>
 <dd>
 
@@ -1394,10 +1508,15 @@ client.link.get_all_providers()
 <dd>
 
 ```python
-from vital import Vital
-from vital import ManualProviders
-client = Vital(api_key="YOUR_API_KEY", )
-client.link.connect_manual_provider(provider=ManualProviders.BEURER_BLE, user_id='user_id', )
+from vital import ManualProviders, Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.link.connect_manual_provider(
+    provider=ManualProviders.BEURER_BLE,
+    user_id="user_id",
+)
 
 ```
 </dd>
@@ -1449,7 +1568,7 @@ client.link.connect_manual_provider(provider=ManualProviders.BEURER_BLE, user_id
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">connect_demo_provider</a>(...)</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">connect_demo_provider</a>(...) -> AsyncHttpResponse[DemoConnectionStatus]</code></summary>
 <dl>
 <dd>
 
@@ -1476,10 +1595,15 @@ POST Connect the given Vital user to a demo provider.
 <dd>
 
 ```python
-from vital import Vital
-from vital import DemoProviders
-client = Vital(api_key="YOUR_API_KEY", )
-client.link.connect_demo_provider(user_id='user_id', provider=DemoProviders.APPLE_HEALTH_KIT, )
+from vital import DemoProviders, Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.link.connect_demo_provider(
+    user_id="user_id",
+    provider=DemoProviders.APPLE_HEALTH_KIT,
+)
 
 ```
 </dd>
@@ -1524,7 +1648,7 @@ client.link.connect_demo_provider(user_id='user_id', provider=DemoProviders.APPL
 </details>
 
 ## Electrocardiogram
-<details><summary><code>client.electrocardiogram.<a href="src/vital/electrocardiogram/client.py">get</a>(...)</code></summary>
+<details><summary><code>client.electrocardiogram.<a href="src/vital/electrocardiogram/client.py">get</a>(...) -> AsyncHttpResponse[ClientFacingElectrocardiogramResponse]</code></summary>
 <dl>
 <dd>
 
@@ -1552,9 +1676,16 @@ Get electrocardiogram summary for user_id
 
 ```python
 from vital import Vital
-import datetime
-client = Vital(api_key="YOUR_API_KEY", )
-client.electrocardiogram.get(user_id='user_id', start_date=datetime.date.fromisoformat("2023-01-15", ), )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.electrocardiogram.get(
+    user_id="user_id",
+    start_date="start_date",
+    end_date="end_date",
+    provider="provider",
+)
 
 ```
 </dd>
@@ -1578,7 +1709,7 @@ client.electrocardiogram.get(user_id='user_id', start_date=datetime.date.fromiso
 <dl>
 <dd>
 
-**start_date:** `dt.date` 
+**start_date:** `str` 
     
 </dd>
 </dl>
@@ -1586,7 +1717,7 @@ client.electrocardiogram.get(user_id='user_id', start_date=datetime.date.fromiso
 <dl>
 <dd>
 
-**end_date:** `typing.Optional[dt.date]` 
+**end_date:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -1615,7 +1746,7 @@ client.electrocardiogram.get(user_id='user_id', start_date=datetime.date.fromiso
 </details>
 
 ## SleepCycle
-<details><summary><code>client.sleep_cycle.<a href="src/vital/sleep_cycle/client.py">get</a>(...)</code></summary>
+<details><summary><code>client.sleep_cycle.<a href="src/vital/sleep_cycle/client.py">get</a>(...) -> AsyncHttpResponse[ClientSleepCycleResponse]</code></summary>
 <dl>
 <dd>
 
@@ -1643,9 +1774,16 @@ Get sleep cycle for user_id
 
 ```python
 from vital import Vital
-import datetime
-client = Vital(api_key="YOUR_API_KEY", )
-client.sleep_cycle.get(user_id='user_id', start_date=datetime.date.fromisoformat("2023-01-15", ), )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.sleep_cycle.get(
+    user_id="user_id",
+    start_date="start_date",
+    end_date="end_date",
+    provider="provider",
+)
 
 ```
 </dd>
@@ -1669,7 +1807,7 @@ client.sleep_cycle.get(user_id='user_id', start_date=datetime.date.fromisoformat
 <dl>
 <dd>
 
-**start_date:** `dt.date` 
+**start_date:** `str` 
     
 </dd>
 </dl>
@@ -1677,7 +1815,7 @@ client.sleep_cycle.get(user_id='user_id', start_date=datetime.date.fromisoformat
 <dl>
 <dd>
 
-**end_date:** `typing.Optional[dt.date]` 
+**end_date:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -1706,7 +1844,7 @@ client.sleep_cycle.get(user_id='user_id', start_date=datetime.date.fromisoformat
 </details>
 
 ## Profile
-<details><summary><code>client.profile.<a href="src/vital/profile/client.py">get</a>(...)</code></summary>
+<details><summary><code>client.profile.<a href="src/vital/profile/client.py">get</a>(...) -> AsyncHttpResponse[ClientFacingProfile]</code></summary>
 <dl>
 <dd>
 
@@ -1734,8 +1872,14 @@ Get profile for user_id
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.profile.get(user_id='user_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.profile.get(
+    user_id="user_id",
+    provider="provider",
+)
 
 ```
 </dd>
@@ -1779,7 +1923,7 @@ client.profile.get(user_id='user_id', )
 </dl>
 </details>
 
-<details><summary><code>client.profile.<a href="src/vital/profile/client.py">get_raw</a>(...)</code></summary>
+<details><summary><code>client.profile.<a href="src/vital/profile/client.py">get_raw</a>(...) -> AsyncHttpResponse[RawProfile]</code></summary>
 <dl>
 <dd>
 
@@ -1807,8 +1951,14 @@ Get raw profile for user_id
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.profile.get_raw(user_id='user_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.profile.get_raw(
+    user_id="user_id",
+    provider="provider",
+)
 
 ```
 </dd>
@@ -1853,7 +2003,7 @@ client.profile.get_raw(user_id='user_id', )
 </details>
 
 ## Devices
-<details><summary><code>client.devices.<a href="src/vital/devices/client.py">get_raw</a>(...)</code></summary>
+<details><summary><code>client.devices.<a href="src/vital/devices/client.py">get_raw</a>(...) -> AsyncHttpResponse[RawDevices]</code></summary>
 <dl>
 <dd>
 
@@ -1881,8 +2031,14 @@ Get Devices for user_id
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.devices.get_raw(user_id='user_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.devices.get_raw(
+    user_id="user_id",
+    provider="provider",
+)
 
 ```
 </dd>
@@ -1927,7 +2083,7 @@ client.devices.get_raw(user_id='user_id', )
 </details>
 
 ## Activity
-<details><summary><code>client.activity.<a href="src/vital/activity/client.py">get</a>(...)</code></summary>
+<details><summary><code>client.activity.<a href="src/vital/activity/client.py">get</a>(...) -> AsyncHttpResponse[ClientActivityResponse]</code></summary>
 <dl>
 <dd>
 
@@ -1955,8 +2111,16 @@ Get activity summary for user_id
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.activity.get(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.activity.get(
+    user_id="user_id",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -2016,7 +2180,7 @@ client.activity.get(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.activity.<a href="src/vital/activity/client.py">get_raw</a>(...)</code></summary>
+<details><summary><code>client.activity.<a href="src/vital/activity/client.py">get_raw</a>(...) -> AsyncHttpResponse[RawActivity]</code></summary>
 <dl>
 <dd>
 
@@ -2044,8 +2208,16 @@ Get raw activity summary for user_id
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.activity.get_raw(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.activity.get_raw(
+    user_id="user_id",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -2106,7 +2278,7 @@ client.activity.get_raw(user_id='user_id', start_date='start_date', )
 </details>
 
 ## Workouts
-<details><summary><code>client.workouts.<a href="src/vital/workouts/client.py">get</a>(...)</code></summary>
+<details><summary><code>client.workouts.<a href="src/vital/workouts/client.py">get</a>(...) -> AsyncHttpResponse[ClientWorkoutResponse]</code></summary>
 <dl>
 <dd>
 
@@ -2134,8 +2306,16 @@ Get workout summary for user_id
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.workouts.get(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.workouts.get(
+    user_id="user_id",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -2195,7 +2375,7 @@ client.workouts.get(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.workouts.<a href="src/vital/workouts/client.py">get_raw</a>(...)</code></summary>
+<details><summary><code>client.workouts.<a href="src/vital/workouts/client.py">get_raw</a>(...) -> AsyncHttpResponse[RawWorkout]</code></summary>
 <dl>
 <dd>
 
@@ -2223,8 +2403,16 @@ Get raw workout summary for user_id
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.workouts.get_raw(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.workouts.get_raw(
+    user_id="user_id",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -2284,7 +2472,7 @@ client.workouts.get_raw(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.workouts.<a href="src/vital/workouts/client.py">get_by_workout_id</a>(...)</code></summary>
+<details><summary><code>client.workouts.<a href="src/vital/workouts/client.py">get_by_workout_id</a>(...) -> AsyncHttpResponse[ClientFacingStream]</code></summary>
 <dl>
 <dd>
 
@@ -2298,8 +2486,13 @@ client.workouts.get_raw(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.workouts.get_by_workout_id(workout_id='workout_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.workouts.get_by_workout_id(
+    workout_id="workout_id",
+)
 
 ```
 </dd>
@@ -2336,7 +2529,7 @@ client.workouts.get_by_workout_id(workout_id='workout_id', )
 </details>
 
 ## Sleep
-<details><summary><code>client.sleep.<a href="src/vital/sleep/client.py">get</a>(...)</code></summary>
+<details><summary><code>client.sleep.<a href="src/vital/sleep/client.py">get</a>(...) -> AsyncHttpResponse[ClientSleepResponse]</code></summary>
 <dl>
 <dd>
 
@@ -2364,8 +2557,16 @@ Get sleep summary for user_id
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.sleep.get(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.sleep.get(
+    user_id="user_id",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -2425,7 +2626,7 @@ client.sleep.get(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.sleep.<a href="src/vital/sleep/client.py">get_raw</a>(...)</code></summary>
+<details><summary><code>client.sleep.<a href="src/vital/sleep/client.py">get_raw</a>(...) -> AsyncHttpResponse[RawSleep]</code></summary>
 <dl>
 <dd>
 
@@ -2453,8 +2654,16 @@ Get raw sleep summary for user_id
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.sleep.get_raw(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.sleep.get_raw(
+    user_id="user_id",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -2514,7 +2723,7 @@ client.sleep.get_raw(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.sleep.<a href="src/vital/sleep/client.py">get_stream_by_sleep_id</a>(...)</code></summary>
+<details><summary><code>client.sleep.<a href="src/vital/sleep/client.py">get_stream_by_sleep_id</a>(...) -> AsyncHttpResponse[ClientFacingSleepStream]</code></summary>
 <dl>
 <dd>
 
@@ -2542,8 +2751,13 @@ Get Sleep stream for a user_id
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.sleep.get_stream_by_sleep_id(sleep_id='sleep_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.sleep.get_stream_by_sleep_id(
+    sleep_id="sleep_id",
+)
 
 ```
 </dd>
@@ -2580,7 +2794,7 @@ client.sleep.get_stream_by_sleep_id(sleep_id='sleep_id', )
 </details>
 
 ## Body
-<details><summary><code>client.body.<a href="src/vital/body/client.py">get</a>(...)</code></summary>
+<details><summary><code>client.body.<a href="src/vital/body/client.py">get</a>(...) -> AsyncHttpResponse[ClientBodyResponse]</code></summary>
 <dl>
 <dd>
 
@@ -2608,8 +2822,16 @@ Get Body summary for user_id
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.body.get(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.body.get(
+    user_id="user_id",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -2669,7 +2891,7 @@ client.body.get(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.body.<a href="src/vital/body/client.py">get_raw</a>(...)</code></summary>
+<details><summary><code>client.body.<a href="src/vital/body/client.py">get_raw</a>(...) -> AsyncHttpResponse[RawBody]</code></summary>
 <dl>
 <dd>
 
@@ -2697,8 +2919,16 @@ Get raw Body summary for user_id
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.body.get_raw(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.body.get_raw(
+    user_id="user_id",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -2759,7 +2989,7 @@ client.body.get_raw(user_id='user_id', start_date='start_date', )
 </details>
 
 ## Meal
-<details><summary><code>client.meal.<a href="src/vital/meal/client.py">get</a>(...)</code></summary>
+<details><summary><code>client.meal.<a href="src/vital/meal/client.py">get</a>(...) -> AsyncHttpResponse[ClientFacingMealResponse]</code></summary>
 <dl>
 <dd>
 
@@ -2787,8 +3017,16 @@ Get user's meals
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.meal.get(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.meal.get(
+    user_id="user_id",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -2849,7 +3087,7 @@ client.meal.get(user_id='user_id', start_date='start_date', )
 </details>
 
 ## MenstrualCycle
-<details><summary><code>client.menstrual_cycle.<a href="src/vital/menstrual_cycle/client.py">get</a>(...)</code></summary>
+<details><summary><code>client.menstrual_cycle.<a href="src/vital/menstrual_cycle/client.py">get</a>(...) -> AsyncHttpResponse[MenstrualCycleResponse]</code></summary>
 <dl>
 <dd>
 
@@ -2863,9 +3101,16 @@ client.meal.get(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-import datetime
-client = Vital(api_key="YOUR_API_KEY", )
-client.menstrual_cycle.get(user_id='user_id', start_date=datetime.date.fromisoformat("2023-01-15", ), )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.menstrual_cycle.get(
+    user_id="user_id",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -2889,7 +3134,7 @@ client.menstrual_cycle.get(user_id='user_id', start_date=datetime.date.fromisofo
 <dl>
 <dd>
 
-**start_date:** `dt.date` 
+**start_date:** `str` 
     
 </dd>
 </dl>
@@ -2905,7 +3150,7 @@ client.menstrual_cycle.get(user_id='user_id', start_date=datetime.date.fromisofo
 <dl>
 <dd>
 
-**end_date:** `typing.Optional[dt.date]` 
+**end_date:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -2926,7 +3171,7 @@ client.menstrual_cycle.get(user_id='user_id', start_date=datetime.date.fromisofo
 </details>
 
 ## Vitals
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">workout_swimming_stroke_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">workout_swimming_stroke_grouped</a>(...) -> AsyncHttpResponse[GroupedWorkoutSwimmingStrokeResponse]</code></summary>
 <dl>
 <dd>
 
@@ -2940,99 +3185,18 @@ client.menstrual_cycle.get(user_id='user_id', start_date=datetime.date.fromisofo
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.workout_swimming_stroke_grouped(user_id='user_id', start_date='start_date', )
 
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**start_date:** `str` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**next_cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `typing.Optional[str]` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_date:** `typing.Optional[str]` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">workout_distance_grouped</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.workout_distance_grouped(user_id='user_id', start_date='start_date', )
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.workout_swimming_stroke_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -3108,7 +3272,7 @@ client.vitals.workout_distance_grouped(user_id='user_id', start_date='start_date
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">heart_rate_recovery_one_minute_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">workout_distance_grouped</a>(...) -> AsyncHttpResponse[GroupedWorkoutDistanceResponse]</code></summary>
 <dl>
 <dd>
 
@@ -3122,99 +3286,18 @@ client.vitals.workout_distance_grouped(user_id='user_id', start_date='start_date
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.heart_rate_recovery_one_minute_grouped(user_id='user_id', start_date='start_date', )
 
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**start_date:** `str` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**next_cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `typing.Optional[str]` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_date:** `typing.Optional[str]` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">waist_circumference_grouped</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.waist_circumference_grouped(user_id='user_id', start_date='start_date', )
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.workout_distance_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -3290,7 +3373,7 @@ client.vitals.waist_circumference_grouped(user_id='user_id', start_date='start_d
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">lean_body_mass_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">heart_rate_recovery_one_minute_grouped</a>(...) -> AsyncHttpResponse[GroupedHeartRateRecoveryOneMinuteResponse]</code></summary>
 <dl>
 <dd>
 
@@ -3304,99 +3387,18 @@ client.vitals.waist_circumference_grouped(user_id='user_id', start_date='start_d
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.lean_body_mass_grouped(user_id='user_id', start_date='start_date', )
 
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**start_date:** `str` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**next_cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `typing.Optional[str]` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_date:** `typing.Optional[str]` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">body_mass_index_grouped</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.body_mass_index_grouped(user_id='user_id', start_date='start_date', )
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.heart_rate_recovery_one_minute_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -3472,7 +3474,7 @@ client.vitals.body_mass_index_grouped(user_id='user_id', start_date='start_date'
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">basal_body_temperature_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">waist_circumference_grouped</a>(...) -> AsyncHttpResponse[GroupedWaistCircumferenceResponse]</code></summary>
 <dl>
 <dd>
 
@@ -3486,99 +3488,18 @@ client.vitals.body_mass_index_grouped(user_id='user_id', start_date='start_date'
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.basal_body_temperature_grouped(user_id='user_id', start_date='start_date', )
 
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**start_date:** `str` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**next_cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `typing.Optional[str]` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_date:** `typing.Optional[str]` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">handwashing_grouped</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.handwashing_grouped(user_id='user_id', start_date='start_date', )
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.waist_circumference_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -3654,7 +3575,7 @@ client.vitals.handwashing_grouped(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">daylight_exposure_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">lean_body_mass_grouped</a>(...) -> AsyncHttpResponse[GroupedLeanBodyMassResponse]</code></summary>
 <dl>
 <dd>
 
@@ -3668,99 +3589,18 @@ client.vitals.handwashing_grouped(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.daylight_exposure_grouped(user_id='user_id', start_date='start_date', )
 
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**start_date:** `str` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**next_cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `typing.Optional[str]` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_date:** `typing.Optional[str]` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">uv_exposure_grouped</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.uv_exposure_grouped(user_id='user_id', start_date='start_date', )
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.lean_body_mass_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -3836,7 +3676,7 @@ client.vitals.uv_exposure_grouped(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">fall_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">body_mass_index_grouped</a>(...) -> AsyncHttpResponse[GroupedBodyMassIndexResponse]</code></summary>
 <dl>
 <dd>
 
@@ -3850,99 +3690,18 @@ client.vitals.uv_exposure_grouped(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.fall_grouped(user_id='user_id', start_date='start_date', )
 
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**start_date:** `str` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**next_cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `typing.Optional[str]` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_date:** `typing.Optional[str]` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">inhaler_usage_grouped</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.inhaler_usage_grouped(user_id='user_id', start_date='start_date', )
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.body_mass_index_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -4018,7 +3777,7 @@ client.vitals.inhaler_usage_grouped(user_id='user_id', start_date='start_date', 
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">peak_expiratory_flow_rate_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">basal_body_temperature_grouped</a>(...) -> AsyncHttpResponse[GroupedBasalBodyTemperatureResponse]</code></summary>
 <dl>
 <dd>
 
@@ -4032,99 +3791,18 @@ client.vitals.inhaler_usage_grouped(user_id='user_id', start_date='start_date', 
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.peak_expiratory_flow_rate_grouped(user_id='user_id', start_date='start_date', )
 
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**start_date:** `str` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**next_cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `typing.Optional[str]` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_date:** `typing.Optional[str]` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">forced_vital_capacity_grouped</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.forced_vital_capacity_grouped(user_id='user_id', start_date='start_date', )
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.basal_body_temperature_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -4200,7 +3878,7 @@ client.vitals.forced_vital_capacity_grouped(user_id='user_id', start_date='start
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">forced_expiratory_volume_1_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">handwashing_grouped</a>(...) -> AsyncHttpResponse[GroupedHandwashingResponse]</code></summary>
 <dl>
 <dd>
 
@@ -4214,99 +3892,18 @@ client.vitals.forced_vital_capacity_grouped(user_id='user_id', start_date='start
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.forced_expiratory_volume_1_grouped(user_id='user_id', start_date='start_date', )
 
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**user_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**start_date:** `str` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**next_cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `typing.Optional[str]` — Provider oura/strava etc
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_date:** `typing.Optional[str]` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">wheelchair_push_grouped</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.wheelchair_push_grouped(user_id='user_id', start_date='start_date', )
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.handwashing_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -4382,7 +3979,7 @@ client.vitals.wheelchair_push_grouped(user_id='user_id', start_date='start_date'
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">sleep_breathing_disturbance_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">daylight_exposure_grouped</a>(...) -> AsyncHttpResponse[GroupedDaylightExposureResponse]</code></summary>
 <dl>
 <dd>
 
@@ -4396,8 +3993,18 @@ client.vitals.wheelchair_push_grouped(user_id='user_id', start_date='start_date'
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.sleep_breathing_disturbance_grouped(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.daylight_exposure_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -4473,7 +4080,7 @@ client.vitals.sleep_breathing_disturbance_grouped(user_id='user_id', start_date=
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">sleep_apnea_alert_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">uv_exposure_grouped</a>(...) -> AsyncHttpResponse[GroupedUvExposureResponse]</code></summary>
 <dl>
 <dd>
 
@@ -4487,8 +4094,18 @@ client.vitals.sleep_breathing_disturbance_grouped(user_id='user_id', start_date=
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.sleep_apnea_alert_grouped(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.uv_exposure_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -4564,7 +4181,7 @@ client.vitals.sleep_apnea_alert_grouped(user_id='user_id', start_date='start_dat
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">stand_duration_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">fall_grouped</a>(...) -> AsyncHttpResponse[GroupedFallResponse]</code></summary>
 <dl>
 <dd>
 
@@ -4578,8 +4195,18 @@ client.vitals.sleep_apnea_alert_grouped(user_id='user_id', start_date='start_dat
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.stand_duration_grouped(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.fall_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -4655,7 +4282,7 @@ client.vitals.stand_duration_grouped(user_id='user_id', start_date='start_date',
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">stand_hour_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">inhaler_usage_grouped</a>(...) -> AsyncHttpResponse[GroupedInhalerUsageResponse]</code></summary>
 <dl>
 <dd>
 
@@ -4669,8 +4296,18 @@ client.vitals.stand_duration_grouped(user_id='user_id', start_date='start_date',
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.stand_hour_grouped(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.inhaler_usage_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -4746,7 +4383,7 @@ client.vitals.stand_hour_grouped(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">heart_rate_alert_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">peak_expiratory_flow_rate_grouped</a>(...) -> AsyncHttpResponse[GroupedPeakExpiratoryFlowRateResponse]</code></summary>
 <dl>
 <dd>
 
@@ -4760,8 +4397,18 @@ client.vitals.stand_hour_grouped(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.heart_rate_alert_grouped(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.peak_expiratory_flow_rate_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -4837,7 +4484,7 @@ client.vitals.heart_rate_alert_grouped(user_id='user_id', start_date='start_date
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">afib_burden_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">forced_vital_capacity_grouped</a>(...) -> AsyncHttpResponse[GroupedForcedVitalCapacityResponse]</code></summary>
 <dl>
 <dd>
 
@@ -4851,8 +4498,18 @@ client.vitals.heart_rate_alert_grouped(user_id='user_id', start_date='start_date
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.afib_burden_grouped(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.forced_vital_capacity_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -4928,7 +4585,7 @@ client.vitals.afib_burden_grouped(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">workout_duration_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">forced_expiratory_volume_1_grouped</a>(...) -> AsyncHttpResponse[GroupedForcedExpiratoryVolume1Response]</code></summary>
 <dl>
 <dd>
 
@@ -4942,8 +4599,18 @@ client.vitals.afib_burden_grouped(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.workout_duration_grouped(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.forced_expiratory_volume_1_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -5019,7 +4686,7 @@ client.vitals.workout_duration_grouped(user_id='user_id', start_date='start_date
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">vo_2_max_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">wheelchair_push_grouped</a>(...) -> AsyncHttpResponse[GroupedWheelchairPushResponse]</code></summary>
 <dl>
 <dd>
 
@@ -5033,8 +4700,18 @@ client.vitals.workout_duration_grouped(user_id='user_id', start_date='start_date
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.vo_2_max_grouped(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.wheelchair_push_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -5110,7 +4787,7 @@ client.vitals.vo_2_max_grouped(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">stress_level_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">sleep_breathing_disturbance_grouped</a>(...) -> AsyncHttpResponse[GroupedSleepBreathingDisturbanceResponse]</code></summary>
 <dl>
 <dd>
 
@@ -5124,8 +4801,18 @@ client.vitals.vo_2_max_grouped(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.stress_level_grouped(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.sleep_breathing_disturbance_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -5201,7 +4888,7 @@ client.vitals.stress_level_grouped(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">mindfulness_minutes_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">sleep_apnea_alert_grouped</a>(...) -> AsyncHttpResponse[GroupedSleepApneaAlertResponse]</code></summary>
 <dl>
 <dd>
 
@@ -5215,8 +4902,18 @@ client.vitals.stress_level_grouped(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.mindfulness_minutes_grouped(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.sleep_apnea_alert_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -5292,7 +4989,7 @@ client.vitals.mindfulness_minutes_grouped(user_id='user_id', start_date='start_d
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">caffeine_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">stand_duration_grouped</a>(...) -> AsyncHttpResponse[GroupedStandDurationResponse]</code></summary>
 <dl>
 <dd>
 
@@ -5306,8 +5003,18 @@ client.vitals.mindfulness_minutes_grouped(user_id='user_id', start_date='start_d
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.caffeine_grouped(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.stand_duration_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -5383,7 +5090,7 @@ client.vitals.caffeine_grouped(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">water_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">stand_hour_grouped</a>(...) -> AsyncHttpResponse[GroupedStandHourResponse]</code></summary>
 <dl>
 <dd>
 
@@ -5397,8 +5104,18 @@ client.vitals.caffeine_grouped(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.water_grouped(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.stand_hour_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -5474,7 +5191,7 @@ client.vitals.water_grouped(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">steps_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">heart_rate_alert_grouped</a>(...) -> AsyncHttpResponse[GroupedHeartRateAlertResponse]</code></summary>
 <dl>
 <dd>
 
@@ -5488,8 +5205,18 @@ client.vitals.water_grouped(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.steps_grouped(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.heart_rate_alert_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -5565,7 +5292,7 @@ client.vitals.steps_grouped(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">floors_climbed_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">afib_burden_grouped</a>(...) -> AsyncHttpResponse[GroupedAFibBurdenResponse]</code></summary>
 <dl>
 <dd>
 
@@ -5579,8 +5306,18 @@ client.vitals.steps_grouped(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.floors_climbed_grouped(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.afib_burden_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -5656,7 +5393,7 @@ client.vitals.floors_climbed_grouped(user_id='user_id', start_date='start_date',
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">distance_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">workout_duration_grouped</a>(...) -> AsyncHttpResponse[GroupedWorkoutDurationResponse]</code></summary>
 <dl>
 <dd>
 
@@ -5670,8 +5407,18 @@ client.vitals.floors_climbed_grouped(user_id='user_id', start_date='start_date',
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.distance_grouped(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.workout_duration_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -5747,7 +5494,7 @@ client.vitals.distance_grouped(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">calories_basal_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">vo_2_max_grouped</a>(...) -> AsyncHttpResponse[GroupedVo2MaxResponse]</code></summary>
 <dl>
 <dd>
 
@@ -5761,8 +5508,18 @@ client.vitals.distance_grouped(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.calories_basal_grouped(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.vo_2_max_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -5838,7 +5595,7 @@ client.vitals.calories_basal_grouped(user_id='user_id', start_date='start_date',
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">calories_active_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">stress_level_grouped</a>(...) -> AsyncHttpResponse[GroupedStressLevelResponse]</code></summary>
 <dl>
 <dd>
 
@@ -5852,8 +5609,18 @@ client.vitals.calories_basal_grouped(user_id='user_id', start_date='start_date',
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.calories_active_grouped(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.stress_level_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -5929,7 +5696,7 @@ client.vitals.calories_active_grouped(user_id='user_id', start_date='start_date'
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">respiratory_rate_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">mindfulness_minutes_grouped</a>(...) -> AsyncHttpResponse[GroupedMindfulnessMinutesResponse]</code></summary>
 <dl>
 <dd>
 
@@ -5943,8 +5710,18 @@ client.vitals.calories_active_grouped(user_id='user_id', start_date='start_date'
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.respiratory_rate_grouped(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.mindfulness_minutes_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -6020,7 +5797,7 @@ client.vitals.respiratory_rate_grouped(user_id='user_id', start_date='start_date
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">note_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">caffeine_grouped</a>(...) -> AsyncHttpResponse[GroupedCaffeineResponse]</code></summary>
 <dl>
 <dd>
 
@@ -6034,8 +5811,18 @@ client.vitals.respiratory_rate_grouped(user_id='user_id', start_date='start_date
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.note_grouped(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.caffeine_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -6111,7 +5898,7 @@ client.vitals.note_grouped(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">insulin_injection_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">water_grouped</a>(...) -> AsyncHttpResponse[GroupedWaterResponse]</code></summary>
 <dl>
 <dd>
 
@@ -6125,8 +5912,18 @@ client.vitals.note_grouped(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.insulin_injection_grouped(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.water_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -6202,7 +5999,7 @@ client.vitals.insulin_injection_grouped(user_id='user_id', start_date='start_dat
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">ige_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">steps_grouped</a>(...) -> AsyncHttpResponse[GroupedStepsResponse]</code></summary>
 <dl>
 <dd>
 
@@ -6216,8 +6013,18 @@ client.vitals.insulin_injection_grouped(user_id='user_id', start_date='start_dat
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.ige_grouped(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.steps_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -6293,7 +6100,7 @@ client.vitals.ige_grouped(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">igg_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">floors_climbed_grouped</a>(...) -> AsyncHttpResponse[GroupedFloorsClimbedResponse]</code></summary>
 <dl>
 <dd>
 
@@ -6307,8 +6114,18 @@ client.vitals.ige_grouped(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.igg_grouped(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.floors_climbed_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -6384,7 +6201,7 @@ client.vitals.igg_grouped(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">hypnogram_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">distance_grouped</a>(...) -> AsyncHttpResponse[GroupedDistanceResponse]</code></summary>
 <dl>
 <dd>
 
@@ -6398,8 +6215,18 @@ client.vitals.igg_grouped(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.hypnogram_grouped(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.distance_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -6475,7 +6302,7 @@ client.vitals.hypnogram_grouped(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">hrv_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">calories_basal_grouped</a>(...) -> AsyncHttpResponse[GroupedCaloriesBasalResponse]</code></summary>
 <dl>
 <dd>
 
@@ -6489,8 +6316,18 @@ client.vitals.hypnogram_grouped(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.hrv_grouped(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.calories_basal_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -6566,7 +6403,7 @@ client.vitals.hrv_grouped(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">heartrate_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">calories_active_grouped</a>(...) -> AsyncHttpResponse[GroupedCaloriesActiveResponse]</code></summary>
 <dl>
 <dd>
 
@@ -6580,8 +6417,18 @@ client.vitals.hrv_grouped(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.heartrate_grouped(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.calories_active_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -6657,7 +6504,7 @@ client.vitals.heartrate_grouped(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">glucose_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">respiratory_rate_grouped</a>(...) -> AsyncHttpResponse[GroupedRespiratoryRateResponse]</code></summary>
 <dl>
 <dd>
 
@@ -6671,8 +6518,18 @@ client.vitals.heartrate_grouped(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.glucose_grouped(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.respiratory_rate_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -6748,7 +6605,7 @@ client.vitals.glucose_grouped(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">cholesterol_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">note_grouped</a>(...) -> AsyncHttpResponse[GroupedNoteResponse]</code></summary>
 <dl>
 <dd>
 
@@ -6762,8 +6619,18 @@ client.vitals.glucose_grouped(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.cholesterol_grouped(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.note_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -6839,7 +6706,7 @@ client.vitals.cholesterol_grouped(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">carbohydrates_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">insulin_injection_grouped</a>(...) -> AsyncHttpResponse[GroupedInsulinInjectionResponse]</code></summary>
 <dl>
 <dd>
 
@@ -6853,8 +6720,18 @@ client.vitals.cholesterol_grouped(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.carbohydrates_grouped(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.insulin_injection_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -6930,7 +6807,7 @@ client.vitals.carbohydrates_grouped(user_id='user_id', start_date='start_date', 
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">body_temperature_delta_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">ige_grouped</a>(...) -> AsyncHttpResponse[GroupedIgeResponse]</code></summary>
 <dl>
 <dd>
 
@@ -6944,8 +6821,18 @@ client.vitals.carbohydrates_grouped(user_id='user_id', start_date='start_date', 
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.body_temperature_delta_grouped(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.ige_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -7021,7 +6908,7 @@ client.vitals.body_temperature_delta_grouped(user_id='user_id', start_date='star
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">body_temperature_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">igg_grouped</a>(...) -> AsyncHttpResponse[GroupedIggResponse]</code></summary>
 <dl>
 <dd>
 
@@ -7035,8 +6922,18 @@ client.vitals.body_temperature_delta_grouped(user_id='user_id', start_date='star
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.body_temperature_grouped(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.igg_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -7112,7 +7009,7 @@ client.vitals.body_temperature_grouped(user_id='user_id', start_date='start_date
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">body_weight_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">hypnogram_grouped</a>(...) -> AsyncHttpResponse[GroupedHypnogramResponse]</code></summary>
 <dl>
 <dd>
 
@@ -7126,8 +7023,18 @@ client.vitals.body_temperature_grouped(user_id='user_id', start_date='start_date
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.body_weight_grouped(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.hypnogram_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -7203,7 +7110,7 @@ client.vitals.body_weight_grouped(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">body_fat_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">hrv_grouped</a>(...) -> AsyncHttpResponse[GroupedHrvResponse]</code></summary>
 <dl>
 <dd>
 
@@ -7217,8 +7124,18 @@ client.vitals.body_weight_grouped(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.body_fat_grouped(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.hrv_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -7294,7 +7211,7 @@ client.vitals.body_fat_grouped(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">blood_oxygen_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">heartrate_grouped</a>(...) -> AsyncHttpResponse[GroupedHeartRateResponse]</code></summary>
 <dl>
 <dd>
 
@@ -7308,8 +7225,18 @@ client.vitals.body_fat_grouped(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.blood_oxygen_grouped(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.heartrate_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -7385,7 +7312,7 @@ client.vitals.blood_oxygen_grouped(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">electrocardiogram_voltage_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">glucose_grouped</a>(...) -> AsyncHttpResponse[GroupedGlucoseResponse]</code></summary>
 <dl>
 <dd>
 
@@ -7399,8 +7326,18 @@ client.vitals.blood_oxygen_grouped(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.electrocardiogram_voltage_grouped(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.glucose_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -7476,7 +7413,7 @@ client.vitals.electrocardiogram_voltage_grouped(user_id='user_id', start_date='s
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">blood_pressure_grouped</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">cholesterol_grouped</a>(...) -> AsyncHttpResponse[GroupedCholesterolResponse]</code></summary>
 <dl>
 <dd>
 
@@ -7490,8 +7427,18 @@ client.vitals.electrocardiogram_voltage_grouped(user_id='user_id', start_date='s
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.blood_pressure_grouped(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.cholesterol_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -7567,7 +7514,7 @@ client.vitals.blood_pressure_grouped(user_id='user_id', start_date='start_date',
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">vo_2_max</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">carbohydrates_grouped</a>(...) -> AsyncHttpResponse[GroupedCarbohydratesResponse]</code></summary>
 <dl>
 <dd>
 
@@ -7581,8 +7528,824 @@ client.vitals.blood_pressure_grouped(user_id='user_id', start_date='start_date',
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.vo_2_max(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.carbohydrates_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**start_date:** `str` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**next_cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider:** `typing.Optional[str]` — Provider oura/strava etc
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**end_date:** `typing.Optional[str]` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">body_temperature_delta_grouped</a>(...) -> AsyncHttpResponse[GroupedBodyTemperatureDeltaResponse]</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.body_temperature_delta_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**start_date:** `str` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**next_cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider:** `typing.Optional[str]` — Provider oura/strava etc
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**end_date:** `typing.Optional[str]` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">body_temperature_grouped</a>(...) -> AsyncHttpResponse[GroupedBodyTemperatureResponse]</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.body_temperature_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**start_date:** `str` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**next_cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider:** `typing.Optional[str]` — Provider oura/strava etc
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**end_date:** `typing.Optional[str]` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">body_weight_grouped</a>(...) -> AsyncHttpResponse[GroupedBodyWeightResponse]</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.body_weight_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**start_date:** `str` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**next_cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider:** `typing.Optional[str]` — Provider oura/strava etc
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**end_date:** `typing.Optional[str]` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">body_fat_grouped</a>(...) -> AsyncHttpResponse[GroupedBodyFatResponse]</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.body_fat_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**start_date:** `str` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**next_cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider:** `typing.Optional[str]` — Provider oura/strava etc
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**end_date:** `typing.Optional[str]` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">blood_oxygen_grouped</a>(...) -> AsyncHttpResponse[GroupedBloodOxygenResponse]</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.blood_oxygen_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**start_date:** `str` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**next_cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider:** `typing.Optional[str]` — Provider oura/strava etc
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**end_date:** `typing.Optional[str]` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">electrocardiogram_voltage_grouped</a>(...) -> AsyncHttpResponse[GroupedElectrocardiogramVoltageResponse]</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.electrocardiogram_voltage_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**start_date:** `str` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**next_cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider:** `typing.Optional[str]` — Provider oura/strava etc
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**end_date:** `typing.Optional[str]` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">blood_pressure_grouped</a>(...) -> AsyncHttpResponse[GroupedBloodPressureResponse]</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.blood_pressure_grouped(
+    user_id="user_id",
+    cursor="cursor",
+    next_cursor="next_cursor",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**start_date:** `str` — Date from in YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**next_cursor:** `typing.Optional[str]` — The cursor for fetching the next page, or `null` to fetch the first page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider:** `typing.Optional[str]` — Provider oura/strava etc
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**end_date:** `typing.Optional[str]` — Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 23:59:59
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">vo_2_max</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingVo2MaxTimeseries]]</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from vital import Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.vo_2_max(
+    user_id="user_id",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -7642,7 +8405,7 @@ client.vitals.vo_2_max(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">stress_level</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">stress_level</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingStressLevelTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -7656,8 +8419,16 @@ client.vitals.vo_2_max(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.stress_level(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.stress_level(
+    user_id="user_id",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -7717,7 +8488,7 @@ client.vitals.stress_level(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">mindfulness_minutes</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">mindfulness_minutes</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingMindfulnessMinutesTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -7731,8 +8502,16 @@ client.vitals.stress_level(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.mindfulness_minutes(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.mindfulness_minutes(
+    user_id="user_id",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -7792,7 +8571,7 @@ client.vitals.mindfulness_minutes(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">caffeine</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">caffeine</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingCaffeineTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -7806,8 +8585,16 @@ client.vitals.mindfulness_minutes(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.caffeine(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.caffeine(
+    user_id="user_id",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -7867,7 +8654,7 @@ client.vitals.caffeine(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">water</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">water</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingWaterTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -7881,8 +8668,16 @@ client.vitals.caffeine(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.water(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.water(
+    user_id="user_id",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -7942,7 +8737,7 @@ client.vitals.water(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">steps</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">steps</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingStepsTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -7956,8 +8751,16 @@ client.vitals.water(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.steps(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.steps(
+    user_id="user_id",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -8017,7 +8820,7 @@ client.vitals.steps(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">floors_climbed</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">floors_climbed</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingFloorsClimbedTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -8031,8 +8834,16 @@ client.vitals.steps(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.floors_climbed(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.floors_climbed(
+    user_id="user_id",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -8092,7 +8903,7 @@ client.vitals.floors_climbed(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">distance</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">distance</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingDistanceTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -8106,8 +8917,16 @@ client.vitals.floors_climbed(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.distance(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.distance(
+    user_id="user_id",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -8167,7 +8986,7 @@ client.vitals.distance(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">calories_basal</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">calories_basal</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingCaloriesBasalTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -8181,8 +9000,16 @@ client.vitals.distance(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.calories_basal(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.calories_basal(
+    user_id="user_id",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -8242,7 +9069,7 @@ client.vitals.calories_basal(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">calories_active</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">calories_active</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingCaloriesActiveTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -8256,8 +9083,16 @@ client.vitals.calories_basal(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.calories_active(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.calories_active(
+    user_id="user_id",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -8317,7 +9152,7 @@ client.vitals.calories_active(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">respiratory_rate</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">respiratory_rate</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingRespiratoryRateTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -8331,8 +9166,16 @@ client.vitals.calories_active(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.respiratory_rate(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.respiratory_rate(
+    user_id="user_id",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -8392,7 +9235,7 @@ client.vitals.respiratory_rate(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">ige</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">ige</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingIgeTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -8406,8 +9249,16 @@ client.vitals.respiratory_rate(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.ige(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.ige(
+    user_id="user_id",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -8467,7 +9318,7 @@ client.vitals.ige(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">igg</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">igg</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingIggTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -8481,8 +9332,16 @@ client.vitals.ige(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.igg(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.igg(
+    user_id="user_id",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -8542,7 +9401,7 @@ client.vitals.igg(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">hypnogram</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">hypnogram</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingHypnogramTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -8556,8 +9415,16 @@ client.vitals.igg(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.hypnogram(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.hypnogram(
+    user_id="user_id",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -8617,7 +9484,7 @@ client.vitals.hypnogram(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">hrv</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">hrv</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingHrvTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -8631,8 +9498,16 @@ client.vitals.hypnogram(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.hrv(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.hrv(
+    user_id="user_id",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -8692,7 +9567,7 @@ client.vitals.hrv(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">heartrate</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">heartrate</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingHeartRateTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -8706,8 +9581,16 @@ client.vitals.hrv(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.heartrate(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.heartrate(
+    user_id="user_id",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -8767,7 +9650,7 @@ client.vitals.heartrate(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">glucose</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">glucose</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingGlucoseTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -8781,8 +9664,16 @@ client.vitals.heartrate(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.glucose(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.glucose(
+    user_id="user_id",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -8842,7 +9733,7 @@ client.vitals.glucose(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">cholesterol_triglycerides</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">cholesterol_triglycerides</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingCholesterolTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -8856,8 +9747,16 @@ client.vitals.glucose(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.cholesterol_triglycerides(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.cholesterol_triglycerides(
+    user_id="user_id",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -8917,7 +9816,7 @@ client.vitals.cholesterol_triglycerides(user_id='user_id', start_date='start_dat
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">cholesterol_total</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">cholesterol_total</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingCholesterolTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -8931,8 +9830,16 @@ client.vitals.cholesterol_triglycerides(user_id='user_id', start_date='start_dat
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.cholesterol_total(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.cholesterol_total(
+    user_id="user_id",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -8992,7 +9899,7 @@ client.vitals.cholesterol_total(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">cholesterol_ldl</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">cholesterol_ldl</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingCholesterolTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -9006,8 +9913,16 @@ client.vitals.cholesterol_total(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.cholesterol_ldl(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.cholesterol_ldl(
+    user_id="user_id",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -9067,7 +9982,7 @@ client.vitals.cholesterol_ldl(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">cholesterol_hdl</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">cholesterol_hdl</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingCholesterolTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -9081,8 +9996,16 @@ client.vitals.cholesterol_ldl(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.cholesterol_hdl(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.cholesterol_hdl(
+    user_id="user_id",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -9142,7 +10065,7 @@ client.vitals.cholesterol_hdl(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">cholesterol</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">cholesterol</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingCholesterolTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -9156,8 +10079,16 @@ client.vitals.cholesterol_hdl(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.cholesterol(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.cholesterol(
+    user_id="user_id",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -9217,7 +10148,7 @@ client.vitals.cholesterol(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">body_weight</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">body_weight</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingBodyWeightTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -9231,8 +10162,16 @@ client.vitals.cholesterol(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.body_weight(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.body_weight(
+    user_id="user_id",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -9292,7 +10231,7 @@ client.vitals.body_weight(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">body_fat</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">body_fat</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingBodyFatTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -9306,8 +10245,16 @@ client.vitals.body_weight(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.body_fat(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.body_fat(
+    user_id="user_id",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -9367,7 +10314,7 @@ client.vitals.body_fat(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">blood_oxygen</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">blood_oxygen</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingBloodOxygenTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -9381,8 +10328,16 @@ client.vitals.body_fat(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.blood_oxygen(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.blood_oxygen(
+    user_id="user_id",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -9442,7 +10397,7 @@ client.vitals.blood_oxygen(user_id='user_id', start_date='start_date', )
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">electrocardiogram_voltage</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">electrocardiogram_voltage</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingElectrocardiogramVoltageTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -9456,8 +10411,16 @@ client.vitals.blood_oxygen(user_id='user_id', start_date='start_date', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.electrocardiogram_voltage(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.electrocardiogram_voltage(
+    user_id="user_id",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -9517,7 +10480,7 @@ client.vitals.electrocardiogram_voltage(user_id='user_id', start_date='start_dat
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">blood_pressure</a>(...)</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">blood_pressure</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingBloodPressureTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -9531,8 +10494,16 @@ client.vitals.electrocardiogram_voltage(user_id='user_id', start_date='start_dat
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.vitals.blood_pressure(user_id='user_id', start_date='start_date', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.vitals.blood_pressure(
+    user_id="user_id",
+    provider="provider",
+    start_date="start_date",
+    end_date="end_date",
+)
 
 ```
 </dd>
@@ -9593,7 +10564,7 @@ client.vitals.blood_pressure(user_id='user_id', start_date='start_date', )
 </details>
 
 ## User
-<details><summary><code>client.user.<a href="src/vital/user/client.py">get_all</a>(...)</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">get_all</a>(...) -> AsyncHttpResponse[PaginatedUsersResponse]</code></summary>
 <dl>
 <dd>
 
@@ -9621,8 +10592,14 @@ GET All users for team.
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.get_all()
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.user.get_all(
+    offset=1,
+    limit=1,
+)
 
 ```
 </dd>
@@ -9666,7 +10643,7 @@ client.user.get_all()
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/vital/user/client.py">create</a>(...)</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">create</a>(...) -> AsyncHttpResponse[ClientFacingUserKey]</code></summary>
 <dl>
 <dd>
 
@@ -9694,8 +10671,13 @@ POST Create a Vital user given a client_user_id and returns the user_id.
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.create(client_user_id='client_user_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.user.create(
+    client_user_id="client_user_id",
+)
 
 ```
 </dd>
@@ -9732,7 +10714,7 @@ client.user.create(client_user_id='client_user_id', )
 <dl>
 <dd>
 
-**fallback_birth_date:** `typing.Optional[dt.date]` — Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
+**fallback_birth_date:** `typing.Optional[str]` — Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
     
 </dd>
 </dl>
@@ -9740,7 +10722,7 @@ client.user.create(client_user_id='client_user_id', )
 <dl>
 <dd>
 
-**ingestion_start:** `typing.Optional[dt.date]` — Starting bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
+**ingestion_start:** `typing.Optional[str]` — Starting bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
     
 </dd>
 </dl>
@@ -9748,7 +10730,7 @@ client.user.create(client_user_id='client_user_id', )
 <dl>
 <dd>
 
-**ingestion_end:** `typing.Optional[dt.date]` — Ending bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
+**ingestion_end:** `typing.Optional[str]` — Ending bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
     
 </dd>
 </dl>
@@ -9768,7 +10750,7 @@ client.user.create(client_user_id='client_user_id', )
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/vital/user/client.py">get_team_metrics</a>()</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">get_team_metrics</a>() -> AsyncHttpResponse[MetricsResult]</code></summary>
 <dl>
 <dd>
 
@@ -9796,7 +10778,10 @@ GET metrics for team.
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
 client.user.get_team_metrics()
 
 ```
@@ -9825,7 +10810,7 @@ client.user.get_team_metrics()
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/vital/user/client.py">get_connected_providers</a>(...)</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">get_connected_providers</a>(...) -> AsyncHttpResponse[typing.Dict[str, typing.List[ClientFacingProviderWithStatus]]]</code></summary>
 <dl>
 <dd>
 
@@ -9853,8 +10838,13 @@ GET Users connected providers
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.get_connected_providers(user_id='user_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.user.get_connected_providers(
+    user_id="user_id",
+)
 
 ```
 </dd>
@@ -9890,7 +10880,7 @@ client.user.get_connected_providers(user_id='user_id', )
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/vital/user/client.py">get_latest_user_info</a>(...)</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">get_latest_user_info</a>(...) -> AsyncHttpResponse[UserInfo]</code></summary>
 <dl>
 <dd>
 
@@ -9904,8 +10894,13 @@ client.user.get_connected_providers(user_id='user_id', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.get_latest_user_info(user_id='user_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.user.get_latest_user_info(
+    user_id="user_id",
+)
 
 ```
 </dd>
@@ -9941,7 +10936,7 @@ client.user.get_latest_user_info(user_id='user_id', )
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/vital/user/client.py">create_insurance</a>(...)</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">create_insurance</a>(...) -> AsyncHttpResponse[ClientFacingInsurance]</code></summary>
 <dl>
 <dd>
 
@@ -9954,14 +10949,38 @@ client.user.get_latest_user_info(user_id='user_id', )
 <dd>
 
 ```python
-from vital import Vital
-from vital import ResponsibleRelationship
-from vital import VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails
-from vital import Gender
-from vital import Address
-import datetime
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.create_insurance(user_id='user_id', payor_code='payor_code', member_id='member_id', relationship=ResponsibleRelationship.SELF, insured=VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails(first_name='first_name', last_name='last_name', gender=Gender.FEMALE, address=Address(first_line='first_line', country='country', zip='zip', city='city', state='state', ), dob=datetime.date.fromisoformat("2023-01-15", ), email='email', phone_number='phone_number', ), )
+from vital import (
+    Address,
+    Gender,
+    ResponsibleRelationship,
+    Vital,
+    VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails,
+)
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.user.create_insurance(
+    user_id="user_id",
+    payor_code="payor_code",
+    member_id="member_id",
+    relationship=ResponsibleRelationship.SELF,
+    insured=VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails(
+        first_name="first_name",
+        last_name="last_name",
+        gender=Gender.FEMALE,
+        address=Address(
+            first_line="first_line",
+            country="country",
+            zip="zip",
+            city="city",
+            state="state",
+        ),
+        dob="dob",
+        email="email",
+        phone_number="phone_number",
+    ),
+)
 
 ```
 </dd>
@@ -10045,7 +11064,7 @@ client.user.create_insurance(user_id='user_id', payor_code='payor_code', member_
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/vital/user/client.py">get_latest_insurance</a>(...)</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">get_latest_insurance</a>(...) -> AsyncHttpResponse[ClientFacingInsurance]</code></summary>
 <dl>
 <dd>
 
@@ -10059,8 +11078,13 @@ client.user.create_insurance(user_id='user_id', payor_code='payor_code', member_
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.get_latest_insurance(user_id='user_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.user.get_latest_insurance(
+    user_id="user_id",
+)
 
 ```
 </dd>
@@ -10096,7 +11120,7 @@ client.user.get_latest_insurance(user_id='user_id', )
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/vital/user/client.py">upsert_user_info</a>(...)</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">upsert_user_info</a>(...) -> AsyncHttpResponse[UserInfo]</code></summary>
 <dl>
 <dd>
 
@@ -10109,11 +11133,27 @@ client.user.get_latest_insurance(user_id='user_id', )
 <dd>
 
 ```python
-from vital import Vital
-import datetime
-from vital import Address
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.upsert_user_info(user_id='user_id', first_name='first_name', last_name='last_name', email='email', phone_number='phone_number', gender='gender', dob=datetime.date.fromisoformat("2023-01-15", ), address=Address(first_line='first_line', country='country', zip='zip', city='city', state='state', ), )
+from vital import Address, Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.user.upsert_user_info(
+    user_id="user_id",
+    first_name="first_name",
+    last_name="last_name",
+    email="email",
+    phone_number="phone_number",
+    gender="gender",
+    dob="dob",
+    address=Address(
+        first_line="first_line",
+        country="country",
+        zip="zip",
+        city="city",
+        state="state",
+    ),
+)
 
 ```
 </dd>
@@ -10177,7 +11217,7 @@ client.user.upsert_user_info(user_id='user_id', first_name='first_name', last_na
 <dl>
 <dd>
 
-**dob:** `dt.date` 
+**dob:** `str` 
     
 </dd>
 </dl>
@@ -10245,7 +11285,7 @@ client.user.upsert_user_info(user_id='user_id', first_name='first_name', last_na
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/vital/user/client.py">get_by_client_user_id</a>(...)</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">get_by_client_user_id</a>(...) -> AsyncHttpResponse[ClientFacingUser]</code></summary>
 <dl>
 <dd>
 
@@ -10273,8 +11313,13 @@ GET user_id from client_user_id.
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.get_by_client_user_id(client_user_id='client_user_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.user.get_by_client_user_id(
+    client_user_id="client_user_id",
+)
 
 ```
 </dd>
@@ -10310,7 +11355,7 @@ client.user.get_by_client_user_id(client_user_id='client_user_id', )
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/vital/user/client.py">deregister_provider</a>(...)</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">deregister_provider</a>(...) -> AsyncHttpResponse[UserSuccessResponse]</code></summary>
 <dl>
 <dd>
 
@@ -10323,10 +11368,15 @@ client.user.get_by_client_user_id(client_user_id='client_user_id', )
 <dd>
 
 ```python
-from vital import Vital
-from vital import Providers
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.deregister_provider(user_id='user_id', provider=Providers.OURA, )
+from vital import Providers, Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.user.deregister_provider(
+    user_id="user_id",
+    provider=Providers.OURA,
+)
 
 ```
 </dd>
@@ -10370,7 +11420,7 @@ client.user.deregister_provider(user_id='user_id', provider=Providers.OURA, )
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/vital/user/client.py">get</a>(...)</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">get</a>(...) -> AsyncHttpResponse[ClientFacingUser]</code></summary>
 <dl>
 <dd>
 
@@ -10384,8 +11434,13 @@ client.user.deregister_provider(user_id='user_id', provider=Providers.OURA, )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.get(user_id='user_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.user.get(
+    user_id="user_id",
+)
 
 ```
 </dd>
@@ -10421,7 +11476,7 @@ client.user.get(user_id='user_id', )
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/vital/user/client.py">delete</a>(...)</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">delete</a>(...) -> AsyncHttpResponse[UserSuccessResponse]</code></summary>
 <dl>
 <dd>
 
@@ -10435,8 +11490,13 @@ client.user.get(user_id='user_id', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.delete(user_id='user_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.user.delete(
+    user_id="user_id",
+)
 
 ```
 </dd>
@@ -10472,7 +11532,7 @@ client.user.delete(user_id='user_id', )
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/vital/user/client.py">patch</a>(...)</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">patch</a>(...) -> AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -10486,8 +11546,13 @@ client.user.delete(user_id='user_id', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.patch(user_id='user_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.user.patch(
+    user_id="user_id",
+)
 
 ```
 </dd>
@@ -10524,7 +11589,7 @@ client.user.patch(user_id='user_id', )
 <dl>
 <dd>
 
-**fallback_birth_date:** `typing.Optional[dt.date]` — Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
+**fallback_birth_date:** `typing.Optional[str]` — Fallback date of birth of the user, in YYYY-mm-dd format. Used for calculating max heartrate for providers that don not provide users' age.
     
 </dd>
 </dl>
@@ -10532,7 +11597,7 @@ client.user.patch(user_id='user_id', )
 <dl>
 <dd>
 
-**ingestion_start:** `typing.Optional[dt.date]` — Starting bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
+**ingestion_start:** `typing.Optional[str]` — Starting bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
     
 </dd>
 </dl>
@@ -10540,7 +11605,7 @@ client.user.patch(user_id='user_id', )
 <dl>
 <dd>
 
-**ingestion_end:** `typing.Optional[dt.date]` — Ending bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
+**ingestion_end:** `typing.Optional[str]` — Ending bound for user [data ingestion bounds](https://docs.tryvital.io/wearables/providers/data-ingestion-bounds).
     
 </dd>
 </dl>
@@ -10568,7 +11633,7 @@ client.user.patch(user_id='user_id', )
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/vital/user/client.py">undo_delete</a>(...)</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">undo_delete</a>(...) -> AsyncHttpResponse[UserSuccessResponse]</code></summary>
 <dl>
 <dd>
 
@@ -10582,8 +11647,14 @@ client.user.patch(user_id='user_id', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.undo_delete()
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.user.undo_delete(
+    user_id="user_id",
+    client_user_id="client_user_id",
+)
 
 ```
 </dd>
@@ -10627,7 +11698,7 @@ client.user.undo_delete()
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/vital/user/client.py">refresh</a>(...)</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">refresh</a>(...) -> AsyncHttpResponse[UserRefreshSuccessResponse]</code></summary>
 <dl>
 <dd>
 
@@ -10655,8 +11726,14 @@ Trigger a manual refresh for a specific user
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.refresh(user_id='user_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.user.refresh(
+    user_id="user_id",
+    timeout=1.1,
+)
 
 ```
 </dd>
@@ -10700,7 +11777,7 @@ client.user.refresh(user_id='user_id', )
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/vital/user/client.py">get_devices</a>(...)</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">get_devices</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingDevice]]</code></summary>
 <dl>
 <dd>
 
@@ -10714,8 +11791,13 @@ client.user.refresh(user_id='user_id', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.get_devices(user_id='user_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.user.get_devices(
+    user_id="user_id",
+)
 
 ```
 </dd>
@@ -10751,7 +11833,7 @@ client.user.get_devices(user_id='user_id', )
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/vital/user/client.py">get_device</a>(...)</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">get_device</a>(...) -> AsyncHttpResponse[ClientFacingDevice]</code></summary>
 <dl>
 <dd>
 
@@ -10765,8 +11847,14 @@ client.user.get_devices(user_id='user_id', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.get_device(user_id='user_id', device_id='device_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.user.get_device(
+    user_id="user_id",
+    device_id="device_id",
+)
 
 ```
 </dd>
@@ -10810,7 +11898,7 @@ client.user.get_device(user_id='user_id', device_id='device_id', )
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/vital/user/client.py">get_user_sign_in_token</a>(...)</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">get_user_sign_in_token</a>(...) -> AsyncHttpResponse[UserSignInTokenResponse]</code></summary>
 <dl>
 <dd>
 
@@ -10824,8 +11912,13 @@ client.user.get_device(user_id='user_id', device_id='device_id', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.get_user_sign_in_token(user_id='user_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.user.get_user_sign_in_token(
+    user_id="user_id",
+)
 
 ```
 </dd>
@@ -10861,7 +11954,7 @@ client.user.get_user_sign_in_token(user_id='user_id', )
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/vital/user/client.py">create_portal_url</a>(...)</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">create_portal_url</a>(...) -> AsyncHttpResponse[CreateUserPortalUrlResponse]</code></summary>
 <dl>
 <dd>
 
@@ -10876,8 +11969,14 @@ client.user.get_user_sign_in_token(user_id='user_id', )
 ```python
 from vital import Vital
 from vital.user import CreateUserPortalUrlBodyContext
-client = Vital(api_key="YOUR_API_KEY", )
-client.user.create_portal_url(user_id='user_id', context=CreateUserPortalUrlBodyContext.LAUNCH, )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.user.create_portal_url(
+    user_id="user_id",
+    context=CreateUserPortalUrlBodyContext.LAUNCH,
+)
 
 ```
 </dd>
@@ -10938,7 +12037,7 @@ authentication, e.g., when they open a short link on a new device. ℹ️ This e
 </details>
 
 ## Team
-<details><summary><code>client.team.<a href="src/vital/team/client.py">get_link_config</a>(...)</code></summary>
+<details><summary><code>client.team.<a href="src/vital/team/client.py">get_link_config</a>(...) -> AsyncHttpResponse[typing.Dict[str, typing.Any]]</code></summary>
 <dl>
 <dd>
 
@@ -10966,8 +12065,13 @@ Post teams.
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.team.get_link_config()
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.team.get_link_config(
+    vital_link_token="x-vital-link-token",
+)
 
 ```
 </dd>
@@ -11003,7 +12107,7 @@ client.team.get_link_config()
 </dl>
 </details>
 
-<details><summary><code>client.team.<a href="src/vital/team/client.py">get</a>(...)</code></summary>
+<details><summary><code>client.team.<a href="src/vital/team/client.py">get</a>(...) -> AsyncHttpResponse[ClientFacingTeam]</code></summary>
 <dl>
 <dd>
 
@@ -11031,8 +12135,13 @@ Get team.
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.team.get(team_id='team_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.team.get(
+    team_id="team_id",
+)
 
 ```
 </dd>
@@ -11068,7 +12177,7 @@ client.team.get(team_id='team_id', )
 </dl>
 </details>
 
-<details><summary><code>client.team.<a href="src/vital/team/client.py">get_user_by_id</a>(...)</code></summary>
+<details><summary><code>client.team.<a href="src/vital/team/client.py">get_user_by_id</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingUser]]</code></summary>
 <dl>
 <dd>
 
@@ -11096,8 +12205,13 @@ Search team users by user_id
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.team.get_user_by_id()
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.team.get_user_by_id(
+    query_id="query_id",
+)
 
 ```
 </dd>
@@ -11133,7 +12247,7 @@ client.team.get_user_by_id()
 </dl>
 </details>
 
-<details><summary><code>client.team.<a href="src/vital/team/client.py">get_svix_url</a>()</code></summary>
+<details><summary><code>client.team.<a href="src/vital/team/client.py">get_svix_url</a>() -> AsyncHttpResponse[typing.Dict[str, typing.Any]]</code></summary>
 <dl>
 <dd>
 
@@ -11147,7 +12261,10 @@ client.team.get_user_by_id()
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
 client.team.get_svix_url()
 
 ```
@@ -11176,7 +12293,7 @@ client.team.get_svix_url()
 </dl>
 </details>
 
-<details><summary><code>client.team.<a href="src/vital/team/client.py">get_source_priorities</a>(...)</code></summary>
+<details><summary><code>client.team.<a href="src/vital/team/client.py">get_source_priorities</a>(...) -> AsyncHttpResponse[typing.List[typing.Dict[str, typing.Any]]]</code></summary>
 <dl>
 <dd>
 
@@ -11203,9 +12320,14 @@ GET source priorities.
 <dd>
 
 ```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.team.get_source_priorities()
+from vital import PriorityResource, Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.team.get_source_priorities(
+    data_type=PriorityResource.WORKOUTS,
+)
 
 ```
 </dd>
@@ -11241,7 +12363,7 @@ client.team.get_source_priorities()
 </dl>
 </details>
 
-<details><summary><code>client.team.<a href="src/vital/team/client.py">update_source_priorities</a>()</code></summary>
+<details><summary><code>client.team.<a href="src/vital/team/client.py">update_source_priorities</a>() -> AsyncHttpResponse[typing.List[typing.Dict[str, typing.Any]]]</code></summary>
 <dl>
 <dd>
 
@@ -11269,7 +12391,10 @@ Patch source priorities.
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
 client.team.update_source_priorities()
 
 ```
@@ -11298,7 +12423,7 @@ client.team.update_source_priorities()
 </dl>
 </details>
 
-<details><summary><code>client.team.<a href="src/vital/team/client.py">get_physicians</a>(...)</code></summary>
+<details><summary><code>client.team.<a href="src/vital/team/client.py">get_physicians</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingPhysician]]</code></summary>
 <dl>
 <dd>
 
@@ -11312,8 +12437,13 @@ client.team.update_source_priorities()
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.team.get_physicians(team_id='team_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.team.get_physicians(
+    team_id="team_id",
+)
 
 ```
 </dd>
@@ -11350,7 +12480,7 @@ client.team.get_physicians(team_id='team_id', )
 </details>
 
 ## Providers
-<details><summary><code>client.providers.<a href="src/vital/providers/client.py">get_all</a>(...)</code></summary>
+<details><summary><code>client.providers.<a href="src/vital/providers/client.py">get_all</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingProviderDetailed]]</code></summary>
 <dl>
 <dd>
 
@@ -11378,8 +12508,13 @@ Get Provider list
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.providers.get_all()
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.providers.get_all(
+    source_type="source_type",
+)
 
 ```
 </dd>
@@ -11416,7 +12551,7 @@ client.providers.get_all()
 </details>
 
 ## Introspect
-<details><summary><code>client.introspect.<a href="src/vital/introspect/client.py">get_user_resources</a>(...)</code></summary>
+<details><summary><code>client.introspect.<a href="src/vital/introspect/client.py">get_user_resources</a>(...) -> AsyncHttpResponse[UserResourcesResponse]</code></summary>
 <dl>
 <dd>
 
@@ -11429,9 +12564,18 @@ client.providers.get_all()
 <dd>
 
 ```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.introspect.get_user_resources()
+from vital import Providers, Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.introspect.get_user_resources(
+    user_id="user_id",
+    provider=Providers.OURA,
+    user_limit=1,
+    cursor="cursor",
+    next_cursor="next_cursor",
+)
 
 ```
 </dd>
@@ -11499,7 +12643,7 @@ client.introspect.get_user_resources()
 </dl>
 </details>
 
-<details><summary><code>client.introspect.<a href="src/vital/introspect/client.py">get_user_historical_pulls</a>(...)</code></summary>
+<details><summary><code>client.introspect.<a href="src/vital/introspect/client.py">get_user_historical_pulls</a>(...) -> AsyncHttpResponse[UserHistoricalPullsResponse]</code></summary>
 <dl>
 <dd>
 
@@ -11512,9 +12656,18 @@ client.introspect.get_user_resources()
 <dd>
 
 ```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.introspect.get_user_historical_pulls()
+from vital import Providers, Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.introspect.get_user_historical_pulls(
+    user_id="user_id",
+    provider=Providers.OURA,
+    user_limit=1,
+    cursor="cursor",
+    next_cursor="next_cursor",
+)
 
 ```
 </dd>
@@ -11538,7 +12691,7 @@ client.introspect.get_user_historical_pulls()
 <dl>
 <dd>
 
-**provider:** `typing.Optional[GetUserHistoricalPullsIntrospectRequestProvider]` 
+**provider:** `typing.Optional[Providers]` 
     
 </dd>
 </dl>
@@ -11583,7 +12736,7 @@ client.introspect.get_user_historical_pulls()
 </details>
 
 ## LabTests
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingLabTest]]</code></summary>
 <dl>
 <dd>
 
@@ -11610,9 +12763,29 @@ GET all the lab tests the team has access to.
 <dd>
 
 ```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.get()
+from vital import (
+    LabTestCollectionMethod,
+    LabTestGenerationMethodFilter,
+    LabTestStatus,
+    Vital,
+)
+from vital.lab_tests import (
+    LabTestsGetRequestOrderDirection,
+    LabTestsGetRequestOrderKey,
+)
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.get(
+    generation_method=LabTestGenerationMethodFilter.AUTO,
+    lab_slug="lab_slug",
+    collection_method=LabTestCollectionMethod.TESTKIT,
+    status=LabTestStatus.ACTIVE,
+    name="name",
+    order_key=LabTestsGetRequestOrderKey.PRICE,
+    order_direction=LabTestsGetRequestOrderDirection.ASC,
+)
 
 ```
 </dd>
@@ -11660,7 +12833,7 @@ client.lab_tests.get()
 <dl>
 <dd>
 
-**marker_ids:** `typing.Optional[typing.Sequence[int]]` — Filter to only include lab tests containing these marker IDs.
+**marker_ids:** `typing.Optional[typing.Union[int, typing.Sequence[int]]]` — Filter to only include lab tests containing these marker IDs.
     
 </dd>
 </dl>
@@ -11668,7 +12841,7 @@ client.lab_tests.get()
 <dl>
 <dd>
 
-**provider_ids:** `typing.Optional[typing.Sequence[str]]` — Filter to only include lab tests containing these provider IDs.
+**provider_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter to only include lab tests containing these provider IDs.
     
 </dd>
 </dl>
@@ -11684,7 +12857,7 @@ client.lab_tests.get()
 <dl>
 <dd>
 
-**order_key:** `typing.Optional[GetLabTestsRequestOrderKey]` 
+**order_key:** `typing.Optional[LabTestsGetRequestOrderKey]` 
     
 </dd>
 </dl>
@@ -11692,7 +12865,7 @@ client.lab_tests.get()
 <dl>
 <dd>
 
-**order_direction:** `typing.Optional[GetLabTestsRequestOrderDirection]` 
+**order_direction:** `typing.Optional[LabTestsGetRequestOrderDirection]` 
     
 </dd>
 </dl>
@@ -11712,7 +12885,7 @@ client.lab_tests.get()
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">create</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">create</a>(...) -> AsyncHttpResponse[ClientFacingLabTest]</code></summary>
 <dl>
 <dd>
 
@@ -11725,10 +12898,16 @@ client.lab_tests.get()
 <dd>
 
 ```python
-from vital import Vital
-from vital import LabTestCollectionMethod
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.create(name='name', method=LabTestCollectionMethod.TESTKIT, description='description', )
+from vital import LabTestCollectionMethod, Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.create(
+    name="name",
+    method=LabTestCollectionMethod.TESTKIT,
+    description="description",
+)
 
 ```
 </dd>
@@ -11804,7 +12983,7 @@ client.lab_tests.create(name='name', method=LabTestCollectionMethod.TESTKIT, des
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_by_id</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_by_id</a>(...) -> AsyncHttpResponse[ClientFacingLabTest]</code></summary>
 <dl>
 <dd>
 
@@ -11832,8 +13011,14 @@ GET all the lab tests the team has access to.
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.get_by_id(lab_test_id='lab_test_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.get_by_id(
+    lab_test_id="lab_test_id",
+    lab_account_id="lab_account_id",
+)
 
 ```
 </dd>
@@ -11877,7 +13062,7 @@ client.lab_tests.get_by_id(lab_test_id='lab_test_id', )
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">update_lab_test</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">update_lab_test</a>(...) -> AsyncHttpResponse[ClientFacingLabTest]</code></summary>
 <dl>
 <dd>
 
@@ -11891,8 +13076,13 @@ client.lab_tests.get_by_id(lab_test_id='lab_test_id', )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.update_lab_test(lab_test_id='lab_test_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.update_lab_test(
+    lab_test_id="lab_test_id",
+)
 
 ```
 </dd>
@@ -11944,7 +13134,7 @@ client.lab_tests.update_lab_test(lab_test_id='lab_test_id', )
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_markers</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_markers</a>(...) -> AsyncHttpResponse[GetMarkersResponse]</code></summary>
 <dl>
 <dd>
 
@@ -11972,8 +13162,17 @@ GET all the markers for the given lab.
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.get_markers()
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.get_markers(
+    name="name",
+    a_la_carte_enabled=True,
+    lab_account_id="lab_account_id",
+    page=1,
+    size=1,
+)
 
 ```
 </dd>
@@ -11989,7 +13188,7 @@ client.lab_tests.get_markers()
 <dl>
 <dd>
 
-**lab_id:** `typing.Optional[typing.Sequence[int]]` — The identifier Vital assigned to a lab partner.
+**lab_id:** `typing.Optional[typing.Union[int, typing.Sequence[int]]]` — The identifier Vital assigned to a lab partner.
     
 </dd>
 </dl>
@@ -12049,7 +13248,7 @@ client.lab_tests.get_markers()
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_markers_for_order_set</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_markers_for_order_set</a>(...) -> AsyncHttpResponse[GetMarkersResponse]</code></summary>
 <dl>
 <dd>
 
@@ -12062,10 +13261,16 @@ client.lab_tests.get_markers()
 <dd>
 
 ```python
-from vital import Vital
-from vital import OrderSetRequest
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.get_markers_for_order_set(request=OrderSetRequest(), )
+from vital import OrderSetRequest, Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.get_markers_for_order_set(
+    page=1,
+    size=1,
+    request=OrderSetRequest(),
+)
 
 ```
 </dd>
@@ -12117,7 +13322,7 @@ client.lab_tests.get_markers_for_order_set(request=OrderSetRequest(), )
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_markers_for_lab_test</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_markers_for_lab_test</a>(...) -> AsyncHttpResponse[GetMarkersResponse]</code></summary>
 <dl>
 <dd>
 
@@ -12131,8 +13336,16 @@ client.lab_tests.get_markers_for_order_set(request=OrderSetRequest(), )
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.get_markers_for_lab_test(lab_test_id='lab_test_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.get_markers_for_lab_test(
+    lab_test_id="lab_test_id",
+    lab_account_id="lab_account_id",
+    page=1,
+    size=1,
+)
 
 ```
 </dd>
@@ -12192,7 +13405,7 @@ client.lab_tests.get_markers_for_lab_test(lab_test_id='lab_test_id', )
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_markers_by_lab_and_provider_id</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_markers_by_lab_and_provider_id</a>(...) -> AsyncHttpResponse[ClientFacingMarker]</code></summary>
 <dl>
 <dd>
 
@@ -12220,8 +13433,15 @@ GET a specific marker for the given lab and provider_id
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.get_markers_by_lab_and_provider_id(lab_id=1, provider_id='provider_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.get_markers_by_lab_and_provider_id(
+    lab_id=1,
+    provider_id="provider_id",
+    lab_account_id="lab_account_id",
+)
 
 ```
 </dd>
@@ -12273,7 +13493,7 @@ client.lab_tests.get_markers_by_lab_and_provider_id(lab_id=1, provider_id='provi
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_labs</a>()</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_labs</a>() -> AsyncHttpResponse[typing.List[ClientFacingLab]]</code></summary>
 <dl>
 <dd>
 
@@ -12301,7 +13521,10 @@ GET all the labs.
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
 client.lab_tests.get_labs()
 
 ```
@@ -12330,7 +13553,7 @@ client.lab_tests.get_labs()
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_paginated</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_paginated</a>(...) -> AsyncHttpResponse[LabTestResourcesResponse]</code></summary>
 <dl>
 <dd>
 
@@ -12357,9 +13580,31 @@ GET lab tests the team has access to as a paginated list.
 <dd>
 
 ```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.get_paginated()
+from vital import (
+    LabTestCollectionMethod,
+    LabTestGenerationMethodFilter,
+    LabTestStatus,
+    Vital,
+)
+from vital.lab_tests import (
+    LabTestsGetPaginatedRequestOrderDirection,
+    LabTestsGetPaginatedRequestOrderKey,
+)
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.get_paginated(
+    lab_test_limit=1,
+    next_cursor="next_cursor",
+    generation_method=LabTestGenerationMethodFilter.AUTO,
+    lab_slug="lab_slug",
+    collection_method=LabTestCollectionMethod.TESTKIT,
+    status=LabTestStatus.ACTIVE,
+    name="name",
+    order_key=LabTestsGetPaginatedRequestOrderKey.PRICE,
+    order_direction=LabTestsGetPaginatedRequestOrderDirection.ASC,
+)
 
 ```
 </dd>
@@ -12423,7 +13668,7 @@ client.lab_tests.get_paginated()
 <dl>
 <dd>
 
-**marker_ids:** `typing.Optional[typing.Sequence[int]]` — Filter to only include lab tests containing these marker IDs.
+**marker_ids:** `typing.Optional[typing.Union[int, typing.Sequence[int]]]` — Filter to only include lab tests containing these marker IDs.
     
 </dd>
 </dl>
@@ -12431,7 +13676,7 @@ client.lab_tests.get_paginated()
 <dl>
 <dd>
 
-**provider_ids:** `typing.Optional[typing.Sequence[str]]` — Filter to only include lab tests containing these provider IDs.
+**provider_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter to only include lab tests containing these provider IDs.
     
 </dd>
 </dl>
@@ -12447,7 +13692,7 @@ client.lab_tests.get_paginated()
 <dl>
 <dd>
 
-**order_key:** `typing.Optional[GetPaginatedLabTestsRequestOrderKey]` 
+**order_key:** `typing.Optional[LabTestsGetPaginatedRequestOrderKey]` 
     
 </dd>
 </dl>
@@ -12455,7 +13700,7 @@ client.lab_tests.get_paginated()
 <dl>
 <dd>
 
-**order_direction:** `typing.Optional[GetPaginatedLabTestsRequestOrderDirection]` 
+**order_direction:** `typing.Optional[LabTestsGetPaginatedRequestOrderDirection]` 
     
 </dd>
 </dl>
@@ -12475,7 +13720,7 @@ client.lab_tests.get_paginated()
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_lab_test_collection_instruction_pdf</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_lab_test_collection_instruction_pdf</a>(...) -> typing.AsyncIterator[AsyncHttpResponse[typing.AsyncIterator[bytes]]]</code></summary>
 <dl>
 <dd>
 
@@ -12489,8 +13734,13 @@ client.lab_tests.get_paginated()
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.get_lab_test_collection_instruction_pdf(lab_test_id='lab_test_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.get_lab_test_collection_instruction_pdf(
+    lab_test_id="lab_test_id",
+)
 
 ```
 </dd>
@@ -12526,7 +13776,7 @@ client.lab_tests.get_lab_test_collection_instruction_pdf(lab_test_id='lab_test_i
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_orders</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_orders</a>(...) -> AsyncHttpResponse[GetOrdersResponse]</code></summary>
 <dl>
 <dd>
 
@@ -12553,9 +13803,41 @@ GET many orders with filters.
 <dd>
 
 ```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.get_orders()
+import datetime
+
+from vital import Interpretation, Vital
+from vital.lab_tests import (
+    LabTestsGetOrdersRequestOrderDirection,
+    LabTestsGetOrdersRequestOrderKey,
+)
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.get_orders(
+    search_input="search_input",
+    start_date=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    end_date=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    updated_start_date=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    updated_end_date=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    order_key=LabTestsGetOrdersRequestOrderKey.CREATED_AT,
+    order_direction=LabTestsGetOrdersRequestOrderDirection.ASC,
+    is_critical=True,
+    interpretation=Interpretation.NORMAL,
+    user_id="user_id",
+    patient_name="patient_name",
+    shipping_recipient_name="shipping_recipient_name",
+    page=1,
+    size=1,
+)
 
 ```
 </dd>
@@ -12611,7 +13893,9 @@ client.lab_tests.get_orders()
 <dl>
 <dd>
 
-**status:** `typing.Optional[typing.Sequence[OrderLowLevelStatus]]` — Filter by low level status.
+**status:** `typing.Optional[
+    typing.Union[OrderLowLevelStatus, typing.Sequence[OrderLowLevelStatus]]
+]` — Filter by low level status.
     
 </dd>
 </dl>
@@ -12619,7 +13903,7 @@ client.lab_tests.get_orders()
 <dl>
 <dd>
 
-**order_key:** `typing.Optional[GetOrdersLabTestsRequestOrderKey]` — Order key to sort by.
+**order_key:** `typing.Optional[LabTestsGetOrdersRequestOrderKey]` — Order key to sort by.
     
 </dd>
 </dl>
@@ -12627,7 +13911,7 @@ client.lab_tests.get_orders()
 <dl>
 <dd>
 
-**order_direction:** `typing.Optional[GetOrdersLabTestsRequestOrderDirection]` — Order direction to sort by.
+**order_direction:** `typing.Optional[LabTestsGetOrdersRequestOrderDirection]` — Order direction to sort by.
     
 </dd>
 </dl>
@@ -12635,7 +13919,11 @@ client.lab_tests.get_orders()
 <dl>
 <dd>
 
-**order_type:** `typing.Optional[typing.Sequence[LabTestCollectionMethod]]` — Filter by method used to perform the lab test.
+**order_type:** `typing.Optional[
+    typing.Union[
+        LabTestCollectionMethod, typing.Sequence[LabTestCollectionMethod]
+    ]
+]` — Filter by method used to perform the lab test.
     
 </dd>
 </dl>
@@ -12659,7 +13947,9 @@ client.lab_tests.get_orders()
 <dl>
 <dd>
 
-**order_activation_types:** `typing.Optional[typing.Sequence[OrderActivationType]]` — Filter by activation type.
+**order_activation_types:** `typing.Optional[
+    typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]
+]` — Filter by activation type.
     
 </dd>
 </dl>
@@ -12691,7 +13981,7 @@ client.lab_tests.get_orders()
 <dl>
 <dd>
 
-**order_ids:** `typing.Optional[typing.Sequence[str]]` — Filter by order ids.
+**order_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter by order ids.
     
 </dd>
 </dl>
@@ -12727,7 +14017,7 @@ client.lab_tests.get_orders()
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_phlebotomy_appointment_availability</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_phlebotomy_appointment_availability</a>(...) -> AsyncHttpResponse[AppointmentAvailabilitySlots]</code></summary>
 <dl>
 <dd>
 
@@ -12755,10 +14045,20 @@ for the given address and order.
 <dd>
 
 ```python
-from vital import Vital
-from vital import UsAddress
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.get_phlebotomy_appointment_availability(request=UsAddress(first_line='first_line', city='city', state='state', zip_code='zip_code', ), )
+from vital import UsAddress, Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.get_phlebotomy_appointment_availability(
+    start_date="start_date",
+    request=UsAddress(
+        first_line="first_line",
+        city="city",
+        state="state",
+        zip_code="zip_code",
+    ),
+)
 
 ```
 </dd>
@@ -12782,7 +14082,7 @@ client.lab_tests.get_phlebotomy_appointment_availability(request=UsAddress(first
 <dl>
 <dd>
 
-**start_date:** `typing.Optional[dt.date]` — Start date for appointment availability
+**start_date:** `typing.Optional[str]` — Start date for appointment availability
     
 </dd>
 </dl>
@@ -12802,7 +14102,7 @@ client.lab_tests.get_phlebotomy_appointment_availability(request=UsAddress(first
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">book_phlebotomy_appointment</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">book_phlebotomy_appointment</a>(...) -> AsyncHttpResponse[ClientFacingAppointment]</code></summary>
 <dl>
 <dd>
 
@@ -12829,10 +14129,17 @@ Book an at-home phlebotomy appointment.
 <dd>
 
 ```python
-from vital import Vital
-from vital import AppointmentBookingRequest
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.book_phlebotomy_appointment(order_id='order_id', request=AppointmentBookingRequest(booking_key='booking_key', ), )
+from vital import AppointmentBookingRequest, Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.book_phlebotomy_appointment(
+    order_id="order_id",
+    request=AppointmentBookingRequest(
+        booking_key="booking_key",
+    ),
+)
 
 ```
 </dd>
@@ -12876,7 +14183,7 @@ client.lab_tests.book_phlebotomy_appointment(order_id='order_id', request=Appoin
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">request_phlebotomy_appointment</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">request_phlebotomy_appointment</a>(...) -> AsyncHttpResponse[ClientFacingAppointment]</code></summary>
 <dl>
 <dd>
 
@@ -12903,11 +14210,21 @@ Request an at-home phlebotomy appointment.
 <dd>
 
 ```python
-from vital import Vital
-from vital import UsAddress
-from vital import AppointmentProvider
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.request_phlebotomy_appointment(order_id='order_id', address=UsAddress(first_line='first_line', city='city', state='state', zip_code='zip_code', ), provider=AppointmentProvider.GETLABS, )
+from vital import AppointmentProvider, UsAddress, Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.request_phlebotomy_appointment(
+    order_id="order_id",
+    address=UsAddress(
+        first_line="first_line",
+        city="city",
+        state="state",
+        zip_code="zip_code",
+    ),
+    provider=AppointmentProvider.GETLABS,
+)
 
 ```
 </dd>
@@ -12959,7 +14276,7 @@ client.lab_tests.request_phlebotomy_appointment(order_id='order_id', address=UsA
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">reschedule_phlebotomy_appointment</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">reschedule_phlebotomy_appointment</a>(...) -> AsyncHttpResponse[ClientFacingAppointment]</code></summary>
 <dl>
 <dd>
 
@@ -12986,10 +14303,17 @@ Reschedule a previously booked at-home phlebotomy appointment.
 <dd>
 
 ```python
-from vital import Vital
-from vital import AppointmentRescheduleRequest
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.reschedule_phlebotomy_appointment(order_id='order_id', request=AppointmentRescheduleRequest(booking_key='booking_key', ), )
+from vital import AppointmentRescheduleRequest, Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.reschedule_phlebotomy_appointment(
+    order_id="order_id",
+    request=AppointmentRescheduleRequest(
+        booking_key="booking_key",
+    ),
+)
 
 ```
 </dd>
@@ -13033,7 +14357,7 @@ client.lab_tests.reschedule_phlebotomy_appointment(order_id='order_id', request=
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">cancel_phlebotomy_appointment</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">cancel_phlebotomy_appointment</a>(...) -> AsyncHttpResponse[ClientFacingAppointment]</code></summary>
 <dl>
 <dd>
 
@@ -13061,8 +14385,14 @@ Cancel a previously booked at-home phlebotomy appointment.
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.cancel_phlebotomy_appointment(order_id='order_id', cancellation_reason_id='cancellation_reason_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.cancel_phlebotomy_appointment(
+    order_id="order_id",
+    cancellation_reason_id="cancellation_reason_id",
+)
 
 ```
 </dd>
@@ -13114,7 +14444,7 @@ client.lab_tests.cancel_phlebotomy_appointment(order_id='order_id', cancellation
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_phlebotomy_appointment_cancellation_reason</a>()</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_phlebotomy_appointment_cancellation_reason</a>() -> AsyncHttpResponse[typing.List[ClientFacingAppointmentCancellationReason]]</code></summary>
 <dl>
 <dd>
 
@@ -13142,7 +14472,10 @@ Get the list of reasons for cancelling an at-home phlebotomy appointment.
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
 client.lab_tests.get_phlebotomy_appointment_cancellation_reason()
 
 ```
@@ -13171,7 +14504,7 @@ client.lab_tests.get_phlebotomy_appointment_cancellation_reason()
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_phlebotomy_appointment</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_phlebotomy_appointment</a>(...) -> AsyncHttpResponse[ClientFacingAppointment]</code></summary>
 <dl>
 <dd>
 
@@ -13199,8 +14532,13 @@ Get the appointment associated with an order.
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.get_phlebotomy_appointment(order_id='order_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.get_phlebotomy_appointment(
+    order_id="order_id",
+)
 
 ```
 </dd>
@@ -13236,7 +14574,7 @@ client.lab_tests.get_phlebotomy_appointment(order_id='order_id', )
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_area_info</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_area_info</a>(...) -> AsyncHttpResponse[AreaInfo]</code></summary>
 <dl>
 <dd>
 
@@ -13267,9 +14605,17 @@ Information returned:
 <dd>
 
 ```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.get_area_info(zip_code='zip_code', )
+from vital import AllowedRadius, ClientFacingLabs, Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.get_area_info(
+    zip_code="zip_code",
+    radius=AllowedRadius.TEN,
+    lab=ClientFacingLabs.QUEST,
+    lab_account_id="lab_account_id",
+)
 
 ```
 </dd>
@@ -13309,7 +14655,9 @@ client.lab_tests.get_area_info(zip_code='zip_code', )
 <dl>
 <dd>
 
-**labs:** `typing.Optional[typing.Sequence[ClientFacingLabs]]` — List of labs to check for PSCs
+**labs:** `typing.Optional[
+    typing.Union[ClientFacingLabs, typing.Sequence[ClientFacingLabs]]
+]` — List of labs to check for PSCs
     
 </dd>
 </dl>
@@ -13337,7 +14685,7 @@ client.lab_tests.get_area_info(zip_code='zip_code', )
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_psc_info</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_psc_info</a>(...) -> AsyncHttpResponse[PscInfo]</code></summary>
 <dl>
 <dd>
 
@@ -13350,9 +14698,17 @@ client.lab_tests.get_area_info(zip_code='zip_code', )
 <dd>
 
 ```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.get_psc_info(zip_code='zip_code', lab_id=1, )
+from vital import AllowedRadius, Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.get_psc_info(
+    zip_code="zip_code",
+    lab_id=1,
+    radius=AllowedRadius.TEN,
+    lab_account_id="lab_account_id",
+)
 
 ```
 </dd>
@@ -13392,7 +14748,9 @@ client.lab_tests.get_psc_info(zip_code='zip_code', lab_id=1, )
 <dl>
 <dd>
 
-**capabilities:** `typing.Optional[typing.Sequence[LabLocationCapability]]` — Filter for only locations with certain capabilities
+**capabilities:** `typing.Optional[
+    typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]
+]` — Filter for only locations with certain capabilities
     
 </dd>
 </dl>
@@ -13420,7 +14778,7 @@ client.lab_tests.get_psc_info(zip_code='zip_code', lab_id=1, )
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_order_psc_info</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_order_psc_info</a>(...) -> AsyncHttpResponse[PscInfo]</code></summary>
 <dl>
 <dd>
 
@@ -13433,9 +14791,15 @@ client.lab_tests.get_psc_info(zip_code='zip_code', lab_id=1, )
 <dd>
 
 ```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.get_order_psc_info(order_id='order_id', )
+from vital import AllowedRadius, Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.get_order_psc_info(
+    order_id="order_id",
+    radius=AllowedRadius.TEN,
+)
 
 ```
 </dd>
@@ -13467,7 +14831,9 @@ client.lab_tests.get_order_psc_info(order_id='order_id', )
 <dl>
 <dd>
 
-**capabilities:** `typing.Optional[typing.Sequence[LabLocationCapability]]` — Filter for only locations with certain capabilities
+**capabilities:** `typing.Optional[
+    typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]
+]` — Filter for only locations with certain capabilities
     
 </dd>
 </dl>
@@ -13487,7 +14853,7 @@ client.lab_tests.get_order_psc_info(order_id='order_id', )
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_result_pdf</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_result_pdf</a>(...) -> typing.AsyncIterator[AsyncHttpResponse[typing.AsyncIterator[bytes]]]</code></summary>
 <dl>
 <dd>
 
@@ -13515,8 +14881,13 @@ This endpoint returns the lab results for the order.
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.get_result_pdf(order_id='order_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.get_result_pdf(
+    order_id="order_id",
+)
 
 ```
 </dd>
@@ -13552,7 +14923,7 @@ client.lab_tests.get_result_pdf(order_id='order_id', )
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_result_metadata</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_result_metadata</a>(...) -> AsyncHttpResponse[LabResultsMetadata]</code></summary>
 <dl>
 <dd>
 
@@ -13581,8 +14952,13 @@ provider and sample dates.
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.get_result_metadata(order_id='order_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.get_result_metadata(
+    order_id="order_id",
+)
 
 ```
 </dd>
@@ -13618,7 +14994,7 @@ client.lab_tests.get_result_metadata(order_id='order_id', )
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_result_raw</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_result_raw</a>(...) -> AsyncHttpResponse[LabResultsRaw]</code></summary>
 <dl>
 <dd>
 
@@ -13646,8 +15022,13 @@ Return both metadata and raw json test data
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.get_result_raw(order_id='order_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.get_result_raw(
+    order_id="order_id",
+)
 
 ```
 </dd>
@@ -13683,7 +15064,7 @@ client.lab_tests.get_result_raw(order_id='order_id', )
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_labels_pdf</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_labels_pdf</a>(...) -> typing.AsyncIterator[AsyncHttpResponse[typing.AsyncIterator[bytes]]]</code></summary>
 <dl>
 <dd>
 
@@ -13710,10 +15091,19 @@ This endpoint returns the printed labels for the order.
 <dd>
 
 ```python
-from vital import Vital
 import datetime
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.get_labels_pdf(order_id='order_id', collection_date=datetime.datetime.fromisoformat("2024-01-15 09:30:00+00:00", ), )
+
+from vital import Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.get_labels_pdf(
+    order_id="order_id",
+    collection_date=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+)
 
 ```
 </dd>
@@ -13765,7 +15155,7 @@ client.lab_tests.get_labels_pdf(order_id='order_id', collection_date=datetime.da
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_psc_appointment_availability</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_psc_appointment_availability</a>(...) -> AsyncHttpResponse[AppointmentAvailabilitySlots]</code></summary>
 <dl>
 <dd>
 
@@ -13778,9 +15168,16 @@ client.lab_tests.get_labels_pdf(order_id='order_id', collection_date=datetime.da
 <dd>
 
 ```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.get_psc_appointment_availability()
+from vital import AllowedRadius, Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.get_psc_appointment_availability(
+    start_date="start_date",
+    zip_code="zip_code",
+    radius=AllowedRadius.TEN,
+)
 
 ```
 </dd>
@@ -13796,7 +15193,7 @@ client.lab_tests.get_psc_appointment_availability()
 <dl>
 <dd>
 
-**start_date:** `typing.Optional[dt.date]` — Start date for appointment availability
+**start_date:** `typing.Optional[str]` — Start date for appointment availability
     
 </dd>
 </dl>
@@ -13804,7 +15201,7 @@ client.lab_tests.get_psc_appointment_availability()
 <dl>
 <dd>
 
-**site_codes:** `typing.Optional[typing.Sequence[str]]` — List of site codes to fetch availability for
+**site_codes:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — List of site codes to fetch availability for
     
 </dd>
 </dl>
@@ -13840,7 +15237,7 @@ client.lab_tests.get_psc_appointment_availability()
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">book_psc_appointment</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">book_psc_appointment</a>(...) -> AsyncHttpResponse[ClientFacingAppointment]</code></summary>
 <dl>
 <dd>
 
@@ -13853,10 +15250,17 @@ client.lab_tests.get_psc_appointment_availability()
 <dd>
 
 ```python
-from vital import Vital
-from vital import AppointmentBookingRequest
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.book_psc_appointment(order_id='order_id', request=AppointmentBookingRequest(booking_key='booking_key', ), )
+from vital import AppointmentBookingRequest, Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.book_psc_appointment(
+    order_id="order_id",
+    request=AppointmentBookingRequest(
+        booking_key="booking_key",
+    ),
+)
 
 ```
 </dd>
@@ -13900,7 +15304,7 @@ client.lab_tests.book_psc_appointment(order_id='order_id', request=AppointmentBo
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">reschedule_psc_appointment</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">reschedule_psc_appointment</a>(...) -> AsyncHttpResponse[ClientFacingAppointment]</code></summary>
 <dl>
 <dd>
 
@@ -13913,10 +15317,17 @@ client.lab_tests.book_psc_appointment(order_id='order_id', request=AppointmentBo
 <dd>
 
 ```python
-from vital import Vital
-from vital import AppointmentRescheduleRequest
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.reschedule_psc_appointment(order_id='order_id', request=AppointmentRescheduleRequest(booking_key='booking_key', ), )
+from vital import AppointmentRescheduleRequest, Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.reschedule_psc_appointment(
+    order_id="order_id",
+    request=AppointmentRescheduleRequest(
+        booking_key="booking_key",
+    ),
+)
 
 ```
 </dd>
@@ -13960,7 +15371,7 @@ client.lab_tests.reschedule_psc_appointment(order_id='order_id', request=Appoint
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">cancel_psc_appointment</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">cancel_psc_appointment</a>(...) -> AsyncHttpResponse[ClientFacingAppointment]</code></summary>
 <dl>
 <dd>
 
@@ -13974,8 +15385,14 @@ client.lab_tests.reschedule_psc_appointment(order_id='order_id', request=Appoint
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.cancel_psc_appointment(order_id='order_id', cancellation_reason_id='cancellationReasonId', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.cancel_psc_appointment(
+    order_id="order_id",
+    cancellation_reason_id="cancellationReasonId",
+)
 
 ```
 </dd>
@@ -14027,7 +15444,7 @@ client.lab_tests.cancel_psc_appointment(order_id='order_id', cancellation_reason
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_psc_appointment_cancellation_reason</a>()</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_psc_appointment_cancellation_reason</a>() -> AsyncHttpResponse[typing.List[ClientFacingAppointmentCancellationReason]]</code></summary>
 <dl>
 <dd>
 
@@ -14041,7 +15458,10 @@ client.lab_tests.cancel_psc_appointment(order_id='order_id', cancellation_reason
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
 client.lab_tests.get_psc_appointment_cancellation_reason()
 
 ```
@@ -14070,7 +15490,7 @@ client.lab_tests.get_psc_appointment_cancellation_reason()
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_psc_appointment</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_psc_appointment</a>(...) -> AsyncHttpResponse[ClientFacingAppointment]</code></summary>
 <dl>
 <dd>
 
@@ -14098,8 +15518,13 @@ Get the appointment associated with an order.
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.get_psc_appointment(order_id='order_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.get_psc_appointment(
+    order_id="order_id",
+)
 
 ```
 </dd>
@@ -14135,7 +15560,7 @@ client.lab_tests.get_psc_appointment(order_id='order_id', )
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_order_collection_instruction_pdf</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_order_collection_instruction_pdf</a>(...) -> typing.AsyncIterator[AsyncHttpResponse[typing.AsyncIterator[bytes]]]</code></summary>
 <dl>
 <dd>
 
@@ -14163,8 +15588,13 @@ GET collection instructions for an order
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.get_order_collection_instruction_pdf(order_id='order_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.get_order_collection_instruction_pdf(
+    order_id="order_id",
+)
 
 ```
 </dd>
@@ -14200,7 +15630,7 @@ client.lab_tests.get_order_collection_instruction_pdf(order_id='order_id', )
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_order_requistion_pdf</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_order_requistion_pdf</a>(...) -> typing.AsyncIterator[AsyncHttpResponse[typing.AsyncIterator[bytes]]]</code></summary>
 <dl>
 <dd>
 
@@ -14228,8 +15658,13 @@ GET requisition pdf for an order
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.get_order_requistion_pdf(order_id='order_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.get_order_requistion_pdf(
+    order_id="order_id",
+)
 
 ```
 </dd>
@@ -14265,7 +15700,7 @@ client.lab_tests.get_order_requistion_pdf(order_id='order_id', )
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_order_abn_pdf</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_order_abn_pdf</a>(...) -> typing.AsyncIterator[AsyncHttpResponse[typing.AsyncIterator[bytes]]]</code></summary>
 <dl>
 <dd>
 
@@ -14293,8 +15728,13 @@ GET ABN pdf for an order
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.get_order_abn_pdf(order_id='order_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.get_order_abn_pdf(
+    order_id="order_id",
+)
 
 ```
 </dd>
@@ -14330,7 +15770,7 @@ client.lab_tests.get_order_abn_pdf(order_id='order_id', )
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_order</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_order</a>(...) -> AsyncHttpResponse[ClientFacingOrder]</code></summary>
 <dl>
 <dd>
 
@@ -14358,8 +15798,13 @@ GET individual order by ID.
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.get_order(order_id='order_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.get_order(
+    order_id="order_id",
+)
 
 ```
 </dd>
@@ -14395,7 +15840,7 @@ client.lab_tests.get_order(order_id='order_id', )
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">create_order</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">create_order</a>(...) -> AsyncHttpResponse[PostOrderResponse]</code></summary>
 <dl>
 <dd>
 
@@ -14408,13 +15853,35 @@ client.lab_tests.get_order(order_id='order_id', )
 <dd>
 
 ```python
-from vital import Vital
-from vital import PatientDetailsWithValidation
-import datetime
-from vital import Gender
-from vital import PatientAddressWithValidation
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.create_order(user_id='user_id', patient_details=PatientDetailsWithValidation(first_name='first_name', last_name='last_name', dob=datetime.date.fromisoformat("2023-01-15", ), gender=Gender.FEMALE, phone_number='phone_number', email='email', ), patient_address=PatientAddressWithValidation(first_line='first_line', city='city', state='state', zip='zip', country='country', ), )
+from vital import (
+    Gender,
+    PatientAddressWithValidation,
+    PatientDetailsWithValidation,
+    Vital,
+)
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.create_order(
+    idempotency_key="X-Idempotency-Key",
+    user_id="user_id",
+    patient_details=PatientDetailsWithValidation(
+        first_name="first_name",
+        last_name="last_name",
+        dob="dob",
+        gender=Gender.FEMALE,
+        phone_number="phone_number",
+        email="email",
+    ),
+    patient_address=PatientAddressWithValidation(
+        first_line="first_line",
+        city="city",
+        state="state",
+        zip="zip",
+        country="country",
+    ),
+)
 
 ```
 </dd>
@@ -14542,7 +16009,7 @@ client.lab_tests.create_order(user_id='user_id', patient_details=PatientDetailsW
 <dl>
 <dd>
 
-**activate_by:** `typing.Optional[dt.date]` — Schedule an Order to be processed in a future date.
+**activate_by:** `typing.Optional[str]` — Schedule an Order to be processed in a future date.
     
 </dd>
 </dl>
@@ -14594,7 +16061,7 @@ client.lab_tests.create_order(user_id='user_id', patient_details=PatientDetailsW
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">import_order</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">import_order</a>(...) -> AsyncHttpResponse[PostOrderResponse]</code></summary>
 <dl>
 <dd>
 
@@ -14607,16 +16074,42 @@ client.lab_tests.create_order(user_id='user_id', patient_details=PatientDetailsW
 <dd>
 
 ```python
-from vital import Vital
-from vital import Billing
-from vital import OrderSetRequest
-from vital import LabTestCollectionMethod
-from vital import PatientDetailsWithValidation
-import datetime
-from vital import Gender
-from vital import PatientAddress
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.import_order(user_id='user_id', billing_type=Billing.CLIENT_BILL, order_set=OrderSetRequest(), collection_method=LabTestCollectionMethod.TESTKIT, patient_details=PatientDetailsWithValidation(first_name='first_name', last_name='last_name', dob=datetime.date.fromisoformat("2023-01-15", ), gender=Gender.FEMALE, phone_number='phone_number', email='email', ), patient_address=PatientAddress(receiver_name='receiver_name', first_line='first_line', city='city', state='state', zip='zip', country='country', ), sample_id='sample_id', )
+from vital import (
+    Billing,
+    Gender,
+    LabTestCollectionMethod,
+    OrderSetRequest,
+    PatientAddress,
+    PatientDetailsWithValidation,
+    Vital,
+)
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.import_order(
+    user_id="user_id",
+    billing_type=Billing.CLIENT_BILL,
+    order_set=OrderSetRequest(),
+    collection_method=LabTestCollectionMethod.TESTKIT,
+    patient_details=PatientDetailsWithValidation(
+        first_name="first_name",
+        last_name="last_name",
+        dob="dob",
+        gender=Gender.FEMALE,
+        phone_number="phone_number",
+        email="email",
+    ),
+    patient_address=PatientAddress(
+        receiver_name="receiver_name",
+        first_line="first_line",
+        city="city",
+        state="state",
+        zip="zip",
+        country="country",
+    ),
+    sample_id="sample_id",
+)
 
 ```
 </dd>
@@ -14716,7 +16209,7 @@ client.lab_tests.import_order(user_id='user_id', billing_type=Billing.CLIENT_BIL
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">cancel_order</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">cancel_order</a>(...) -> AsyncHttpResponse[PostOrderResponse]</code></summary>
 <dl>
 <dd>
 
@@ -14744,8 +16237,13 @@ POST cancel order
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.cancel_order(order_id='order_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.cancel_order(
+    order_id="order_id",
+)
 
 ```
 </dd>
@@ -14781,7 +16279,7 @@ client.lab_tests.cancel_order(order_id='order_id', )
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">simulate_order_process</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">simulate_order_process</a>(...) -> AsyncHttpResponse[typing.Any]</code></summary>
 <dl>
 <dd>
 
@@ -14808,10 +16306,17 @@ Get available test kits.
 <dd>
 
 ```python
-from vital import Vital
-from vital import SimulationFlags
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.simulate_order_process(order_id='order_id', request=SimulationFlags(), )
+from vital import OrderStatus, SimulationFlags, Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.simulate_order_process(
+    order_id="order_id",
+    final_status=OrderStatus.RECEIVED_WALK_IN_TEST_ORDERED,
+    delay=1,
+    request=SimulationFlags(),
+)
 
 ```
 </dd>
@@ -14871,7 +16376,7 @@ client.lab_tests.simulate_order_process(order_id='order_id', request=SimulationF
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">update_on_site_collection_order_draw_completed</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">update_on_site_collection_order_draw_completed</a>(...) -> AsyncHttpResponse[PostOrderResponse]</code></summary>
 <dl>
 <dd>
 
@@ -14899,8 +16404,13 @@ PATCH update on site collection order when draw is completed
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.update_on_site_collection_order_draw_completed(order_id='order_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.update_on_site_collection_order_draw_completed(
+    order_id="order_id",
+)
 
 ```
 </dd>
@@ -14936,7 +16446,7 @@ client.lab_tests.update_on_site_collection_order_draw_completed(order_id='order_
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">validate_icd_codes</a>(...)</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">validate_icd_codes</a>(...) -> AsyncHttpResponse[ValidateIcdCodesResponse]</code></summary>
 <dl>
 <dd>
 
@@ -14950,8 +16460,13 @@ client.lab_tests.update_on_site_collection_order_draw_completed(order_id='order_
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_tests.validate_icd_codes(codes=['codes'], )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_tests.validate_icd_codes(
+    codes=["codes"],
+)
 
 ```
 </dd>
@@ -14988,7 +16503,7 @@ client.lab_tests.validate_icd_codes(codes=['codes'], )
 </details>
 
 ## Testkit
-<details><summary><code>client.testkit.<a href="src/vital/testkit/client.py">register</a>(...)</code></summary>
+<details><summary><code>client.testkit.<a href="src/vital/testkit/client.py">register</a>(...) -> AsyncHttpResponse[PostOrderResponse]</code></summary>
 <dl>
 <dd>
 
@@ -15001,13 +16516,34 @@ client.lab_tests.validate_icd_codes(codes=['codes'], )
 <dd>
 
 ```python
-from vital import Vital
-from vital import PatientDetailsWithValidation
-import datetime
-from vital import Gender
-from vital import PatientAddressWithValidation
-client = Vital(api_key="YOUR_API_KEY", )
-client.testkit.register(sample_id='sample_id', patient_details=PatientDetailsWithValidation(first_name='first_name', last_name='last_name', dob=datetime.date.fromisoformat("2023-01-15", ), gender=Gender.FEMALE, phone_number='phone_number', email='email', ), patient_address=PatientAddressWithValidation(first_line='first_line', city='city', state='state', zip='zip', country='country', ), )
+from vital import (
+    Gender,
+    PatientAddressWithValidation,
+    PatientDetailsWithValidation,
+    Vital,
+)
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.testkit.register(
+    sample_id="sample_id",
+    patient_details=PatientDetailsWithValidation(
+        first_name="first_name",
+        last_name="last_name",
+        dob="dob",
+        gender=Gender.FEMALE,
+        phone_number="phone_number",
+        email="email",
+    ),
+    patient_address=PatientAddressWithValidation(
+        first_line="first_line",
+        city="city",
+        state="state",
+        zip="zip",
+        country="country",
+    ),
+)
 
 ```
 </dd>
@@ -15091,7 +16627,7 @@ client.testkit.register(sample_id='sample_id', patient_details=PatientDetailsWit
 </dl>
 </details>
 
-<details><summary><code>client.testkit.<a href="src/vital/testkit/client.py">create_order</a>(...)</code></summary>
+<details><summary><code>client.testkit.<a href="src/vital/testkit/client.py">create_order</a>(...) -> AsyncHttpResponse[PostOrderResponse]</code></summary>
 <dl>
 <dd>
 
@@ -15118,10 +16654,24 @@ Creates an order for an unregistered testkit
 <dd>
 
 ```python
-from vital import Vital
-from vital import ShippingAddressWithValidation
-client = Vital(api_key="YOUR_API_KEY", )
-client.testkit.create_order(user_id='user_id', lab_test_id='lab_test_id', shipping_details=ShippingAddressWithValidation(receiver_name='receiver_name', first_line='first_line', city='city', state='state', zip='zip', country='country', phone_number='phone_number', ), )
+from vital import ShippingAddressWithValidation, Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.testkit.create_order(
+    user_id="user_id",
+    lab_test_id="lab_test_id",
+    shipping_details=ShippingAddressWithValidation(
+        receiver_name="receiver_name",
+        first_line="first_line",
+        city="city",
+        state="state",
+        zip="zip",
+        country="country",
+        phone_number="phone_number",
+    ),
+)
 
 ```
 </dd>
@@ -15190,7 +16740,7 @@ client.testkit.create_order(user_id='user_id', lab_test_id='lab_test_id', shippi
 </details>
 
 ## Order
-<details><summary><code>client.order.<a href="src/vital/order/client.py">resend_events</a>(...)</code></summary>
+<details><summary><code>client.order.<a href="src/vital/order/client.py">resend_events</a>(...) -> AsyncHttpResponse[ResendWebhookResponse]</code></summary>
 <dl>
 <dd>
 
@@ -15218,7 +16768,10 @@ Replay a webhook for a given set of orders
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
 client.order.resend_events()
 
 ```
@@ -15272,7 +16825,7 @@ client.order.resend_events()
 </details>
 
 ## Insurance
-<details><summary><code>client.insurance.<a href="src/vital/insurance/client.py">search_get_payor_info</a>(...)</code></summary>
+<details><summary><code>client.insurance.<a href="src/vital/insurance/client.py">search_get_payor_info</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingPayorSearchResponse]]</code></summary>
 <dl>
 <dd>
 
@@ -15285,9 +16838,16 @@ client.order.resend_events()
 <dd>
 
 ```python
-from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.insurance.search_get_payor_info()
+from vital import PayorCodeExternalProvider, Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.insurance.search_get_payor_info(
+    insurance_name="insurance_name",
+    provider=PayorCodeExternalProvider.CHANGE_HEALTHCARE,
+    provider_payor_id="provider_payor_id",
+)
 
 ```
 </dd>
@@ -15339,7 +16899,7 @@ client.insurance.search_get_payor_info()
 </dl>
 </details>
 
-<details><summary><code>client.insurance.<a href="src/vital/insurance/client.py">search_payor_info</a>(...)</code></summary>
+<details><summary><code>client.insurance.<a href="src/vital/insurance/client.py">search_payor_info</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingPayorSearchResponseDeprecated]]</code></summary>
 <dl>
 <dd>
 
@@ -15353,7 +16913,10 @@ client.insurance.search_get_payor_info()
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
 client.insurance.search_payor_info()
 
 ```
@@ -15406,7 +16969,7 @@ client.insurance.search_payor_info()
 </dl>
 </details>
 
-<details><summary><code>client.insurance.<a href="src/vital/insurance/client.py">search_diagnosis</a>(...)</code></summary>
+<details><summary><code>client.insurance.<a href="src/vital/insurance/client.py">search_diagnosis</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingDiagnosisInformation]]</code></summary>
 <dl>
 <dd>
 
@@ -15420,8 +16983,13 @@ client.insurance.search_payor_info()
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.insurance.search_diagnosis(diagnosis_query='diagnosis_query', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.insurance.search_diagnosis(
+    diagnosis_query="diagnosis_query",
+)
 
 ```
 </dd>
@@ -15458,7 +17026,7 @@ client.insurance.search_diagnosis(diagnosis_query='diagnosis_query', )
 </details>
 
 ## Payor
-<details><summary><code>client.payor.<a href="src/vital/payor/client.py">create_payor</a>(...)</code></summary>
+<details><summary><code>client.payor.<a href="src/vital/payor/client.py">create_payor</a>(...) -> AsyncHttpResponse[ClientFacingPayor]</code></summary>
 <dl>
 <dd>
 
@@ -15471,10 +17039,21 @@ client.insurance.search_diagnosis(diagnosis_query='diagnosis_query', )
 <dd>
 
 ```python
-from vital import Vital
-from vital import Address
-client = Vital(api_key="YOUR_API_KEY", )
-client.payor.create_payor(name='name', address=Address(first_line='first_line', country='country', zip='zip', city='city', state='state', ), )
+from vital import Address, Vital
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.payor.create_payor(
+    name="name",
+    address=Address(
+        first_line="first_line",
+        country="country",
+        zip="zip",
+        city="city",
+        state="state",
+    ),
+)
 
 ```
 </dd>
@@ -15535,7 +17114,7 @@ client.payor.create_payor(name='name', address=Address(first_line='first_line', 
 </details>
 
 ## LabReport
-<details><summary><code>client.lab_report.<a href="src/vital/lab_report/client.py">parser_create_job</a>(...)</code></summary>
+<details><summary><code>client.lab_report.<a href="src/vital/lab_report/client.py">parser_create_job</a>(...) -> AsyncHttpResponse[ParsingJob]</code></summary>
 <dl>
 <dd>
 
@@ -15564,8 +17143,11 @@ and starts the ParseLabReport. Returns a generated job_id.
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_report.parser_create_job(user_id='user_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_report.parser_create_job()
 
 ```
 </dd>
@@ -15582,15 +17164,8 @@ client.lab_report.parser_create_job(user_id='user_id', )
 <dd>
 
 **file:** `from __future__ import annotations
+
 core.File` — See core.File for more documentation
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**user_id:** `str` 
     
 </dd>
 </dl>
@@ -15618,7 +17193,7 @@ core.File` — See core.File for more documentation
 </dl>
 </details>
 
-<details><summary><code>client.lab_report.<a href="src/vital/lab_report/client.py">parser_get_job</a>(...)</code></summary>
+<details><summary><code>client.lab_report.<a href="src/vital/lab_report/client.py">parser_get_job</a>(...) -> AsyncHttpResponse[ParsingJob]</code></summary>
 <dl>
 <dd>
 
@@ -15649,8 +17224,13 @@ Returns:
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.lab_report.parser_get_job(job_id='job_id', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.lab_report.parser_get_job(
+    job_id="job_id",
+)
 
 ```
 </dd>
@@ -15687,7 +17267,7 @@ client.lab_report.parser_get_job(job_id='job_id', )
 </details>
 
 ## Aggregate
-<details><summary><code>client.aggregate.<a href="src/vital/aggregate/client.py">query_one</a>(...)</code></summary>
+<details><summary><code>client.aggregate.<a href="src/vital/aggregate/client.py">query_one</a>(...) -> AsyncHttpResponse[AggregationResponse]</code></summary>
 <dl>
 <dd>
 
@@ -15700,18 +17280,42 @@ client.lab_report.parser_get_job(job_id='job_id', )
 <dd>
 
 ```python
-from vital import Vital
-from vital import RelativeTimeframe
-import datetime
-from vital import Period
-from vital import PeriodUnit
-from vital import Query
-from vital import AggregateExpr
-from vital import SleepColumnExpr
-from vital import SleepColumnExprSleep
-from vital import AggregateExprFunc
-client = Vital(api_key="YOUR_API_KEY", )
-client.aggregate.query_one(user_id='user_id', timeframe=RelativeTimeframe(anchor=datetime.date.fromisoformat("2023-01-15", ), past=Period(unit=PeriodUnit.MINUTE, ), ), queries=[Query(select=[AggregateExpr(arg=SleepColumnExpr(sleep=SleepColumnExprSleep.ID, ), func=AggregateExprFunc.MEAN, )], )], )
+from vital import (
+    AggregateExpr,
+    AggregateExprFunc,
+    Period,
+    PeriodUnit,
+    Query,
+    RelativeTimeframe,
+    SleepColumnExpr,
+    SleepColumnExprSleep,
+    Vital,
+)
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.aggregate.query_one(
+    user_id="user_id",
+    timeframe=RelativeTimeframe(
+        anchor="anchor",
+        past=Period(
+            unit=PeriodUnit.MINUTE,
+        ),
+    ),
+    queries=[
+        Query(
+            select=[
+                AggregateExpr(
+                    arg=SleepColumnExpr(
+                        sleep=SleepColumnExprSleep.ID,
+                    ),
+                    func=AggregateExprFunc.MEAN,
+                )
+            ],
+        )
+    ],
+)
 
 ```
 </dd>
@@ -15771,7 +17375,7 @@ client.aggregate.query_one(user_id='user_id', timeframe=RelativeTimeframe(anchor
 </dl>
 </details>
 
-<details><summary><code>client.aggregate.<a href="src/vital/aggregate/client.py">get_result_table_for_continuous_query</a>(...)</code></summary>
+<details><summary><code>client.aggregate.<a href="src/vital/aggregate/client.py">get_result_table_for_continuous_query</a>(...) -> AsyncHttpResponse[AggregationResult]</code></summary>
 <dl>
 <dd>
 
@@ -15785,8 +17389,14 @@ client.aggregate.query_one(user_id='user_id', timeframe=RelativeTimeframe(anchor
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.aggregate.get_result_table_for_continuous_query(user_id='user_id', query_id_or_slug='query_id_or_slug', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.aggregate.get_result_table_for_continuous_query(
+    user_id="user_id",
+    query_id_or_slug="query_id_or_slug",
+)
 
 ```
 </dd>
@@ -15830,7 +17440,7 @@ client.aggregate.get_result_table_for_continuous_query(user_id='user_id', query_
 </dl>
 </details>
 
-<details><summary><code>client.aggregate.<a href="src/vital/aggregate/client.py">get_task_history_for_continuous_query</a>(...)</code></summary>
+<details><summary><code>client.aggregate.<a href="src/vital/aggregate/client.py">get_task_history_for_continuous_query</a>(...) -> AsyncHttpResponse[ContinuousQueryTaskHistoryResponse]</code></summary>
 <dl>
 <dd>
 
@@ -15844,8 +17454,16 @@ client.aggregate.get_result_table_for_continuous_query(user_id='user_id', query_
 
 ```python
 from vital import Vital
-client = Vital(api_key="YOUR_API_KEY", )
-client.aggregate.get_task_history_for_continuous_query(user_id='user_id', query_id_or_slug='query_id_or_slug', )
+
+client = Vital(
+    api_key="YOUR_API_KEY",
+)
+client.aggregate.get_task_history_for_continuous_query(
+    user_id="user_id",
+    query_id_or_slug="query_id_or_slug",
+    next_cursor="next_cursor",
+    limit=1,
+)
 
 ```
 </dd>

@@ -56,9 +56,16 @@ class InsuranceClient:
 
         Examples
         --------
-        from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.insurance.search_get_payor_info()
+        from vital import PayorCodeExternalProvider, Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.insurance.search_get_payor_info(
+            insurance_name="insurance_name",
+            provider=PayorCodeExternalProvider.CHANGE_HEALTHCARE,
+            provider_payor_id="provider_payor_id",
+        )
         """
         _response = self._raw_client.search_get_payor_info(
             insurance_name=insurance_name,
@@ -96,7 +103,10 @@ class InsuranceClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
         client.insurance.search_payor_info()
         """
         _response = self._raw_client.search_payor_info(
@@ -123,8 +133,13 @@ class InsuranceClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.insurance.search_diagnosis(diagnosis_query='diagnosis_query', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.insurance.search_diagnosis(
+            diagnosis_query="diagnosis_query",
+        )
         """
         _response = self._raw_client.search_diagnosis(diagnosis_query=diagnosis_query, request_options=request_options)
         return _response.data
@@ -172,11 +187,23 @@ class AsyncInsuranceClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital, PayorCodeExternalProvider
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.insurance.search_get_payor_info()
+            await client.insurance.search_get_payor_info(
+                insurance_name="insurance_name",
+                provider=PayorCodeExternalProvider.CHANGE_HEALTHCARE,
+                provider_payor_id="provider_payor_id",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.search_get_payor_info(
@@ -214,11 +241,19 @@ class AsyncInsuranceClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
             await client.insurance.search_payor_info()
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.search_payor_info(
@@ -244,11 +279,21 @@ class AsyncInsuranceClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.insurance.search_diagnosis(diagnosis_query='diagnosis_query', )
+            await client.insurance.search_diagnosis(
+                diagnosis_query="diagnosis_query",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.search_diagnosis(

@@ -13,7 +13,6 @@ from .index_column_expr import IndexColumnExpr
 from .interval_timeseries_expr import IntervalTimeseriesExpr
 from .meal_column_expr import MealColumnExpr
 from .note_timeseries_expr import NoteTimeseriesExpr
-from .profile_column_expr import ProfileColumnExpr
 from .sleep_column_expr import SleepColumnExpr
 from .sleep_score_value_macro_expr import SleepScoreValueMacroExpr
 from .temperature_timeseries_expr import TemperatureTimeseriesExpr
@@ -27,7 +26,6 @@ AggregateExprArg = typing.Union[
     WorkoutColumnExpr,
     BodyColumnExpr,
     MealColumnExpr,
-    ProfileColumnExpr,
     SleepScoreValueMacroExpr,
     ChronotypeValueMacroExpr,
     AsleepAtValueMacroExpr,

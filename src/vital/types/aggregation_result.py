@@ -7,7 +7,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class AggregationResult(UniversalBaseModel):
-    table: typing.Dict[str, typing.List[typing.Optional[typing.Any]]] = pydantic.Field()
+    table: typing.Dict[str, typing.List[typing.Any]] = pydantic.Field()
     """
     The result table of the query, organized in a column oriented format.
     """

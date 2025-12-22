@@ -23,7 +23,7 @@ class RawTeamClient:
 
     def get_link_config(
         self, *, vital_link_token: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[typing.Dict[str, typing.Optional[typing.Any]]]:
+    ) -> HttpResponse[typing.Dict[str, typing.Any]]:
         """
         Post teams.
 
@@ -36,7 +36,7 @@ class RawTeamClient:
 
         Returns
         -------
-        HttpResponse[typing.Dict[str, typing.Optional[typing.Any]]]
+        HttpResponse[typing.Dict[str, typing.Any]]
             Successful Response
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -50,9 +50,9 @@ class RawTeamClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    typing.Dict[str, typing.Optional[typing.Any]],
+                    typing.Dict[str, typing.Any],
                     parse_obj_as(
-                        type_=typing.Dict[str, typing.Optional[typing.Any]],  # type: ignore
+                        type_=typing.Dict[str, typing.Any],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -176,7 +176,7 @@ class RawTeamClient:
 
     def get_svix_url(
         self, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[typing.Dict[str, typing.Optional[typing.Any]]]:
+    ) -> HttpResponse[typing.Dict[str, typing.Any]]:
         """
         Parameters
         ----------
@@ -185,7 +185,7 @@ class RawTeamClient:
 
         Returns
         -------
-        HttpResponse[typing.Dict[str, typing.Optional[typing.Any]]]
+        HttpResponse[typing.Dict[str, typing.Any]]
             Successful Response
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -196,9 +196,9 @@ class RawTeamClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    typing.Dict[str, typing.Optional[typing.Any]],
+                    typing.Dict[str, typing.Any],
                     parse_obj_as(
-                        type_=typing.Dict[str, typing.Optional[typing.Any]],  # type: ignore
+                        type_=typing.Dict[str, typing.Any],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -213,7 +213,7 @@ class RawTeamClient:
         *,
         data_type: typing.Optional[PriorityResource] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[typing.List[typing.Dict[str, typing.Optional[typing.Any]]]]:
+    ) -> HttpResponse[typing.List[typing.Dict[str, typing.Any]]]:
         """
         GET source priorities.
 
@@ -226,7 +226,7 @@ class RawTeamClient:
 
         Returns
         -------
-        HttpResponse[typing.List[typing.Dict[str, typing.Optional[typing.Any]]]]
+        HttpResponse[typing.List[typing.Dict[str, typing.Any]]]
             Successful Response
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -240,9 +240,9 @@ class RawTeamClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    typing.List[typing.Dict[str, typing.Optional[typing.Any]]],
+                    typing.List[typing.Dict[str, typing.Any]],
                     parse_obj_as(
-                        type_=typing.List[typing.Dict[str, typing.Optional[typing.Any]]],  # type: ignore
+                        type_=typing.List[typing.Dict[str, typing.Any]],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -265,7 +265,7 @@ class RawTeamClient:
 
     def update_source_priorities(
         self, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[typing.List[typing.Dict[str, typing.Optional[typing.Any]]]]:
+    ) -> HttpResponse[typing.List[typing.Dict[str, typing.Any]]]:
         """
         Patch source priorities.
 
@@ -276,7 +276,7 @@ class RawTeamClient:
 
         Returns
         -------
-        HttpResponse[typing.List[typing.Dict[str, typing.Optional[typing.Any]]]]
+        HttpResponse[typing.List[typing.Dict[str, typing.Any]]]
             Successful Response
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -287,9 +287,9 @@ class RawTeamClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    typing.List[typing.Dict[str, typing.Optional[typing.Any]]],
+                    typing.List[typing.Dict[str, typing.Any]],
                     parse_obj_as(
-                        type_=typing.List[typing.Dict[str, typing.Optional[typing.Any]]],  # type: ignore
+                        type_=typing.List[typing.Dict[str, typing.Any]],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -353,7 +353,7 @@ class AsyncRawTeamClient:
 
     async def get_link_config(
         self, *, vital_link_token: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[typing.Dict[str, typing.Optional[typing.Any]]]:
+    ) -> AsyncHttpResponse[typing.Dict[str, typing.Any]]:
         """
         Post teams.
 
@@ -366,7 +366,7 @@ class AsyncRawTeamClient:
 
         Returns
         -------
-        AsyncHttpResponse[typing.Dict[str, typing.Optional[typing.Any]]]
+        AsyncHttpResponse[typing.Dict[str, typing.Any]]
             Successful Response
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -380,9 +380,9 @@ class AsyncRawTeamClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    typing.Dict[str, typing.Optional[typing.Any]],
+                    typing.Dict[str, typing.Any],
                     parse_obj_as(
-                        type_=typing.Dict[str, typing.Optional[typing.Any]],  # type: ignore
+                        type_=typing.Dict[str, typing.Any],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -506,7 +506,7 @@ class AsyncRawTeamClient:
 
     async def get_svix_url(
         self, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[typing.Dict[str, typing.Optional[typing.Any]]]:
+    ) -> AsyncHttpResponse[typing.Dict[str, typing.Any]]:
         """
         Parameters
         ----------
@@ -515,7 +515,7 @@ class AsyncRawTeamClient:
 
         Returns
         -------
-        AsyncHttpResponse[typing.Dict[str, typing.Optional[typing.Any]]]
+        AsyncHttpResponse[typing.Dict[str, typing.Any]]
             Successful Response
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -526,9 +526,9 @@ class AsyncRawTeamClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    typing.Dict[str, typing.Optional[typing.Any]],
+                    typing.Dict[str, typing.Any],
                     parse_obj_as(
-                        type_=typing.Dict[str, typing.Optional[typing.Any]],  # type: ignore
+                        type_=typing.Dict[str, typing.Any],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -543,7 +543,7 @@ class AsyncRawTeamClient:
         *,
         data_type: typing.Optional[PriorityResource] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[typing.List[typing.Dict[str, typing.Optional[typing.Any]]]]:
+    ) -> AsyncHttpResponse[typing.List[typing.Dict[str, typing.Any]]]:
         """
         GET source priorities.
 
@@ -556,7 +556,7 @@ class AsyncRawTeamClient:
 
         Returns
         -------
-        AsyncHttpResponse[typing.List[typing.Dict[str, typing.Optional[typing.Any]]]]
+        AsyncHttpResponse[typing.List[typing.Dict[str, typing.Any]]]
             Successful Response
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -570,9 +570,9 @@ class AsyncRawTeamClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    typing.List[typing.Dict[str, typing.Optional[typing.Any]]],
+                    typing.List[typing.Dict[str, typing.Any]],
                     parse_obj_as(
-                        type_=typing.List[typing.Dict[str, typing.Optional[typing.Any]]],  # type: ignore
+                        type_=typing.List[typing.Dict[str, typing.Any]],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -595,7 +595,7 @@ class AsyncRawTeamClient:
 
     async def update_source_priorities(
         self, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[typing.List[typing.Dict[str, typing.Optional[typing.Any]]]]:
+    ) -> AsyncHttpResponse[typing.List[typing.Dict[str, typing.Any]]]:
         """
         Patch source priorities.
 
@@ -606,7 +606,7 @@ class AsyncRawTeamClient:
 
         Returns
         -------
-        AsyncHttpResponse[typing.List[typing.Dict[str, typing.Optional[typing.Any]]]]
+        AsyncHttpResponse[typing.List[typing.Dict[str, typing.Any]]]
             Successful Response
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -617,9 +617,9 @@ class AsyncRawTeamClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    typing.List[typing.Dict[str, typing.Optional[typing.Any]]],
+                    typing.List[typing.Dict[str, typing.Any]],
                     parse_obj_as(
-                        type_=typing.List[typing.Dict[str, typing.Optional[typing.Any]]],  # type: ignore
+                        type_=typing.List[typing.Dict[str, typing.Any]],  # type: ignore
                         object_=_response.json(),
                     ),
                 )

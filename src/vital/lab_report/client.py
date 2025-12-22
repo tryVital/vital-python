@@ -31,7 +31,6 @@ class LabReportClient:
         self,
         *,
         file: core.File,
-        user_id: str,
         needs_human_review: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ParsingJob:
@@ -43,8 +42,6 @@ class LabReportClient:
         ----------
         file : core.File
             See core.File for more documentation
-
-        user_id : str
 
         needs_human_review : typing.Optional[bool]
 
@@ -59,11 +56,14 @@ class LabReportClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_report.parser_create_job(user_id='user_id', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_report.parser_create_job()
         """
         _response = self._raw_client.parser_create_job(
-            file=file, user_id=user_id, needs_human_review=needs_human_review, request_options=request_options
+            file=file, needs_human_review=needs_human_review, request_options=request_options
         )
         return _response.data
 
@@ -89,8 +89,13 @@ class LabReportClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_report.parser_get_job(job_id='job_id', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_report.parser_get_job(
+            job_id="job_id",
+        )
         """
         _response = self._raw_client.parser_get_job(job_id, request_options=request_options)
         return _response.data
@@ -115,7 +120,6 @@ class AsyncLabReportClient:
         self,
         *,
         file: core.File,
-        user_id: str,
         needs_human_review: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ParsingJob:
@@ -127,8 +131,6 @@ class AsyncLabReportClient:
         ----------
         file : core.File
             See core.File for more documentation
-
-        user_id : str
 
         needs_human_review : typing.Optional[bool]
 
@@ -142,15 +144,23 @@ class AsyncLabReportClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_report.parser_create_job(user_id='user_id', )
+            await client.lab_report.parser_create_job()
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.parser_create_job(
-            file=file, user_id=user_id, needs_human_review=needs_human_review, request_options=request_options
+            file=file, needs_human_review=needs_human_review, request_options=request_options
         )
         return _response.data
 
@@ -177,11 +187,21 @@ class AsyncLabReportClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_report.parser_get_job(job_id='job_id', )
+            await client.lab_report.parser_get_job(
+                job_id="job_id",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.parser_get_job(job_id, request_options=request_options)

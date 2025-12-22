@@ -9,8 +9,8 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 class LoincMatch(UniversalBaseModel):
     loinc_code: str
     loinc_name: str
-    display_name: typing.Optional[str] = None
-    aliases: typing.Optional[typing.List[str]] = None
+    loinc_component: str
+    sample_type: typing.Optional[typing.List[str]] = None
     confidence_score: float
 
     if IS_PYDANTIC_V2:

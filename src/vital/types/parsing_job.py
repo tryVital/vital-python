@@ -9,7 +9,6 @@ from .parsing_job_status import ParsingJobStatus
 
 
 class ParsingJob(UniversalBaseModel):
-    id: str
     job_id: str
     status: ParsingJobStatus
     data: typing.Optional[ParsedLabReportData] = None

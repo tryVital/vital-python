@@ -69,7 +69,7 @@ class ClientFacingLabTest(UniversalBaseModel):
 
     is_delegated: typing.Optional[bool] = pydantic.Field(default=None)
     """
-    Deprecated and always false. Delegation is now at the lab account level. Used to denote whether a lab test requires using non-Vital physician networks.
+    Denotes whether a lab test requires using non-Vital physician networks. If it does then it's delegated - no otherwise.
     """
 
     auto_generated: typing.Optional[bool] = pydantic.Field(default=None)

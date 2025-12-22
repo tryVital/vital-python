@@ -28,7 +28,7 @@ class TeamClient:
 
     def get_link_config(
         self, *, vital_link_token: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.Dict[str, typing.Optional[typing.Any]]:
+    ) -> typing.Dict[str, typing.Any]:
         """
         Post teams.
 
@@ -41,14 +41,19 @@ class TeamClient:
 
         Returns
         -------
-        typing.Dict[str, typing.Optional[typing.Any]]
+        typing.Dict[str, typing.Any]
             Successful Response
 
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.team.get_link_config()
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.team.get_link_config(
+            vital_link_token="x-vital-link-token",
+        )
         """
         _response = self._raw_client.get_link_config(vital_link_token=vital_link_token, request_options=request_options)
         return _response.data
@@ -72,8 +77,13 @@ class TeamClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.team.get(team_id='team_id', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.team.get(
+            team_id="team_id",
+        )
         """
         _response = self._raw_client.get(team_id, request_options=request_options)
         return _response.data
@@ -99,15 +109,18 @@ class TeamClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.team.get_user_by_id()
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.team.get_user_by_id(
+            query_id="query_id",
+        )
         """
         _response = self._raw_client.get_user_by_id(query_id=query_id, request_options=request_options)
         return _response.data
 
-    def get_svix_url(
-        self, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.Dict[str, typing.Optional[typing.Any]]:
+    def get_svix_url(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.Dict[str, typing.Any]:
         """
         Parameters
         ----------
@@ -116,13 +129,16 @@ class TeamClient:
 
         Returns
         -------
-        typing.Dict[str, typing.Optional[typing.Any]]
+        typing.Dict[str, typing.Any]
             Successful Response
 
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
         client.team.get_svix_url()
         """
         _response = self._raw_client.get_svix_url(request_options=request_options)
@@ -133,7 +149,7 @@ class TeamClient:
         *,
         data_type: typing.Optional[PriorityResource] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.List[typing.Dict[str, typing.Optional[typing.Any]]]:
+    ) -> typing.List[typing.Dict[str, typing.Any]]:
         """
         GET source priorities.
 
@@ -146,21 +162,26 @@ class TeamClient:
 
         Returns
         -------
-        typing.List[typing.Dict[str, typing.Optional[typing.Any]]]
+        typing.List[typing.Dict[str, typing.Any]]
             Successful Response
 
         Examples
         --------
-        from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.team.get_source_priorities()
+        from vital import PriorityResource, Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.team.get_source_priorities(
+            data_type=PriorityResource.WORKOUTS,
+        )
         """
         _response = self._raw_client.get_source_priorities(data_type=data_type, request_options=request_options)
         return _response.data
 
     def update_source_priorities(
         self, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.List[typing.Dict[str, typing.Optional[typing.Any]]]:
+    ) -> typing.List[typing.Dict[str, typing.Any]]:
         """
         Patch source priorities.
 
@@ -171,13 +192,16 @@ class TeamClient:
 
         Returns
         -------
-        typing.List[typing.Dict[str, typing.Optional[typing.Any]]]
+        typing.List[typing.Dict[str, typing.Any]]
             Successful Response
 
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
         client.team.update_source_priorities()
         """
         _response = self._raw_client.update_source_priorities(request_options=request_options)
@@ -202,8 +226,13 @@ class TeamClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.team.get_physicians(team_id='team_id', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.team.get_physicians(
+            team_id="team_id",
+        )
         """
         _response = self._raw_client.get_physicians(team_id, request_options=request_options)
         return _response.data
@@ -226,7 +255,7 @@ class AsyncTeamClient:
 
     async def get_link_config(
         self, *, vital_link_token: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.Dict[str, typing.Optional[typing.Any]]:
+    ) -> typing.Dict[str, typing.Any]:
         """
         Post teams.
 
@@ -239,16 +268,26 @@ class AsyncTeamClient:
 
         Returns
         -------
-        typing.Dict[str, typing.Optional[typing.Any]]
+        typing.Dict[str, typing.Any]
             Successful Response
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.team.get_link_config()
+            await client.team.get_link_config(
+                vital_link_token="x-vital-link-token",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.get_link_config(
@@ -274,11 +313,21 @@ class AsyncTeamClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.team.get(team_id='team_id', )
+            await client.team.get(
+                team_id="team_id",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.get(team_id, request_options=request_options)
@@ -304,11 +353,21 @@ class AsyncTeamClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.team.get_user_by_id()
+            await client.team.get_user_by_id(
+                query_id="query_id",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.get_user_by_id(query_id=query_id, request_options=request_options)
@@ -316,7 +375,7 @@ class AsyncTeamClient:
 
     async def get_svix_url(
         self, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.Dict[str, typing.Optional[typing.Any]]:
+    ) -> typing.Dict[str, typing.Any]:
         """
         Parameters
         ----------
@@ -325,16 +384,24 @@ class AsyncTeamClient:
 
         Returns
         -------
-        typing.Dict[str, typing.Optional[typing.Any]]
+        typing.Dict[str, typing.Any]
             Successful Response
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
             await client.team.get_svix_url()
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.get_svix_url(request_options=request_options)
@@ -345,7 +412,7 @@ class AsyncTeamClient:
         *,
         data_type: typing.Optional[PriorityResource] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.List[typing.Dict[str, typing.Optional[typing.Any]]]:
+    ) -> typing.List[typing.Dict[str, typing.Any]]:
         """
         GET source priorities.
 
@@ -358,16 +425,26 @@ class AsyncTeamClient:
 
         Returns
         -------
-        typing.List[typing.Dict[str, typing.Optional[typing.Any]]]
+        typing.List[typing.Dict[str, typing.Any]]
             Successful Response
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital, PriorityResource
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.team.get_source_priorities()
+            await client.team.get_source_priorities(
+                data_type=PriorityResource.WORKOUTS,
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.get_source_priorities(data_type=data_type, request_options=request_options)
@@ -375,7 +452,7 @@ class AsyncTeamClient:
 
     async def update_source_priorities(
         self, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.List[typing.Dict[str, typing.Optional[typing.Any]]]:
+    ) -> typing.List[typing.Dict[str, typing.Any]]:
         """
         Patch source priorities.
 
@@ -386,16 +463,24 @@ class AsyncTeamClient:
 
         Returns
         -------
-        typing.List[typing.Dict[str, typing.Optional[typing.Any]]]
+        typing.List[typing.Dict[str, typing.Any]]
             Successful Response
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
             await client.team.update_source_priorities()
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.update_source_priorities(request_options=request_options)
@@ -419,11 +504,21 @@ class AsyncTeamClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.team.get_physicians(team_id='team_id', )
+            await client.team.get_physicians(
+                team_id="team_id",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.get_physicians(team_id, request_options=request_options)

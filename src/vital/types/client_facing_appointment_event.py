@@ -11,7 +11,7 @@ from .appointment_event_status import AppointmentEventStatus
 class ClientFacingAppointmentEvent(UniversalBaseModel):
     created_at: dt.datetime
     status: AppointmentEventStatus
-    data: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    data: typing.Optional[typing.Dict[str, typing.Any]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
