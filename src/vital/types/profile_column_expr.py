@@ -4,17 +4,14 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .parsed_lab_report_data import ParsedLabReportData
-from .parsing_job_status import ParsingJobStatus
+from .profile_column_expr_profile import ProfileColumnExprProfile
 
 
-class ParsingJob(UniversalBaseModel):
-    id: str
-    job_id: str
-    status: ParsingJobStatus
-    data: typing.Optional[ParsedLabReportData] = None
-    needs_human_review: bool
-    is_reviewed: bool
+class ProfileColumnExpr(UniversalBaseModel):
+    profile: ProfileColumnExprProfile = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

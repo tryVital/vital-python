@@ -700,6 +700,8 @@ if typing.TYPE_CHECKING:
     from .png import Png
     from .post_order_response import PostOrderResponse
     from .priority_resource import PriorityResource
+    from .profile_column_expr import ProfileColumnExpr
+    from .profile_column_expr_profile import ProfileColumnExprProfile
     from .profile_in_db import ProfileInDb
     from .provider_connection_created import ProviderConnectionCreated
     from .provider_connection_error import ProviderConnectionError
@@ -1425,6 +1427,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Png": ".png",
     "PostOrderResponse": ".post_order_response",
     "PriorityResource": ".priority_resource",
+    "ProfileColumnExpr": ".profile_column_expr",
+    "ProfileColumnExprProfile": ".profile_column_expr_profile",
     "ProfileInDb": ".profile_in_db",
     "ProviderConnectionCreated": ".provider_connection_created",
     "ProviderConnectionError": ".provider_connection_error",
@@ -2170,6 +2174,8 @@ __all__ = [
     "Png",
     "PostOrderResponse",
     "PriorityResource",
+    "ProfileColumnExpr",
+    "ProfileColumnExprProfile",
     "ProfileInDb",
     "ProviderConnectionCreated",
     "ProviderConnectionError",

@@ -31,6 +31,7 @@ class LabReportClient:
         self,
         *,
         file: core.File,
+        user_id: str,
         needs_human_review: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ParsingJob:
@@ -42,6 +43,8 @@ class LabReportClient:
         ----------
         file : core.File
             See core.File for more documentation
+
+        user_id : str
 
         needs_human_review : typing.Optional[bool]
 
@@ -60,10 +63,12 @@ class LabReportClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.lab_report.parser_create_job()
+        client.lab_report.parser_create_job(
+            user_id="user_id",
+        )
         """
         _response = self._raw_client.parser_create_job(
-            file=file, needs_human_review=needs_human_review, request_options=request_options
+            file=file, user_id=user_id, needs_human_review=needs_human_review, request_options=request_options
         )
         return _response.data
 
@@ -120,6 +125,7 @@ class AsyncLabReportClient:
         self,
         *,
         file: core.File,
+        user_id: str,
         needs_human_review: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ParsingJob:
@@ -131,6 +137,8 @@ class AsyncLabReportClient:
         ----------
         file : core.File
             See core.File for more documentation
+
+        user_id : str
 
         needs_human_review : typing.Optional[bool]
 
@@ -154,13 +162,15 @@ class AsyncLabReportClient:
 
 
         async def main() -> None:
-            await client.lab_report.parser_create_job()
+            await client.lab_report.parser_create_job(
+                user_id="user_id",
+            )
 
 
         asyncio.run(main())
         """
         _response = await self._raw_client.parser_create_job(
-            file=file, needs_human_review=needs_human_review, request_options=request_options
+            file=file, user_id=user_id, needs_human_review=needs_human_review, request_options=request_options
         )
         return _response.data
 
