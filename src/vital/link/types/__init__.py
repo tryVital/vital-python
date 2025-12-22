@@ -2,16 +2,49 @@
 
 # isort: skip_file
 
-from .bulk_export_link_request_team_id import BulkExportLinkRequestTeamId
-from .bulk_import_link_request_team_id import BulkImportLinkRequestTeamId
-from .bulk_pause_link_request_team_id import BulkPauseLinkRequestTeamId
-from .bulk_trigger_historical_pull_link_request_team_id import BulkTriggerHistoricalPullLinkRequestTeamId
-from .list_bulk_ops_link_request_team_id import ListBulkOpsLinkRequestTeamId
+import typing
+from importlib import import_module
+
+if typing.TYPE_CHECKING:
+    from .link_bulk_export_request_team_id import LinkBulkExportRequestTeamId
+    from .link_bulk_import_request_team_id import LinkBulkImportRequestTeamId
+    from .link_bulk_pause_request_team_id import LinkBulkPauseRequestTeamId
+    from .link_bulk_trigger_historical_pull_request_team_id import LinkBulkTriggerHistoricalPullRequestTeamId
+    from .link_list_bulk_ops_request_team_id import LinkListBulkOpsRequestTeamId
+_dynamic_imports: typing.Dict[str, str] = {
+    "LinkBulkExportRequestTeamId": ".link_bulk_export_request_team_id",
+    "LinkBulkImportRequestTeamId": ".link_bulk_import_request_team_id",
+    "LinkBulkPauseRequestTeamId": ".link_bulk_pause_request_team_id",
+    "LinkBulkTriggerHistoricalPullRequestTeamId": ".link_bulk_trigger_historical_pull_request_team_id",
+    "LinkListBulkOpsRequestTeamId": ".link_list_bulk_ops_request_team_id",
+}
+
+
+def __getattr__(attr_name: str) -> typing.Any:
+    module_name = _dynamic_imports.get(attr_name)
+    if module_name is None:
+        raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
+    try:
+        module = import_module(module_name, __package__)
+        if module_name == f".{attr_name}":
+            return module
+        else:
+            return getattr(module, attr_name)
+    except ImportError as e:
+        raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
+    except AttributeError as e:
+        raise AttributeError(f"Failed to get {attr_name} from {module_name}: {e}") from e
+
+
+def __dir__():
+    lazy_attrs = list(_dynamic_imports.keys())
+    return sorted(lazy_attrs)
+
 
 __all__ = [
-    "BulkExportLinkRequestTeamId",
-    "BulkImportLinkRequestTeamId",
-    "BulkPauseLinkRequestTeamId",
-    "BulkTriggerHistoricalPullLinkRequestTeamId",
-    "ListBulkOpsLinkRequestTeamId",
+    "LinkBulkExportRequestTeamId",
+    "LinkBulkImportRequestTeamId",
+    "LinkBulkPauseRequestTeamId",
+    "LinkBulkTriggerHistoricalPullRequestTeamId",
+    "LinkListBulkOpsRequestTeamId",
 ]

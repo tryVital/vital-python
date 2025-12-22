@@ -138,8 +138,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.workout_swimming_stroke_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.workout_swimming_stroke_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.workout_swimming_stroke_grouped(
             user_id,
@@ -194,8 +204,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.workout_distance_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.workout_distance_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.workout_distance_grouped(
             user_id,
@@ -250,8 +270,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.heart_rate_recovery_one_minute_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.heart_rate_recovery_one_minute_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.heart_rate_recovery_one_minute_grouped(
             user_id,
@@ -306,8 +336,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.waist_circumference_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.waist_circumference_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.waist_circumference_grouped(
             user_id,
@@ -362,8 +402,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.lean_body_mass_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.lean_body_mass_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.lean_body_mass_grouped(
             user_id,
@@ -418,8 +468,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.body_mass_index_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.body_mass_index_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.body_mass_index_grouped(
             user_id,
@@ -474,8 +534,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.basal_body_temperature_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.basal_body_temperature_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.basal_body_temperature_grouped(
             user_id,
@@ -530,8 +600,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.handwashing_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.handwashing_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.handwashing_grouped(
             user_id,
@@ -586,8 +666,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.daylight_exposure_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.daylight_exposure_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.daylight_exposure_grouped(
             user_id,
@@ -642,8 +732,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.uv_exposure_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.uv_exposure_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.uv_exposure_grouped(
             user_id,
@@ -698,8 +798,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.fall_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.fall_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.fall_grouped(
             user_id,
@@ -754,8 +864,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.inhaler_usage_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.inhaler_usage_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.inhaler_usage_grouped(
             user_id,
@@ -810,8 +930,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.peak_expiratory_flow_rate_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.peak_expiratory_flow_rate_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.peak_expiratory_flow_rate_grouped(
             user_id,
@@ -866,8 +996,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.forced_vital_capacity_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.forced_vital_capacity_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.forced_vital_capacity_grouped(
             user_id,
@@ -922,8 +1062,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.forced_expiratory_volume_1_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.forced_expiratory_volume_1_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.forced_expiratory_volume_1_grouped(
             user_id,
@@ -978,8 +1128,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.wheelchair_push_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.wheelchair_push_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.wheelchair_push_grouped(
             user_id,
@@ -1034,8 +1194,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.sleep_breathing_disturbance_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.sleep_breathing_disturbance_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.sleep_breathing_disturbance_grouped(
             user_id,
@@ -1090,8 +1260,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.sleep_apnea_alert_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.sleep_apnea_alert_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.sleep_apnea_alert_grouped(
             user_id,
@@ -1146,8 +1326,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.stand_duration_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.stand_duration_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.stand_duration_grouped(
             user_id,
@@ -1202,8 +1392,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.stand_hour_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.stand_hour_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.stand_hour_grouped(
             user_id,
@@ -1258,8 +1458,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.heart_rate_alert_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.heart_rate_alert_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.heart_rate_alert_grouped(
             user_id,
@@ -1314,8 +1524,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.afib_burden_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.afib_burden_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.afib_burden_grouped(
             user_id,
@@ -1370,8 +1590,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.workout_duration_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.workout_duration_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.workout_duration_grouped(
             user_id,
@@ -1426,8 +1656,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.vo_2_max_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.vo_2_max_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.vo_2_max_grouped(
             user_id,
@@ -1482,8 +1722,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.stress_level_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.stress_level_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.stress_level_grouped(
             user_id,
@@ -1538,8 +1788,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.mindfulness_minutes_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.mindfulness_minutes_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.mindfulness_minutes_grouped(
             user_id,
@@ -1594,8 +1854,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.caffeine_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.caffeine_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.caffeine_grouped(
             user_id,
@@ -1650,8 +1920,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.water_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.water_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.water_grouped(
             user_id,
@@ -1706,8 +1986,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.steps_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.steps_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.steps_grouped(
             user_id,
@@ -1762,8 +2052,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.floors_climbed_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.floors_climbed_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.floors_climbed_grouped(
             user_id,
@@ -1818,8 +2118,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.distance_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.distance_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.distance_grouped(
             user_id,
@@ -1874,8 +2184,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.calories_basal_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.calories_basal_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.calories_basal_grouped(
             user_id,
@@ -1930,8 +2250,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.calories_active_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.calories_active_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.calories_active_grouped(
             user_id,
@@ -1986,8 +2316,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.respiratory_rate_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.respiratory_rate_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.respiratory_rate_grouped(
             user_id,
@@ -2042,8 +2382,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.note_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.note_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.note_grouped(
             user_id,
@@ -2098,8 +2448,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.insulin_injection_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.insulin_injection_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.insulin_injection_grouped(
             user_id,
@@ -2154,8 +2514,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.ige_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.ige_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.ige_grouped(
             user_id,
@@ -2210,8 +2580,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.igg_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.igg_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.igg_grouped(
             user_id,
@@ -2266,8 +2646,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.hypnogram_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.hypnogram_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.hypnogram_grouped(
             user_id,
@@ -2322,8 +2712,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.hrv_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.hrv_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.hrv_grouped(
             user_id,
@@ -2378,8 +2778,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.heartrate_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.heartrate_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.heartrate_grouped(
             user_id,
@@ -2434,8 +2844,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.glucose_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.glucose_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.glucose_grouped(
             user_id,
@@ -2490,8 +2910,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.cholesterol_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.cholesterol_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.cholesterol_grouped(
             user_id,
@@ -2546,8 +2976,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.carbohydrates_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.carbohydrates_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.carbohydrates_grouped(
             user_id,
@@ -2602,8 +3042,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.body_temperature_delta_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.body_temperature_delta_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.body_temperature_delta_grouped(
             user_id,
@@ -2658,8 +3108,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.body_temperature_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.body_temperature_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.body_temperature_grouped(
             user_id,
@@ -2714,8 +3174,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.body_weight_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.body_weight_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.body_weight_grouped(
             user_id,
@@ -2770,8 +3240,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.body_fat_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.body_fat_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.body_fat_grouped(
             user_id,
@@ -2826,8 +3306,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.blood_oxygen_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.blood_oxygen_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.blood_oxygen_grouped(
             user_id,
@@ -2882,8 +3372,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.electrocardiogram_voltage_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.electrocardiogram_voltage_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.electrocardiogram_voltage_grouped(
             user_id,
@@ -2938,8 +3438,18 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.blood_pressure_grouped(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.blood_pressure_grouped(
+            user_id="user_id",
+            cursor="cursor",
+            next_cursor="next_cursor",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.blood_pressure_grouped(
             user_id,
@@ -2986,8 +3496,16 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.vo_2_max(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.vo_2_max(
+            user_id="user_id",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.vo_2_max(
             user_id, start_date=start_date, provider=provider, end_date=end_date, request_options=request_options
@@ -3028,8 +3546,16 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.stress_level(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.stress_level(
+            user_id="user_id",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.stress_level(
             user_id, start_date=start_date, provider=provider, end_date=end_date, request_options=request_options
@@ -3070,8 +3596,16 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.mindfulness_minutes(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.mindfulness_minutes(
+            user_id="user_id",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.mindfulness_minutes(
             user_id, start_date=start_date, provider=provider, end_date=end_date, request_options=request_options
@@ -3112,8 +3646,16 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.caffeine(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.caffeine(
+            user_id="user_id",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.caffeine(
             user_id, start_date=start_date, provider=provider, end_date=end_date, request_options=request_options
@@ -3154,8 +3696,16 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.water(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.water(
+            user_id="user_id",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.water(
             user_id, start_date=start_date, provider=provider, end_date=end_date, request_options=request_options
@@ -3196,8 +3746,16 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.steps(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.steps(
+            user_id="user_id",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.steps(
             user_id, start_date=start_date, provider=provider, end_date=end_date, request_options=request_options
@@ -3238,8 +3796,16 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.floors_climbed(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.floors_climbed(
+            user_id="user_id",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.floors_climbed(
             user_id, start_date=start_date, provider=provider, end_date=end_date, request_options=request_options
@@ -3280,8 +3846,16 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.distance(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.distance(
+            user_id="user_id",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.distance(
             user_id, start_date=start_date, provider=provider, end_date=end_date, request_options=request_options
@@ -3322,8 +3896,16 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.calories_basal(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.calories_basal(
+            user_id="user_id",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.calories_basal(
             user_id, start_date=start_date, provider=provider, end_date=end_date, request_options=request_options
@@ -3364,8 +3946,16 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.calories_active(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.calories_active(
+            user_id="user_id",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.calories_active(
             user_id, start_date=start_date, provider=provider, end_date=end_date, request_options=request_options
@@ -3406,8 +3996,16 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.respiratory_rate(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.respiratory_rate(
+            user_id="user_id",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.respiratory_rate(
             user_id, start_date=start_date, provider=provider, end_date=end_date, request_options=request_options
@@ -3448,8 +4046,16 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.ige(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.ige(
+            user_id="user_id",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.ige(
             user_id, start_date=start_date, provider=provider, end_date=end_date, request_options=request_options
@@ -3490,8 +4096,16 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.igg(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.igg(
+            user_id="user_id",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.igg(
             user_id, start_date=start_date, provider=provider, end_date=end_date, request_options=request_options
@@ -3532,8 +4146,16 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.hypnogram(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.hypnogram(
+            user_id="user_id",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.hypnogram(
             user_id, start_date=start_date, provider=provider, end_date=end_date, request_options=request_options
@@ -3574,8 +4196,16 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.hrv(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.hrv(
+            user_id="user_id",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.hrv(
             user_id, start_date=start_date, provider=provider, end_date=end_date, request_options=request_options
@@ -3616,8 +4246,16 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.heartrate(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.heartrate(
+            user_id="user_id",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.heartrate(
             user_id, start_date=start_date, provider=provider, end_date=end_date, request_options=request_options
@@ -3658,8 +4296,16 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.glucose(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.glucose(
+            user_id="user_id",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.glucose(
             user_id, start_date=start_date, provider=provider, end_date=end_date, request_options=request_options
@@ -3700,8 +4346,16 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.cholesterol_triglycerides(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.cholesterol_triglycerides(
+            user_id="user_id",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.cholesterol_triglycerides(
             user_id, start_date=start_date, provider=provider, end_date=end_date, request_options=request_options
@@ -3742,8 +4396,16 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.cholesterol_total(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.cholesterol_total(
+            user_id="user_id",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.cholesterol_total(
             user_id, start_date=start_date, provider=provider, end_date=end_date, request_options=request_options
@@ -3784,8 +4446,16 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.cholesterol_ldl(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.cholesterol_ldl(
+            user_id="user_id",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.cholesterol_ldl(
             user_id, start_date=start_date, provider=provider, end_date=end_date, request_options=request_options
@@ -3826,8 +4496,16 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.cholesterol_hdl(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.cholesterol_hdl(
+            user_id="user_id",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.cholesterol_hdl(
             user_id, start_date=start_date, provider=provider, end_date=end_date, request_options=request_options
@@ -3868,8 +4546,16 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.cholesterol(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.cholesterol(
+            user_id="user_id",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.cholesterol(
             user_id, start_date=start_date, provider=provider, end_date=end_date, request_options=request_options
@@ -3910,8 +4596,16 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.body_weight(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.body_weight(
+            user_id="user_id",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.body_weight(
             user_id, start_date=start_date, provider=provider, end_date=end_date, request_options=request_options
@@ -3952,8 +4646,16 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.body_fat(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.body_fat(
+            user_id="user_id",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.body_fat(
             user_id, start_date=start_date, provider=provider, end_date=end_date, request_options=request_options
@@ -3994,8 +4696,16 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.blood_oxygen(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.blood_oxygen(
+            user_id="user_id",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.blood_oxygen(
             user_id, start_date=start_date, provider=provider, end_date=end_date, request_options=request_options
@@ -4036,8 +4746,16 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.electrocardiogram_voltage(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.electrocardiogram_voltage(
+            user_id="user_id",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.electrocardiogram_voltage(
             user_id, start_date=start_date, provider=provider, end_date=end_date, request_options=request_options
@@ -4078,8 +4796,16 @@ class VitalsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.vitals.blood_pressure(user_id='user_id', start_date='start_date', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.vitals.blood_pressure(
+            user_id="user_id",
+            provider="provider",
+            start_date="start_date",
+            end_date="end_date",
+        )
         """
         _response = self._raw_client.blood_pressure(
             user_id, start_date=start_date, provider=provider, end_date=end_date, request_options=request_options
@@ -4143,11 +4869,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.workout_swimming_stroke_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.workout_swimming_stroke_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.workout_swimming_stroke_grouped(
@@ -4202,11 +4943,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.workout_distance_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.workout_distance_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.workout_distance_grouped(
@@ -4261,11 +5017,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.heart_rate_recovery_one_minute_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.heart_rate_recovery_one_minute_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.heart_rate_recovery_one_minute_grouped(
@@ -4320,11 +5091,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.waist_circumference_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.waist_circumference_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.waist_circumference_grouped(
@@ -4379,11 +5165,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.lean_body_mass_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.lean_body_mass_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.lean_body_mass_grouped(
@@ -4438,11 +5239,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.body_mass_index_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.body_mass_index_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.body_mass_index_grouped(
@@ -4497,11 +5313,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.basal_body_temperature_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.basal_body_temperature_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.basal_body_temperature_grouped(
@@ -4556,11 +5387,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.handwashing_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.handwashing_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.handwashing_grouped(
@@ -4615,11 +5461,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.daylight_exposure_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.daylight_exposure_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.daylight_exposure_grouped(
@@ -4674,11 +5535,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.uv_exposure_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.uv_exposure_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.uv_exposure_grouped(
@@ -4733,11 +5609,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.fall_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.fall_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.fall_grouped(
@@ -4792,11 +5683,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.inhaler_usage_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.inhaler_usage_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.inhaler_usage_grouped(
@@ -4851,11 +5757,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.peak_expiratory_flow_rate_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.peak_expiratory_flow_rate_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.peak_expiratory_flow_rate_grouped(
@@ -4910,11 +5831,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.forced_vital_capacity_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.forced_vital_capacity_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.forced_vital_capacity_grouped(
@@ -4969,11 +5905,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.forced_expiratory_volume_1_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.forced_expiratory_volume_1_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.forced_expiratory_volume_1_grouped(
@@ -5028,11 +5979,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.wheelchair_push_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.wheelchair_push_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.wheelchair_push_grouped(
@@ -5087,11 +6053,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.sleep_breathing_disturbance_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.sleep_breathing_disturbance_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.sleep_breathing_disturbance_grouped(
@@ -5146,11 +6127,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.sleep_apnea_alert_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.sleep_apnea_alert_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.sleep_apnea_alert_grouped(
@@ -5205,11 +6201,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.stand_duration_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.stand_duration_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.stand_duration_grouped(
@@ -5264,11 +6275,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.stand_hour_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.stand_hour_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.stand_hour_grouped(
@@ -5323,11 +6349,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.heart_rate_alert_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.heart_rate_alert_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.heart_rate_alert_grouped(
@@ -5382,11 +6423,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.afib_burden_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.afib_burden_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.afib_burden_grouped(
@@ -5441,11 +6497,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.workout_duration_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.workout_duration_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.workout_duration_grouped(
@@ -5500,11 +6571,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.vo_2_max_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.vo_2_max_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.vo_2_max_grouped(
@@ -5559,11 +6645,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.stress_level_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.stress_level_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.stress_level_grouped(
@@ -5618,11 +6719,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.mindfulness_minutes_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.mindfulness_minutes_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.mindfulness_minutes_grouped(
@@ -5677,11 +6793,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.caffeine_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.caffeine_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.caffeine_grouped(
@@ -5736,11 +6867,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.water_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.water_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.water_grouped(
@@ -5795,11 +6941,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.steps_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.steps_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.steps_grouped(
@@ -5854,11 +7015,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.floors_climbed_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.floors_climbed_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.floors_climbed_grouped(
@@ -5913,11 +7089,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.distance_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.distance_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.distance_grouped(
@@ -5972,11 +7163,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.calories_basal_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.calories_basal_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.calories_basal_grouped(
@@ -6031,11 +7237,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.calories_active_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.calories_active_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.calories_active_grouped(
@@ -6090,11 +7311,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.respiratory_rate_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.respiratory_rate_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.respiratory_rate_grouped(
@@ -6149,11 +7385,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.note_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.note_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.note_grouped(
@@ -6208,11 +7459,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.insulin_injection_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.insulin_injection_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.insulin_injection_grouped(
@@ -6267,11 +7533,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.ige_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.ige_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.ige_grouped(
@@ -6326,11 +7607,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.igg_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.igg_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.igg_grouped(
@@ -6385,11 +7681,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.hypnogram_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.hypnogram_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.hypnogram_grouped(
@@ -6444,11 +7755,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.hrv_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.hrv_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.hrv_grouped(
@@ -6503,11 +7829,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.heartrate_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.heartrate_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.heartrate_grouped(
@@ -6562,11 +7903,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.glucose_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.glucose_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.glucose_grouped(
@@ -6621,11 +7977,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.cholesterol_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.cholesterol_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.cholesterol_grouped(
@@ -6680,11 +8051,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.carbohydrates_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.carbohydrates_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.carbohydrates_grouped(
@@ -6739,11 +8125,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.body_temperature_delta_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.body_temperature_delta_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.body_temperature_delta_grouped(
@@ -6798,11 +8199,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.body_temperature_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.body_temperature_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.body_temperature_grouped(
@@ -6857,11 +8273,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.body_weight_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.body_weight_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.body_weight_grouped(
@@ -6916,11 +8347,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.body_fat_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.body_fat_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.body_fat_grouped(
@@ -6975,11 +8421,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.blood_oxygen_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.blood_oxygen_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.blood_oxygen_grouped(
@@ -7034,11 +8495,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.electrocardiogram_voltage_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.electrocardiogram_voltage_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.electrocardiogram_voltage_grouped(
@@ -7093,11 +8569,26 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.blood_pressure_grouped(user_id='user_id', start_date='start_date', )
+            await client.vitals.blood_pressure_grouped(
+                user_id="user_id",
+                cursor="cursor",
+                next_cursor="next_cursor",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.blood_pressure_grouped(
@@ -7144,11 +8635,24 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.vo_2_max(user_id='user_id', start_date='start_date', )
+            await client.vitals.vo_2_max(
+                user_id="user_id",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.vo_2_max(
@@ -7189,11 +8693,24 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.stress_level(user_id='user_id', start_date='start_date', )
+            await client.vitals.stress_level(
+                user_id="user_id",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.stress_level(
@@ -7234,11 +8751,24 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.mindfulness_minutes(user_id='user_id', start_date='start_date', )
+            await client.vitals.mindfulness_minutes(
+                user_id="user_id",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.mindfulness_minutes(
@@ -7279,11 +8809,24 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.caffeine(user_id='user_id', start_date='start_date', )
+            await client.vitals.caffeine(
+                user_id="user_id",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.caffeine(
@@ -7324,11 +8867,24 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.water(user_id='user_id', start_date='start_date', )
+            await client.vitals.water(
+                user_id="user_id",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.water(
@@ -7369,11 +8925,24 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.steps(user_id='user_id', start_date='start_date', )
+            await client.vitals.steps(
+                user_id="user_id",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.steps(
@@ -7414,11 +8983,24 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.floors_climbed(user_id='user_id', start_date='start_date', )
+            await client.vitals.floors_climbed(
+                user_id="user_id",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.floors_climbed(
@@ -7459,11 +9041,24 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.distance(user_id='user_id', start_date='start_date', )
+            await client.vitals.distance(
+                user_id="user_id",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.distance(
@@ -7504,11 +9099,24 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.calories_basal(user_id='user_id', start_date='start_date', )
+            await client.vitals.calories_basal(
+                user_id="user_id",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.calories_basal(
@@ -7549,11 +9157,24 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.calories_active(user_id='user_id', start_date='start_date', )
+            await client.vitals.calories_active(
+                user_id="user_id",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.calories_active(
@@ -7594,11 +9215,24 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.respiratory_rate(user_id='user_id', start_date='start_date', )
+            await client.vitals.respiratory_rate(
+                user_id="user_id",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.respiratory_rate(
@@ -7639,11 +9273,24 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.ige(user_id='user_id', start_date='start_date', )
+            await client.vitals.ige(
+                user_id="user_id",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.ige(
@@ -7684,11 +9331,24 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.igg(user_id='user_id', start_date='start_date', )
+            await client.vitals.igg(
+                user_id="user_id",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.igg(
@@ -7729,11 +9389,24 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.hypnogram(user_id='user_id', start_date='start_date', )
+            await client.vitals.hypnogram(
+                user_id="user_id",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.hypnogram(
@@ -7774,11 +9447,24 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.hrv(user_id='user_id', start_date='start_date', )
+            await client.vitals.hrv(
+                user_id="user_id",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.hrv(
@@ -7819,11 +9505,24 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.heartrate(user_id='user_id', start_date='start_date', )
+            await client.vitals.heartrate(
+                user_id="user_id",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.heartrate(
@@ -7864,11 +9563,24 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.glucose(user_id='user_id', start_date='start_date', )
+            await client.vitals.glucose(
+                user_id="user_id",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.glucose(
@@ -7909,11 +9621,24 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.cholesterol_triglycerides(user_id='user_id', start_date='start_date', )
+            await client.vitals.cholesterol_triglycerides(
+                user_id="user_id",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.cholesterol_triglycerides(
@@ -7954,11 +9679,24 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.cholesterol_total(user_id='user_id', start_date='start_date', )
+            await client.vitals.cholesterol_total(
+                user_id="user_id",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.cholesterol_total(
@@ -7999,11 +9737,24 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.cholesterol_ldl(user_id='user_id', start_date='start_date', )
+            await client.vitals.cholesterol_ldl(
+                user_id="user_id",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.cholesterol_ldl(
@@ -8044,11 +9795,24 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.cholesterol_hdl(user_id='user_id', start_date='start_date', )
+            await client.vitals.cholesterol_hdl(
+                user_id="user_id",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.cholesterol_hdl(
@@ -8089,11 +9853,24 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.cholesterol(user_id='user_id', start_date='start_date', )
+            await client.vitals.cholesterol(
+                user_id="user_id",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.cholesterol(
@@ -8134,11 +9911,24 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.body_weight(user_id='user_id', start_date='start_date', )
+            await client.vitals.body_weight(
+                user_id="user_id",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.body_weight(
@@ -8179,11 +9969,24 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.body_fat(user_id='user_id', start_date='start_date', )
+            await client.vitals.body_fat(
+                user_id="user_id",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.body_fat(
@@ -8224,11 +10027,24 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.blood_oxygen(user_id='user_id', start_date='start_date', )
+            await client.vitals.blood_oxygen(
+                user_id="user_id",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.blood_oxygen(
@@ -8269,11 +10085,24 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.electrocardiogram_voltage(user_id='user_id', start_date='start_date', )
+            await client.vitals.electrocardiogram_voltage(
+                user_id="user_id",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.electrocardiogram_voltage(
@@ -8314,11 +10143,24 @@ class AsyncVitalsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.vitals.blood_pressure(user_id='user_id', start_date='start_date', )
+            await client.vitals.blood_pressure(
+                user_id="user_id",
+                provider="provider",
+                start_date="start_date",
+                end_date="end_date",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.blood_pressure(

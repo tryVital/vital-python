@@ -56,12 +56,12 @@ from ..types.psc_info import PscInfo
 from ..types.simulation_flags import SimulationFlags
 from ..types.us_address import UsAddress
 from ..types.validate_icd_codes_response import ValidateIcdCodesResponse
-from .types.get_lab_tests_request_order_direction import GetLabTestsRequestOrderDirection
-from .types.get_lab_tests_request_order_key import GetLabTestsRequestOrderKey
-from .types.get_orders_lab_tests_request_order_direction import GetOrdersLabTestsRequestOrderDirection
-from .types.get_orders_lab_tests_request_order_key import GetOrdersLabTestsRequestOrderKey
-from .types.get_paginated_lab_tests_request_order_direction import GetPaginatedLabTestsRequestOrderDirection
-from .types.get_paginated_lab_tests_request_order_key import GetPaginatedLabTestsRequestOrderKey
+from .types.lab_tests_get_orders_request_order_direction import LabTestsGetOrdersRequestOrderDirection
+from .types.lab_tests_get_orders_request_order_key import LabTestsGetOrdersRequestOrderKey
+from .types.lab_tests_get_paginated_request_order_direction import LabTestsGetPaginatedRequestOrderDirection
+from .types.lab_tests_get_paginated_request_order_key import LabTestsGetPaginatedRequestOrderKey
+from .types.lab_tests_get_request_order_direction import LabTestsGetRequestOrderDirection
+from .types.lab_tests_get_request_order_key import LabTestsGetRequestOrderKey
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -78,11 +78,11 @@ class RawLabTestsClient:
         lab_slug: typing.Optional[str] = None,
         collection_method: typing.Optional[LabTestCollectionMethod] = None,
         status: typing.Optional[LabTestStatus] = None,
-        marker_ids: typing.Optional[typing.Sequence[int]] = None,
-        provider_ids: typing.Optional[typing.Sequence[str]] = None,
+        marker_ids: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
+        provider_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         name: typing.Optional[str] = None,
-        order_key: typing.Optional[GetLabTestsRequestOrderKey] = None,
-        order_direction: typing.Optional[GetLabTestsRequestOrderDirection] = None,
+        order_key: typing.Optional[LabTestsGetRequestOrderKey] = None,
+        order_direction: typing.Optional[LabTestsGetRequestOrderDirection] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.List[ClientFacingLabTest]]:
         """
@@ -102,18 +102,18 @@ class RawLabTestsClient:
         status : typing.Optional[LabTestStatus]
             Filter by the status of these lab tests.
 
-        marker_ids : typing.Optional[typing.Sequence[int]]
+        marker_ids : typing.Optional[typing.Union[int, typing.Sequence[int]]]
             Filter to only include lab tests containing these marker IDs.
 
-        provider_ids : typing.Optional[typing.Sequence[str]]
+        provider_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter to only include lab tests containing these provider IDs.
 
         name : typing.Optional[str]
             Filter by the name of the lab test (a case-insensitive substring search).
 
-        order_key : typing.Optional[GetLabTestsRequestOrderKey]
+        order_key : typing.Optional[LabTestsGetRequestOrderKey]
 
-        order_direction : typing.Optional[GetLabTestsRequestOrderDirection]
+        order_direction : typing.Optional[LabTestsGetRequestOrderDirection]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -368,7 +368,7 @@ class RawLabTestsClient:
     def get_markers(
         self,
         *,
-        lab_id: typing.Optional[typing.Sequence[int]] = None,
+        lab_id: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
         name: typing.Optional[str] = None,
         a_la_carte_enabled: typing.Optional[bool] = None,
         lab_account_id: typing.Optional[str] = None,
@@ -381,7 +381,7 @@ class RawLabTestsClient:
 
         Parameters
         ----------
-        lab_id : typing.Optional[typing.Sequence[int]]
+        lab_id : typing.Optional[typing.Union[int, typing.Sequence[int]]]
             The identifier Vital assigned to a lab partner.
 
         name : typing.Optional[str]
@@ -680,11 +680,11 @@ class RawLabTestsClient:
         lab_slug: typing.Optional[str] = None,
         collection_method: typing.Optional[LabTestCollectionMethod] = None,
         status: typing.Optional[LabTestStatus] = None,
-        marker_ids: typing.Optional[typing.Sequence[int]] = None,
-        provider_ids: typing.Optional[typing.Sequence[str]] = None,
+        marker_ids: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
+        provider_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         name: typing.Optional[str] = None,
-        order_key: typing.Optional[GetPaginatedLabTestsRequestOrderKey] = None,
-        order_direction: typing.Optional[GetPaginatedLabTestsRequestOrderDirection] = None,
+        order_key: typing.Optional[LabTestsGetPaginatedRequestOrderKey] = None,
+        order_direction: typing.Optional[LabTestsGetPaginatedRequestOrderDirection] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[LabTestResourcesResponse]:
         """
@@ -708,18 +708,18 @@ class RawLabTestsClient:
         status : typing.Optional[LabTestStatus]
             Filter by the status of these lab tests.
 
-        marker_ids : typing.Optional[typing.Sequence[int]]
+        marker_ids : typing.Optional[typing.Union[int, typing.Sequence[int]]]
             Filter to only include lab tests containing these marker IDs.
 
-        provider_ids : typing.Optional[typing.Sequence[str]]
+        provider_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter to only include lab tests containing these provider IDs.
 
         name : typing.Optional[str]
             Filter by the name of the lab test (a case-insensitive substring search).
 
-        order_key : typing.Optional[GetPaginatedLabTestsRequestOrderKey]
+        order_key : typing.Optional[LabTestsGetPaginatedRequestOrderKey]
 
-        order_direction : typing.Optional[GetPaginatedLabTestsRequestOrderDirection]
+        order_direction : typing.Optional[LabTestsGetPaginatedRequestOrderDirection]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -796,7 +796,7 @@ class RawLabTestsClient:
             request_options=request_options,
         ) as _response:
 
-            def stream() -> HttpResponse[typing.Iterator[bytes]]:
+            def _stream() -> HttpResponse[typing.Iterator[bytes]]:
                 try:
                     if 200 <= _response.status_code < 300:
                         _chunk_size = request_options.get("chunk_size", None) if request_options is not None else None
@@ -822,7 +822,7 @@ class RawLabTestsClient:
                     )
                 raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-            yield stream()
+            yield _stream()
 
     def get_orders(
         self,
@@ -832,17 +832,21 @@ class RawLabTestsClient:
         end_date: typing.Optional[dt.datetime] = None,
         updated_start_date: typing.Optional[dt.datetime] = None,
         updated_end_date: typing.Optional[dt.datetime] = None,
-        status: typing.Optional[typing.Sequence[OrderLowLevelStatus]] = None,
-        order_key: typing.Optional[GetOrdersLabTestsRequestOrderKey] = None,
-        order_direction: typing.Optional[GetOrdersLabTestsRequestOrderDirection] = None,
-        order_type: typing.Optional[typing.Sequence[LabTestCollectionMethod]] = None,
+        status: typing.Optional[typing.Union[OrderLowLevelStatus, typing.Sequence[OrderLowLevelStatus]]] = None,
+        order_key: typing.Optional[LabTestsGetOrdersRequestOrderKey] = None,
+        order_direction: typing.Optional[LabTestsGetOrdersRequestOrderDirection] = None,
+        order_type: typing.Optional[
+            typing.Union[LabTestCollectionMethod, typing.Sequence[LabTestCollectionMethod]]
+        ] = None,
         is_critical: typing.Optional[bool] = None,
         interpretation: typing.Optional[Interpretation] = None,
-        order_activation_types: typing.Optional[typing.Sequence[OrderActivationType]] = None,
+        order_activation_types: typing.Optional[
+            typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]
+        ] = None,
         user_id: typing.Optional[str] = None,
         patient_name: typing.Optional[str] = None,
         shipping_recipient_name: typing.Optional[str] = None,
-        order_ids: typing.Optional[typing.Sequence[str]] = None,
+        order_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         page: typing.Optional[int] = None,
         size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -867,16 +871,16 @@ class RawLabTestsClient:
         updated_end_date : typing.Optional[dt.datetime]
             Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
-        status : typing.Optional[typing.Sequence[OrderLowLevelStatus]]
+        status : typing.Optional[typing.Union[OrderLowLevelStatus, typing.Sequence[OrderLowLevelStatus]]]
             Filter by low level status.
 
-        order_key : typing.Optional[GetOrdersLabTestsRequestOrderKey]
+        order_key : typing.Optional[LabTestsGetOrdersRequestOrderKey]
             Order key to sort by.
 
-        order_direction : typing.Optional[GetOrdersLabTestsRequestOrderDirection]
+        order_direction : typing.Optional[LabTestsGetOrdersRequestOrderDirection]
             Order direction to sort by.
 
-        order_type : typing.Optional[typing.Sequence[LabTestCollectionMethod]]
+        order_type : typing.Optional[typing.Union[LabTestCollectionMethod, typing.Sequence[LabTestCollectionMethod]]]
             Filter by method used to perform the lab test.
 
         is_critical : typing.Optional[bool]
@@ -885,7 +889,7 @@ class RawLabTestsClient:
         interpretation : typing.Optional[Interpretation]
             Filter by result interpretation of the lab test.
 
-        order_activation_types : typing.Optional[typing.Sequence[OrderActivationType]]
+        order_activation_types : typing.Optional[typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]]
             Filter by activation type.
 
         user_id : typing.Optional[str]
@@ -897,7 +901,7 @@ class RawLabTestsClient:
         shipping_recipient_name : typing.Optional[str]
             Filter by shipping recipient name.
 
-        order_ids : typing.Optional[typing.Sequence[str]]
+        order_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter by order ids.
 
         page : typing.Optional[int]
@@ -969,7 +973,7 @@ class RawLabTestsClient:
         self,
         *,
         request: UsAddress,
-        start_date: typing.Optional[dt.date] = None,
+        start_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[AppointmentAvailabilitySlots]:
         """
@@ -980,7 +984,7 @@ class RawLabTestsClient:
         ----------
         request : UsAddress
 
-        start_date : typing.Optional[dt.date]
+        start_date : typing.Optional[str]
             Start date for appointment availability
 
         request_options : typing.Optional[RequestOptions]
@@ -995,7 +999,7 @@ class RawLabTestsClient:
             "v3/order/phlebotomy/appointment/availability",
             method="POST",
             params={
-                "start_date": str(start_date) if start_date is not None else None,
+                "start_date": start_date,
             },
             json=request,
             headers={
@@ -1379,7 +1383,7 @@ class RawLabTestsClient:
         zip_code: str,
         radius: typing.Optional[AllowedRadius] = None,
         lab: typing.Optional[ClientFacingLabs] = None,
-        labs: typing.Optional[typing.Sequence[ClientFacingLabs]] = None,
+        labs: typing.Optional[typing.Union[ClientFacingLabs, typing.Sequence[ClientFacingLabs]]] = None,
         lab_account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[AreaInfo]:
@@ -1401,7 +1405,7 @@ class RawLabTestsClient:
         lab : typing.Optional[ClientFacingLabs]
             Lab to check for PSCs
 
-        labs : typing.Optional[typing.Sequence[ClientFacingLabs]]
+        labs : typing.Optional[typing.Union[ClientFacingLabs, typing.Sequence[ClientFacingLabs]]]
             List of labs to check for PSCs
 
         lab_account_id : typing.Optional[str]
@@ -1459,7 +1463,9 @@ class RawLabTestsClient:
         zip_code: str,
         lab_id: int,
         radius: typing.Optional[AllowedRadius] = None,
-        capabilities: typing.Optional[typing.Sequence[LabLocationCapability]] = None,
+        capabilities: typing.Optional[
+            typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]
+        ] = None,
         lab_account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PscInfo]:
@@ -1475,7 +1481,7 @@ class RawLabTestsClient:
         radius : typing.Optional[AllowedRadius]
             Radius in which to search in miles. Note that we limit to 30 PSCs.
 
-        capabilities : typing.Optional[typing.Sequence[LabLocationCapability]]
+        capabilities : typing.Optional[typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]]
             Filter for only locations with certain capabilities
 
         lab_account_id : typing.Optional[str]
@@ -1532,7 +1538,9 @@ class RawLabTestsClient:
         order_id: str,
         *,
         radius: typing.Optional[AllowedRadius] = None,
-        capabilities: typing.Optional[typing.Sequence[LabLocationCapability]] = None,
+        capabilities: typing.Optional[
+            typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]
+        ] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PscInfo]:
         """
@@ -1544,7 +1552,7 @@ class RawLabTestsClient:
         radius : typing.Optional[AllowedRadius]
             Radius in which to search in miles
 
-        capabilities : typing.Optional[typing.Sequence[LabLocationCapability]]
+        capabilities : typing.Optional[typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]]
             Filter for only locations with certain capabilities
 
         request_options : typing.Optional[RequestOptions]
@@ -1615,7 +1623,7 @@ class RawLabTestsClient:
             request_options=request_options,
         ) as _response:
 
-            def stream() -> HttpResponse[typing.Iterator[bytes]]:
+            def _stream() -> HttpResponse[typing.Iterator[bytes]]:
                 try:
                     if 200 <= _response.status_code < 300:
                         _chunk_size = request_options.get("chunk_size", None) if request_options is not None else None
@@ -1641,7 +1649,7 @@ class RawLabTestsClient:
                     )
                 raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-            yield stream()
+            yield _stream()
 
     def get_result_metadata(
         self, order_id: str, *, request_options: typing.Optional[RequestOptions] = None
@@ -1782,7 +1790,7 @@ class RawLabTestsClient:
             request_options=request_options,
         ) as _response:
 
-            def stream() -> HttpResponse[typing.Iterator[bytes]]:
+            def _stream() -> HttpResponse[typing.Iterator[bytes]]:
                 try:
                     if 200 <= _response.status_code < 300:
                         _chunk_size = request_options.get("chunk_size", None) if request_options is not None else None
@@ -1808,13 +1816,13 @@ class RawLabTestsClient:
                     )
                 raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-            yield stream()
+            yield _stream()
 
     def get_psc_appointment_availability(
         self,
         *,
-        start_date: typing.Optional[dt.date] = None,
-        site_codes: typing.Optional[typing.Sequence[str]] = None,
+        start_date: typing.Optional[str] = None,
+        site_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         zip_code: typing.Optional[str] = None,
         radius: typing.Optional[AllowedRadius] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1822,10 +1830,10 @@ class RawLabTestsClient:
         """
         Parameters
         ----------
-        start_date : typing.Optional[dt.date]
+        start_date : typing.Optional[str]
             Start date for appointment availability
 
-        site_codes : typing.Optional[typing.Sequence[str]]
+        site_codes : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             List of site codes to fetch availability for
 
         zip_code : typing.Optional[str]
@@ -1847,7 +1855,7 @@ class RawLabTestsClient:
             method="POST",
             params={
                 "lab": "quest",
-                "start_date": str(start_date) if start_date is not None else None,
+                "start_date": start_date,
                 "site_codes": site_codes,
                 "zip_code": zip_code,
                 "radius": radius,
@@ -2184,7 +2192,7 @@ class RawLabTestsClient:
             request_options=request_options,
         ) as _response:
 
-            def stream() -> HttpResponse[typing.Iterator[bytes]]:
+            def _stream() -> HttpResponse[typing.Iterator[bytes]]:
                 try:
                     if 200 <= _response.status_code < 300:
                         _chunk_size = request_options.get("chunk_size", None) if request_options is not None else None
@@ -2210,7 +2218,7 @@ class RawLabTestsClient:
                     )
                 raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-            yield stream()
+            yield _stream()
 
     @contextlib.contextmanager
     def get_order_requistion_pdf(
@@ -2238,7 +2246,7 @@ class RawLabTestsClient:
             request_options=request_options,
         ) as _response:
 
-            def stream() -> HttpResponse[typing.Iterator[bytes]]:
+            def _stream() -> HttpResponse[typing.Iterator[bytes]]:
                 try:
                     if 200 <= _response.status_code < 300:
                         _chunk_size = request_options.get("chunk_size", None) if request_options is not None else None
@@ -2264,7 +2272,7 @@ class RawLabTestsClient:
                     )
                 raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-            yield stream()
+            yield _stream()
 
     @contextlib.contextmanager
     def get_order_abn_pdf(
@@ -2292,7 +2300,7 @@ class RawLabTestsClient:
             request_options=request_options,
         ) as _response:
 
-            def stream() -> HttpResponse[typing.Iterator[bytes]]:
+            def _stream() -> HttpResponse[typing.Iterator[bytes]]:
                 try:
                     if 200 <= _response.status_code < 300:
                         _chunk_size = request_options.get("chunk_size", None) if request_options is not None else None
@@ -2318,7 +2326,7 @@ class RawLabTestsClient:
                     )
                 raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-            yield stream()
+            yield _stream()
 
     def get_order(
         self, order_id: str, *, request_options: typing.Optional[RequestOptions] = None
@@ -2387,7 +2395,7 @@ class RawLabTestsClient:
         billing_type: typing.Optional[Billing] = OMIT,
         icd_codes: typing.Optional[typing.Sequence[str]] = OMIT,
         consents: typing.Optional[typing.Sequence[Consent]] = OMIT,
-        activate_by: typing.Optional[dt.date] = OMIT,
+        activate_by: typing.Optional[str] = OMIT,
         aoe_answers: typing.Optional[typing.Sequence[AoEAnswer]] = OMIT,
         passthrough: typing.Optional[str] = OMIT,
         lab_account_id: typing.Optional[str] = OMIT,
@@ -2426,7 +2434,7 @@ class RawLabTestsClient:
 
         consents : typing.Optional[typing.Sequence[Consent]]
 
-        activate_by : typing.Optional[dt.date]
+        activate_by : typing.Optional[str]
             Schedule an Order to be processed in a future date.
 
         aoe_answers : typing.Optional[typing.Sequence[AoEAnswer]]
@@ -2648,7 +2656,7 @@ class RawLabTestsClient:
         delay: typing.Optional[int] = None,
         request: typing.Optional[SimulationFlags] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[typing.Optional[typing.Any]]:
+    ) -> HttpResponse[typing.Any]:
         """
         Get available test kits.
 
@@ -2667,7 +2675,7 @@ class RawLabTestsClient:
 
         Returns
         -------
-        HttpResponse[typing.Optional[typing.Any]]
+        HttpResponse[typing.Any]
             Successful Response
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -2685,11 +2693,13 @@ class RawLabTestsClient:
             omit=OMIT,
         )
         try:
+            if _response is None or not _response.text.strip():
+                return HttpResponse(response=_response, data=None)
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    typing.Optional[typing.Any],
+                    typing.Any,
                     parse_obj_as(
-                        type_=typing.Optional[typing.Any],  # type: ignore
+                        type_=typing.Any,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -2826,11 +2836,11 @@ class AsyncRawLabTestsClient:
         lab_slug: typing.Optional[str] = None,
         collection_method: typing.Optional[LabTestCollectionMethod] = None,
         status: typing.Optional[LabTestStatus] = None,
-        marker_ids: typing.Optional[typing.Sequence[int]] = None,
-        provider_ids: typing.Optional[typing.Sequence[str]] = None,
+        marker_ids: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
+        provider_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         name: typing.Optional[str] = None,
-        order_key: typing.Optional[GetLabTestsRequestOrderKey] = None,
-        order_direction: typing.Optional[GetLabTestsRequestOrderDirection] = None,
+        order_key: typing.Optional[LabTestsGetRequestOrderKey] = None,
+        order_direction: typing.Optional[LabTestsGetRequestOrderDirection] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.List[ClientFacingLabTest]]:
         """
@@ -2850,18 +2860,18 @@ class AsyncRawLabTestsClient:
         status : typing.Optional[LabTestStatus]
             Filter by the status of these lab tests.
 
-        marker_ids : typing.Optional[typing.Sequence[int]]
+        marker_ids : typing.Optional[typing.Union[int, typing.Sequence[int]]]
             Filter to only include lab tests containing these marker IDs.
 
-        provider_ids : typing.Optional[typing.Sequence[str]]
+        provider_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter to only include lab tests containing these provider IDs.
 
         name : typing.Optional[str]
             Filter by the name of the lab test (a case-insensitive substring search).
 
-        order_key : typing.Optional[GetLabTestsRequestOrderKey]
+        order_key : typing.Optional[LabTestsGetRequestOrderKey]
 
-        order_direction : typing.Optional[GetLabTestsRequestOrderDirection]
+        order_direction : typing.Optional[LabTestsGetRequestOrderDirection]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -3116,7 +3126,7 @@ class AsyncRawLabTestsClient:
     async def get_markers(
         self,
         *,
-        lab_id: typing.Optional[typing.Sequence[int]] = None,
+        lab_id: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
         name: typing.Optional[str] = None,
         a_la_carte_enabled: typing.Optional[bool] = None,
         lab_account_id: typing.Optional[str] = None,
@@ -3129,7 +3139,7 @@ class AsyncRawLabTestsClient:
 
         Parameters
         ----------
-        lab_id : typing.Optional[typing.Sequence[int]]
+        lab_id : typing.Optional[typing.Union[int, typing.Sequence[int]]]
             The identifier Vital assigned to a lab partner.
 
         name : typing.Optional[str]
@@ -3428,11 +3438,11 @@ class AsyncRawLabTestsClient:
         lab_slug: typing.Optional[str] = None,
         collection_method: typing.Optional[LabTestCollectionMethod] = None,
         status: typing.Optional[LabTestStatus] = None,
-        marker_ids: typing.Optional[typing.Sequence[int]] = None,
-        provider_ids: typing.Optional[typing.Sequence[str]] = None,
+        marker_ids: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
+        provider_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         name: typing.Optional[str] = None,
-        order_key: typing.Optional[GetPaginatedLabTestsRequestOrderKey] = None,
-        order_direction: typing.Optional[GetPaginatedLabTestsRequestOrderDirection] = None,
+        order_key: typing.Optional[LabTestsGetPaginatedRequestOrderKey] = None,
+        order_direction: typing.Optional[LabTestsGetPaginatedRequestOrderDirection] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[LabTestResourcesResponse]:
         """
@@ -3456,18 +3466,18 @@ class AsyncRawLabTestsClient:
         status : typing.Optional[LabTestStatus]
             Filter by the status of these lab tests.
 
-        marker_ids : typing.Optional[typing.Sequence[int]]
+        marker_ids : typing.Optional[typing.Union[int, typing.Sequence[int]]]
             Filter to only include lab tests containing these marker IDs.
 
-        provider_ids : typing.Optional[typing.Sequence[str]]
+        provider_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter to only include lab tests containing these provider IDs.
 
         name : typing.Optional[str]
             Filter by the name of the lab test (a case-insensitive substring search).
 
-        order_key : typing.Optional[GetPaginatedLabTestsRequestOrderKey]
+        order_key : typing.Optional[LabTestsGetPaginatedRequestOrderKey]
 
-        order_direction : typing.Optional[GetPaginatedLabTestsRequestOrderDirection]
+        order_direction : typing.Optional[LabTestsGetPaginatedRequestOrderDirection]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -3544,7 +3554,7 @@ class AsyncRawLabTestsClient:
             request_options=request_options,
         ) as _response:
 
-            async def stream() -> AsyncHttpResponse[typing.AsyncIterator[bytes]]:
+            async def _stream() -> AsyncHttpResponse[typing.AsyncIterator[bytes]]:
                 try:
                     if 200 <= _response.status_code < 300:
                         _chunk_size = request_options.get("chunk_size", None) if request_options is not None else None
@@ -3571,7 +3581,7 @@ class AsyncRawLabTestsClient:
                     )
                 raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-            yield await stream()
+            yield await _stream()
 
     async def get_orders(
         self,
@@ -3581,17 +3591,21 @@ class AsyncRawLabTestsClient:
         end_date: typing.Optional[dt.datetime] = None,
         updated_start_date: typing.Optional[dt.datetime] = None,
         updated_end_date: typing.Optional[dt.datetime] = None,
-        status: typing.Optional[typing.Sequence[OrderLowLevelStatus]] = None,
-        order_key: typing.Optional[GetOrdersLabTestsRequestOrderKey] = None,
-        order_direction: typing.Optional[GetOrdersLabTestsRequestOrderDirection] = None,
-        order_type: typing.Optional[typing.Sequence[LabTestCollectionMethod]] = None,
+        status: typing.Optional[typing.Union[OrderLowLevelStatus, typing.Sequence[OrderLowLevelStatus]]] = None,
+        order_key: typing.Optional[LabTestsGetOrdersRequestOrderKey] = None,
+        order_direction: typing.Optional[LabTestsGetOrdersRequestOrderDirection] = None,
+        order_type: typing.Optional[
+            typing.Union[LabTestCollectionMethod, typing.Sequence[LabTestCollectionMethod]]
+        ] = None,
         is_critical: typing.Optional[bool] = None,
         interpretation: typing.Optional[Interpretation] = None,
-        order_activation_types: typing.Optional[typing.Sequence[OrderActivationType]] = None,
+        order_activation_types: typing.Optional[
+            typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]
+        ] = None,
         user_id: typing.Optional[str] = None,
         patient_name: typing.Optional[str] = None,
         shipping_recipient_name: typing.Optional[str] = None,
-        order_ids: typing.Optional[typing.Sequence[str]] = None,
+        order_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         page: typing.Optional[int] = None,
         size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -3616,16 +3630,16 @@ class AsyncRawLabTestsClient:
         updated_end_date : typing.Optional[dt.datetime]
             Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
-        status : typing.Optional[typing.Sequence[OrderLowLevelStatus]]
+        status : typing.Optional[typing.Union[OrderLowLevelStatus, typing.Sequence[OrderLowLevelStatus]]]
             Filter by low level status.
 
-        order_key : typing.Optional[GetOrdersLabTestsRequestOrderKey]
+        order_key : typing.Optional[LabTestsGetOrdersRequestOrderKey]
             Order key to sort by.
 
-        order_direction : typing.Optional[GetOrdersLabTestsRequestOrderDirection]
+        order_direction : typing.Optional[LabTestsGetOrdersRequestOrderDirection]
             Order direction to sort by.
 
-        order_type : typing.Optional[typing.Sequence[LabTestCollectionMethod]]
+        order_type : typing.Optional[typing.Union[LabTestCollectionMethod, typing.Sequence[LabTestCollectionMethod]]]
             Filter by method used to perform the lab test.
 
         is_critical : typing.Optional[bool]
@@ -3634,7 +3648,7 @@ class AsyncRawLabTestsClient:
         interpretation : typing.Optional[Interpretation]
             Filter by result interpretation of the lab test.
 
-        order_activation_types : typing.Optional[typing.Sequence[OrderActivationType]]
+        order_activation_types : typing.Optional[typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]]
             Filter by activation type.
 
         user_id : typing.Optional[str]
@@ -3646,7 +3660,7 @@ class AsyncRawLabTestsClient:
         shipping_recipient_name : typing.Optional[str]
             Filter by shipping recipient name.
 
-        order_ids : typing.Optional[typing.Sequence[str]]
+        order_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter by order ids.
 
         page : typing.Optional[int]
@@ -3718,7 +3732,7 @@ class AsyncRawLabTestsClient:
         self,
         *,
         request: UsAddress,
-        start_date: typing.Optional[dt.date] = None,
+        start_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[AppointmentAvailabilitySlots]:
         """
@@ -3729,7 +3743,7 @@ class AsyncRawLabTestsClient:
         ----------
         request : UsAddress
 
-        start_date : typing.Optional[dt.date]
+        start_date : typing.Optional[str]
             Start date for appointment availability
 
         request_options : typing.Optional[RequestOptions]
@@ -3744,7 +3758,7 @@ class AsyncRawLabTestsClient:
             "v3/order/phlebotomy/appointment/availability",
             method="POST",
             params={
-                "start_date": str(start_date) if start_date is not None else None,
+                "start_date": start_date,
             },
             json=request,
             headers={
@@ -4128,7 +4142,7 @@ class AsyncRawLabTestsClient:
         zip_code: str,
         radius: typing.Optional[AllowedRadius] = None,
         lab: typing.Optional[ClientFacingLabs] = None,
-        labs: typing.Optional[typing.Sequence[ClientFacingLabs]] = None,
+        labs: typing.Optional[typing.Union[ClientFacingLabs, typing.Sequence[ClientFacingLabs]]] = None,
         lab_account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[AreaInfo]:
@@ -4150,7 +4164,7 @@ class AsyncRawLabTestsClient:
         lab : typing.Optional[ClientFacingLabs]
             Lab to check for PSCs
 
-        labs : typing.Optional[typing.Sequence[ClientFacingLabs]]
+        labs : typing.Optional[typing.Union[ClientFacingLabs, typing.Sequence[ClientFacingLabs]]]
             List of labs to check for PSCs
 
         lab_account_id : typing.Optional[str]
@@ -4208,7 +4222,9 @@ class AsyncRawLabTestsClient:
         zip_code: str,
         lab_id: int,
         radius: typing.Optional[AllowedRadius] = None,
-        capabilities: typing.Optional[typing.Sequence[LabLocationCapability]] = None,
+        capabilities: typing.Optional[
+            typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]
+        ] = None,
         lab_account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PscInfo]:
@@ -4224,7 +4240,7 @@ class AsyncRawLabTestsClient:
         radius : typing.Optional[AllowedRadius]
             Radius in which to search in miles. Note that we limit to 30 PSCs.
 
-        capabilities : typing.Optional[typing.Sequence[LabLocationCapability]]
+        capabilities : typing.Optional[typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]]
             Filter for only locations with certain capabilities
 
         lab_account_id : typing.Optional[str]
@@ -4281,7 +4297,9 @@ class AsyncRawLabTestsClient:
         order_id: str,
         *,
         radius: typing.Optional[AllowedRadius] = None,
-        capabilities: typing.Optional[typing.Sequence[LabLocationCapability]] = None,
+        capabilities: typing.Optional[
+            typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]
+        ] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PscInfo]:
         """
@@ -4293,7 +4311,7 @@ class AsyncRawLabTestsClient:
         radius : typing.Optional[AllowedRadius]
             Radius in which to search in miles
 
-        capabilities : typing.Optional[typing.Sequence[LabLocationCapability]]
+        capabilities : typing.Optional[typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]]
             Filter for only locations with certain capabilities
 
         request_options : typing.Optional[RequestOptions]
@@ -4364,7 +4382,7 @@ class AsyncRawLabTestsClient:
             request_options=request_options,
         ) as _response:
 
-            async def stream() -> AsyncHttpResponse[typing.AsyncIterator[bytes]]:
+            async def _stream() -> AsyncHttpResponse[typing.AsyncIterator[bytes]]:
                 try:
                     if 200 <= _response.status_code < 300:
                         _chunk_size = request_options.get("chunk_size", None) if request_options is not None else None
@@ -4391,7 +4409,7 @@ class AsyncRawLabTestsClient:
                     )
                 raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-            yield await stream()
+            yield await _stream()
 
     async def get_result_metadata(
         self, order_id: str, *, request_options: typing.Optional[RequestOptions] = None
@@ -4532,7 +4550,7 @@ class AsyncRawLabTestsClient:
             request_options=request_options,
         ) as _response:
 
-            async def stream() -> AsyncHttpResponse[typing.AsyncIterator[bytes]]:
+            async def _stream() -> AsyncHttpResponse[typing.AsyncIterator[bytes]]:
                 try:
                     if 200 <= _response.status_code < 300:
                         _chunk_size = request_options.get("chunk_size", None) if request_options is not None else None
@@ -4559,13 +4577,13 @@ class AsyncRawLabTestsClient:
                     )
                 raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-            yield await stream()
+            yield await _stream()
 
     async def get_psc_appointment_availability(
         self,
         *,
-        start_date: typing.Optional[dt.date] = None,
-        site_codes: typing.Optional[typing.Sequence[str]] = None,
+        start_date: typing.Optional[str] = None,
+        site_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         zip_code: typing.Optional[str] = None,
         radius: typing.Optional[AllowedRadius] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -4573,10 +4591,10 @@ class AsyncRawLabTestsClient:
         """
         Parameters
         ----------
-        start_date : typing.Optional[dt.date]
+        start_date : typing.Optional[str]
             Start date for appointment availability
 
-        site_codes : typing.Optional[typing.Sequence[str]]
+        site_codes : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             List of site codes to fetch availability for
 
         zip_code : typing.Optional[str]
@@ -4598,7 +4616,7 @@ class AsyncRawLabTestsClient:
             method="POST",
             params={
                 "lab": "quest",
-                "start_date": str(start_date) if start_date is not None else None,
+                "start_date": start_date,
                 "site_codes": site_codes,
                 "zip_code": zip_code,
                 "radius": radius,
@@ -4935,7 +4953,7 @@ class AsyncRawLabTestsClient:
             request_options=request_options,
         ) as _response:
 
-            async def stream() -> AsyncHttpResponse[typing.AsyncIterator[bytes]]:
+            async def _stream() -> AsyncHttpResponse[typing.AsyncIterator[bytes]]:
                 try:
                     if 200 <= _response.status_code < 300:
                         _chunk_size = request_options.get("chunk_size", None) if request_options is not None else None
@@ -4962,7 +4980,7 @@ class AsyncRawLabTestsClient:
                     )
                 raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-            yield await stream()
+            yield await _stream()
 
     @contextlib.asynccontextmanager
     async def get_order_requistion_pdf(
@@ -4990,7 +5008,7 @@ class AsyncRawLabTestsClient:
             request_options=request_options,
         ) as _response:
 
-            async def stream() -> AsyncHttpResponse[typing.AsyncIterator[bytes]]:
+            async def _stream() -> AsyncHttpResponse[typing.AsyncIterator[bytes]]:
                 try:
                     if 200 <= _response.status_code < 300:
                         _chunk_size = request_options.get("chunk_size", None) if request_options is not None else None
@@ -5017,7 +5035,7 @@ class AsyncRawLabTestsClient:
                     )
                 raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-            yield await stream()
+            yield await _stream()
 
     @contextlib.asynccontextmanager
     async def get_order_abn_pdf(
@@ -5045,7 +5063,7 @@ class AsyncRawLabTestsClient:
             request_options=request_options,
         ) as _response:
 
-            async def stream() -> AsyncHttpResponse[typing.AsyncIterator[bytes]]:
+            async def _stream() -> AsyncHttpResponse[typing.AsyncIterator[bytes]]:
                 try:
                     if 200 <= _response.status_code < 300:
                         _chunk_size = request_options.get("chunk_size", None) if request_options is not None else None
@@ -5072,7 +5090,7 @@ class AsyncRawLabTestsClient:
                     )
                 raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-            yield await stream()
+            yield await _stream()
 
     async def get_order(
         self, order_id: str, *, request_options: typing.Optional[RequestOptions] = None
@@ -5141,7 +5159,7 @@ class AsyncRawLabTestsClient:
         billing_type: typing.Optional[Billing] = OMIT,
         icd_codes: typing.Optional[typing.Sequence[str]] = OMIT,
         consents: typing.Optional[typing.Sequence[Consent]] = OMIT,
-        activate_by: typing.Optional[dt.date] = OMIT,
+        activate_by: typing.Optional[str] = OMIT,
         aoe_answers: typing.Optional[typing.Sequence[AoEAnswer]] = OMIT,
         passthrough: typing.Optional[str] = OMIT,
         lab_account_id: typing.Optional[str] = OMIT,
@@ -5180,7 +5198,7 @@ class AsyncRawLabTestsClient:
 
         consents : typing.Optional[typing.Sequence[Consent]]
 
-        activate_by : typing.Optional[dt.date]
+        activate_by : typing.Optional[str]
             Schedule an Order to be processed in a future date.
 
         aoe_answers : typing.Optional[typing.Sequence[AoEAnswer]]
@@ -5402,7 +5420,7 @@ class AsyncRawLabTestsClient:
         delay: typing.Optional[int] = None,
         request: typing.Optional[SimulationFlags] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[typing.Optional[typing.Any]]:
+    ) -> AsyncHttpResponse[typing.Any]:
         """
         Get available test kits.
 
@@ -5421,7 +5439,7 @@ class AsyncRawLabTestsClient:
 
         Returns
         -------
-        AsyncHttpResponse[typing.Optional[typing.Any]]
+        AsyncHttpResponse[typing.Any]
             Successful Response
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -5439,11 +5457,13 @@ class AsyncRawLabTestsClient:
             omit=OMIT,
         )
         try:
+            if _response is None or not _response.text.strip():
+                return AsyncHttpResponse(response=_response, data=None)
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    typing.Optional[typing.Any],
+                    typing.Any,
                     parse_obj_as(
-                        type_=typing.Optional[typing.Any],  # type: ignore
+                        type_=typing.Any,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

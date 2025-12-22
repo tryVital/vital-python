@@ -23,11 +23,11 @@ from ..types.source import Source
 from ..types.source_link import SourceLink
 from ..types.vital_token_created_response import VitalTokenCreatedResponse
 from .raw_client import AsyncRawLinkClient, RawLinkClient
-from .types.bulk_export_link_request_team_id import BulkExportLinkRequestTeamId
-from .types.bulk_import_link_request_team_id import BulkImportLinkRequestTeamId
-from .types.bulk_pause_link_request_team_id import BulkPauseLinkRequestTeamId
-from .types.bulk_trigger_historical_pull_link_request_team_id import BulkTriggerHistoricalPullLinkRequestTeamId
-from .types.list_bulk_ops_link_request_team_id import ListBulkOpsLinkRequestTeamId
+from .types.link_bulk_export_request_team_id import LinkBulkExportRequestTeamId
+from .types.link_bulk_import_request_team_id import LinkBulkImportRequestTeamId
+from .types.link_bulk_pause_request_team_id import LinkBulkPauseRequestTeamId
+from .types.link_bulk_trigger_historical_pull_request_team_id import LinkBulkTriggerHistoricalPullRequestTeamId
+from .types.link_list_bulk_ops_request_team_id import LinkListBulkOpsRequestTeamId
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -53,7 +53,7 @@ class LinkClient:
         *,
         next_cursor: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
-        team_id: typing.Optional[ListBulkOpsLinkRequestTeamId] = None,
+        team_id: typing.Optional[LinkListBulkOpsRequestTeamId] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> BulkOpsResponse:
         """
@@ -63,7 +63,7 @@ class LinkClient:
 
         page_size : typing.Optional[int]
 
-        team_id : typing.Optional[ListBulkOpsLinkRequestTeamId]
+        team_id : typing.Optional[LinkListBulkOpsRequestTeamId]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -76,8 +76,16 @@ class LinkClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.link.list_bulk_ops()
+        from vital.link import LinkListBulkOpsRequestTeamId
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.link.list_bulk_ops(
+            next_cursor="next_cursor",
+            page_size=1,
+            team_id=LinkListBulkOpsRequestTeamId.INFER_FROM_CONTEXT,
+        )
         """
         _response = self._raw_client.list_bulk_ops(
             next_cursor=next_cursor, page_size=page_size, team_id=team_id, request_options=request_options
@@ -89,7 +97,7 @@ class LinkClient:
         *,
         provider: OAuthProviders,
         connections: typing.Sequence[ConnectionRecipe],
-        team_id: typing.Optional[BulkImportLinkRequestTeamId] = None,
+        team_id: typing.Optional[LinkBulkImportRequestTeamId] = None,
         wait_for_completion: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> BulkImportConnectionsResponse:
@@ -100,7 +108,7 @@ class LinkClient:
 
         connections : typing.Sequence[ConnectionRecipe]
 
-        team_id : typing.Optional[BulkImportLinkRequestTeamId]
+        team_id : typing.Optional[LinkBulkImportRequestTeamId]
 
         wait_for_completion : typing.Optional[bool]
 
@@ -121,11 +129,25 @@ class LinkClient:
 
         Examples
         --------
-        from vital import Vital
-        from vital import OAuthProviders
-        from vital import ConnectionRecipe
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.link.bulk_import(provider=OAuthProviders.OURA, connections=[ConnectionRecipe(user_id='user_id', access_token='access_token', refresh_token='refresh_token', provider_id='provider_id', expires_at=1, )], )
+        from vital import ConnectionRecipe, OAuthProviders, Vital
+        from vital.link import LinkBulkImportRequestTeamId
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.link.bulk_import(
+            team_id=LinkBulkImportRequestTeamId.INFER_FROM_CONTEXT,
+            provider=OAuthProviders.OURA,
+            connections=[
+                ConnectionRecipe(
+                    user_id="user_id",
+                    access_token="access_token",
+                    refresh_token="refresh_token",
+                    provider_id="provider_id",
+                    expires_at=1,
+                )
+            ],
+        )
         """
         _response = self._raw_client.bulk_import(
             provider=provider,
@@ -141,10 +163,10 @@ class LinkClient:
         *,
         user_ids: typing.Sequence[str],
         provider: OAuthProviders,
-        team_id: typing.Optional[BulkTriggerHistoricalPullLinkRequestTeamId] = None,
+        team_id: typing.Optional[LinkBulkTriggerHistoricalPullRequestTeamId] = None,
         wait_for_completion: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.Optional[typing.Any]:
+    ) -> typing.Any:
         """
         Parameters
         ----------
@@ -152,7 +174,7 @@ class LinkClient:
 
         provider : OAuthProviders
 
-        team_id : typing.Optional[BulkTriggerHistoricalPullLinkRequestTeamId]
+        team_id : typing.Optional[LinkBulkTriggerHistoricalPullRequestTeamId]
 
         wait_for_completion : typing.Optional[bool]
 
@@ -168,15 +190,22 @@ class LinkClient:
 
         Returns
         -------
-        typing.Optional[typing.Any]
+        typing.Any
             Successful Response
 
         Examples
         --------
-        from vital import Vital
-        from vital import OAuthProviders
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.link.bulk_trigger_historical_pull(user_ids=['user_ids'], provider=OAuthProviders.OURA, )
+        from vital import OAuthProviders, Vital
+        from vital.link import LinkBulkTriggerHistoricalPullRequestTeamId
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.link.bulk_trigger_historical_pull(
+            team_id=LinkBulkTriggerHistoricalPullRequestTeamId.INFER_FROM_CONTEXT,
+            user_ids=["user_ids"],
+            provider=OAuthProviders.OURA,
+        )
         """
         _response = self._raw_client.bulk_trigger_historical_pull(
             user_ids=user_ids,
@@ -191,7 +220,7 @@ class LinkClient:
         self,
         *,
         provider: OAuthProviders,
-        team_id: typing.Optional[BulkExportLinkRequestTeamId] = None,
+        team_id: typing.Optional[LinkBulkExportRequestTeamId] = None,
         user_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         next_token: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -201,7 +230,7 @@ class LinkClient:
         ----------
         provider : OAuthProviders
 
-        team_id : typing.Optional[BulkExportLinkRequestTeamId]
+        team_id : typing.Optional[LinkBulkExportRequestTeamId]
 
         user_ids : typing.Optional[typing.Sequence[str]]
 
@@ -217,10 +246,16 @@ class LinkClient:
 
         Examples
         --------
-        from vital import Vital
-        from vital import OAuthProviders
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.link.bulk_export(provider=OAuthProviders.OURA, )
+        from vital import OAuthProviders, Vital
+        from vital.link import LinkBulkExportRequestTeamId
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.link.bulk_export(
+            team_id=LinkBulkExportRequestTeamId.INFER_FROM_CONTEXT,
+            provider=OAuthProviders.OURA,
+        )
         """
         _response = self._raw_client.bulk_export(
             provider=provider,
@@ -236,9 +271,9 @@ class LinkClient:
         *,
         user_ids: typing.Sequence[str],
         provider: OAuthProviders,
-        team_id: typing.Optional[BulkPauseLinkRequestTeamId] = None,
+        team_id: typing.Optional[LinkBulkPauseRequestTeamId] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.Optional[typing.Any]:
+    ) -> typing.Any:
         """
         Parameters
         ----------
@@ -246,22 +281,29 @@ class LinkClient:
 
         provider : OAuthProviders
 
-        team_id : typing.Optional[BulkPauseLinkRequestTeamId]
+        team_id : typing.Optional[LinkBulkPauseRequestTeamId]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        typing.Optional[typing.Any]
+        typing.Any
             Successful Response
 
         Examples
         --------
-        from vital import Vital
-        from vital import OAuthProviders
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.link.bulk_pause(user_ids=['user_ids'], provider=OAuthProviders.OURA, )
+        from vital import OAuthProviders, Vital
+        from vital.link import LinkBulkPauseRequestTeamId
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.link.bulk_pause(
+            team_id=LinkBulkPauseRequestTeamId.INFER_FROM_CONTEXT,
+            user_ids=["user_ids"],
+            provider=OAuthProviders.OURA,
+        )
         """
         _response = self._raw_client.bulk_pause(
             user_ids=user_ids, provider=provider, team_id=team_id, request_options=request_options
@@ -330,8 +372,13 @@ class LinkClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.link.token(user_id='user_id', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.link.token(
+            user_id="user_id",
+        )
         """
         _response = self._raw_client.token(
             user_id=user_id,
@@ -346,7 +393,7 @@ class LinkClient:
 
     def is_token_valid(
         self, *, token: str, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.Dict[str, typing.Optional[typing.Any]]:
+    ) -> typing.Dict[str, typing.Any]:
         """
         Parameters
         ----------
@@ -357,14 +404,19 @@ class LinkClient:
 
         Returns
         -------
-        typing.Dict[str, typing.Optional[typing.Any]]
+        typing.Dict[str, typing.Any]
             Successful Response
 
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.link.is_token_valid(token='token', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.link.is_token_valid(
+            token="token",
+        )
         """
         _response = self._raw_client.is_token_valid(token=token, request_options=request_options)
         return _response.data
@@ -396,9 +448,19 @@ class LinkClient:
 
         Examples
         --------
+        import datetime
+
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.link.code_create(user_id='user_id', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.link.code_create(
+            user_id="user_id",
+            expires_at=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+        )
         """
         _response = self._raw_client.code_create(
             user_id=user_id, expires_at=expires_at, request_options=request_options
@@ -407,7 +469,7 @@ class LinkClient:
 
     def start_connect(
         self, *, link_token: str, provider: Providers, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.Dict[str, typing.Optional[typing.Any]]:
+    ) -> typing.Dict[str, typing.Any]:
         """
         REQUEST_SOURCE: VITAL-LINK
         Start link token process
@@ -423,15 +485,20 @@ class LinkClient:
 
         Returns
         -------
-        typing.Dict[str, typing.Optional[typing.Any]]
+        typing.Dict[str, typing.Any]
             Successful Response
 
         Examples
         --------
-        from vital import Vital
-        from vital import Providers
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.link.start_connect(link_token='link_token', provider=Providers.OURA, )
+        from vital import Providers, Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.link.start_connect(
+            link_token="link_token",
+            provider=Providers.OURA,
+        )
         """
         _response = self._raw_client.start_connect(
             link_token=link_token, provider=provider, request_options=request_options
@@ -440,7 +507,7 @@ class LinkClient:
 
     def token_state(
         self, *, vital_link_token: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.Dict[str, typing.Optional[typing.Any]]:
+    ) -> typing.Dict[str, typing.Any]:
         """
         REQUEST_SOURCE: VITAL-LINK
         Check link token state - can be hit continuously used as heartbeat
@@ -454,14 +521,19 @@ class LinkClient:
 
         Returns
         -------
-        typing.Dict[str, typing.Optional[typing.Any]]
+        typing.Dict[str, typing.Any]
             Successful Response
 
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.link.token_state()
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.link.token_state(
+            vital_link_token="x-vital-link-token",
+        )
         """
         _response = self._raw_client.token_state(vital_link_token=vital_link_token, request_options=request_options)
         return _response.data
@@ -475,7 +547,7 @@ class LinkClient:
         vital_link_token: typing.Optional[str] = None,
         region: typing.Optional[Region] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.Optional[typing.Any]:
+    ) -> typing.Any:
         """
         Deprecated. Use `POST /v2/link/provider/email/{provider}` instead.
 
@@ -496,16 +568,22 @@ class LinkClient:
 
         Returns
         -------
-        typing.Optional[typing.Any]
+        typing.Any
             Successful Response
 
         Examples
         --------
-        from vital import Vital
-        from vital import Providers
-        from vital import AuthType
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.link.email_auth(email='email', provider=Providers.OURA, auth_type=AuthType.PASSWORD, )
+        from vital import AuthType, Providers, Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.link.email_auth(
+            vital_link_token="x-vital-link-token",
+            email="email",
+            provider=Providers.OURA,
+            auth_type=AuthType.PASSWORD,
+        )
         """
         _response = self._raw_client.email_auth(
             email=email,
@@ -526,7 +604,7 @@ class LinkClient:
         auth_type: AuthType,
         vital_link_token: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.Optional[typing.Any]:
+    ) -> typing.Any:
         """
         Deprecated. Use `POST /v2/link/provider/password/{provider}` instead.
 
@@ -547,16 +625,23 @@ class LinkClient:
 
         Returns
         -------
-        typing.Optional[typing.Any]
+        typing.Any
             Successful Response
 
         Examples
         --------
-        from vital import Vital
-        from vital import Providers
-        from vital import AuthType
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.link.password_auth(username='username', password='password', provider=Providers.OURA, auth_type=AuthType.PASSWORD, )
+        from vital import AuthType, Providers, Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.link.password_auth(
+            vital_link_token="x-vital-link-token",
+            username="username",
+            password="password",
+            provider=Providers.OURA,
+            auth_type=AuthType.PASSWORD,
+        )
         """
         _response = self._raw_client.password_auth(
             username=username,
@@ -594,10 +679,15 @@ class LinkClient:
 
         Examples
         --------
-        from vital import Vital
-        from vital import OAuthProviders
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.link.generate_oauth_link(oauth_provider=OAuthProviders.OURA, )
+        from vital import OAuthProviders, Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.link.generate_oauth_link(
+            oauth_provider=OAuthProviders.OURA,
+            vital_link_token="x-vital-link-token",
+        )
         """
         _response = self._raw_client.generate_oauth_link(
             oauth_provider, vital_link_token=vital_link_token, request_options=request_options
@@ -642,10 +732,17 @@ class LinkClient:
 
         Examples
         --------
-        from vital import Vital
-        from vital import PasswordProviders
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.link.connect_password_provider(provider=PasswordProviders.WHOOP, username='username', password='password', )
+        from vital import PasswordProviders, Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.link.connect_password_provider(
+            provider=PasswordProviders.WHOOP,
+            vital_link_token="x-vital-link-token",
+            username="username",
+            password="password",
+        )
         """
         _response = self._raw_client.connect_password_provider(
             provider,
@@ -686,10 +783,16 @@ class LinkClient:
 
         Examples
         --------
-        from vital import Vital
-        from vital import PasswordProviders
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.link.complete_password_provider_mfa(provider=PasswordProviders.WHOOP, mfa_code='mfa_code', )
+        from vital import PasswordProviders, Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.link.complete_password_provider_mfa(
+            provider=PasswordProviders.WHOOP,
+            vital_link_token="x-vital-link-token",
+            mfa_code="mfa_code",
+        )
         """
         _response = self._raw_client.complete_password_provider_mfa(
             provider, mfa_code=mfa_code, vital_link_token=vital_link_token, request_options=request_options
@@ -704,7 +807,7 @@ class LinkClient:
         email_provider_auth_link_provider: typing.Optional[Providers] = OMIT,
         region: typing.Optional[Region] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.Optional[typing.Any]:
+    ) -> typing.Any:
         """
         This connects auth providers that are email based.
 
@@ -723,14 +826,20 @@ class LinkClient:
 
         Returns
         -------
-        typing.Optional[typing.Any]
+        typing.Any
             Successful Response
 
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.link.connect_email_auth_provider(email='email', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.link.connect_email_auth_provider(
+            vital_link_token="x-vital-link-token",
+            email="email",
+        )
         """
         _response = self._raw_client.connect_email_auth_provider(
             email=email,
@@ -762,8 +871,13 @@ class LinkClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.link.get_all_providers()
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.link.get_all_providers(
+            vital_link_token="x-vital-link-token",
+        )
         """
         _response = self._raw_client.get_all_providers(
             vital_link_token=vital_link_token, request_options=request_options
@@ -797,10 +911,15 @@ class LinkClient:
 
         Examples
         --------
-        from vital import Vital
-        from vital import ManualProviders
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.link.connect_manual_provider(provider=ManualProviders.BEURER_BLE, user_id='user_id', )
+        from vital import ManualProviders, Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.link.connect_manual_provider(
+            provider=ManualProviders.BEURER_BLE,
+            user_id="user_id",
+        )
         """
         _response = self._raw_client.connect_manual_provider(
             provider, user_id=user_id, provider_id=provider_id, request_options=request_options
@@ -831,10 +950,15 @@ class LinkClient:
 
         Examples
         --------
-        from vital import Vital
-        from vital import DemoProviders
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.link.connect_demo_provider(user_id='user_id', provider=DemoProviders.APPLE_HEALTH_KIT, )
+        from vital import DemoProviders, Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.link.connect_demo_provider(
+            user_id="user_id",
+            provider=DemoProviders.APPLE_HEALTH_KIT,
+        )
         """
         _response = self._raw_client.connect_demo_provider(
             user_id=user_id, provider=provider, request_options=request_options
@@ -862,7 +986,7 @@ class AsyncLinkClient:
         *,
         next_cursor: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
-        team_id: typing.Optional[ListBulkOpsLinkRequestTeamId] = None,
+        team_id: typing.Optional[LinkListBulkOpsRequestTeamId] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> BulkOpsResponse:
         """
@@ -872,7 +996,7 @@ class AsyncLinkClient:
 
         page_size : typing.Optional[int]
 
-        team_id : typing.Optional[ListBulkOpsLinkRequestTeamId]
+        team_id : typing.Optional[LinkListBulkOpsRequestTeamId]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -884,11 +1008,24 @@ class AsyncLinkClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+        from vital.link import LinkListBulkOpsRequestTeamId
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.link.list_bulk_ops()
+            await client.link.list_bulk_ops(
+                next_cursor="next_cursor",
+                page_size=1,
+                team_id=LinkListBulkOpsRequestTeamId.INFER_FROM_CONTEXT,
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.list_bulk_ops(
@@ -901,7 +1038,7 @@ class AsyncLinkClient:
         *,
         provider: OAuthProviders,
         connections: typing.Sequence[ConnectionRecipe],
-        team_id: typing.Optional[BulkImportLinkRequestTeamId] = None,
+        team_id: typing.Optional[LinkBulkImportRequestTeamId] = None,
         wait_for_completion: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> BulkImportConnectionsResponse:
@@ -912,7 +1049,7 @@ class AsyncLinkClient:
 
         connections : typing.Sequence[ConnectionRecipe]
 
-        team_id : typing.Optional[BulkImportLinkRequestTeamId]
+        team_id : typing.Optional[LinkBulkImportRequestTeamId]
 
         wait_for_completion : typing.Optional[bool]
 
@@ -933,13 +1070,32 @@ class AsyncLinkClient:
 
         Examples
         --------
-        from vital import AsyncVital
-        from vital import OAuthProviders
-        from vital import ConnectionRecipe
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital, ConnectionRecipe, OAuthProviders
+        from vital.link import LinkBulkImportRequestTeamId
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.link.bulk_import(provider=OAuthProviders.OURA, connections=[ConnectionRecipe(user_id='user_id', access_token='access_token', refresh_token='refresh_token', provider_id='provider_id', expires_at=1, )], )
+            await client.link.bulk_import(
+                team_id=LinkBulkImportRequestTeamId.INFER_FROM_CONTEXT,
+                provider=OAuthProviders.OURA,
+                connections=[
+                    ConnectionRecipe(
+                        user_id="user_id",
+                        access_token="access_token",
+                        refresh_token="refresh_token",
+                        provider_id="provider_id",
+                        expires_at=1,
+                    )
+                ],
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.bulk_import(
@@ -956,10 +1112,10 @@ class AsyncLinkClient:
         *,
         user_ids: typing.Sequence[str],
         provider: OAuthProviders,
-        team_id: typing.Optional[BulkTriggerHistoricalPullLinkRequestTeamId] = None,
+        team_id: typing.Optional[LinkBulkTriggerHistoricalPullRequestTeamId] = None,
         wait_for_completion: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.Optional[typing.Any]:
+    ) -> typing.Any:
         """
         Parameters
         ----------
@@ -967,7 +1123,7 @@ class AsyncLinkClient:
 
         provider : OAuthProviders
 
-        team_id : typing.Optional[BulkTriggerHistoricalPullLinkRequestTeamId]
+        team_id : typing.Optional[LinkBulkTriggerHistoricalPullRequestTeamId]
 
         wait_for_completion : typing.Optional[bool]
 
@@ -983,17 +1139,29 @@ class AsyncLinkClient:
 
         Returns
         -------
-        typing.Optional[typing.Any]
+        typing.Any
             Successful Response
 
         Examples
         --------
-        from vital import AsyncVital
-        from vital import OAuthProviders
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital, OAuthProviders
+        from vital.link import LinkBulkTriggerHistoricalPullRequestTeamId
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.link.bulk_trigger_historical_pull(user_ids=['user_ids'], provider=OAuthProviders.OURA, )
+            await client.link.bulk_trigger_historical_pull(
+                team_id=LinkBulkTriggerHistoricalPullRequestTeamId.INFER_FROM_CONTEXT,
+                user_ids=["user_ids"],
+                provider=OAuthProviders.OURA,
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.bulk_trigger_historical_pull(
@@ -1009,7 +1177,7 @@ class AsyncLinkClient:
         self,
         *,
         provider: OAuthProviders,
-        team_id: typing.Optional[BulkExportLinkRequestTeamId] = None,
+        team_id: typing.Optional[LinkBulkExportRequestTeamId] = None,
         user_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         next_token: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1019,7 +1187,7 @@ class AsyncLinkClient:
         ----------
         provider : OAuthProviders
 
-        team_id : typing.Optional[BulkExportLinkRequestTeamId]
+        team_id : typing.Optional[LinkBulkExportRequestTeamId]
 
         user_ids : typing.Optional[typing.Sequence[str]]
 
@@ -1035,12 +1203,23 @@ class AsyncLinkClient:
 
         Examples
         --------
-        from vital import AsyncVital
-        from vital import OAuthProviders
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital, OAuthProviders
+        from vital.link import LinkBulkExportRequestTeamId
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.link.bulk_export(provider=OAuthProviders.OURA, )
+            await client.link.bulk_export(
+                team_id=LinkBulkExportRequestTeamId.INFER_FROM_CONTEXT,
+                provider=OAuthProviders.OURA,
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.bulk_export(
@@ -1057,9 +1236,9 @@ class AsyncLinkClient:
         *,
         user_ids: typing.Sequence[str],
         provider: OAuthProviders,
-        team_id: typing.Optional[BulkPauseLinkRequestTeamId] = None,
+        team_id: typing.Optional[LinkBulkPauseRequestTeamId] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.Optional[typing.Any]:
+    ) -> typing.Any:
         """
         Parameters
         ----------
@@ -1067,24 +1246,36 @@ class AsyncLinkClient:
 
         provider : OAuthProviders
 
-        team_id : typing.Optional[BulkPauseLinkRequestTeamId]
+        team_id : typing.Optional[LinkBulkPauseRequestTeamId]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        typing.Optional[typing.Any]
+        typing.Any
             Successful Response
 
         Examples
         --------
-        from vital import AsyncVital
-        from vital import OAuthProviders
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital, OAuthProviders
+        from vital.link import LinkBulkPauseRequestTeamId
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.link.bulk_pause(user_ids=['user_ids'], provider=OAuthProviders.OURA, )
+            await client.link.bulk_pause(
+                team_id=LinkBulkPauseRequestTeamId.INFER_FROM_CONTEXT,
+                user_ids=["user_ids"],
+                provider=OAuthProviders.OURA,
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.bulk_pause(
@@ -1153,11 +1344,21 @@ class AsyncLinkClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.link.token(user_id='user_id', )
+            await client.link.token(
+                user_id="user_id",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.token(
@@ -1173,7 +1374,7 @@ class AsyncLinkClient:
 
     async def is_token_valid(
         self, *, token: str, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.Dict[str, typing.Optional[typing.Any]]:
+    ) -> typing.Dict[str, typing.Any]:
         """
         Parameters
         ----------
@@ -1184,16 +1385,26 @@ class AsyncLinkClient:
 
         Returns
         -------
-        typing.Dict[str, typing.Optional[typing.Any]]
+        typing.Dict[str, typing.Any]
             Successful Response
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.link.is_token_valid(token='token', )
+            await client.link.is_token_valid(
+                token="token",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.is_token_valid(token=token, request_options=request_options)
@@ -1226,11 +1437,25 @@ class AsyncLinkClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+        import datetime
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.link.code_create(user_id='user_id', )
+            await client.link.code_create(
+                user_id="user_id",
+                expires_at=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.code_create(
@@ -1240,7 +1465,7 @@ class AsyncLinkClient:
 
     async def start_connect(
         self, *, link_token: str, provider: Providers, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.Dict[str, typing.Optional[typing.Any]]:
+    ) -> typing.Dict[str, typing.Any]:
         """
         REQUEST_SOURCE: VITAL-LINK
         Start link token process
@@ -1256,17 +1481,27 @@ class AsyncLinkClient:
 
         Returns
         -------
-        typing.Dict[str, typing.Optional[typing.Any]]
+        typing.Dict[str, typing.Any]
             Successful Response
 
         Examples
         --------
-        from vital import AsyncVital
-        from vital import Providers
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital, Providers
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.link.start_connect(link_token='link_token', provider=Providers.OURA, )
+            await client.link.start_connect(
+                link_token="link_token",
+                provider=Providers.OURA,
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.start_connect(
@@ -1276,7 +1511,7 @@ class AsyncLinkClient:
 
     async def token_state(
         self, *, vital_link_token: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.Dict[str, typing.Optional[typing.Any]]:
+    ) -> typing.Dict[str, typing.Any]:
         """
         REQUEST_SOURCE: VITAL-LINK
         Check link token state - can be hit continuously used as heartbeat
@@ -1290,16 +1525,26 @@ class AsyncLinkClient:
 
         Returns
         -------
-        typing.Dict[str, typing.Optional[typing.Any]]
+        typing.Dict[str, typing.Any]
             Successful Response
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.link.token_state()
+            await client.link.token_state(
+                vital_link_token="x-vital-link-token",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.token_state(
@@ -1316,7 +1561,7 @@ class AsyncLinkClient:
         vital_link_token: typing.Optional[str] = None,
         region: typing.Optional[Region] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.Optional[typing.Any]:
+    ) -> typing.Any:
         """
         Deprecated. Use `POST /v2/link/provider/email/{provider}` instead.
 
@@ -1337,18 +1582,29 @@ class AsyncLinkClient:
 
         Returns
         -------
-        typing.Optional[typing.Any]
+        typing.Any
             Successful Response
 
         Examples
         --------
-        from vital import AsyncVital
-        from vital import Providers
-        from vital import AuthType
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital, AuthType, Providers
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.link.email_auth(email='email', provider=Providers.OURA, auth_type=AuthType.PASSWORD, )
+            await client.link.email_auth(
+                vital_link_token="x-vital-link-token",
+                email="email",
+                provider=Providers.OURA,
+                auth_type=AuthType.PASSWORD,
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.email_auth(
@@ -1370,7 +1626,7 @@ class AsyncLinkClient:
         auth_type: AuthType,
         vital_link_token: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.Optional[typing.Any]:
+    ) -> typing.Any:
         """
         Deprecated. Use `POST /v2/link/provider/password/{provider}` instead.
 
@@ -1391,18 +1647,30 @@ class AsyncLinkClient:
 
         Returns
         -------
-        typing.Optional[typing.Any]
+        typing.Any
             Successful Response
 
         Examples
         --------
-        from vital import AsyncVital
-        from vital import Providers
-        from vital import AuthType
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital, AuthType, Providers
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.link.password_auth(username='username', password='password', provider=Providers.OURA, auth_type=AuthType.PASSWORD, )
+            await client.link.password_auth(
+                vital_link_token="x-vital-link-token",
+                username="username",
+                password="password",
+                provider=Providers.OURA,
+                auth_type=AuthType.PASSWORD,
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.password_auth(
@@ -1441,12 +1709,22 @@ class AsyncLinkClient:
 
         Examples
         --------
-        from vital import AsyncVital
-        from vital import OAuthProviders
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital, OAuthProviders
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.link.generate_oauth_link(oauth_provider=OAuthProviders.OURA, )
+            await client.link.generate_oauth_link(
+                oauth_provider=OAuthProviders.OURA,
+                vital_link_token="x-vital-link-token",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.generate_oauth_link(
@@ -1492,12 +1770,24 @@ class AsyncLinkClient:
 
         Examples
         --------
-        from vital import AsyncVital
-        from vital import PasswordProviders
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital, PasswordProviders
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.link.connect_password_provider(provider=PasswordProviders.WHOOP, username='username', password='password', )
+            await client.link.connect_password_provider(
+                provider=PasswordProviders.WHOOP,
+                vital_link_token="x-vital-link-token",
+                username="username",
+                password="password",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.connect_password_provider(
@@ -1539,12 +1829,23 @@ class AsyncLinkClient:
 
         Examples
         --------
-        from vital import AsyncVital
-        from vital import PasswordProviders
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital, PasswordProviders
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.link.complete_password_provider_mfa(provider=PasswordProviders.WHOOP, mfa_code='mfa_code', )
+            await client.link.complete_password_provider_mfa(
+                provider=PasswordProviders.WHOOP,
+                vital_link_token="x-vital-link-token",
+                mfa_code="mfa_code",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.complete_password_provider_mfa(
@@ -1560,7 +1861,7 @@ class AsyncLinkClient:
         email_provider_auth_link_provider: typing.Optional[Providers] = OMIT,
         region: typing.Optional[Region] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.Optional[typing.Any]:
+    ) -> typing.Any:
         """
         This connects auth providers that are email based.
 
@@ -1579,16 +1880,27 @@ class AsyncLinkClient:
 
         Returns
         -------
-        typing.Optional[typing.Any]
+        typing.Any
             Successful Response
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.link.connect_email_auth_provider(email='email', )
+            await client.link.connect_email_auth_provider(
+                vital_link_token="x-vital-link-token",
+                email="email",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.connect_email_auth_provider(
@@ -1620,11 +1932,21 @@ class AsyncLinkClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.link.get_all_providers()
+            await client.link.get_all_providers(
+                vital_link_token="x-vital-link-token",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.get_all_providers(
@@ -1659,12 +1981,22 @@ class AsyncLinkClient:
 
         Examples
         --------
-        from vital import AsyncVital
-        from vital import ManualProviders
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital, ManualProviders
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.link.connect_manual_provider(provider=ManualProviders.BEURER_BLE, user_id='user_id', )
+            await client.link.connect_manual_provider(
+                provider=ManualProviders.BEURER_BLE,
+                user_id="user_id",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.connect_manual_provider(
@@ -1696,12 +2028,22 @@ class AsyncLinkClient:
 
         Examples
         --------
-        from vital import AsyncVital
-        from vital import DemoProviders
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital, DemoProviders
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.link.connect_demo_provider(user_id='user_id', provider=DemoProviders.APPLE_HEALTH_KIT, )
+            await client.link.connect_demo_provider(
+                user_id="user_id",
+                provider=DemoProviders.APPLE_HEALTH_KIT,
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.connect_demo_provider(

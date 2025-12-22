@@ -5,6 +5,7 @@ from __future__ import annotations
 import typing
 
 import pydantic
+import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .client_facing_at_home_phlebotomy_order import ClientFacingAtHomePhlebotomyOrder
 from .client_facing_on_site_collection_order import ClientFacingOnSiteCollectionOrder
@@ -68,9 +69,12 @@ class ClientFacingOrderDetails_OnSiteCollection(UniversalBaseModel):
             extra = pydantic.Extra.allow
 
 
-ClientFacingOrderDetails = typing.Union[
-    ClientFacingOrderDetails_WalkInTest,
-    ClientFacingOrderDetails_Testkit,
-    ClientFacingOrderDetails_AtHomePhlebotomy,
-    ClientFacingOrderDetails_OnSiteCollection,
+ClientFacingOrderDetails = typing_extensions.Annotated[
+    typing.Union[
+        ClientFacingOrderDetails_WalkInTest,
+        ClientFacingOrderDetails_Testkit,
+        ClientFacingOrderDetails_AtHomePhlebotomy,
+        ClientFacingOrderDetails_OnSiteCollection,
+    ],
+    pydantic.Field(discriminator="type"),
 ]

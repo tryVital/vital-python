@@ -10,7 +10,7 @@ from .client_facing_provider import ClientFacingProvider
 
 class ProfileInDb(UniversalBaseModel):
     id: str
-    data: typing.Optional[typing.Any] = None
+    data: typing.Any
     user_id: str
     source_id: int
     priority_id: typing.Optional[int] = None

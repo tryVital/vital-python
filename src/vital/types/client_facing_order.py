@@ -92,7 +92,7 @@ class ClientFacingOrder(UniversalBaseModel):
     Shipping Details. For unregistered testkit orders.
     """
 
-    activate_by: typing.Optional[dt.date] = pydantic.Field(default=None)
+    activate_by: typing.Optional[str] = pydantic.Field(default=None)
     """
     Schedule an Order to be processed in a future date.
     """
@@ -115,12 +115,12 @@ class ClientFacingOrder(UniversalBaseModel):
     Defines whether the order result has missing biomarkers.
     """
 
-    expected_result_by_date: typing.Optional[dt.date] = pydantic.Field(default=None)
+    expected_result_by_date: typing.Optional[str] = pydantic.Field(default=None)
     """
     The common-case date by which the order result is expected to be available.
     """
 
-    worst_case_result_by_date: typing.Optional[dt.date] = pydantic.Field(default=None)
+    worst_case_result_by_date: typing.Optional[str] = pydantic.Field(default=None)
     """
     The latest date by which the order result is expected to be available.
     """

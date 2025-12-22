@@ -4,4 +4,4 @@ import typing
 
 from .biomarker_result import BiomarkerResult
 
-LabResultsRawResults = typing.Union[typing.List[BiomarkerResult], typing.Dict[str, typing.Optional[typing.Any]]]
+LabResultsRawResults = typing.Union[typing.List[BiomarkerResult], typing.Dict[str, typing.Any]]

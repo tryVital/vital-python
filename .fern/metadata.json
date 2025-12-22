@@ -1,0 +1,14 @@
+{
+  "cliVersion": "3.30.3",
+  "generatorName": "fernapi/fern-python-sdk",
+  "generatorVersion": "4.46.6",
+  "generatorConfig": {
+    "client_class_name": "Vital",
+    "inline_request_params": false,
+    "pydantic_config": {
+      "enum_type": "forward_compatible_python_enums",
+      "use_pydantic_field_aliases": true
+    }
+  },
+  "sdkVersion": "2.1.546"
+}

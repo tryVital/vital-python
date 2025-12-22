@@ -38,7 +38,7 @@ class ClientFacingAppointment(UniversalBaseModel):
     external_id: typing.Optional[str] = None
     can_reschedule: bool
     event_status: AppointmentEventStatus
-    event_data: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    event_data: typing.Optional[typing.Dict[str, typing.Any]] = None
     events: typing.List[ClientFacingAppointmentEvent]
 
     if IS_PYDANTIC_V2:

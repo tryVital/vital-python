@@ -8,7 +8,6 @@ from ..types.providers import Providers
 from ..types.user_historical_pulls_response import UserHistoricalPullsResponse
 from ..types.user_resources_response import UserResourcesResponse
 from .raw_client import AsyncRawIntrospectClient, RawIntrospectClient
-from .types.get_user_historical_pulls_introspect_request_provider import GetUserHistoricalPullsIntrospectRequestProvider
 
 
 class IntrospectClient:
@@ -61,9 +60,18 @@ class IntrospectClient:
 
         Examples
         --------
-        from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.introspect.get_user_resources()
+        from vital import Providers, Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.introspect.get_user_resources(
+            user_id="user_id",
+            provider=Providers.OURA,
+            user_limit=1,
+            cursor="cursor",
+            next_cursor="next_cursor",
+        )
         """
         _response = self._raw_client.get_user_resources(
             user_id=user_id,
@@ -79,7 +87,7 @@ class IntrospectClient:
         self,
         *,
         user_id: typing.Optional[str] = None,
-        provider: typing.Optional[GetUserHistoricalPullsIntrospectRequestProvider] = None,
+        provider: typing.Optional[Providers] = None,
         user_limit: typing.Optional[int] = None,
         cursor: typing.Optional[str] = None,
         next_cursor: typing.Optional[str] = None,
@@ -91,7 +99,7 @@ class IntrospectClient:
         user_id : typing.Optional[str]
             Filter by user ID.
 
-        provider : typing.Optional[GetUserHistoricalPullsIntrospectRequestProvider]
+        provider : typing.Optional[Providers]
 
         user_limit : typing.Optional[int]
 
@@ -110,9 +118,18 @@ class IntrospectClient:
 
         Examples
         --------
-        from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.introspect.get_user_historical_pulls()
+        from vital import Providers, Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.introspect.get_user_historical_pulls(
+            user_id="user_id",
+            provider=Providers.OURA,
+            user_limit=1,
+            cursor="cursor",
+            next_cursor="next_cursor",
+        )
         """
         _response = self._raw_client.get_user_historical_pulls(
             user_id=user_id,
@@ -175,11 +192,25 @@ class AsyncIntrospectClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital, Providers
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.introspect.get_user_resources()
+            await client.introspect.get_user_resources(
+                user_id="user_id",
+                provider=Providers.OURA,
+                user_limit=1,
+                cursor="cursor",
+                next_cursor="next_cursor",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.get_user_resources(
@@ -196,7 +227,7 @@ class AsyncIntrospectClient:
         self,
         *,
         user_id: typing.Optional[str] = None,
-        provider: typing.Optional[GetUserHistoricalPullsIntrospectRequestProvider] = None,
+        provider: typing.Optional[Providers] = None,
         user_limit: typing.Optional[int] = None,
         cursor: typing.Optional[str] = None,
         next_cursor: typing.Optional[str] = None,
@@ -208,7 +239,7 @@ class AsyncIntrospectClient:
         user_id : typing.Optional[str]
             Filter by user ID.
 
-        provider : typing.Optional[GetUserHistoricalPullsIntrospectRequestProvider]
+        provider : typing.Optional[Providers]
 
         user_limit : typing.Optional[int]
 
@@ -227,11 +258,25 @@ class AsyncIntrospectClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital, Providers
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.introspect.get_user_historical_pulls()
+            await client.introspect.get_user_historical_pulls(
+                user_id="user_id",
+                provider=Providers.OURA,
+                user_limit=1,
+                cursor="cursor",
+                next_cursor="next_cursor",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.get_user_historical_pulls(

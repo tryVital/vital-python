@@ -57,7 +57,10 @@ class OrderClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
         client.order.resend_events()
         """
         _response = self._raw_client.resend_events(
@@ -110,11 +113,19 @@ class AsyncOrderClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
             await client.order.resend_events()
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.resend_events(
