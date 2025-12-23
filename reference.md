@@ -10033,6 +10033,14 @@ client.user.create_insurance(user_id='user_id', payor_code='payor_code', member_
 <dl>
 <dd>
 
+**is_primary:** `typing.Optional[bool]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -10077,6 +10085,14 @@ client.user.get_latest_insurance(user_id='user_id', )
 <dd>
 
 **user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_primary:** `typing.Optional[bool]` 
     
 </dd>
 </dl>
