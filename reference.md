@@ -13455,8 +13455,8 @@ client = Vital(
     api_key="YOUR_API_KEY",
 )
 client.lab_tests.get_markers_by_lab_and_provider_id(
-    lab_id=1,
     provider_id="provider_id",
+    lab_id=1,
     lab_account_id="lab_account_id",
 )
 
@@ -13474,7 +13474,7 @@ client.lab_tests.get_markers_by_lab_and_provider_id(
 <dl>
 <dd>
 
-**lab_id:** `int` 
+**provider_id:** `str` 
     
 </dd>
 </dl>
@@ -13482,7 +13482,7 @@ client.lab_tests.get_markers_by_lab_and_provider_id(
 <dl>
 <dd>
 
-**provider_id:** `str` 
+**lab_id:** `int` 
     
 </dd>
 </dl>

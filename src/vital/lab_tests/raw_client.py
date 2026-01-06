@@ -575,8 +575,8 @@ class RawLabTestsClient:
 
     def get_markers_by_lab_and_provider_id(
         self,
-        lab_id: int,
         provider_id: str,
+        lab_id: int,
         *,
         lab_account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -586,9 +586,9 @@ class RawLabTestsClient:
 
         Parameters
         ----------
-        lab_id : int
-
         provider_id : str
+
+        lab_id : int
 
         lab_account_id : typing.Optional[str]
             The lab account ID. This lab account is used to determine the availability of markers and lab tests.
@@ -3333,8 +3333,8 @@ class AsyncRawLabTestsClient:
 
     async def get_markers_by_lab_and_provider_id(
         self,
-        lab_id: int,
         provider_id: str,
+        lab_id: int,
         *,
         lab_account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -3344,9 +3344,9 @@ class AsyncRawLabTestsClient:
 
         Parameters
         ----------
-        lab_id : int
-
         provider_id : str
+
+        lab_id : int
 
         lab_account_id : typing.Optional[str]
             The lab account ID. This lab account is used to determine the availability of markers and lab tests.

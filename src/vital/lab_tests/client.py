@@ -463,8 +463,8 @@ class LabTestsClient:
 
     def get_markers_by_lab_and_provider_id(
         self,
-        lab_id: int,
         provider_id: str,
+        lab_id: int,
         *,
         lab_account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -474,9 +474,9 @@ class LabTestsClient:
 
         Parameters
         ----------
-        lab_id : int
-
         provider_id : str
+
+        lab_id : int
 
         lab_account_id : typing.Optional[str]
             The lab account ID. This lab account is used to determine the availability of markers and lab tests.
@@ -497,13 +497,13 @@ class LabTestsClient:
             api_key="YOUR_API_KEY",
         )
         client.lab_tests.get_markers_by_lab_and_provider_id(
-            lab_id=1,
             provider_id="provider_id",
+            lab_id=1,
             lab_account_id="lab_account_id",
         )
         """
         _response = self._raw_client.get_markers_by_lab_and_provider_id(
-            lab_id, provider_id, lab_account_id=lab_account_id, request_options=request_options
+            provider_id, lab_id, lab_account_id=lab_account_id, request_options=request_options
         )
         return _response.data
 
@@ -2644,8 +2644,8 @@ class AsyncLabTestsClient:
 
     async def get_markers_by_lab_and_provider_id(
         self,
-        lab_id: int,
         provider_id: str,
+        lab_id: int,
         *,
         lab_account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -2655,9 +2655,9 @@ class AsyncLabTestsClient:
 
         Parameters
         ----------
-        lab_id : int
-
         provider_id : str
+
+        lab_id : int
 
         lab_account_id : typing.Optional[str]
             The lab account ID. This lab account is used to determine the availability of markers and lab tests.
@@ -2683,8 +2683,8 @@ class AsyncLabTestsClient:
 
         async def main() -> None:
             await client.lab_tests.get_markers_by_lab_and_provider_id(
-                lab_id=1,
                 provider_id="provider_id",
+                lab_id=1,
                 lab_account_id="lab_account_id",
             )
 
@@ -2692,7 +2692,7 @@ class AsyncLabTestsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.get_markers_by_lab_and_provider_id(
-            lab_id, provider_id, lab_account_id=lab_account_id, request_options=request_options
+            provider_id, lab_id, lab_account_id=lab_account_id, request_options=request_options
         )
         return _response.data
 
