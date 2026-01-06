@@ -44,8 +44,13 @@ class ProvidersClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.providers.get_all()
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.providers.get_all(
+            source_type="source_type",
+        )
         """
         _response = self._raw_client.get_all(source_type=source_type, request_options=request_options)
         return _response.data
@@ -86,11 +91,21 @@ class AsyncProvidersClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.providers.get_all()
+            await client.providers.get_all(
+                source_type="source_type",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.get_all(source_type=source_type, request_options=request_options)
