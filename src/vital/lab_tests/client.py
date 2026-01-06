@@ -46,12 +46,12 @@ from ..types.simulation_flags import SimulationFlags
 from ..types.us_address import UsAddress
 from ..types.validate_icd_codes_response import ValidateIcdCodesResponse
 from .raw_client import AsyncRawLabTestsClient, RawLabTestsClient
-from .types.get_lab_tests_request_order_direction import GetLabTestsRequestOrderDirection
-from .types.get_lab_tests_request_order_key import GetLabTestsRequestOrderKey
-from .types.get_orders_lab_tests_request_order_direction import GetOrdersLabTestsRequestOrderDirection
-from .types.get_orders_lab_tests_request_order_key import GetOrdersLabTestsRequestOrderKey
-from .types.get_paginated_lab_tests_request_order_direction import GetPaginatedLabTestsRequestOrderDirection
-from .types.get_paginated_lab_tests_request_order_key import GetPaginatedLabTestsRequestOrderKey
+from .types.lab_tests_get_orders_request_order_direction import LabTestsGetOrdersRequestOrderDirection
+from .types.lab_tests_get_orders_request_order_key import LabTestsGetOrdersRequestOrderKey
+from .types.lab_tests_get_paginated_request_order_direction import LabTestsGetPaginatedRequestOrderDirection
+from .types.lab_tests_get_paginated_request_order_key import LabTestsGetPaginatedRequestOrderKey
+from .types.lab_tests_get_request_order_direction import LabTestsGetRequestOrderDirection
+from .types.lab_tests_get_request_order_key import LabTestsGetRequestOrderKey
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -79,11 +79,11 @@ class LabTestsClient:
         lab_slug: typing.Optional[str] = None,
         collection_method: typing.Optional[LabTestCollectionMethod] = None,
         status: typing.Optional[LabTestStatus] = None,
-        marker_ids: typing.Optional[typing.Sequence[int]] = None,
-        provider_ids: typing.Optional[typing.Sequence[str]] = None,
+        marker_ids: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
+        provider_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         name: typing.Optional[str] = None,
-        order_key: typing.Optional[GetLabTestsRequestOrderKey] = None,
-        order_direction: typing.Optional[GetLabTestsRequestOrderDirection] = None,
+        order_key: typing.Optional[LabTestsGetRequestOrderKey] = None,
+        order_direction: typing.Optional[LabTestsGetRequestOrderDirection] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingLabTest]:
         """
@@ -103,18 +103,18 @@ class LabTestsClient:
         status : typing.Optional[LabTestStatus]
             Filter by the status of these lab tests.
 
-        marker_ids : typing.Optional[typing.Sequence[int]]
+        marker_ids : typing.Optional[typing.Union[int, typing.Sequence[int]]]
             Filter to only include lab tests containing these marker IDs.
 
-        provider_ids : typing.Optional[typing.Sequence[str]]
+        provider_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter to only include lab tests containing these provider IDs.
 
         name : typing.Optional[str]
             Filter by the name of the lab test (a case-insensitive substring search).
 
-        order_key : typing.Optional[GetLabTestsRequestOrderKey]
+        order_key : typing.Optional[LabTestsGetRequestOrderKey]
 
-        order_direction : typing.Optional[GetLabTestsRequestOrderDirection]
+        order_direction : typing.Optional[LabTestsGetRequestOrderDirection]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -126,9 +126,29 @@ class LabTestsClient:
 
         Examples
         --------
-        from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.get()
+        from vital import (
+            LabTestCollectionMethod,
+            LabTestGenerationMethodFilter,
+            LabTestStatus,
+            Vital,
+        )
+        from vital.lab_tests import (
+            LabTestsGetRequestOrderDirection,
+            LabTestsGetRequestOrderKey,
+        )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get(
+            generation_method=LabTestGenerationMethodFilter.AUTO,
+            lab_slug="lab_slug",
+            collection_method=LabTestCollectionMethod.TESTKIT,
+            status=LabTestStatus.ACTIVE,
+            name="name",
+            order_key=LabTestsGetRequestOrderKey.PRICE,
+            order_direction=LabTestsGetRequestOrderDirection.ASC,
+        )
         """
         _response = self._raw_client.get(
             generation_method=generation_method,
@@ -180,10 +200,16 @@ class LabTestsClient:
 
         Examples
         --------
-        from vital import Vital
-        from vital import LabTestCollectionMethod
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.create(name='name', method=LabTestCollectionMethod.TESTKIT, description='description', )
+        from vital import LabTestCollectionMethod, Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.create(
+            name="name",
+            method=LabTestCollectionMethod.TESTKIT,
+            description="description",
+        )
         """
         _response = self._raw_client.create(
             name=name,
@@ -224,8 +250,14 @@ class LabTestsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.get_by_id(lab_test_id='lab_test_id', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_by_id(
+            lab_test_id="lab_test_id",
+            lab_account_id="lab_account_id",
+        )
         """
         _response = self._raw_client.get_by_id(
             lab_test_id, lab_account_id=lab_account_id, request_options=request_options
@@ -260,8 +292,13 @@ class LabTestsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.update_lab_test(lab_test_id='lab_test_id', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.update_lab_test(
+            lab_test_id="lab_test_id",
+        )
         """
         _response = self._raw_client.update_lab_test(
             lab_test_id, name=name, active=active, request_options=request_options
@@ -271,7 +308,7 @@ class LabTestsClient:
     def get_markers(
         self,
         *,
-        lab_id: typing.Optional[typing.Sequence[int]] = None,
+        lab_id: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
         name: typing.Optional[str] = None,
         a_la_carte_enabled: typing.Optional[bool] = None,
         lab_account_id: typing.Optional[str] = None,
@@ -284,7 +321,7 @@ class LabTestsClient:
 
         Parameters
         ----------
-        lab_id : typing.Optional[typing.Sequence[int]]
+        lab_id : typing.Optional[typing.Union[int, typing.Sequence[int]]]
             The identifier Vital assigned to a lab partner.
 
         name : typing.Optional[str]
@@ -310,8 +347,17 @@ class LabTestsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.get_markers()
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_markers(
+            name="name",
+            a_la_carte_enabled=True,
+            lab_account_id="lab_account_id",
+            page=1,
+            size=1,
+        )
         """
         _response = self._raw_client.get_markers(
             lab_id=lab_id,
@@ -351,10 +397,16 @@ class LabTestsClient:
 
         Examples
         --------
-        from vital import Vital
-        from vital import OrderSetRequest
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.get_markers_for_order_set(request=OrderSetRequest(), )
+        from vital import OrderSetRequest, Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_markers_for_order_set(
+            page=1,
+            size=1,
+            request=OrderSetRequest(),
+        )
         """
         _response = self._raw_client.get_markers_for_order_set(
             request=request, page=page, size=size, request_options=request_options
@@ -393,8 +445,16 @@ class LabTestsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.get_markers_for_lab_test(lab_test_id='lab_test_id', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_markers_for_lab_test(
+            lab_test_id="lab_test_id",
+            lab_account_id="lab_account_id",
+            page=1,
+            size=1,
+        )
         """
         _response = self._raw_client.get_markers_for_lab_test(
             lab_test_id, lab_account_id=lab_account_id, page=page, size=size, request_options=request_options
@@ -432,8 +492,15 @@ class LabTestsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.get_markers_by_lab_and_provider_id(lab_id=1, provider_id='provider_id', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_markers_by_lab_and_provider_id(
+            lab_id=1,
+            provider_id="provider_id",
+            lab_account_id="lab_account_id",
+        )
         """
         _response = self._raw_client.get_markers_by_lab_and_provider_id(
             lab_id, provider_id, lab_account_id=lab_account_id, request_options=request_options
@@ -457,7 +524,10 @@ class LabTestsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
         client.lab_tests.get_labs()
         """
         _response = self._raw_client.get_labs(request_options=request_options)
@@ -472,11 +542,11 @@ class LabTestsClient:
         lab_slug: typing.Optional[str] = None,
         collection_method: typing.Optional[LabTestCollectionMethod] = None,
         status: typing.Optional[LabTestStatus] = None,
-        marker_ids: typing.Optional[typing.Sequence[int]] = None,
-        provider_ids: typing.Optional[typing.Sequence[str]] = None,
+        marker_ids: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
+        provider_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         name: typing.Optional[str] = None,
-        order_key: typing.Optional[GetPaginatedLabTestsRequestOrderKey] = None,
-        order_direction: typing.Optional[GetPaginatedLabTestsRequestOrderDirection] = None,
+        order_key: typing.Optional[LabTestsGetPaginatedRequestOrderKey] = None,
+        order_direction: typing.Optional[LabTestsGetPaginatedRequestOrderDirection] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LabTestResourcesResponse:
         """
@@ -500,18 +570,18 @@ class LabTestsClient:
         status : typing.Optional[LabTestStatus]
             Filter by the status of these lab tests.
 
-        marker_ids : typing.Optional[typing.Sequence[int]]
+        marker_ids : typing.Optional[typing.Union[int, typing.Sequence[int]]]
             Filter to only include lab tests containing these marker IDs.
 
-        provider_ids : typing.Optional[typing.Sequence[str]]
+        provider_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter to only include lab tests containing these provider IDs.
 
         name : typing.Optional[str]
             Filter by the name of the lab test (a case-insensitive substring search).
 
-        order_key : typing.Optional[GetPaginatedLabTestsRequestOrderKey]
+        order_key : typing.Optional[LabTestsGetPaginatedRequestOrderKey]
 
-        order_direction : typing.Optional[GetPaginatedLabTestsRequestOrderDirection]
+        order_direction : typing.Optional[LabTestsGetPaginatedRequestOrderDirection]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -523,9 +593,31 @@ class LabTestsClient:
 
         Examples
         --------
-        from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.get_paginated()
+        from vital import (
+            LabTestCollectionMethod,
+            LabTestGenerationMethodFilter,
+            LabTestStatus,
+            Vital,
+        )
+        from vital.lab_tests import (
+            LabTestsGetPaginatedRequestOrderDirection,
+            LabTestsGetPaginatedRequestOrderKey,
+        )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_paginated(
+            lab_test_limit=1,
+            next_cursor="next_cursor",
+            generation_method=LabTestGenerationMethodFilter.AUTO,
+            lab_slug="lab_slug",
+            collection_method=LabTestCollectionMethod.TESTKIT,
+            status=LabTestStatus.ACTIVE,
+            name="name",
+            order_key=LabTestsGetPaginatedRequestOrderKey.PRICE,
+            order_direction=LabTestsGetPaginatedRequestOrderDirection.ASC,
+        )
         """
         _response = self._raw_client.get_paginated(
             lab_test_limit=lab_test_limit,
@@ -562,8 +654,13 @@ class LabTestsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.get_lab_test_collection_instruction_pdf(lab_test_id='lab_test_id', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_lab_test_collection_instruction_pdf(
+            lab_test_id="lab_test_id",
+        )
         """
         with self._raw_client.get_lab_test_collection_instruction_pdf(
             lab_test_id, request_options=request_options
@@ -578,17 +675,21 @@ class LabTestsClient:
         end_date: typing.Optional[dt.datetime] = None,
         updated_start_date: typing.Optional[dt.datetime] = None,
         updated_end_date: typing.Optional[dt.datetime] = None,
-        status: typing.Optional[typing.Sequence[OrderLowLevelStatus]] = None,
-        order_key: typing.Optional[GetOrdersLabTestsRequestOrderKey] = None,
-        order_direction: typing.Optional[GetOrdersLabTestsRequestOrderDirection] = None,
-        order_type: typing.Optional[typing.Sequence[LabTestCollectionMethod]] = None,
+        status: typing.Optional[typing.Union[OrderLowLevelStatus, typing.Sequence[OrderLowLevelStatus]]] = None,
+        order_key: typing.Optional[LabTestsGetOrdersRequestOrderKey] = None,
+        order_direction: typing.Optional[LabTestsGetOrdersRequestOrderDirection] = None,
+        order_type: typing.Optional[
+            typing.Union[LabTestCollectionMethod, typing.Sequence[LabTestCollectionMethod]]
+        ] = None,
         is_critical: typing.Optional[bool] = None,
         interpretation: typing.Optional[Interpretation] = None,
-        order_activation_types: typing.Optional[typing.Sequence[OrderActivationType]] = None,
+        order_activation_types: typing.Optional[
+            typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]
+        ] = None,
         user_id: typing.Optional[str] = None,
         patient_name: typing.Optional[str] = None,
         shipping_recipient_name: typing.Optional[str] = None,
-        order_ids: typing.Optional[typing.Sequence[str]] = None,
+        order_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         page: typing.Optional[int] = None,
         size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -613,16 +714,16 @@ class LabTestsClient:
         updated_end_date : typing.Optional[dt.datetime]
             Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
-        status : typing.Optional[typing.Sequence[OrderLowLevelStatus]]
+        status : typing.Optional[typing.Union[OrderLowLevelStatus, typing.Sequence[OrderLowLevelStatus]]]
             Filter by low level status.
 
-        order_key : typing.Optional[GetOrdersLabTestsRequestOrderKey]
+        order_key : typing.Optional[LabTestsGetOrdersRequestOrderKey]
             Order key to sort by.
 
-        order_direction : typing.Optional[GetOrdersLabTestsRequestOrderDirection]
+        order_direction : typing.Optional[LabTestsGetOrdersRequestOrderDirection]
             Order direction to sort by.
 
-        order_type : typing.Optional[typing.Sequence[LabTestCollectionMethod]]
+        order_type : typing.Optional[typing.Union[LabTestCollectionMethod, typing.Sequence[LabTestCollectionMethod]]]
             Filter by method used to perform the lab test.
 
         is_critical : typing.Optional[bool]
@@ -631,7 +732,7 @@ class LabTestsClient:
         interpretation : typing.Optional[Interpretation]
             Filter by result interpretation of the lab test.
 
-        order_activation_types : typing.Optional[typing.Sequence[OrderActivationType]]
+        order_activation_types : typing.Optional[typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]]
             Filter by activation type.
 
         user_id : typing.Optional[str]
@@ -643,7 +744,7 @@ class LabTestsClient:
         shipping_recipient_name : typing.Optional[str]
             Filter by shipping recipient name.
 
-        order_ids : typing.Optional[typing.Sequence[str]]
+        order_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter by order ids.
 
         page : typing.Optional[int]
@@ -660,9 +761,41 @@ class LabTestsClient:
 
         Examples
         --------
-        from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.get_orders()
+        import datetime
+
+        from vital import Interpretation, Vital
+        from vital.lab_tests import (
+            LabTestsGetOrdersRequestOrderDirection,
+            LabTestsGetOrdersRequestOrderKey,
+        )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_orders(
+            search_input="search_input",
+            start_date=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            end_date=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            updated_start_date=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            updated_end_date=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            order_key=LabTestsGetOrdersRequestOrderKey.CREATED_AT,
+            order_direction=LabTestsGetOrdersRequestOrderDirection.ASC,
+            is_critical=True,
+            interpretation=Interpretation.NORMAL,
+            user_id="user_id",
+            patient_name="patient_name",
+            shipping_recipient_name="shipping_recipient_name",
+            page=1,
+            size=1,
+        )
         """
         _response = self._raw_client.get_orders(
             search_input=search_input,
@@ -691,7 +824,7 @@ class LabTestsClient:
         self,
         *,
         request: UsAddress,
-        start_date: typing.Optional[dt.date] = None,
+        start_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AppointmentAvailabilitySlots:
         """
@@ -702,7 +835,7 @@ class LabTestsClient:
         ----------
         request : UsAddress
 
-        start_date : typing.Optional[dt.date]
+        start_date : typing.Optional[str]
             Start date for appointment availability
 
         request_options : typing.Optional[RequestOptions]
@@ -715,10 +848,20 @@ class LabTestsClient:
 
         Examples
         --------
-        from vital import Vital
-        from vital import UsAddress
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.get_phlebotomy_appointment_availability(request=UsAddress(first_line='first_line', city='city', state='state', zip_code='zip_code', ), )
+        from vital import UsAddress, Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_phlebotomy_appointment_availability(
+            start_date="start_date",
+            request=UsAddress(
+                first_line="first_line",
+                city="city",
+                state="state",
+                zip_code="zip_code",
+            ),
+        )
         """
         _response = self._raw_client.get_phlebotomy_appointment_availability(
             request=request, start_date=start_date, request_options=request_options
@@ -752,10 +895,17 @@ class LabTestsClient:
 
         Examples
         --------
-        from vital import Vital
-        from vital import AppointmentBookingRequest
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.book_phlebotomy_appointment(order_id='order_id', request=AppointmentBookingRequest(booking_key='booking_key', ), )
+        from vital import AppointmentBookingRequest, Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.book_phlebotomy_appointment(
+            order_id="order_id",
+            request=AppointmentBookingRequest(
+                booking_key="booking_key",
+            ),
+        )
         """
         _response = self._raw_client.book_phlebotomy_appointment(
             order_id, request=request, request_options=request_options
@@ -793,11 +943,21 @@ class LabTestsClient:
 
         Examples
         --------
-        from vital import Vital
-        from vital import UsAddress
-        from vital import AppointmentProvider
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.request_phlebotomy_appointment(order_id='order_id', address=UsAddress(first_line='first_line', city='city', state='state', zip_code='zip_code', ), provider=AppointmentProvider.GETLABS, )
+        from vital import AppointmentProvider, UsAddress, Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.request_phlebotomy_appointment(
+            order_id="order_id",
+            address=UsAddress(
+                first_line="first_line",
+                city="city",
+                state="state",
+                zip_code="zip_code",
+            ),
+            provider=AppointmentProvider.GETLABS,
+        )
         """
         _response = self._raw_client.request_phlebotomy_appointment(
             order_id, address=address, provider=provider, request_options=request_options
@@ -831,10 +991,17 @@ class LabTestsClient:
 
         Examples
         --------
-        from vital import Vital
-        from vital import AppointmentRescheduleRequest
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.reschedule_phlebotomy_appointment(order_id='order_id', request=AppointmentRescheduleRequest(booking_key='booking_key', ), )
+        from vital import AppointmentRescheduleRequest, Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.reschedule_phlebotomy_appointment(
+            order_id="order_id",
+            request=AppointmentRescheduleRequest(
+                booking_key="booking_key",
+            ),
+        )
         """
         _response = self._raw_client.reschedule_phlebotomy_appointment(
             order_id, request=request, request_options=request_options
@@ -872,8 +1039,14 @@ class LabTestsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.cancel_phlebotomy_appointment(order_id='order_id', cancellation_reason_id='cancellation_reason_id', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.cancel_phlebotomy_appointment(
+            order_id="order_id",
+            cancellation_reason_id="cancellation_reason_id",
+        )
         """
         _response = self._raw_client.cancel_phlebotomy_appointment(
             order_id, cancellation_reason_id=cancellation_reason_id, notes=notes, request_options=request_options
@@ -899,7 +1072,10 @@ class LabTestsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
         client.lab_tests.get_phlebotomy_appointment_cancellation_reason()
         """
         _response = self._raw_client.get_phlebotomy_appointment_cancellation_reason(request_options=request_options)
@@ -927,8 +1103,13 @@ class LabTestsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.get_phlebotomy_appointment(order_id='order_id', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_phlebotomy_appointment(
+            order_id="order_id",
+        )
         """
         _response = self._raw_client.get_phlebotomy_appointment(order_id, request_options=request_options)
         return _response.data
@@ -939,7 +1120,7 @@ class LabTestsClient:
         zip_code: str,
         radius: typing.Optional[AllowedRadius] = None,
         lab: typing.Optional[ClientFacingLabs] = None,
-        labs: typing.Optional[typing.Sequence[ClientFacingLabs]] = None,
+        labs: typing.Optional[typing.Union[ClientFacingLabs, typing.Sequence[ClientFacingLabs]]] = None,
         lab_account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AreaInfo:
@@ -961,7 +1142,7 @@ class LabTestsClient:
         lab : typing.Optional[ClientFacingLabs]
             Lab to check for PSCs
 
-        labs : typing.Optional[typing.Sequence[ClientFacingLabs]]
+        labs : typing.Optional[typing.Union[ClientFacingLabs, typing.Sequence[ClientFacingLabs]]]
             List of labs to check for PSCs
 
         lab_account_id : typing.Optional[str]
@@ -977,9 +1158,17 @@ class LabTestsClient:
 
         Examples
         --------
-        from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.get_area_info(zip_code='zip_code', )
+        from vital import AllowedRadius, ClientFacingLabs, Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_area_info(
+            zip_code="zip_code",
+            radius=AllowedRadius.TEN,
+            lab=ClientFacingLabs.QUEST,
+            lab_account_id="lab_account_id",
+        )
         """
         _response = self._raw_client.get_area_info(
             zip_code=zip_code,
@@ -997,7 +1186,9 @@ class LabTestsClient:
         zip_code: str,
         lab_id: int,
         radius: typing.Optional[AllowedRadius] = None,
-        capabilities: typing.Optional[typing.Sequence[LabLocationCapability]] = None,
+        capabilities: typing.Optional[
+            typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]
+        ] = None,
         lab_account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PscInfo:
@@ -1013,7 +1204,7 @@ class LabTestsClient:
         radius : typing.Optional[AllowedRadius]
             Radius in which to search in miles. Note that we limit to 30 PSCs.
 
-        capabilities : typing.Optional[typing.Sequence[LabLocationCapability]]
+        capabilities : typing.Optional[typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]]
             Filter for only locations with certain capabilities
 
         lab_account_id : typing.Optional[str]
@@ -1029,9 +1220,17 @@ class LabTestsClient:
 
         Examples
         --------
-        from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.get_psc_info(zip_code='zip_code', lab_id=1, )
+        from vital import AllowedRadius, Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_psc_info(
+            zip_code="zip_code",
+            lab_id=1,
+            radius=AllowedRadius.TEN,
+            lab_account_id="lab_account_id",
+        )
         """
         _response = self._raw_client.get_psc_info(
             zip_code=zip_code,
@@ -1048,7 +1247,9 @@ class LabTestsClient:
         order_id: str,
         *,
         radius: typing.Optional[AllowedRadius] = None,
-        capabilities: typing.Optional[typing.Sequence[LabLocationCapability]] = None,
+        capabilities: typing.Optional[
+            typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]
+        ] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PscInfo:
         """
@@ -1060,7 +1261,7 @@ class LabTestsClient:
         radius : typing.Optional[AllowedRadius]
             Radius in which to search in miles
 
-        capabilities : typing.Optional[typing.Sequence[LabLocationCapability]]
+        capabilities : typing.Optional[typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]]
             Filter for only locations with certain capabilities
 
         request_options : typing.Optional[RequestOptions]
@@ -1073,9 +1274,15 @@ class LabTestsClient:
 
         Examples
         --------
-        from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.get_order_psc_info(order_id='order_id', )
+        from vital import AllowedRadius, Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_order_psc_info(
+            order_id="order_id",
+            radius=AllowedRadius.TEN,
+        )
         """
         _response = self._raw_client.get_order_psc_info(
             order_id, radius=radius, capabilities=capabilities, request_options=request_options
@@ -1103,8 +1310,13 @@ class LabTestsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.get_result_pdf(order_id='order_id', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_result_pdf(
+            order_id="order_id",
+        )
         """
         with self._raw_client.get_result_pdf(order_id, request_options=request_options) as r:
             yield from r.data
@@ -1131,8 +1343,13 @@ class LabTestsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.get_result_metadata(order_id='order_id', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_result_metadata(
+            order_id="order_id",
+        )
         """
         _response = self._raw_client.get_result_metadata(order_id, request_options=request_options)
         return _response.data
@@ -1158,8 +1375,13 @@ class LabTestsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.get_result_raw(order_id='order_id', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_result_raw(
+            order_id="order_id",
+        )
         """
         _response = self._raw_client.get_result_raw(order_id, request_options=request_options)
         return _response.data
@@ -1195,10 +1417,19 @@ class LabTestsClient:
 
         Examples
         --------
-        from vital import Vital
         import datetime
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.get_labels_pdf(order_id='order_id', collection_date=datetime.datetime.fromisoformat("2024-01-15 09:30:00+00:00", ), )
+
+        from vital import Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_labels_pdf(
+            order_id="order_id",
+            collection_date=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+        )
         """
         with self._raw_client.get_labels_pdf(
             order_id,
@@ -1211,8 +1442,8 @@ class LabTestsClient:
     def get_psc_appointment_availability(
         self,
         *,
-        start_date: typing.Optional[dt.date] = None,
-        site_codes: typing.Optional[typing.Sequence[str]] = None,
+        start_date: typing.Optional[str] = None,
+        site_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         zip_code: typing.Optional[str] = None,
         radius: typing.Optional[AllowedRadius] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1220,10 +1451,10 @@ class LabTestsClient:
         """
         Parameters
         ----------
-        start_date : typing.Optional[dt.date]
+        start_date : typing.Optional[str]
             Start date for appointment availability
 
-        site_codes : typing.Optional[typing.Sequence[str]]
+        site_codes : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             List of site codes to fetch availability for
 
         zip_code : typing.Optional[str]
@@ -1242,9 +1473,16 @@ class LabTestsClient:
 
         Examples
         --------
-        from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.get_psc_appointment_availability()
+        from vital import AllowedRadius, Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_psc_appointment_availability(
+            start_date="start_date",
+            zip_code="zip_code",
+            radius=AllowedRadius.TEN,
+        )
         """
         _response = self._raw_client.get_psc_appointment_availability(
             start_date=start_date,
@@ -1280,10 +1518,17 @@ class LabTestsClient:
 
         Examples
         --------
-        from vital import Vital
-        from vital import AppointmentBookingRequest
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.book_psc_appointment(order_id='order_id', request=AppointmentBookingRequest(booking_key='booking_key', ), )
+        from vital import AppointmentBookingRequest, Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.book_psc_appointment(
+            order_id="order_id",
+            request=AppointmentBookingRequest(
+                booking_key="booking_key",
+            ),
+        )
         """
         _response = self._raw_client.book_psc_appointment(order_id, request=request, request_options=request_options)
         return _response.data
@@ -1313,10 +1558,17 @@ class LabTestsClient:
 
         Examples
         --------
-        from vital import Vital
-        from vital import AppointmentRescheduleRequest
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.reschedule_psc_appointment(order_id='order_id', request=AppointmentRescheduleRequest(booking_key='booking_key', ), )
+        from vital import AppointmentRescheduleRequest, Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.reschedule_psc_appointment(
+            order_id="order_id",
+            request=AppointmentRescheduleRequest(
+                booking_key="booking_key",
+            ),
+        )
         """
         _response = self._raw_client.reschedule_psc_appointment(
             order_id, request=request, request_options=request_options
@@ -1352,8 +1604,14 @@ class LabTestsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.cancel_psc_appointment(order_id='order_id', cancellation_reason_id='cancellationReasonId', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.cancel_psc_appointment(
+            order_id="order_id",
+            cancellation_reason_id="cancellationReasonId",
+        )
         """
         _response = self._raw_client.cancel_psc_appointment(
             order_id, cancellation_reason_id=cancellation_reason_id, note=note, request_options=request_options
@@ -1377,7 +1635,10 @@ class LabTestsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
         client.lab_tests.get_psc_appointment_cancellation_reason()
         """
         _response = self._raw_client.get_psc_appointment_cancellation_reason(request_options=request_options)
@@ -1405,8 +1666,13 @@ class LabTestsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.get_psc_appointment(order_id='order_id', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_psc_appointment(
+            order_id="order_id",
+        )
         """
         _response = self._raw_client.get_psc_appointment(order_id, request_options=request_options)
         return _response.data
@@ -1433,8 +1699,13 @@ class LabTestsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.get_order_collection_instruction_pdf(order_id='order_id', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_order_collection_instruction_pdf(
+            order_id="order_id",
+        )
         """
         with self._raw_client.get_order_collection_instruction_pdf(order_id, request_options=request_options) as r:
             yield from r.data
@@ -1461,8 +1732,13 @@ class LabTestsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.get_order_requistion_pdf(order_id='order_id', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_order_requistion_pdf(
+            order_id="order_id",
+        )
         """
         with self._raw_client.get_order_requistion_pdf(order_id, request_options=request_options) as r:
             yield from r.data
@@ -1489,8 +1765,13 @@ class LabTestsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.get_order_abn_pdf(order_id='order_id', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_order_abn_pdf(
+            order_id="order_id",
+        )
         """
         with self._raw_client.get_order_abn_pdf(order_id, request_options=request_options) as r:
             yield from r.data
@@ -1515,8 +1796,13 @@ class LabTestsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.get_order(order_id='order_id', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.get_order(
+            order_id="order_id",
+        )
         """
         _response = self._raw_client.get_order(order_id, request_options=request_options)
         return _response.data
@@ -1538,7 +1824,7 @@ class LabTestsClient:
         billing_type: typing.Optional[Billing] = OMIT,
         icd_codes: typing.Optional[typing.Sequence[str]] = OMIT,
         consents: typing.Optional[typing.Sequence[Consent]] = OMIT,
-        activate_by: typing.Optional[dt.date] = OMIT,
+        activate_by: typing.Optional[str] = OMIT,
         aoe_answers: typing.Optional[typing.Sequence[AoEAnswer]] = OMIT,
         passthrough: typing.Optional[str] = OMIT,
         lab_account_id: typing.Optional[str] = OMIT,
@@ -1577,7 +1863,7 @@ class LabTestsClient:
 
         consents : typing.Optional[typing.Sequence[Consent]]
 
-        activate_by : typing.Optional[dt.date]
+        activate_by : typing.Optional[str]
             Schedule an Order to be processed in a future date.
 
         aoe_answers : typing.Optional[typing.Sequence[AoEAnswer]]
@@ -1598,13 +1884,35 @@ class LabTestsClient:
 
         Examples
         --------
-        from vital import Vital
-        from vital import PatientDetailsWithValidation
-        import datetime
-        from vital import Gender
-        from vital import PatientAddressWithValidation
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.create_order(user_id='user_id', patient_details=PatientDetailsWithValidation(first_name='first_name', last_name='last_name', dob=datetime.date.fromisoformat("2023-01-15", ), gender=Gender.FEMALE, phone_number='phone_number', email='email', ), patient_address=PatientAddressWithValidation(first_line='first_line', city='city', state='state', zip='zip', country='country', ), )
+        from vital import (
+            Gender,
+            PatientAddressWithValidation,
+            PatientDetailsWithValidation,
+            Vital,
+        )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.create_order(
+            idempotency_key="X-Idempotency-Key",
+            user_id="user_id",
+            patient_details=PatientDetailsWithValidation(
+                first_name="first_name",
+                last_name="last_name",
+                dob="dob",
+                gender=Gender.FEMALE,
+                phone_number="phone_number",
+                email="email",
+            ),
+            patient_address=PatientAddressWithValidation(
+                first_line="first_line",
+                city="city",
+                state="state",
+                zip="zip",
+                country="country",
+            ),
+        )
         """
         _response = self._raw_client.create_order(
             user_id=user_id,
@@ -1675,16 +1983,42 @@ class LabTestsClient:
 
         Examples
         --------
-        from vital import Vital
-        from vital import Billing
-        from vital import OrderSetRequest
-        from vital import LabTestCollectionMethod
-        from vital import PatientDetailsWithValidation
-        import datetime
-        from vital import Gender
-        from vital import PatientAddress
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.import_order(user_id='user_id', billing_type=Billing.CLIENT_BILL, order_set=OrderSetRequest(), collection_method=LabTestCollectionMethod.TESTKIT, patient_details=PatientDetailsWithValidation(first_name='first_name', last_name='last_name', dob=datetime.date.fromisoformat("2023-01-15", ), gender=Gender.FEMALE, phone_number='phone_number', email='email', ), patient_address=PatientAddress(receiver_name='receiver_name', first_line='first_line', city='city', state='state', zip='zip', country='country', ), sample_id='sample_id', )
+        from vital import (
+            Billing,
+            Gender,
+            LabTestCollectionMethod,
+            OrderSetRequest,
+            PatientAddress,
+            PatientDetailsWithValidation,
+            Vital,
+        )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.import_order(
+            user_id="user_id",
+            billing_type=Billing.CLIENT_BILL,
+            order_set=OrderSetRequest(),
+            collection_method=LabTestCollectionMethod.TESTKIT,
+            patient_details=PatientDetailsWithValidation(
+                first_name="first_name",
+                last_name="last_name",
+                dob="dob",
+                gender=Gender.FEMALE,
+                phone_number="phone_number",
+                email="email",
+            ),
+            patient_address=PatientAddress(
+                receiver_name="receiver_name",
+                first_line="first_line",
+                city="city",
+                state="state",
+                zip="zip",
+                country="country",
+            ),
+            sample_id="sample_id",
+        )
         """
         _response = self._raw_client.import_order(
             user_id=user_id,
@@ -1722,8 +2056,13 @@ class LabTestsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.cancel_order(order_id='order_id', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.cancel_order(
+            order_id="order_id",
+        )
         """
         _response = self._raw_client.cancel_order(order_id, request_options=request_options)
         return _response.data
@@ -1736,7 +2075,7 @@ class LabTestsClient:
         delay: typing.Optional[int] = None,
         request: typing.Optional[SimulationFlags] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.Optional[typing.Any]:
+    ) -> typing.Any:
         """
         Get available test kits.
 
@@ -1755,15 +2094,22 @@ class LabTestsClient:
 
         Returns
         -------
-        typing.Optional[typing.Any]
+        typing.Any
             Successful Response
 
         Examples
         --------
-        from vital import Vital
-        from vital import SimulationFlags
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.simulate_order_process(order_id='order_id', request=SimulationFlags(), )
+        from vital import OrderStatus, SimulationFlags, Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.simulate_order_process(
+            order_id="order_id",
+            final_status=OrderStatus.RECEIVED_WALK_IN_TEST_ORDERED,
+            delay=1,
+            request=SimulationFlags(),
+        )
         """
         _response = self._raw_client.simulate_order_process(
             order_id, final_status=final_status, delay=delay, request=request, request_options=request_options
@@ -1792,8 +2138,13 @@ class LabTestsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.update_on_site_collection_order_draw_completed(order_id='order_id', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.update_on_site_collection_order_draw_completed(
+            order_id="order_id",
+        )
         """
         _response = self._raw_client.update_on_site_collection_order_draw_completed(
             order_id, request_options=request_options
@@ -1819,8 +2170,13 @@ class LabTestsClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.lab_tests.validate_icd_codes(codes=['codes'], )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.lab_tests.validate_icd_codes(
+            codes=["codes"],
+        )
         """
         _response = self._raw_client.validate_icd_codes(codes=codes, request_options=request_options)
         return _response.data
@@ -1848,11 +2204,11 @@ class AsyncLabTestsClient:
         lab_slug: typing.Optional[str] = None,
         collection_method: typing.Optional[LabTestCollectionMethod] = None,
         status: typing.Optional[LabTestStatus] = None,
-        marker_ids: typing.Optional[typing.Sequence[int]] = None,
-        provider_ids: typing.Optional[typing.Sequence[str]] = None,
+        marker_ids: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
+        provider_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         name: typing.Optional[str] = None,
-        order_key: typing.Optional[GetLabTestsRequestOrderKey] = None,
-        order_direction: typing.Optional[GetLabTestsRequestOrderDirection] = None,
+        order_key: typing.Optional[LabTestsGetRequestOrderKey] = None,
+        order_direction: typing.Optional[LabTestsGetRequestOrderDirection] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[ClientFacingLabTest]:
         """
@@ -1872,18 +2228,18 @@ class AsyncLabTestsClient:
         status : typing.Optional[LabTestStatus]
             Filter by the status of these lab tests.
 
-        marker_ids : typing.Optional[typing.Sequence[int]]
+        marker_ids : typing.Optional[typing.Union[int, typing.Sequence[int]]]
             Filter to only include lab tests containing these marker IDs.
 
-        provider_ids : typing.Optional[typing.Sequence[str]]
+        provider_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter to only include lab tests containing these provider IDs.
 
         name : typing.Optional[str]
             Filter by the name of the lab test (a case-insensitive substring search).
 
-        order_key : typing.Optional[GetLabTestsRequestOrderKey]
+        order_key : typing.Optional[LabTestsGetRequestOrderKey]
 
-        order_direction : typing.Optional[GetLabTestsRequestOrderDirection]
+        order_direction : typing.Optional[LabTestsGetRequestOrderDirection]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1895,11 +2251,36 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import (
+            AsyncVital,
+            LabTestCollectionMethod,
+            LabTestGenerationMethodFilter,
+            LabTestStatus,
+        )
+        from vital.lab_tests import (
+            LabTestsGetRequestOrderDirection,
+            LabTestsGetRequestOrderKey,
+        )
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.get()
+            await client.lab_tests.get(
+                generation_method=LabTestGenerationMethodFilter.AUTO,
+                lab_slug="lab_slug",
+                collection_method=LabTestCollectionMethod.TESTKIT,
+                status=LabTestStatus.ACTIVE,
+                name="name",
+                order_key=LabTestsGetRequestOrderKey.PRICE,
+                order_direction=LabTestsGetRequestOrderDirection.ASC,
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.get(
@@ -1952,12 +2333,23 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
-        from vital import LabTestCollectionMethod
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital, LabTestCollectionMethod
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.create(name='name', method=LabTestCollectionMethod.TESTKIT, description='description', )
+            await client.lab_tests.create(
+                name="name",
+                method=LabTestCollectionMethod.TESTKIT,
+                description="description",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.create(
@@ -1998,11 +2390,22 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.get_by_id(lab_test_id='lab_test_id', )
+            await client.lab_tests.get_by_id(
+                lab_test_id="lab_test_id",
+                lab_account_id="lab_account_id",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.get_by_id(
@@ -2037,11 +2440,21 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.update_lab_test(lab_test_id='lab_test_id', )
+            await client.lab_tests.update_lab_test(
+                lab_test_id="lab_test_id",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.update_lab_test(
@@ -2052,7 +2465,7 @@ class AsyncLabTestsClient:
     async def get_markers(
         self,
         *,
-        lab_id: typing.Optional[typing.Sequence[int]] = None,
+        lab_id: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
         name: typing.Optional[str] = None,
         a_la_carte_enabled: typing.Optional[bool] = None,
         lab_account_id: typing.Optional[str] = None,
@@ -2065,7 +2478,7 @@ class AsyncLabTestsClient:
 
         Parameters
         ----------
-        lab_id : typing.Optional[typing.Sequence[int]]
+        lab_id : typing.Optional[typing.Union[int, typing.Sequence[int]]]
             The identifier Vital assigned to a lab partner.
 
         name : typing.Optional[str]
@@ -2090,11 +2503,25 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.get_markers()
+            await client.lab_tests.get_markers(
+                name="name",
+                a_la_carte_enabled=True,
+                lab_account_id="lab_account_id",
+                page=1,
+                size=1,
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.get_markers(
@@ -2135,12 +2562,23 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
-        from vital import OrderSetRequest
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital, OrderSetRequest
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.get_markers_for_order_set(request=OrderSetRequest(), )
+            await client.lab_tests.get_markers_for_order_set(
+                page=1,
+                size=1,
+                request=OrderSetRequest(),
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.get_markers_for_order_set(
@@ -2179,11 +2617,24 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.get_markers_for_lab_test(lab_test_id='lab_test_id', )
+            await client.lab_tests.get_markers_for_lab_test(
+                lab_test_id="lab_test_id",
+                lab_account_id="lab_account_id",
+                page=1,
+                size=1,
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.get_markers_for_lab_test(
@@ -2221,11 +2672,23 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.get_markers_by_lab_and_provider_id(lab_id=1, provider_id='provider_id', )
+            await client.lab_tests.get_markers_by_lab_and_provider_id(
+                lab_id=1,
+                provider_id="provider_id",
+                lab_account_id="lab_account_id",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.get_markers_by_lab_and_provider_id(
@@ -2251,11 +2714,19 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
             await client.lab_tests.get_labs()
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.get_labs(request_options=request_options)
@@ -2270,11 +2741,11 @@ class AsyncLabTestsClient:
         lab_slug: typing.Optional[str] = None,
         collection_method: typing.Optional[LabTestCollectionMethod] = None,
         status: typing.Optional[LabTestStatus] = None,
-        marker_ids: typing.Optional[typing.Sequence[int]] = None,
-        provider_ids: typing.Optional[typing.Sequence[str]] = None,
+        marker_ids: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
+        provider_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         name: typing.Optional[str] = None,
-        order_key: typing.Optional[GetPaginatedLabTestsRequestOrderKey] = None,
-        order_direction: typing.Optional[GetPaginatedLabTestsRequestOrderDirection] = None,
+        order_key: typing.Optional[LabTestsGetPaginatedRequestOrderKey] = None,
+        order_direction: typing.Optional[LabTestsGetPaginatedRequestOrderDirection] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LabTestResourcesResponse:
         """
@@ -2298,18 +2769,18 @@ class AsyncLabTestsClient:
         status : typing.Optional[LabTestStatus]
             Filter by the status of these lab tests.
 
-        marker_ids : typing.Optional[typing.Sequence[int]]
+        marker_ids : typing.Optional[typing.Union[int, typing.Sequence[int]]]
             Filter to only include lab tests containing these marker IDs.
 
-        provider_ids : typing.Optional[typing.Sequence[str]]
+        provider_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter to only include lab tests containing these provider IDs.
 
         name : typing.Optional[str]
             Filter by the name of the lab test (a case-insensitive substring search).
 
-        order_key : typing.Optional[GetPaginatedLabTestsRequestOrderKey]
+        order_key : typing.Optional[LabTestsGetPaginatedRequestOrderKey]
 
-        order_direction : typing.Optional[GetPaginatedLabTestsRequestOrderDirection]
+        order_direction : typing.Optional[LabTestsGetPaginatedRequestOrderDirection]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2321,11 +2792,38 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import (
+            AsyncVital,
+            LabTestCollectionMethod,
+            LabTestGenerationMethodFilter,
+            LabTestStatus,
+        )
+        from vital.lab_tests import (
+            LabTestsGetPaginatedRequestOrderDirection,
+            LabTestsGetPaginatedRequestOrderKey,
+        )
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.get_paginated()
+            await client.lab_tests.get_paginated(
+                lab_test_limit=1,
+                next_cursor="next_cursor",
+                generation_method=LabTestGenerationMethodFilter.AUTO,
+                lab_slug="lab_slug",
+                collection_method=LabTestCollectionMethod.TESTKIT,
+                status=LabTestStatus.ACTIVE,
+                name="name",
+                order_key=LabTestsGetPaginatedRequestOrderKey.PRICE,
+                order_direction=LabTestsGetPaginatedRequestOrderDirection.ASC,
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.get_paginated(
@@ -2362,18 +2860,28 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.get_lab_test_collection_instruction_pdf(lab_test_id='lab_test_id', )
+            await client.lab_tests.get_lab_test_collection_instruction_pdf(
+                lab_test_id="lab_test_id",
+            )
+
+
         asyncio.run(main())
         """
         async with self._raw_client.get_lab_test_collection_instruction_pdf(
             lab_test_id, request_options=request_options
         ) as r:
-            async for data in r.data:
-                yield data
+            async for _chunk in r.data:
+                yield _chunk
 
     async def get_orders(
         self,
@@ -2383,17 +2891,21 @@ class AsyncLabTestsClient:
         end_date: typing.Optional[dt.datetime] = None,
         updated_start_date: typing.Optional[dt.datetime] = None,
         updated_end_date: typing.Optional[dt.datetime] = None,
-        status: typing.Optional[typing.Sequence[OrderLowLevelStatus]] = None,
-        order_key: typing.Optional[GetOrdersLabTestsRequestOrderKey] = None,
-        order_direction: typing.Optional[GetOrdersLabTestsRequestOrderDirection] = None,
-        order_type: typing.Optional[typing.Sequence[LabTestCollectionMethod]] = None,
+        status: typing.Optional[typing.Union[OrderLowLevelStatus, typing.Sequence[OrderLowLevelStatus]]] = None,
+        order_key: typing.Optional[LabTestsGetOrdersRequestOrderKey] = None,
+        order_direction: typing.Optional[LabTestsGetOrdersRequestOrderDirection] = None,
+        order_type: typing.Optional[
+            typing.Union[LabTestCollectionMethod, typing.Sequence[LabTestCollectionMethod]]
+        ] = None,
         is_critical: typing.Optional[bool] = None,
         interpretation: typing.Optional[Interpretation] = None,
-        order_activation_types: typing.Optional[typing.Sequence[OrderActivationType]] = None,
+        order_activation_types: typing.Optional[
+            typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]
+        ] = None,
         user_id: typing.Optional[str] = None,
         patient_name: typing.Optional[str] = None,
         shipping_recipient_name: typing.Optional[str] = None,
-        order_ids: typing.Optional[typing.Sequence[str]] = None,
+        order_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         page: typing.Optional[int] = None,
         size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -2418,16 +2930,16 @@ class AsyncLabTestsClient:
         updated_end_date : typing.Optional[dt.datetime]
             Date to YYYY-MM-DD or ISO formatted date time. If a date is provided without a time, the time will be set to 00:00:00
 
-        status : typing.Optional[typing.Sequence[OrderLowLevelStatus]]
+        status : typing.Optional[typing.Union[OrderLowLevelStatus, typing.Sequence[OrderLowLevelStatus]]]
             Filter by low level status.
 
-        order_key : typing.Optional[GetOrdersLabTestsRequestOrderKey]
+        order_key : typing.Optional[LabTestsGetOrdersRequestOrderKey]
             Order key to sort by.
 
-        order_direction : typing.Optional[GetOrdersLabTestsRequestOrderDirection]
+        order_direction : typing.Optional[LabTestsGetOrdersRequestOrderDirection]
             Order direction to sort by.
 
-        order_type : typing.Optional[typing.Sequence[LabTestCollectionMethod]]
+        order_type : typing.Optional[typing.Union[LabTestCollectionMethod, typing.Sequence[LabTestCollectionMethod]]]
             Filter by method used to perform the lab test.
 
         is_critical : typing.Optional[bool]
@@ -2436,7 +2948,7 @@ class AsyncLabTestsClient:
         interpretation : typing.Optional[Interpretation]
             Filter by result interpretation of the lab test.
 
-        order_activation_types : typing.Optional[typing.Sequence[OrderActivationType]]
+        order_activation_types : typing.Optional[typing.Union[OrderActivationType, typing.Sequence[OrderActivationType]]]
             Filter by activation type.
 
         user_id : typing.Optional[str]
@@ -2448,7 +2960,7 @@ class AsyncLabTestsClient:
         shipping_recipient_name : typing.Optional[str]
             Filter by shipping recipient name.
 
-        order_ids : typing.Optional[typing.Sequence[str]]
+        order_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter by order ids.
 
         page : typing.Optional[int]
@@ -2465,11 +2977,47 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+        import datetime
+
+        from vital import AsyncVital, Interpretation
+        from vital.lab_tests import (
+            LabTestsGetOrdersRequestOrderDirection,
+            LabTestsGetOrdersRequestOrderKey,
+        )
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.get_orders()
+            await client.lab_tests.get_orders(
+                search_input="search_input",
+                start_date=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                end_date=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                updated_start_date=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                updated_end_date=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                order_key=LabTestsGetOrdersRequestOrderKey.CREATED_AT,
+                order_direction=LabTestsGetOrdersRequestOrderDirection.ASC,
+                is_critical=True,
+                interpretation=Interpretation.NORMAL,
+                user_id="user_id",
+                patient_name="patient_name",
+                shipping_recipient_name="shipping_recipient_name",
+                page=1,
+                size=1,
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.get_orders(
@@ -2499,7 +3047,7 @@ class AsyncLabTestsClient:
         self,
         *,
         request: UsAddress,
-        start_date: typing.Optional[dt.date] = None,
+        start_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AppointmentAvailabilitySlots:
         """
@@ -2510,7 +3058,7 @@ class AsyncLabTestsClient:
         ----------
         request : UsAddress
 
-        start_date : typing.Optional[dt.date]
+        start_date : typing.Optional[str]
             Start date for appointment availability
 
         request_options : typing.Optional[RequestOptions]
@@ -2523,12 +3071,27 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
-        from vital import UsAddress
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital, UsAddress
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.get_phlebotomy_appointment_availability(request=UsAddress(first_line='first_line', city='city', state='state', zip_code='zip_code', ), )
+            await client.lab_tests.get_phlebotomy_appointment_availability(
+                start_date="start_date",
+                request=UsAddress(
+                    first_line="first_line",
+                    city="city",
+                    state="state",
+                    zip_code="zip_code",
+                ),
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.get_phlebotomy_appointment_availability(
@@ -2563,12 +3126,24 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
-        from vital import AppointmentBookingRequest
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AppointmentBookingRequest, AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.book_phlebotomy_appointment(order_id='order_id', request=AppointmentBookingRequest(booking_key='booking_key', ), )
+            await client.lab_tests.book_phlebotomy_appointment(
+                order_id="order_id",
+                request=AppointmentBookingRequest(
+                    booking_key="booking_key",
+                ),
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.book_phlebotomy_appointment(
@@ -2607,13 +3182,28 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
-        from vital import UsAddress
-        from vital import AppointmentProvider
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AppointmentProvider, AsyncVital, UsAddress
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.request_phlebotomy_appointment(order_id='order_id', address=UsAddress(first_line='first_line', city='city', state='state', zip_code='zip_code', ), provider=AppointmentProvider.GETLABS, )
+            await client.lab_tests.request_phlebotomy_appointment(
+                order_id="order_id",
+                address=UsAddress(
+                    first_line="first_line",
+                    city="city",
+                    state="state",
+                    zip_code="zip_code",
+                ),
+                provider=AppointmentProvider.GETLABS,
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.request_phlebotomy_appointment(
@@ -2648,12 +3238,24 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
-        from vital import AppointmentRescheduleRequest
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AppointmentRescheduleRequest, AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.reschedule_phlebotomy_appointment(order_id='order_id', request=AppointmentRescheduleRequest(booking_key='booking_key', ), )
+            await client.lab_tests.reschedule_phlebotomy_appointment(
+                order_id="order_id",
+                request=AppointmentRescheduleRequest(
+                    booking_key="booking_key",
+                ),
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.reschedule_phlebotomy_appointment(
@@ -2691,11 +3293,22 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.cancel_phlebotomy_appointment(order_id='order_id', cancellation_reason_id='cancellation_reason_id', )
+            await client.lab_tests.cancel_phlebotomy_appointment(
+                order_id="order_id",
+                cancellation_reason_id="cancellation_reason_id",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.cancel_phlebotomy_appointment(
@@ -2721,11 +3334,19 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
             await client.lab_tests.get_phlebotomy_appointment_cancellation_reason()
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.get_phlebotomy_appointment_cancellation_reason(
@@ -2754,11 +3375,21 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.get_phlebotomy_appointment(order_id='order_id', )
+            await client.lab_tests.get_phlebotomy_appointment(
+                order_id="order_id",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.get_phlebotomy_appointment(order_id, request_options=request_options)
@@ -2770,7 +3401,7 @@ class AsyncLabTestsClient:
         zip_code: str,
         radius: typing.Optional[AllowedRadius] = None,
         lab: typing.Optional[ClientFacingLabs] = None,
-        labs: typing.Optional[typing.Sequence[ClientFacingLabs]] = None,
+        labs: typing.Optional[typing.Union[ClientFacingLabs, typing.Sequence[ClientFacingLabs]]] = None,
         lab_account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AreaInfo:
@@ -2792,7 +3423,7 @@ class AsyncLabTestsClient:
         lab : typing.Optional[ClientFacingLabs]
             Lab to check for PSCs
 
-        labs : typing.Optional[typing.Sequence[ClientFacingLabs]]
+        labs : typing.Optional[typing.Union[ClientFacingLabs, typing.Sequence[ClientFacingLabs]]]
             List of labs to check for PSCs
 
         lab_account_id : typing.Optional[str]
@@ -2808,11 +3439,24 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AllowedRadius, AsyncVital, ClientFacingLabs
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.get_area_info(zip_code='zip_code', )
+            await client.lab_tests.get_area_info(
+                zip_code="zip_code",
+                radius=AllowedRadius.TEN,
+                lab=ClientFacingLabs.QUEST,
+                lab_account_id="lab_account_id",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.get_area_info(
@@ -2831,7 +3475,9 @@ class AsyncLabTestsClient:
         zip_code: str,
         lab_id: int,
         radius: typing.Optional[AllowedRadius] = None,
-        capabilities: typing.Optional[typing.Sequence[LabLocationCapability]] = None,
+        capabilities: typing.Optional[
+            typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]
+        ] = None,
         lab_account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PscInfo:
@@ -2847,7 +3493,7 @@ class AsyncLabTestsClient:
         radius : typing.Optional[AllowedRadius]
             Radius in which to search in miles. Note that we limit to 30 PSCs.
 
-        capabilities : typing.Optional[typing.Sequence[LabLocationCapability]]
+        capabilities : typing.Optional[typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]]
             Filter for only locations with certain capabilities
 
         lab_account_id : typing.Optional[str]
@@ -2863,11 +3509,24 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AllowedRadius, AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.get_psc_info(zip_code='zip_code', lab_id=1, )
+            await client.lab_tests.get_psc_info(
+                zip_code="zip_code",
+                lab_id=1,
+                radius=AllowedRadius.TEN,
+                lab_account_id="lab_account_id",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.get_psc_info(
@@ -2885,7 +3544,9 @@ class AsyncLabTestsClient:
         order_id: str,
         *,
         radius: typing.Optional[AllowedRadius] = None,
-        capabilities: typing.Optional[typing.Sequence[LabLocationCapability]] = None,
+        capabilities: typing.Optional[
+            typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]
+        ] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PscInfo:
         """
@@ -2897,7 +3558,7 @@ class AsyncLabTestsClient:
         radius : typing.Optional[AllowedRadius]
             Radius in which to search in miles
 
-        capabilities : typing.Optional[typing.Sequence[LabLocationCapability]]
+        capabilities : typing.Optional[typing.Union[LabLocationCapability, typing.Sequence[LabLocationCapability]]]
             Filter for only locations with certain capabilities
 
         request_options : typing.Optional[RequestOptions]
@@ -2910,11 +3571,22 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AllowedRadius, AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.get_order_psc_info(order_id='order_id', )
+            await client.lab_tests.get_order_psc_info(
+                order_id="order_id",
+                radius=AllowedRadius.TEN,
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.get_order_psc_info(
@@ -2942,16 +3614,26 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.get_result_pdf(order_id='order_id', )
+            await client.lab_tests.get_result_pdf(
+                order_id="order_id",
+            )
+
+
         asyncio.run(main())
         """
         async with self._raw_client.get_result_pdf(order_id, request_options=request_options) as r:
-            async for data in r.data:
-                yield data
+            async for _chunk in r.data:
+                yield _chunk
 
     async def get_result_metadata(
         self, order_id: str, *, request_options: typing.Optional[RequestOptions] = None
@@ -2974,11 +3656,21 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.get_result_metadata(order_id='order_id', )
+            await client.lab_tests.get_result_metadata(
+                order_id="order_id",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.get_result_metadata(order_id, request_options=request_options)
@@ -3004,11 +3696,21 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.get_result_raw(order_id='order_id', )
+            await client.lab_tests.get_result_raw(
+                order_id="order_id",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.get_result_raw(order_id, request_options=request_options)
@@ -3045,12 +3747,25 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
-        import datetime
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+        import datetime
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.get_labels_pdf(order_id='order_id', collection_date=datetime.datetime.fromisoformat("2024-01-15 09:30:00+00:00", ), )
+            await client.lab_tests.get_labels_pdf(
+                order_id="order_id",
+                collection_date=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+            )
+
+
         asyncio.run(main())
         """
         async with self._raw_client.get_labels_pdf(
@@ -3059,14 +3774,14 @@ class AsyncLabTestsClient:
             number_of_labels=number_of_labels,
             request_options=request_options,
         ) as r:
-            async for data in r.data:
-                yield data
+            async for _chunk in r.data:
+                yield _chunk
 
     async def get_psc_appointment_availability(
         self,
         *,
-        start_date: typing.Optional[dt.date] = None,
-        site_codes: typing.Optional[typing.Sequence[str]] = None,
+        start_date: typing.Optional[str] = None,
+        site_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         zip_code: typing.Optional[str] = None,
         radius: typing.Optional[AllowedRadius] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -3074,10 +3789,10 @@ class AsyncLabTestsClient:
         """
         Parameters
         ----------
-        start_date : typing.Optional[dt.date]
+        start_date : typing.Optional[str]
             Start date for appointment availability
 
-        site_codes : typing.Optional[typing.Sequence[str]]
+        site_codes : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             List of site codes to fetch availability for
 
         zip_code : typing.Optional[str]
@@ -3096,11 +3811,23 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AllowedRadius, AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.get_psc_appointment_availability()
+            await client.lab_tests.get_psc_appointment_availability(
+                start_date="start_date",
+                zip_code="zip_code",
+                radius=AllowedRadius.TEN,
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.get_psc_appointment_availability(
@@ -3137,12 +3864,24 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
-        from vital import AppointmentBookingRequest
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AppointmentBookingRequest, AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.book_psc_appointment(order_id='order_id', request=AppointmentBookingRequest(booking_key='booking_key', ), )
+            await client.lab_tests.book_psc_appointment(
+                order_id="order_id",
+                request=AppointmentBookingRequest(
+                    booking_key="booking_key",
+                ),
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.book_psc_appointment(
@@ -3175,12 +3914,24 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
-        from vital import AppointmentRescheduleRequest
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AppointmentRescheduleRequest, AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.reschedule_psc_appointment(order_id='order_id', request=AppointmentRescheduleRequest(booking_key='booking_key', ), )
+            await client.lab_tests.reschedule_psc_appointment(
+                order_id="order_id",
+                request=AppointmentRescheduleRequest(
+                    booking_key="booking_key",
+                ),
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.reschedule_psc_appointment(
@@ -3216,11 +3967,22 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.cancel_psc_appointment(order_id='order_id', cancellation_reason_id='cancellationReasonId', )
+            await client.lab_tests.cancel_psc_appointment(
+                order_id="order_id",
+                cancellation_reason_id="cancellationReasonId",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.cancel_psc_appointment(
@@ -3244,11 +4006,19 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
             await client.lab_tests.get_psc_appointment_cancellation_reason()
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.get_psc_appointment_cancellation_reason(request_options=request_options)
@@ -3275,11 +4045,21 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.get_psc_appointment(order_id='order_id', )
+            await client.lab_tests.get_psc_appointment(
+                order_id="order_id",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.get_psc_appointment(order_id, request_options=request_options)
@@ -3306,18 +4086,28 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.get_order_collection_instruction_pdf(order_id='order_id', )
+            await client.lab_tests.get_order_collection_instruction_pdf(
+                order_id="order_id",
+            )
+
+
         asyncio.run(main())
         """
         async with self._raw_client.get_order_collection_instruction_pdf(
             order_id, request_options=request_options
         ) as r:
-            async for data in r.data:
-                yield data
+            async for _chunk in r.data:
+                yield _chunk
 
     async def get_order_requistion_pdf(
         self, order_id: str, *, request_options: typing.Optional[RequestOptions] = None
@@ -3340,16 +4130,26 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.get_order_requistion_pdf(order_id='order_id', )
+            await client.lab_tests.get_order_requistion_pdf(
+                order_id="order_id",
+            )
+
+
         asyncio.run(main())
         """
         async with self._raw_client.get_order_requistion_pdf(order_id, request_options=request_options) as r:
-            async for data in r.data:
-                yield data
+            async for _chunk in r.data:
+                yield _chunk
 
     async def get_order_abn_pdf(
         self, order_id: str, *, request_options: typing.Optional[RequestOptions] = None
@@ -3372,16 +4172,26 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.get_order_abn_pdf(order_id='order_id', )
+            await client.lab_tests.get_order_abn_pdf(
+                order_id="order_id",
+            )
+
+
         asyncio.run(main())
         """
         async with self._raw_client.get_order_abn_pdf(order_id, request_options=request_options) as r:
-            async for data in r.data:
-                yield data
+            async for _chunk in r.data:
+                yield _chunk
 
     async def get_order(
         self, order_id: str, *, request_options: typing.Optional[RequestOptions] = None
@@ -3404,11 +4214,21 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.get_order(order_id='order_id', )
+            await client.lab_tests.get_order(
+                order_id="order_id",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.get_order(order_id, request_options=request_options)
@@ -3431,7 +4251,7 @@ class AsyncLabTestsClient:
         billing_type: typing.Optional[Billing] = OMIT,
         icd_codes: typing.Optional[typing.Sequence[str]] = OMIT,
         consents: typing.Optional[typing.Sequence[Consent]] = OMIT,
-        activate_by: typing.Optional[dt.date] = OMIT,
+        activate_by: typing.Optional[str] = OMIT,
         aoe_answers: typing.Optional[typing.Sequence[AoEAnswer]] = OMIT,
         passthrough: typing.Optional[str] = OMIT,
         lab_account_id: typing.Optional[str] = OMIT,
@@ -3470,7 +4290,7 @@ class AsyncLabTestsClient:
 
         consents : typing.Optional[typing.Sequence[Consent]]
 
-        activate_by : typing.Optional[dt.date]
+        activate_by : typing.Optional[str]
             Schedule an Order to be processed in a future date.
 
         aoe_answers : typing.Optional[typing.Sequence[AoEAnswer]]
@@ -3491,15 +4311,42 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
-        from vital import PatientDetailsWithValidation
-        import datetime
-        from vital import Gender
-        from vital import PatientAddressWithValidation
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import (
+            AsyncVital,
+            Gender,
+            PatientAddressWithValidation,
+            PatientDetailsWithValidation,
+        )
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.create_order(user_id='user_id', patient_details=PatientDetailsWithValidation(first_name='first_name', last_name='last_name', dob=datetime.date.fromisoformat("2023-01-15", ), gender=Gender.FEMALE, phone_number='phone_number', email='email', ), patient_address=PatientAddressWithValidation(first_line='first_line', city='city', state='state', zip='zip', country='country', ), )
+            await client.lab_tests.create_order(
+                idempotency_key="X-Idempotency-Key",
+                user_id="user_id",
+                patient_details=PatientDetailsWithValidation(
+                    first_name="first_name",
+                    last_name="last_name",
+                    dob="dob",
+                    gender=Gender.FEMALE,
+                    phone_number="phone_number",
+                    email="email",
+                ),
+                patient_address=PatientAddressWithValidation(
+                    first_line="first_line",
+                    city="city",
+                    state="state",
+                    zip="zip",
+                    country="country",
+                ),
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.create_order(
@@ -3571,18 +4418,49 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
-        from vital import Billing
-        from vital import OrderSetRequest
-        from vital import LabTestCollectionMethod
-        from vital import PatientDetailsWithValidation
-        import datetime
-        from vital import Gender
-        from vital import PatientAddress
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import (
+            AsyncVital,
+            Billing,
+            Gender,
+            LabTestCollectionMethod,
+            OrderSetRequest,
+            PatientAddress,
+            PatientDetailsWithValidation,
+        )
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.import_order(user_id='user_id', billing_type=Billing.CLIENT_BILL, order_set=OrderSetRequest(), collection_method=LabTestCollectionMethod.TESTKIT, patient_details=PatientDetailsWithValidation(first_name='first_name', last_name='last_name', dob=datetime.date.fromisoformat("2023-01-15", ), gender=Gender.FEMALE, phone_number='phone_number', email='email', ), patient_address=PatientAddress(receiver_name='receiver_name', first_line='first_line', city='city', state='state', zip='zip', country='country', ), sample_id='sample_id', )
+            await client.lab_tests.import_order(
+                user_id="user_id",
+                billing_type=Billing.CLIENT_BILL,
+                order_set=OrderSetRequest(),
+                collection_method=LabTestCollectionMethod.TESTKIT,
+                patient_details=PatientDetailsWithValidation(
+                    first_name="first_name",
+                    last_name="last_name",
+                    dob="dob",
+                    gender=Gender.FEMALE,
+                    phone_number="phone_number",
+                    email="email",
+                ),
+                patient_address=PatientAddress(
+                    receiver_name="receiver_name",
+                    first_line="first_line",
+                    city="city",
+                    state="state",
+                    zip="zip",
+                    country="country",
+                ),
+                sample_id="sample_id",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.import_order(
@@ -3620,11 +4498,21 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.cancel_order(order_id='order_id', )
+            await client.lab_tests.cancel_order(
+                order_id="order_id",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.cancel_order(order_id, request_options=request_options)
@@ -3638,7 +4526,7 @@ class AsyncLabTestsClient:
         delay: typing.Optional[int] = None,
         request: typing.Optional[SimulationFlags] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.Optional[typing.Any]:
+    ) -> typing.Any:
         """
         Get available test kits.
 
@@ -3657,17 +4545,29 @@ class AsyncLabTestsClient:
 
         Returns
         -------
-        typing.Optional[typing.Any]
+        typing.Any
             Successful Response
 
         Examples
         --------
-        from vital import AsyncVital
-        from vital import SimulationFlags
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital, OrderStatus, SimulationFlags
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.simulate_order_process(order_id='order_id', request=SimulationFlags(), )
+            await client.lab_tests.simulate_order_process(
+                order_id="order_id",
+                final_status=OrderStatus.RECEIVED_WALK_IN_TEST_ORDERED,
+                delay=1,
+                request=SimulationFlags(),
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.simulate_order_process(
@@ -3696,11 +4596,21 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.update_on_site_collection_order_draw_completed(order_id='order_id', )
+            await client.lab_tests.update_on_site_collection_order_draw_completed(
+                order_id="order_id",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.update_on_site_collection_order_draw_completed(
@@ -3726,11 +4636,21 @@ class AsyncLabTestsClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.lab_tests.validate_icd_codes(codes=['codes'], )
+            await client.lab_tests.validate_icd_codes(
+                codes=["codes"],
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.validate_icd_codes(codes=codes, request_options=request_options)
