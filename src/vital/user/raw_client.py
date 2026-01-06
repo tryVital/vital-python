@@ -340,6 +340,7 @@ class RawUserClient:
         insured: VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails,
         group_id: typing.Optional[str] = OMIT,
         guarantor: typing.Optional[GuarantorDetails] = OMIT,
+        is_primary: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ClientFacingInsurance]:
         """
@@ -359,6 +360,8 @@ class RawUserClient:
 
         guarantor : typing.Optional[GuarantorDetails]
 
+        is_primary : typing.Optional[bool]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -377,6 +380,7 @@ class RawUserClient:
                 "relationship": relationship,
                 "insured": insured,
                 "guarantor": guarantor,
+                "is_primary": is_primary,
             },
             headers={
                 "content-type": "application/json",
@@ -411,12 +415,18 @@ class RawUserClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def get_latest_insurance(
-        self, user_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        user_id: str,
+        *,
+        is_primary: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ClientFacingInsurance]:
         """
         Parameters
         ----------
         user_id : str
+
+        is_primary : typing.Optional[bool]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -429,6 +439,9 @@ class RawUserClient:
         _response = self._client_wrapper.httpx_client.request(
             f"v2/user/{jsonable_encoder(user_id)}/insurance/latest",
             method="GET",
+            params={
+                "is_primary": is_primary,
+            },
             request_options=request_options,
         )
         try:
@@ -1474,6 +1487,7 @@ class AsyncRawUserClient:
         insured: VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails,
         group_id: typing.Optional[str] = OMIT,
         guarantor: typing.Optional[GuarantorDetails] = OMIT,
+        is_primary: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ClientFacingInsurance]:
         """
@@ -1493,6 +1507,8 @@ class AsyncRawUserClient:
 
         guarantor : typing.Optional[GuarantorDetails]
 
+        is_primary : typing.Optional[bool]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1511,6 +1527,7 @@ class AsyncRawUserClient:
                 "relationship": relationship,
                 "insured": insured,
                 "guarantor": guarantor,
+                "is_primary": is_primary,
             },
             headers={
                 "content-type": "application/json",
@@ -1545,12 +1562,18 @@ class AsyncRawUserClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def get_latest_insurance(
-        self, user_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        user_id: str,
+        *,
+        is_primary: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ClientFacingInsurance]:
         """
         Parameters
         ----------
         user_id : str
+
+        is_primary : typing.Optional[bool]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1563,6 +1586,9 @@ class AsyncRawUserClient:
         _response = await self._client_wrapper.httpx_client.request(
             f"v2/user/{jsonable_encoder(user_id)}/insurance/latest",
             method="GET",
+            params={
+                "is_primary": is_primary,
+            },
             request_options=request_options,
         )
         try:

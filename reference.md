@@ -11052,6 +11052,14 @@ client.user.create_insurance(
 <dl>
 <dd>
 
+**is_primary:** `typing.Optional[bool]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -11084,6 +11092,7 @@ client = Vital(
 )
 client.user.get_latest_insurance(
     user_id="user_id",
+    is_primary=True,
 )
 
 ```
@@ -11101,6 +11110,14 @@ client.user.get_latest_insurance(
 <dd>
 
 **user_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_primary:** `typing.Optional[bool]` 
     
 </dd>
 </dl>

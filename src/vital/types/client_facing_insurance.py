@@ -20,6 +20,7 @@ class ClientFacingInsurance(UniversalBaseModel):
     company: CompanyDetails
     group_id: typing.Optional[str] = None
     guarantor: typing.Optional[GuarantorDetails] = None
+    is_primary: typing.Optional[bool] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -248,6 +248,7 @@ class UserClient:
         insured: VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails,
         group_id: typing.Optional[str] = OMIT,
         guarantor: typing.Optional[GuarantorDetails] = OMIT,
+        is_primary: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingInsurance:
         """
@@ -266,6 +267,8 @@ class UserClient:
         group_id : typing.Optional[str]
 
         guarantor : typing.Optional[GuarantorDetails]
+
+        is_primary : typing.Optional[bool]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -318,17 +321,24 @@ class UserClient:
             insured=insured,
             group_id=group_id,
             guarantor=guarantor,
+            is_primary=is_primary,
             request_options=request_options,
         )
         return _response.data
 
     def get_latest_insurance(
-        self, user_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        user_id: str,
+        *,
+        is_primary: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingInsurance:
         """
         Parameters
         ----------
         user_id : str
+
+        is_primary : typing.Optional[bool]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -347,9 +357,12 @@ class UserClient:
         )
         client.user.get_latest_insurance(
             user_id="user_id",
+            is_primary=True,
         )
         """
-        _response = self._raw_client.get_latest_insurance(user_id, request_options=request_options)
+        _response = self._raw_client.get_latest_insurance(
+            user_id, is_primary=is_primary, request_options=request_options
+        )
         return _response.data
 
     def upsert_user_info(
@@ -1114,6 +1127,7 @@ class AsyncUserClient:
         insured: VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails,
         group_id: typing.Optional[str] = OMIT,
         guarantor: typing.Optional[GuarantorDetails] = OMIT,
+        is_primary: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingInsurance:
         """
@@ -1132,6 +1146,8 @@ class AsyncUserClient:
         group_id : typing.Optional[str]
 
         guarantor : typing.Optional[GuarantorDetails]
+
+        is_primary : typing.Optional[bool]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1192,17 +1208,24 @@ class AsyncUserClient:
             insured=insured,
             group_id=group_id,
             guarantor=guarantor,
+            is_primary=is_primary,
             request_options=request_options,
         )
         return _response.data
 
     async def get_latest_insurance(
-        self, user_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        user_id: str,
+        *,
+        is_primary: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingInsurance:
         """
         Parameters
         ----------
         user_id : str
+
+        is_primary : typing.Optional[bool]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1226,12 +1249,15 @@ class AsyncUserClient:
         async def main() -> None:
             await client.user.get_latest_insurance(
                 user_id="user_id",
+                is_primary=True,
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.get_latest_insurance(user_id, request_options=request_options)
+        _response = await self._raw_client.get_latest_insurance(
+            user_id, is_primary=is_primary, request_options=request_options
+        )
         return _response.data
 
     async def upsert_user_info(
