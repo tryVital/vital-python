@@ -7,7 +7,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class LibreConfig(UniversalBaseModel):
-    practice_id: typing.Dict[str, typing.Optional[typing.Any]]
+    practice_id: typing.Dict[str, typing.Any]
     strip_tz: typing.Optional[bool] = None
 
     if IS_PYDANTIC_V2:

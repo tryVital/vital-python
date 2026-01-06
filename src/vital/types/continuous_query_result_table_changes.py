@@ -9,7 +9,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 class ContinuousQueryResultTableChanges(UniversalBaseModel):
     query_id: str
     query_slug: str
-    data: typing.Dict[str, typing.List[typing.Optional[typing.Any]]]
+    data: typing.Dict[str, typing.List[typing.Any]]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
