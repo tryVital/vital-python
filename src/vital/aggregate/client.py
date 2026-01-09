@@ -61,18 +61,42 @@ class AggregateClient:
 
         Examples
         --------
-        from vital import Vital
-        from vital import RelativeTimeframe
-        import datetime
-        from vital import Period
-        from vital import PeriodUnit
-        from vital import Query
-        from vital import AggregateExpr
-        from vital import SleepColumnExpr
-        from vital import SleepColumnExprSleep
-        from vital import AggregateExprFunc
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.aggregate.query_one(user_id='user_id', timeframe=RelativeTimeframe(anchor=datetime.date.fromisoformat("2023-01-15", ), past=Period(unit=PeriodUnit.MINUTE, ), ), queries=[Query(select=[AggregateExpr(arg=SleepColumnExpr(sleep=SleepColumnExprSleep.ID, ), func=AggregateExprFunc.MEAN, )], )], )
+        from vital import (
+            AggregateExpr,
+            AggregateExprFunc,
+            Period,
+            PeriodUnit,
+            Query,
+            RelativeTimeframe,
+            SleepColumnExpr,
+            SleepColumnExprSleep,
+            Vital,
+        )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.aggregate.query_one(
+            user_id="user_id",
+            timeframe=RelativeTimeframe(
+                anchor="anchor",
+                past=Period(
+                    unit=PeriodUnit.MINUTE,
+                ),
+            ),
+            queries=[
+                Query(
+                    select=[
+                        AggregateExpr(
+                            arg=SleepColumnExpr(
+                                sleep=SleepColumnExprSleep.ID,
+                            ),
+                            func=AggregateExprFunc.MEAN,
+                        )
+                    ],
+                )
+            ],
+        )
         """
         _response = self._raw_client.query_one(
             user_id, timeframe=timeframe, queries=queries, config=config, request_options=request_options
@@ -100,8 +124,14 @@ class AggregateClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.aggregate.get_result_table_for_continuous_query(user_id='user_id', query_id_or_slug='query_id_or_slug', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.aggregate.get_result_table_for_continuous_query(
+            user_id="user_id",
+            query_id_or_slug="query_id_or_slug",
+        )
         """
         _response = self._raw_client.get_result_table_for_continuous_query(
             user_id, query_id_or_slug, request_options=request_options
@@ -139,8 +169,16 @@ class AggregateClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.aggregate.get_task_history_for_continuous_query(user_id='user_id', query_id_or_slug='query_id_or_slug', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.aggregate.get_task_history_for_continuous_query(
+            user_id="user_id",
+            query_id_or_slug="query_id_or_slug",
+            next_cursor="next_cursor",
+            limit=1,
+        )
         """
         _response = self._raw_client.get_task_history_for_continuous_query(
             user_id, query_id_or_slug, next_cursor=next_cursor, limit=limit, request_options=request_options
@@ -193,20 +231,49 @@ class AsyncAggregateClient:
 
         Examples
         --------
-        from vital import AsyncVital
-        from vital import RelativeTimeframe
-        import datetime
-        from vital import Period
-        from vital import PeriodUnit
-        from vital import Query
-        from vital import AggregateExpr
-        from vital import SleepColumnExpr
-        from vital import SleepColumnExprSleep
-        from vital import AggregateExprFunc
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import (
+            AggregateExpr,
+            AggregateExprFunc,
+            AsyncVital,
+            Period,
+            PeriodUnit,
+            Query,
+            RelativeTimeframe,
+            SleepColumnExpr,
+            SleepColumnExprSleep,
+        )
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.aggregate.query_one(user_id='user_id', timeframe=RelativeTimeframe(anchor=datetime.date.fromisoformat("2023-01-15", ), past=Period(unit=PeriodUnit.MINUTE, ), ), queries=[Query(select=[AggregateExpr(arg=SleepColumnExpr(sleep=SleepColumnExprSleep.ID, ), func=AggregateExprFunc.MEAN, )], )], )
+            await client.aggregate.query_one(
+                user_id="user_id",
+                timeframe=RelativeTimeframe(
+                    anchor="anchor",
+                    past=Period(
+                        unit=PeriodUnit.MINUTE,
+                    ),
+                ),
+                queries=[
+                    Query(
+                        select=[
+                            AggregateExpr(
+                                arg=SleepColumnExpr(
+                                    sleep=SleepColumnExprSleep.ID,
+                                ),
+                                func=AggregateExprFunc.MEAN,
+                            )
+                        ],
+                    )
+                ],
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.query_one(
@@ -234,11 +301,22 @@ class AsyncAggregateClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.aggregate.get_result_table_for_continuous_query(user_id='user_id', query_id_or_slug='query_id_or_slug', )
+            await client.aggregate.get_result_table_for_continuous_query(
+                user_id="user_id",
+                query_id_or_slug="query_id_or_slug",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.get_result_table_for_continuous_query(
@@ -276,11 +354,24 @@ class AsyncAggregateClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.aggregate.get_task_history_for_continuous_query(user_id='user_id', query_id_or_slug='query_id_or_slug', )
+            await client.aggregate.get_task_history_for_continuous_query(
+                user_id="user_id",
+                query_id_or_slug="query_id_or_slug",
+                next_cursor="next_cursor",
+                limit=1,
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.get_task_history_for_continuous_query(

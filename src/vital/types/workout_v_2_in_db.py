@@ -11,7 +11,7 @@ from .client_facing_sport import ClientFacingSport
 
 class WorkoutV2InDb(UniversalBaseModel):
     timestamp: dt.datetime
-    data: typing.Dict[str, typing.Optional[typing.Any]]
+    data: typing.Dict[str, typing.Any]
     provider_id: str
     user_id: str
     source_id: int
