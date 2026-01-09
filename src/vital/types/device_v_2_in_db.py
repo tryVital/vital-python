@@ -8,7 +8,7 @@ from .client_facing_provider import ClientFacingProvider
 
 
 class DeviceV2InDb(UniversalBaseModel):
-    data: typing.Dict[str, typing.Optional[typing.Any]]
+    data: typing.Dict[str, typing.Any]
     provider_id: str
     user_id: str
     source_id: int
