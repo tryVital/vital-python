@@ -2,18 +2,52 @@
 
 # isort: skip_file
 
-from .get_lab_tests_request_order_direction import GetLabTestsRequestOrderDirection
-from .get_lab_tests_request_order_key import GetLabTestsRequestOrderKey
-from .get_orders_lab_tests_request_order_direction import GetOrdersLabTestsRequestOrderDirection
-from .get_orders_lab_tests_request_order_key import GetOrdersLabTestsRequestOrderKey
-from .get_paginated_lab_tests_request_order_direction import GetPaginatedLabTestsRequestOrderDirection
-from .get_paginated_lab_tests_request_order_key import GetPaginatedLabTestsRequestOrderKey
+import typing
+from importlib import import_module
+
+if typing.TYPE_CHECKING:
+    from .lab_tests_get_orders_request_order_direction import LabTestsGetOrdersRequestOrderDirection
+    from .lab_tests_get_orders_request_order_key import LabTestsGetOrdersRequestOrderKey
+    from .lab_tests_get_paginated_request_order_direction import LabTestsGetPaginatedRequestOrderDirection
+    from .lab_tests_get_paginated_request_order_key import LabTestsGetPaginatedRequestOrderKey
+    from .lab_tests_get_request_order_direction import LabTestsGetRequestOrderDirection
+    from .lab_tests_get_request_order_key import LabTestsGetRequestOrderKey
+_dynamic_imports: typing.Dict[str, str] = {
+    "LabTestsGetOrdersRequestOrderDirection": ".lab_tests_get_orders_request_order_direction",
+    "LabTestsGetOrdersRequestOrderKey": ".lab_tests_get_orders_request_order_key",
+    "LabTestsGetPaginatedRequestOrderDirection": ".lab_tests_get_paginated_request_order_direction",
+    "LabTestsGetPaginatedRequestOrderKey": ".lab_tests_get_paginated_request_order_key",
+    "LabTestsGetRequestOrderDirection": ".lab_tests_get_request_order_direction",
+    "LabTestsGetRequestOrderKey": ".lab_tests_get_request_order_key",
+}
+
+
+def __getattr__(attr_name: str) -> typing.Any:
+    module_name = _dynamic_imports.get(attr_name)
+    if module_name is None:
+        raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
+    try:
+        module = import_module(module_name, __package__)
+        if module_name == f".{attr_name}":
+            return module
+        else:
+            return getattr(module, attr_name)
+    except ImportError as e:
+        raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
+    except AttributeError as e:
+        raise AttributeError(f"Failed to get {attr_name} from {module_name}: {e}") from e
+
+
+def __dir__():
+    lazy_attrs = list(_dynamic_imports.keys())
+    return sorted(lazy_attrs)
+
 
 __all__ = [
-    "GetLabTestsRequestOrderDirection",
-    "GetLabTestsRequestOrderKey",
-    "GetOrdersLabTestsRequestOrderDirection",
-    "GetOrdersLabTestsRequestOrderKey",
-    "GetPaginatedLabTestsRequestOrderDirection",
-    "GetPaginatedLabTestsRequestOrderKey",
+    "LabTestsGetOrdersRequestOrderDirection",
+    "LabTestsGetOrdersRequestOrderKey",
+    "LabTestsGetPaginatedRequestOrderDirection",
+    "LabTestsGetPaginatedRequestOrderKey",
+    "LabTestsGetRequestOrderDirection",
+    "LabTestsGetRequestOrderKey",
 ]
