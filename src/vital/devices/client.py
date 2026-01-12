@@ -51,8 +51,14 @@ class DevicesClient:
         Examples
         --------
         from vital import Vital
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.devices.get_raw(user_id='user_id', )
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.devices.get_raw(
+            user_id="user_id",
+            provider="provider",
+        )
         """
         _response = self._raw_client.get_raw(user_id, provider=provider, request_options=request_options)
         return _response.data
@@ -100,11 +106,22 @@ class AsyncDevicesClient:
 
         Examples
         --------
-        from vital import AsyncVital
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.devices.get_raw(user_id='user_id', )
+            await client.devices.get_raw(
+                user_id="user_id",
+                provider="provider",
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.get_raw(user_id, provider=provider, request_options=request_options)

@@ -10,7 +10,7 @@ from .client_facing_provider import ClientFacingProvider
 
 class ActivityV2InDb(UniversalBaseModel):
     timestamp: dt.datetime
-    data: typing.Dict[str, typing.Optional[typing.Any]]
+    data: typing.Dict[str, typing.Any]
     provider_id: str
     user_id: str
     source_id: int

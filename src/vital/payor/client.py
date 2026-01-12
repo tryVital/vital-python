@@ -58,10 +58,21 @@ class PayorClient:
 
         Examples
         --------
-        from vital import Vital
-        from vital import Address
-        client = Vital(api_key="YOUR_API_KEY", )
-        client.payor.create_payor(name='name', address=Address(first_line='first_line', country='country', zip='zip', city='city', state='state', ), )
+        from vital import Address, Vital
+
+        client = Vital(
+            api_key="YOUR_API_KEY",
+        )
+        client.payor.create_payor(
+            name="name",
+            address=Address(
+                first_line="first_line",
+                country="country",
+                zip="zip",
+                city="city",
+                state="state",
+            ),
+        )
         """
         _response = self._raw_client.create_payor(
             name=name,
@@ -118,12 +129,28 @@ class AsyncPayorClient:
 
         Examples
         --------
-        from vital import AsyncVital
-        from vital import Address
         import asyncio
-        client = AsyncVital(api_key="YOUR_API_KEY", )
+
+        from vital import Address, AsyncVital
+
+        client = AsyncVital(
+            api_key="YOUR_API_KEY",
+        )
+
+
         async def main() -> None:
-            await client.payor.create_payor(name='name', address=Address(first_line='first_line', country='country', zip='zip', city='city', state='state', ), )
+            await client.payor.create_payor(
+                name="name",
+                address=Address(
+                    first_line="first_line",
+                    country="country",
+                    zip="zip",
+                    city="city",
+                    state="state",
+                ),
+            )
+
+
         asyncio.run(main())
         """
         _response = await self._raw_client.create_payor(
