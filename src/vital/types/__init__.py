@@ -681,6 +681,7 @@ if typing.TYPE_CHECKING:
     from .parent_biomarker_data import ParentBiomarkerData
     from .parsed_lab_report_data import ParsedLabReportData
     from .parsing_job import ParsingJob
+    from .parsing_job_failure_reason import ParsingJobFailureReason
     from .parsing_job_status import ParsingJobStatus
     from .password_providers import PasswordProviders
     from .patient_address import PatientAddress
@@ -1408,6 +1409,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ParentBiomarkerData": ".parent_biomarker_data",
     "ParsedLabReportData": ".parsed_lab_report_data",
     "ParsingJob": ".parsing_job",
+    "ParsingJobFailureReason": ".parsing_job_failure_reason",
     "ParsingJobStatus": ".parsing_job_status",
     "PasswordProviders": ".password_providers",
     "PatientAddress": ".patient_address",
@@ -2155,6 +2157,7 @@ __all__ = [
     "ParentBiomarkerData",
     "ParsedLabReportData",
     "ParsingJob",
+    "ParsingJobFailureReason",
     "ParsingJobStatus",
     "PasswordProviders",
     "PatientAddress",
