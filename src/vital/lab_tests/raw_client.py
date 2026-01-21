@@ -1825,6 +1825,7 @@ class RawLabTestsClient:
         site_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         zip_code: typing.Optional[str] = None,
         radius: typing.Optional[AllowedRadius] = None,
+        allow_stale: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[AppointmentAvailabilitySlots]:
         """
@@ -1841,6 +1842,9 @@ class RawLabTestsClient:
 
         radius : typing.Optional[AllowedRadius]
             Radius in which to search. (meters)
+
+        allow_stale : typing.Optional[bool]
+            [Closed Beta] Serve last known good information when the PSC system is temporarily unavailable.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1859,6 +1863,7 @@ class RawLabTestsClient:
                 "site_codes": site_codes,
                 "zip_code": zip_code,
                 "radius": radius,
+                "allow_stale": allow_stale,
             },
             request_options=request_options,
         )
@@ -1904,6 +1909,7 @@ class RawLabTestsClient:
         order_id: str,
         *,
         request: AppointmentBookingRequest,
+        idempotency_key: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ClientFacingAppointment]:
         """
@@ -1913,6 +1919,9 @@ class RawLabTestsClient:
             Your Order ID.
 
         request : AppointmentBookingRequest
+
+        idempotency_key : typing.Optional[str]
+            [!] This feature (Idempotency Key) is under closed beta. Idempotency Key support for booking PSC appointment.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1928,6 +1937,7 @@ class RawLabTestsClient:
             json=request,
             headers={
                 "content-type": "application/json",
+                "x-idempotency-key": str(idempotency_key) if idempotency_key is not None else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -4586,6 +4596,7 @@ class AsyncRawLabTestsClient:
         site_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         zip_code: typing.Optional[str] = None,
         radius: typing.Optional[AllowedRadius] = None,
+        allow_stale: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[AppointmentAvailabilitySlots]:
         """
@@ -4602,6 +4613,9 @@ class AsyncRawLabTestsClient:
 
         radius : typing.Optional[AllowedRadius]
             Radius in which to search. (meters)
+
+        allow_stale : typing.Optional[bool]
+            [Closed Beta] Serve last known good information when the PSC system is temporarily unavailable.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -4620,6 +4634,7 @@ class AsyncRawLabTestsClient:
                 "site_codes": site_codes,
                 "zip_code": zip_code,
                 "radius": radius,
+                "allow_stale": allow_stale,
             },
             request_options=request_options,
         )
@@ -4665,6 +4680,7 @@ class AsyncRawLabTestsClient:
         order_id: str,
         *,
         request: AppointmentBookingRequest,
+        idempotency_key: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ClientFacingAppointment]:
         """
@@ -4674,6 +4690,9 @@ class AsyncRawLabTestsClient:
             Your Order ID.
 
         request : AppointmentBookingRequest
+
+        idempotency_key : typing.Optional[str]
+            [!] This feature (Idempotency Key) is under closed beta. Idempotency Key support for booking PSC appointment.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -4689,6 +4708,7 @@ class AsyncRawLabTestsClient:
             json=request,
             headers={
                 "content-type": "application/json",
+                "x-idempotency-key": str(idempotency_key) if idempotency_key is not None else None,
             },
             request_options=request_options,
             omit=OMIT,
