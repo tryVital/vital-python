@@ -1,6 +1,6 @@
 # Reference
 ## Link
-<details><summary><code>client.link.<a href="src/vital/link/client.py">list_bulk_ops</a>(...) -> AsyncHttpResponse[BulkOpsResponse]</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">list_bulk_ops</a>(...) -&gt; AsyncHttpResponse[BulkOpsResponse]</code></summary>
 <dl>
 <dd>
 
@@ -75,7 +75,7 @@ client.link.list_bulk_ops(
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">bulk_import</a>(...) -> AsyncHttpResponse[BulkImportConnectionsResponse]</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">bulk_import</a>(...) -&gt; AsyncHttpResponse[BulkImportConnectionsResponse]</code></summary>
 <dl>
 <dd>
 
@@ -174,7 +174,7 @@ the [List Bulk Ops](https://docs.tryvital.io/api-reference/link/list-bulk-ops) e
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">bulk_trigger_historical_pull</a>(...) -> AsyncHttpResponse[typing.Any]</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">bulk_trigger_historical_pull</a>(...) -&gt; AsyncHttpResponse[typing.Any]</code></summary>
 <dl>
 <dd>
 
@@ -265,7 +265,7 @@ the [List Bulk Ops](https://docs.tryvital.io/api-reference/link/list-bulk-ops) e
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">bulk_export</a>(...) -> AsyncHttpResponse[BulkExportConnectionsResponse]</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">bulk_export</a>(...) -&gt; AsyncHttpResponse[BulkExportConnectionsResponse]</code></summary>
 <dl>
 <dd>
 
@@ -347,7 +347,7 @@ client.link.bulk_export(
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">bulk_pause</a>(...) -> AsyncHttpResponse[typing.Any]</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">bulk_pause</a>(...) -&gt; AsyncHttpResponse[typing.Any]</code></summary>
 <dl>
 <dd>
 
@@ -422,7 +422,7 @@ client.link.bulk_pause(
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">token</a>(...) -> AsyncHttpResponse[LinkTokenExchangeResponse]</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">token</a>(...) -&gt; AsyncHttpResponse[LinkTokenExchangeResponse]</code></summary>
 <dl>
 <dd>
 
@@ -557,7 +557,7 @@ This has no effect on programmatic Vital Link API usage.
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">is_token_valid</a>(...) -> AsyncHttpResponse[typing.Dict[str, typing.Any]]</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">is_token_valid</a>(...) -&gt; AsyncHttpResponse[typing.Dict[str, typing.Any]]</code></summary>
 <dl>
 <dd>
 
@@ -613,7 +613,7 @@ client.link.is_token_valid(
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">code_create</a>(...) -> AsyncHttpResponse[VitalTokenCreatedResponse]</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">code_create</a>(...) -&gt; AsyncHttpResponse[VitalTokenCreatedResponse]</code></summary>
 <dl>
 <dd>
 
@@ -696,7 +696,7 @@ client.link.code_create(
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">start_connect</a>(...) -> AsyncHttpResponse[typing.Dict[str, typing.Any]]</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">start_connect</a>(...) -&gt; AsyncHttpResponse[typing.Dict[str, typing.Any]]</code></summary>
 <dl>
 <dd>
 
@@ -776,7 +776,7 @@ client.link.start_connect(
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">token_state</a>(...) -> AsyncHttpResponse[typing.Dict[str, typing.Any]]</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">token_state</a>(...) -&gt; AsyncHttpResponse[typing.Dict[str, typing.Any]]</code></summary>
 <dl>
 <dd>
 
@@ -847,7 +847,7 @@ client.link.token_state(
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">email_auth</a>(...) -> AsyncHttpResponse[typing.Any]</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">email_auth</a>(...) -&gt; AsyncHttpResponse[typing.Any]</code></summary>
 <dl>
 <dd>
 
@@ -952,7 +952,7 @@ client.link.email_auth(
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">password_auth</a>(...) -> AsyncHttpResponse[typing.Any]</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">password_auth</a>(...) -&gt; AsyncHttpResponse[typing.Any]</code></summary>
 <dl>
 <dd>
 
@@ -1058,7 +1058,7 @@ client.link.password_auth(
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">generate_oauth_link</a>(...) -> AsyncHttpResponse[Source]</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">generate_oauth_link</a>(...) -&gt; AsyncHttpResponse[Source]</code></summary>
 <dl>
 <dd>
 
@@ -1137,7 +1137,7 @@ client.link.generate_oauth_link(
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">connect_password_provider</a>(...) -> AsyncHttpResponse[ProviderLinkResponse]</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">connect_password_provider</a>(...) -&gt; AsyncHttpResponse[ProviderLinkResponse]</code></summary>
 <dl>
 <dd>
 
@@ -1242,7 +1242,7 @@ client.link.connect_password_provider(
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">complete_password_provider_mfa</a>(...) -> AsyncHttpResponse[ProviderLinkResponse]</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">complete_password_provider_mfa</a>(...) -&gt; AsyncHttpResponse[ProviderLinkResponse]</code></summary>
 <dl>
 <dd>
 
@@ -1330,7 +1330,7 @@ client.link.complete_password_provider_mfa(
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">connect_email_auth_provider</a>(...) -> AsyncHttpResponse[typing.Any]</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">connect_email_auth_provider</a>(...) -&gt; AsyncHttpResponse[typing.Any]</code></summary>
 <dl>
 <dd>
 
@@ -1425,7 +1425,7 @@ client.link.connect_email_auth_provider(
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">get_all_providers</a>(...) -> AsyncHttpResponse[typing.List[SourceLink]]</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">get_all_providers</a>(...) -&gt; AsyncHttpResponse[typing.List[SourceLink]]</code></summary>
 <dl>
 <dd>
 
@@ -1495,7 +1495,7 @@ client.link.get_all_providers(
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">connect_manual_provider</a>(...) -> AsyncHttpResponse[typing.Dict[str, bool]]</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">connect_manual_provider</a>(...) -&gt; AsyncHttpResponse[typing.Dict[str, bool]]</code></summary>
 <dl>
 <dd>
 
@@ -1568,7 +1568,7 @@ client.link.connect_manual_provider(
 </dl>
 </details>
 
-<details><summary><code>client.link.<a href="src/vital/link/client.py">connect_demo_provider</a>(...) -> AsyncHttpResponse[DemoConnectionStatus]</code></summary>
+<details><summary><code>client.link.<a href="src/vital/link/client.py">connect_demo_provider</a>(...) -&gt; AsyncHttpResponse[DemoConnectionStatus]</code></summary>
 <dl>
 <dd>
 
@@ -1648,7 +1648,7 @@ client.link.connect_demo_provider(
 </details>
 
 ## Electrocardiogram
-<details><summary><code>client.electrocardiogram.<a href="src/vital/electrocardiogram/client.py">get</a>(...) -> AsyncHttpResponse[ClientFacingElectrocardiogramResponse]</code></summary>
+<details><summary><code>client.electrocardiogram.<a href="src/vital/electrocardiogram/client.py">get</a>(...) -&gt; AsyncHttpResponse[ClientFacingElectrocardiogramResponse]</code></summary>
 <dl>
 <dd>
 
@@ -1746,7 +1746,7 @@ client.electrocardiogram.get(
 </details>
 
 ## SleepCycle
-<details><summary><code>client.sleep_cycle.<a href="src/vital/sleep_cycle/client.py">get</a>(...) -> AsyncHttpResponse[ClientSleepCycleResponse]</code></summary>
+<details><summary><code>client.sleep_cycle.<a href="src/vital/sleep_cycle/client.py">get</a>(...) -&gt; AsyncHttpResponse[ClientSleepCycleResponse]</code></summary>
 <dl>
 <dd>
 
@@ -1844,7 +1844,7 @@ client.sleep_cycle.get(
 </details>
 
 ## Profile
-<details><summary><code>client.profile.<a href="src/vital/profile/client.py">get</a>(...) -> AsyncHttpResponse[ClientFacingProfile]</code></summary>
+<details><summary><code>client.profile.<a href="src/vital/profile/client.py">get</a>(...) -&gt; AsyncHttpResponse[ClientFacingProfile]</code></summary>
 <dl>
 <dd>
 
@@ -1923,7 +1923,7 @@ client.profile.get(
 </dl>
 </details>
 
-<details><summary><code>client.profile.<a href="src/vital/profile/client.py">get_raw</a>(...) -> AsyncHttpResponse[RawProfile]</code></summary>
+<details><summary><code>client.profile.<a href="src/vital/profile/client.py">get_raw</a>(...) -&gt; AsyncHttpResponse[RawProfile]</code></summary>
 <dl>
 <dd>
 
@@ -2003,7 +2003,7 @@ client.profile.get_raw(
 </details>
 
 ## Devices
-<details><summary><code>client.devices.<a href="src/vital/devices/client.py">get_raw</a>(...) -> AsyncHttpResponse[RawDevices]</code></summary>
+<details><summary><code>client.devices.<a href="src/vital/devices/client.py">get_raw</a>(...) -&gt; AsyncHttpResponse[RawDevices]</code></summary>
 <dl>
 <dd>
 
@@ -2083,7 +2083,7 @@ client.devices.get_raw(
 </details>
 
 ## Activity
-<details><summary><code>client.activity.<a href="src/vital/activity/client.py">get</a>(...) -> AsyncHttpResponse[ClientActivityResponse]</code></summary>
+<details><summary><code>client.activity.<a href="src/vital/activity/client.py">get</a>(...) -&gt; AsyncHttpResponse[ClientActivityResponse]</code></summary>
 <dl>
 <dd>
 
@@ -2180,7 +2180,7 @@ client.activity.get(
 </dl>
 </details>
 
-<details><summary><code>client.activity.<a href="src/vital/activity/client.py">get_raw</a>(...) -> AsyncHttpResponse[RawActivity]</code></summary>
+<details><summary><code>client.activity.<a href="src/vital/activity/client.py">get_raw</a>(...) -&gt; AsyncHttpResponse[RawActivity]</code></summary>
 <dl>
 <dd>
 
@@ -2278,7 +2278,7 @@ client.activity.get_raw(
 </details>
 
 ## Workouts
-<details><summary><code>client.workouts.<a href="src/vital/workouts/client.py">get</a>(...) -> AsyncHttpResponse[ClientWorkoutResponse]</code></summary>
+<details><summary><code>client.workouts.<a href="src/vital/workouts/client.py">get</a>(...) -&gt; AsyncHttpResponse[ClientWorkoutResponse]</code></summary>
 <dl>
 <dd>
 
@@ -2375,7 +2375,7 @@ client.workouts.get(
 </dl>
 </details>
 
-<details><summary><code>client.workouts.<a href="src/vital/workouts/client.py">get_raw</a>(...) -> AsyncHttpResponse[RawWorkout]</code></summary>
+<details><summary><code>client.workouts.<a href="src/vital/workouts/client.py">get_raw</a>(...) -&gt; AsyncHttpResponse[RawWorkout]</code></summary>
 <dl>
 <dd>
 
@@ -2472,7 +2472,7 @@ client.workouts.get_raw(
 </dl>
 </details>
 
-<details><summary><code>client.workouts.<a href="src/vital/workouts/client.py">get_by_workout_id</a>(...) -> AsyncHttpResponse[ClientFacingStream]</code></summary>
+<details><summary><code>client.workouts.<a href="src/vital/workouts/client.py">get_by_workout_id</a>(...) -&gt; AsyncHttpResponse[ClientFacingStream]</code></summary>
 <dl>
 <dd>
 
@@ -2529,7 +2529,7 @@ client.workouts.get_by_workout_id(
 </details>
 
 ## Sleep
-<details><summary><code>client.sleep.<a href="src/vital/sleep/client.py">get</a>(...) -> AsyncHttpResponse[ClientSleepResponse]</code></summary>
+<details><summary><code>client.sleep.<a href="src/vital/sleep/client.py">get</a>(...) -&gt; AsyncHttpResponse[ClientSleepResponse]</code></summary>
 <dl>
 <dd>
 
@@ -2626,7 +2626,7 @@ client.sleep.get(
 </dl>
 </details>
 
-<details><summary><code>client.sleep.<a href="src/vital/sleep/client.py">get_raw</a>(...) -> AsyncHttpResponse[RawSleep]</code></summary>
+<details><summary><code>client.sleep.<a href="src/vital/sleep/client.py">get_raw</a>(...) -&gt; AsyncHttpResponse[RawSleep]</code></summary>
 <dl>
 <dd>
 
@@ -2723,7 +2723,7 @@ client.sleep.get_raw(
 </dl>
 </details>
 
-<details><summary><code>client.sleep.<a href="src/vital/sleep/client.py">get_stream_by_sleep_id</a>(...) -> AsyncHttpResponse[ClientFacingSleepStream]</code></summary>
+<details><summary><code>client.sleep.<a href="src/vital/sleep/client.py">get_stream_by_sleep_id</a>(...) -&gt; AsyncHttpResponse[ClientFacingSleepStream]</code></summary>
 <dl>
 <dd>
 
@@ -2794,7 +2794,7 @@ client.sleep.get_stream_by_sleep_id(
 </details>
 
 ## Body
-<details><summary><code>client.body.<a href="src/vital/body/client.py">get</a>(...) -> AsyncHttpResponse[ClientBodyResponse]</code></summary>
+<details><summary><code>client.body.<a href="src/vital/body/client.py">get</a>(...) -&gt; AsyncHttpResponse[ClientBodyResponse]</code></summary>
 <dl>
 <dd>
 
@@ -2891,7 +2891,7 @@ client.body.get(
 </dl>
 </details>
 
-<details><summary><code>client.body.<a href="src/vital/body/client.py">get_raw</a>(...) -> AsyncHttpResponse[RawBody]</code></summary>
+<details><summary><code>client.body.<a href="src/vital/body/client.py">get_raw</a>(...) -&gt; AsyncHttpResponse[RawBody]</code></summary>
 <dl>
 <dd>
 
@@ -2989,7 +2989,7 @@ client.body.get_raw(
 </details>
 
 ## Meal
-<details><summary><code>client.meal.<a href="src/vital/meal/client.py">get</a>(...) -> AsyncHttpResponse[ClientFacingMealResponse]</code></summary>
+<details><summary><code>client.meal.<a href="src/vital/meal/client.py">get</a>(...) -&gt; AsyncHttpResponse[ClientFacingMealResponse]</code></summary>
 <dl>
 <dd>
 
@@ -3087,7 +3087,7 @@ client.meal.get(
 </details>
 
 ## MenstrualCycle
-<details><summary><code>client.menstrual_cycle.<a href="src/vital/menstrual_cycle/client.py">get</a>(...) -> AsyncHttpResponse[MenstrualCycleResponse]</code></summary>
+<details><summary><code>client.menstrual_cycle.<a href="src/vital/menstrual_cycle/client.py">get</a>(...) -&gt; AsyncHttpResponse[MenstrualCycleResponse]</code></summary>
 <dl>
 <dd>
 
@@ -3171,7 +3171,7 @@ client.menstrual_cycle.get(
 </details>
 
 ## Vitals
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">workout_swimming_stroke_grouped</a>(...) -> AsyncHttpResponse[GroupedWorkoutSwimmingStrokeResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">workout_swimming_stroke_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedWorkoutSwimmingStrokeResponse]</code></summary>
 <dl>
 <dd>
 
@@ -3272,7 +3272,7 @@ client.vitals.workout_swimming_stroke_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">workout_distance_grouped</a>(...) -> AsyncHttpResponse[GroupedWorkoutDistanceResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">workout_distance_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedWorkoutDistanceResponse]</code></summary>
 <dl>
 <dd>
 
@@ -3373,7 +3373,7 @@ client.vitals.workout_distance_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">heart_rate_recovery_one_minute_grouped</a>(...) -> AsyncHttpResponse[GroupedHeartRateRecoveryOneMinuteResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">heart_rate_recovery_one_minute_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedHeartRateRecoveryOneMinuteResponse]</code></summary>
 <dl>
 <dd>
 
@@ -3474,7 +3474,7 @@ client.vitals.heart_rate_recovery_one_minute_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">waist_circumference_grouped</a>(...) -> AsyncHttpResponse[GroupedWaistCircumferenceResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">waist_circumference_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedWaistCircumferenceResponse]</code></summary>
 <dl>
 <dd>
 
@@ -3575,7 +3575,7 @@ client.vitals.waist_circumference_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">lean_body_mass_grouped</a>(...) -> AsyncHttpResponse[GroupedLeanBodyMassResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">lean_body_mass_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedLeanBodyMassResponse]</code></summary>
 <dl>
 <dd>
 
@@ -3676,7 +3676,7 @@ client.vitals.lean_body_mass_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">body_mass_index_grouped</a>(...) -> AsyncHttpResponse[GroupedBodyMassIndexResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">body_mass_index_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedBodyMassIndexResponse]</code></summary>
 <dl>
 <dd>
 
@@ -3777,7 +3777,7 @@ client.vitals.body_mass_index_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">basal_body_temperature_grouped</a>(...) -> AsyncHttpResponse[GroupedBasalBodyTemperatureResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">basal_body_temperature_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedBasalBodyTemperatureResponse]</code></summary>
 <dl>
 <dd>
 
@@ -3878,7 +3878,7 @@ client.vitals.basal_body_temperature_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">handwashing_grouped</a>(...) -> AsyncHttpResponse[GroupedHandwashingResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">handwashing_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedHandwashingResponse]</code></summary>
 <dl>
 <dd>
 
@@ -3979,7 +3979,7 @@ client.vitals.handwashing_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">daylight_exposure_grouped</a>(...) -> AsyncHttpResponse[GroupedDaylightExposureResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">daylight_exposure_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedDaylightExposureResponse]</code></summary>
 <dl>
 <dd>
 
@@ -4080,7 +4080,7 @@ client.vitals.daylight_exposure_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">uv_exposure_grouped</a>(...) -> AsyncHttpResponse[GroupedUvExposureResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">uv_exposure_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedUvExposureResponse]</code></summary>
 <dl>
 <dd>
 
@@ -4181,7 +4181,7 @@ client.vitals.uv_exposure_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">fall_grouped</a>(...) -> AsyncHttpResponse[GroupedFallResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">fall_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedFallResponse]</code></summary>
 <dl>
 <dd>
 
@@ -4282,7 +4282,7 @@ client.vitals.fall_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">inhaler_usage_grouped</a>(...) -> AsyncHttpResponse[GroupedInhalerUsageResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">inhaler_usage_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedInhalerUsageResponse]</code></summary>
 <dl>
 <dd>
 
@@ -4383,7 +4383,7 @@ client.vitals.inhaler_usage_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">peak_expiratory_flow_rate_grouped</a>(...) -> AsyncHttpResponse[GroupedPeakExpiratoryFlowRateResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">peak_expiratory_flow_rate_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedPeakExpiratoryFlowRateResponse]</code></summary>
 <dl>
 <dd>
 
@@ -4484,7 +4484,7 @@ client.vitals.peak_expiratory_flow_rate_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">forced_vital_capacity_grouped</a>(...) -> AsyncHttpResponse[GroupedForcedVitalCapacityResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">forced_vital_capacity_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedForcedVitalCapacityResponse]</code></summary>
 <dl>
 <dd>
 
@@ -4585,7 +4585,7 @@ client.vitals.forced_vital_capacity_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">forced_expiratory_volume_1_grouped</a>(...) -> AsyncHttpResponse[GroupedForcedExpiratoryVolume1Response]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">forced_expiratory_volume_1_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedForcedExpiratoryVolume1Response]</code></summary>
 <dl>
 <dd>
 
@@ -4686,7 +4686,7 @@ client.vitals.forced_expiratory_volume_1_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">wheelchair_push_grouped</a>(...) -> AsyncHttpResponse[GroupedWheelchairPushResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">wheelchair_push_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedWheelchairPushResponse]</code></summary>
 <dl>
 <dd>
 
@@ -4787,7 +4787,7 @@ client.vitals.wheelchair_push_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">sleep_breathing_disturbance_grouped</a>(...) -> AsyncHttpResponse[GroupedSleepBreathingDisturbanceResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">sleep_breathing_disturbance_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedSleepBreathingDisturbanceResponse]</code></summary>
 <dl>
 <dd>
 
@@ -4888,7 +4888,7 @@ client.vitals.sleep_breathing_disturbance_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">sleep_apnea_alert_grouped</a>(...) -> AsyncHttpResponse[GroupedSleepApneaAlertResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">sleep_apnea_alert_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedSleepApneaAlertResponse]</code></summary>
 <dl>
 <dd>
 
@@ -4989,7 +4989,7 @@ client.vitals.sleep_apnea_alert_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">stand_duration_grouped</a>(...) -> AsyncHttpResponse[GroupedStandDurationResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">stand_duration_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedStandDurationResponse]</code></summary>
 <dl>
 <dd>
 
@@ -5090,7 +5090,7 @@ client.vitals.stand_duration_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">stand_hour_grouped</a>(...) -> AsyncHttpResponse[GroupedStandHourResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">stand_hour_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedStandHourResponse]</code></summary>
 <dl>
 <dd>
 
@@ -5191,7 +5191,7 @@ client.vitals.stand_hour_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">heart_rate_alert_grouped</a>(...) -> AsyncHttpResponse[GroupedHeartRateAlertResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">heart_rate_alert_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedHeartRateAlertResponse]</code></summary>
 <dl>
 <dd>
 
@@ -5292,7 +5292,7 @@ client.vitals.heart_rate_alert_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">afib_burden_grouped</a>(...) -> AsyncHttpResponse[GroupedAFibBurdenResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">afib_burden_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedAFibBurdenResponse]</code></summary>
 <dl>
 <dd>
 
@@ -5393,7 +5393,7 @@ client.vitals.afib_burden_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">workout_duration_grouped</a>(...) -> AsyncHttpResponse[GroupedWorkoutDurationResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">workout_duration_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedWorkoutDurationResponse]</code></summary>
 <dl>
 <dd>
 
@@ -5494,7 +5494,7 @@ client.vitals.workout_duration_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">vo_2_max_grouped</a>(...) -> AsyncHttpResponse[GroupedVo2MaxResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">vo_2_max_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedVo2MaxResponse]</code></summary>
 <dl>
 <dd>
 
@@ -5595,7 +5595,7 @@ client.vitals.vo_2_max_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">stress_level_grouped</a>(...) -> AsyncHttpResponse[GroupedStressLevelResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">stress_level_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedStressLevelResponse]</code></summary>
 <dl>
 <dd>
 
@@ -5696,7 +5696,7 @@ client.vitals.stress_level_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">mindfulness_minutes_grouped</a>(...) -> AsyncHttpResponse[GroupedMindfulnessMinutesResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">mindfulness_minutes_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedMindfulnessMinutesResponse]</code></summary>
 <dl>
 <dd>
 
@@ -5797,7 +5797,7 @@ client.vitals.mindfulness_minutes_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">caffeine_grouped</a>(...) -> AsyncHttpResponse[GroupedCaffeineResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">caffeine_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedCaffeineResponse]</code></summary>
 <dl>
 <dd>
 
@@ -5898,7 +5898,7 @@ client.vitals.caffeine_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">water_grouped</a>(...) -> AsyncHttpResponse[GroupedWaterResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">water_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedWaterResponse]</code></summary>
 <dl>
 <dd>
 
@@ -5999,7 +5999,7 @@ client.vitals.water_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">steps_grouped</a>(...) -> AsyncHttpResponse[GroupedStepsResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">steps_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedStepsResponse]</code></summary>
 <dl>
 <dd>
 
@@ -6100,7 +6100,7 @@ client.vitals.steps_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">floors_climbed_grouped</a>(...) -> AsyncHttpResponse[GroupedFloorsClimbedResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">floors_climbed_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedFloorsClimbedResponse]</code></summary>
 <dl>
 <dd>
 
@@ -6201,7 +6201,7 @@ client.vitals.floors_climbed_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">distance_grouped</a>(...) -> AsyncHttpResponse[GroupedDistanceResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">distance_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedDistanceResponse]</code></summary>
 <dl>
 <dd>
 
@@ -6302,7 +6302,7 @@ client.vitals.distance_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">calories_basal_grouped</a>(...) -> AsyncHttpResponse[GroupedCaloriesBasalResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">calories_basal_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedCaloriesBasalResponse]</code></summary>
 <dl>
 <dd>
 
@@ -6403,7 +6403,7 @@ client.vitals.calories_basal_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">calories_active_grouped</a>(...) -> AsyncHttpResponse[GroupedCaloriesActiveResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">calories_active_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedCaloriesActiveResponse]</code></summary>
 <dl>
 <dd>
 
@@ -6504,7 +6504,7 @@ client.vitals.calories_active_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">respiratory_rate_grouped</a>(...) -> AsyncHttpResponse[GroupedRespiratoryRateResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">respiratory_rate_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedRespiratoryRateResponse]</code></summary>
 <dl>
 <dd>
 
@@ -6605,7 +6605,7 @@ client.vitals.respiratory_rate_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">note_grouped</a>(...) -> AsyncHttpResponse[GroupedNoteResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">note_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedNoteResponse]</code></summary>
 <dl>
 <dd>
 
@@ -6706,7 +6706,7 @@ client.vitals.note_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">insulin_injection_grouped</a>(...) -> AsyncHttpResponse[GroupedInsulinInjectionResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">insulin_injection_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedInsulinInjectionResponse]</code></summary>
 <dl>
 <dd>
 
@@ -6807,7 +6807,7 @@ client.vitals.insulin_injection_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">ige_grouped</a>(...) -> AsyncHttpResponse[GroupedIgeResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">ige_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedIgeResponse]</code></summary>
 <dl>
 <dd>
 
@@ -6908,7 +6908,7 @@ client.vitals.ige_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">igg_grouped</a>(...) -> AsyncHttpResponse[GroupedIggResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">igg_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedIggResponse]</code></summary>
 <dl>
 <dd>
 
@@ -7009,7 +7009,7 @@ client.vitals.igg_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">hypnogram_grouped</a>(...) -> AsyncHttpResponse[GroupedHypnogramResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">hypnogram_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedHypnogramResponse]</code></summary>
 <dl>
 <dd>
 
@@ -7110,7 +7110,7 @@ client.vitals.hypnogram_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">hrv_grouped</a>(...) -> AsyncHttpResponse[GroupedHrvResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">hrv_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedHrvResponse]</code></summary>
 <dl>
 <dd>
 
@@ -7211,7 +7211,7 @@ client.vitals.hrv_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">heartrate_grouped</a>(...) -> AsyncHttpResponse[GroupedHeartRateResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">heartrate_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedHeartRateResponse]</code></summary>
 <dl>
 <dd>
 
@@ -7312,7 +7312,7 @@ client.vitals.heartrate_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">glucose_grouped</a>(...) -> AsyncHttpResponse[GroupedGlucoseResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">glucose_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedGlucoseResponse]</code></summary>
 <dl>
 <dd>
 
@@ -7413,7 +7413,7 @@ client.vitals.glucose_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">cholesterol_grouped</a>(...) -> AsyncHttpResponse[GroupedCholesterolResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">cholesterol_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedCholesterolResponse]</code></summary>
 <dl>
 <dd>
 
@@ -7514,7 +7514,7 @@ client.vitals.cholesterol_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">carbohydrates_grouped</a>(...) -> AsyncHttpResponse[GroupedCarbohydratesResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">carbohydrates_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedCarbohydratesResponse]</code></summary>
 <dl>
 <dd>
 
@@ -7615,7 +7615,7 @@ client.vitals.carbohydrates_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">body_temperature_delta_grouped</a>(...) -> AsyncHttpResponse[GroupedBodyTemperatureDeltaResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">body_temperature_delta_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedBodyTemperatureDeltaResponse]</code></summary>
 <dl>
 <dd>
 
@@ -7716,7 +7716,7 @@ client.vitals.body_temperature_delta_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">body_temperature_grouped</a>(...) -> AsyncHttpResponse[GroupedBodyTemperatureResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">body_temperature_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedBodyTemperatureResponse]</code></summary>
 <dl>
 <dd>
 
@@ -7817,7 +7817,7 @@ client.vitals.body_temperature_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">body_weight_grouped</a>(...) -> AsyncHttpResponse[GroupedBodyWeightResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">body_weight_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedBodyWeightResponse]</code></summary>
 <dl>
 <dd>
 
@@ -7918,7 +7918,7 @@ client.vitals.body_weight_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">body_fat_grouped</a>(...) -> AsyncHttpResponse[GroupedBodyFatResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">body_fat_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedBodyFatResponse]</code></summary>
 <dl>
 <dd>
 
@@ -8019,7 +8019,7 @@ client.vitals.body_fat_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">blood_oxygen_grouped</a>(...) -> AsyncHttpResponse[GroupedBloodOxygenResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">blood_oxygen_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedBloodOxygenResponse]</code></summary>
 <dl>
 <dd>
 
@@ -8120,7 +8120,7 @@ client.vitals.blood_oxygen_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">electrocardiogram_voltage_grouped</a>(...) -> AsyncHttpResponse[GroupedElectrocardiogramVoltageResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">electrocardiogram_voltage_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedElectrocardiogramVoltageResponse]</code></summary>
 <dl>
 <dd>
 
@@ -8221,7 +8221,7 @@ client.vitals.electrocardiogram_voltage_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">blood_pressure_grouped</a>(...) -> AsyncHttpResponse[GroupedBloodPressureResponse]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">blood_pressure_grouped</a>(...) -&gt; AsyncHttpResponse[GroupedBloodPressureResponse]</code></summary>
 <dl>
 <dd>
 
@@ -8322,7 +8322,7 @@ client.vitals.blood_pressure_grouped(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">vo_2_max</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingVo2MaxTimeseries]]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">vo_2_max</a>(...) -&gt; AsyncHttpResponse[typing.List[ClientFacingVo2MaxTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -8405,7 +8405,7 @@ client.vitals.vo_2_max(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">stress_level</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingStressLevelTimeseries]]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">stress_level</a>(...) -&gt; AsyncHttpResponse[typing.List[ClientFacingStressLevelTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -8488,7 +8488,7 @@ client.vitals.stress_level(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">mindfulness_minutes</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingMindfulnessMinutesTimeseries]]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">mindfulness_minutes</a>(...) -&gt; AsyncHttpResponse[typing.List[ClientFacingMindfulnessMinutesTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -8571,7 +8571,7 @@ client.vitals.mindfulness_minutes(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">caffeine</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingCaffeineTimeseries]]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">caffeine</a>(...) -&gt; AsyncHttpResponse[typing.List[ClientFacingCaffeineTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -8654,7 +8654,7 @@ client.vitals.caffeine(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">water</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingWaterTimeseries]]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">water</a>(...) -&gt; AsyncHttpResponse[typing.List[ClientFacingWaterTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -8737,7 +8737,7 @@ client.vitals.water(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">steps</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingStepsTimeseries]]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">steps</a>(...) -&gt; AsyncHttpResponse[typing.List[ClientFacingStepsTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -8820,7 +8820,7 @@ client.vitals.steps(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">floors_climbed</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingFloorsClimbedTimeseries]]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">floors_climbed</a>(...) -&gt; AsyncHttpResponse[typing.List[ClientFacingFloorsClimbedTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -8903,7 +8903,7 @@ client.vitals.floors_climbed(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">distance</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingDistanceTimeseries]]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">distance</a>(...) -&gt; AsyncHttpResponse[typing.List[ClientFacingDistanceTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -8986,7 +8986,7 @@ client.vitals.distance(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">calories_basal</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingCaloriesBasalTimeseries]]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">calories_basal</a>(...) -&gt; AsyncHttpResponse[typing.List[ClientFacingCaloriesBasalTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -9069,7 +9069,7 @@ client.vitals.calories_basal(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">calories_active</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingCaloriesActiveTimeseries]]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">calories_active</a>(...) -&gt; AsyncHttpResponse[typing.List[ClientFacingCaloriesActiveTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -9152,7 +9152,7 @@ client.vitals.calories_active(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">respiratory_rate</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingRespiratoryRateTimeseries]]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">respiratory_rate</a>(...) -&gt; AsyncHttpResponse[typing.List[ClientFacingRespiratoryRateTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -9235,7 +9235,7 @@ client.vitals.respiratory_rate(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">ige</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingIgeTimeseries]]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">ige</a>(...) -&gt; AsyncHttpResponse[typing.List[ClientFacingIgeTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -9318,7 +9318,7 @@ client.vitals.ige(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">igg</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingIggTimeseries]]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">igg</a>(...) -&gt; AsyncHttpResponse[typing.List[ClientFacingIggTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -9401,7 +9401,7 @@ client.vitals.igg(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">hypnogram</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingHypnogramTimeseries]]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">hypnogram</a>(...) -&gt; AsyncHttpResponse[typing.List[ClientFacingHypnogramTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -9484,7 +9484,7 @@ client.vitals.hypnogram(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">hrv</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingHrvTimeseries]]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">hrv</a>(...) -&gt; AsyncHttpResponse[typing.List[ClientFacingHrvTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -9567,7 +9567,7 @@ client.vitals.hrv(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">heartrate</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingHeartRateTimeseries]]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">heartrate</a>(...) -&gt; AsyncHttpResponse[typing.List[ClientFacingHeartRateTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -9650,7 +9650,7 @@ client.vitals.heartrate(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">glucose</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingGlucoseTimeseries]]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">glucose</a>(...) -&gt; AsyncHttpResponse[typing.List[ClientFacingGlucoseTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -9733,7 +9733,7 @@ client.vitals.glucose(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">cholesterol_triglycerides</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingCholesterolTimeseries]]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">cholesterol_triglycerides</a>(...) -&gt; AsyncHttpResponse[typing.List[ClientFacingCholesterolTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -9816,7 +9816,7 @@ client.vitals.cholesterol_triglycerides(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">cholesterol_total</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingCholesterolTimeseries]]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">cholesterol_total</a>(...) -&gt; AsyncHttpResponse[typing.List[ClientFacingCholesterolTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -9899,7 +9899,7 @@ client.vitals.cholesterol_total(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">cholesterol_ldl</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingCholesterolTimeseries]]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">cholesterol_ldl</a>(...) -&gt; AsyncHttpResponse[typing.List[ClientFacingCholesterolTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -9982,7 +9982,7 @@ client.vitals.cholesterol_ldl(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">cholesterol_hdl</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingCholesterolTimeseries]]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">cholesterol_hdl</a>(...) -&gt; AsyncHttpResponse[typing.List[ClientFacingCholesterolTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -10065,7 +10065,7 @@ client.vitals.cholesterol_hdl(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">cholesterol</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingCholesterolTimeseries]]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">cholesterol</a>(...) -&gt; AsyncHttpResponse[typing.List[ClientFacingCholesterolTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -10148,7 +10148,7 @@ client.vitals.cholesterol(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">body_weight</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingBodyWeightTimeseries]]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">body_weight</a>(...) -&gt; AsyncHttpResponse[typing.List[ClientFacingBodyWeightTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -10231,7 +10231,7 @@ client.vitals.body_weight(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">body_fat</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingBodyFatTimeseries]]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">body_fat</a>(...) -&gt; AsyncHttpResponse[typing.List[ClientFacingBodyFatTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -10314,7 +10314,7 @@ client.vitals.body_fat(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">blood_oxygen</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingBloodOxygenTimeseries]]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">blood_oxygen</a>(...) -&gt; AsyncHttpResponse[typing.List[ClientFacingBloodOxygenTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -10397,7 +10397,7 @@ client.vitals.blood_oxygen(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">electrocardiogram_voltage</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingElectrocardiogramVoltageTimeseries]]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">electrocardiogram_voltage</a>(...) -&gt; AsyncHttpResponse[typing.List[ClientFacingElectrocardiogramVoltageTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -10480,7 +10480,7 @@ client.vitals.electrocardiogram_voltage(
 </dl>
 </details>
 
-<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">blood_pressure</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingBloodPressureTimeseries]]</code></summary>
+<details><summary><code>client.vitals.<a href="src/vital/vitals/client.py">blood_pressure</a>(...) -&gt; AsyncHttpResponse[typing.List[ClientFacingBloodPressureTimeseries]]</code></summary>
 <dl>
 <dd>
 
@@ -10564,7 +10564,7 @@ client.vitals.blood_pressure(
 </details>
 
 ## User
-<details><summary><code>client.user.<a href="src/vital/user/client.py">get_all</a>(...) -> AsyncHttpResponse[PaginatedUsersResponse]</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">get_all</a>(...) -&gt; AsyncHttpResponse[PaginatedUsersResponse]</code></summary>
 <dl>
 <dd>
 
@@ -10643,7 +10643,7 @@ client.user.get_all(
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/vital/user/client.py">create</a>(...) -> AsyncHttpResponse[ClientFacingUserKey]</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">create</a>(...) -&gt; AsyncHttpResponse[ClientFacingUserKey]</code></summary>
 <dl>
 <dd>
 
@@ -10750,7 +10750,7 @@ client.user.create(
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/vital/user/client.py">get_team_metrics</a>() -> AsyncHttpResponse[MetricsResult]</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">get_team_metrics</a>() -&gt; AsyncHttpResponse[MetricsResult]</code></summary>
 <dl>
 <dd>
 
@@ -10810,7 +10810,7 @@ client.user.get_team_metrics()
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/vital/user/client.py">get_connected_providers</a>(...) -> AsyncHttpResponse[typing.Dict[str, typing.List[ClientFacingProviderWithStatus]]]</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">get_connected_providers</a>(...) -&gt; AsyncHttpResponse[typing.Dict[str, typing.List[ClientFacingProviderWithStatus]]]</code></summary>
 <dl>
 <dd>
 
@@ -10880,7 +10880,7 @@ client.user.get_connected_providers(
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/vital/user/client.py">get_latest_user_info</a>(...) -> AsyncHttpResponse[UserInfo]</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">get_latest_user_info</a>(...) -&gt; AsyncHttpResponse[UserInfo]</code></summary>
 <dl>
 <dd>
 
@@ -10936,7 +10936,7 @@ client.user.get_latest_user_info(
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/vital/user/client.py">create_insurance</a>(...) -> AsyncHttpResponse[ClientFacingInsurance]</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">create_insurance</a>(...) -&gt; AsyncHttpResponse[ClientFacingInsurance]</code></summary>
 <dl>
 <dd>
 
@@ -11072,7 +11072,7 @@ client.user.create_insurance(
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/vital/user/client.py">get_latest_insurance</a>(...) -> AsyncHttpResponse[ClientFacingInsurance]</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">get_latest_insurance</a>(...) -&gt; AsyncHttpResponse[ClientFacingInsurance]</code></summary>
 <dl>
 <dd>
 
@@ -11137,7 +11137,7 @@ client.user.get_latest_insurance(
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/vital/user/client.py">upsert_user_info</a>(...) -> AsyncHttpResponse[UserInfo]</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">upsert_user_info</a>(...) -&gt; AsyncHttpResponse[UserInfo]</code></summary>
 <dl>
 <dd>
 
@@ -11302,7 +11302,7 @@ client.user.upsert_user_info(
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/vital/user/client.py">get_by_client_user_id</a>(...) -> AsyncHttpResponse[ClientFacingUser]</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">get_by_client_user_id</a>(...) -&gt; AsyncHttpResponse[ClientFacingUser]</code></summary>
 <dl>
 <dd>
 
@@ -11372,7 +11372,7 @@ client.user.get_by_client_user_id(
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/vital/user/client.py">deregister_provider</a>(...) -> AsyncHttpResponse[UserSuccessResponse]</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">deregister_provider</a>(...) -&gt; AsyncHttpResponse[UserSuccessResponse]</code></summary>
 <dl>
 <dd>
 
@@ -11437,7 +11437,7 @@ client.user.deregister_provider(
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/vital/user/client.py">get</a>(...) -> AsyncHttpResponse[ClientFacingUser]</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">get</a>(...) -&gt; AsyncHttpResponse[ClientFacingUser]</code></summary>
 <dl>
 <dd>
 
@@ -11493,7 +11493,7 @@ client.user.get(
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/vital/user/client.py">delete</a>(...) -> AsyncHttpResponse[UserSuccessResponse]</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">delete</a>(...) -&gt; AsyncHttpResponse[UserSuccessResponse]</code></summary>
 <dl>
 <dd>
 
@@ -11549,7 +11549,7 @@ client.user.delete(
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/vital/user/client.py">patch</a>(...) -> AsyncHttpResponse[None]</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">patch</a>(...) -&gt; AsyncHttpResponse[None]</code></summary>
 <dl>
 <dd>
 
@@ -11650,7 +11650,7 @@ client.user.patch(
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/vital/user/client.py">undo_delete</a>(...) -> AsyncHttpResponse[UserSuccessResponse]</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">undo_delete</a>(...) -&gt; AsyncHttpResponse[UserSuccessResponse]</code></summary>
 <dl>
 <dd>
 
@@ -11715,7 +11715,7 @@ client.user.undo_delete(
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/vital/user/client.py">refresh</a>(...) -> AsyncHttpResponse[UserRefreshSuccessResponse]</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">refresh</a>(...) -&gt; AsyncHttpResponse[UserRefreshSuccessResponse]</code></summary>
 <dl>
 <dd>
 
@@ -11794,7 +11794,7 @@ client.user.refresh(
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/vital/user/client.py">get_devices</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingDevice]]</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">get_devices</a>(...) -&gt; AsyncHttpResponse[typing.List[ClientFacingDevice]]</code></summary>
 <dl>
 <dd>
 
@@ -11850,7 +11850,7 @@ client.user.get_devices(
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/vital/user/client.py">get_device</a>(...) -> AsyncHttpResponse[ClientFacingDevice]</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">get_device</a>(...) -&gt; AsyncHttpResponse[ClientFacingDevice]</code></summary>
 <dl>
 <dd>
 
@@ -11915,7 +11915,7 @@ client.user.get_device(
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/vital/user/client.py">get_user_sign_in_token</a>(...) -> AsyncHttpResponse[UserSignInTokenResponse]</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">get_user_sign_in_token</a>(...) -&gt; AsyncHttpResponse[UserSignInTokenResponse]</code></summary>
 <dl>
 <dd>
 
@@ -11971,7 +11971,7 @@ client.user.get_user_sign_in_token(
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="src/vital/user/client.py">create_portal_url</a>(...) -> AsyncHttpResponse[CreateUserPortalUrlResponse]</code></summary>
+<details><summary><code>client.user.<a href="src/vital/user/client.py">create_portal_url</a>(...) -&gt; AsyncHttpResponse[CreateUserPortalUrlResponse]</code></summary>
 <dl>
 <dd>
 
@@ -12054,7 +12054,7 @@ authentication, e.g., when they open a short link on a new device. ℹ️ This e
 </details>
 
 ## Team
-<details><summary><code>client.team.<a href="src/vital/team/client.py">get_link_config</a>(...) -> AsyncHttpResponse[typing.Dict[str, typing.Any]]</code></summary>
+<details><summary><code>client.team.<a href="src/vital/team/client.py">get_link_config</a>(...) -&gt; AsyncHttpResponse[typing.Dict[str, typing.Any]]</code></summary>
 <dl>
 <dd>
 
@@ -12124,7 +12124,7 @@ client.team.get_link_config(
 </dl>
 </details>
 
-<details><summary><code>client.team.<a href="src/vital/team/client.py">get</a>(...) -> AsyncHttpResponse[ClientFacingTeam]</code></summary>
+<details><summary><code>client.team.<a href="src/vital/team/client.py">get</a>(...) -&gt; AsyncHttpResponse[ClientFacingTeam]</code></summary>
 <dl>
 <dd>
 
@@ -12194,7 +12194,7 @@ client.team.get(
 </dl>
 </details>
 
-<details><summary><code>client.team.<a href="src/vital/team/client.py">get_user_by_id</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingUser]]</code></summary>
+<details><summary><code>client.team.<a href="src/vital/team/client.py">get_user_by_id</a>(...) -&gt; AsyncHttpResponse[typing.List[ClientFacingUser]]</code></summary>
 <dl>
 <dd>
 
@@ -12264,7 +12264,7 @@ client.team.get_user_by_id(
 </dl>
 </details>
 
-<details><summary><code>client.team.<a href="src/vital/team/client.py">get_svix_url</a>() -> AsyncHttpResponse[typing.Dict[str, typing.Any]]</code></summary>
+<details><summary><code>client.team.<a href="src/vital/team/client.py">get_svix_url</a>() -&gt; AsyncHttpResponse[typing.Dict[str, typing.Any]]</code></summary>
 <dl>
 <dd>
 
@@ -12310,7 +12310,7 @@ client.team.get_svix_url()
 </dl>
 </details>
 
-<details><summary><code>client.team.<a href="src/vital/team/client.py">get_source_priorities</a>(...) -> AsyncHttpResponse[typing.List[typing.Dict[str, typing.Any]]]</code></summary>
+<details><summary><code>client.team.<a href="src/vital/team/client.py">get_source_priorities</a>(...) -&gt; AsyncHttpResponse[typing.List[typing.Dict[str, typing.Any]]]</code></summary>
 <dl>
 <dd>
 
@@ -12380,7 +12380,7 @@ client.team.get_source_priorities(
 </dl>
 </details>
 
-<details><summary><code>client.team.<a href="src/vital/team/client.py">update_source_priorities</a>() -> AsyncHttpResponse[typing.List[typing.Dict[str, typing.Any]]]</code></summary>
+<details><summary><code>client.team.<a href="src/vital/team/client.py">update_source_priorities</a>() -&gt; AsyncHttpResponse[typing.List[typing.Dict[str, typing.Any]]]</code></summary>
 <dl>
 <dd>
 
@@ -12440,7 +12440,7 @@ client.team.update_source_priorities()
 </dl>
 </details>
 
-<details><summary><code>client.team.<a href="src/vital/team/client.py">get_physicians</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingPhysician]]</code></summary>
+<details><summary><code>client.team.<a href="src/vital/team/client.py">get_physicians</a>(...) -&gt; AsyncHttpResponse[typing.List[ClientFacingPhysician]]</code></summary>
 <dl>
 <dd>
 
@@ -12497,7 +12497,7 @@ client.team.get_physicians(
 </details>
 
 ## Providers
-<details><summary><code>client.providers.<a href="src/vital/providers/client.py">get_all</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingProviderDetailed]]</code></summary>
+<details><summary><code>client.providers.<a href="src/vital/providers/client.py">get_all</a>(...) -&gt; AsyncHttpResponse[typing.List[ClientFacingProviderDetailed]]</code></summary>
 <dl>
 <dd>
 
@@ -12568,7 +12568,7 @@ client.providers.get_all(
 </details>
 
 ## Introspect
-<details><summary><code>client.introspect.<a href="src/vital/introspect/client.py">get_user_resources</a>(...) -> AsyncHttpResponse[UserResourcesResponse]</code></summary>
+<details><summary><code>client.introspect.<a href="src/vital/introspect/client.py">get_user_resources</a>(...) -&gt; AsyncHttpResponse[UserResourcesResponse]</code></summary>
 <dl>
 <dd>
 
@@ -12660,7 +12660,7 @@ client.introspect.get_user_resources(
 </dl>
 </details>
 
-<details><summary><code>client.introspect.<a href="src/vital/introspect/client.py">get_user_historical_pulls</a>(...) -> AsyncHttpResponse[UserHistoricalPullsResponse]</code></summary>
+<details><summary><code>client.introspect.<a href="src/vital/introspect/client.py">get_user_historical_pulls</a>(...) -&gt; AsyncHttpResponse[UserHistoricalPullsResponse]</code></summary>
 <dl>
 <dd>
 
@@ -12753,7 +12753,7 @@ client.introspect.get_user_historical_pulls(
 </details>
 
 ## LabTests
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingLabTest]]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get</a>(...) -&gt; AsyncHttpResponse[typing.List[ClientFacingLabTest]]</code></summary>
 <dl>
 <dd>
 
@@ -12902,7 +12902,7 @@ client.lab_tests.get(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">create</a>(...) -> AsyncHttpResponse[ClientFacingLabTest]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">create</a>(...) -&gt; AsyncHttpResponse[ClientFacingLabTest]</code></summary>
 <dl>
 <dd>
 
@@ -13000,7 +13000,7 @@ client.lab_tests.create(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_by_id</a>(...) -> AsyncHttpResponse[ClientFacingLabTest]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_by_id</a>(...) -&gt; AsyncHttpResponse[ClientFacingLabTest]</code></summary>
 <dl>
 <dd>
 
@@ -13079,7 +13079,7 @@ client.lab_tests.get_by_id(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">update_lab_test</a>(...) -> AsyncHttpResponse[ClientFacingLabTest]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">update_lab_test</a>(...) -&gt; AsyncHttpResponse[ClientFacingLabTest]</code></summary>
 <dl>
 <dd>
 
@@ -13151,7 +13151,7 @@ client.lab_tests.update_lab_test(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_markers</a>(...) -> AsyncHttpResponse[GetMarkersResponse]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_markers</a>(...) -&gt; AsyncHttpResponse[GetMarkersResponse]</code></summary>
 <dl>
 <dd>
 
@@ -13265,7 +13265,7 @@ client.lab_tests.get_markers(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_markers_for_order_set</a>(...) -> AsyncHttpResponse[GetMarkersResponse]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_markers_for_order_set</a>(...) -&gt; AsyncHttpResponse[GetMarkersResponse]</code></summary>
 <dl>
 <dd>
 
@@ -13339,7 +13339,7 @@ client.lab_tests.get_markers_for_order_set(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_markers_for_lab_test</a>(...) -> AsyncHttpResponse[GetMarkersResponse]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_markers_for_lab_test</a>(...) -&gt; AsyncHttpResponse[GetMarkersResponse]</code></summary>
 <dl>
 <dd>
 
@@ -13422,7 +13422,7 @@ client.lab_tests.get_markers_for_lab_test(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_markers_by_lab_and_provider_id</a>(...) -> AsyncHttpResponse[ClientFacingMarker]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_markers_by_lab_and_provider_id</a>(...) -&gt; AsyncHttpResponse[ClientFacingMarker]</code></summary>
 <dl>
 <dd>
 
@@ -13510,7 +13510,7 @@ client.lab_tests.get_markers_by_lab_and_provider_id(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_labs</a>() -> AsyncHttpResponse[typing.List[ClientFacingLab]]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_labs</a>() -&gt; AsyncHttpResponse[typing.List[ClientFacingLab]]</code></summary>
 <dl>
 <dd>
 
@@ -13570,7 +13570,7 @@ client.lab_tests.get_labs()
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_paginated</a>(...) -> AsyncHttpResponse[LabTestResourcesResponse]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_paginated</a>(...) -&gt; AsyncHttpResponse[LabTestResourcesResponse]</code></summary>
 <dl>
 <dd>
 
@@ -13737,7 +13737,7 @@ client.lab_tests.get_paginated(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_lab_test_collection_instruction_pdf</a>(...) -> typing.AsyncIterator[AsyncHttpResponse[typing.AsyncIterator[bytes]]]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_lab_test_collection_instruction_pdf</a>(...) -&gt; typing.AsyncIterator[AsyncHttpResponse[typing.AsyncIterator[bytes]]]</code></summary>
 <dl>
 <dd>
 
@@ -13793,7 +13793,7 @@ client.lab_tests.get_lab_test_collection_instruction_pdf(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_orders</a>(...) -> AsyncHttpResponse[GetOrdersResponse]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_orders</a>(...) -&gt; AsyncHttpResponse[GetOrdersResponse]</code></summary>
 <dl>
 <dd>
 
@@ -13852,6 +13852,7 @@ client.lab_tests.get_orders(
     user_id="user_id",
     patient_name="patient_name",
     shipping_recipient_name="shipping_recipient_name",
+    order_transaction_id="order_transaction_id",
     page=1,
     size=1,
 )
@@ -14006,6 +14007,14 @@ client.lab_tests.get_orders(
 <dl>
 <dd>
 
+**order_transaction_id:** `typing.Optional[str]` — Filter by order transaction ID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **page:** `typing.Optional[int]` 
     
 </dd>
@@ -14034,7 +14043,7 @@ client.lab_tests.get_orders(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_phlebotomy_appointment_availability</a>(...) -> AsyncHttpResponse[AppointmentAvailabilitySlots]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_phlebotomy_appointment_availability</a>(...) -&gt; AsyncHttpResponse[AppointmentAvailabilitySlots]</code></summary>
 <dl>
 <dd>
 
@@ -14119,7 +14128,7 @@ client.lab_tests.get_phlebotomy_appointment_availability(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">book_phlebotomy_appointment</a>(...) -> AsyncHttpResponse[ClientFacingAppointment]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">book_phlebotomy_appointment</a>(...) -&gt; AsyncHttpResponse[ClientFacingAppointment]</code></summary>
 <dl>
 <dd>
 
@@ -14200,7 +14209,7 @@ client.lab_tests.book_phlebotomy_appointment(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">request_phlebotomy_appointment</a>(...) -> AsyncHttpResponse[ClientFacingAppointment]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">request_phlebotomy_appointment</a>(...) -&gt; AsyncHttpResponse[ClientFacingAppointment]</code></summary>
 <dl>
 <dd>
 
@@ -14293,7 +14302,7 @@ client.lab_tests.request_phlebotomy_appointment(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">reschedule_phlebotomy_appointment</a>(...) -> AsyncHttpResponse[ClientFacingAppointment]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">reschedule_phlebotomy_appointment</a>(...) -&gt; AsyncHttpResponse[ClientFacingAppointment]</code></summary>
 <dl>
 <dd>
 
@@ -14374,7 +14383,7 @@ client.lab_tests.reschedule_phlebotomy_appointment(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">cancel_phlebotomy_appointment</a>(...) -> AsyncHttpResponse[ClientFacingAppointment]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">cancel_phlebotomy_appointment</a>(...) -&gt; AsyncHttpResponse[ClientFacingAppointment]</code></summary>
 <dl>
 <dd>
 
@@ -14461,7 +14470,7 @@ client.lab_tests.cancel_phlebotomy_appointment(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_phlebotomy_appointment_cancellation_reason</a>() -> AsyncHttpResponse[typing.List[ClientFacingAppointmentCancellationReason]]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_phlebotomy_appointment_cancellation_reason</a>() -&gt; AsyncHttpResponse[typing.List[ClientFacingAppointmentCancellationReason]]</code></summary>
 <dl>
 <dd>
 
@@ -14521,7 +14530,7 @@ client.lab_tests.get_phlebotomy_appointment_cancellation_reason()
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_phlebotomy_appointment</a>(...) -> AsyncHttpResponse[ClientFacingAppointment]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_phlebotomy_appointment</a>(...) -&gt; AsyncHttpResponse[ClientFacingAppointment]</code></summary>
 <dl>
 <dd>
 
@@ -14591,7 +14600,7 @@ client.lab_tests.get_phlebotomy_appointment(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_area_info</a>(...) -> AsyncHttpResponse[AreaInfo]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_area_info</a>(...) -&gt; AsyncHttpResponse[AreaInfo]</code></summary>
 <dl>
 <dd>
 
@@ -14702,7 +14711,7 @@ client.lab_tests.get_area_info(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_psc_info</a>(...) -> AsyncHttpResponse[PscInfo]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_psc_info</a>(...) -&gt; AsyncHttpResponse[PscInfo]</code></summary>
 <dl>
 <dd>
 
@@ -14795,7 +14804,7 @@ client.lab_tests.get_psc_info(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_order_psc_info</a>(...) -> AsyncHttpResponse[PscInfo]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_order_psc_info</a>(...) -&gt; AsyncHttpResponse[PscInfo]</code></summary>
 <dl>
 <dd>
 
@@ -14870,7 +14879,7 @@ client.lab_tests.get_order_psc_info(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_result_pdf</a>(...) -> typing.AsyncIterator[AsyncHttpResponse[typing.AsyncIterator[bytes]]]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_result_pdf</a>(...) -&gt; typing.AsyncIterator[AsyncHttpResponse[typing.AsyncIterator[bytes]]]</code></summary>
 <dl>
 <dd>
 
@@ -14940,7 +14949,7 @@ client.lab_tests.get_result_pdf(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_result_metadata</a>(...) -> AsyncHttpResponse[LabResultsMetadata]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_result_metadata</a>(...) -&gt; AsyncHttpResponse[LabResultsMetadata]</code></summary>
 <dl>
 <dd>
 
@@ -15011,7 +15020,7 @@ client.lab_tests.get_result_metadata(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_result_raw</a>(...) -> AsyncHttpResponse[LabResultsRaw]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_result_raw</a>(...) -&gt; AsyncHttpResponse[LabResultsRaw]</code></summary>
 <dl>
 <dd>
 
@@ -15081,7 +15090,7 @@ client.lab_tests.get_result_raw(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_labels_pdf</a>(...) -> typing.AsyncIterator[AsyncHttpResponse[typing.AsyncIterator[bytes]]]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_labels_pdf</a>(...) -&gt; typing.AsyncIterator[AsyncHttpResponse[typing.AsyncIterator[bytes]]]</code></summary>
 <dl>
 <dd>
 
@@ -15172,7 +15181,7 @@ client.lab_tests.get_labels_pdf(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_psc_appointment_availability</a>(...) -> AsyncHttpResponse[AppointmentAvailabilitySlots]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_psc_appointment_availability</a>(...) -&gt; AsyncHttpResponse[AppointmentAvailabilitySlots]</code></summary>
 <dl>
 <dd>
 
@@ -15194,6 +15203,7 @@ client.lab_tests.get_psc_appointment_availability(
     start_date="start_date",
     zip_code="zip_code",
     radius=AllowedRadius.TEN,
+    allow_stale=True,
 )
 
 ```
@@ -15242,6 +15252,14 @@ client.lab_tests.get_psc_appointment_availability(
 <dl>
 <dd>
 
+**allow_stale:** `typing.Optional[bool]` — If true, allows cached availability data to be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -15254,7 +15272,7 @@ client.lab_tests.get_psc_appointment_availability(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">book_psc_appointment</a>(...) -> AsyncHttpResponse[ClientFacingAppointment]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">book_psc_appointment</a>(...) -&gt; AsyncHttpResponse[ClientFacingAppointment]</code></summary>
 <dl>
 <dd>
 
@@ -15274,6 +15292,7 @@ client = Vital(
 )
 client.lab_tests.book_psc_appointment(
     order_id="order_id",
+    idempotency_key="x-idempotency-key",
     request=AppointmentBookingRequest(
         booking_key="booking_key",
     ),
@@ -15309,6 +15328,14 @@ client.lab_tests.book_psc_appointment(
 <dl>
 <dd>
 
+**idempotency_key:** `typing.Optional[str]` — [!] This feature (Idempotency Key) is under closed beta. Idempotency Key support for booking PSC appointment.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -15321,7 +15348,7 @@ client.lab_tests.book_psc_appointment(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">reschedule_psc_appointment</a>(...) -> AsyncHttpResponse[ClientFacingAppointment]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">reschedule_psc_appointment</a>(...) -&gt; AsyncHttpResponse[ClientFacingAppointment]</code></summary>
 <dl>
 <dd>
 
@@ -15388,7 +15415,7 @@ client.lab_tests.reschedule_psc_appointment(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">cancel_psc_appointment</a>(...) -> AsyncHttpResponse[ClientFacingAppointment]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">cancel_psc_appointment</a>(...) -&gt; AsyncHttpResponse[ClientFacingAppointment]</code></summary>
 <dl>
 <dd>
 
@@ -15461,7 +15488,7 @@ client.lab_tests.cancel_psc_appointment(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_psc_appointment_cancellation_reason</a>() -> AsyncHttpResponse[typing.List[ClientFacingAppointmentCancellationReason]]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_psc_appointment_cancellation_reason</a>() -&gt; AsyncHttpResponse[typing.List[ClientFacingAppointmentCancellationReason]]</code></summary>
 <dl>
 <dd>
 
@@ -15507,7 +15534,7 @@ client.lab_tests.get_psc_appointment_cancellation_reason()
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_psc_appointment</a>(...) -> AsyncHttpResponse[ClientFacingAppointment]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_psc_appointment</a>(...) -&gt; AsyncHttpResponse[ClientFacingAppointment]</code></summary>
 <dl>
 <dd>
 
@@ -15577,7 +15604,7 @@ client.lab_tests.get_psc_appointment(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_order_collection_instruction_pdf</a>(...) -> typing.AsyncIterator[AsyncHttpResponse[typing.AsyncIterator[bytes]]]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_order_collection_instruction_pdf</a>(...) -&gt; typing.AsyncIterator[AsyncHttpResponse[typing.AsyncIterator[bytes]]]</code></summary>
 <dl>
 <dd>
 
@@ -15647,7 +15674,7 @@ client.lab_tests.get_order_collection_instruction_pdf(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_order_requistion_pdf</a>(...) -> typing.AsyncIterator[AsyncHttpResponse[typing.AsyncIterator[bytes]]]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_order_requistion_pdf</a>(...) -&gt; typing.AsyncIterator[AsyncHttpResponse[typing.AsyncIterator[bytes]]]</code></summary>
 <dl>
 <dd>
 
@@ -15717,7 +15744,7 @@ client.lab_tests.get_order_requistion_pdf(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_order_abn_pdf</a>(...) -> typing.AsyncIterator[AsyncHttpResponse[typing.AsyncIterator[bytes]]]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_order_abn_pdf</a>(...) -&gt; typing.AsyncIterator[AsyncHttpResponse[typing.AsyncIterator[bytes]]]</code></summary>
 <dl>
 <dd>
 
@@ -15787,7 +15814,7 @@ client.lab_tests.get_order_abn_pdf(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_order</a>(...) -> AsyncHttpResponse[ClientFacingOrder]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">get_order</a>(...) -&gt; AsyncHttpResponse[ClientFacingOrder]</code></summary>
 <dl>
 <dd>
 
@@ -15857,7 +15884,7 @@ client.lab_tests.get_order(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">create_order</a>(...) -> AsyncHttpResponse[PostOrderResponse]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">create_order</a>(...) -&gt; AsyncHttpResponse[PostOrderResponse]</code></summary>
 <dl>
 <dd>
 
@@ -16078,7 +16105,7 @@ client.lab_tests.create_order(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">import_order</a>(...) -> AsyncHttpResponse[PostOrderResponse]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">import_order</a>(...) -&gt; AsyncHttpResponse[PostOrderResponse]</code></summary>
 <dl>
 <dd>
 
@@ -16226,7 +16253,7 @@ client.lab_tests.import_order(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">cancel_order</a>(...) -> AsyncHttpResponse[PostOrderResponse]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">cancel_order</a>(...) -&gt; AsyncHttpResponse[PostOrderResponse]</code></summary>
 <dl>
 <dd>
 
@@ -16296,7 +16323,7 @@ client.lab_tests.cancel_order(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">simulate_order_process</a>(...) -> AsyncHttpResponse[typing.Any]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">simulate_order_process</a>(...) -&gt; AsyncHttpResponse[typing.Any]</code></summary>
 <dl>
 <dd>
 
@@ -16393,7 +16420,7 @@ client.lab_tests.simulate_order_process(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">update_on_site_collection_order_draw_completed</a>(...) -> AsyncHttpResponse[PostOrderResponse]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">update_on_site_collection_order_draw_completed</a>(...) -&gt; AsyncHttpResponse[PostOrderResponse]</code></summary>
 <dl>
 <dd>
 
@@ -16463,7 +16490,7 @@ client.lab_tests.update_on_site_collection_order_draw_completed(
 </dl>
 </details>
 
-<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">validate_icd_codes</a>(...) -> AsyncHttpResponse[ValidateIcdCodesResponse]</code></summary>
+<details><summary><code>client.lab_tests.<a href="src/vital/lab_tests/client.py">validate_icd_codes</a>(...) -&gt; AsyncHttpResponse[ValidateIcdCodesResponse]</code></summary>
 <dl>
 <dd>
 
@@ -16520,7 +16547,7 @@ client.lab_tests.validate_icd_codes(
 </details>
 
 ## Testkit
-<details><summary><code>client.testkit.<a href="src/vital/testkit/client.py">register</a>(...) -> AsyncHttpResponse[PostOrderResponse]</code></summary>
+<details><summary><code>client.testkit.<a href="src/vital/testkit/client.py">register</a>(...) -&gt; AsyncHttpResponse[PostOrderResponse]</code></summary>
 <dl>
 <dd>
 
@@ -16644,7 +16671,7 @@ client.testkit.register(
 </dl>
 </details>
 
-<details><summary><code>client.testkit.<a href="src/vital/testkit/client.py">create_order</a>(...) -> AsyncHttpResponse[PostOrderResponse]</code></summary>
+<details><summary><code>client.testkit.<a href="src/vital/testkit/client.py">create_order</a>(...) -&gt; AsyncHttpResponse[PostOrderResponse]</code></summary>
 <dl>
 <dd>
 
@@ -16757,7 +16784,7 @@ client.testkit.create_order(
 </details>
 
 ## Order
-<details><summary><code>client.order.<a href="src/vital/order/client.py">resend_events</a>(...) -> AsyncHttpResponse[ResendWebhookResponse]</code></summary>
+<details><summary><code>client.order.<a href="src/vital/order/client.py">resend_events</a>(...) -&gt; AsyncHttpResponse[ResendWebhookResponse]</code></summary>
 <dl>
 <dd>
 
@@ -16842,7 +16869,7 @@ client.order.resend_events()
 </details>
 
 ## Insurance
-<details><summary><code>client.insurance.<a href="src/vital/insurance/client.py">search_get_payor_info</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingPayorSearchResponse]]</code></summary>
+<details><summary><code>client.insurance.<a href="src/vital/insurance/client.py">search_get_payor_info</a>(...) -&gt; AsyncHttpResponse[typing.List[ClientFacingPayorSearchResponse]]</code></summary>
 <dl>
 <dd>
 
@@ -16916,7 +16943,7 @@ client.insurance.search_get_payor_info(
 </dl>
 </details>
 
-<details><summary><code>client.insurance.<a href="src/vital/insurance/client.py">search_payor_info</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingPayorSearchResponseDeprecated]]</code></summary>
+<details><summary><code>client.insurance.<a href="src/vital/insurance/client.py">search_payor_info</a>(...) -&gt; AsyncHttpResponse[typing.List[ClientFacingPayorSearchResponseDeprecated]]</code></summary>
 <dl>
 <dd>
 
@@ -16986,7 +17013,7 @@ client.insurance.search_payor_info()
 </dl>
 </details>
 
-<details><summary><code>client.insurance.<a href="src/vital/insurance/client.py">search_diagnosis</a>(...) -> AsyncHttpResponse[typing.List[ClientFacingDiagnosisInformation]]</code></summary>
+<details><summary><code>client.insurance.<a href="src/vital/insurance/client.py">search_diagnosis</a>(...) -&gt; AsyncHttpResponse[typing.List[ClientFacingDiagnosisInformation]]</code></summary>
 <dl>
 <dd>
 
@@ -17043,7 +17070,7 @@ client.insurance.search_diagnosis(
 </details>
 
 ## Payor
-<details><summary><code>client.payor.<a href="src/vital/payor/client.py">create_payor</a>(...) -> AsyncHttpResponse[ClientFacingPayor]</code></summary>
+<details><summary><code>client.payor.<a href="src/vital/payor/client.py">create_payor</a>(...) -&gt; AsyncHttpResponse[ClientFacingPayor]</code></summary>
 <dl>
 <dd>
 
@@ -17131,7 +17158,7 @@ client.payor.create_payor(
 </details>
 
 ## LabReport
-<details><summary><code>client.lab_report.<a href="src/vital/lab_report/client.py">parser_create_job</a>(...) -> AsyncHttpResponse[ParsingJob]</code></summary>
+<details><summary><code>client.lab_report.<a href="src/vital/lab_report/client.py">parser_create_job</a>(...) -&gt; AsyncHttpResponse[ParsingJob]</code></summary>
 <dl>
 <dd>
 
@@ -17220,7 +17247,7 @@ core.File` — See core.File for more documentation
 </dl>
 </details>
 
-<details><summary><code>client.lab_report.<a href="src/vital/lab_report/client.py">parser_get_job</a>(...) -> AsyncHttpResponse[ParsingJob]</code></summary>
+<details><summary><code>client.lab_report.<a href="src/vital/lab_report/client.py">parser_get_job</a>(...) -&gt; AsyncHttpResponse[ParsingJob]</code></summary>
 <dl>
 <dd>
 
@@ -17294,7 +17321,7 @@ client.lab_report.parser_get_job(
 </details>
 
 ## Aggregate
-<details><summary><code>client.aggregate.<a href="src/vital/aggregate/client.py">query_one</a>(...) -> AsyncHttpResponse[AggregationResponse]</code></summary>
+<details><summary><code>client.aggregate.<a href="src/vital/aggregate/client.py">query_one</a>(...) -&gt; AsyncHttpResponse[AggregationResponse]</code></summary>
 <dl>
 <dd>
 
@@ -17402,7 +17429,7 @@ client.aggregate.query_one(
 </dl>
 </details>
 
-<details><summary><code>client.aggregate.<a href="src/vital/aggregate/client.py">get_result_table_for_continuous_query</a>(...) -> AsyncHttpResponse[AggregationResult]</code></summary>
+<details><summary><code>client.aggregate.<a href="src/vital/aggregate/client.py">get_result_table_for_continuous_query</a>(...) -&gt; AsyncHttpResponse[AggregationResult]</code></summary>
 <dl>
 <dd>
 
@@ -17467,7 +17494,7 @@ client.aggregate.get_result_table_for_continuous_query(
 </dl>
 </details>
 
-<details><summary><code>client.aggregate.<a href="src/vital/aggregate/client.py">get_task_history_for_continuous_query</a>(...) -> AsyncHttpResponse[ContinuousQueryTaskHistoryResponse]</code></summary>
+<details><summary><code>client.aggregate.<a href="src/vital/aggregate/client.py">get_task_history_for_continuous_query</a>(...) -&gt; AsyncHttpResponse[ContinuousQueryTaskHistoryResponse]</code></summary>
 <dl>
 <dd>
 
