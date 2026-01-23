@@ -304,6 +304,8 @@ if typing.TYPE_CHECKING:
         ClientFacingOrderDetails_WalkInTest,
     )
     from .client_facing_order_event import ClientFacingOrderEvent
+    from .client_facing_order_in_transaction import ClientFacingOrderInTransaction
+    from .client_facing_order_transaction import ClientFacingOrderTransaction
     from .client_facing_patient_details_compatible import ClientFacingPatientDetailsCompatible
     from .client_facing_payor import ClientFacingPayor
     from .client_facing_payor_code_source import ClientFacingPayorCodeSource
@@ -672,15 +674,18 @@ if typing.TYPE_CHECKING:
     from .o_auth_providers import OAuthProviders
     from .order_activation_type import OrderActivationType
     from .order_low_level_status import OrderLowLevelStatus
+    from .order_origin import OrderOrigin
     from .order_set_request import OrderSetRequest
     from .order_status import OrderStatus
     from .order_top_level_status import OrderTopLevelStatus
+    from .order_transaction_status import OrderTransactionStatus
     from .ovulation_test_entry import OvulationTestEntry
     from .ovulation_test_entry_test_result import OvulationTestEntryTestResult
     from .paginated_users_response import PaginatedUsersResponse
     from .parent_biomarker_data import ParentBiomarkerData
     from .parsed_lab_report_data import ParsedLabReportData
     from .parsing_job import ParsingJob
+    from .parsing_job_failure_reason import ParsingJobFailureReason
     from .parsing_job_status import ParsingJobStatus
     from .password_providers import PasswordProviders
     from .patient_address import PatientAddress
@@ -1057,6 +1062,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ClientFacingOrderDetails_Testkit": ".client_facing_order_details",
     "ClientFacingOrderDetails_WalkInTest": ".client_facing_order_details",
     "ClientFacingOrderEvent": ".client_facing_order_event",
+    "ClientFacingOrderInTransaction": ".client_facing_order_in_transaction",
+    "ClientFacingOrderTransaction": ".client_facing_order_transaction",
     "ClientFacingPatientDetailsCompatible": ".client_facing_patient_details_compatible",
     "ClientFacingPayor": ".client_facing_payor",
     "ClientFacingPayorCodeSource": ".client_facing_payor_code_source",
@@ -1399,15 +1406,18 @@ _dynamic_imports: typing.Dict[str, str] = {
     "OAuthProviders": ".o_auth_providers",
     "OrderActivationType": ".order_activation_type",
     "OrderLowLevelStatus": ".order_low_level_status",
+    "OrderOrigin": ".order_origin",
     "OrderSetRequest": ".order_set_request",
     "OrderStatus": ".order_status",
     "OrderTopLevelStatus": ".order_top_level_status",
+    "OrderTransactionStatus": ".order_transaction_status",
     "OvulationTestEntry": ".ovulation_test_entry",
     "OvulationTestEntryTestResult": ".ovulation_test_entry_test_result",
     "PaginatedUsersResponse": ".paginated_users_response",
     "ParentBiomarkerData": ".parent_biomarker_data",
     "ParsedLabReportData": ".parsed_lab_report_data",
     "ParsingJob": ".parsing_job",
+    "ParsingJobFailureReason": ".parsing_job_failure_reason",
     "ParsingJobStatus": ".parsing_job_status",
     "PasswordProviders": ".password_providers",
     "PatientAddress": ".patient_address",
@@ -1804,6 +1814,8 @@ __all__ = [
     "ClientFacingOrderDetails_Testkit",
     "ClientFacingOrderDetails_WalkInTest",
     "ClientFacingOrderEvent",
+    "ClientFacingOrderInTransaction",
+    "ClientFacingOrderTransaction",
     "ClientFacingPatientDetailsCompatible",
     "ClientFacingPayor",
     "ClientFacingPayorCodeSource",
@@ -2146,15 +2158,18 @@ __all__ = [
     "OAuthProviders",
     "OrderActivationType",
     "OrderLowLevelStatus",
+    "OrderOrigin",
     "OrderSetRequest",
     "OrderStatus",
     "OrderTopLevelStatus",
+    "OrderTransactionStatus",
     "OvulationTestEntry",
     "OvulationTestEntryTestResult",
     "PaginatedUsersResponse",
     "ParentBiomarkerData",
     "ParsedLabReportData",
     "ParsingJob",
+    "ParsingJobFailureReason",
     "ParsingJobStatus",
     "PasswordProviders",
     "PatientAddress",
