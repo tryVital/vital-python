@@ -9,9 +9,11 @@ from .billing import Billing
 from .client_facing_lab_test import ClientFacingLabTest
 from .client_facing_order_details import ClientFacingOrderDetails
 from .client_facing_order_event import ClientFacingOrderEvent
+from .client_facing_order_transaction import ClientFacingOrderTransaction
 from .client_facing_patient_details_compatible import ClientFacingPatientDetailsCompatible
 from .client_facing_physician import ClientFacingPhysician
 from .interpretation import Interpretation
+from .order_origin import OrderOrigin
 from .order_top_level_status import OrderTopLevelStatus
 from .patient_address_compatible import PatientAddressCompatible
 from .shipping_address import ShippingAddress
@@ -124,6 +126,10 @@ class ClientFacingOrder(UniversalBaseModel):
     """
     The latest date by which the order result is expected to be available.
     """
+
+    origin: typing.Optional[OrderOrigin] = None
+    parent_id: typing.Optional[str] = None
+    order_transaction: typing.Optional[ClientFacingOrderTransaction] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
