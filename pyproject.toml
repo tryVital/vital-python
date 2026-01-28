@@ -4,7 +4,7 @@ dynamic = ["version"]
 
 [tool.poetry]
 name = "vital"
-version = "2.1.569"
+version = "2.1.589"
 description = ""
 readme = "README.md"
 authors = []
