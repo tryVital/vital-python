@@ -690,6 +690,7 @@ class LabTestsClient:
         patient_name: typing.Optional[str] = None,
         shipping_recipient_name: typing.Optional[str] = None,
         order_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        order_transaction_id: typing.Optional[str] = None,
         page: typing.Optional[int] = None,
         size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -747,6 +748,9 @@ class LabTestsClient:
         order_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter by order ids.
 
+        order_transaction_id : typing.Optional[str]
+            Filter by order transaction ID
+
         page : typing.Optional[int]
 
         size : typing.Optional[int]
@@ -793,6 +797,7 @@ class LabTestsClient:
             user_id="user_id",
             patient_name="patient_name",
             shipping_recipient_name="shipping_recipient_name",
+            order_transaction_id="order_transaction_id",
             page=1,
             size=1,
         )
@@ -814,6 +819,7 @@ class LabTestsClient:
             patient_name=patient_name,
             shipping_recipient_name=shipping_recipient_name,
             order_ids=order_ids,
+            order_transaction_id=order_transaction_id,
             page=page,
             size=size,
             request_options=request_options,
@@ -1446,6 +1452,7 @@ class LabTestsClient:
         site_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         zip_code: typing.Optional[str] = None,
         radius: typing.Optional[AllowedRadius] = None,
+        allow_stale: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AppointmentAvailabilitySlots:
         """
@@ -1462,6 +1469,9 @@ class LabTestsClient:
 
         radius : typing.Optional[AllowedRadius]
             Radius in which to search. (meters)
+
+        allow_stale : typing.Optional[bool]
+            If true, allows cached availability data to be returned.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1482,6 +1492,7 @@ class LabTestsClient:
             start_date="start_date",
             zip_code="zip_code",
             radius=AllowedRadius.TEN,
+            allow_stale=True,
         )
         """
         _response = self._raw_client.get_psc_appointment_availability(
@@ -1489,6 +1500,7 @@ class LabTestsClient:
             site_codes=site_codes,
             zip_code=zip_code,
             radius=radius,
+            allow_stale=allow_stale,
             request_options=request_options,
         )
         return _response.data
@@ -1498,6 +1510,8 @@ class LabTestsClient:
         order_id: str,
         *,
         request: AppointmentBookingRequest,
+        idempotency_key: typing.Optional[str] = None,
+        idempotency_error: typing.Optional[typing.Literal["no-cache"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingAppointment:
         """
@@ -1507,6 +1521,12 @@ class LabTestsClient:
             Your Order ID.
 
         request : AppointmentBookingRequest
+
+        idempotency_key : typing.Optional[str]
+            [!] This feature (Idempotency Key) is under closed beta. Idempotency Key support for booking PSC appointment.
+
+        idempotency_error : typing.Optional[typing.Literal["no-cache"]]
+            If `no-cache`, applies idempotency only to successful outcomes.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1525,12 +1545,19 @@ class LabTestsClient:
         )
         client.lab_tests.book_psc_appointment(
             order_id="order_id",
+            idempotency_key="x-idempotency-key",
             request=AppointmentBookingRequest(
                 booking_key="booking_key",
             ),
         )
         """
-        _response = self._raw_client.book_psc_appointment(order_id, request=request, request_options=request_options)
+        _response = self._raw_client.book_psc_appointment(
+            order_id,
+            request=request,
+            idempotency_key=idempotency_key,
+            idempotency_error=idempotency_error,
+            request_options=request_options,
+        )
         return _response.data
 
     def reschedule_psc_appointment(
@@ -2906,6 +2933,7 @@ class AsyncLabTestsClient:
         patient_name: typing.Optional[str] = None,
         shipping_recipient_name: typing.Optional[str] = None,
         order_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        order_transaction_id: typing.Optional[str] = None,
         page: typing.Optional[int] = None,
         size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -2963,6 +2991,9 @@ class AsyncLabTestsClient:
         order_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter by order ids.
 
+        order_transaction_id : typing.Optional[str]
+            Filter by order transaction ID
+
         page : typing.Optional[int]
 
         size : typing.Optional[int]
@@ -3013,6 +3044,7 @@ class AsyncLabTestsClient:
                 user_id="user_id",
                 patient_name="patient_name",
                 shipping_recipient_name="shipping_recipient_name",
+                order_transaction_id="order_transaction_id",
                 page=1,
                 size=1,
             )
@@ -3037,6 +3069,7 @@ class AsyncLabTestsClient:
             patient_name=patient_name,
             shipping_recipient_name=shipping_recipient_name,
             order_ids=order_ids,
+            order_transaction_id=order_transaction_id,
             page=page,
             size=size,
             request_options=request_options,
@@ -3784,6 +3817,7 @@ class AsyncLabTestsClient:
         site_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         zip_code: typing.Optional[str] = None,
         radius: typing.Optional[AllowedRadius] = None,
+        allow_stale: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AppointmentAvailabilitySlots:
         """
@@ -3800,6 +3834,9 @@ class AsyncLabTestsClient:
 
         radius : typing.Optional[AllowedRadius]
             Radius in which to search. (meters)
+
+        allow_stale : typing.Optional[bool]
+            If true, allows cached availability data to be returned.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -3825,6 +3862,7 @@ class AsyncLabTestsClient:
                 start_date="start_date",
                 zip_code="zip_code",
                 radius=AllowedRadius.TEN,
+                allow_stale=True,
             )
 
 
@@ -3835,6 +3873,7 @@ class AsyncLabTestsClient:
             site_codes=site_codes,
             zip_code=zip_code,
             radius=radius,
+            allow_stale=allow_stale,
             request_options=request_options,
         )
         return _response.data
@@ -3844,6 +3883,8 @@ class AsyncLabTestsClient:
         order_id: str,
         *,
         request: AppointmentBookingRequest,
+        idempotency_key: typing.Optional[str] = None,
+        idempotency_error: typing.Optional[typing.Literal["no-cache"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingAppointment:
         """
@@ -3853,6 +3894,12 @@ class AsyncLabTestsClient:
             Your Order ID.
 
         request : AppointmentBookingRequest
+
+        idempotency_key : typing.Optional[str]
+            [!] This feature (Idempotency Key) is under closed beta. Idempotency Key support for booking PSC appointment.
+
+        idempotency_error : typing.Optional[typing.Literal["no-cache"]]
+            If `no-cache`, applies idempotency only to successful outcomes.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -3876,6 +3923,7 @@ class AsyncLabTestsClient:
         async def main() -> None:
             await client.lab_tests.book_psc_appointment(
                 order_id="order_id",
+                idempotency_key="x-idempotency-key",
                 request=AppointmentBookingRequest(
                     booking_key="booking_key",
                 ),
@@ -3885,7 +3933,11 @@ class AsyncLabTestsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.book_psc_appointment(
-            order_id, request=request, request_options=request_options
+            order_id,
+            request=request,
+            idempotency_key=idempotency_key,
+            idempotency_error=idempotency_error,
+            request_options=request_options,
         )
         return _response.data
 
