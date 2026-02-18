@@ -369,6 +369,7 @@ class RawLabTestsClient:
         self,
         *,
         lab_id: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
+        lab_slug: typing.Optional[str] = None,
         name: typing.Optional[str] = None,
         a_la_carte_enabled: typing.Optional[bool] = None,
         lab_account_id: typing.Optional[str] = None,
@@ -383,6 +384,9 @@ class RawLabTestsClient:
         ----------
         lab_id : typing.Optional[typing.Union[int, typing.Sequence[int]]]
             The identifier Vital assigned to a lab partner.
+
+        lab_slug : typing.Optional[str]
+            The slug of the lab for these markers. If both lab_id and lab_slug are provided, lab_slug will be used.
 
         name : typing.Optional[str]
             The name or test code of an individual biomarker or a panel.
@@ -409,6 +413,7 @@ class RawLabTestsClient:
             method="GET",
             params={
                 "lab_id": lab_id,
+                "lab_slug": lab_slug,
                 "name": name,
                 "a_la_carte_enabled": a_la_carte_enabled,
                 "lab_account_id": lab_account_id,
@@ -847,6 +852,7 @@ class RawLabTestsClient:
         patient_name: typing.Optional[str] = None,
         shipping_recipient_name: typing.Optional[str] = None,
         order_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        order_transaction_id: typing.Optional[str] = None,
         page: typing.Optional[int] = None,
         size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -904,6 +910,9 @@ class RawLabTestsClient:
         order_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter by order ids.
 
+        order_transaction_id : typing.Optional[str]
+            Filter by order transaction ID
+
         page : typing.Optional[int]
 
         size : typing.Optional[int]
@@ -938,6 +947,7 @@ class RawLabTestsClient:
                 "patient_name": patient_name,
                 "shipping_recipient_name": shipping_recipient_name,
                 "order_ids": order_ids,
+                "order_transaction_id": order_transaction_id,
                 "page": page,
                 "size": size,
             },
@@ -1825,6 +1835,7 @@ class RawLabTestsClient:
         site_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         zip_code: typing.Optional[str] = None,
         radius: typing.Optional[AllowedRadius] = None,
+        allow_stale: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[AppointmentAvailabilitySlots]:
         """
@@ -1841,6 +1852,9 @@ class RawLabTestsClient:
 
         radius : typing.Optional[AllowedRadius]
             Radius in which to search. (meters)
+
+        allow_stale : typing.Optional[bool]
+            If true, allows cached availability data to be returned.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1859,6 +1873,7 @@ class RawLabTestsClient:
                 "site_codes": site_codes,
                 "zip_code": zip_code,
                 "radius": radius,
+                "allow_stale": allow_stale,
             },
             request_options=request_options,
         )
@@ -1904,6 +1919,8 @@ class RawLabTestsClient:
         order_id: str,
         *,
         request: AppointmentBookingRequest,
+        idempotency_key: typing.Optional[str] = None,
+        idempotency_error: typing.Optional[typing.Literal["no-cache"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ClientFacingAppointment]:
         """
@@ -1913,6 +1930,12 @@ class RawLabTestsClient:
             Your Order ID.
 
         request : AppointmentBookingRequest
+
+        idempotency_key : typing.Optional[str]
+            [!] This feature (Idempotency Key) is under closed beta. Idempotency Key support for booking PSC appointment.
+
+        idempotency_error : typing.Optional[typing.Literal["no-cache"]]
+            If `no-cache`, applies idempotency only to successful outcomes.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1928,6 +1951,8 @@ class RawLabTestsClient:
             json=request,
             headers={
                 "content-type": "application/json",
+                "x-idempotency-key": str(idempotency_key) if idempotency_key is not None else None,
+                "x-idempotency-error": str(idempotency_error) if idempotency_error is not None else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -3127,6 +3152,7 @@ class AsyncRawLabTestsClient:
         self,
         *,
         lab_id: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
+        lab_slug: typing.Optional[str] = None,
         name: typing.Optional[str] = None,
         a_la_carte_enabled: typing.Optional[bool] = None,
         lab_account_id: typing.Optional[str] = None,
@@ -3141,6 +3167,9 @@ class AsyncRawLabTestsClient:
         ----------
         lab_id : typing.Optional[typing.Union[int, typing.Sequence[int]]]
             The identifier Vital assigned to a lab partner.
+
+        lab_slug : typing.Optional[str]
+            The slug of the lab for these markers. If both lab_id and lab_slug are provided, lab_slug will be used.
 
         name : typing.Optional[str]
             The name or test code of an individual biomarker or a panel.
@@ -3167,6 +3196,7 @@ class AsyncRawLabTestsClient:
             method="GET",
             params={
                 "lab_id": lab_id,
+                "lab_slug": lab_slug,
                 "name": name,
                 "a_la_carte_enabled": a_la_carte_enabled,
                 "lab_account_id": lab_account_id,
@@ -3606,6 +3636,7 @@ class AsyncRawLabTestsClient:
         patient_name: typing.Optional[str] = None,
         shipping_recipient_name: typing.Optional[str] = None,
         order_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        order_transaction_id: typing.Optional[str] = None,
         page: typing.Optional[int] = None,
         size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -3663,6 +3694,9 @@ class AsyncRawLabTestsClient:
         order_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter by order ids.
 
+        order_transaction_id : typing.Optional[str]
+            Filter by order transaction ID
+
         page : typing.Optional[int]
 
         size : typing.Optional[int]
@@ -3697,6 +3731,7 @@ class AsyncRawLabTestsClient:
                 "patient_name": patient_name,
                 "shipping_recipient_name": shipping_recipient_name,
                 "order_ids": order_ids,
+                "order_transaction_id": order_transaction_id,
                 "page": page,
                 "size": size,
             },
@@ -4586,6 +4621,7 @@ class AsyncRawLabTestsClient:
         site_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         zip_code: typing.Optional[str] = None,
         radius: typing.Optional[AllowedRadius] = None,
+        allow_stale: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[AppointmentAvailabilitySlots]:
         """
@@ -4602,6 +4638,9 @@ class AsyncRawLabTestsClient:
 
         radius : typing.Optional[AllowedRadius]
             Radius in which to search. (meters)
+
+        allow_stale : typing.Optional[bool]
+            If true, allows cached availability data to be returned.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -4620,6 +4659,7 @@ class AsyncRawLabTestsClient:
                 "site_codes": site_codes,
                 "zip_code": zip_code,
                 "radius": radius,
+                "allow_stale": allow_stale,
             },
             request_options=request_options,
         )
@@ -4665,6 +4705,8 @@ class AsyncRawLabTestsClient:
         order_id: str,
         *,
         request: AppointmentBookingRequest,
+        idempotency_key: typing.Optional[str] = None,
+        idempotency_error: typing.Optional[typing.Literal["no-cache"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ClientFacingAppointment]:
         """
@@ -4674,6 +4716,12 @@ class AsyncRawLabTestsClient:
             Your Order ID.
 
         request : AppointmentBookingRequest
+
+        idempotency_key : typing.Optional[str]
+            [!] This feature (Idempotency Key) is under closed beta. Idempotency Key support for booking PSC appointment.
+
+        idempotency_error : typing.Optional[typing.Literal["no-cache"]]
+            If `no-cache`, applies idempotency only to successful outcomes.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -4689,6 +4737,8 @@ class AsyncRawLabTestsClient:
             json=request,
             headers={
                 "content-type": "application/json",
+                "x-idempotency-key": str(idempotency_key) if idempotency_key is not None else None,
+                "x-idempotency-error": str(idempotency_error) if idempotency_error is not None else None,
             },
             request_options=request_options,
             omit=OMIT,
