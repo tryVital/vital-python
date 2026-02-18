@@ -22,6 +22,7 @@ if typing.TYPE_CHECKING:
     from .meal.client import AsyncMealClient, MealClient
     from .menstrual_cycle.client import AsyncMenstrualCycleClient, MenstrualCycleClient
     from .order.client import AsyncOrderClient, OrderClient
+    from .order_transaction.client import AsyncOrderTransactionClient, OrderTransactionClient
     from .payor.client import AsyncPayorClient, PayorClient
     from .profile.client import AsyncProfileClient, ProfileClient
     from .providers.client import AsyncProvidersClient, ProvidersClient
@@ -116,6 +117,7 @@ class Vital:
         self._providers: typing.Optional[ProvidersClient] = None
         self._introspect: typing.Optional[IntrospectClient] = None
         self._lab_tests: typing.Optional[LabTestsClient] = None
+        self._order_transaction: typing.Optional[OrderTransactionClient] = None
         self._testkit: typing.Optional[TestkitClient] = None
         self._order: typing.Optional[OrderClient] = None
         self._insurance: typing.Optional[InsuranceClient] = None
@@ -260,6 +262,14 @@ class Vital:
         return self._lab_tests
 
     @property
+    def order_transaction(self):
+        if self._order_transaction is None:
+            from .order_transaction.client import OrderTransactionClient  # noqa: E402
+
+            self._order_transaction = OrderTransactionClient(client_wrapper=self._client_wrapper)
+        return self._order_transaction
+
+    @property
     def testkit(self):
         if self._testkit is None:
             from .testkit.client import TestkitClient  # noqa: E402
@@ -390,6 +400,7 @@ class AsyncVital:
         self._providers: typing.Optional[AsyncProvidersClient] = None
         self._introspect: typing.Optional[AsyncIntrospectClient] = None
         self._lab_tests: typing.Optional[AsyncLabTestsClient] = None
+        self._order_transaction: typing.Optional[AsyncOrderTransactionClient] = None
         self._testkit: typing.Optional[AsyncTestkitClient] = None
         self._order: typing.Optional[AsyncOrderClient] = None
         self._insurance: typing.Optional[AsyncInsuranceClient] = None
@@ -532,6 +543,14 @@ class AsyncVital:
 
             self._lab_tests = AsyncLabTestsClient(client_wrapper=self._client_wrapper)
         return self._lab_tests
+
+    @property
+    def order_transaction(self):
+        if self._order_transaction is None:
+            from .order_transaction.client import AsyncOrderTransactionClient  # noqa: E402
+
+            self._order_transaction = AsyncOrderTransactionClient(client_wrapper=self._client_wrapper)
+        return self._order_transaction
 
     @property
     def testkit(self):
