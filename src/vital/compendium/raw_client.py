@@ -3,74 +3,91 @@
 import typing
 from json.decoder import JSONDecodeError
 
-from .. import core
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
-from ..core.jsonable_encoder import jsonable_encoder
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
+from ..types.compendium_search_labs import CompendiumSearchLabs
+from ..types.convert_compendium_response import ConvertCompendiumResponse
 from ..types.http_validation_error import HttpValidationError
-from ..types.parsing_job import ParsingJob
+from ..types.search_compendium_response import SearchCompendiumResponse
+from ..types.search_mode import SearchMode
+from .types.compendium_convert_request_team_id import CompendiumConvertRequestTeamId
+from .types.compendium_search_request_team_id import CompendiumSearchRequestTeamId
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
 
 
-class RawLabReportClient:
+class RawCompendiumClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def parser_create_job(
+    def search(
         self,
         *,
-        file: typing.List[core.File],
-        user_id: str,
-        needs_human_review: typing.Optional[bool] = OMIT,
+        mode: SearchMode,
+        team_id: typing.Optional[CompendiumSearchRequestTeamId] = None,
+        query: typing.Optional[str] = OMIT,
+        loinc_set_hash: typing.Optional[str] = OMIT,
+        labs: typing.Optional[typing.Sequence[CompendiumSearchLabs]] = OMIT,
+        include_related: typing.Optional[bool] = OMIT,
+        limit: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[ParsingJob]:
+    ) -> HttpResponse[SearchCompendiumResponse]:
         """
-        Creates a parse job, uploads the file(s) to provider, persists the job row,
-        and starts the ParseLabReport. Returns a generated job_id.
-
         Parameters
         ----------
-        file : typing.List[core.File]
-            See core.File for more documentation
+        mode : SearchMode
 
-        user_id : str
+        team_id : typing.Optional[CompendiumSearchRequestTeamId]
 
-        needs_human_review : typing.Optional[bool]
+        query : typing.Optional[str]
+
+        loinc_set_hash : typing.Optional[str]
+
+        labs : typing.Optional[typing.Sequence[CompendiumSearchLabs]]
+
+        include_related : typing.Optional[bool]
+
+        limit : typing.Optional[int]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[ParsingJob]
+        HttpResponse[SearchCompendiumResponse]
             Successful Response
         """
         _response = self._client_wrapper.httpx_client.request(
-            "lab_report/v1/parser/job",
+            "v3/compendium/search",
             method="POST",
-            data={
-                "user_id": user_id,
-                "needs_human_review": needs_human_review,
+            params={
+                "team_id": team_id,
             },
-            files={
-                "file": file,
+            json={
+                "mode": mode,
+                "query": query,
+                "loinc_set_hash": loinc_set_hash,
+                "labs": labs,
+                "include_related": include_related,
+                "limit": limit,
+            },
+            headers={
+                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
-            force_multipart=True,
         )
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    ParsingJob,
+                    SearchCompendiumResponse,
                     parse_obj_as(
-                        type_=ParsingJob,  # type: ignore
+                        type_=SearchCompendiumResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -91,38 +108,61 @@ class RawLabReportClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def parser_get_job(
-        self, job_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[ParsingJob]:
+    def convert(
+        self,
+        *,
+        target_lab: CompendiumSearchLabs,
+        team_id: typing.Optional[CompendiumConvertRequestTeamId] = None,
+        lab_test_id: typing.Optional[str] = OMIT,
+        provider_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        limit: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[ConvertCompendiumResponse]:
         """
-        Retrieves the parse job status and stored result if completed.
-
-        Returns:
-            ParseLabResultJobResponse with job status and parsed data (if complete)
-
         Parameters
         ----------
-        job_id : str
+        target_lab : CompendiumSearchLabs
+
+        team_id : typing.Optional[CompendiumConvertRequestTeamId]
+
+        lab_test_id : typing.Optional[str]
+
+        provider_ids : typing.Optional[typing.Sequence[str]]
+
+        limit : typing.Optional[int]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[ParsingJob]
+        HttpResponse[ConvertCompendiumResponse]
             Successful Response
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"lab_report/v1/parser/job/{jsonable_encoder(job_id)}",
-            method="GET",
+            "v3/compendium/convert",
+            method="POST",
+            params={
+                "team_id": team_id,
+            },
+            json={
+                "lab_test_id": lab_test_id,
+                "provider_ids": provider_ids,
+                "target_lab": target_lab,
+                "limit": limit,
+            },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
+            omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    ParsingJob,
+                    ConvertCompendiumResponse,
                     parse_obj_as(
-                        type_=ParsingJob,  # type: ignore
+                        type_=ConvertCompendiumResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -144,59 +184,73 @@ class RawLabReportClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
-class AsyncRawLabReportClient:
+class AsyncRawCompendiumClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def parser_create_job(
+    async def search(
         self,
         *,
-        file: typing.List[core.File],
-        user_id: str,
-        needs_human_review: typing.Optional[bool] = OMIT,
+        mode: SearchMode,
+        team_id: typing.Optional[CompendiumSearchRequestTeamId] = None,
+        query: typing.Optional[str] = OMIT,
+        loinc_set_hash: typing.Optional[str] = OMIT,
+        labs: typing.Optional[typing.Sequence[CompendiumSearchLabs]] = OMIT,
+        include_related: typing.Optional[bool] = OMIT,
+        limit: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[ParsingJob]:
+    ) -> AsyncHttpResponse[SearchCompendiumResponse]:
         """
-        Creates a parse job, uploads the file(s) to provider, persists the job row,
-        and starts the ParseLabReport. Returns a generated job_id.
-
         Parameters
         ----------
-        file : typing.List[core.File]
-            See core.File for more documentation
+        mode : SearchMode
 
-        user_id : str
+        team_id : typing.Optional[CompendiumSearchRequestTeamId]
 
-        needs_human_review : typing.Optional[bool]
+        query : typing.Optional[str]
+
+        loinc_set_hash : typing.Optional[str]
+
+        labs : typing.Optional[typing.Sequence[CompendiumSearchLabs]]
+
+        include_related : typing.Optional[bool]
+
+        limit : typing.Optional[int]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[ParsingJob]
+        AsyncHttpResponse[SearchCompendiumResponse]
             Successful Response
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "lab_report/v1/parser/job",
+            "v3/compendium/search",
             method="POST",
-            data={
-                "user_id": user_id,
-                "needs_human_review": needs_human_review,
+            params={
+                "team_id": team_id,
             },
-            files={
-                "file": file,
+            json={
+                "mode": mode,
+                "query": query,
+                "loinc_set_hash": loinc_set_hash,
+                "labs": labs,
+                "include_related": include_related,
+                "limit": limit,
+            },
+            headers={
+                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
-            force_multipart=True,
         )
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    ParsingJob,
+                    SearchCompendiumResponse,
                     parse_obj_as(
-                        type_=ParsingJob,  # type: ignore
+                        type_=SearchCompendiumResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -217,38 +271,61 @@ class AsyncRawLabReportClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    async def parser_get_job(
-        self, job_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[ParsingJob]:
+    async def convert(
+        self,
+        *,
+        target_lab: CompendiumSearchLabs,
+        team_id: typing.Optional[CompendiumConvertRequestTeamId] = None,
+        lab_test_id: typing.Optional[str] = OMIT,
+        provider_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        limit: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[ConvertCompendiumResponse]:
         """
-        Retrieves the parse job status and stored result if completed.
-
-        Returns:
-            ParseLabResultJobResponse with job status and parsed data (if complete)
-
         Parameters
         ----------
-        job_id : str
+        target_lab : CompendiumSearchLabs
+
+        team_id : typing.Optional[CompendiumConvertRequestTeamId]
+
+        lab_test_id : typing.Optional[str]
+
+        provider_ids : typing.Optional[typing.Sequence[str]]
+
+        limit : typing.Optional[int]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[ParsingJob]
+        AsyncHttpResponse[ConvertCompendiumResponse]
             Successful Response
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"lab_report/v1/parser/job/{jsonable_encoder(job_id)}",
-            method="GET",
+            "v3/compendium/convert",
+            method="POST",
+            params={
+                "team_id": team_id,
+            },
+            json={
+                "lab_test_id": lab_test_id,
+                "provider_ids": provider_ids,
+                "target_lab": target_lab,
+                "limit": limit,
+            },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
+            omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    ParsingJob,
+                    ConvertCompendiumResponse,
                     parse_obj_as(
-                        type_=ParsingJob,  # type: ignore
+                        type_=ConvertCompendiumResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

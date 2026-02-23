@@ -50,6 +50,7 @@ if typing.TYPE_CHECKING:
     from .bulk_op_status import BulkOpStatus
     from .bulk_op_type import BulkOpType
     from .bulk_ops_response import BulkOpsResponse
+    from .canonical_candidate import CanonicalCandidate
     from .cervical_mucus_entry import CervicalMucusEntry
     from .cervical_mucus_entry_quality import CervicalMucusEntryQuality
     from .chronotype_value_macro_expr import ChronotypeValueMacroExpr
@@ -258,7 +259,10 @@ if typing.TYPE_CHECKING:
     from .client_facing_insulin_injection_sample_type import ClientFacingInsulinInjectionSampleType
     from .client_facing_insurance import ClientFacingInsurance
     from .client_facing_lab import ClientFacingLab
+    from .client_facing_lab_account import ClientFacingLabAccount
     from .client_facing_lab_location import ClientFacingLabLocation
+    from .client_facing_lab_report_parsing_job_created_event import ClientFacingLabReportParsingJobCreatedEvent
+    from .client_facing_lab_report_parsing_job_updated_event import ClientFacingLabReportParsingJobUpdatedEvent
     from .client_facing_lab_test import ClientFacingLabTest
     from .client_facing_labs import ClientFacingLabs
     from .client_facing_lean_body_mass_changed import ClientFacingLeanBodyMassChanged
@@ -304,6 +308,8 @@ if typing.TYPE_CHECKING:
         ClientFacingOrderDetails_WalkInTest,
     )
     from .client_facing_order_event import ClientFacingOrderEvent
+    from .client_facing_order_in_transaction import ClientFacingOrderInTransaction
+    from .client_facing_order_transaction import ClientFacingOrderTransaction
     from .client_facing_patient_details_compatible import ClientFacingPatientDetailsCompatible
     from .client_facing_payor import ClientFacingPayor
     from .client_facing_payor_code_source import ClientFacingPayorCodeSource
@@ -464,6 +470,7 @@ if typing.TYPE_CHECKING:
     from .client_workout_response import ClientWorkoutResponse
     from .clinical_information import ClinicalInformation
     from .company_details import CompanyDetails
+    from .compendium_search_labs import CompendiumSearchLabs
     from .connected_source_client_facing import ConnectedSourceClientFacing
     from .connection_recipe import ConnectionRecipe
     from .consent import Consent
@@ -474,6 +481,7 @@ if typing.TYPE_CHECKING:
     from .continuous_query_task_status import ContinuousQueryTaskStatus
     from .contraceptive_entry import ContraceptiveEntry
     from .contraceptive_entry_type import ContraceptiveEntryType
+    from .convert_compendium_response import ConvertCompendiumResponse
     from .create_user_portal_url_response import CreateUserPortalUrlResponse
     from .date_part_expr import DatePartExpr
     from .date_part_expr_arg import DatePartExprArg
@@ -503,7 +511,9 @@ if typing.TYPE_CHECKING:
     from .gender import Gender
     from .gender_identity import GenderIdentity
     from .get_markers_response import GetMarkersResponse
+    from .get_order_transaction_response import GetOrderTransactionResponse
     from .get_orders_response import GetOrdersResponse
+    from .get_team_lab_accounts_response import GetTeamLabAccountsResponse
     from .group_key_column_expr import GroupKeyColumnExpr
     from .group_key_column_expr_group_key import GroupKeyColumnExprGroupKey
     from .grouped_a_fib_burden import GroupedAFibBurden
@@ -635,6 +645,8 @@ if typing.TYPE_CHECKING:
     from .interval_timeseries_expr_field import IntervalTimeseriesExprField
     from .interval_timeseries_expr_timeseries import IntervalTimeseriesExprTimeseries
     from .jpeg import Jpeg
+    from .lab_account_delegated_flow import LabAccountDelegatedFlow
+    from .lab_account_status import LabAccountStatus
     from .lab_location_capability import LabLocationCapability
     from .lab_location_metadata import LabLocationMetadata
     from .lab_report_result import LabReportResult
@@ -672,15 +684,19 @@ if typing.TYPE_CHECKING:
     from .o_auth_providers import OAuthProviders
     from .order_activation_type import OrderActivationType
     from .order_low_level_status import OrderLowLevelStatus
+    from .order_origin import OrderOrigin
     from .order_set_request import OrderSetRequest
     from .order_status import OrderStatus
+    from .order_summary import OrderSummary
     from .order_top_level_status import OrderTopLevelStatus
+    from .order_transaction_status import OrderTransactionStatus
     from .ovulation_test_entry import OvulationTestEntry
     from .ovulation_test_entry_test_result import OvulationTestEntryTestResult
     from .paginated_users_response import PaginatedUsersResponse
     from .parent_biomarker_data import ParentBiomarkerData
     from .parsed_lab_report_data import ParsedLabReportData
     from .parsing_job import ParsingJob
+    from .parsing_job_failure_reason import ParsingJobFailureReason
     from .parsing_job_status import ParsingJobStatus
     from .password_providers import PasswordProviders
     from .patient_address import PatientAddress
@@ -688,6 +704,7 @@ if typing.TYPE_CHECKING:
     from .patient_address_with_validation import PatientAddressWithValidation
     from .patient_details_with_validation import PatientDetailsWithValidation
     from .payor_code_external_provider import PayorCodeExternalProvider
+    from .per_lab_candidate import PerLabCandidate
     from .performing_laboratory import PerformingLaboratory
     from .period import Period
     from .period_unit import PeriodUnit
@@ -706,6 +723,7 @@ if typing.TYPE_CHECKING:
     from .provider_connection_created import ProviderConnectionCreated
     from .provider_connection_error import ProviderConnectionError
     from .provider_connection_error_error_type import ProviderConnectionErrorErrorType
+    from .provider_id_conversion_response import ProviderIdConversionResponse
     from .provider_link_response import ProviderLinkResponse
     from .provider_link_response_error_type import ProviderLinkResponseErrorType
     from .provider_link_response_state import ProviderLinkResponseState
@@ -730,6 +748,7 @@ if typing.TYPE_CHECKING:
     from .raw_sleep import RawSleep
     from .raw_workout import RawWorkout
     from .region import Region
+    from .related_candidate import RelatedCandidate
     from .relative_timeframe import RelativeTimeframe
     from .resend_webhook_response import ResendWebhookResponse
     from .resource_availability import ResourceAvailability
@@ -742,6 +761,8 @@ if typing.TYPE_CHECKING:
     from .sample_data_date_reported import SampleDataDateReported
     from .scope_requirements_grants import ScopeRequirementsGrants
     from .scope_requirements_str import ScopeRequirementsStr
+    from .search_compendium_response import SearchCompendiumResponse
+    from .search_mode import SearchMode
     from .select import Select
     from .sex import Sex
     from .sexual_activity_entry import SexualActivityEntry
@@ -777,6 +798,7 @@ if typing.TYPE_CHECKING:
     from .trace_elements import TraceElements
     from .unrecognized_value_macro_expr import UnrecognizedValueMacroExpr
     from .us_address import UsAddress
+    from .us_state import UsState
     from .user_historical_pulls_response import UserHistoricalPullsResponse
     from .user_info import UserInfo
     from .user_refresh_error_response import UserRefreshErrorResponse
@@ -847,6 +869,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "BulkOpStatus": ".bulk_op_status",
     "BulkOpType": ".bulk_op_type",
     "BulkOpsResponse": ".bulk_ops_response",
+    "CanonicalCandidate": ".canonical_candidate",
     "CervicalMucusEntry": ".cervical_mucus_entry",
     "CervicalMucusEntryQuality": ".cervical_mucus_entry_quality",
     "ChronotypeValueMacroExpr": ".chronotype_value_macro_expr",
@@ -1017,7 +1040,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ClientFacingInsulinInjectionSampleType": ".client_facing_insulin_injection_sample_type",
     "ClientFacingInsurance": ".client_facing_insurance",
     "ClientFacingLab": ".client_facing_lab",
+    "ClientFacingLabAccount": ".client_facing_lab_account",
     "ClientFacingLabLocation": ".client_facing_lab_location",
+    "ClientFacingLabReportParsingJobCreatedEvent": ".client_facing_lab_report_parsing_job_created_event",
+    "ClientFacingLabReportParsingJobUpdatedEvent": ".client_facing_lab_report_parsing_job_updated_event",
     "ClientFacingLabTest": ".client_facing_lab_test",
     "ClientFacingLabs": ".client_facing_labs",
     "ClientFacingLeanBodyMassChanged": ".client_facing_lean_body_mass_changed",
@@ -1057,6 +1083,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ClientFacingOrderDetails_Testkit": ".client_facing_order_details",
     "ClientFacingOrderDetails_WalkInTest": ".client_facing_order_details",
     "ClientFacingOrderEvent": ".client_facing_order_event",
+    "ClientFacingOrderInTransaction": ".client_facing_order_in_transaction",
+    "ClientFacingOrderTransaction": ".client_facing_order_transaction",
     "ClientFacingPatientDetailsCompatible": ".client_facing_patient_details_compatible",
     "ClientFacingPayor": ".client_facing_payor",
     "ClientFacingPayorCodeSource": ".client_facing_payor_code_source",
@@ -1193,6 +1221,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ClientWorkoutResponse": ".client_workout_response",
     "ClinicalInformation": ".clinical_information",
     "CompanyDetails": ".company_details",
+    "CompendiumSearchLabs": ".compendium_search_labs",
     "ConnectedSourceClientFacing": ".connected_source_client_facing",
     "ConnectionRecipe": ".connection_recipe",
     "Consent": ".consent",
@@ -1203,6 +1232,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ContinuousQueryTaskStatus": ".continuous_query_task_status",
     "ContraceptiveEntry": ".contraceptive_entry",
     "ContraceptiveEntryType": ".contraceptive_entry_type",
+    "ConvertCompendiumResponse": ".convert_compendium_response",
     "CreateUserPortalUrlResponse": ".create_user_portal_url_response",
     "DatePartExpr": ".date_part_expr",
     "DatePartExprArg": ".date_part_expr_arg",
@@ -1232,7 +1262,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Gender": ".gender",
     "GenderIdentity": ".gender_identity",
     "GetMarkersResponse": ".get_markers_response",
+    "GetOrderTransactionResponse": ".get_order_transaction_response",
     "GetOrdersResponse": ".get_orders_response",
+    "GetTeamLabAccountsResponse": ".get_team_lab_accounts_response",
     "GroupKeyColumnExpr": ".group_key_column_expr",
     "GroupKeyColumnExprGroupKey": ".group_key_column_expr_group_key",
     "GroupedAFibBurden": ".grouped_a_fib_burden",
@@ -1362,6 +1394,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "IntervalTimeseriesExprField": ".interval_timeseries_expr_field",
     "IntervalTimeseriesExprTimeseries": ".interval_timeseries_expr_timeseries",
     "Jpeg": ".jpeg",
+    "LabAccountDelegatedFlow": ".lab_account_delegated_flow",
+    "LabAccountStatus": ".lab_account_status",
     "LabLocationCapability": ".lab_location_capability",
     "LabLocationMetadata": ".lab_location_metadata",
     "LabReportResult": ".lab_report_result",
@@ -1399,15 +1433,19 @@ _dynamic_imports: typing.Dict[str, str] = {
     "OAuthProviders": ".o_auth_providers",
     "OrderActivationType": ".order_activation_type",
     "OrderLowLevelStatus": ".order_low_level_status",
+    "OrderOrigin": ".order_origin",
     "OrderSetRequest": ".order_set_request",
     "OrderStatus": ".order_status",
+    "OrderSummary": ".order_summary",
     "OrderTopLevelStatus": ".order_top_level_status",
+    "OrderTransactionStatus": ".order_transaction_status",
     "OvulationTestEntry": ".ovulation_test_entry",
     "OvulationTestEntryTestResult": ".ovulation_test_entry_test_result",
     "PaginatedUsersResponse": ".paginated_users_response",
     "ParentBiomarkerData": ".parent_biomarker_data",
     "ParsedLabReportData": ".parsed_lab_report_data",
     "ParsingJob": ".parsing_job",
+    "ParsingJobFailureReason": ".parsing_job_failure_reason",
     "ParsingJobStatus": ".parsing_job_status",
     "PasswordProviders": ".password_providers",
     "PatientAddress": ".patient_address",
@@ -1415,6 +1453,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PatientAddressWithValidation": ".patient_address_with_validation",
     "PatientDetailsWithValidation": ".patient_details_with_validation",
     "PayorCodeExternalProvider": ".payor_code_external_provider",
+    "PerLabCandidate": ".per_lab_candidate",
     "PerformingLaboratory": ".performing_laboratory",
     "Period": ".period",
     "PeriodUnit": ".period_unit",
@@ -1433,6 +1472,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ProviderConnectionCreated": ".provider_connection_created",
     "ProviderConnectionError": ".provider_connection_error",
     "ProviderConnectionErrorErrorType": ".provider_connection_error_error_type",
+    "ProviderIdConversionResponse": ".provider_id_conversion_response",
     "ProviderLinkResponse": ".provider_link_response",
     "ProviderLinkResponseErrorType": ".provider_link_response_error_type",
     "ProviderLinkResponseState": ".provider_link_response_state",
@@ -1457,6 +1497,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RawSleep": ".raw_sleep",
     "RawWorkout": ".raw_workout",
     "Region": ".region",
+    "RelatedCandidate": ".related_candidate",
     "RelativeTimeframe": ".relative_timeframe",
     "ResendWebhookResponse": ".resend_webhook_response",
     "ResourceAvailability": ".resource_availability",
@@ -1469,6 +1510,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SampleDataDateReported": ".sample_data_date_reported",
     "ScopeRequirementsGrants": ".scope_requirements_grants",
     "ScopeRequirementsStr": ".scope_requirements_str",
+    "SearchCompendiumResponse": ".search_compendium_response",
+    "SearchMode": ".search_mode",
     "Select": ".select",
     "Sex": ".sex",
     "SexualActivityEntry": ".sexual_activity_entry",
@@ -1504,6 +1547,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "TraceElements": ".trace_elements",
     "UnrecognizedValueMacroExpr": ".unrecognized_value_macro_expr",
     "UsAddress": ".us_address",
+    "UsState": ".us_state",
     "UserHistoricalPullsResponse": ".user_historical_pulls_response",
     "UserInfo": ".user_info",
     "UserRefreshErrorResponse": ".user_refresh_error_response",
@@ -1594,6 +1638,7 @@ __all__ = [
     "BulkOpStatus",
     "BulkOpType",
     "BulkOpsResponse",
+    "CanonicalCandidate",
     "CervicalMucusEntry",
     "CervicalMucusEntryQuality",
     "ChronotypeValueMacroExpr",
@@ -1764,7 +1809,10 @@ __all__ = [
     "ClientFacingInsulinInjectionSampleType",
     "ClientFacingInsurance",
     "ClientFacingLab",
+    "ClientFacingLabAccount",
     "ClientFacingLabLocation",
+    "ClientFacingLabReportParsingJobCreatedEvent",
+    "ClientFacingLabReportParsingJobUpdatedEvent",
     "ClientFacingLabTest",
     "ClientFacingLabs",
     "ClientFacingLeanBodyMassChanged",
@@ -1804,6 +1852,8 @@ __all__ = [
     "ClientFacingOrderDetails_Testkit",
     "ClientFacingOrderDetails_WalkInTest",
     "ClientFacingOrderEvent",
+    "ClientFacingOrderInTransaction",
+    "ClientFacingOrderTransaction",
     "ClientFacingPatientDetailsCompatible",
     "ClientFacingPayor",
     "ClientFacingPayorCodeSource",
@@ -1940,6 +1990,7 @@ __all__ = [
     "ClientWorkoutResponse",
     "ClinicalInformation",
     "CompanyDetails",
+    "CompendiumSearchLabs",
     "ConnectedSourceClientFacing",
     "ConnectionRecipe",
     "Consent",
@@ -1950,6 +2001,7 @@ __all__ = [
     "ContinuousQueryTaskStatus",
     "ContraceptiveEntry",
     "ContraceptiveEntryType",
+    "ConvertCompendiumResponse",
     "CreateUserPortalUrlResponse",
     "DatePartExpr",
     "DatePartExprArg",
@@ -1979,7 +2031,9 @@ __all__ = [
     "Gender",
     "GenderIdentity",
     "GetMarkersResponse",
+    "GetOrderTransactionResponse",
     "GetOrdersResponse",
+    "GetTeamLabAccountsResponse",
     "GroupKeyColumnExpr",
     "GroupKeyColumnExprGroupKey",
     "GroupedAFibBurden",
@@ -2109,6 +2163,8 @@ __all__ = [
     "IntervalTimeseriesExprField",
     "IntervalTimeseriesExprTimeseries",
     "Jpeg",
+    "LabAccountDelegatedFlow",
+    "LabAccountStatus",
     "LabLocationCapability",
     "LabLocationMetadata",
     "LabReportResult",
@@ -2146,15 +2202,19 @@ __all__ = [
     "OAuthProviders",
     "OrderActivationType",
     "OrderLowLevelStatus",
+    "OrderOrigin",
     "OrderSetRequest",
     "OrderStatus",
+    "OrderSummary",
     "OrderTopLevelStatus",
+    "OrderTransactionStatus",
     "OvulationTestEntry",
     "OvulationTestEntryTestResult",
     "PaginatedUsersResponse",
     "ParentBiomarkerData",
     "ParsedLabReportData",
     "ParsingJob",
+    "ParsingJobFailureReason",
     "ParsingJobStatus",
     "PasswordProviders",
     "PatientAddress",
@@ -2162,6 +2222,7 @@ __all__ = [
     "PatientAddressWithValidation",
     "PatientDetailsWithValidation",
     "PayorCodeExternalProvider",
+    "PerLabCandidate",
     "PerformingLaboratory",
     "Period",
     "PeriodUnit",
@@ -2180,6 +2241,7 @@ __all__ = [
     "ProviderConnectionCreated",
     "ProviderConnectionError",
     "ProviderConnectionErrorErrorType",
+    "ProviderIdConversionResponse",
     "ProviderLinkResponse",
     "ProviderLinkResponseErrorType",
     "ProviderLinkResponseState",
@@ -2204,6 +2266,7 @@ __all__ = [
     "RawSleep",
     "RawWorkout",
     "Region",
+    "RelatedCandidate",
     "RelativeTimeframe",
     "ResendWebhookResponse",
     "ResourceAvailability",
@@ -2216,6 +2279,8 @@ __all__ = [
     "SampleDataDateReported",
     "ScopeRequirementsGrants",
     "ScopeRequirementsStr",
+    "SearchCompendiumResponse",
+    "SearchMode",
     "Select",
     "Sex",
     "SexualActivityEntry",
@@ -2251,6 +2316,7 @@ __all__ = [
     "TraceElements",
     "UnrecognizedValueMacroExpr",
     "UsAddress",
+    "UsState",
     "UserHistoricalPullsResponse",
     "UserInfo",
     "UserRefreshErrorResponse",
