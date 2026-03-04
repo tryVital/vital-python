@@ -51,9 +51,7 @@ class TeamClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.team.get_link_config(
-            vital_link_token="x-vital-link-token",
-        )
+        client.team.get_link_config()
         """
         _response = self._raw_client.get_link_config(vital_link_token=vital_link_token, request_options=request_options)
         return _response.data
@@ -283,9 +281,7 @@ class AsyncTeamClient:
 
 
         async def main() -> None:
-            await client.team.get_link_config(
-                vital_link_token="x-vital-link-token",
-            )
+            await client.team.get_link_config()
 
 
         asyncio.run(main())

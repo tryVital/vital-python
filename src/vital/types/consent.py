@@ -4,14 +4,20 @@ import datetime as dt
 import typing
 
 import pydantic
+import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ..core.serialization import FieldMetadata
 from .consent_type import ConsentType
 
 
 class Consent(UniversalBaseModel):
-    consent_type: ConsentType = pydantic.Field(alias="consentType")
+    consent_type: typing_extensions.Annotated[
+        ConsentType, FieldMetadata(alias="consentType"), pydantic.Field(alias="consentType")
+    ]
     version: typing.Optional[str] = None
-    time_of_consent: typing.Optional[dt.datetime] = pydantic.Field(alias="timeOfConsent", default=None)
+    time_of_consent: typing_extensions.Annotated[
+        typing.Optional[dt.datetime], FieldMetadata(alias="timeOfConsent"), pydantic.Field(alias="timeOfConsent")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
