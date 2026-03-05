@@ -42,6 +42,7 @@ class Providers(enum.StrEnum):
     HAMMERHEAD = "hammerhead"
     MY_FITNESS_PAL = "my_fitness_pal"
     HEALTH_CONNECT = "health_connect"
+    SAMSUNG_HEALTH = "samsung_health"
     POLAR = "polar"
     CRONOMETER = "cronometer"
     KARDIA = "kardia"
@@ -93,6 +94,7 @@ class Providers(enum.StrEnum):
         hammerhead: typing.Callable[[], T_Result],
         my_fitness_pal: typing.Callable[[], T_Result],
         health_connect: typing.Callable[[], T_Result],
+        samsung_health: typing.Callable[[], T_Result],
         polar: typing.Callable[[], T_Result],
         cronometer: typing.Callable[[], T_Result],
         kardia: typing.Callable[[], T_Result],
@@ -163,6 +165,8 @@ class Providers(enum.StrEnum):
             return my_fitness_pal()
         if self is Providers.HEALTH_CONNECT:
             return health_connect()
+        if self is Providers.SAMSUNG_HEALTH:
+            return samsung_health()
         if self is Providers.POLAR:
             return polar()
         if self is Providers.CRONOMETER:
