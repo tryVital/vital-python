@@ -91,7 +91,7 @@ class ClientFacingActivity(UniversalBaseModel):
     Heart rate daily summary.
     """
 
-    wheelchair_use: typing.Optional[bool] = None
+    wheelchair_use: typing.Optional[typing.Literal[True]] = None
     wheelchair_push: typing.Optional[int] = None
     created_at: dt.datetime
     updated_at: dt.datetime
