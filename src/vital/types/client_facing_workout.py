@@ -4,7 +4,9 @@ import datetime as dt
 import typing
 
 import pydantic
+import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ..core.serialization import FieldMetadata
 from .client_facing_source import ClientFacingSource
 from .client_facing_sport import ClientFacingSport
 from .client_facing_workout_map import ClientFacingWorkoutMap
@@ -127,11 +129,11 @@ class ClientFacingWorkout(UniversalBaseModel):
     Number of steps accumulated during this workout::count
     """
 
-    map_: typing.Optional[ClientFacingWorkoutMap] = pydantic.Field(alias="map", default=None)
-    """
-    Map of the workout
-    """
-
+    map_: typing_extensions.Annotated[
+        typing.Optional[ClientFacingWorkoutMap],
+        FieldMetadata(alias="map"),
+        pydantic.Field(alias="map", description="Map of the workout"),
+    ] = None
     provider_id: str = pydantic.Field()
     """
     Provider ID given for that specific workout
