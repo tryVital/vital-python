@@ -67,6 +67,10 @@ class OrderStatus(enum.StrEnum):
     CANCELLED_ON_SITE_COLLECTION_CANCELLED = "cancelled.on_site_collection.cancelled"
     SAMPLE_WITH_LAB_ON_SITE_COLLECTION_PARTIAL_RESULTS = "sample_with_lab.on_site_collection.partial_results"
     FAILED_ON_SITE_COLLECTION_SAMPLE_ERROR = "failed.on_site_collection.sample_error"
+    COMPLETED_WALK_IN_TEST_CORRECTED = "completed.walk_in_test.corrected"
+    COMPLETED_AT_HOME_PHLEBOTOMY_CORRECTED = "completed.at_home_phlebotomy.corrected"
+    COMPLETED_ON_SITE_COLLECTION_CORRECTED = "completed.on_site_collection.corrected"
+    COMPLETED_TESTKIT_CORRECTED = "completed.testkit.corrected"
     _UNKNOWN = "__ORDERSTATUS_UNKNOWN__"
     """
     This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
@@ -129,6 +133,10 @@ class OrderStatus(enum.StrEnum):
         cancelled_on_site_collection_cancelled: typing.Callable[[], T_Result],
         sample_with_lab_on_site_collection_partial_results: typing.Callable[[], T_Result],
         failed_on_site_collection_sample_error: typing.Callable[[], T_Result],
+        completed_walk_in_test_corrected: typing.Callable[[], T_Result],
+        completed_at_home_phlebotomy_corrected: typing.Callable[[], T_Result],
+        completed_on_site_collection_corrected: typing.Callable[[], T_Result],
+        completed_testkit_corrected: typing.Callable[[], T_Result],
         _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is OrderStatus.RECEIVED_WALK_IN_TEST_ORDERED:
@@ -229,4 +237,12 @@ class OrderStatus(enum.StrEnum):
             return sample_with_lab_on_site_collection_partial_results()
         if self is OrderStatus.FAILED_ON_SITE_COLLECTION_SAMPLE_ERROR:
             return failed_on_site_collection_sample_error()
+        if self is OrderStatus.COMPLETED_WALK_IN_TEST_CORRECTED:
+            return completed_walk_in_test_corrected()
+        if self is OrderStatus.COMPLETED_AT_HOME_PHLEBOTOMY_CORRECTED:
+            return completed_at_home_phlebotomy_corrected()
+        if self is OrderStatus.COMPLETED_ON_SITE_COLLECTION_CORRECTED:
+            return completed_on_site_collection_corrected()
+        if self is OrderStatus.COMPLETED_TESTKIT_CORRECTED:
+            return completed_testkit_corrected()
         return _unknown_member(self._value_)
