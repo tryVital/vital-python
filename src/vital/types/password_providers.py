@@ -23,6 +23,7 @@ class PasswordProviders(enum.StrEnum):
     MY_FITNESS_PAL = "my_fitness_pal"
     KARDIA = "kardia"
     ABBOTT_LIBREVIEW = "abbott_libreview"
+    TANDEM_SOURCE = "tandem_source"
     _UNKNOWN = "__PASSWORDPROVIDERS_UNKNOWN__"
     """
     This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
@@ -47,6 +48,7 @@ class PasswordProviders(enum.StrEnum):
         my_fitness_pal: typing.Callable[[], T_Result],
         kardia: typing.Callable[[], T_Result],
         abbott_libreview: typing.Callable[[], T_Result],
+        tandem_source: typing.Callable[[], T_Result],
         _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is PasswordProviders.WHOOP:
@@ -71,4 +73,6 @@ class PasswordProviders(enum.StrEnum):
             return kardia()
         if self is PasswordProviders.ABBOTT_LIBREVIEW:
             return abbott_libreview()
+        if self is PasswordProviders.TANDEM_SOURCE:
+            return tandem_source()
         return _unknown_member(self._value_)
