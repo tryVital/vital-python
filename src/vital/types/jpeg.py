@@ -7,7 +7,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class Jpeg(UniversalBaseModel):
-    content: str
+    content: bytes
     content_type: typing.Literal["image/jpeg"] = "image/jpeg"
 
     if IS_PYDANTIC_V2:
