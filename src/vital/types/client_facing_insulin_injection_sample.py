@@ -5,6 +5,9 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .client_facing_insulin_injection_sample_bolus_purpose import ClientFacingInsulinInjectionSampleBolusPurpose
+from .client_facing_insulin_injection_sample_delivery_form import ClientFacingInsulinInjectionSampleDeliveryForm
+from .client_facing_insulin_injection_sample_delivery_mode import ClientFacingInsulinInjectionSampleDeliveryMode
 from .client_facing_insulin_injection_sample_type import ClientFacingInsulinInjectionSampleType
 
 
@@ -21,7 +24,7 @@ class ClientFacingInsulinInjectionSample(UniversalBaseModel):
 
     type: ClientFacingInsulinInjectionSampleType = pydantic.Field()
     """
-    The type of insulin injection. ℹ️ This enum is non-exhaustive.
+    The insulin formulation type. ℹ️ This enum is non-exhaustive.
     """
 
     unit: typing.Literal["unit"] = "unit"
@@ -43,6 +46,21 @@ class ClientFacingInsulinInjectionSample(UniversalBaseModel):
     value: float = pydantic.Field()
     """
     The recorded value for the interval.
+    """
+
+    delivery_mode: typing.Optional[ClientFacingInsulinInjectionSampleDeliveryMode] = pydantic.Field(default=None)
+    """
+    How the insulin was delivered. ℹ️ This enum is non-exhaustive.
+    """
+
+    delivery_form: typing.Optional[ClientFacingInsulinInjectionSampleDeliveryForm] = pydantic.Field(default=None)
+    """
+    For bolus deliveries, whether the dose was standard or extended. ℹ️ This enum is non-exhaustive.
+    """
+
+    bolus_purpose: typing.Optional[ClientFacingInsulinInjectionSampleBolusPurpose] = pydantic.Field(default=None)
+    """
+    For bolus deliveries, what the bolus was intended for. ℹ️ This enum is non-exhaustive.
     """
 
     if IS_PYDANTIC_V2:
