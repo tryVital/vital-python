@@ -21,6 +21,7 @@ class ClientFacingDeviceSourceType(enum.StrEnum):
     CUFF = "cuff"
     MANUAL_SCAN = "manual_scan"
     AUTOMATIC = "automatic"
+    INSULIN_PUMP = "insulin_pump"
     SCALE = "scale"
     CHEST_STRAP = "chest_strap"
     RING = "ring"
@@ -49,6 +50,7 @@ class ClientFacingDeviceSourceType(enum.StrEnum):
         cuff: typing.Callable[[], T_Result],
         manual_scan: typing.Callable[[], T_Result],
         automatic: typing.Callable[[], T_Result],
+        insulin_pump: typing.Callable[[], T_Result],
         scale: typing.Callable[[], T_Result],
         chest_strap: typing.Callable[[], T_Result],
         ring: typing.Callable[[], T_Result],
@@ -75,6 +77,8 @@ class ClientFacingDeviceSourceType(enum.StrEnum):
             return manual_scan()
         if self is ClientFacingDeviceSourceType.AUTOMATIC:
             return automatic()
+        if self is ClientFacingDeviceSourceType.INSULIN_PUMP:
+            return insulin_pump()
         if self is ClientFacingDeviceSourceType.SCALE:
             return scale()
         if self is ClientFacingDeviceSourceType.CHEST_STRAP:
