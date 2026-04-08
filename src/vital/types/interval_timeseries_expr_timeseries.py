@@ -18,7 +18,6 @@ class IntervalTimeseriesExprTimeseries(enum.StrEnum):
     HEART_RATE_ALERT = "heart_rate_alert"
     STAND_HOUR = "stand_hour"
     SLEEP_BREATHING_DISTURBANCE = "sleep_breathing_disturbance"
-    INSULIN_INJECTION = "insulin_injection"
     WATER = "water"
     CAFFEINE = "caffeine"
     MINDFULNESS_MINUTES = "mindfulness_minutes"
@@ -64,7 +63,6 @@ class IntervalTimeseriesExprTimeseries(enum.StrEnum):
         heart_rate_alert: typing.Callable[[], T_Result],
         stand_hour: typing.Callable[[], T_Result],
         sleep_breathing_disturbance: typing.Callable[[], T_Result],
-        insulin_injection: typing.Callable[[], T_Result],
         water: typing.Callable[[], T_Result],
         caffeine: typing.Callable[[], T_Result],
         mindfulness_minutes: typing.Callable[[], T_Result],
@@ -105,8 +103,6 @@ class IntervalTimeseriesExprTimeseries(enum.StrEnum):
             return stand_hour()
         if self is IntervalTimeseriesExprTimeseries.SLEEP_BREATHING_DISTURBANCE:
             return sleep_breathing_disturbance()
-        if self is IntervalTimeseriesExprTimeseries.INSULIN_INJECTION:
-            return insulin_injection()
         if self is IntervalTimeseriesExprTimeseries.WATER:
             return water()
         if self is IntervalTimeseriesExprTimeseries.CAFFEINE:
