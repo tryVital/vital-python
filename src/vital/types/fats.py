@@ -3,7 +3,9 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ..core.serialization import FieldMetadata
 
 
 class Fats(UniversalBaseModel):
@@ -22,16 +24,16 @@ class Fats(UniversalBaseModel):
     Amount of polyunsaturated fats in grams (g)
     """
 
-    omega_3: typing.Optional[float] = pydantic.Field(alias="omega3", default=None)
-    """
-    Amount of Omega-3 fatty acids in grams (g)
-    """
-
-    omega_6: typing.Optional[float] = pydantic.Field(alias="omega6", default=None)
-    """
-    Amount of Omega-6 fatty acids in grams (g)
-    """
-
+    omega_3: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="omega3"),
+        pydantic.Field(alias="omega3", description="Amount of Omega-3 fatty acids in grams (g)"),
+    ] = None
+    omega_6: typing_extensions.Annotated[
+        typing.Optional[float],
+        FieldMetadata(alias="omega6"),
+        pydantic.Field(alias="omega6", description="Amount of Omega-6 fatty acids in grams (g)"),
+    ] = None
     total: typing.Optional[float] = pydantic.Field(default=None)
     """
     Total amount of fats in grams (g)
