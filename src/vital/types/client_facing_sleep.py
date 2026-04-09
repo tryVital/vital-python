@@ -87,6 +87,11 @@ class ClientFacingSleep(UniversalBaseModel):
     A value between 1 and 100 representing how well the user slept. Currently only available for Withings, Oura, Whoop and Garmin::scalar
     """
 
+    recovery_readiness_score: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    A value between 0 and 100 representing the provider's recovery/readiness proxy. Currently sourced from Oura readiness score, Whoop recovery score, and Ultrahuman recovery::scalar
+    """
+
     hr_lowest: typing.Optional[int] = pydantic.Field(default=None)
     """
     The lowest heart rate (5 minutes sliding average) registered during the sleep period::beats per minute
