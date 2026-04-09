@@ -4,13 +4,15 @@ import datetime as dt
 import typing
 
 import pydantic
+import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ..core.serialization import FieldMetadata
 
 
 class TimeseriesMetricPoint(UniversalBaseModel):
     date: dt.datetime
     value: float
-    all_: float = pydantic.Field(alias="all")
+    all_: typing_extensions.Annotated[float, FieldMetadata(alias="all"), pydantic.Field(alias="all")]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
