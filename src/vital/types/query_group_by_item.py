@@ -5,12 +5,15 @@ import typing
 from .activity_column_expr import ActivityColumnExpr
 from .asleep_at_value_macro_expr import AsleepAtValueMacroExpr
 from .awake_at_value_macro_expr import AwakeAtValueMacroExpr
+from .awakenings_value_macro_expr import AwakeningsValueMacroExpr
 from .blood_pressure_timeseries_expr import BloodPressureTimeseriesExpr
 from .body_column_expr import BodyColumnExpr
 from .chronotype_value_macro_expr import ChronotypeValueMacroExpr
 from .date_part_expr import DatePartExpr
 from .date_trunc_expr import DateTruncExpr
+from .derived_readiness_column_expr import DerivedReadinessColumnExpr
 from .discrete_timeseries_expr import DiscreteTimeseriesExpr
+from .insulin_injection_timeseries_expr import InsulinInjectionTimeseriesExpr
 from .interval_timeseries_expr import IntervalTimeseriesExpr
 from .meal_column_expr import MealColumnExpr
 from .note_timeseries_expr import NoteTimeseriesExpr
@@ -27,6 +30,7 @@ QueryGroupByItem = typing.Union[
     DateTruncExpr,
     DatePartExpr,
     SleepColumnExpr,
+    DerivedReadinessColumnExpr,
     ActivityColumnExpr,
     WorkoutColumnExpr,
     BodyColumnExpr,
@@ -36,9 +40,11 @@ QueryGroupByItem = typing.Union[
     ChronotypeValueMacroExpr,
     AsleepAtValueMacroExpr,
     AwakeAtValueMacroExpr,
+    AwakeningsValueMacroExpr,
     UnrecognizedValueMacroExpr,
     DiscreteTimeseriesExpr,
     IntervalTimeseriesExpr,
+    InsulinInjectionTimeseriesExpr,
     BloodPressureTimeseriesExpr,
     TemperatureTimeseriesExpr,
     WorkoutDurationTimeseriesExpr,
