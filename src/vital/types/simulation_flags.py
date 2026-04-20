@@ -9,7 +9,11 @@ from .result_type import ResultType
 
 
 class SimulationFlags(UniversalBaseModel):
-    interpretation: typing.Optional[Interpretation] = None
+    interpretation: typing.Optional[Interpretation] = pydantic.Field(default=None)
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     result_types: typing.Optional[typing.List[ResultType]] = None
     has_missing_results: typing.Optional[bool] = None
 

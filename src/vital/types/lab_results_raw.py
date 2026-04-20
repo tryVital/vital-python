@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .client_facing_order_transaction import ClientFacingOrderTransaction
 from .lab_results_metadata import LabResultsMetadata
 from .lab_results_raw_results import LabResultsRawResults
 from .missing_biomarker_result import MissingBiomarkerResult
@@ -15,6 +16,7 @@ class LabResultsRaw(UniversalBaseModel):
     results: LabResultsRawResults
     missing_results: typing.Optional[typing.List[MissingBiomarkerResult]] = None
     sample_information: typing.Optional[typing.Dict[str, typing.Optional[SampleData]]] = None
+    order_transaction: typing.Optional[ClientFacingOrderTransaction] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
