@@ -30,18 +30,18 @@ class LabReportClient:
     def parser_create_job(
         self,
         *,
-        file: core.File,
+        file: typing.List[core.File],
         user_id: str,
         needs_human_review: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ParsingJob:
         """
-        Creates a parse job, uploads the file to provider, persists the job row,
+        Creates a parse job, uploads the file(s) to provider, persists the job row,
         and starts the ParseLabReport. Returns a generated job_id.
 
         Parameters
         ----------
-        file : core.File
+        file : typing.List[core.File]
             See core.File for more documentation
 
         user_id : str
@@ -124,18 +124,18 @@ class AsyncLabReportClient:
     async def parser_create_job(
         self,
         *,
-        file: core.File,
+        file: typing.List[core.File],
         user_id: str,
         needs_human_review: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ParsingJob:
         """
-        Creates a parse job, uploads the file to provider, persists the job row,
+        Creates a parse job, uploads the file(s) to provider, persists the job row,
         and starts the ParseLabReport. Returns a generated job_id.
 
         Parameters
         ----------
-        file : core.File
+        file : typing.List[core.File]
             See core.File for more documentation
 
         user_id : str

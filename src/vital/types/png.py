@@ -7,7 +7,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class Png(UniversalBaseModel):
-    content: str
+    content: bytes
     content_type: typing.Literal["image/png"] = "image/png"
 
     if IS_PYDANTIC_V2:
