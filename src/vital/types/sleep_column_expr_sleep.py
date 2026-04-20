@@ -37,6 +37,7 @@ class SleepColumnExprSleep(enum.StrEnum):
     SKIN_TEMPERATURE_DELTA = "skin_temperature_delta"
     RESPIRATORY_RATE = "respiratory_rate"
     SCORE = "score"
+    RECOVERY_READINESS_SCORE = "recovery_readiness_score"
     SOURCE_TYPE = "source_type"
     SOURCE_PROVIDER = "source_provider"
     SOURCE_APP_ID = "source_app_id"
@@ -80,6 +81,7 @@ class SleepColumnExprSleep(enum.StrEnum):
         skin_temperature_delta: typing.Callable[[], T_Result],
         respiratory_rate: typing.Callable[[], T_Result],
         score: typing.Callable[[], T_Result],
+        recovery_readiness_score: typing.Callable[[], T_Result],
         source_type: typing.Callable[[], T_Result],
         source_provider: typing.Callable[[], T_Result],
         source_app_id: typing.Callable[[], T_Result],
@@ -137,6 +139,8 @@ class SleepColumnExprSleep(enum.StrEnum):
             return respiratory_rate()
         if self is SleepColumnExprSleep.SCORE:
             return score()
+        if self is SleepColumnExprSleep.RECOVERY_READINESS_SCORE:
+            return recovery_readiness_score()
         if self is SleepColumnExprSleep.SOURCE_TYPE:
             return source_type()
         if self is SleepColumnExprSleep.SOURCE_PROVIDER:
