@@ -6,22 +6,26 @@ import typing
 
 import httpx
 from .core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .core.logging import LogConfig, Logger
 from .environment import VitalEnvironment
 
 if typing.TYPE_CHECKING:
     from .activity.client import ActivityClient, AsyncActivityClient
     from .aggregate.client import AggregateClient, AsyncAggregateClient
     from .body.client import AsyncBodyClient, BodyClient
+    from .compendium.client import AsyncCompendiumClient, CompendiumClient
     from .devices.client import AsyncDevicesClient, DevicesClient
     from .electrocardiogram.client import AsyncElectrocardiogramClient, ElectrocardiogramClient
     from .insurance.client import AsyncInsuranceClient, InsuranceClient
     from .introspect.client import AsyncIntrospectClient, IntrospectClient
+    from .lab_account.client import AsyncLabAccountClient, LabAccountClient
     from .lab_report.client import AsyncLabReportClient, LabReportClient
     from .lab_tests.client import AsyncLabTestsClient, LabTestsClient
     from .link.client import AsyncLinkClient, LinkClient
     from .meal.client import AsyncMealClient, MealClient
     from .menstrual_cycle.client import AsyncMenstrualCycleClient, MenstrualCycleClient
     from .order.client import AsyncOrderClient, OrderClient
+    from .order_transaction.client import AsyncOrderTransactionClient, OrderTransactionClient
     from .payor.client import AsyncPayorClient, PayorClient
     from .profile.client import AsyncProfileClient, ProfileClient
     from .providers.client import AsyncProvidersClient, ProvidersClient
@@ -65,6 +69,9 @@ class Vital:
     httpx_client : typing.Optional[httpx.Client]
         The httpx client to use for making requests, a preconfigured client is used by default, however this is useful should you want to pass in any custom httpx configuration.
 
+    logging : typing.Optional[typing.Union[LogConfig, Logger]]
+        Configure logging for the SDK. Accepts a LogConfig dict with 'level' (debug/info/warn/error), 'logger' (custom logger implementation), and 'silent' (boolean, defaults to True) fields. You can also pass a pre-configured Logger instance.
+
     Examples
     --------
     from vital import Vital
@@ -84,6 +91,7 @@ class Vital:
         timeout: typing.Optional[float] = None,
         follow_redirects: typing.Optional[bool] = True,
         httpx_client: typing.Optional[httpx.Client] = None,
+        logging: typing.Optional[typing.Union[LogConfig, Logger]] = None,
     ):
         _defaulted_timeout = (
             timeout if timeout is not None else 60 if httpx_client is None else httpx_client.timeout.read
@@ -98,6 +106,7 @@ class Vital:
             if follow_redirects is not None
             else httpx.Client(timeout=_defaulted_timeout),
             timeout=_defaulted_timeout,
+            logging=logging,
         )
         self._link: typing.Optional[LinkClient] = None
         self._electrocardiogram: typing.Optional[ElectrocardiogramClient] = None
@@ -116,6 +125,9 @@ class Vital:
         self._providers: typing.Optional[ProvidersClient] = None
         self._introspect: typing.Optional[IntrospectClient] = None
         self._lab_tests: typing.Optional[LabTestsClient] = None
+        self._compendium: typing.Optional[CompendiumClient] = None
+        self._lab_account: typing.Optional[LabAccountClient] = None
+        self._order_transaction: typing.Optional[OrderTransactionClient] = None
         self._testkit: typing.Optional[TestkitClient] = None
         self._order: typing.Optional[OrderClient] = None
         self._insurance: typing.Optional[InsuranceClient] = None
@@ -260,6 +272,30 @@ class Vital:
         return self._lab_tests
 
     @property
+    def compendium(self):
+        if self._compendium is None:
+            from .compendium.client import CompendiumClient  # noqa: E402
+
+            self._compendium = CompendiumClient(client_wrapper=self._client_wrapper)
+        return self._compendium
+
+    @property
+    def lab_account(self):
+        if self._lab_account is None:
+            from .lab_account.client import LabAccountClient  # noqa: E402
+
+            self._lab_account = LabAccountClient(client_wrapper=self._client_wrapper)
+        return self._lab_account
+
+    @property
+    def order_transaction(self):
+        if self._order_transaction is None:
+            from .order_transaction.client import OrderTransactionClient  # noqa: E402
+
+            self._order_transaction = OrderTransactionClient(client_wrapper=self._client_wrapper)
+        return self._order_transaction
+
+    @property
     def testkit(self):
         if self._testkit is None:
             from .testkit.client import TestkitClient  # noqa: E402
@@ -339,6 +375,9 @@ class AsyncVital:
     httpx_client : typing.Optional[httpx.AsyncClient]
         The httpx client to use for making requests, a preconfigured client is used by default, however this is useful should you want to pass in any custom httpx configuration.
 
+    logging : typing.Optional[typing.Union[LogConfig, Logger]]
+        Configure logging for the SDK. Accepts a LogConfig dict with 'level' (debug/info/warn/error), 'logger' (custom logger implementation), and 'silent' (boolean, defaults to True) fields. You can also pass a pre-configured Logger instance.
+
     Examples
     --------
     from vital import AsyncVital
@@ -358,6 +397,7 @@ class AsyncVital:
         timeout: typing.Optional[float] = None,
         follow_redirects: typing.Optional[bool] = True,
         httpx_client: typing.Optional[httpx.AsyncClient] = None,
+        logging: typing.Optional[typing.Union[LogConfig, Logger]] = None,
     ):
         _defaulted_timeout = (
             timeout if timeout is not None else 60 if httpx_client is None else httpx_client.timeout.read
@@ -372,6 +412,7 @@ class AsyncVital:
             if follow_redirects is not None
             else httpx.AsyncClient(timeout=_defaulted_timeout),
             timeout=_defaulted_timeout,
+            logging=logging,
         )
         self._link: typing.Optional[AsyncLinkClient] = None
         self._electrocardiogram: typing.Optional[AsyncElectrocardiogramClient] = None
@@ -390,6 +431,9 @@ class AsyncVital:
         self._providers: typing.Optional[AsyncProvidersClient] = None
         self._introspect: typing.Optional[AsyncIntrospectClient] = None
         self._lab_tests: typing.Optional[AsyncLabTestsClient] = None
+        self._compendium: typing.Optional[AsyncCompendiumClient] = None
+        self._lab_account: typing.Optional[AsyncLabAccountClient] = None
+        self._order_transaction: typing.Optional[AsyncOrderTransactionClient] = None
         self._testkit: typing.Optional[AsyncTestkitClient] = None
         self._order: typing.Optional[AsyncOrderClient] = None
         self._insurance: typing.Optional[AsyncInsuranceClient] = None
@@ -532,6 +576,30 @@ class AsyncVital:
 
             self._lab_tests = AsyncLabTestsClient(client_wrapper=self._client_wrapper)
         return self._lab_tests
+
+    @property
+    def compendium(self):
+        if self._compendium is None:
+            from .compendium.client import AsyncCompendiumClient  # noqa: E402
+
+            self._compendium = AsyncCompendiumClient(client_wrapper=self._client_wrapper)
+        return self._compendium
+
+    @property
+    def lab_account(self):
+        if self._lab_account is None:
+            from .lab_account.client import AsyncLabAccountClient  # noqa: E402
+
+            self._lab_account = AsyncLabAccountClient(client_wrapper=self._client_wrapper)
+        return self._lab_account
+
+    @property
+    def order_transaction(self):
+        if self._order_transaction is None:
+            from .order_transaction.client import AsyncOrderTransactionClient  # noqa: E402
+
+            self._order_transaction = AsyncOrderTransactionClient(client_wrapper=self._client_wrapper)
+        return self._order_transaction
 
     @property
     def testkit(self):
