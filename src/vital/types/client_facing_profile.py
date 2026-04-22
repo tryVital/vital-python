@@ -19,9 +19,17 @@ class ClientFacingProfile(UniversalBaseModel):
 
     height: typing.Optional[int] = None
     birth_date: typing.Optional[str] = None
-    wheelchair_use: typing.Optional[bool] = None
-    gender: typing.Optional[Gender] = None
-    sex: typing.Optional[Sex] = None
+    wheelchair_use: typing.Optional[typing.Literal[True]] = None
+    gender: typing.Optional[Gender] = pydantic.Field(default=None)
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
+    sex: typing.Optional[Sex] = pydantic.Field(default=None)
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     source: ClientFacingSource
     created_at: dt.datetime
     updated_at: dt.datetime

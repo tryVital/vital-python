@@ -13,10 +13,12 @@ class IndexColumnExprIndex(enum.StrEnum):
     """
 
     SLEEP = "sleep"
+    DERIVED_READINESS = "derived_readiness"
     ACTIVITY = "activity"
     WORKOUT = "workout"
     BODY = "body"
     MEAL = "meal"
+    MENSTRUAL_CYCLE = "menstrual_cycle"
     PROFILE = "profile"
     TIMESERIES = "timeseries"
     _UNKNOWN = "__INDEXCOLUMNEXPRINDEX_UNKNOWN__"
@@ -33,16 +35,20 @@ class IndexColumnExprIndex(enum.StrEnum):
     def visit(
         self,
         sleep: typing.Callable[[], T_Result],
+        derived_readiness: typing.Callable[[], T_Result],
         activity: typing.Callable[[], T_Result],
         workout: typing.Callable[[], T_Result],
         body: typing.Callable[[], T_Result],
         meal: typing.Callable[[], T_Result],
+        menstrual_cycle: typing.Callable[[], T_Result],
         profile: typing.Callable[[], T_Result],
         timeseries: typing.Callable[[], T_Result],
         _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is IndexColumnExprIndex.SLEEP:
             return sleep()
+        if self is IndexColumnExprIndex.DERIVED_READINESS:
+            return derived_readiness()
         if self is IndexColumnExprIndex.ACTIVITY:
             return activity()
         if self is IndexColumnExprIndex.WORKOUT:
@@ -51,6 +57,8 @@ class IndexColumnExprIndex(enum.StrEnum):
             return body()
         if self is IndexColumnExprIndex.MEAL:
             return meal()
+        if self is IndexColumnExprIndex.MENSTRUAL_CYCLE:
+            return menstrual_cycle()
         if self is IndexColumnExprIndex.PROFILE:
             return profile()
         if self is IndexColumnExprIndex.TIMESERIES:
