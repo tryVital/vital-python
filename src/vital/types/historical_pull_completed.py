@@ -11,7 +11,7 @@ class HistoricalPullCompleted(UniversalBaseModel):
     user_id: str
     start_date: dt.datetime
     end_date: dt.datetime
-    is_final: bool
+    is_final: typing.Literal[True] = True
     provider: str
 
     if IS_PYDANTIC_V2:
