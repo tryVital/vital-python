@@ -21,7 +21,11 @@ class BulkOp(UniversalBaseModel):
     ℹ️ This enum is non-exhaustive.
     """
 
-    provider: Providers
+    provider: Providers = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     pending: int
     processed: int
     started_at: dt.datetime

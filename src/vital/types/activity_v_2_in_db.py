@@ -11,15 +11,15 @@ from .client_facing_provider import ClientFacingProvider
 class ActivityV2InDb(UniversalBaseModel):
     timestamp: dt.datetime
     data: typing.Dict[str, typing.Any]
-    provider_id: str
     user_id: str
+    provider_id: str
     source_id: int
     priority_id: int
     id: str
-    source: ClientFacingProvider
     source_device_id: typing.Optional[str] = None
     created_at: typing.Optional[dt.datetime] = None
     updated_at: typing.Optional[dt.datetime] = None
+    source: ClientFacingProvider
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

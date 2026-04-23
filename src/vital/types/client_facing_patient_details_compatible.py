@@ -26,22 +26,22 @@ class ClientFacingPatientDetailsCompatible(UniversalBaseModel):
 
     race: typing.Optional[Race] = pydantic.Field(default=None)
     """
-    If not provided, will be set to 'Not Specified'
+    If not provided, will be set to 'Not Specified' ℹ️ This enum is non-exhaustive.
     """
 
     ethnicity: typing.Optional[Ethnicity] = pydantic.Field(default=None)
     """
-    If not provided, will be set to 'Not Specified'
+    If not provided, will be set to 'Not Specified' ℹ️ This enum is non-exhaustive.
     """
 
     sexual_orientation: typing.Optional[SexualOrientation] = pydantic.Field(default=None)
     """
-    If not provided, will be set to 'Not Specified'
+    If not provided, will be set to 'Not Specified' ℹ️ This enum is non-exhaustive.
     """
 
     gender_identity: typing.Optional[GenderIdentity] = pydantic.Field(default=None)
     """
-    If not provided, will be set to 'Not Specified'
+    If not provided, will be set to 'Not Specified' ℹ️ This enum is non-exhaustive.
     """
 
     if IS_PYDANTIC_V2:
