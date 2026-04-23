@@ -13,7 +13,11 @@ class Question(UniversalBaseModel):
     required: bool
     code: str
     value: str
-    type: QuestionType
+    type: QuestionType = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     sequence: int
     answers: typing.List[Answer]
     constraint: typing.Optional[str] = None
