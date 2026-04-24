@@ -11,7 +11,11 @@ from .gender import Gender
 class VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails(UniversalBaseModel):
     first_name: str
     last_name: str
-    gender: Gender
+    gender: Gender = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     address: Address
     dob: str
     email: str
