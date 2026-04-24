@@ -36,7 +36,11 @@ class ClientFacingMenstrualCycle(UniversalBaseModel):
     home_progesterone_test: typing.Optional[typing.List[HomeProgesteroneTestEntry]] = None
     sexual_activity: typing.Optional[typing.List[SexualActivityEntry]] = None
     basal_body_temperature: typing.Optional[typing.List[BasalBodyTemperatureEntry]] = None
-    source_provider: ClientFacingMenstrualCycleSourceProvider
+    source_provider: ClientFacingMenstrualCycleSourceProvider = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     source_type: ClientFacingMenstrualCycleSourceType = pydantic.Field()
     """
     ℹ️ This enum is non-exhaustive.

@@ -11,14 +11,21 @@ from .single_historical_pull_statistics_error_details import SingleHistoricalPul
 
 
 class SingleHistoricalPullStatistics(UniversalBaseModel):
-    status: HistoricalPullStatus
+    status: HistoricalPullStatus = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     range_start: typing.Optional[dt.datetime] = None
     range_end: typing.Optional[dt.datetime] = None
     timeline: HistoricalPullTimeline
     days_with_data: typing.Optional[int] = None
     release: str
     trace_id: typing.Optional[str] = None
-    error_details: typing.Optional[SingleHistoricalPullStatisticsErrorDetails] = None
+    error_details: typing.Optional[SingleHistoricalPullStatisticsErrorDetails] = pydantic.Field(default=None)
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
