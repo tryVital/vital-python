@@ -12,17 +12,17 @@ from .client_facing_sport import ClientFacingSport
 class WorkoutV2InDb(UniversalBaseModel):
     timestamp: dt.datetime
     data: typing.Dict[str, typing.Any]
-    provider_id: str
     user_id: str
+    provider_id: str
     source_id: int
     priority_id: typing.Optional[int] = None
     id: str
     sport_id: int
-    source: ClientFacingProvider
     sport: ClientFacingSport
     source_device_id: typing.Optional[str] = None
     created_at: typing.Optional[dt.datetime] = None
     updated_at: typing.Optional[dt.datetime] = None
+    source: ClientFacingProvider
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
