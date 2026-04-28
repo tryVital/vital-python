@@ -9,7 +9,11 @@ from .scope_requirements_grants import ScopeRequirementsGrants
 
 
 class ResourceAvailability(UniversalBaseModel):
-    status: Availability
+    status: Availability = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     scope_requirements: typing.Optional[ScopeRequirementsGrants] = None
 
     if IS_PYDANTIC_V2:
