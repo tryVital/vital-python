@@ -6,7 +6,7 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.client_facing_stream import ClientFacingStream
 from ..types.client_workout_response import ClientWorkoutResponse
-from ..types.raw_workout import RawWorkout
+from ..types.raw_workout_response import RawWorkoutResponse
 from .raw_client import AsyncRawWorkoutsClient, RawWorkoutsClient
 
 
@@ -85,7 +85,7 @@ class WorkoutsClient:
         provider: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> RawWorkout:
+    ) -> RawWorkoutResponse:
         """
         Get raw workout summary for user_id
 
@@ -107,7 +107,7 @@ class WorkoutsClient:
 
         Returns
         -------
-        RawWorkout
+        RawWorkoutResponse
             Successful Response
 
         Examples
@@ -244,7 +244,7 @@ class AsyncWorkoutsClient:
         provider: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> RawWorkout:
+    ) -> RawWorkoutResponse:
         """
         Get raw workout summary for user_id
 
@@ -266,7 +266,7 @@ class AsyncWorkoutsClient:
 
         Returns
         -------
-        RawWorkout
+        RawWorkoutResponse
             Successful Response
 
         Examples

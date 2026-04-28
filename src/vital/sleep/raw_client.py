@@ -13,7 +13,7 @@ from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.client_facing_sleep_stream import ClientFacingSleepStream
 from ..types.client_sleep_response import ClientSleepResponse
 from ..types.http_validation_error import HttpValidationError
-from ..types.raw_sleep import RawSleep
+from ..types.raw_sleep_response import RawSleepResponse
 
 
 class RawSleepClient:
@@ -97,7 +97,7 @@ class RawSleepClient:
         provider: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[RawSleep]:
+    ) -> HttpResponse[RawSleepResponse]:
         """
         Get raw sleep summary for user_id
 
@@ -119,7 +119,7 @@ class RawSleepClient:
 
         Returns
         -------
-        HttpResponse[RawSleep]
+        HttpResponse[RawSleepResponse]
             Successful Response
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -135,9 +135,9 @@ class RawSleepClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    RawSleep,
+                    RawSleepResponse,
                     parse_obj_as(
-                        type_=RawSleep,  # type: ignore
+                        type_=RawSleepResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -290,7 +290,7 @@ class AsyncRawSleepClient:
         provider: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[RawSleep]:
+    ) -> AsyncHttpResponse[RawSleepResponse]:
         """
         Get raw sleep summary for user_id
 
@@ -312,7 +312,7 @@ class AsyncRawSleepClient:
 
         Returns
         -------
-        AsyncHttpResponse[RawSleep]
+        AsyncHttpResponse[RawSleepResponse]
             Successful Response
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -328,9 +328,9 @@ class AsyncRawSleepClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    RawSleep,
+                    RawSleepResponse,
                     parse_obj_as(
-                        type_=RawSleep,  # type: ignore
+                        type_=RawSleepResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

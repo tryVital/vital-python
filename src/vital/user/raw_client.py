@@ -11,12 +11,10 @@ from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
 from ..errors.bad_request_error import BadRequestError
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
-from ..types.address import Address
 from ..types.client_facing_device import ClientFacingDevice
 from ..types.client_facing_insurance import ClientFacingInsurance
 from ..types.client_facing_provider_with_status import ClientFacingProviderWithStatus
 from ..types.client_facing_user import ClientFacingUser
-from ..types.client_facing_user_key import ClientFacingUserKey
 from ..types.create_user_portal_url_response import CreateUserPortalUrlResponse
 from ..types.ethnicity import Ethnicity
 from ..types.gender_identity import GenderIdentity
@@ -28,6 +26,7 @@ from ..types.providers import Providers
 from ..types.race import Race
 from ..types.responsible_relationship import ResponsibleRelationship
 from ..types.sexual_orientation import SexualOrientation
+from ..types.user_address import UserAddress
 from ..types.user_info import UserInfo
 from ..types.user_refresh_success_response import UserRefreshSuccessResponse
 from ..types.user_sign_in_token_response import UserSignInTokenResponse
@@ -113,7 +112,7 @@ class RawUserClient:
         ingestion_start: typing.Optional[str] = OMIT,
         ingestion_end: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[ClientFacingUserKey]:
+    ) -> HttpResponse[ClientFacingUser]:
         """
         POST Create a Vital user given a client_user_id and returns the user_id.
 
@@ -142,7 +141,7 @@ class RawUserClient:
 
         Returns
         -------
-        HttpResponse[ClientFacingUserKey]
+        HttpResponse[ClientFacingUser]
             Successful Response
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -164,9 +163,9 @@ class RawUserClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    ClientFacingUserKey,
+                    ClientFacingUser,
                     parse_obj_as(
-                        type_=ClientFacingUserKey,  # type: ignore
+                        type_=ClientFacingUser,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -353,6 +352,7 @@ class RawUserClient:
         member_id : str
 
         relationship : ResponsibleRelationship
+            ℹ️ This enum is non-exhaustive.
 
         insured : VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails
 
@@ -480,7 +480,7 @@ class RawUserClient:
         phone_number: str,
         gender: str,
         dob: str,
-        address: Address,
+        address: UserAddress,
         medical_proxy: typing.Optional[GuarantorDetails] = OMIT,
         race: typing.Optional[Race] = OMIT,
         ethnicity: typing.Optional[Ethnicity] = OMIT,
@@ -505,17 +505,21 @@ class RawUserClient:
 
         dob : str
 
-        address : Address
+        address : UserAddress
 
         medical_proxy : typing.Optional[GuarantorDetails]
 
         race : typing.Optional[Race]
+            ℹ️ This enum is non-exhaustive.
 
         ethnicity : typing.Optional[Ethnicity]
+            ℹ️ This enum is non-exhaustive.
 
         sexual_orientation : typing.Optional[SexualOrientation]
+            ℹ️ This enum is non-exhaustive.
 
         gender_identity : typing.Optional[GenderIdentity]
+            ℹ️ This enum is non-exhaustive.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1260,7 +1264,7 @@ class AsyncRawUserClient:
         ingestion_start: typing.Optional[str] = OMIT,
         ingestion_end: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[ClientFacingUserKey]:
+    ) -> AsyncHttpResponse[ClientFacingUser]:
         """
         POST Create a Vital user given a client_user_id and returns the user_id.
 
@@ -1289,7 +1293,7 @@ class AsyncRawUserClient:
 
         Returns
         -------
-        AsyncHttpResponse[ClientFacingUserKey]
+        AsyncHttpResponse[ClientFacingUser]
             Successful Response
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -1311,9 +1315,9 @@ class AsyncRawUserClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    ClientFacingUserKey,
+                    ClientFacingUser,
                     parse_obj_as(
-                        type_=ClientFacingUserKey,  # type: ignore
+                        type_=ClientFacingUser,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1500,6 +1504,7 @@ class AsyncRawUserClient:
         member_id : str
 
         relationship : ResponsibleRelationship
+            ℹ️ This enum is non-exhaustive.
 
         insured : VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails
 
@@ -1627,7 +1632,7 @@ class AsyncRawUserClient:
         phone_number: str,
         gender: str,
         dob: str,
-        address: Address,
+        address: UserAddress,
         medical_proxy: typing.Optional[GuarantorDetails] = OMIT,
         race: typing.Optional[Race] = OMIT,
         ethnicity: typing.Optional[Ethnicity] = OMIT,
@@ -1652,17 +1657,21 @@ class AsyncRawUserClient:
 
         dob : str
 
-        address : Address
+        address : UserAddress
 
         medical_proxy : typing.Optional[GuarantorDetails]
 
         race : typing.Optional[Race]
+            ℹ️ This enum is non-exhaustive.
 
         ethnicity : typing.Optional[Ethnicity]
+            ℹ️ This enum is non-exhaustive.
 
         sexual_orientation : typing.Optional[SexualOrientation]
+            ℹ️ This enum is non-exhaustive.
 
         gender_identity : typing.Optional[GenderIdentity]
+            ℹ️ This enum is non-exhaustive.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

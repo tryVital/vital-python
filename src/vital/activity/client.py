@@ -5,7 +5,7 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.client_activity_response import ClientActivityResponse
-from ..types.raw_activity import RawActivity
+from ..types.raw_activity_response import RawActivityResponse
 from .raw_client import AsyncRawActivityClient, RawActivityClient
 
 
@@ -84,7 +84,7 @@ class ActivityClient:
         provider: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> RawActivity:
+    ) -> RawActivityResponse:
         """
         Get raw activity summary for user_id
 
@@ -106,7 +106,7 @@ class ActivityClient:
 
         Returns
         -------
-        RawActivity
+        RawActivityResponse
             Successful Response
 
         Examples
@@ -212,7 +212,7 @@ class AsyncActivityClient:
         provider: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> RawActivity:
+    ) -> RawActivityResponse:
         """
         Get raw activity summary for user_id
 
@@ -234,7 +234,7 @@ class AsyncActivityClient:
 
         Returns
         -------
-        RawActivity
+        RawActivityResponse
             Successful Response
 
         Examples

@@ -29,12 +29,12 @@ class ClientFacingLabTest(UniversalBaseModel):
 
     sample_type: LabTestSampleType = pydantic.Field()
     """
-    
+    ℹ️ This enum is non-exhaustive.
     """
 
     method: LabTestCollectionMethod = pydantic.Field()
     """
-    
+    ℹ️ This enum is non-exhaustive.
     """
 
     price: float = pydantic.Field()
@@ -49,7 +49,7 @@ class ClientFacingLabTest(UniversalBaseModel):
 
     status: LabTestStatus = pydantic.Field()
     """
-    
+    ℹ️ This enum is non-exhaustive.
     """
 
     fasting: typing.Optional[bool] = pydantic.Field(default=None)

@@ -4,12 +4,12 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .address import Address
 from .ethnicity import Ethnicity
 from .gender_identity import GenderIdentity
 from .guarantor_details import GuarantorDetails
 from .race import Race
 from .sexual_orientation import SexualOrientation
+from .user_address import UserAddress
 
 
 class UserInfo(UniversalBaseModel):
@@ -19,12 +19,27 @@ class UserInfo(UniversalBaseModel):
     phone_number: str
     gender: str
     dob: str
-    address: Address
+    address: UserAddress
     medical_proxy: typing.Optional[GuarantorDetails] = None
-    race: typing.Optional[Race] = None
-    ethnicity: typing.Optional[Ethnicity] = None
-    sexual_orientation: typing.Optional[SexualOrientation] = None
-    gender_identity: typing.Optional[GenderIdentity] = None
+    race: typing.Optional[Race] = pydantic.Field(default=None)
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
+    ethnicity: typing.Optional[Ethnicity] = pydantic.Field(default=None)
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
+    sexual_orientation: typing.Optional[SexualOrientation] = pydantic.Field(default=None)
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
+    gender_identity: typing.Optional[GenderIdentity] = pydantic.Field(default=None)
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

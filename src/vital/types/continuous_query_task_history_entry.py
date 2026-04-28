@@ -11,7 +11,11 @@ from .continuous_query_task_status import ContinuousQueryTaskStatus
 class ContinuousQueryTaskHistoryEntry(UniversalBaseModel):
     query_id: str
     user_id: str
-    status: ContinuousQueryTaskStatus
+    status: ContinuousQueryTaskStatus = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     scheduled_at: dt.datetime
     started_at: typing.Optional[dt.datetime] = None
     ended_at: typing.Optional[dt.datetime] = None
