@@ -5,7 +5,7 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.client_body_response import ClientBodyResponse
-from ..types.raw_body import RawBody
+from ..types.raw_body_response import RawBodyResponse
 from .raw_client import AsyncRawBodyClient, RawBodyClient
 
 
@@ -84,7 +84,7 @@ class BodyClient:
         provider: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> RawBody:
+    ) -> RawBodyResponse:
         """
         Get raw Body summary for user_id
 
@@ -106,7 +106,7 @@ class BodyClient:
 
         Returns
         -------
-        RawBody
+        RawBodyResponse
             Successful Response
 
         Examples
@@ -212,7 +212,7 @@ class AsyncBodyClient:
         provider: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> RawBody:
+    ) -> RawBodyResponse:
         """
         Get raw Body summary for user_id
 
@@ -234,7 +234,7 @@ class AsyncBodyClient:
 
         Returns
         -------
-        RawBody
+        RawBodyResponse
             Successful Response
 
         Examples

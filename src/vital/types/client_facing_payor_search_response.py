@@ -31,7 +31,7 @@ class ClientFacingPayorSearchResponse(UniversalBaseModel):
 
     source: ClientFacingPayorCodeSource = pydantic.Field()
     """
-    The source of the payor, can be one of (platform, team).
+    The source of the payor, can be one of (platform, team). ℹ️ This enum is non-exhaustive.
     """
 
     if IS_PYDANTIC_V2:

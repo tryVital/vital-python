@@ -39,6 +39,7 @@ class RawPayorClient:
         address : Address
 
         provider : typing.Optional[PayorCodeExternalProvider]
+            ℹ️ This enum is non-exhaustive.
 
         provider_payor_id : typing.Optional[str]
 
@@ -113,6 +114,7 @@ class AsyncRawPayorClient:
         address : Address
 
         provider : typing.Optional[PayorCodeExternalProvider]
+            ℹ️ This enum is non-exhaustive.
 
         provider_payor_id : typing.Optional[str]
 
