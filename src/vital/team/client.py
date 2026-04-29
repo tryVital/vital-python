@@ -26,38 +26,6 @@ class TeamClient:
         """
         return self._raw_client
 
-    def get_link_config(
-        self, *, vital_link_token: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.Dict[str, typing.Any]:
-        """
-        Post teams.
-
-        Parameters
-        ----------
-        vital_link_token : typing.Optional[str]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        typing.Dict[str, typing.Any]
-            Successful Response
-
-        Examples
-        --------
-        from vital import Vital
-
-        client = Vital(
-            api_key="YOUR_API_KEY",
-        )
-        client.team.get_link_config(
-            vital_link_token="x-vital-link-token",
-        )
-        """
-        _response = self._raw_client.get_link_config(vital_link_token=vital_link_token, request_options=request_options)
-        return _response.data
-
     def get(self, team_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> ClientFacingTeam:
         """
         Get team.
@@ -252,48 +220,6 @@ class AsyncTeamClient:
         AsyncRawTeamClient
         """
         return self._raw_client
-
-    async def get_link_config(
-        self, *, vital_link_token: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.Dict[str, typing.Any]:
-        """
-        Post teams.
-
-        Parameters
-        ----------
-        vital_link_token : typing.Optional[str]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        typing.Dict[str, typing.Any]
-            Successful Response
-
-        Examples
-        --------
-        import asyncio
-
-        from vital import AsyncVital
-
-        client = AsyncVital(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.team.get_link_config(
-                vital_link_token="x-vital-link-token",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.get_link_config(
-            vital_link_token=vital_link_token, request_options=request_options
-        )
-        return _response.data
 
     async def get(self, team_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> ClientFacingTeam:
         """

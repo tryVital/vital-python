@@ -18,6 +18,7 @@ class ClientFacingAppointment(UniversalBaseModel):
     id: str
     user_id: str
     order_id: str
+    order_transaction_id: typing.Optional[str] = None
     address: UsAddress
     location: LngLat
     start_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
@@ -31,13 +32,30 @@ class ClientFacingAppointment(UniversalBaseModel):
     """
 
     iana_timezone: typing.Optional[str] = None
-    type: AppointmentType
-    provider: AppointmentProvider
-    status: AppointmentStatus
+    type: AppointmentType = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
+    provider: AppointmentProvider = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
+    status: AppointmentStatus = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     provider_id: str
     external_id: typing.Optional[str] = None
     can_reschedule: bool
-    event_status: AppointmentEventStatus
+    appointment_notes: typing.Optional[str] = None
+    event_status: AppointmentEventStatus = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     event_data: typing.Optional[typing.Dict[str, typing.Any]] = None
     events: typing.List[ClientFacingAppointmentEvent]
 
