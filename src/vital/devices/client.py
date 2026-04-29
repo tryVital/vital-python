@@ -4,7 +4,7 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
-from ..types.raw_devices import RawDevices
+from ..types.raw_devices_response import RawDevicesResponse
 from .raw_client import AsyncRawDevicesClient, RawDevicesClient
 
 
@@ -29,7 +29,7 @@ class DevicesClient:
         *,
         provider: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> RawDevices:
+    ) -> RawDevicesResponse:
         """
         Get Devices for user_id
 
@@ -45,7 +45,7 @@ class DevicesClient:
 
         Returns
         -------
-        RawDevices
+        RawDevicesResponse
             Successful Response
 
         Examples
@@ -85,7 +85,7 @@ class AsyncDevicesClient:
         *,
         provider: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> RawDevices:
+    ) -> RawDevicesResponse:
         """
         Get Devices for user_id
 
@@ -101,7 +101,7 @@ class AsyncDevicesClient:
 
         Returns
         -------
-        RawDevices
+        RawDevicesResponse
             Successful Response
 
         Examples

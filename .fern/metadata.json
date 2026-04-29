@@ -1,7 +1,7 @@
 {
-  "cliVersion": "3.35.1",
+  "cliVersion": "4.107.0",
   "generatorName": "fernapi/fern-python-sdk",
-  "generatorVersion": "4.46.6",
+  "generatorVersion": "4.60.1",
   "generatorConfig": {
     "client_class_name": "Vital",
     "inline_request_params": false,
@@ -10,5 +10,6 @@
       "use_pydantic_field_aliases": true
     }
   },
-  "sdkVersion": "2.1.569"
+  "originGitCommit": "e5ad64b002b881da9aef6f9ac749330cbdbe37e0",
+  "sdkVersion": "2.1.570"
 }

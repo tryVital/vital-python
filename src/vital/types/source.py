@@ -15,8 +15,16 @@ class Source(UniversalBaseModel):
     logo: str
     group: typing.Optional[str] = None
     oauth_url: typing.Optional[str] = None
-    auth_type: typing.Optional[SourceAuthType] = None
-    source_type: typing.Optional[SourceType] = None
+    auth_type: typing.Optional[SourceAuthType] = pydantic.Field(default=None)
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
+    source_type: typing.Optional[SourceType] = pydantic.Field(default=None)
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     is_active: typing.Optional[bool] = None
     backfill_num_days: typing.Optional[int] = None
     id: int

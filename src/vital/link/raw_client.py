@@ -12,7 +12,6 @@ from ..core.jsonable_encoder import jsonable_encoder
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
-from ..types.auth_type import AuthType
 from ..types.bulk_export_connections_response import BulkExportConnectionsResponse
 from ..types.bulk_import_connections_response import BulkImportConnectionsResponse
 from ..types.bulk_ops_response import BulkOpsResponse
@@ -21,7 +20,6 @@ from ..types.demo_connection_status import DemoConnectionStatus
 from ..types.demo_providers import DemoProviders
 from ..types.http_validation_error import HttpValidationError
 from ..types.link_token_exchange_response import LinkTokenExchangeResponse
-from ..types.manual_providers import ManualProviders
 from ..types.o_auth_providers import OAuthProviders
 from ..types.password_providers import PasswordProviders
 from ..types.provider_link_response import ProviderLinkResponse
@@ -30,11 +28,6 @@ from ..types.region import Region
 from ..types.source import Source
 from ..types.source_link import SourceLink
 from ..types.vital_token_created_response import VitalTokenCreatedResponse
-from .types.link_bulk_export_request_team_id import LinkBulkExportRequestTeamId
-from .types.link_bulk_import_request_team_id import LinkBulkImportRequestTeamId
-from .types.link_bulk_pause_request_team_id import LinkBulkPauseRequestTeamId
-from .types.link_bulk_trigger_historical_pull_request_team_id import LinkBulkTriggerHistoricalPullRequestTeamId
-from .types.link_list_bulk_ops_request_team_id import LinkListBulkOpsRequestTeamId
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -49,7 +42,6 @@ class RawLinkClient:
         *,
         next_cursor: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
-        team_id: typing.Optional[LinkListBulkOpsRequestTeamId] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[BulkOpsResponse]:
         """
@@ -58,8 +50,6 @@ class RawLinkClient:
         next_cursor : typing.Optional[str]
 
         page_size : typing.Optional[int]
-
-        team_id : typing.Optional[LinkListBulkOpsRequestTeamId]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -75,7 +65,6 @@ class RawLinkClient:
             params={
                 "next_cursor": next_cursor,
                 "page_size": page_size,
-                "team_id": team_id,
             },
             request_options=request_options,
         )
@@ -110,7 +99,6 @@ class RawLinkClient:
         *,
         provider: OAuthProviders,
         connections: typing.Sequence[ConnectionRecipe],
-        team_id: typing.Optional[LinkBulkImportRequestTeamId] = None,
         wait_for_completion: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[BulkImportConnectionsResponse]:
@@ -118,10 +106,9 @@ class RawLinkClient:
         Parameters
         ----------
         provider : OAuthProviders
+            ℹ️ This enum is non-exhaustive.
 
         connections : typing.Sequence[ConnectionRecipe]
-
-        team_id : typing.Optional[LinkBulkImportRequestTeamId]
 
         wait_for_completion : typing.Optional[bool]
 
@@ -143,9 +130,6 @@ class RawLinkClient:
         _response = self._client_wrapper.httpx_client.request(
             "v2/link/bulk_import",
             method="POST",
-            params={
-                "team_id": team_id,
-            },
             json={
                 "provider": provider,
                 "connections": connections,
@@ -188,7 +172,6 @@ class RawLinkClient:
         *,
         user_ids: typing.Sequence[str],
         provider: OAuthProviders,
-        team_id: typing.Optional[LinkBulkTriggerHistoricalPullRequestTeamId] = None,
         wait_for_completion: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.Any]:
@@ -198,8 +181,7 @@ class RawLinkClient:
         user_ids : typing.Sequence[str]
 
         provider : OAuthProviders
-
-        team_id : typing.Optional[LinkBulkTriggerHistoricalPullRequestTeamId]
+            ℹ️ This enum is non-exhaustive.
 
         wait_for_completion : typing.Optional[bool]
 
@@ -221,9 +203,6 @@ class RawLinkClient:
         _response = self._client_wrapper.httpx_client.request(
             "v2/link/bulk_trigger_historical_pull",
             method="POST",
-            params={
-                "team_id": team_id,
-            },
             json={
                 "user_ids": user_ids,
                 "provider": provider,
@@ -267,7 +246,6 @@ class RawLinkClient:
         self,
         *,
         provider: OAuthProviders,
-        team_id: typing.Optional[LinkBulkExportRequestTeamId] = None,
         user_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         next_token: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -276,8 +254,7 @@ class RawLinkClient:
         Parameters
         ----------
         provider : OAuthProviders
-
-        team_id : typing.Optional[LinkBulkExportRequestTeamId]
+            ℹ️ This enum is non-exhaustive.
 
         user_ids : typing.Optional[typing.Sequence[str]]
 
@@ -294,9 +271,6 @@ class RawLinkClient:
         _response = self._client_wrapper.httpx_client.request(
             "v2/link/bulk_export",
             method="POST",
-            params={
-                "team_id": team_id,
-            },
             json={
                 "user_ids": user_ids,
                 "provider": provider,
@@ -339,7 +313,6 @@ class RawLinkClient:
         *,
         user_ids: typing.Sequence[str],
         provider: OAuthProviders,
-        team_id: typing.Optional[LinkBulkPauseRequestTeamId] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.Any]:
         """
@@ -348,8 +321,7 @@ class RawLinkClient:
         user_ids : typing.Sequence[str]
 
         provider : OAuthProviders
-
-        team_id : typing.Optional[LinkBulkPauseRequestTeamId]
+            ℹ️ This enum is non-exhaustive.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -362,9 +334,6 @@ class RawLinkClient:
         _response = self._client_wrapper.httpx_client.request(
             "v2/link/bulk_pause",
             method="POST",
-            params={
-                "team_id": team_id,
-            },
             json={
                 "user_ids": user_ids,
                 "provider": provider,
@@ -428,6 +397,7 @@ class RawLinkClient:
             User id returned by vital create user request. This id should be stored in your database against the user and used for all interactions with the vital api.
 
         provider : typing.Optional[Providers]
+            ℹ️ This enum is non-exhaustive.
 
         redirect_url : typing.Optional[str]
 
@@ -505,60 +475,6 @@ class RawLinkClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def is_token_valid(
-        self, *, token: str, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[typing.Dict[str, typing.Any]]:
-        """
-        Parameters
-        ----------
-        token : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[typing.Dict[str, typing.Any]]
-            Successful Response
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            "v2/link/token/isValid",
-            method="POST",
-            json={
-                "token": token,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.Dict[str, typing.Any],
-                    parse_obj_as(
-                        type_=typing.Dict[str, typing.Any],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
     def code_create(
         self,
         *,
@@ -599,273 +515,6 @@ class RawLinkClient:
                     VitalTokenCreatedResponse,
                     parse_obj_as(
                         type_=VitalTokenCreatedResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def start_connect(
-        self, *, link_token: str, provider: Providers, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[typing.Dict[str, typing.Any]]:
-        """
-        REQUEST_SOURCE: VITAL-LINK
-        Start link token process
-
-        Parameters
-        ----------
-        link_token : str
-
-        provider : Providers
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[typing.Dict[str, typing.Any]]
-            Successful Response
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            "v2/link/start",
-            method="POST",
-            json={
-                "link_token": link_token,
-                "provider": provider,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.Dict[str, typing.Any],
-                    parse_obj_as(
-                        type_=typing.Dict[str, typing.Any],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def token_state(
-        self, *, vital_link_token: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[typing.Dict[str, typing.Any]]:
-        """
-        REQUEST_SOURCE: VITAL-LINK
-        Check link token state - can be hit continuously used as heartbeat
-
-        Parameters
-        ----------
-        vital_link_token : typing.Optional[str]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[typing.Dict[str, typing.Any]]
-            Successful Response
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            "v2/link/state",
-            method="GET",
-            headers={
-                "x-vital-link-token": str(vital_link_token) if vital_link_token is not None else None,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.Dict[str, typing.Any],
-                    parse_obj_as(
-                        type_=typing.Dict[str, typing.Any],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def email_auth(
-        self,
-        *,
-        email: str,
-        provider: Providers,
-        auth_type: AuthType,
-        vital_link_token: typing.Optional[str] = None,
-        region: typing.Optional[Region] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[typing.Any]:
-        """
-        Deprecated. Use `POST /v2/link/provider/email/{provider}` instead.
-
-        Parameters
-        ----------
-        email : str
-
-        provider : Providers
-
-        auth_type : AuthType
-
-        vital_link_token : typing.Optional[str]
-
-        region : typing.Optional[Region]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[typing.Any]
-            Successful Response
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            "v2/link/auth/email",
-            method="POST",
-            json={
-                "email": email,
-                "provider": provider,
-                "auth_type": auth_type,
-                "region": region,
-            },
-            headers={
-                "content-type": "application/json",
-                "x-vital-link-token": str(vital_link_token) if vital_link_token is not None else None,
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if _response is None or not _response.text.strip():
-                return HttpResponse(response=_response, data=None)
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.Any,
-                    parse_obj_as(
-                        type_=typing.Any,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def password_auth(
-        self,
-        *,
-        username: str,
-        password: str,
-        provider: Providers,
-        auth_type: AuthType,
-        vital_link_token: typing.Optional[str] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[typing.Any]:
-        """
-        Deprecated. Use `POST /v2/link/provider/password/{provider}` instead.
-
-        Parameters
-        ----------
-        username : str
-
-        password : str
-
-        provider : Providers
-
-        auth_type : AuthType
-
-        vital_link_token : typing.Optional[str]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[typing.Any]
-            Successful Response
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            "v2/link/auth",
-            method="POST",
-            json={
-                "username": username,
-                "password": password,
-                "provider": provider,
-                "auth_type": auth_type,
-            },
-            headers={
-                "content-type": "application/json",
-                "x-vital-link-token": str(vital_link_token) if vital_link_token is not None else None,
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if _response is None or not _response.text.strip():
-                return HttpResponse(response=_response, data=None)
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.Any,
-                    parse_obj_as(
-                        type_=typing.Any,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -970,7 +619,7 @@ class RawLinkClient:
         vital_link_token : typing.Optional[str]
 
         region : typing.Optional[Region]
-            Provider region to authenticate against. Only applicable to specific providers.
+            Provider region to authenticate against. Only applicable to specific providers. ℹ️ This enum is non-exhaustive.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1106,8 +755,10 @@ class RawLinkClient:
         vital_link_token : typing.Optional[str]
 
         email_provider_auth_link_provider : typing.Optional[Providers]
+            ℹ️ This enum is non-exhaustive.
 
         region : typing.Optional[Region]
+            ℹ️ This enum is non-exhaustive.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1212,70 +863,6 @@ class RawLinkClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def connect_manual_provider(
-        self,
-        provider: ManualProviders,
-        *,
-        user_id: str,
-        provider_id: typing.Optional[str] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[typing.Dict[str, bool]]:
-        """
-        Parameters
-        ----------
-        provider : ManualProviders
-
-        user_id : str
-
-        provider_id : typing.Optional[str]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[typing.Dict[str, bool]]
-            Successful Response
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v2/link/provider/manual/{jsonable_encoder(provider)}",
-            method="POST",
-            json={
-                "user_id": user_id,
-                "provider_id": provider_id,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.Dict[str, bool],
-                    parse_obj_as(
-                        type_=typing.Dict[str, bool],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
     def connect_demo_provider(
         self, *, user_id: str, provider: DemoProviders, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[DemoConnectionStatus]:
@@ -1288,7 +875,7 @@ class RawLinkClient:
             Vital user ID
 
         provider : DemoProviders
-            Demo provider. For more information, please check out our docs (https://docs.tryvital.io/wearables/providers/test_data)
+            Demo provider. For more information, please check out our docs (https://docs.tryvital.io/wearables/providers/test_data) ℹ️ This enum is non-exhaustive.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1347,7 +934,6 @@ class AsyncRawLinkClient:
         *,
         next_cursor: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
-        team_id: typing.Optional[LinkListBulkOpsRequestTeamId] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[BulkOpsResponse]:
         """
@@ -1356,8 +942,6 @@ class AsyncRawLinkClient:
         next_cursor : typing.Optional[str]
 
         page_size : typing.Optional[int]
-
-        team_id : typing.Optional[LinkListBulkOpsRequestTeamId]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1373,7 +957,6 @@ class AsyncRawLinkClient:
             params={
                 "next_cursor": next_cursor,
                 "page_size": page_size,
-                "team_id": team_id,
             },
             request_options=request_options,
         )
@@ -1408,7 +991,6 @@ class AsyncRawLinkClient:
         *,
         provider: OAuthProviders,
         connections: typing.Sequence[ConnectionRecipe],
-        team_id: typing.Optional[LinkBulkImportRequestTeamId] = None,
         wait_for_completion: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[BulkImportConnectionsResponse]:
@@ -1416,10 +998,9 @@ class AsyncRawLinkClient:
         Parameters
         ----------
         provider : OAuthProviders
+            ℹ️ This enum is non-exhaustive.
 
         connections : typing.Sequence[ConnectionRecipe]
-
-        team_id : typing.Optional[LinkBulkImportRequestTeamId]
 
         wait_for_completion : typing.Optional[bool]
 
@@ -1441,9 +1022,6 @@ class AsyncRawLinkClient:
         _response = await self._client_wrapper.httpx_client.request(
             "v2/link/bulk_import",
             method="POST",
-            params={
-                "team_id": team_id,
-            },
             json={
                 "provider": provider,
                 "connections": connections,
@@ -1486,7 +1064,6 @@ class AsyncRawLinkClient:
         *,
         user_ids: typing.Sequence[str],
         provider: OAuthProviders,
-        team_id: typing.Optional[LinkBulkTriggerHistoricalPullRequestTeamId] = None,
         wait_for_completion: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.Any]:
@@ -1496,8 +1073,7 @@ class AsyncRawLinkClient:
         user_ids : typing.Sequence[str]
 
         provider : OAuthProviders
-
-        team_id : typing.Optional[LinkBulkTriggerHistoricalPullRequestTeamId]
+            ℹ️ This enum is non-exhaustive.
 
         wait_for_completion : typing.Optional[bool]
 
@@ -1519,9 +1095,6 @@ class AsyncRawLinkClient:
         _response = await self._client_wrapper.httpx_client.request(
             "v2/link/bulk_trigger_historical_pull",
             method="POST",
-            params={
-                "team_id": team_id,
-            },
             json={
                 "user_ids": user_ids,
                 "provider": provider,
@@ -1565,7 +1138,6 @@ class AsyncRawLinkClient:
         self,
         *,
         provider: OAuthProviders,
-        team_id: typing.Optional[LinkBulkExportRequestTeamId] = None,
         user_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         next_token: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1574,8 +1146,7 @@ class AsyncRawLinkClient:
         Parameters
         ----------
         provider : OAuthProviders
-
-        team_id : typing.Optional[LinkBulkExportRequestTeamId]
+            ℹ️ This enum is non-exhaustive.
 
         user_ids : typing.Optional[typing.Sequence[str]]
 
@@ -1592,9 +1163,6 @@ class AsyncRawLinkClient:
         _response = await self._client_wrapper.httpx_client.request(
             "v2/link/bulk_export",
             method="POST",
-            params={
-                "team_id": team_id,
-            },
             json={
                 "user_ids": user_ids,
                 "provider": provider,
@@ -1637,7 +1205,6 @@ class AsyncRawLinkClient:
         *,
         user_ids: typing.Sequence[str],
         provider: OAuthProviders,
-        team_id: typing.Optional[LinkBulkPauseRequestTeamId] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.Any]:
         """
@@ -1646,8 +1213,7 @@ class AsyncRawLinkClient:
         user_ids : typing.Sequence[str]
 
         provider : OAuthProviders
-
-        team_id : typing.Optional[LinkBulkPauseRequestTeamId]
+            ℹ️ This enum is non-exhaustive.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1660,9 +1226,6 @@ class AsyncRawLinkClient:
         _response = await self._client_wrapper.httpx_client.request(
             "v2/link/bulk_pause",
             method="POST",
-            params={
-                "team_id": team_id,
-            },
             json={
                 "user_ids": user_ids,
                 "provider": provider,
@@ -1726,6 +1289,7 @@ class AsyncRawLinkClient:
             User id returned by vital create user request. This id should be stored in your database against the user and used for all interactions with the vital api.
 
         provider : typing.Optional[Providers]
+            ℹ️ This enum is non-exhaustive.
 
         redirect_url : typing.Optional[str]
 
@@ -1803,60 +1367,6 @@ class AsyncRawLinkClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    async def is_token_valid(
-        self, *, token: str, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[typing.Dict[str, typing.Any]]:
-        """
-        Parameters
-        ----------
-        token : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[typing.Dict[str, typing.Any]]
-            Successful Response
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "v2/link/token/isValid",
-            method="POST",
-            json={
-                "token": token,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.Dict[str, typing.Any],
-                    parse_obj_as(
-                        type_=typing.Dict[str, typing.Any],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
     async def code_create(
         self,
         *,
@@ -1897,273 +1407,6 @@ class AsyncRawLinkClient:
                     VitalTokenCreatedResponse,
                     parse_obj_as(
                         type_=VitalTokenCreatedResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def start_connect(
-        self, *, link_token: str, provider: Providers, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[typing.Dict[str, typing.Any]]:
-        """
-        REQUEST_SOURCE: VITAL-LINK
-        Start link token process
-
-        Parameters
-        ----------
-        link_token : str
-
-        provider : Providers
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[typing.Dict[str, typing.Any]]
-            Successful Response
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "v2/link/start",
-            method="POST",
-            json={
-                "link_token": link_token,
-                "provider": provider,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.Dict[str, typing.Any],
-                    parse_obj_as(
-                        type_=typing.Dict[str, typing.Any],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def token_state(
-        self, *, vital_link_token: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[typing.Dict[str, typing.Any]]:
-        """
-        REQUEST_SOURCE: VITAL-LINK
-        Check link token state - can be hit continuously used as heartbeat
-
-        Parameters
-        ----------
-        vital_link_token : typing.Optional[str]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[typing.Dict[str, typing.Any]]
-            Successful Response
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "v2/link/state",
-            method="GET",
-            headers={
-                "x-vital-link-token": str(vital_link_token) if vital_link_token is not None else None,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.Dict[str, typing.Any],
-                    parse_obj_as(
-                        type_=typing.Dict[str, typing.Any],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def email_auth(
-        self,
-        *,
-        email: str,
-        provider: Providers,
-        auth_type: AuthType,
-        vital_link_token: typing.Optional[str] = None,
-        region: typing.Optional[Region] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[typing.Any]:
-        """
-        Deprecated. Use `POST /v2/link/provider/email/{provider}` instead.
-
-        Parameters
-        ----------
-        email : str
-
-        provider : Providers
-
-        auth_type : AuthType
-
-        vital_link_token : typing.Optional[str]
-
-        region : typing.Optional[Region]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[typing.Any]
-            Successful Response
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "v2/link/auth/email",
-            method="POST",
-            json={
-                "email": email,
-                "provider": provider,
-                "auth_type": auth_type,
-                "region": region,
-            },
-            headers={
-                "content-type": "application/json",
-                "x-vital-link-token": str(vital_link_token) if vital_link_token is not None else None,
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if _response is None or not _response.text.strip():
-                return AsyncHttpResponse(response=_response, data=None)
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.Any,
-                    parse_obj_as(
-                        type_=typing.Any,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def password_auth(
-        self,
-        *,
-        username: str,
-        password: str,
-        provider: Providers,
-        auth_type: AuthType,
-        vital_link_token: typing.Optional[str] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[typing.Any]:
-        """
-        Deprecated. Use `POST /v2/link/provider/password/{provider}` instead.
-
-        Parameters
-        ----------
-        username : str
-
-        password : str
-
-        provider : Providers
-
-        auth_type : AuthType
-
-        vital_link_token : typing.Optional[str]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[typing.Any]
-            Successful Response
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "v2/link/auth",
-            method="POST",
-            json={
-                "username": username,
-                "password": password,
-                "provider": provider,
-                "auth_type": auth_type,
-            },
-            headers={
-                "content-type": "application/json",
-                "x-vital-link-token": str(vital_link_token) if vital_link_token is not None else None,
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if _response is None or not _response.text.strip():
-                return AsyncHttpResponse(response=_response, data=None)
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.Any,
-                    parse_obj_as(
-                        type_=typing.Any,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -2268,7 +1511,7 @@ class AsyncRawLinkClient:
         vital_link_token : typing.Optional[str]
 
         region : typing.Optional[Region]
-            Provider region to authenticate against. Only applicable to specific providers.
+            Provider region to authenticate against. Only applicable to specific providers. ℹ️ This enum is non-exhaustive.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2404,8 +1647,10 @@ class AsyncRawLinkClient:
         vital_link_token : typing.Optional[str]
 
         email_provider_auth_link_provider : typing.Optional[Providers]
+            ℹ️ This enum is non-exhaustive.
 
         region : typing.Optional[Region]
+            ℹ️ This enum is non-exhaustive.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2510,70 +1755,6 @@ class AsyncRawLinkClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    async def connect_manual_provider(
-        self,
-        provider: ManualProviders,
-        *,
-        user_id: str,
-        provider_id: typing.Optional[str] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[typing.Dict[str, bool]]:
-        """
-        Parameters
-        ----------
-        provider : ManualProviders
-
-        user_id : str
-
-        provider_id : typing.Optional[str]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[typing.Dict[str, bool]]
-            Successful Response
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v2/link/provider/manual/{jsonable_encoder(provider)}",
-            method="POST",
-            json={
-                "user_id": user_id,
-                "provider_id": provider_id,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.Dict[str, bool],
-                    parse_obj_as(
-                        type_=typing.Dict[str, bool],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
     async def connect_demo_provider(
         self, *, user_id: str, provider: DemoProviders, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[DemoConnectionStatus]:
@@ -2586,7 +1767,7 @@ class AsyncRawLinkClient:
             Vital user ID
 
         provider : DemoProviders
-            Demo provider. For more information, please check out our docs (https://docs.tryvital.io/wearables/providers/test_data)
+            Demo provider. For more information, please check out our docs (https://docs.tryvital.io/wearables/providers/test_data) ℹ️ This enum is non-exhaustive.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
