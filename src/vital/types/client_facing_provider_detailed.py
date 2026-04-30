@@ -29,7 +29,11 @@ class ClientFacingProviderDetailed(UniversalBaseModel):
     URL for source logo
     """
 
-    auth_type: typing.Optional[SourceAuthType] = None
+    auth_type: typing.Optional[SourceAuthType] = pydantic.Field(default=None)
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     supported_resources: typing.Optional[typing.List[ClientFacingResource]] = None
 
     if IS_PYDANTIC_V2:

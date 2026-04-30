@@ -6,7 +6,7 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.client_facing_sleep_stream import ClientFacingSleepStream
 from ..types.client_sleep_response import ClientSleepResponse
-from ..types.raw_sleep import RawSleep
+from ..types.raw_sleep_response import RawSleepResponse
 from .raw_client import AsyncRawSleepClient, RawSleepClient
 
 
@@ -85,7 +85,7 @@ class SleepClient:
         provider: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> RawSleep:
+    ) -> RawSleepResponse:
         """
         Get raw sleep summary for user_id
 
@@ -107,7 +107,7 @@ class SleepClient:
 
         Returns
         -------
-        RawSleep
+        RawSleepResponse
             Successful Response
 
         Examples
@@ -246,7 +246,7 @@ class AsyncSleepClient:
         provider: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> RawSleep:
+    ) -> RawSleepResponse:
         """
         Get raw sleep summary for user_id
 
@@ -268,7 +268,7 @@ class AsyncSleepClient:
 
         Returns
         -------
-        RawSleep
+        RawSleepResponse
             Successful Response
 
         Examples
