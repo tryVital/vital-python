@@ -3,7 +3,13 @@
 [![pypi](https://img.shields.io/pypi/v/vital.svg)](https://pypi.python.org/pypi/vital)
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-SDK%20generated%20by%20Fern-brightgreen)](https://github.com/fern-api/fern)
 
-The Vital Python library provides access to the Vital API from applications written in Python.
+> [!IMPORTANT]                                                                                                                                                                                                     
+> This repository has been archived and will not receive further updates.
+>
+> The maintained SDK lives at **[junction-api/junction-python](https://github.com/junction-api/junction-python)**                                  
+> and is published to PyPI as **`junction-api-sdk`**.
+>
+> See the [migration guide](<link-or-omit>) for upgrade instructions.
 
 ## Documentation
 
