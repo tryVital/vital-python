@@ -9,7 +9,7 @@
 > The maintained SDK lives at **[junction-api/junction-python](https://github.com/junction-api/junction-python)**                                  
 > and is published to PyPI as **`junction-api-sdk`**.
 >
-> See the [migration guide](<link-or-omit>) for upgrade instructions.
+> See the [migration guide](https://github.com/junction-api/junction-python/blob/main/migration-from-vital/MIGRATION.md) for upgrade instructions.
 
 ## Documentation
 
