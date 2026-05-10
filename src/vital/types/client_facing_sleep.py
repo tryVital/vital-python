@@ -45,6 +45,7 @@ class ClientFacingSleep(UniversalBaseModel):
     `short_sleep`: <3 hours of sleep;
     `acknowledged_nap`: User-acknowledged naps, typically under 3 hours of sleep;
     `unknown`: The sleep session recording is ongoing.
+     ℹ️ This enum is non-exhaustive.
     """
 
     timezone_offset: typing.Optional[int] = pydantic.Field(default=None)
@@ -85,6 +86,11 @@ class ClientFacingSleep(UniversalBaseModel):
     score: typing.Optional[int] = pydantic.Field(default=None)
     """
     A value between 1 and 100 representing how well the user slept. Currently only available for Withings, Oura, Whoop and Garmin::scalar
+    """
+
+    recovery_readiness_score: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    A value between 0 and 100 representing the provider's recovery/readiness proxy. Currently sourced from Oura readiness score, Whoop recovery score, and Ultrahuman recovery::scalar
     """
 
     hr_lowest: typing.Optional[int] = pydantic.Field(default=None)
@@ -129,7 +135,7 @@ class ClientFacingSleep(UniversalBaseModel):
 
     state: typing.Optional[SleepSummaryState] = pydantic.Field(default=None)
     """
-    Some providers can provide updates to the sleep summary hours after the sleep period has ended. This field indicates the state of the sleep summary. For example, TENTATIVE means the summary is an intial prediction from the provider and can be subject to change. Currently only available for Garmin and EightSleep::str
+    Some providers can provide updates to the sleep summary hours after the sleep period has ended. This field indicates the state of the sleep summary. For example, TENTATIVE means the summary is an intial prediction from the provider and can be subject to change. Currently only available for Garmin and EightSleep::str ℹ️ This enum is non-exhaustive.
     """
 
     average_hrv: typing.Optional[float] = pydantic.Field(default=None)
