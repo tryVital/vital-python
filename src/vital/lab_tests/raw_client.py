@@ -19,6 +19,7 @@ from ..types.ao_e_answer import AoEAnswer
 from ..types.appointment_availability_slots import AppointmentAvailabilitySlots
 from ..types.appointment_booking_request import AppointmentBookingRequest
 from ..types.appointment_provider import AppointmentProvider
+from ..types.appointment_psc_labs import AppointmentPscLabs
 from ..types.appointment_reschedule_request import AppointmentRescheduleRequest
 from ..types.area_info import AreaInfo
 from ..types.billing import Billing
@@ -42,6 +43,7 @@ from ..types.lab_test_collection_method import LabTestCollectionMethod
 from ..types.lab_test_generation_method_filter import LabTestGenerationMethodFilter
 from ..types.lab_test_resources_response import LabTestResourcesResponse
 from ..types.lab_test_status import LabTestStatus
+from ..types.labs import Labs
 from ..types.not_found_error_body import NotFoundErrorBody
 from ..types.order_activation_type import OrderActivationType
 from ..types.order_low_level_status import OrderLowLevelStatus
@@ -174,6 +176,8 @@ class RawLabTestsClient:
         marker_ids: typing.Optional[typing.Sequence[int]] = OMIT,
         provider_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         fasting: typing.Optional[bool] = OMIT,
+        lab_account_id: typing.Optional[str] = OMIT,
+        lab_slug: typing.Optional[Labs] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ClientFacingLabTest]:
         """
@@ -182,6 +186,7 @@ class RawLabTestsClient:
         name : str
 
         method : LabTestCollectionMethod
+            ℹ️ This enum is non-exhaustive.
 
         description : str
 
@@ -190,6 +195,11 @@ class RawLabTestsClient:
         provider_ids : typing.Optional[typing.Sequence[str]]
 
         fasting : typing.Optional[bool]
+
+        lab_account_id : typing.Optional[str]
+
+        lab_slug : typing.Optional[Labs]
+            ℹ️ This enum is non-exhaustive.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -209,6 +219,8 @@ class RawLabTestsClient:
                 "method": method,
                 "description": description,
                 "fasting": fasting,
+                "lab_account_id": lab_account_id,
+                "lab_slug": lab_slug,
             },
             headers={
                 "content-type": "application/json",
@@ -369,6 +381,7 @@ class RawLabTestsClient:
         self,
         *,
         lab_id: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
+        lab_slug: typing.Optional[str] = None,
         name: typing.Optional[str] = None,
         a_la_carte_enabled: typing.Optional[bool] = None,
         lab_account_id: typing.Optional[str] = None,
@@ -377,12 +390,15 @@ class RawLabTestsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[GetMarkersResponse]:
         """
-        GET all the markers for the given lab.
+        List active and orderable markers for a given Lab. Note that reflex markers are not included.
 
         Parameters
         ----------
         lab_id : typing.Optional[typing.Union[int, typing.Sequence[int]]]
             The identifier Vital assigned to a lab partner.
+
+        lab_slug : typing.Optional[str]
+            The slug of the lab for these markers. If both lab_id and lab_slug are provided, lab_slug will be used.
 
         name : typing.Optional[str]
             The name or test code of an individual biomarker or a panel.
@@ -409,6 +425,7 @@ class RawLabTestsClient:
             method="GET",
             params={
                 "lab_id": lab_id,
+                "lab_slug": lab_slug,
                 "name": name,
                 "a_la_carte_enabled": a_la_carte_enabled,
                 "lab_account_id": lab_account_id,
@@ -518,6 +535,8 @@ class RawLabTestsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[GetMarkersResponse]:
         """
+        List all markers for a given Lab Test, as well as any associated reflex markers.
+
         Parameters
         ----------
         lab_test_id : str
@@ -847,6 +866,7 @@ class RawLabTestsClient:
         patient_name: typing.Optional[str] = None,
         shipping_recipient_name: typing.Optional[str] = None,
         order_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        order_transaction_id: typing.Optional[str] = None,
         page: typing.Optional[int] = None,
         size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -904,6 +924,9 @@ class RawLabTestsClient:
         order_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter by order ids.
 
+        order_transaction_id : typing.Optional[str]
+            Filter by order transaction ID
+
         page : typing.Optional[int]
 
         size : typing.Optional[int]
@@ -938,6 +961,7 @@ class RawLabTestsClient:
                 "patient_name": patient_name,
                 "shipping_recipient_name": shipping_recipient_name,
                 "order_ids": order_ids,
+                "order_transaction_id": order_transaction_id,
                 "page": page,
                 "size": size,
             },
@@ -1101,6 +1125,7 @@ class RawLabTestsClient:
         *,
         address: UsAddress,
         provider: AppointmentProvider,
+        appointment_notes: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ClientFacingAppointment]:
         """
@@ -1115,6 +1140,9 @@ class RawLabTestsClient:
             At-home phlebotomy appointment address.
 
         provider : AppointmentProvider
+            ℹ️ This enum is non-exhaustive.
+
+        appointment_notes : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1130,6 +1158,7 @@ class RawLabTestsClient:
             json={
                 "address": address,
                 "provider": provider,
+                "appointment_notes": appointment_notes,
             },
             headers={
                 "content-type": "application/json",
@@ -1821,15 +1850,20 @@ class RawLabTestsClient:
     def get_psc_appointment_availability(
         self,
         *,
+        lab: AppointmentPscLabs,
         start_date: typing.Optional[str] = None,
         site_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         zip_code: typing.Optional[str] = None,
         radius: typing.Optional[AllowedRadius] = None,
+        allow_stale: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[AppointmentAvailabilitySlots]:
         """
         Parameters
         ----------
+        lab : AppointmentPscLabs
+            Lab to check for availability
+
         start_date : typing.Optional[str]
             Start date for appointment availability
 
@@ -1840,7 +1874,10 @@ class RawLabTestsClient:
             Zip code of the area to check
 
         radius : typing.Optional[AllowedRadius]
-            Radius in which to search. (meters)
+            Radius in which to search in miles
+
+        allow_stale : typing.Optional[bool]
+            If true, allows cached availability data to be returned.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1854,11 +1891,12 @@ class RawLabTestsClient:
             "v3/order/psc/appointment/availability",
             method="POST",
             params={
-                "lab": "quest",
+                "lab": lab,
                 "start_date": start_date,
                 "site_codes": site_codes,
                 "zip_code": zip_code,
                 "radius": radius,
+                "allow_stale": allow_stale,
             },
             request_options=request_options,
         )
@@ -1904,6 +1942,8 @@ class RawLabTestsClient:
         order_id: str,
         *,
         request: AppointmentBookingRequest,
+        idempotency_key: typing.Optional[str] = None,
+        idempotency_error: typing.Optional[typing.Literal["no-cache"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ClientFacingAppointment]:
         """
@@ -1913,6 +1953,12 @@ class RawLabTestsClient:
             Your Order ID.
 
         request : AppointmentBookingRequest
+
+        idempotency_key : typing.Optional[str]
+            [!] This feature (Idempotency Key) is under closed beta. Idempotency Key support for booking PSC appointment.
+
+        idempotency_error : typing.Optional[typing.Literal["no-cache"]]
+            If `no-cache`, applies idempotency only to successful outcomes.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1928,6 +1974,8 @@ class RawLabTestsClient:
             json=request,
             headers={
                 "content-type": "application/json",
+                "x-idempotency-key": str(idempotency_key) if idempotency_key is not None else None,
+                "x-idempotency-error": str(idempotency_error) if idempotency_error is not None else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -2398,6 +2446,7 @@ class RawLabTestsClient:
         activate_by: typing.Optional[str] = OMIT,
         aoe_answers: typing.Optional[typing.Sequence[AoEAnswer]] = OMIT,
         passthrough: typing.Optional[str] = OMIT,
+        clinical_notes: typing.Optional[str] = OMIT,
         lab_account_id: typing.Optional[str] = OMIT,
         creator_member_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -2420,6 +2469,7 @@ class RawLabTestsClient:
         order_set : typing.Optional[OrderSetRequest]
 
         collection_method : typing.Optional[LabTestCollectionMethod]
+            ℹ️ This enum is non-exhaustive.
 
         physician : typing.Optional[PhysicianCreateRequest]
 
@@ -2429,6 +2479,7 @@ class RawLabTestsClient:
             Defines whether order is priority or not. For some labs, this refers to a STAT order.
 
         billing_type : typing.Optional[Billing]
+            ℹ️ This enum is non-exhaustive.
 
         icd_codes : typing.Optional[typing.Sequence[str]]
 
@@ -2440,6 +2491,8 @@ class RawLabTestsClient:
         aoe_answers : typing.Optional[typing.Sequence[AoEAnswer]]
 
         passthrough : typing.Optional[str]
+
+        clinical_notes : typing.Optional[str]
 
         lab_account_id : typing.Optional[str]
 
@@ -2470,6 +2523,7 @@ class RawLabTestsClient:
                 "activate_by": activate_by,
                 "aoe_answers": aoe_answers,
                 "passthrough": passthrough,
+                "clinical_notes": clinical_notes,
                 "lab_account_id": lab_account_id,
                 "creator_member_id": creator_member_id,
                 "patient_details": patient_details,
@@ -2529,10 +2583,12 @@ class RawLabTestsClient:
         user_id : str
 
         billing_type : Billing
+            ℹ️ This enum is non-exhaustive.
 
         order_set : OrderSetRequest
 
         collection_method : LabTestCollectionMethod
+            ℹ️ This enum is non-exhaustive.
 
         patient_details : PatientDetailsWithValidation
 
@@ -2932,6 +2988,8 @@ class AsyncRawLabTestsClient:
         marker_ids: typing.Optional[typing.Sequence[int]] = OMIT,
         provider_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         fasting: typing.Optional[bool] = OMIT,
+        lab_account_id: typing.Optional[str] = OMIT,
+        lab_slug: typing.Optional[Labs] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ClientFacingLabTest]:
         """
@@ -2940,6 +2998,7 @@ class AsyncRawLabTestsClient:
         name : str
 
         method : LabTestCollectionMethod
+            ℹ️ This enum is non-exhaustive.
 
         description : str
 
@@ -2948,6 +3007,11 @@ class AsyncRawLabTestsClient:
         provider_ids : typing.Optional[typing.Sequence[str]]
 
         fasting : typing.Optional[bool]
+
+        lab_account_id : typing.Optional[str]
+
+        lab_slug : typing.Optional[Labs]
+            ℹ️ This enum is non-exhaustive.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2967,6 +3031,8 @@ class AsyncRawLabTestsClient:
                 "method": method,
                 "description": description,
                 "fasting": fasting,
+                "lab_account_id": lab_account_id,
+                "lab_slug": lab_slug,
             },
             headers={
                 "content-type": "application/json",
@@ -3127,6 +3193,7 @@ class AsyncRawLabTestsClient:
         self,
         *,
         lab_id: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
+        lab_slug: typing.Optional[str] = None,
         name: typing.Optional[str] = None,
         a_la_carte_enabled: typing.Optional[bool] = None,
         lab_account_id: typing.Optional[str] = None,
@@ -3135,12 +3202,15 @@ class AsyncRawLabTestsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[GetMarkersResponse]:
         """
-        GET all the markers for the given lab.
+        List active and orderable markers for a given Lab. Note that reflex markers are not included.
 
         Parameters
         ----------
         lab_id : typing.Optional[typing.Union[int, typing.Sequence[int]]]
             The identifier Vital assigned to a lab partner.
+
+        lab_slug : typing.Optional[str]
+            The slug of the lab for these markers. If both lab_id and lab_slug are provided, lab_slug will be used.
 
         name : typing.Optional[str]
             The name or test code of an individual biomarker or a panel.
@@ -3167,6 +3237,7 @@ class AsyncRawLabTestsClient:
             method="GET",
             params={
                 "lab_id": lab_id,
+                "lab_slug": lab_slug,
                 "name": name,
                 "a_la_carte_enabled": a_la_carte_enabled,
                 "lab_account_id": lab_account_id,
@@ -3276,6 +3347,8 @@ class AsyncRawLabTestsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[GetMarkersResponse]:
         """
+        List all markers for a given Lab Test, as well as any associated reflex markers.
+
         Parameters
         ----------
         lab_test_id : str
@@ -3606,6 +3679,7 @@ class AsyncRawLabTestsClient:
         patient_name: typing.Optional[str] = None,
         shipping_recipient_name: typing.Optional[str] = None,
         order_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        order_transaction_id: typing.Optional[str] = None,
         page: typing.Optional[int] = None,
         size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -3663,6 +3737,9 @@ class AsyncRawLabTestsClient:
         order_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter by order ids.
 
+        order_transaction_id : typing.Optional[str]
+            Filter by order transaction ID
+
         page : typing.Optional[int]
 
         size : typing.Optional[int]
@@ -3697,6 +3774,7 @@ class AsyncRawLabTestsClient:
                 "patient_name": patient_name,
                 "shipping_recipient_name": shipping_recipient_name,
                 "order_ids": order_ids,
+                "order_transaction_id": order_transaction_id,
                 "page": page,
                 "size": size,
             },
@@ -3860,6 +3938,7 @@ class AsyncRawLabTestsClient:
         *,
         address: UsAddress,
         provider: AppointmentProvider,
+        appointment_notes: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ClientFacingAppointment]:
         """
@@ -3874,6 +3953,9 @@ class AsyncRawLabTestsClient:
             At-home phlebotomy appointment address.
 
         provider : AppointmentProvider
+            ℹ️ This enum is non-exhaustive.
+
+        appointment_notes : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -3889,6 +3971,7 @@ class AsyncRawLabTestsClient:
             json={
                 "address": address,
                 "provider": provider,
+                "appointment_notes": appointment_notes,
             },
             headers={
                 "content-type": "application/json",
@@ -4582,15 +4665,20 @@ class AsyncRawLabTestsClient:
     async def get_psc_appointment_availability(
         self,
         *,
+        lab: AppointmentPscLabs,
         start_date: typing.Optional[str] = None,
         site_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         zip_code: typing.Optional[str] = None,
         radius: typing.Optional[AllowedRadius] = None,
+        allow_stale: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[AppointmentAvailabilitySlots]:
         """
         Parameters
         ----------
+        lab : AppointmentPscLabs
+            Lab to check for availability
+
         start_date : typing.Optional[str]
             Start date for appointment availability
 
@@ -4601,7 +4689,10 @@ class AsyncRawLabTestsClient:
             Zip code of the area to check
 
         radius : typing.Optional[AllowedRadius]
-            Radius in which to search. (meters)
+            Radius in which to search in miles
+
+        allow_stale : typing.Optional[bool]
+            If true, allows cached availability data to be returned.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -4615,11 +4706,12 @@ class AsyncRawLabTestsClient:
             "v3/order/psc/appointment/availability",
             method="POST",
             params={
-                "lab": "quest",
+                "lab": lab,
                 "start_date": start_date,
                 "site_codes": site_codes,
                 "zip_code": zip_code,
                 "radius": radius,
+                "allow_stale": allow_stale,
             },
             request_options=request_options,
         )
@@ -4665,6 +4757,8 @@ class AsyncRawLabTestsClient:
         order_id: str,
         *,
         request: AppointmentBookingRequest,
+        idempotency_key: typing.Optional[str] = None,
+        idempotency_error: typing.Optional[typing.Literal["no-cache"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ClientFacingAppointment]:
         """
@@ -4674,6 +4768,12 @@ class AsyncRawLabTestsClient:
             Your Order ID.
 
         request : AppointmentBookingRequest
+
+        idempotency_key : typing.Optional[str]
+            [!] This feature (Idempotency Key) is under closed beta. Idempotency Key support for booking PSC appointment.
+
+        idempotency_error : typing.Optional[typing.Literal["no-cache"]]
+            If `no-cache`, applies idempotency only to successful outcomes.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -4689,6 +4789,8 @@ class AsyncRawLabTestsClient:
             json=request,
             headers={
                 "content-type": "application/json",
+                "x-idempotency-key": str(idempotency_key) if idempotency_key is not None else None,
+                "x-idempotency-error": str(idempotency_error) if idempotency_error is not None else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -5162,6 +5264,7 @@ class AsyncRawLabTestsClient:
         activate_by: typing.Optional[str] = OMIT,
         aoe_answers: typing.Optional[typing.Sequence[AoEAnswer]] = OMIT,
         passthrough: typing.Optional[str] = OMIT,
+        clinical_notes: typing.Optional[str] = OMIT,
         lab_account_id: typing.Optional[str] = OMIT,
         creator_member_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -5184,6 +5287,7 @@ class AsyncRawLabTestsClient:
         order_set : typing.Optional[OrderSetRequest]
 
         collection_method : typing.Optional[LabTestCollectionMethod]
+            ℹ️ This enum is non-exhaustive.
 
         physician : typing.Optional[PhysicianCreateRequest]
 
@@ -5193,6 +5297,7 @@ class AsyncRawLabTestsClient:
             Defines whether order is priority or not. For some labs, this refers to a STAT order.
 
         billing_type : typing.Optional[Billing]
+            ℹ️ This enum is non-exhaustive.
 
         icd_codes : typing.Optional[typing.Sequence[str]]
 
@@ -5204,6 +5309,8 @@ class AsyncRawLabTestsClient:
         aoe_answers : typing.Optional[typing.Sequence[AoEAnswer]]
 
         passthrough : typing.Optional[str]
+
+        clinical_notes : typing.Optional[str]
 
         lab_account_id : typing.Optional[str]
 
@@ -5234,6 +5341,7 @@ class AsyncRawLabTestsClient:
                 "activate_by": activate_by,
                 "aoe_answers": aoe_answers,
                 "passthrough": passthrough,
+                "clinical_notes": clinical_notes,
                 "lab_account_id": lab_account_id,
                 "creator_member_id": creator_member_id,
                 "patient_details": patient_details,
@@ -5293,10 +5401,12 @@ class AsyncRawLabTestsClient:
         user_id : str
 
         billing_type : Billing
+            ℹ️ This enum is non-exhaustive.
 
         order_set : OrderSetRequest
 
         collection_method : LabTestCollectionMethod
+            ℹ️ This enum is non-exhaustive.
 
         patient_details : PatientDetailsWithValidation
 
