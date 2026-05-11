@@ -98,6 +98,7 @@ class RawInsuranceClient:
         insurance_name : typing.Optional[str]
 
         provider : typing.Optional[PayorCodeExternalProvider]
+            ℹ️ This enum is non-exhaustive.
 
         provider_id : typing.Optional[str]
 
@@ -279,6 +280,7 @@ class AsyncRawInsuranceClient:
         insurance_name : typing.Optional[str]
 
         provider : typing.Optional[PayorCodeExternalProvider]
+            ℹ️ This enum is non-exhaustive.
 
         provider_id : typing.Optional[str]
 
