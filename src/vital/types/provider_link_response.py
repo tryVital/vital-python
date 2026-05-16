@@ -36,7 +36,11 @@ class ProviderLinkResponse(UniversalBaseModel):
     The provider MFA request. This field is populated only when state is `pending_provider_mfa`.
     """
 
-    provider: PasswordProviders
+    provider: PasswordProviders = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     connected: bool
     provider_id: typing.Optional[str] = None
 

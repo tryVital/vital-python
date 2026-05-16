@@ -4,7 +4,6 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
-from ..types.address import Address
 from ..types.client_facing_device import ClientFacingDevice
 from ..types.client_facing_insurance import ClientFacingInsurance
 from ..types.client_facing_provider_with_status import ClientFacingProviderWithStatus
@@ -20,6 +19,7 @@ from ..types.providers import Providers
 from ..types.race import Race
 from ..types.responsible_relationship import ResponsibleRelationship
 from ..types.sexual_orientation import SexualOrientation
+from ..types.user_address import UserAddress
 from ..types.user_info import UserInfo
 from ..types.user_refresh_success_response import UserRefreshSuccessResponse
 from ..types.user_sign_in_token_response import UserSignInTokenResponse
@@ -261,6 +261,7 @@ class UserClient:
         member_id : str
 
         relationship : ResponsibleRelationship
+            ℹ️ This enum is non-exhaustive.
 
         insured : VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails
 
@@ -375,7 +376,7 @@ class UserClient:
         phone_number: str,
         gender: str,
         dob: str,
-        address: Address,
+        address: UserAddress,
         medical_proxy: typing.Optional[GuarantorDetails] = OMIT,
         race: typing.Optional[Race] = OMIT,
         ethnicity: typing.Optional[Ethnicity] = OMIT,
@@ -400,17 +401,21 @@ class UserClient:
 
         dob : str
 
-        address : Address
+        address : UserAddress
 
         medical_proxy : typing.Optional[GuarantorDetails]
 
         race : typing.Optional[Race]
+            ℹ️ This enum is non-exhaustive.
 
         ethnicity : typing.Optional[Ethnicity]
+            ℹ️ This enum is non-exhaustive.
 
         sexual_orientation : typing.Optional[SexualOrientation]
+            ℹ️ This enum is non-exhaustive.
 
         gender_identity : typing.Optional[GenderIdentity]
+            ℹ️ This enum is non-exhaustive.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -422,7 +427,7 @@ class UserClient:
 
         Examples
         --------
-        from vital import Address, Vital
+        from vital import UserAddress, Vital
 
         client = Vital(
             api_key="YOUR_API_KEY",
@@ -435,7 +440,7 @@ class UserClient:
             phone_number="phone_number",
             gender="gender",
             dob="dob",
-            address=Address(
+            address=UserAddress(
                 first_line="first_line",
                 country="country",
                 zip="zip",
@@ -1140,6 +1145,7 @@ class AsyncUserClient:
         member_id : str
 
         relationship : ResponsibleRelationship
+            ℹ️ This enum is non-exhaustive.
 
         insured : VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails
 
@@ -1270,7 +1276,7 @@ class AsyncUserClient:
         phone_number: str,
         gender: str,
         dob: str,
-        address: Address,
+        address: UserAddress,
         medical_proxy: typing.Optional[GuarantorDetails] = OMIT,
         race: typing.Optional[Race] = OMIT,
         ethnicity: typing.Optional[Ethnicity] = OMIT,
@@ -1295,17 +1301,21 @@ class AsyncUserClient:
 
         dob : str
 
-        address : Address
+        address : UserAddress
 
         medical_proxy : typing.Optional[GuarantorDetails]
 
         race : typing.Optional[Race]
+            ℹ️ This enum is non-exhaustive.
 
         ethnicity : typing.Optional[Ethnicity]
+            ℹ️ This enum is non-exhaustive.
 
         sexual_orientation : typing.Optional[SexualOrientation]
+            ℹ️ This enum is non-exhaustive.
 
         gender_identity : typing.Optional[GenderIdentity]
+            ℹ️ This enum is non-exhaustive.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1319,7 +1329,7 @@ class AsyncUserClient:
         --------
         import asyncio
 
-        from vital import Address, AsyncVital
+        from vital import AsyncVital, UserAddress
 
         client = AsyncVital(
             api_key="YOUR_API_KEY",
@@ -1335,7 +1345,7 @@ class AsyncUserClient:
                 phone_number="phone_number",
                 gender="gender",
                 dob="dob",
-                address=Address(
+                address=UserAddress(
                     first_line="first_line",
                     country="country",
                     zip="zip",
