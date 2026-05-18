@@ -1217,7 +1217,10 @@ class RawLinkClient:
         provider: ManualProviders,
         *,
         user_id: str,
+        vital_ios_sdk_version: typing.Optional[str] = None,
+        vital_android_sdk_version: typing.Optional[str] = None,
         provider_id: typing.Optional[str] = OMIT,
+        granted_permissions: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.Dict[str, bool]]:
         """
@@ -1227,7 +1230,13 @@ class RawLinkClient:
 
         user_id : str
 
+        vital_ios_sdk_version : typing.Optional[str]
+
+        vital_android_sdk_version : typing.Optional[str]
+
         provider_id : typing.Optional[str]
+
+        granted_permissions : typing.Optional[typing.Sequence[str]]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1243,9 +1252,14 @@ class RawLinkClient:
             json={
                 "user_id": user_id,
                 "provider_id": provider_id,
+                "granted_permissions": granted_permissions,
             },
             headers={
                 "content-type": "application/json",
+                "x-vital-ios-sdk-version": str(vital_ios_sdk_version) if vital_ios_sdk_version is not None else None,
+                "x-vital-android-sdk-version": str(vital_android_sdk_version)
+                if vital_android_sdk_version is not None
+                else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -2515,7 +2529,10 @@ class AsyncRawLinkClient:
         provider: ManualProviders,
         *,
         user_id: str,
+        vital_ios_sdk_version: typing.Optional[str] = None,
+        vital_android_sdk_version: typing.Optional[str] = None,
         provider_id: typing.Optional[str] = OMIT,
+        granted_permissions: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.Dict[str, bool]]:
         """
@@ -2525,7 +2542,13 @@ class AsyncRawLinkClient:
 
         user_id : str
 
+        vital_ios_sdk_version : typing.Optional[str]
+
+        vital_android_sdk_version : typing.Optional[str]
+
         provider_id : typing.Optional[str]
+
+        granted_permissions : typing.Optional[typing.Sequence[str]]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2541,9 +2564,14 @@ class AsyncRawLinkClient:
             json={
                 "user_id": user_id,
                 "provider_id": provider_id,
+                "granted_permissions": granted_permissions,
             },
             headers={
                 "content-type": "application/json",
+                "x-vital-ios-sdk-version": str(vital_ios_sdk_version) if vital_ios_sdk_version is not None else None,
+                "x-vital-android-sdk-version": str(vital_android_sdk_version)
+                if vital_android_sdk_version is not None
+                else None,
             },
             request_options=request_options,
             omit=OMIT,
