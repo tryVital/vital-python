@@ -31,7 +31,11 @@ class ClientFacingSleepCycle(UniversalBaseModel):
     """
 
     time_zone: typing.Optional[str] = None
-    source_provider: ClientFacingSleepCycleSourceProvider
+    source_provider: ClientFacingSleepCycleSourceProvider = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     source_type: ClientFacingSleepCycleSourceType = pydantic.Field()
     """
     ℹ️ This enum is non-exhaustive.

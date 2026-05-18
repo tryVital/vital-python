@@ -12,7 +12,7 @@ from ..core.request_options import RequestOptions
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.client_body_response import ClientBodyResponse
 from ..types.http_validation_error import HttpValidationError
-from ..types.raw_body import RawBody
+from ..types.raw_body_response import RawBodyResponse
 
 
 class RawBodyClient:
@@ -96,7 +96,7 @@ class RawBodyClient:
         provider: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[RawBody]:
+    ) -> HttpResponse[RawBodyResponse]:
         """
         Get raw Body summary for user_id
 
@@ -118,7 +118,7 @@ class RawBodyClient:
 
         Returns
         -------
-        HttpResponse[RawBody]
+        HttpResponse[RawBodyResponse]
             Successful Response
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -134,9 +134,9 @@ class RawBodyClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    RawBody,
+                    RawBodyResponse,
                     parse_obj_as(
-                        type_=RawBody,  # type: ignore
+                        type_=RawBodyResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -239,7 +239,7 @@ class AsyncRawBodyClient:
         provider: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[RawBody]:
+    ) -> AsyncHttpResponse[RawBodyResponse]:
         """
         Get raw Body summary for user_id
 
@@ -261,7 +261,7 @@ class AsyncRawBodyClient:
 
         Returns
         -------
-        AsyncHttpResponse[RawBody]
+        AsyncHttpResponse[RawBodyResponse]
             Successful Response
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -277,9 +277,9 @@ class AsyncRawBodyClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    RawBody,
+                    RawBodyResponse,
                     parse_obj_as(
-                        type_=RawBody,  # type: ignore
+                        type_=RawBodyResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

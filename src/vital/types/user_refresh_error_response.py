@@ -7,7 +7,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class UserRefreshErrorResponse(UniversalBaseModel):
-    success: bool = pydantic.Field()
+    success: typing.Literal[False] = pydantic.Field(default=False)
     """
     Whether operation was successful or not
     """

@@ -9,9 +9,11 @@ from .billing import Billing
 from .client_facing_lab_test import ClientFacingLabTest
 from .client_facing_order_details import ClientFacingOrderDetails
 from .client_facing_order_event import ClientFacingOrderEvent
+from .client_facing_order_transaction import ClientFacingOrderTransaction
 from .client_facing_patient_details_compatible import ClientFacingPatientDetailsCompatible
 from .client_facing_physician import ClientFacingPhysician
 from .interpretation import Interpretation
+from .order_origin import OrderOrigin
 from .order_top_level_status import OrderTopLevelStatus
 from .patient_address_compatible import PatientAddressCompatible
 from .shipping_address import ShippingAddress
@@ -59,6 +61,7 @@ class ClientFacingOrder(UniversalBaseModel):
     Notes associated with the order
     """
 
+    clinical_notes: typing.Optional[str] = None
     created_at: dt.datetime = pydantic.Field()
     """
     When your order was created
@@ -70,7 +73,16 @@ class ClientFacingOrder(UniversalBaseModel):
     """
 
     events: typing.List[ClientFacingOrderEvent]
-    status: typing.Optional[OrderTopLevelStatus] = None
+    status: typing.Optional[OrderTopLevelStatus] = pydantic.Field(default=None)
+    """
+    The top-level status of the latest event for this order. This field is deprecated. Please use `last_event` instead. ℹ️ This enum is non-exhaustive.
+    """
+
+    last_event: ClientFacingOrderEvent = pydantic.Field()
+    """
+    The latest event in the order's lifecycle.
+    """
+
     physician: typing.Optional[ClientFacingPhysician] = None
     health_insurance_id: typing.Optional[str] = pydantic.Field(default=None)
     """
@@ -98,7 +110,11 @@ class ClientFacingOrder(UniversalBaseModel):
     """
 
     passthrough: typing.Optional[str] = None
-    billing_type: typing.Optional[Billing] = None
+    billing_type: typing.Optional[Billing] = pydantic.Field(default=None)
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     icd_codes: typing.Optional[typing.List[str]] = None
     has_abn: bool = pydantic.Field()
     """
@@ -107,7 +123,7 @@ class ClientFacingOrder(UniversalBaseModel):
 
     interpretation: typing.Optional[Interpretation] = pydantic.Field(default=None)
     """
-    Interpretation of the order result. Can be one of (normal, abnormal, critical).
+    Interpretation of the order result. Can be one of (normal, abnormal, critical). ℹ️ This enum is non-exhaustive.
     """
 
     has_missing_results: typing.Optional[bool] = pydantic.Field(default=None)
@@ -124,6 +140,13 @@ class ClientFacingOrder(UniversalBaseModel):
     """
     The latest date by which the order result is expected to be available.
     """
+
+    origin: typing.Optional[OrderOrigin] = pydantic.Field(default=None)
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
+    order_transaction: typing.Optional[ClientFacingOrderTransaction] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

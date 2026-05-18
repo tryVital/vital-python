@@ -53,7 +53,7 @@ class HealthInsuranceCreateRequest(UniversalBaseModel):
 
     responsible_relationship: typing.Optional[ResponsibleRelationship] = pydantic.Field(default=None)
     """
-    Relationship between the patient and the insurance contractor. Values can be (Self, Spouse, Other Relationship).
+    Relationship between the patient and the insurance contractor. Values can be (Self, Spouse, Other Relationship). ℹ️ This enum is non-exhaustive.
     """
 
     responsible_details: typing.Optional[VitalCoreSchemasDbSchemasLabTestHealthInsurancePersonDetails] = pydantic.Field(
