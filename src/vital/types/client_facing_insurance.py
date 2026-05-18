@@ -15,7 +15,11 @@ from .vital_core_schemas_db_schemas_lab_test_insurance_person_details import (
 class ClientFacingInsurance(UniversalBaseModel):
     member_id: str
     payor_code: str
-    relationship: ResponsibleRelationship
+    relationship: ResponsibleRelationship = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     insured: VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails
     company: CompanyDetails
     group_id: typing.Optional[str] = None

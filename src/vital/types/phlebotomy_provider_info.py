@@ -9,7 +9,11 @@ from .appointment_service_type import AppointmentServiceType
 
 
 class PhlebotomyProviderInfo(UniversalBaseModel):
-    name: AppointmentProvider
+    name: AppointmentProvider = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     service_types: typing.List[AppointmentServiceType]
 
     if IS_PYDANTIC_V2:
