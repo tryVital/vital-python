@@ -31,7 +31,11 @@ class ClientFacingElectrocardiogram(UniversalBaseModel):
 
     algorithm_version: typing.Optional[str] = None
     time_zone: typing.Optional[str] = None
-    source_provider: ClientFacingElectrocardiogramSourceProvider
+    source_provider: ClientFacingElectrocardiogramSourceProvider = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     source_type: ClientFacingElectrocardiogramSourceType = pydantic.Field()
     """
     ℹ️ This enum is non-exhaustive.

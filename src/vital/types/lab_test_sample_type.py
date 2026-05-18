@@ -17,6 +17,7 @@ class LabTestSampleType(enum.StrEnum):
     SERUM = "serum"
     SALIVA = "saliva"
     URINE = "urine"
+    STOOL = "stool"
     _UNKNOWN = "__LABTESTSAMPLETYPE_UNKNOWN__"
     """
     This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
@@ -35,6 +36,7 @@ class LabTestSampleType(enum.StrEnum):
         serum: typing.Callable[[], T_Result],
         saliva: typing.Callable[[], T_Result],
         urine: typing.Callable[[], T_Result],
+        stool: typing.Callable[[], T_Result],
         _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is LabTestSampleType.DRIED_BLOOD_SPOT:
@@ -47,4 +49,6 @@ class LabTestSampleType(enum.StrEnum):
             return saliva()
         if self is LabTestSampleType.URINE:
             return urine()
+        if self is LabTestSampleType.STOOL:
+            return stool()
         return _unknown_member(self._value_)
