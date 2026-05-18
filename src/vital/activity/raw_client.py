@@ -12,7 +12,7 @@ from ..core.request_options import RequestOptions
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.client_activity_response import ClientActivityResponse
 from ..types.http_validation_error import HttpValidationError
-from ..types.raw_activity import RawActivity
+from ..types.raw_activity_response import RawActivityResponse
 
 
 class RawActivityClient:
@@ -96,7 +96,7 @@ class RawActivityClient:
         provider: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[RawActivity]:
+    ) -> HttpResponse[RawActivityResponse]:
         """
         Get raw activity summary for user_id
 
@@ -118,7 +118,7 @@ class RawActivityClient:
 
         Returns
         -------
-        HttpResponse[RawActivity]
+        HttpResponse[RawActivityResponse]
             Successful Response
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -134,9 +134,9 @@ class RawActivityClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    RawActivity,
+                    RawActivityResponse,
                     parse_obj_as(
-                        type_=RawActivity,  # type: ignore
+                        type_=RawActivityResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -239,7 +239,7 @@ class AsyncRawActivityClient:
         provider: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[RawActivity]:
+    ) -> AsyncHttpResponse[RawActivityResponse]:
         """
         Get raw activity summary for user_id
 
@@ -261,7 +261,7 @@ class AsyncRawActivityClient:
 
         Returns
         -------
-        AsyncHttpResponse[RawActivity]
+        AsyncHttpResponse[RawActivityResponse]
             Successful Response
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -277,9 +277,9 @@ class AsyncRawActivityClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    RawActivity,
+                    RawActivityResponse,
                     parse_obj_as(
-                        type_=RawActivity,  # type: ignore
+                        type_=RawActivityResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

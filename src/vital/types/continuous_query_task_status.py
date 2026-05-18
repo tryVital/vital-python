@@ -16,6 +16,7 @@ class ContinuousQueryTaskStatus(enum.StrEnum):
     STARTED = "started"
     COMPLETED = "completed"
     ERROR = "error"
+    SKIPPED = "skipped"
     _UNKNOWN = "__CONTINUOUSQUERYTASKSTATUS_UNKNOWN__"
     """
     This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
@@ -33,6 +34,7 @@ class ContinuousQueryTaskStatus(enum.StrEnum):
         started: typing.Callable[[], T_Result],
         completed: typing.Callable[[], T_Result],
         error: typing.Callable[[], T_Result],
+        skipped: typing.Callable[[], T_Result],
         _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is ContinuousQueryTaskStatus.SCHEDULED:
@@ -43,4 +45,6 @@ class ContinuousQueryTaskStatus(enum.StrEnum):
             return completed()
         if self is ContinuousQueryTaskStatus.ERROR:
             return error()
+        if self is ContinuousQueryTaskStatus.SKIPPED:
+            return skipped()
         return _unknown_member(self._value_)

@@ -9,7 +9,8 @@ T_Result = typing.TypeVar("T_Result")
 
 class OrderStatus(enum.StrEnum):
     """
-    ℹ️ This enum is non-exhaustive.
+    Used in combination with OrderStatusDetail to represent the current order state.
+    OrderStatus is driven by a FSM whereas OrderStatusDetail is descriptive only. ℹ️ This enum is non-exhaustive.
     """
 
     RECEIVED_WALK_IN_TEST_ORDERED = "received.walk_in_test.ordered"
@@ -50,6 +51,7 @@ class OrderStatus(enum.StrEnum):
     COLLECTING_SAMPLE_TESTKIT_WITH_CUSTOMER = "collecting_sample.testkit.with_customer"
     COLLECTING_SAMPLE_TESTKIT_TRANSIT_LAB = "collecting_sample.testkit.transit_lab"
     SAMPLE_WITH_LAB_TESTKIT_DELIVERED_TO_LAB = "sample_with_lab.testkit.delivered_to_lab"
+    SAMPLE_WITH_LAB_TESTKIT_LAB_PROCESSING_BLOCKED = "sample_with_lab.testkit.lab_processing_blocked"
     COMPLETED_TESTKIT_COMPLETED = "completed.testkit.completed"
     FAILED_TESTKIT_FAILURE_TO_DELIVER_TO_CUSTOMER = "failed.testkit.failure_to_deliver_to_customer"
     FAILED_TESTKIT_FAILURE_TO_DELIVER_TO_LAB = "failed.testkit.failure_to_deliver_to_lab"
@@ -67,6 +69,10 @@ class OrderStatus(enum.StrEnum):
     CANCELLED_ON_SITE_COLLECTION_CANCELLED = "cancelled.on_site_collection.cancelled"
     SAMPLE_WITH_LAB_ON_SITE_COLLECTION_PARTIAL_RESULTS = "sample_with_lab.on_site_collection.partial_results"
     FAILED_ON_SITE_COLLECTION_SAMPLE_ERROR = "failed.on_site_collection.sample_error"
+    COMPLETED_WALK_IN_TEST_CORRECTED = "completed.walk_in_test.corrected"
+    COMPLETED_AT_HOME_PHLEBOTOMY_CORRECTED = "completed.at_home_phlebotomy.corrected"
+    COMPLETED_ON_SITE_COLLECTION_CORRECTED = "completed.on_site_collection.corrected"
+    COMPLETED_TESTKIT_CORRECTED = "completed.testkit.corrected"
     _UNKNOWN = "__ORDERSTATUS_UNKNOWN__"
     """
     This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
@@ -112,6 +118,7 @@ class OrderStatus(enum.StrEnum):
         collecting_sample_testkit_with_customer: typing.Callable[[], T_Result],
         collecting_sample_testkit_transit_lab: typing.Callable[[], T_Result],
         sample_with_lab_testkit_delivered_to_lab: typing.Callable[[], T_Result],
+        sample_with_lab_testkit_lab_processing_blocked: typing.Callable[[], T_Result],
         completed_testkit_completed: typing.Callable[[], T_Result],
         failed_testkit_failure_to_deliver_to_customer: typing.Callable[[], T_Result],
         failed_testkit_failure_to_deliver_to_lab: typing.Callable[[], T_Result],
@@ -129,6 +136,10 @@ class OrderStatus(enum.StrEnum):
         cancelled_on_site_collection_cancelled: typing.Callable[[], T_Result],
         sample_with_lab_on_site_collection_partial_results: typing.Callable[[], T_Result],
         failed_on_site_collection_sample_error: typing.Callable[[], T_Result],
+        completed_walk_in_test_corrected: typing.Callable[[], T_Result],
+        completed_at_home_phlebotomy_corrected: typing.Callable[[], T_Result],
+        completed_on_site_collection_corrected: typing.Callable[[], T_Result],
+        completed_testkit_corrected: typing.Callable[[], T_Result],
         _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is OrderStatus.RECEIVED_WALK_IN_TEST_ORDERED:
@@ -195,6 +206,8 @@ class OrderStatus(enum.StrEnum):
             return collecting_sample_testkit_transit_lab()
         if self is OrderStatus.SAMPLE_WITH_LAB_TESTKIT_DELIVERED_TO_LAB:
             return sample_with_lab_testkit_delivered_to_lab()
+        if self is OrderStatus.SAMPLE_WITH_LAB_TESTKIT_LAB_PROCESSING_BLOCKED:
+            return sample_with_lab_testkit_lab_processing_blocked()
         if self is OrderStatus.COMPLETED_TESTKIT_COMPLETED:
             return completed_testkit_completed()
         if self is OrderStatus.FAILED_TESTKIT_FAILURE_TO_DELIVER_TO_CUSTOMER:
@@ -229,4 +242,12 @@ class OrderStatus(enum.StrEnum):
             return sample_with_lab_on_site_collection_partial_results()
         if self is OrderStatus.FAILED_ON_SITE_COLLECTION_SAMPLE_ERROR:
             return failed_on_site_collection_sample_error()
+        if self is OrderStatus.COMPLETED_WALK_IN_TEST_CORRECTED:
+            return completed_walk_in_test_corrected()
+        if self is OrderStatus.COMPLETED_AT_HOME_PHLEBOTOMY_CORRECTED:
+            return completed_at_home_phlebotomy_corrected()
+        if self is OrderStatus.COMPLETED_ON_SITE_COLLECTION_CORRECTED:
+            return completed_on_site_collection_corrected()
+        if self is OrderStatus.COMPLETED_TESTKIT_CORRECTED:
+            return completed_testkit_corrected()
         return _unknown_member(self._value_)

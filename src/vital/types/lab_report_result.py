@@ -12,13 +12,21 @@ from .loinc_match import LoincMatch
 class LabReportResult(UniversalBaseModel):
     test_name: str
     value: str
-    type: typing.Optional[LabReportResultType] = None
+    type: typing.Optional[LabReportResultType] = pydantic.Field(default=None)
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     units: typing.Optional[str] = None
     max_reference_range: typing.Optional[float] = None
     min_reference_range: typing.Optional[float] = None
     source_panel_name: typing.Optional[str] = None
     loinc_matches: typing.Optional[typing.List[LoincMatch]] = None
-    interpretation: typing.Optional[Interpretation] = None
+    interpretation: typing.Optional[Interpretation] = pydantic.Field(default=None)
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     is_above_max_range: typing.Optional[bool] = None
     is_below_min_range: typing.Optional[bool] = None
 

@@ -13,7 +13,7 @@ from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.client_facing_stream import ClientFacingStream
 from ..types.client_workout_response import ClientWorkoutResponse
 from ..types.http_validation_error import HttpValidationError
-from ..types.raw_workout import RawWorkout
+from ..types.raw_workout_response import RawWorkoutResponse
 
 
 class RawWorkoutsClient:
@@ -97,7 +97,7 @@ class RawWorkoutsClient:
         provider: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[RawWorkout]:
+    ) -> HttpResponse[RawWorkoutResponse]:
         """
         Get raw workout summary for user_id
 
@@ -119,7 +119,7 @@ class RawWorkoutsClient:
 
         Returns
         -------
-        HttpResponse[RawWorkout]
+        HttpResponse[RawWorkoutResponse]
             Successful Response
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -135,9 +135,9 @@ class RawWorkoutsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    RawWorkout,
+                    RawWorkoutResponse,
                     parse_obj_as(
-                        type_=RawWorkout,  # type: ignore
+                        type_=RawWorkoutResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -288,7 +288,7 @@ class AsyncRawWorkoutsClient:
         provider: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[RawWorkout]:
+    ) -> AsyncHttpResponse[RawWorkoutResponse]:
         """
         Get raw workout summary for user_id
 
@@ -310,7 +310,7 @@ class AsyncRawWorkoutsClient:
 
         Returns
         -------
-        AsyncHttpResponse[RawWorkout]
+        AsyncHttpResponse[RawWorkoutResponse]
             Successful Response
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -326,9 +326,9 @@ class AsyncRawWorkoutsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    RawWorkout,
+                    RawWorkoutResponse,
                     parse_obj_as(
-                        type_=RawWorkout,  # type: ignore
+                        type_=RawWorkoutResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

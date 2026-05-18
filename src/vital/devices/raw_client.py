@@ -11,7 +11,7 @@ from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.http_validation_error import HttpValidationError
-from ..types.raw_devices import RawDevices
+from ..types.raw_devices_response import RawDevicesResponse
 
 
 class RawDevicesClient:
@@ -24,7 +24,7 @@ class RawDevicesClient:
         *,
         provider: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[RawDevices]:
+    ) -> HttpResponse[RawDevicesResponse]:
         """
         Get Devices for user_id
 
@@ -40,7 +40,7 @@ class RawDevicesClient:
 
         Returns
         -------
-        HttpResponse[RawDevices]
+        HttpResponse[RawDevicesResponse]
             Successful Response
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -54,9 +54,9 @@ class RawDevicesClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    RawDevices,
+                    RawDevicesResponse,
                     parse_obj_as(
-                        type_=RawDevices,  # type: ignore
+                        type_=RawDevicesResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -88,7 +88,7 @@ class AsyncRawDevicesClient:
         *,
         provider: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[RawDevices]:
+    ) -> AsyncHttpResponse[RawDevicesResponse]:
         """
         Get Devices for user_id
 
@@ -104,7 +104,7 @@ class AsyncRawDevicesClient:
 
         Returns
         -------
-        AsyncHttpResponse[RawDevices]
+        AsyncHttpResponse[RawDevicesResponse]
             Successful Response
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -118,9 +118,9 @@ class AsyncRawDevicesClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    RawDevices,
+                    RawDevicesResponse,
                     parse_obj_as(
-                        type_=RawDevices,  # type: ignore
+                        type_=RawDevicesResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
