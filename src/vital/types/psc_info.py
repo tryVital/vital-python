@@ -10,7 +10,11 @@ from .labs import Labs
 
 class PscInfo(UniversalBaseModel):
     lab_id: int
-    slug: Labs
+    slug: Labs = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     patient_service_centers: typing.List[ClientFacingLabLocation]
 
     if IS_PYDANTIC_V2:

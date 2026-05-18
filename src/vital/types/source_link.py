@@ -14,7 +14,11 @@ class SourceLink(UniversalBaseModel):
     description: str
     logo: str
     oauth_url: typing.Optional[str] = None
-    auth_type: typing.Optional[SourceAuthType] = None
+    auth_type: typing.Optional[SourceAuthType] = pydantic.Field(default=None)
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     form_components: typing.Optional[typing.Dict[str, typing.Any]] = None
 
     if IS_PYDANTIC_V2:

@@ -14,6 +14,7 @@ class PatientAddressCompatible(UniversalBaseModel):
     state: str
     zip: str
     country: str
+    access_notes: typing.Optional[str] = None
     phone_number: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:
