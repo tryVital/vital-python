@@ -11,7 +11,11 @@ from .parent_biomarker_data import ParentBiomarkerData
 class MissingBiomarkerResult(UniversalBaseModel):
     name: str
     slug: str
-    inferred_failure_type: FailureType
+    inferred_failure_type: FailureType = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     note: typing.Optional[str] = None
     loinc: typing.Optional[str] = None
     loinc_slug: typing.Optional[str] = None
