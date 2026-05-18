@@ -10,7 +10,10 @@ from .attempt_status import AttemptStatus
 
 class LastAttempt(UniversalBaseModel):
     timestamp: dt.datetime
-    status: AttemptStatus
+    status: AttemptStatus = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
