@@ -9,7 +9,7 @@ T_Result = typing.TypeVar("T_Result")
 
 class ClientFacingInsulinInjectionSampleType(enum.StrEnum):
     """
-    The type of insulin injection. ℹ️ This enum is non-exhaustive.
+    The insulin formulation type. ℹ️ This enum is non-exhaustive.
     """
 
     RAPID_ACTING = "rapid_acting"

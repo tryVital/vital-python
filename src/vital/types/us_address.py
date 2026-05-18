@@ -17,6 +17,8 @@ class UsAddress(UniversalBaseModel):
     Deprecated. Use `second_line` instead to provide the unit number. Subject to removal after 20 Nov 2023.
     """
 
+    access_notes: typing.Optional[str] = None
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:
