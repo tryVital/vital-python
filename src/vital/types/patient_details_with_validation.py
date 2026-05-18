@@ -20,7 +20,11 @@ class PatientDetailsWithValidation(UniversalBaseModel):
     first_name: str
     last_name: str
     dob: str
-    gender: Gender
+    gender: Gender = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     phone_number: str
     email: str
     medical_proxy: typing.Optional[GuarantorDetails] = pydantic.Field(default=None)
@@ -30,22 +34,22 @@ class PatientDetailsWithValidation(UniversalBaseModel):
 
     race: typing.Optional[Race] = pydantic.Field(default=None)
     """
-    If not provided, will be set to 'Not Specified'
+    If not provided, will be set to 'Not Specified' ℹ️ This enum is non-exhaustive.
     """
 
     ethnicity: typing.Optional[Ethnicity] = pydantic.Field(default=None)
     """
-    If not provided, will be set to 'Not Specified'
+    If not provided, will be set to 'Not Specified' ℹ️ This enum is non-exhaustive.
     """
 
     sexual_orientation: typing.Optional[SexualOrientation] = pydantic.Field(default=None)
     """
-    If not provided, will be set to 'Not Specified'
+    If not provided, will be set to 'Not Specified' ℹ️ This enum is non-exhaustive.
     """
 
     gender_identity: typing.Optional[GenderIdentity] = pydantic.Field(default=None)
     """
-    If not provided, will be set to 'Not Specified'
+    If not provided, will be set to 'Not Specified' ℹ️ This enum is non-exhaustive.
     """
 
     household_income: typing.Optional[int] = pydantic.Field(default=None)

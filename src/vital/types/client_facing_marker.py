@@ -15,7 +15,11 @@ class ClientFacingMarker(UniversalBaseModel):
     description: typing.Optional[str] = None
     lab_id: typing.Optional[int] = None
     provider_id: typing.Optional[str] = None
-    type: typing.Optional[MarkerType] = None
+    type: typing.Optional[MarkerType] = pydantic.Field(default=None)
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     unit: typing.Optional[str] = None
     price: typing.Optional[str] = None
     aoe: typing.Optional[AoE] = None
