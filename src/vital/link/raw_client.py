@@ -30,11 +30,6 @@ from ..types.region import Region
 from ..types.source import Source
 from ..types.source_link import SourceLink
 from ..types.vital_token_created_response import VitalTokenCreatedResponse
-from .types.link_bulk_export_request_team_id import LinkBulkExportRequestTeamId
-from .types.link_bulk_import_request_team_id import LinkBulkImportRequestTeamId
-from .types.link_bulk_pause_request_team_id import LinkBulkPauseRequestTeamId
-from .types.link_bulk_trigger_historical_pull_request_team_id import LinkBulkTriggerHistoricalPullRequestTeamId
-from .types.link_list_bulk_ops_request_team_id import LinkListBulkOpsRequestTeamId
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -49,7 +44,6 @@ class RawLinkClient:
         *,
         next_cursor: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
-        team_id: typing.Optional[LinkListBulkOpsRequestTeamId] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[BulkOpsResponse]:
         """
@@ -58,8 +52,6 @@ class RawLinkClient:
         next_cursor : typing.Optional[str]
 
         page_size : typing.Optional[int]
-
-        team_id : typing.Optional[LinkListBulkOpsRequestTeamId]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -75,7 +67,6 @@ class RawLinkClient:
             params={
                 "next_cursor": next_cursor,
                 "page_size": page_size,
-                "team_id": team_id,
             },
             request_options=request_options,
         )
@@ -110,7 +101,6 @@ class RawLinkClient:
         *,
         provider: OAuthProviders,
         connections: typing.Sequence[ConnectionRecipe],
-        team_id: typing.Optional[LinkBulkImportRequestTeamId] = None,
         wait_for_completion: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[BulkImportConnectionsResponse]:
@@ -118,10 +108,9 @@ class RawLinkClient:
         Parameters
         ----------
         provider : OAuthProviders
+            ℹ️ This enum is non-exhaustive.
 
         connections : typing.Sequence[ConnectionRecipe]
-
-        team_id : typing.Optional[LinkBulkImportRequestTeamId]
 
         wait_for_completion : typing.Optional[bool]
 
@@ -143,9 +132,6 @@ class RawLinkClient:
         _response = self._client_wrapper.httpx_client.request(
             "v2/link/bulk_import",
             method="POST",
-            params={
-                "team_id": team_id,
-            },
             json={
                 "provider": provider,
                 "connections": connections,
@@ -188,7 +174,6 @@ class RawLinkClient:
         *,
         user_ids: typing.Sequence[str],
         provider: OAuthProviders,
-        team_id: typing.Optional[LinkBulkTriggerHistoricalPullRequestTeamId] = None,
         wait_for_completion: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.Any]:
@@ -198,8 +183,7 @@ class RawLinkClient:
         user_ids : typing.Sequence[str]
 
         provider : OAuthProviders
-
-        team_id : typing.Optional[LinkBulkTriggerHistoricalPullRequestTeamId]
+            ℹ️ This enum is non-exhaustive.
 
         wait_for_completion : typing.Optional[bool]
 
@@ -221,9 +205,6 @@ class RawLinkClient:
         _response = self._client_wrapper.httpx_client.request(
             "v2/link/bulk_trigger_historical_pull",
             method="POST",
-            params={
-                "team_id": team_id,
-            },
             json={
                 "user_ids": user_ids,
                 "provider": provider,
@@ -267,7 +248,6 @@ class RawLinkClient:
         self,
         *,
         provider: OAuthProviders,
-        team_id: typing.Optional[LinkBulkExportRequestTeamId] = None,
         user_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         next_token: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -276,8 +256,7 @@ class RawLinkClient:
         Parameters
         ----------
         provider : OAuthProviders
-
-        team_id : typing.Optional[LinkBulkExportRequestTeamId]
+            ℹ️ This enum is non-exhaustive.
 
         user_ids : typing.Optional[typing.Sequence[str]]
 
@@ -294,9 +273,6 @@ class RawLinkClient:
         _response = self._client_wrapper.httpx_client.request(
             "v2/link/bulk_export",
             method="POST",
-            params={
-                "team_id": team_id,
-            },
             json={
                 "user_ids": user_ids,
                 "provider": provider,
@@ -339,7 +315,6 @@ class RawLinkClient:
         *,
         user_ids: typing.Sequence[str],
         provider: OAuthProviders,
-        team_id: typing.Optional[LinkBulkPauseRequestTeamId] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.Any]:
         """
@@ -348,8 +323,7 @@ class RawLinkClient:
         user_ids : typing.Sequence[str]
 
         provider : OAuthProviders
-
-        team_id : typing.Optional[LinkBulkPauseRequestTeamId]
+            ℹ️ This enum is non-exhaustive.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -362,9 +336,6 @@ class RawLinkClient:
         _response = self._client_wrapper.httpx_client.request(
             "v2/link/bulk_pause",
             method="POST",
-            params={
-                "team_id": team_id,
-            },
             json={
                 "user_ids": user_ids,
                 "provider": provider,
@@ -428,6 +399,7 @@ class RawLinkClient:
             User id returned by vital create user request. This id should be stored in your database against the user and used for all interactions with the vital api.
 
         provider : typing.Optional[Providers]
+            ℹ️ This enum is non-exhaustive.
 
         redirect_url : typing.Optional[str]
 
@@ -631,6 +603,7 @@ class RawLinkClient:
         link_token : str
 
         provider : Providers
+            ℹ️ This enum is non-exhaustive.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -750,12 +723,15 @@ class RawLinkClient:
         email : str
 
         provider : Providers
+            ℹ️ This enum is non-exhaustive.
 
         auth_type : AuthType
+            ℹ️ This enum is non-exhaustive.
 
         vital_link_token : typing.Optional[str]
 
         region : typing.Optional[Region]
+            ℹ️ This enum is non-exhaustive.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -829,8 +805,10 @@ class RawLinkClient:
         password : str
 
         provider : Providers
+            ℹ️ This enum is non-exhaustive.
 
         auth_type : AuthType
+            ℹ️ This enum is non-exhaustive.
 
         vital_link_token : typing.Optional[str]
 
@@ -970,7 +948,7 @@ class RawLinkClient:
         vital_link_token : typing.Optional[str]
 
         region : typing.Optional[Region]
-            Provider region to authenticate against. Only applicable to specific providers.
+            Provider region to authenticate against. Only applicable to specific providers. ℹ️ This enum is non-exhaustive.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1106,8 +1084,10 @@ class RawLinkClient:
         vital_link_token : typing.Optional[str]
 
         email_provider_auth_link_provider : typing.Optional[Providers]
+            ℹ️ This enum is non-exhaustive.
 
         region : typing.Optional[Region]
+            ℹ️ This enum is non-exhaustive.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1217,7 +1197,10 @@ class RawLinkClient:
         provider: ManualProviders,
         *,
         user_id: str,
+        vital_ios_sdk_version: typing.Optional[str] = None,
+        vital_android_sdk_version: typing.Optional[str] = None,
         provider_id: typing.Optional[str] = OMIT,
+        granted_permissions: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.Dict[str, bool]]:
         """
@@ -1227,7 +1210,13 @@ class RawLinkClient:
 
         user_id : str
 
+        vital_ios_sdk_version : typing.Optional[str]
+
+        vital_android_sdk_version : typing.Optional[str]
+
         provider_id : typing.Optional[str]
+
+        granted_permissions : typing.Optional[typing.Sequence[str]]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1243,9 +1232,14 @@ class RawLinkClient:
             json={
                 "user_id": user_id,
                 "provider_id": provider_id,
+                "granted_permissions": granted_permissions,
             },
             headers={
                 "content-type": "application/json",
+                "x-vital-ios-sdk-version": str(vital_ios_sdk_version) if vital_ios_sdk_version is not None else None,
+                "x-vital-android-sdk-version": str(vital_android_sdk_version)
+                if vital_android_sdk_version is not None
+                else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -1288,7 +1282,7 @@ class RawLinkClient:
             Vital user ID
 
         provider : DemoProviders
-            Demo provider. For more information, please check out our docs (https://docs.tryvital.io/wearables/providers/test_data)
+            Demo provider. For more information, please check out our docs (https://docs.tryvital.io/wearables/providers/test_data) ℹ️ This enum is non-exhaustive.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1347,7 +1341,6 @@ class AsyncRawLinkClient:
         *,
         next_cursor: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
-        team_id: typing.Optional[LinkListBulkOpsRequestTeamId] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[BulkOpsResponse]:
         """
@@ -1356,8 +1349,6 @@ class AsyncRawLinkClient:
         next_cursor : typing.Optional[str]
 
         page_size : typing.Optional[int]
-
-        team_id : typing.Optional[LinkListBulkOpsRequestTeamId]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1373,7 +1364,6 @@ class AsyncRawLinkClient:
             params={
                 "next_cursor": next_cursor,
                 "page_size": page_size,
-                "team_id": team_id,
             },
             request_options=request_options,
         )
@@ -1408,7 +1398,6 @@ class AsyncRawLinkClient:
         *,
         provider: OAuthProviders,
         connections: typing.Sequence[ConnectionRecipe],
-        team_id: typing.Optional[LinkBulkImportRequestTeamId] = None,
         wait_for_completion: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[BulkImportConnectionsResponse]:
@@ -1416,10 +1405,9 @@ class AsyncRawLinkClient:
         Parameters
         ----------
         provider : OAuthProviders
+            ℹ️ This enum is non-exhaustive.
 
         connections : typing.Sequence[ConnectionRecipe]
-
-        team_id : typing.Optional[LinkBulkImportRequestTeamId]
 
         wait_for_completion : typing.Optional[bool]
 
@@ -1441,9 +1429,6 @@ class AsyncRawLinkClient:
         _response = await self._client_wrapper.httpx_client.request(
             "v2/link/bulk_import",
             method="POST",
-            params={
-                "team_id": team_id,
-            },
             json={
                 "provider": provider,
                 "connections": connections,
@@ -1486,7 +1471,6 @@ class AsyncRawLinkClient:
         *,
         user_ids: typing.Sequence[str],
         provider: OAuthProviders,
-        team_id: typing.Optional[LinkBulkTriggerHistoricalPullRequestTeamId] = None,
         wait_for_completion: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.Any]:
@@ -1496,8 +1480,7 @@ class AsyncRawLinkClient:
         user_ids : typing.Sequence[str]
 
         provider : OAuthProviders
-
-        team_id : typing.Optional[LinkBulkTriggerHistoricalPullRequestTeamId]
+            ℹ️ This enum is non-exhaustive.
 
         wait_for_completion : typing.Optional[bool]
 
@@ -1519,9 +1502,6 @@ class AsyncRawLinkClient:
         _response = await self._client_wrapper.httpx_client.request(
             "v2/link/bulk_trigger_historical_pull",
             method="POST",
-            params={
-                "team_id": team_id,
-            },
             json={
                 "user_ids": user_ids,
                 "provider": provider,
@@ -1565,7 +1545,6 @@ class AsyncRawLinkClient:
         self,
         *,
         provider: OAuthProviders,
-        team_id: typing.Optional[LinkBulkExportRequestTeamId] = None,
         user_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         next_token: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1574,8 +1553,7 @@ class AsyncRawLinkClient:
         Parameters
         ----------
         provider : OAuthProviders
-
-        team_id : typing.Optional[LinkBulkExportRequestTeamId]
+            ℹ️ This enum is non-exhaustive.
 
         user_ids : typing.Optional[typing.Sequence[str]]
 
@@ -1592,9 +1570,6 @@ class AsyncRawLinkClient:
         _response = await self._client_wrapper.httpx_client.request(
             "v2/link/bulk_export",
             method="POST",
-            params={
-                "team_id": team_id,
-            },
             json={
                 "user_ids": user_ids,
                 "provider": provider,
@@ -1637,7 +1612,6 @@ class AsyncRawLinkClient:
         *,
         user_ids: typing.Sequence[str],
         provider: OAuthProviders,
-        team_id: typing.Optional[LinkBulkPauseRequestTeamId] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.Any]:
         """
@@ -1646,8 +1620,7 @@ class AsyncRawLinkClient:
         user_ids : typing.Sequence[str]
 
         provider : OAuthProviders
-
-        team_id : typing.Optional[LinkBulkPauseRequestTeamId]
+            ℹ️ This enum is non-exhaustive.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1660,9 +1633,6 @@ class AsyncRawLinkClient:
         _response = await self._client_wrapper.httpx_client.request(
             "v2/link/bulk_pause",
             method="POST",
-            params={
-                "team_id": team_id,
-            },
             json={
                 "user_ids": user_ids,
                 "provider": provider,
@@ -1726,6 +1696,7 @@ class AsyncRawLinkClient:
             User id returned by vital create user request. This id should be stored in your database against the user and used for all interactions with the vital api.
 
         provider : typing.Optional[Providers]
+            ℹ️ This enum is non-exhaustive.
 
         redirect_url : typing.Optional[str]
 
@@ -1929,6 +1900,7 @@ class AsyncRawLinkClient:
         link_token : str
 
         provider : Providers
+            ℹ️ This enum is non-exhaustive.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2048,12 +2020,15 @@ class AsyncRawLinkClient:
         email : str
 
         provider : Providers
+            ℹ️ This enum is non-exhaustive.
 
         auth_type : AuthType
+            ℹ️ This enum is non-exhaustive.
 
         vital_link_token : typing.Optional[str]
 
         region : typing.Optional[Region]
+            ℹ️ This enum is non-exhaustive.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2127,8 +2102,10 @@ class AsyncRawLinkClient:
         password : str
 
         provider : Providers
+            ℹ️ This enum is non-exhaustive.
 
         auth_type : AuthType
+            ℹ️ This enum is non-exhaustive.
 
         vital_link_token : typing.Optional[str]
 
@@ -2268,7 +2245,7 @@ class AsyncRawLinkClient:
         vital_link_token : typing.Optional[str]
 
         region : typing.Optional[Region]
-            Provider region to authenticate against. Only applicable to specific providers.
+            Provider region to authenticate against. Only applicable to specific providers. ℹ️ This enum is non-exhaustive.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2404,8 +2381,10 @@ class AsyncRawLinkClient:
         vital_link_token : typing.Optional[str]
 
         email_provider_auth_link_provider : typing.Optional[Providers]
+            ℹ️ This enum is non-exhaustive.
 
         region : typing.Optional[Region]
+            ℹ️ This enum is non-exhaustive.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2515,7 +2494,10 @@ class AsyncRawLinkClient:
         provider: ManualProviders,
         *,
         user_id: str,
+        vital_ios_sdk_version: typing.Optional[str] = None,
+        vital_android_sdk_version: typing.Optional[str] = None,
         provider_id: typing.Optional[str] = OMIT,
+        granted_permissions: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.Dict[str, bool]]:
         """
@@ -2525,7 +2507,13 @@ class AsyncRawLinkClient:
 
         user_id : str
 
+        vital_ios_sdk_version : typing.Optional[str]
+
+        vital_android_sdk_version : typing.Optional[str]
+
         provider_id : typing.Optional[str]
+
+        granted_permissions : typing.Optional[typing.Sequence[str]]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2541,9 +2529,14 @@ class AsyncRawLinkClient:
             json={
                 "user_id": user_id,
                 "provider_id": provider_id,
+                "granted_permissions": granted_permissions,
             },
             headers={
                 "content-type": "application/json",
+                "x-vital-ios-sdk-version": str(vital_ios_sdk_version) if vital_ios_sdk_version is not None else None,
+                "x-vital-android-sdk-version": str(vital_android_sdk_version)
+                if vital_android_sdk_version is not None
+                else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -2586,7 +2579,7 @@ class AsyncRawLinkClient:
             Vital user ID
 
         provider : DemoProviders
-            Demo provider. For more information, please check out our docs (https://docs.tryvital.io/wearables/providers/test_data)
+            Demo provider. For more information, please check out our docs (https://docs.tryvital.io/wearables/providers/test_data) ℹ️ This enum is non-exhaustive.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

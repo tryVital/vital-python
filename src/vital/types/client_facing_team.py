@@ -34,7 +34,11 @@ class ClientFacingTeam(UniversalBaseModel):
     lab_tests_patient_sms_communication_enabled: bool
     lab_tests_patient_email_communication_enabled: bool
     logo_url: typing.Optional[str] = None
-    delegated_flow: DelegatedFlowType
+    delegated_flow: DelegatedFlowType = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     critical_result_notification_email: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:

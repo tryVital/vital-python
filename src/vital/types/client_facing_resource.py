@@ -21,6 +21,7 @@ class ClientFacingResource(enum.StrEnum):
     CONNECTION = "connection"
     ORDER = "order"
     RESULT = "result"
+    MATCH_REVIEW = "match_review"
     APPOINTMENT = "appointment"
     GLUCOSE = "glucose"
     HEARTRATE = "heartrate"
@@ -102,6 +103,7 @@ class ClientFacingResource(enum.StrEnum):
         connection: typing.Callable[[], T_Result],
         order: typing.Callable[[], T_Result],
         result: typing.Callable[[], T_Result],
+        match_review: typing.Callable[[], T_Result],
         appointment: typing.Callable[[], T_Result],
         glucose: typing.Callable[[], T_Result],
         heartrate: typing.Callable[[], T_Result],
@@ -181,6 +183,8 @@ class ClientFacingResource(enum.StrEnum):
             return order()
         if self is ClientFacingResource.RESULT:
             return result()
+        if self is ClientFacingResource.MATCH_REVIEW:
+            return match_review()
         if self is ClientFacingResource.APPOINTMENT:
             return appointment()
         if self is ClientFacingResource.GLUCOSE:
