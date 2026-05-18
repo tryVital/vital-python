@@ -14,6 +14,9 @@ if typing.TYPE_CHECKING:
     from .aggregate_expr import AggregateExpr
     from .aggregate_expr_arg import AggregateExprArg
     from .aggregate_expr_func import AggregateExprFunc
+    from .aggregate_field_expr import AggregateFieldExpr
+    from .aggregate_field_expr_arg import AggregateFieldExprArg
+    from .aggregate_field_expr_func import AggregateFieldExprFunc
     from .aggregation_response import AggregationResponse
     from .aggregation_result import AggregationResult
     from .allowed_radius import AllowedRadius
@@ -36,6 +39,7 @@ if typing.TYPE_CHECKING:
     from .auth_type import AuthType
     from .availability import Availability
     from .awake_at_value_macro_expr import AwakeAtValueMacroExpr
+    from .awakenings_value_macro_expr import AwakeningsValueMacroExpr
     from .basal_body_temperature_entry import BasalBodyTemperatureEntry
     from .billing import Billing
     from .biomarker_result import BiomarkerResult
@@ -50,6 +54,7 @@ if typing.TYPE_CHECKING:
     from .bulk_op_status import BulkOpStatus
     from .bulk_op_type import BulkOpType
     from .bulk_ops_response import BulkOpsResponse
+    from .canonical_candidate import CanonicalCandidate
     from .cervical_mucus_entry import CervicalMucusEntry
     from .cervical_mucus_entry_quality import CervicalMucusEntryQuality
     from .chronotype_value_macro_expr import ChronotypeValueMacroExpr
@@ -255,10 +260,16 @@ if typing.TYPE_CHECKING:
         ClientFacingInsulinInjectionHistoricalPullCompleted,
     )
     from .client_facing_insulin_injection_sample import ClientFacingInsulinInjectionSample
+    from .client_facing_insulin_injection_sample_bolus_purpose import ClientFacingInsulinInjectionSampleBolusPurpose
+    from .client_facing_insulin_injection_sample_delivery_form import ClientFacingInsulinInjectionSampleDeliveryForm
+    from .client_facing_insulin_injection_sample_delivery_mode import ClientFacingInsulinInjectionSampleDeliveryMode
     from .client_facing_insulin_injection_sample_type import ClientFacingInsulinInjectionSampleType
     from .client_facing_insurance import ClientFacingInsurance
     from .client_facing_lab import ClientFacingLab
+    from .client_facing_lab_account import ClientFacingLabAccount
     from .client_facing_lab_location import ClientFacingLabLocation
+    from .client_facing_lab_report_parsing_job_created_event import ClientFacingLabReportParsingJobCreatedEvent
+    from .client_facing_lab_report_parsing_job_updated_event import ClientFacingLabReportParsingJobUpdatedEvent
     from .client_facing_lab_test import ClientFacingLabTest
     from .client_facing_labs import ClientFacingLabs
     from .client_facing_lean_body_mass_changed import ClientFacingLeanBodyMassChanged
@@ -304,6 +315,8 @@ if typing.TYPE_CHECKING:
         ClientFacingOrderDetails_WalkInTest,
     )
     from .client_facing_order_event import ClientFacingOrderEvent
+    from .client_facing_order_in_transaction import ClientFacingOrderInTransaction
+    from .client_facing_order_transaction import ClientFacingOrderTransaction
     from .client_facing_patient_details_compatible import ClientFacingPatientDetailsCompatible
     from .client_facing_payor import ClientFacingPayor
     from .client_facing_payor_code_source import ClientFacingPayorCodeSource
@@ -464,6 +477,7 @@ if typing.TYPE_CHECKING:
     from .client_workout_response import ClientWorkoutResponse
     from .clinical_information import ClinicalInformation
     from .company_details import CompanyDetails
+    from .compendium_search_labs import CompendiumSearchLabs
     from .connected_source_client_facing import ConnectedSourceClientFacing
     from .connection_recipe import ConnectionRecipe
     from .consent import Consent
@@ -474,6 +488,7 @@ if typing.TYPE_CHECKING:
     from .continuous_query_task_status import ContinuousQueryTaskStatus
     from .contraceptive_entry import ContraceptiveEntry
     from .contraceptive_entry_type import ContraceptiveEntryType
+    from .convert_compendium_response import ConvertCompendiumResponse
     from .create_user_portal_url_response import CreateUserPortalUrlResponse
     from .date_part_expr import DatePartExpr
     from .date_part_expr_arg import DatePartExprArg
@@ -484,12 +499,15 @@ if typing.TYPE_CHECKING:
     from .delegated_flow_type import DelegatedFlowType
     from .demo_connection_status import DemoConnectionStatus
     from .demo_providers import DemoProviders
+    from .derived_readiness_column_expr import DerivedReadinessColumnExpr
+    from .derived_readiness_column_expr_derived_readiness import DerivedReadinessColumnExprDerivedReadiness
     from .detected_deviation_entry import DetectedDeviationEntry
     from .detected_deviation_entry_deviation import DetectedDeviationEntryDeviation
     from .device_v_2_in_db import DeviceV2InDb
     from .discrete_timeseries_expr import DiscreteTimeseriesExpr
     from .discrete_timeseries_expr_field import DiscreteTimeseriesExprField
     from .discrete_timeseries_expr_timeseries import DiscreteTimeseriesExprTimeseries
+    from .element_field_expr import ElementFieldExpr
     from .email_providers import EmailProviders
     from .energy import Energy
     from .ethnicity import Ethnicity
@@ -503,7 +521,9 @@ if typing.TYPE_CHECKING:
     from .gender import Gender
     from .gender_identity import GenderIdentity
     from .get_markers_response import GetMarkersResponse
+    from .get_order_transaction_response import GetOrderTransactionResponse
     from .get_orders_response import GetOrdersResponse
+    from .get_team_lab_accounts_response import GetTeamLabAccountsResponse
     from .group_key_column_expr import GroupKeyColumnExpr
     from .group_key_column_expr_group_key import GroupKeyColumnExprGroupKey
     from .grouped_a_fib_burden import GroupedAFibBurden
@@ -629,12 +649,16 @@ if typing.TYPE_CHECKING:
     from .icd_excludes_warning import IcdExcludesWarning
     from .index_column_expr import IndexColumnExpr
     from .index_column_expr_index import IndexColumnExprIndex
+    from .insulin_injection_timeseries_expr import InsulinInjectionTimeseriesExpr
+    from .insulin_injection_timeseries_expr_field import InsulinInjectionTimeseriesExprField
     from .intermenstrual_bleeding_entry import IntermenstrualBleedingEntry
     from .interpretation import Interpretation
     from .interval_timeseries_expr import IntervalTimeseriesExpr
     from .interval_timeseries_expr_field import IntervalTimeseriesExprField
     from .interval_timeseries_expr_timeseries import IntervalTimeseriesExprTimeseries
     from .jpeg import Jpeg
+    from .lab_account_delegated_flow import LabAccountDelegatedFlow
+    from .lab_account_status import LabAccountStatus
     from .lab_location_capability import LabLocationCapability
     from .lab_location_metadata import LabLocationMetadata
     from .lab_report_result import LabReportResult
@@ -656,9 +680,34 @@ if typing.TYPE_CHECKING:
     from .macros import Macros
     from .manual_providers import ManualProviders
     from .marker_type import MarkerType
+    from .mc_basal_body_temperature_field_expr import McBasalBodyTemperatureFieldExpr
+    from .mc_basal_body_temperature_field_expr_basal_body_temperature import (
+        McBasalBodyTemperatureFieldExprBasalBodyTemperature,
+    )
+    from .mc_cervical_mucus_field_expr import McCervicalMucusFieldExpr
+    from .mc_cervical_mucus_field_expr_cervical_mucus import McCervicalMucusFieldExprCervicalMucus
+    from .mc_contraceptive_field_expr import McContraceptiveFieldExpr
+    from .mc_contraceptive_field_expr_contraceptive import McContraceptiveFieldExprContraceptive
+    from .mc_detected_deviations_field_expr import McDetectedDeviationsFieldExpr
+    from .mc_detected_deviations_field_expr_detected_deviations import McDetectedDeviationsFieldExprDetectedDeviations
+    from .mc_home_pregnancy_test_field_expr import McHomePregnancyTestFieldExpr
+    from .mc_home_pregnancy_test_field_expr_home_pregnancy_test import McHomePregnancyTestFieldExprHomePregnancyTest
+    from .mc_home_progesterone_test_field_expr import McHomeProgesteroneTestFieldExpr
+    from .mc_home_progesterone_test_field_expr_home_progesterone_test import (
+        McHomeProgesteroneTestFieldExprHomeProgesteroneTest,
+    )
+    from .mc_intermenstrual_bleeding_field_expr import McIntermenstrualBleedingFieldExpr
+    from .mc_menstrual_flow_field_expr import McMenstrualFlowFieldExpr
+    from .mc_menstrual_flow_field_expr_menstrual_flow import McMenstrualFlowFieldExprMenstrualFlow
+    from .mc_ovulation_test_field_expr import McOvulationTestFieldExpr
+    from .mc_ovulation_test_field_expr_ovulation_test import McOvulationTestFieldExprOvulationTest
+    from .mc_sexual_activity_field_expr import McSexualActivityFieldExpr
+    from .mc_sexual_activity_field_expr_sexual_activity import McSexualActivityFieldExprSexualActivity
     from .meal_column_expr import MealColumnExpr
     from .meal_column_expr_meal import MealColumnExprMeal
     from .meal_in_db_base_client_facing_source import MealInDbBaseClientFacingSource
+    from .menstrual_cycle_column_expr import MenstrualCycleColumnExpr
+    from .menstrual_cycle_column_expr_menstrual_cycle import MenstrualCycleColumnExprMenstrualCycle
     from .menstrual_cycle_response import MenstrualCycleResponse
     from .menstrual_flow_entry import MenstrualFlowEntry
     from .menstrual_flow_entry_flow import MenstrualFlowEntryFlow
@@ -672,15 +721,20 @@ if typing.TYPE_CHECKING:
     from .o_auth_providers import OAuthProviders
     from .order_activation_type import OrderActivationType
     from .order_low_level_status import OrderLowLevelStatus
+    from .order_origin import OrderOrigin
     from .order_set_request import OrderSetRequest
     from .order_status import OrderStatus
+    from .order_status_detail import OrderStatusDetail
+    from .order_summary import OrderSummary
     from .order_top_level_status import OrderTopLevelStatus
+    from .order_transaction_status import OrderTransactionStatus
     from .ovulation_test_entry import OvulationTestEntry
     from .ovulation_test_entry_test_result import OvulationTestEntryTestResult
     from .paginated_users_response import PaginatedUsersResponse
     from .parent_biomarker_data import ParentBiomarkerData
     from .parsed_lab_report_data import ParsedLabReportData
     from .parsing_job import ParsingJob
+    from .parsing_job_failure_reason import ParsingJobFailureReason
     from .parsing_job_status import ParsingJobStatus
     from .password_providers import PasswordProviders
     from .patient_address import PatientAddress
@@ -688,6 +742,7 @@ if typing.TYPE_CHECKING:
     from .patient_address_with_validation import PatientAddressWithValidation
     from .patient_details_with_validation import PatientDetailsWithValidation
     from .payor_code_external_provider import PayorCodeExternalProvider
+    from .per_lab_candidate import PerLabCandidate
     from .performing_laboratory import PerformingLaboratory
     from .period import Period
     from .period_unit import PeriodUnit
@@ -706,6 +761,7 @@ if typing.TYPE_CHECKING:
     from .provider_connection_created import ProviderConnectionCreated
     from .provider_connection_error import ProviderConnectionError
     from .provider_connection_error_error_type import ProviderConnectionErrorErrorType
+    from .provider_id_conversion_response import ProviderIdConversionResponse
     from .provider_link_response import ProviderLinkResponse
     from .provider_link_response_error_type import ProviderLinkResponseErrorType
     from .provider_link_response_state import ProviderLinkResponseState
@@ -730,18 +786,25 @@ if typing.TYPE_CHECKING:
     from .raw_sleep import RawSleep
     from .raw_workout import RawWorkout
     from .region import Region
+    from .related_candidate import RelatedCandidate
     from .relative_timeframe import RelativeTimeframe
     from .resend_webhook_response import ResendWebhookResponse
     from .resource_availability import ResourceAvailability
     from .responsible_relationship import ResponsibleRelationship
     from .result_metadata import ResultMetadata
+    from .result_metadata_gender import ResultMetadataGender
     from .result_type import ResultType
     from .sample_data import SampleData
     from .sample_data_date_collected import SampleDataDateCollected
     from .sample_data_date_received import SampleDataDateReceived
     from .sample_data_date_reported import SampleDataDateReported
+    from .scalar_output_subquery_expr import ScalarOutputSubqueryExpr
+    from .scalar_output_subquery_expr_from import ScalarOutputSubqueryExprFrom
+    from .scalar_output_subquery_expr_select import ScalarOutputSubqueryExprSelect
     from .scope_requirements_grants import ScopeRequirementsGrants
     from .scope_requirements_str import ScopeRequirementsStr
+    from .search_compendium_response import SearchCompendiumResponse
+    from .search_mode import SearchMode
     from .select import Select
     from .sex import Sex
     from .sexual_activity_entry import SexualActivityEntry
@@ -775,8 +838,12 @@ if typing.TYPE_CHECKING:
     from .timeseries_metric_point import TimeseriesMetricPoint
     from .timeseries_resource import TimeseriesResource
     from .trace_elements import TraceElements
+    from .unnest_expr import UnnestExpr
+    from .unnest_expr_unnest import UnnestExprUnnest
     from .unrecognized_value_macro_expr import UnrecognizedValueMacroExpr
     from .us_address import UsAddress
+    from .us_state import UsState
+    from .user_address import UserAddress
     from .user_historical_pulls_response import UserHistoricalPullsResponse
     from .user_info import UserInfo
     from .user_refresh_error_response import UserRefreshErrorResponse
@@ -811,6 +878,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AggregateExpr": ".aggregate_expr",
     "AggregateExprArg": ".aggregate_expr_arg",
     "AggregateExprFunc": ".aggregate_expr_func",
+    "AggregateFieldExpr": ".aggregate_field_expr",
+    "AggregateFieldExprArg": ".aggregate_field_expr_arg",
+    "AggregateFieldExprFunc": ".aggregate_field_expr_func",
     "AggregationResponse": ".aggregation_response",
     "AggregationResult": ".aggregation_result",
     "AllowedRadius": ".allowed_radius",
@@ -833,6 +903,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AuthType": ".auth_type",
     "Availability": ".availability",
     "AwakeAtValueMacroExpr": ".awake_at_value_macro_expr",
+    "AwakeningsValueMacroExpr": ".awakenings_value_macro_expr",
     "BasalBodyTemperatureEntry": ".basal_body_temperature_entry",
     "Billing": ".billing",
     "BiomarkerResult": ".biomarker_result",
@@ -847,6 +918,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "BulkOpStatus": ".bulk_op_status",
     "BulkOpType": ".bulk_op_type",
     "BulkOpsResponse": ".bulk_ops_response",
+    "CanonicalCandidate": ".canonical_candidate",
     "CervicalMucusEntry": ".cervical_mucus_entry",
     "CervicalMucusEntryQuality": ".cervical_mucus_entry_quality",
     "ChronotypeValueMacroExpr": ".chronotype_value_macro_expr",
@@ -1014,10 +1086,16 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ClientFacingInsulinInjectionChangedEventType": ".client_facing_insulin_injection_changed_event_type",
     "ClientFacingInsulinInjectionHistoricalPullCompleted": ".client_facing_insulin_injection_historical_pull_completed",
     "ClientFacingInsulinInjectionSample": ".client_facing_insulin_injection_sample",
+    "ClientFacingInsulinInjectionSampleBolusPurpose": ".client_facing_insulin_injection_sample_bolus_purpose",
+    "ClientFacingInsulinInjectionSampleDeliveryForm": ".client_facing_insulin_injection_sample_delivery_form",
+    "ClientFacingInsulinInjectionSampleDeliveryMode": ".client_facing_insulin_injection_sample_delivery_mode",
     "ClientFacingInsulinInjectionSampleType": ".client_facing_insulin_injection_sample_type",
     "ClientFacingInsurance": ".client_facing_insurance",
     "ClientFacingLab": ".client_facing_lab",
+    "ClientFacingLabAccount": ".client_facing_lab_account",
     "ClientFacingLabLocation": ".client_facing_lab_location",
+    "ClientFacingLabReportParsingJobCreatedEvent": ".client_facing_lab_report_parsing_job_created_event",
+    "ClientFacingLabReportParsingJobUpdatedEvent": ".client_facing_lab_report_parsing_job_updated_event",
     "ClientFacingLabTest": ".client_facing_lab_test",
     "ClientFacingLabs": ".client_facing_labs",
     "ClientFacingLeanBodyMassChanged": ".client_facing_lean_body_mass_changed",
@@ -1057,6 +1135,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ClientFacingOrderDetails_Testkit": ".client_facing_order_details",
     "ClientFacingOrderDetails_WalkInTest": ".client_facing_order_details",
     "ClientFacingOrderEvent": ".client_facing_order_event",
+    "ClientFacingOrderInTransaction": ".client_facing_order_in_transaction",
+    "ClientFacingOrderTransaction": ".client_facing_order_transaction",
     "ClientFacingPatientDetailsCompatible": ".client_facing_patient_details_compatible",
     "ClientFacingPayor": ".client_facing_payor",
     "ClientFacingPayorCodeSource": ".client_facing_payor_code_source",
@@ -1193,6 +1273,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ClientWorkoutResponse": ".client_workout_response",
     "ClinicalInformation": ".clinical_information",
     "CompanyDetails": ".company_details",
+    "CompendiumSearchLabs": ".compendium_search_labs",
     "ConnectedSourceClientFacing": ".connected_source_client_facing",
     "ConnectionRecipe": ".connection_recipe",
     "Consent": ".consent",
@@ -1203,6 +1284,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ContinuousQueryTaskStatus": ".continuous_query_task_status",
     "ContraceptiveEntry": ".contraceptive_entry",
     "ContraceptiveEntryType": ".contraceptive_entry_type",
+    "ConvertCompendiumResponse": ".convert_compendium_response",
     "CreateUserPortalUrlResponse": ".create_user_portal_url_response",
     "DatePartExpr": ".date_part_expr",
     "DatePartExprArg": ".date_part_expr_arg",
@@ -1213,12 +1295,15 @@ _dynamic_imports: typing.Dict[str, str] = {
     "DelegatedFlowType": ".delegated_flow_type",
     "DemoConnectionStatus": ".demo_connection_status",
     "DemoProviders": ".demo_providers",
+    "DerivedReadinessColumnExpr": ".derived_readiness_column_expr",
+    "DerivedReadinessColumnExprDerivedReadiness": ".derived_readiness_column_expr_derived_readiness",
     "DetectedDeviationEntry": ".detected_deviation_entry",
     "DetectedDeviationEntryDeviation": ".detected_deviation_entry_deviation",
     "DeviceV2InDb": ".device_v_2_in_db",
     "DiscreteTimeseriesExpr": ".discrete_timeseries_expr",
     "DiscreteTimeseriesExprField": ".discrete_timeseries_expr_field",
     "DiscreteTimeseriesExprTimeseries": ".discrete_timeseries_expr_timeseries",
+    "ElementFieldExpr": ".element_field_expr",
     "EmailProviders": ".email_providers",
     "Energy": ".energy",
     "Ethnicity": ".ethnicity",
@@ -1232,7 +1317,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Gender": ".gender",
     "GenderIdentity": ".gender_identity",
     "GetMarkersResponse": ".get_markers_response",
+    "GetOrderTransactionResponse": ".get_order_transaction_response",
     "GetOrdersResponse": ".get_orders_response",
+    "GetTeamLabAccountsResponse": ".get_team_lab_accounts_response",
     "GroupKeyColumnExpr": ".group_key_column_expr",
     "GroupKeyColumnExprGroupKey": ".group_key_column_expr_group_key",
     "GroupedAFibBurden": ".grouped_a_fib_burden",
@@ -1356,12 +1443,16 @@ _dynamic_imports: typing.Dict[str, str] = {
     "IcdExcludesWarning": ".icd_excludes_warning",
     "IndexColumnExpr": ".index_column_expr",
     "IndexColumnExprIndex": ".index_column_expr_index",
+    "InsulinInjectionTimeseriesExpr": ".insulin_injection_timeseries_expr",
+    "InsulinInjectionTimeseriesExprField": ".insulin_injection_timeseries_expr_field",
     "IntermenstrualBleedingEntry": ".intermenstrual_bleeding_entry",
     "Interpretation": ".interpretation",
     "IntervalTimeseriesExpr": ".interval_timeseries_expr",
     "IntervalTimeseriesExprField": ".interval_timeseries_expr_field",
     "IntervalTimeseriesExprTimeseries": ".interval_timeseries_expr_timeseries",
     "Jpeg": ".jpeg",
+    "LabAccountDelegatedFlow": ".lab_account_delegated_flow",
+    "LabAccountStatus": ".lab_account_status",
     "LabLocationCapability": ".lab_location_capability",
     "LabLocationMetadata": ".lab_location_metadata",
     "LabReportResult": ".lab_report_result",
@@ -1383,9 +1474,30 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Macros": ".macros",
     "ManualProviders": ".manual_providers",
     "MarkerType": ".marker_type",
+    "McBasalBodyTemperatureFieldExpr": ".mc_basal_body_temperature_field_expr",
+    "McBasalBodyTemperatureFieldExprBasalBodyTemperature": ".mc_basal_body_temperature_field_expr_basal_body_temperature",
+    "McCervicalMucusFieldExpr": ".mc_cervical_mucus_field_expr",
+    "McCervicalMucusFieldExprCervicalMucus": ".mc_cervical_mucus_field_expr_cervical_mucus",
+    "McContraceptiveFieldExpr": ".mc_contraceptive_field_expr",
+    "McContraceptiveFieldExprContraceptive": ".mc_contraceptive_field_expr_contraceptive",
+    "McDetectedDeviationsFieldExpr": ".mc_detected_deviations_field_expr",
+    "McDetectedDeviationsFieldExprDetectedDeviations": ".mc_detected_deviations_field_expr_detected_deviations",
+    "McHomePregnancyTestFieldExpr": ".mc_home_pregnancy_test_field_expr",
+    "McHomePregnancyTestFieldExprHomePregnancyTest": ".mc_home_pregnancy_test_field_expr_home_pregnancy_test",
+    "McHomeProgesteroneTestFieldExpr": ".mc_home_progesterone_test_field_expr",
+    "McHomeProgesteroneTestFieldExprHomeProgesteroneTest": ".mc_home_progesterone_test_field_expr_home_progesterone_test",
+    "McIntermenstrualBleedingFieldExpr": ".mc_intermenstrual_bleeding_field_expr",
+    "McMenstrualFlowFieldExpr": ".mc_menstrual_flow_field_expr",
+    "McMenstrualFlowFieldExprMenstrualFlow": ".mc_menstrual_flow_field_expr_menstrual_flow",
+    "McOvulationTestFieldExpr": ".mc_ovulation_test_field_expr",
+    "McOvulationTestFieldExprOvulationTest": ".mc_ovulation_test_field_expr_ovulation_test",
+    "McSexualActivityFieldExpr": ".mc_sexual_activity_field_expr",
+    "McSexualActivityFieldExprSexualActivity": ".mc_sexual_activity_field_expr_sexual_activity",
     "MealColumnExpr": ".meal_column_expr",
     "MealColumnExprMeal": ".meal_column_expr_meal",
     "MealInDbBaseClientFacingSource": ".meal_in_db_base_client_facing_source",
+    "MenstrualCycleColumnExpr": ".menstrual_cycle_column_expr",
+    "MenstrualCycleColumnExprMenstrualCycle": ".menstrual_cycle_column_expr_menstrual_cycle",
     "MenstrualCycleResponse": ".menstrual_cycle_response",
     "MenstrualFlowEntry": ".menstrual_flow_entry",
     "MenstrualFlowEntryFlow": ".menstrual_flow_entry_flow",
@@ -1399,15 +1511,20 @@ _dynamic_imports: typing.Dict[str, str] = {
     "OAuthProviders": ".o_auth_providers",
     "OrderActivationType": ".order_activation_type",
     "OrderLowLevelStatus": ".order_low_level_status",
+    "OrderOrigin": ".order_origin",
     "OrderSetRequest": ".order_set_request",
     "OrderStatus": ".order_status",
+    "OrderStatusDetail": ".order_status_detail",
+    "OrderSummary": ".order_summary",
     "OrderTopLevelStatus": ".order_top_level_status",
+    "OrderTransactionStatus": ".order_transaction_status",
     "OvulationTestEntry": ".ovulation_test_entry",
     "OvulationTestEntryTestResult": ".ovulation_test_entry_test_result",
     "PaginatedUsersResponse": ".paginated_users_response",
     "ParentBiomarkerData": ".parent_biomarker_data",
     "ParsedLabReportData": ".parsed_lab_report_data",
     "ParsingJob": ".parsing_job",
+    "ParsingJobFailureReason": ".parsing_job_failure_reason",
     "ParsingJobStatus": ".parsing_job_status",
     "PasswordProviders": ".password_providers",
     "PatientAddress": ".patient_address",
@@ -1415,6 +1532,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PatientAddressWithValidation": ".patient_address_with_validation",
     "PatientDetailsWithValidation": ".patient_details_with_validation",
     "PayorCodeExternalProvider": ".payor_code_external_provider",
+    "PerLabCandidate": ".per_lab_candidate",
     "PerformingLaboratory": ".performing_laboratory",
     "Period": ".period",
     "PeriodUnit": ".period_unit",
@@ -1433,6 +1551,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ProviderConnectionCreated": ".provider_connection_created",
     "ProviderConnectionError": ".provider_connection_error",
     "ProviderConnectionErrorErrorType": ".provider_connection_error_error_type",
+    "ProviderIdConversionResponse": ".provider_id_conversion_response",
     "ProviderLinkResponse": ".provider_link_response",
     "ProviderLinkResponseErrorType": ".provider_link_response_error_type",
     "ProviderLinkResponseState": ".provider_link_response_state",
@@ -1457,18 +1576,25 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RawSleep": ".raw_sleep",
     "RawWorkout": ".raw_workout",
     "Region": ".region",
+    "RelatedCandidate": ".related_candidate",
     "RelativeTimeframe": ".relative_timeframe",
     "ResendWebhookResponse": ".resend_webhook_response",
     "ResourceAvailability": ".resource_availability",
     "ResponsibleRelationship": ".responsible_relationship",
     "ResultMetadata": ".result_metadata",
+    "ResultMetadataGender": ".result_metadata_gender",
     "ResultType": ".result_type",
     "SampleData": ".sample_data",
     "SampleDataDateCollected": ".sample_data_date_collected",
     "SampleDataDateReceived": ".sample_data_date_received",
     "SampleDataDateReported": ".sample_data_date_reported",
+    "ScalarOutputSubqueryExpr": ".scalar_output_subquery_expr",
+    "ScalarOutputSubqueryExprFrom": ".scalar_output_subquery_expr_from",
+    "ScalarOutputSubqueryExprSelect": ".scalar_output_subquery_expr_select",
     "ScopeRequirementsGrants": ".scope_requirements_grants",
     "ScopeRequirementsStr": ".scope_requirements_str",
+    "SearchCompendiumResponse": ".search_compendium_response",
+    "SearchMode": ".search_mode",
     "Select": ".select",
     "Sex": ".sex",
     "SexualActivityEntry": ".sexual_activity_entry",
@@ -1502,8 +1628,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "TimeseriesMetricPoint": ".timeseries_metric_point",
     "TimeseriesResource": ".timeseries_resource",
     "TraceElements": ".trace_elements",
+    "UnnestExpr": ".unnest_expr",
+    "UnnestExprUnnest": ".unnest_expr_unnest",
     "UnrecognizedValueMacroExpr": ".unrecognized_value_macro_expr",
     "UsAddress": ".us_address",
+    "UsState": ".us_state",
+    "UserAddress": ".user_address",
     "UserHistoricalPullsResponse": ".user_historical_pulls_response",
     "UserInfo": ".user_info",
     "UserRefreshErrorResponse": ".user_refresh_error_response",
@@ -1558,6 +1688,9 @@ __all__ = [
     "AggregateExpr",
     "AggregateExprArg",
     "AggregateExprFunc",
+    "AggregateFieldExpr",
+    "AggregateFieldExprArg",
+    "AggregateFieldExprFunc",
     "AggregationResponse",
     "AggregationResult",
     "AllowedRadius",
@@ -1580,6 +1713,7 @@ __all__ = [
     "AuthType",
     "Availability",
     "AwakeAtValueMacroExpr",
+    "AwakeningsValueMacroExpr",
     "BasalBodyTemperatureEntry",
     "Billing",
     "BiomarkerResult",
@@ -1594,6 +1728,7 @@ __all__ = [
     "BulkOpStatus",
     "BulkOpType",
     "BulkOpsResponse",
+    "CanonicalCandidate",
     "CervicalMucusEntry",
     "CervicalMucusEntryQuality",
     "ChronotypeValueMacroExpr",
@@ -1761,10 +1896,16 @@ __all__ = [
     "ClientFacingInsulinInjectionChangedEventType",
     "ClientFacingInsulinInjectionHistoricalPullCompleted",
     "ClientFacingInsulinInjectionSample",
+    "ClientFacingInsulinInjectionSampleBolusPurpose",
+    "ClientFacingInsulinInjectionSampleDeliveryForm",
+    "ClientFacingInsulinInjectionSampleDeliveryMode",
     "ClientFacingInsulinInjectionSampleType",
     "ClientFacingInsurance",
     "ClientFacingLab",
+    "ClientFacingLabAccount",
     "ClientFacingLabLocation",
+    "ClientFacingLabReportParsingJobCreatedEvent",
+    "ClientFacingLabReportParsingJobUpdatedEvent",
     "ClientFacingLabTest",
     "ClientFacingLabs",
     "ClientFacingLeanBodyMassChanged",
@@ -1804,6 +1945,8 @@ __all__ = [
     "ClientFacingOrderDetails_Testkit",
     "ClientFacingOrderDetails_WalkInTest",
     "ClientFacingOrderEvent",
+    "ClientFacingOrderInTransaction",
+    "ClientFacingOrderTransaction",
     "ClientFacingPatientDetailsCompatible",
     "ClientFacingPayor",
     "ClientFacingPayorCodeSource",
@@ -1940,6 +2083,7 @@ __all__ = [
     "ClientWorkoutResponse",
     "ClinicalInformation",
     "CompanyDetails",
+    "CompendiumSearchLabs",
     "ConnectedSourceClientFacing",
     "ConnectionRecipe",
     "Consent",
@@ -1950,6 +2094,7 @@ __all__ = [
     "ContinuousQueryTaskStatus",
     "ContraceptiveEntry",
     "ContraceptiveEntryType",
+    "ConvertCompendiumResponse",
     "CreateUserPortalUrlResponse",
     "DatePartExpr",
     "DatePartExprArg",
@@ -1960,12 +2105,15 @@ __all__ = [
     "DelegatedFlowType",
     "DemoConnectionStatus",
     "DemoProviders",
+    "DerivedReadinessColumnExpr",
+    "DerivedReadinessColumnExprDerivedReadiness",
     "DetectedDeviationEntry",
     "DetectedDeviationEntryDeviation",
     "DeviceV2InDb",
     "DiscreteTimeseriesExpr",
     "DiscreteTimeseriesExprField",
     "DiscreteTimeseriesExprTimeseries",
+    "ElementFieldExpr",
     "EmailProviders",
     "Energy",
     "Ethnicity",
@@ -1979,7 +2127,9 @@ __all__ = [
     "Gender",
     "GenderIdentity",
     "GetMarkersResponse",
+    "GetOrderTransactionResponse",
     "GetOrdersResponse",
+    "GetTeamLabAccountsResponse",
     "GroupKeyColumnExpr",
     "GroupKeyColumnExprGroupKey",
     "GroupedAFibBurden",
@@ -2103,12 +2253,16 @@ __all__ = [
     "IcdExcludesWarning",
     "IndexColumnExpr",
     "IndexColumnExprIndex",
+    "InsulinInjectionTimeseriesExpr",
+    "InsulinInjectionTimeseriesExprField",
     "IntermenstrualBleedingEntry",
     "Interpretation",
     "IntervalTimeseriesExpr",
     "IntervalTimeseriesExprField",
     "IntervalTimeseriesExprTimeseries",
     "Jpeg",
+    "LabAccountDelegatedFlow",
+    "LabAccountStatus",
     "LabLocationCapability",
     "LabLocationMetadata",
     "LabReportResult",
@@ -2130,9 +2284,30 @@ __all__ = [
     "Macros",
     "ManualProviders",
     "MarkerType",
+    "McBasalBodyTemperatureFieldExpr",
+    "McBasalBodyTemperatureFieldExprBasalBodyTemperature",
+    "McCervicalMucusFieldExpr",
+    "McCervicalMucusFieldExprCervicalMucus",
+    "McContraceptiveFieldExpr",
+    "McContraceptiveFieldExprContraceptive",
+    "McDetectedDeviationsFieldExpr",
+    "McDetectedDeviationsFieldExprDetectedDeviations",
+    "McHomePregnancyTestFieldExpr",
+    "McHomePregnancyTestFieldExprHomePregnancyTest",
+    "McHomeProgesteroneTestFieldExpr",
+    "McHomeProgesteroneTestFieldExprHomeProgesteroneTest",
+    "McIntermenstrualBleedingFieldExpr",
+    "McMenstrualFlowFieldExpr",
+    "McMenstrualFlowFieldExprMenstrualFlow",
+    "McOvulationTestFieldExpr",
+    "McOvulationTestFieldExprOvulationTest",
+    "McSexualActivityFieldExpr",
+    "McSexualActivityFieldExprSexualActivity",
     "MealColumnExpr",
     "MealColumnExprMeal",
     "MealInDbBaseClientFacingSource",
+    "MenstrualCycleColumnExpr",
+    "MenstrualCycleColumnExprMenstrualCycle",
     "MenstrualCycleResponse",
     "MenstrualFlowEntry",
     "MenstrualFlowEntryFlow",
@@ -2146,15 +2321,20 @@ __all__ = [
     "OAuthProviders",
     "OrderActivationType",
     "OrderLowLevelStatus",
+    "OrderOrigin",
     "OrderSetRequest",
     "OrderStatus",
+    "OrderStatusDetail",
+    "OrderSummary",
     "OrderTopLevelStatus",
+    "OrderTransactionStatus",
     "OvulationTestEntry",
     "OvulationTestEntryTestResult",
     "PaginatedUsersResponse",
     "ParentBiomarkerData",
     "ParsedLabReportData",
     "ParsingJob",
+    "ParsingJobFailureReason",
     "ParsingJobStatus",
     "PasswordProviders",
     "PatientAddress",
@@ -2162,6 +2342,7 @@ __all__ = [
     "PatientAddressWithValidation",
     "PatientDetailsWithValidation",
     "PayorCodeExternalProvider",
+    "PerLabCandidate",
     "PerformingLaboratory",
     "Period",
     "PeriodUnit",
@@ -2180,6 +2361,7 @@ __all__ = [
     "ProviderConnectionCreated",
     "ProviderConnectionError",
     "ProviderConnectionErrorErrorType",
+    "ProviderIdConversionResponse",
     "ProviderLinkResponse",
     "ProviderLinkResponseErrorType",
     "ProviderLinkResponseState",
@@ -2204,18 +2386,25 @@ __all__ = [
     "RawSleep",
     "RawWorkout",
     "Region",
+    "RelatedCandidate",
     "RelativeTimeframe",
     "ResendWebhookResponse",
     "ResourceAvailability",
     "ResponsibleRelationship",
     "ResultMetadata",
+    "ResultMetadataGender",
     "ResultType",
     "SampleData",
     "SampleDataDateCollected",
     "SampleDataDateReceived",
     "SampleDataDateReported",
+    "ScalarOutputSubqueryExpr",
+    "ScalarOutputSubqueryExprFrom",
+    "ScalarOutputSubqueryExprSelect",
     "ScopeRequirementsGrants",
     "ScopeRequirementsStr",
+    "SearchCompendiumResponse",
+    "SearchMode",
     "Select",
     "Sex",
     "SexualActivityEntry",
@@ -2249,8 +2438,12 @@ __all__ = [
     "TimeseriesMetricPoint",
     "TimeseriesResource",
     "TraceElements",
+    "UnnestExpr",
+    "UnnestExprUnnest",
     "UnrecognizedValueMacroExpr",
     "UsAddress",
+    "UsState",
+    "UserAddress",
     "UserHistoricalPullsResponse",
     "UserInfo",
     "UserRefreshErrorResponse",
