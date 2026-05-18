@@ -17,7 +17,11 @@ class BiomarkerResult(UniversalBaseModel):
     name: str
     slug: typing.Optional[str] = None
     result: str
-    type: ResultType
+    type: ResultType = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     unit: typing.Optional[str] = None
     timestamp: typing.Optional[dt.datetime] = None
     notes: typing.Optional[str] = None

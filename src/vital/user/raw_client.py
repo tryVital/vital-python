@@ -11,7 +11,6 @@ from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
 from ..errors.bad_request_error import BadRequestError
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
-from ..types.address import Address
 from ..types.client_facing_device import ClientFacingDevice
 from ..types.client_facing_insurance import ClientFacingInsurance
 from ..types.client_facing_provider_with_status import ClientFacingProviderWithStatus
@@ -28,6 +27,7 @@ from ..types.providers import Providers
 from ..types.race import Race
 from ..types.responsible_relationship import ResponsibleRelationship
 from ..types.sexual_orientation import SexualOrientation
+from ..types.user_address import UserAddress
 from ..types.user_info import UserInfo
 from ..types.user_refresh_success_response import UserRefreshSuccessResponse
 from ..types.user_sign_in_token_response import UserSignInTokenResponse
@@ -353,6 +353,7 @@ class RawUserClient:
         member_id : str
 
         relationship : ResponsibleRelationship
+            ℹ️ This enum is non-exhaustive.
 
         insured : VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails
 
@@ -480,7 +481,7 @@ class RawUserClient:
         phone_number: str,
         gender: str,
         dob: str,
-        address: Address,
+        address: UserAddress,
         medical_proxy: typing.Optional[GuarantorDetails] = OMIT,
         race: typing.Optional[Race] = OMIT,
         ethnicity: typing.Optional[Ethnicity] = OMIT,
@@ -505,17 +506,21 @@ class RawUserClient:
 
         dob : str
 
-        address : Address
+        address : UserAddress
 
         medical_proxy : typing.Optional[GuarantorDetails]
 
         race : typing.Optional[Race]
+            ℹ️ This enum is non-exhaustive.
 
         ethnicity : typing.Optional[Ethnicity]
+            ℹ️ This enum is non-exhaustive.
 
         sexual_orientation : typing.Optional[SexualOrientation]
+            ℹ️ This enum is non-exhaustive.
 
         gender_identity : typing.Optional[GenderIdentity]
+            ℹ️ This enum is non-exhaustive.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1500,6 +1505,7 @@ class AsyncRawUserClient:
         member_id : str
 
         relationship : ResponsibleRelationship
+            ℹ️ This enum is non-exhaustive.
 
         insured : VitalCoreSchemasDbSchemasLabTestInsurancePersonDetails
 
@@ -1627,7 +1633,7 @@ class AsyncRawUserClient:
         phone_number: str,
         gender: str,
         dob: str,
-        address: Address,
+        address: UserAddress,
         medical_proxy: typing.Optional[GuarantorDetails] = OMIT,
         race: typing.Optional[Race] = OMIT,
         ethnicity: typing.Optional[Ethnicity] = OMIT,
@@ -1652,17 +1658,21 @@ class AsyncRawUserClient:
 
         dob : str
 
-        address : Address
+        address : UserAddress
 
         medical_proxy : typing.Optional[GuarantorDetails]
 
         race : typing.Optional[Race]
+            ℹ️ This enum is non-exhaustive.
 
         ethnicity : typing.Optional[Ethnicity]
+            ℹ️ This enum is non-exhaustive.
 
         sexual_orientation : typing.Optional[SexualOrientation]
+            ℹ️ This enum is non-exhaustive.
 
         gender_identity : typing.Optional[GenderIdentity]
+            ℹ️ This enum is non-exhaustive.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
