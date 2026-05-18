@@ -10,7 +10,11 @@ from .appointment_event_status import AppointmentEventStatus
 
 class ClientFacingAppointmentEvent(UniversalBaseModel):
     created_at: dt.datetime
-    status: AppointmentEventStatus
+    status: AppointmentEventStatus = pydantic.Field()
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
     data: typing.Optional[typing.Dict[str, typing.Any]] = None
 
     if IS_PYDANTIC_V2:
