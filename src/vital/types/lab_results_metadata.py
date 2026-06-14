@@ -3,13 +3,17 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ..core.serialization import FieldMetadata
 
 
 class LabResultsMetadata(UniversalBaseModel):
     age: str
     dob: str
-    clia: typing.Optional[str] = pydantic.Field(alias="clia_#", default=None)
+    clia: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="clia_#"), pydantic.Field(alias="clia_#")
+    ] = None
     patient: str
     provider: typing.Optional[str] = None
     laboratory: typing.Optional[str] = None
