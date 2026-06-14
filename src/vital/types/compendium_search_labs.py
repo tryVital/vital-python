@@ -7,40 +7,40 @@ from ..core import enum
 T_Result = typing.TypeVar("T_Result")
 
 
-class AppointmentProvider(enum.StrEnum):
+class CompendiumSearchLabs(enum.StrEnum):
     """
     ℹ️ This enum is non-exhaustive.
     """
 
-    GETLABS = "getlabs"
-    PHLEBFINDERS = "phlebfinders"
+    LABCORP = "labcorp"
     QUEST = "quest"
+    BIOREFERENCE = "bioreference"
     SONORA_QUEST = "sonora_quest"
-    _UNKNOWN = "__APPOINTMENTPROVIDER_UNKNOWN__"
+    _UNKNOWN = "__COMPENDIUMSEARCHLABS_UNKNOWN__"
     """
     This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
     """
 
     @classmethod
-    def _missing_(cls, value: typing.Any) -> "AppointmentProvider":
+    def _missing_(cls, value: typing.Any) -> "CompendiumSearchLabs":
         unknown = cls._UNKNOWN
         unknown._value_ = value
         return unknown
 
     def visit(
         self,
-        getlabs: typing.Callable[[], T_Result],
-        phlebfinders: typing.Callable[[], T_Result],
+        labcorp: typing.Callable[[], T_Result],
         quest: typing.Callable[[], T_Result],
+        bioreference: typing.Callable[[], T_Result],
         sonora_quest: typing.Callable[[], T_Result],
         _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
-        if self is AppointmentProvider.GETLABS:
-            return getlabs()
-        if self is AppointmentProvider.PHLEBFINDERS:
-            return phlebfinders()
-        if self is AppointmentProvider.QUEST:
+        if self is CompendiumSearchLabs.LABCORP:
+            return labcorp()
+        if self is CompendiumSearchLabs.QUEST:
             return quest()
-        if self is AppointmentProvider.SONORA_QUEST:
+        if self is CompendiumSearchLabs.BIOREFERENCE:
+            return bioreference()
+        if self is CompendiumSearchLabs.SONORA_QUEST:
             return sonora_quest()
         return _unknown_member(self._value_)
