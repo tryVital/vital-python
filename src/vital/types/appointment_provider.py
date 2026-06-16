@@ -15,6 +15,7 @@ class AppointmentProvider(enum.StrEnum):
     GETLABS = "getlabs"
     PHLEBFINDERS = "phlebfinders"
     QUEST = "quest"
+    SONORA_QUEST = "sonora_quest"
     _UNKNOWN = "__APPOINTMENTPROVIDER_UNKNOWN__"
     """
     This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
@@ -31,6 +32,7 @@ class AppointmentProvider(enum.StrEnum):
         getlabs: typing.Callable[[], T_Result],
         phlebfinders: typing.Callable[[], T_Result],
         quest: typing.Callable[[], T_Result],
+        sonora_quest: typing.Callable[[], T_Result],
         _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is AppointmentProvider.GETLABS:
@@ -39,4 +41,6 @@ class AppointmentProvider(enum.StrEnum):
             return phlebfinders()
         if self is AppointmentProvider.QUEST:
             return quest()
+        if self is AppointmentProvider.SONORA_QUEST:
+            return sonora_quest()
         return _unknown_member(self._value_)

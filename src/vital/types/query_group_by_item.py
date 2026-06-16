@@ -10,7 +10,9 @@ from .body_column_expr import BodyColumnExpr
 from .chronotype_value_macro_expr import ChronotypeValueMacroExpr
 from .date_part_expr import DatePartExpr
 from .date_trunc_expr import DateTruncExpr
+from .derived_readiness_column_expr import DerivedReadinessColumnExpr
 from .discrete_timeseries_expr import DiscreteTimeseriesExpr
+from .insulin_injection_timeseries_expr import InsulinInjectionTimeseriesExpr
 from .interval_timeseries_expr import IntervalTimeseriesExpr
 from .meal_column_expr import MealColumnExpr
 from .note_timeseries_expr import NoteTimeseriesExpr
@@ -27,6 +29,7 @@ QueryGroupByItem = typing.Union[
     DateTruncExpr,
     DatePartExpr,
     SleepColumnExpr,
+    DerivedReadinessColumnExpr,
     ActivityColumnExpr,
     WorkoutColumnExpr,
     BodyColumnExpr,
@@ -39,6 +42,7 @@ QueryGroupByItem = typing.Union[
     UnrecognizedValueMacroExpr,
     DiscreteTimeseriesExpr,
     IntervalTimeseriesExpr,
+    InsulinInjectionTimeseriesExpr,
     BloodPressureTimeseriesExpr,
     TemperatureTimeseriesExpr,
     WorkoutDurationTimeseriesExpr,
