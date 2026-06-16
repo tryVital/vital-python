@@ -21,6 +21,7 @@ class ManualProviders(enum.StrEnum):
     APPLE_HEALTH_KIT = "apple_health_kit"
     MANUAL = "manual"
     HEALTH_CONNECT = "health_connect"
+    SAMSUNG_HEALTH = "samsung_health"
     _UNKNOWN = "__MANUALPROVIDERS_UNKNOWN__"
     """
     This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
@@ -43,6 +44,7 @@ class ManualProviders(enum.StrEnum):
         apple_health_kit: typing.Callable[[], T_Result],
         manual: typing.Callable[[], T_Result],
         health_connect: typing.Callable[[], T_Result],
+        samsung_health: typing.Callable[[], T_Result],
         _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is ManualProviders.BEURER_BLE:
@@ -63,4 +65,6 @@ class ManualProviders(enum.StrEnum):
             return manual()
         if self is ManualProviders.HEALTH_CONNECT:
             return health_connect()
+        if self is ManualProviders.SAMSUNG_HEALTH:
+            return samsung_health()
         return _unknown_member(self._value_)
