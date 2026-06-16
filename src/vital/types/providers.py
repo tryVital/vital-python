@@ -23,6 +23,7 @@ class Providers(enum.StrEnum):
     ZWIFT = "zwift"
     FREESTYLE_LIBRE = "freestyle_libre"
     ABBOTT_LIBREVIEW = "abbott_libreview"
+    TANDEM_SOURCE = "tandem_source"
     FREESTYLE_LIBRE_BLE = "freestyle_libre_ble"
     EIGHT_SLEEP = "eight_sleep"
     WITHINGS = "withings"
@@ -42,6 +43,7 @@ class Providers(enum.StrEnum):
     HAMMERHEAD = "hammerhead"
     MY_FITNESS_PAL = "my_fitness_pal"
     HEALTH_CONNECT = "health_connect"
+    SAMSUNG_HEALTH = "samsung_health"
     POLAR = "polar"
     CRONOMETER = "cronometer"
     KARDIA = "kardia"
@@ -74,6 +76,7 @@ class Providers(enum.StrEnum):
         zwift: typing.Callable[[], T_Result],
         freestyle_libre: typing.Callable[[], T_Result],
         abbott_libreview: typing.Callable[[], T_Result],
+        tandem_source: typing.Callable[[], T_Result],
         freestyle_libre_ble: typing.Callable[[], T_Result],
         eight_sleep: typing.Callable[[], T_Result],
         withings: typing.Callable[[], T_Result],
@@ -93,6 +96,7 @@ class Providers(enum.StrEnum):
         hammerhead: typing.Callable[[], T_Result],
         my_fitness_pal: typing.Callable[[], T_Result],
         health_connect: typing.Callable[[], T_Result],
+        samsung_health: typing.Callable[[], T_Result],
         polar: typing.Callable[[], T_Result],
         cronometer: typing.Callable[[], T_Result],
         kardia: typing.Callable[[], T_Result],
@@ -125,6 +129,8 @@ class Providers(enum.StrEnum):
             return freestyle_libre()
         if self is Providers.ABBOTT_LIBREVIEW:
             return abbott_libreview()
+        if self is Providers.TANDEM_SOURCE:
+            return tandem_source()
         if self is Providers.FREESTYLE_LIBRE_BLE:
             return freestyle_libre_ble()
         if self is Providers.EIGHT_SLEEP:
@@ -163,6 +169,8 @@ class Providers(enum.StrEnum):
             return my_fitness_pal()
         if self is Providers.HEALTH_CONNECT:
             return health_connect()
+        if self is Providers.SAMSUNG_HEALTH:
+            return samsung_health()
         if self is Providers.POLAR:
             return polar()
         if self is Providers.CRONOMETER:
