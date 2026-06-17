@@ -2,4 +2,37 @@
 
 import typing
 
-AppointmentPscLabs = typing.Literal["quest"]
+from ..core import enum
+
+T_Result = typing.TypeVar("T_Result")
+
+
+class AppointmentPscLabs(enum.StrEnum):
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
+    QUEST = "quest"
+    SONORA_QUEST = "sonora_quest"
+    _UNKNOWN = "__APPOINTMENTPSCLABS_UNKNOWN__"
+    """
+    This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
+    """
+
+    @classmethod
+    def _missing_(cls, value: typing.Any) -> "AppointmentPscLabs":
+        unknown = cls._UNKNOWN
+        unknown._value_ = value
+        return unknown
+
+    def visit(
+        self,
+        quest: typing.Callable[[], T_Result],
+        sonora_quest: typing.Callable[[], T_Result],
+        _unknown_member: typing.Callable[[str], T_Result],
+    ) -> T_Result:
+        if self is AppointmentPscLabs.QUEST:
+            return quest()
+        if self is AppointmentPscLabs.SONORA_QUEST:
+            return sonora_quest()
+        return _unknown_member(self._value_)

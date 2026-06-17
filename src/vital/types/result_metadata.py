@@ -4,13 +4,19 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .result_metadata_gender import ResultMetadataGender
 
 
 class ResultMetadata(UniversalBaseModel):
-    patient_first_name: str
-    patient_last_name: str
-    dob: str
-    lab_name: str
+    patient_first_name: typing.Optional[str] = None
+    patient_last_name: typing.Optional[str] = None
+    dob: typing.Optional[str] = None
+    gender: typing.Optional[ResultMetadataGender] = pydantic.Field(default=None)
+    """
+    ℹ️ This enum is non-exhaustive.
+    """
+
+    lab_name: typing.Optional[str] = None
     date_reported: typing.Optional[str] = None
     date_collected: typing.Optional[str] = None
     specimen_number: typing.Optional[str] = None
