@@ -37,6 +37,7 @@ class OrderLowLevelStatus(enum.StrEnum):
     AWAITING_REGISTRATION = "awaiting_registration"
     REGISTERED = "registered"
     REDRAW_AVAILABLE = "redraw_available"
+    CORRECTED = "corrected"
     _UNKNOWN = "__ORDERLOWLEVELSTATUS_UNKNOWN__"
     """
     This member is used for forward compatibility. If the value is not recognized by the enum, it will be stored here, and the raw value is accessible through `.value`.
@@ -75,6 +76,7 @@ class OrderLowLevelStatus(enum.StrEnum):
         awaiting_registration: typing.Callable[[], T_Result],
         registered: typing.Callable[[], T_Result],
         redraw_available: typing.Callable[[], T_Result],
+        corrected: typing.Callable[[], T_Result],
         _unknown_member: typing.Callable[[str], T_Result],
     ) -> T_Result:
         if self is OrderLowLevelStatus.ORDERED:
@@ -127,4 +129,6 @@ class OrderLowLevelStatus(enum.StrEnum):
             return registered()
         if self is OrderLowLevelStatus.REDRAW_AVAILABLE:
             return redraw_available()
+        if self is OrderLowLevelStatus.CORRECTED:
+            return corrected()
         return _unknown_member(self._value_)
