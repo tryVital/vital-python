@@ -4,18 +4,15 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .parsed_lab_report_data import ParsedLabReportData
-from .parsing_job_failure_reason import ParsingJobFailureReason
-from .parsing_job_status import ParsingJobStatus
+from .parsing_job import ParsingJob
 
 
-class ParsingJob(UniversalBaseModel):
-    id: str
-    status: ParsingJobStatus
-    failure_reason: typing.Optional[ParsingJobFailureReason] = None
-    data: typing.Optional[ParsedLabReportData] = None
-    needs_human_review: bool
-    is_reviewed: bool
+class ClientFacingLabReportParsingJobCreatedEvent(UniversalBaseModel):
+    event_type: typing.Literal["lab_report.parsing_job.created"] = "lab_report.parsing_job.created"
+    user_id: str
+    client_user_id: str
+    team_id: str
+    data: ParsingJob
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

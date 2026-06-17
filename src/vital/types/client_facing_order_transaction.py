@@ -4,18 +4,18 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .parsed_lab_report_data import ParsedLabReportData
-from .parsing_job_failure_reason import ParsingJobFailureReason
-from .parsing_job_status import ParsingJobStatus
+from .client_facing_order_in_transaction import ClientFacingOrderInTransaction
+from .order_transaction_status import OrderTransactionStatus
 
 
-class ParsingJob(UniversalBaseModel):
+class ClientFacingOrderTransaction(UniversalBaseModel):
+    """
+    Order transaction info.
+    """
+
     id: str
-    status: ParsingJobStatus
-    failure_reason: typing.Optional[ParsingJobFailureReason] = None
-    data: typing.Optional[ParsedLabReportData] = None
-    needs_human_review: bool
-    is_reviewed: bool
+    status: OrderTransactionStatus
+    orders: typing.List[ClientFacingOrderInTransaction]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
