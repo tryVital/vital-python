@@ -16,6 +16,7 @@ class Labs(enum.StrEnum):
     SPIRIPLEX = "spiriplex"
     USSL = "ussl"
     QUEST = "quest"
+    SONORA_QUEST = "sonora_quest"
     LABCORP = "labcorp"
     BIOREFERENCE = "bioreference"
     US_BIOTEK = "us_biotek"
@@ -41,6 +42,7 @@ class Labs(enum.StrEnum):
         spiriplex: typing.Callable[[], T_Result],
         ussl: typing.Callable[[], T_Result],
         quest: typing.Callable[[], T_Result],
+        sonora_quest: typing.Callable[[], T_Result],
         labcorp: typing.Callable[[], T_Result],
         bioreference: typing.Callable[[], T_Result],
         us_biotek: typing.Callable[[], T_Result],
@@ -59,6 +61,8 @@ class Labs(enum.StrEnum):
             return ussl()
         if self is Labs.QUEST:
             return quest()
+        if self is Labs.SONORA_QUEST:
+            return sonora_quest()
         if self is Labs.LABCORP:
             return labcorp()
         if self is Labs.BIOREFERENCE:
