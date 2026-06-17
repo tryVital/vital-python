@@ -8,6 +8,7 @@ from .awake_at_value_macro_expr import AwakeAtValueMacroExpr
 from .blood_pressure_timeseries_expr import BloodPressureTimeseriesExpr
 from .body_column_expr import BodyColumnExpr
 from .chronotype_value_macro_expr import ChronotypeValueMacroExpr
+from .derived_readiness_column_expr import DerivedReadinessColumnExpr
 from .discrete_timeseries_expr import DiscreteTimeseriesExpr
 from .index_column_expr import IndexColumnExpr
 from .interval_timeseries_expr import IntervalTimeseriesExpr
@@ -23,6 +24,7 @@ from .workout_duration_timeseries_expr import WorkoutDurationTimeseriesExpr
 
 AggregateExprArg = typing.Union[
     SleepColumnExpr,
+    DerivedReadinessColumnExpr,
     ActivityColumnExpr,
     WorkoutColumnExpr,
     BodyColumnExpr,
