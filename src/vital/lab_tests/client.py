@@ -10,6 +10,7 @@ from ..types.ao_e_answer import AoEAnswer
 from ..types.appointment_availability_slots import AppointmentAvailabilitySlots
 from ..types.appointment_booking_request import AppointmentBookingRequest
 from ..types.appointment_provider import AppointmentProvider
+from ..types.appointment_psc_labs import AppointmentPscLabs
 from ..types.appointment_reschedule_request import AppointmentRescheduleRequest
 from ..types.area_info import AreaInfo
 from ..types.billing import Billing
@@ -32,6 +33,7 @@ from ..types.lab_test_collection_method import LabTestCollectionMethod
 from ..types.lab_test_generation_method_filter import LabTestGenerationMethodFilter
 from ..types.lab_test_resources_response import LabTestResourcesResponse
 from ..types.lab_test_status import LabTestStatus
+from ..types.labs import Labs
 from ..types.order_activation_type import OrderActivationType
 from ..types.order_low_level_status import OrderLowLevelStatus
 from ..types.order_set_request import OrderSetRequest
@@ -173,6 +175,8 @@ class LabTestsClient:
         marker_ids: typing.Optional[typing.Sequence[int]] = OMIT,
         provider_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         fasting: typing.Optional[bool] = OMIT,
+        lab_account_id: typing.Optional[str] = OMIT,
+        lab_slug: typing.Optional[Labs] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingLabTest:
         """
@@ -189,6 +193,10 @@ class LabTestsClient:
         provider_ids : typing.Optional[typing.Sequence[str]]
 
         fasting : typing.Optional[bool]
+
+        lab_account_id : typing.Optional[str]
+
+        lab_slug : typing.Optional[Labs]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -218,6 +226,8 @@ class LabTestsClient:
             marker_ids=marker_ids,
             provider_ids=provider_ids,
             fasting=fasting,
+            lab_account_id=lab_account_id,
+            lab_slug=lab_slug,
             request_options=request_options,
         )
         return _response.data
@@ -309,6 +319,7 @@ class LabTestsClient:
         self,
         *,
         lab_id: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
+        lab_slug: typing.Optional[str] = None,
         name: typing.Optional[str] = None,
         a_la_carte_enabled: typing.Optional[bool] = None,
         lab_account_id: typing.Optional[str] = None,
@@ -317,12 +328,15 @@ class LabTestsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> GetMarkersResponse:
         """
-        GET all the markers for the given lab.
+        List active and orderable markers for a given Lab. Note that reflex markers are not included.
 
         Parameters
         ----------
         lab_id : typing.Optional[typing.Union[int, typing.Sequence[int]]]
             The identifier Vital assigned to a lab partner.
+
+        lab_slug : typing.Optional[str]
+            The slug of the lab for these markers. If both lab_id and lab_slug are provided, lab_slug will be used.
 
         name : typing.Optional[str]
             The name or test code of an individual biomarker or a panel.
@@ -352,6 +366,7 @@ class LabTestsClient:
             api_key="YOUR_API_KEY",
         )
         client.lab_tests.get_markers(
+            lab_slug="lab_slug",
             name="name",
             a_la_carte_enabled=True,
             lab_account_id="lab_account_id",
@@ -361,6 +376,7 @@ class LabTestsClient:
         """
         _response = self._raw_client.get_markers(
             lab_id=lab_id,
+            lab_slug=lab_slug,
             name=name,
             a_la_carte_enabled=a_la_carte_enabled,
             lab_account_id=lab_account_id,
@@ -423,6 +439,8 @@ class LabTestsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> GetMarkersResponse:
         """
+        List all markers for a given Lab Test, as well as any associated reflex markers.
+
         Parameters
         ----------
         lab_test_id : str
@@ -690,6 +708,7 @@ class LabTestsClient:
         patient_name: typing.Optional[str] = None,
         shipping_recipient_name: typing.Optional[str] = None,
         order_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        order_transaction_id: typing.Optional[str] = None,
         page: typing.Optional[int] = None,
         size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -747,6 +766,9 @@ class LabTestsClient:
         order_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter by order ids.
 
+        order_transaction_id : typing.Optional[str]
+            Filter by order transaction ID
+
         page : typing.Optional[int]
 
         size : typing.Optional[int]
@@ -793,6 +815,7 @@ class LabTestsClient:
             user_id="user_id",
             patient_name="patient_name",
             shipping_recipient_name="shipping_recipient_name",
+            order_transaction_id="order_transaction_id",
             page=1,
             size=1,
         )
@@ -814,6 +837,7 @@ class LabTestsClient:
             patient_name=patient_name,
             shipping_recipient_name=shipping_recipient_name,
             order_ids=order_ids,
+            order_transaction_id=order_transaction_id,
             page=page,
             size=size,
             request_options=request_options,
@@ -918,6 +942,7 @@ class LabTestsClient:
         *,
         address: UsAddress,
         provider: AppointmentProvider,
+        appointment_notes: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingAppointment:
         """
@@ -932,6 +957,8 @@ class LabTestsClient:
             At-home phlebotomy appointment address.
 
         provider : AppointmentProvider
+
+        appointment_notes : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -960,7 +987,11 @@ class LabTestsClient:
         )
         """
         _response = self._raw_client.request_phlebotomy_appointment(
-            order_id, address=address, provider=provider, request_options=request_options
+            order_id,
+            address=address,
+            provider=provider,
+            appointment_notes=appointment_notes,
+            request_options=request_options,
         )
         return _response.data
 
@@ -1442,15 +1473,20 @@ class LabTestsClient:
     def get_psc_appointment_availability(
         self,
         *,
+        lab: AppointmentPscLabs,
         start_date: typing.Optional[str] = None,
         site_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         zip_code: typing.Optional[str] = None,
         radius: typing.Optional[AllowedRadius] = None,
+        allow_stale: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AppointmentAvailabilitySlots:
         """
         Parameters
         ----------
+        lab : AppointmentPscLabs
+            Lab to check for availability
+
         start_date : typing.Optional[str]
             Start date for appointment availability
 
@@ -1461,7 +1497,10 @@ class LabTestsClient:
             Zip code of the area to check
 
         radius : typing.Optional[AllowedRadius]
-            Radius in which to search. (meters)
+            Radius in which to search in miles
+
+        allow_stale : typing.Optional[bool]
+            If true, allows cached availability data to be returned.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1473,22 +1512,26 @@ class LabTestsClient:
 
         Examples
         --------
-        from vital import AllowedRadius, Vital
+        from vital import AllowedRadius, AppointmentPscLabs, Vital
 
         client = Vital(
             api_key="YOUR_API_KEY",
         )
         client.lab_tests.get_psc_appointment_availability(
+            lab=AppointmentPscLabs.QUEST,
             start_date="start_date",
             zip_code="zip_code",
             radius=AllowedRadius.TEN,
+            allow_stale=True,
         )
         """
         _response = self._raw_client.get_psc_appointment_availability(
+            lab=lab,
             start_date=start_date,
             site_codes=site_codes,
             zip_code=zip_code,
             radius=radius,
+            allow_stale=allow_stale,
             request_options=request_options,
         )
         return _response.data
@@ -1498,6 +1541,8 @@ class LabTestsClient:
         order_id: str,
         *,
         request: AppointmentBookingRequest,
+        idempotency_key: typing.Optional[str] = None,
+        idempotency_error: typing.Optional[typing.Literal["no-cache"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingAppointment:
         """
@@ -1507,6 +1552,12 @@ class LabTestsClient:
             Your Order ID.
 
         request : AppointmentBookingRequest
+
+        idempotency_key : typing.Optional[str]
+            [!] This feature (Idempotency Key) is under closed beta. Idempotency Key support for booking PSC appointment.
+
+        idempotency_error : typing.Optional[typing.Literal["no-cache"]]
+            If `no-cache`, applies idempotency only to successful outcomes.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1530,7 +1581,13 @@ class LabTestsClient:
             ),
         )
         """
-        _response = self._raw_client.book_psc_appointment(order_id, request=request, request_options=request_options)
+        _response = self._raw_client.book_psc_appointment(
+            order_id,
+            request=request,
+            idempotency_key=idempotency_key,
+            idempotency_error=idempotency_error,
+            request_options=request_options,
+        )
         return _response.data
 
     def reschedule_psc_appointment(
@@ -1827,6 +1884,7 @@ class LabTestsClient:
         activate_by: typing.Optional[str] = OMIT,
         aoe_answers: typing.Optional[typing.Sequence[AoEAnswer]] = OMIT,
         passthrough: typing.Optional[str] = OMIT,
+        clinical_notes: typing.Optional[str] = OMIT,
         lab_account_id: typing.Optional[str] = OMIT,
         creator_member_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1870,6 +1928,8 @@ class LabTestsClient:
 
         passthrough : typing.Optional[str]
 
+        clinical_notes : typing.Optional[str]
+
         lab_account_id : typing.Optional[str]
 
         creator_member_id : typing.Optional[str]
@@ -1895,7 +1955,6 @@ class LabTestsClient:
             api_key="YOUR_API_KEY",
         )
         client.lab_tests.create_order(
-            idempotency_key="X-Idempotency-Key",
             user_id="user_id",
             patient_details=PatientDetailsWithValidation(
                 first_name="first_name",
@@ -1932,6 +1991,7 @@ class LabTestsClient:
             activate_by=activate_by,
             aoe_answers=aoe_answers,
             passthrough=passthrough,
+            clinical_notes=clinical_notes,
             lab_account_id=lab_account_id,
             creator_member_id=creator_member_id,
             request_options=request_options,
@@ -2306,6 +2366,8 @@ class AsyncLabTestsClient:
         marker_ids: typing.Optional[typing.Sequence[int]] = OMIT,
         provider_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         fasting: typing.Optional[bool] = OMIT,
+        lab_account_id: typing.Optional[str] = OMIT,
+        lab_slug: typing.Optional[Labs] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingLabTest:
         """
@@ -2322,6 +2384,10 @@ class AsyncLabTestsClient:
         provider_ids : typing.Optional[typing.Sequence[str]]
 
         fasting : typing.Optional[bool]
+
+        lab_account_id : typing.Optional[str]
+
+        lab_slug : typing.Optional[Labs]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2359,6 +2425,8 @@ class AsyncLabTestsClient:
             marker_ids=marker_ids,
             provider_ids=provider_ids,
             fasting=fasting,
+            lab_account_id=lab_account_id,
+            lab_slug=lab_slug,
             request_options=request_options,
         )
         return _response.data
@@ -2466,6 +2534,7 @@ class AsyncLabTestsClient:
         self,
         *,
         lab_id: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
+        lab_slug: typing.Optional[str] = None,
         name: typing.Optional[str] = None,
         a_la_carte_enabled: typing.Optional[bool] = None,
         lab_account_id: typing.Optional[str] = None,
@@ -2474,12 +2543,15 @@ class AsyncLabTestsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> GetMarkersResponse:
         """
-        GET all the markers for the given lab.
+        List active and orderable markers for a given Lab. Note that reflex markers are not included.
 
         Parameters
         ----------
         lab_id : typing.Optional[typing.Union[int, typing.Sequence[int]]]
             The identifier Vital assigned to a lab partner.
+
+        lab_slug : typing.Optional[str]
+            The slug of the lab for these markers. If both lab_id and lab_slug are provided, lab_slug will be used.
 
         name : typing.Optional[str]
             The name or test code of an individual biomarker or a panel.
@@ -2514,6 +2586,7 @@ class AsyncLabTestsClient:
 
         async def main() -> None:
             await client.lab_tests.get_markers(
+                lab_slug="lab_slug",
                 name="name",
                 a_la_carte_enabled=True,
                 lab_account_id="lab_account_id",
@@ -2526,6 +2599,7 @@ class AsyncLabTestsClient:
         """
         _response = await self._raw_client.get_markers(
             lab_id=lab_id,
+            lab_slug=lab_slug,
             name=name,
             a_la_carte_enabled=a_la_carte_enabled,
             lab_account_id=lab_account_id,
@@ -2596,6 +2670,8 @@ class AsyncLabTestsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> GetMarkersResponse:
         """
+        List all markers for a given Lab Test, as well as any associated reflex markers.
+
         Parameters
         ----------
         lab_test_id : str
@@ -2906,6 +2982,7 @@ class AsyncLabTestsClient:
         patient_name: typing.Optional[str] = None,
         shipping_recipient_name: typing.Optional[str] = None,
         order_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        order_transaction_id: typing.Optional[str] = None,
         page: typing.Optional[int] = None,
         size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -2963,6 +3040,9 @@ class AsyncLabTestsClient:
         order_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter by order ids.
 
+        order_transaction_id : typing.Optional[str]
+            Filter by order transaction ID
+
         page : typing.Optional[int]
 
         size : typing.Optional[int]
@@ -3013,6 +3093,7 @@ class AsyncLabTestsClient:
                 user_id="user_id",
                 patient_name="patient_name",
                 shipping_recipient_name="shipping_recipient_name",
+                order_transaction_id="order_transaction_id",
                 page=1,
                 size=1,
             )
@@ -3037,6 +3118,7 @@ class AsyncLabTestsClient:
             patient_name=patient_name,
             shipping_recipient_name=shipping_recipient_name,
             order_ids=order_ids,
+            order_transaction_id=order_transaction_id,
             page=page,
             size=size,
             request_options=request_options,
@@ -3157,6 +3239,7 @@ class AsyncLabTestsClient:
         *,
         address: UsAddress,
         provider: AppointmentProvider,
+        appointment_notes: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingAppointment:
         """
@@ -3171,6 +3254,8 @@ class AsyncLabTestsClient:
             At-home phlebotomy appointment address.
 
         provider : AppointmentProvider
+
+        appointment_notes : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -3207,7 +3292,11 @@ class AsyncLabTestsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.request_phlebotomy_appointment(
-            order_id, address=address, provider=provider, request_options=request_options
+            order_id,
+            address=address,
+            provider=provider,
+            appointment_notes=appointment_notes,
+            request_options=request_options,
         )
         return _response.data
 
@@ -3780,15 +3869,20 @@ class AsyncLabTestsClient:
     async def get_psc_appointment_availability(
         self,
         *,
+        lab: AppointmentPscLabs,
         start_date: typing.Optional[str] = None,
         site_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         zip_code: typing.Optional[str] = None,
         radius: typing.Optional[AllowedRadius] = None,
+        allow_stale: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AppointmentAvailabilitySlots:
         """
         Parameters
         ----------
+        lab : AppointmentPscLabs
+            Lab to check for availability
+
         start_date : typing.Optional[str]
             Start date for appointment availability
 
@@ -3799,7 +3893,10 @@ class AsyncLabTestsClient:
             Zip code of the area to check
 
         radius : typing.Optional[AllowedRadius]
-            Radius in which to search. (meters)
+            Radius in which to search in miles
+
+        allow_stale : typing.Optional[bool]
+            If true, allows cached availability data to be returned.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -3813,7 +3910,7 @@ class AsyncLabTestsClient:
         --------
         import asyncio
 
-        from vital import AllowedRadius, AsyncVital
+        from vital import AllowedRadius, AppointmentPscLabs, AsyncVital
 
         client = AsyncVital(
             api_key="YOUR_API_KEY",
@@ -3822,19 +3919,23 @@ class AsyncLabTestsClient:
 
         async def main() -> None:
             await client.lab_tests.get_psc_appointment_availability(
+                lab=AppointmentPscLabs.QUEST,
                 start_date="start_date",
                 zip_code="zip_code",
                 radius=AllowedRadius.TEN,
+                allow_stale=True,
             )
 
 
         asyncio.run(main())
         """
         _response = await self._raw_client.get_psc_appointment_availability(
+            lab=lab,
             start_date=start_date,
             site_codes=site_codes,
             zip_code=zip_code,
             radius=radius,
+            allow_stale=allow_stale,
             request_options=request_options,
         )
         return _response.data
@@ -3844,6 +3945,8 @@ class AsyncLabTestsClient:
         order_id: str,
         *,
         request: AppointmentBookingRequest,
+        idempotency_key: typing.Optional[str] = None,
+        idempotency_error: typing.Optional[typing.Literal["no-cache"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ClientFacingAppointment:
         """
@@ -3853,6 +3956,12 @@ class AsyncLabTestsClient:
             Your Order ID.
 
         request : AppointmentBookingRequest
+
+        idempotency_key : typing.Optional[str]
+            [!] This feature (Idempotency Key) is under closed beta. Idempotency Key support for booking PSC appointment.
+
+        idempotency_error : typing.Optional[typing.Literal["no-cache"]]
+            If `no-cache`, applies idempotency only to successful outcomes.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -3885,7 +3994,11 @@ class AsyncLabTestsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.book_psc_appointment(
-            order_id, request=request, request_options=request_options
+            order_id,
+            request=request,
+            idempotency_key=idempotency_key,
+            idempotency_error=idempotency_error,
+            request_options=request_options,
         )
         return _response.data
 
@@ -4254,6 +4367,7 @@ class AsyncLabTestsClient:
         activate_by: typing.Optional[str] = OMIT,
         aoe_answers: typing.Optional[typing.Sequence[AoEAnswer]] = OMIT,
         passthrough: typing.Optional[str] = OMIT,
+        clinical_notes: typing.Optional[str] = OMIT,
         lab_account_id: typing.Optional[str] = OMIT,
         creator_member_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -4297,6 +4411,8 @@ class AsyncLabTestsClient:
 
         passthrough : typing.Optional[str]
 
+        clinical_notes : typing.Optional[str]
+
         lab_account_id : typing.Optional[str]
 
         creator_member_id : typing.Optional[str]
@@ -4327,7 +4443,6 @@ class AsyncLabTestsClient:
 
         async def main() -> None:
             await client.lab_tests.create_order(
-                idempotency_key="X-Idempotency-Key",
                 user_id="user_id",
                 patient_details=PatientDetailsWithValidation(
                     first_name="first_name",
@@ -4367,6 +4482,7 @@ class AsyncLabTestsClient:
             activate_by=activate_by,
             aoe_answers=aoe_answers,
             passthrough=passthrough,
+            clinical_notes=clinical_notes,
             lab_account_id=lab_account_id,
             creator_member_id=creator_member_id,
             request_options=request_options,
