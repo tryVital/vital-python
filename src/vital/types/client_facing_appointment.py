@@ -18,6 +18,7 @@ class ClientFacingAppointment(UniversalBaseModel):
     id: str
     user_id: str
     order_id: str
+    order_transaction_id: typing.Optional[str] = None
     address: UsAddress
     location: LngLat
     start_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
