@@ -531,9 +531,7 @@ class LinkClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.link.token_state(
-            vital_link_token="x-vital-link-token",
-        )
+        client.link.token_state()
         """
         _response = self._raw_client.token_state(vital_link_token=vital_link_token, request_options=request_options)
         return _response.data
@@ -579,7 +577,6 @@ class LinkClient:
             api_key="YOUR_API_KEY",
         )
         client.link.email_auth(
-            vital_link_token="x-vital-link-token",
             email="email",
             provider=Providers.OURA,
             auth_type=AuthType.PASSWORD,
@@ -636,7 +633,6 @@ class LinkClient:
             api_key="YOUR_API_KEY",
         )
         client.link.password_auth(
-            vital_link_token="x-vital-link-token",
             username="username",
             password="password",
             provider=Providers.OURA,
@@ -686,7 +682,6 @@ class LinkClient:
         )
         client.link.generate_oauth_link(
             oauth_provider=OAuthProviders.OURA,
-            vital_link_token="x-vital-link-token",
         )
         """
         _response = self._raw_client.generate_oauth_link(
@@ -739,7 +734,6 @@ class LinkClient:
         )
         client.link.connect_password_provider(
             provider=PasswordProviders.WHOOP,
-            vital_link_token="x-vital-link-token",
             username="username",
             password="password",
         )
@@ -790,7 +784,6 @@ class LinkClient:
         )
         client.link.complete_password_provider_mfa(
             provider=PasswordProviders.WHOOP,
-            vital_link_token="x-vital-link-token",
             mfa_code="mfa_code",
         )
         """
@@ -837,7 +830,6 @@ class LinkClient:
             api_key="YOUR_API_KEY",
         )
         client.link.connect_email_auth_provider(
-            vital_link_token="x-vital-link-token",
             email="email",
         )
         """
@@ -875,9 +867,7 @@ class LinkClient:
         client = Vital(
             api_key="YOUR_API_KEY",
         )
-        client.link.get_all_providers(
-            vital_link_token="x-vital-link-token",
-        )
+        client.link.get_all_providers()
         """
         _response = self._raw_client.get_all_providers(
             vital_link_token=vital_link_token, request_options=request_options
@@ -1540,9 +1530,7 @@ class AsyncLinkClient:
 
 
         async def main() -> None:
-            await client.link.token_state(
-                vital_link_token="x-vital-link-token",
-            )
+            await client.link.token_state()
 
 
         asyncio.run(main())
@@ -1598,7 +1586,6 @@ class AsyncLinkClient:
 
         async def main() -> None:
             await client.link.email_auth(
-                vital_link_token="x-vital-link-token",
                 email="email",
                 provider=Providers.OURA,
                 auth_type=AuthType.PASSWORD,
@@ -1663,7 +1650,6 @@ class AsyncLinkClient:
 
         async def main() -> None:
             await client.link.password_auth(
-                vital_link_token="x-vital-link-token",
                 username="username",
                 password="password",
                 provider=Providers.OURA,
@@ -1721,7 +1707,6 @@ class AsyncLinkClient:
         async def main() -> None:
             await client.link.generate_oauth_link(
                 oauth_provider=OAuthProviders.OURA,
-                vital_link_token="x-vital-link-token",
             )
 
 
@@ -1782,7 +1767,6 @@ class AsyncLinkClient:
         async def main() -> None:
             await client.link.connect_password_provider(
                 provider=PasswordProviders.WHOOP,
-                vital_link_token="x-vital-link-token",
                 username="username",
                 password="password",
             )
@@ -1841,7 +1825,6 @@ class AsyncLinkClient:
         async def main() -> None:
             await client.link.complete_password_provider_mfa(
                 provider=PasswordProviders.WHOOP,
-                vital_link_token="x-vital-link-token",
                 mfa_code="mfa_code",
             )
 
@@ -1896,7 +1879,6 @@ class AsyncLinkClient:
 
         async def main() -> None:
             await client.link.connect_email_auth_provider(
-                vital_link_token="x-vital-link-token",
                 email="email",
             )
 
@@ -1942,9 +1924,7 @@ class AsyncLinkClient:
 
 
         async def main() -> None:
-            await client.link.get_all_providers(
-                vital_link_token="x-vital-link-token",
-            )
+            await client.link.get_all_providers()
 
 
         asyncio.run(main())
